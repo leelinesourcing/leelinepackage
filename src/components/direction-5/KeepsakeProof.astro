@@ -1,0 +1,94 @@
+---
+import Ornament from './Ornament.astro';
+
+const stats = [
+  { value: 500, suffix: 'K+', label: 'Keepsakes shipped', note: 'and counting since day one' },
+  { value: 2015, suffix: '', label: 'Founded', note: 'a decade of finish work' },
+  { value: 500, suffix: '', label: 'MOQ units', note: 'factory-direct, no broker markup' },
+  { value: 24, suffix: 'h', label: 'Digital mockups', note: '3D render, next-day' },
+  { value: 3, suffix: '–5', label: 'Day samples', note: 'white-dummy, in your hand' },
+];
+
+const testimonials = [
+  {
+    quote: 'The rigid boxes felt like jewellery. My customers photograph the unboxing before the serum — the finish did more for my pricing than two years of marketing.',
+    name: 'Camille Roux',
+    role: 'Founder, Maison Lumière',
+    persona: 'Cosmetic Carla',
+    featured: true,
+  },
+  {
+    quote: 'Self-locking mailers that survive the courier and still make the unboxing feel premium. My repeat order rate jumped once the box stopped arriving crushed.',
+    name: 'Daniel Okafor',
+    role: 'Founder, Vow & Co.',
+    persona: 'DTC Danny',
+    featured: false,
+  },
+  {
+    quote: 'Custom-sized inserts, zero rattling, and dimensional weight cut by 18%. My boxes finally fit the product — and my freight bill finally fits the budget.',
+    name: 'Sarah Lin',
+    role: 'Ops Lead, Ritual Kit Club',
+    persona: 'Subscription Sarah',
+    featured: false,
+  },
+];
+
+const logos = ['Maison Lumière', 'Sable & Sage', 'Véla Beauty', 'Vow & Co.', 'Orris', 'Fable', 'Nectar', 'Aube'];
+---
+
+<section class="k-proof" id="proof">
+  <div class="k-stats">
+    <div class="container k-stats__inner">
+      <header class="k-stats__head" data-reveal="up">
+        <p class="k-eyebrow"><Ornament variant="dot" class="k-eyebrow__dot" />The Proof<Ornament variant="dot" class="k-eyebrow__dot" /></p>
+        <h2 class="k-h2">Numbers worth<br /><em>framing.</em></h2>
+      </header>
+      <div class="k-stats__grid">
+        {stats.map((s) => (
+          <div class="k-stat" data-reveal="up">
+            <div class="k-stat__value">
+              <span class="k-stat__num" data-count={s.value}>{s.value}</span>
+              <span class="k-stat__suffix">{s.suffix}</span>
+            </div>
+            <p class="k-stat__label">{s.label}</p>
+            <p class="k-stat__note">{s.note}</p>
+          </div>
+        ))}
+      </div>
+      <div class="k-stats__badges" data-reveal="up">
+        <span><Ornament variant="medallion" class="k-stats__medal" />ISO 9001</span>
+        <span><Ornament variant="medallion" class="k-stats__medal" />FSC-certified</span>
+        <span><Ornament variant="medallion" class="k-stats__medal" />ISTA-tested</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="k-testimonials">
+    <div class="container">
+      <div class="k-testimonials__grid">
+        {testimonials.map((t) => (
+          <blockquote class={`k-quote${t.featured ? ' k-quote--featured' : ''}`} data-reveal={t.featured ? 'up' : 'left'}>
+            <span class="k-quote__orn"><Ornament variant="flourish" /></span>
+            <p class="k-quote__text">“{t.quote}”</p>
+            <footer class="k-quote__foot">
+              <span class="k-quote__name">{t.name}</span>
+              <span class="k-quote__role">{t.role}</span>
+              <span class="k-quote__persona">{t.persona}</span>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="k-logos">
+    <div class="container">
+      <p class="k-logos__label" data-reveal="up">Trusted by beauty, food &amp; DTC brands</p>
+      <div class="k-logos__wall" data-reveal="up">
+        {logos.map((l) => (
+          <span class="k-logo">{l}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

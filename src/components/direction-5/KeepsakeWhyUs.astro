@@ -1,0 +1,73 @@
+---
+import Ornament from './Ornament.astro';
+
+const reasons = [
+  {
+    no: '01',
+    title: 'Foil, emboss & finish',
+    headline: 'The finish is the first thing they touch.',
+    copy: 'Antique-gold and rose foil, sculpted emboss, soft-touch laminate and spot UV — executed to the micron on rigid boxes that justify a luxury price point. This is where a $180 serum becomes a $300 keepsake.',
+    points: ['Hot-foil stamping', 'Sculpted emboss / deboss', 'Soft-touch & spot UV'],
+    accent: true,
+  },
+  {
+    no: '02',
+    title: 'Perfectionist colour',
+    headline: 'Your blush, shipped identical.',
+    copy: 'CMYK and Pantone matched to ΔE &lt; 2 across every run. The exact rose you approved on the proof is the rose your customer opens — batch after batch, factory to shelf.',
+    points: ['Pantone & CMYK matching', 'ΔE < 2 colour tolerance', 'Pre-production proofing'],
+    accent: false,
+  },
+  {
+    no: '03',
+    title: 'From 500 to 500,000',
+    headline: 'Factory-direct, without the factory minimums.',
+    copy: 'MOQ starts at 500 units with volume-tiered pricing at 1k, 5k and 10k. Flat-pack engineering trims dimensional weight on every pallet, so freight never eats your margin.',
+    points: ['MOQ from 500 units', 'Flat-pack freight optimization', 'ISO 9001 & FSC-certified'],
+    accent: false,
+  },
+];
+---
+
+<section class="k-why" id="craft">
+  <div class="container">
+    <header class="k-sechead" data-reveal="up">
+      <p class="k-eyebrow"><Ornament variant="dot" class="k-eyebrow__dot" />The Craft<Ornament variant="dot" class="k-eyebrow__dot" /></p>
+      <h2 class="k-h2">Why brands<br /><em>keep us.</em></h2>
+      <div class="k-sechead__rule"><Ornament variant="rule" /></div>
+    </header>
+
+    <div class="k-why__grid">
+      {reasons.map((r) => (
+        <article class={`k-reason${r.accent ? ' k-reason--accent' : ''}`} data-reveal={r.accent ? 'right' : 'up'}>
+          <span class="k-reason__no">{r.no}</span>
+          <h3 class="k-reason__title">{r.title}</h3>
+          <p class="k-reason__headline">{r.headline}</p>
+          <p class="k-reason__copy">{r.copy}</p>
+          <ul class="k-reason__points">
+            {r.points.map((p) => <li><Ornament variant="dot" class="k-reason__dot" /><span>{p}</span></li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <div class="k-materials" data-reveal="clip">
+      <figure class="k-materials__item">
+        <img src="/images/首页/image-20.avif" alt="FSC-certified materials" loading="lazy" decoding="async" />
+        <figcaption>FSC-certified board</figcaption>
+      </figure>
+      <figure class="k-materials__item">
+        <img src="/images/首页/image-16.avif" alt="Kraft paper" loading="lazy" decoding="async" />
+        <figcaption>Kraft, recycled & virgin</figcaption>
+      </figure>
+      <figure class="k-materials__item">
+        <img src="/images/首页/image-18.avif" alt="Cardboard stock" loading="lazy" decoding="async" />
+        <figcaption>800gsm–2mm board</figcaption>
+      </figure>
+      <figure class="k-materials__item">
+        <img src="/images/首页/image-03.avif" alt="LeelinePackage craftspeople" loading="lazy" decoding="async" />
+        <figcaption>The hands that build</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

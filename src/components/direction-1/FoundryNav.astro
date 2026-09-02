@@ -1,0 +1,201 @@
+---
+import FoundryMark from './FoundryMark.astro';
+const links = [
+  { href: '#offerings', label: 'Offerings' },
+  { href: '#work', label: 'Work' },
+  { href: '#why', label: 'Why Us' },
+  { href: '#proof', label: 'Proof' },
+];
+---
+
+<header class="nav" id="siteNav">
+  <div class="nav-inner container">
+    <a href="#top" class="brand" aria-label="LeelinePackage home">
+      <span class="brand-mark"><FoundryMark variant="seal" /></span>
+      <span class="brand-word">
+        <span class="brand-name">Leeline<span class="brand-name-alt">Package</span></span>
+        <span class="brand-sub">The Foundry · Wuhan</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {links.map((l) => <a href={l.href} class="nav-link">{l.label}</a>)}
+    </nav>
+
+    <div class="nav-cta">
+      <a href="#quote" class="btn btn-primary nav-quote">Get a Free Quote <span class="arr" aria-hidden="true">&rarr;</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-bg"></div>
+    <div class="mobile-menu-inner">
+      <span class="mobile-menu-label">Index</span>
+      <nav class="mobile-links" aria-label="Mobile">
+        {links.map((l, i) => (
+          <a href={l.href} class="mobile-link" style={`--i:${i}`}>
+            <span class="mobile-link-num">0{i + 1}</span>
+            <span>{l.label}</span>
+          </a>
+        ))}
+      </nav>
+      <div class="mobile-menu-foot">
+        <a href="#quote" class="btn btn-primary">Get a Free Quote <span class="arr" aria-hidden="true">&rarr;</span></a>
+        <a href="mailto:hello@leelinepackage.com?subject=Sample%20Kit" class="btn btn-ghost">Request Your Sample Kit</a>
+        <p class="mobile-menu-note">Wuhan, China · Est. 2015 · ISO 9001 · FSC</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 1000;
+    transition: background-color 0.5s var(--ease-swift), box-shadow 0.5s var(--ease-swift), backdrop-filter 0.5s var(--ease-swift);
+    color: var(--color-brand-cream);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 82px;
+    transition: height 0.45s var(--ease-swift);
+  }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.8rem; text-decoration: none; color: inherit; }
+  .brand-mark { width: 40px; height: 40px; color: var(--color-brand-accent); display: grid; place-items: center; }
+  .brand-mark svg { width: 100%; height: 100%; }
+  .brand-word { display: flex; flex-direction: column; line-height: 1; gap: 0.28rem; }
+  .brand-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem; letter-spacing: -0.01em; }
+  .brand-name-alt { color: var(--color-brand-accent); }
+  .brand-sub {
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.26em; text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.5);
+    transition: color 0.4s ease;
+  }
+
+  .nav-links { display: none; gap: 2.2rem; }
+  .nav-link {
+    position: relative;
+    font-size: 0.86rem; font-weight: 600; letter-spacing: 0.03em;
+    color: rgba(250, 247, 242, 0.82);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute; left: 0; bottom: 0;
+    height: 1px; width: 100%;
+    background: var(--color-brand-accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.45s var(--ease-out-expo);
+  }
+  .nav-link:hover { color: #fff; }
+  .nav-link:hover::after { transform: scaleX(1); }
+
+  .nav-cta { display: flex; align-items: center; gap: 1rem; }
+  .nav-quote { padding: 0.72rem 1.25rem; font-size: 0.84rem; }
+
+  .menu-btn {
+    display: grid; place-items: center;
+    width: 44px; height: 44px;
+    background: transparent; border: 1px solid rgba(250, 247, 242, 0.25);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .menu-btn span {
+    display: block; width: 18px; height: 1.6px;
+    background: currentColor;
+    transition: transform 0.45s var(--ease-spring), background-color 0.3s ease;
+  }
+  .menu-btn span + span { margin-top: 5px; }
+
+  /* Scrolled state — cream, blurred, condensed */
+  .nav.is-scrolled {
+    background: color-mix(in srgb, var(--color-brand-bg) 88%, transparent);
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    box-shadow: 0 1px 0 var(--foundry-line), 0 18px 40px -30px rgba(30, 26, 22, 0.5);
+    color: var(--color-brand-text);
+  }
+  .nav.is-scrolled .nav-inner { height: 66px; }
+  .nav.is-scrolled .nav-link { color: var(--color-brand-text); }
+  .nav.is-scrolled .nav-link:hover { color: var(--color-brand-primary); }
+  .nav.is-scrolled .brand-sub { color: var(--color-brand-muted); }
+  .nav.is-scrolled .menu-btn { border-color: var(--foundry-line-strong); }
+
+  /* Mobile menu overlay */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 990;
+    visibility: hidden; pointer-events: none;
+  }
+  .mobile-menu-bg {
+    position: absolute; inset: 0;
+    background: var(--foundry-ink);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-swift);
+  }
+  .mobile-menu-inner {
+    position: relative;
+    height: 100%;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 0 2rem;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s var(--ease-swift) 0.08s, transform 0.5s var(--ease-swift) 0.08s;
+    color: var(--color-brand-cream);
+  }
+  .mobile-menu-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--color-brand-accent);
+  }
+  .mobile-links { display: flex; flex-direction: column; }
+  .mobile-link {
+    display: flex; align-items: baseline; gap: 1rem;
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2rem, 9vw, 3.2rem);
+    letter-spacing: -0.02em;
+    color: var(--color-brand-cream);
+    text-decoration: none;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--foundry-line-light);
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo), color 0.3s ease;
+    transition-delay: calc(var(--i) * 70ms);
+  }
+  .mobile-link:hover { color: var(--color-brand-accent); }
+  .mobile-link-num {
+    font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--color-brand-accent);
+  }
+  .mobile-menu-foot { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1rem; }
+  .mobile-menu-note { font-size: 0.78rem; letter-spacing: 0.04em; color: rgba(250, 247, 242, 0.5); }
+
+  .mobile-menu.is-open { visibility: visible; pointer-events: auto; }
+  .mobile-menu.is-open .mobile-menu-bg { opacity: 1; }
+  .mobile-menu.is-open .mobile-menu-inner { opacity: 1; transform: none; }
+  .mobile-menu.is-open .mobile-link { opacity: 1; transform: none; }
+
+  /* Menu button open state */
+  body.menu-open .menu-btn { border-color: transparent; }
+  body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
+  body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
+
+  @media (min-width: 900px) {
+    .nav-links { display: flex; }
+    .menu-btn { display: none; }
+    .nav-quote { display: inline-flex; }
+  }
+  @media (max-width: 899px) {
+    .nav-quote { display: none; }
+  }
+</style>

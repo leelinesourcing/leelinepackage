@@ -1,0 +1,153 @@
+---
+import FoundryMark from './FoundryMark.astro';
+
+const reasons = [
+  {
+    n: '01',
+    title: 'Structural engineering for a perfect fit.',
+    copy: 'Custom dielines, engineered inserts, and ISTA drop & compression testing. Your product arrives intact — no crushed boxes, no rattling, no returns eating your margin.',
+    proof: 'ISTA drop & compression tested',
+  },
+  {
+    n: '02',
+    title: 'Premium finishes at a fraction of Western cost.',
+    copy: 'Gold foil, spot UV, emboss and deboss, printed to CMYK / Pantone spec on the same machines the luxury houses use — at factory-direct pricing.',
+    proof: 'Foil, spot UV & emboss · CMYK / Pantone',
+  },
+  {
+    n: '03',
+    title: 'From 500 units to 500,000 — seamlessly.',
+    copy: 'A factory-direct MOQ of 500, volume pricing breaks at 1k / 5k / 10k, and flat-pack optimization that trims dimensional weight off every freight bill.',
+    proof: 'MOQ 500 · flat-pack freight optimization',
+  },
+];
+
+const caps = [
+  { img: '/images/首页/image-20.avif', label: 'FSC-certified materials' },
+  { img: '/images/首页/image-21.avif', label: 'Tailored sizes, every run' },
+  { img: '/images/首页/image-22.avif', label: 'Superior price advantage' },
+  { img: '/images/首页/image-23.avif', label: 'Expert support, on call' },
+];
+---
+
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal="up">
+        <span class="mark"><FoundryMark variant="notch" /></span>
+        Why LeelinePackage
+      </p>
+      <h2 class="h-display" data-reveal="clip">The engineering behind <em>the unboxing.</em></h2>
+    </div>
+
+    <div class="reasons">
+      {reasons.map((r, i) => (
+        <div class="reason" data-reveal="up" style={`--d:${i * 110}ms`}>
+          <span class="reason-num" aria-hidden="true">{r.n}</span>
+          <h3 class="reason-title">{r.title}</h3>
+          <p class="reason-copy">{r.copy}</p>
+          <p class="reason-proof">
+            <span class="mark"><FoundryMark variant="notch" /></span>
+            {r.proof}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="caps" data-reveal="up" style="--d:120ms">
+      {caps.map((c) => (
+        <div class="cap">
+          <img src={c.img} alt={c.label} loading="lazy" decoding="async" />
+          <span class="cap-label">{c.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    padding: clamp(4.5rem, 9vw, 8rem) 0;
+    background:
+      radial-gradient(60% 40% at 6% 10%, rgba(199, 154, 99, 0.07), transparent 60%),
+      var(--color-brand-bg);
+    position: relative;
+  }
+
+  .section-head { margin-bottom: clamp(2.8rem, 5vw, 4rem); }
+  .section-head .h-display { margin-top: 1.3rem; max-width: 20ch; }
+
+  .reasons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.6rem;
+    padding-bottom: clamp(2.6rem, 4vw, 3.6rem);
+    border-bottom: 1px solid var(--foundry-line);
+  }
+  .reason { position: relative; padding-left: 0; }
+  .reason-num {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(3.4rem, 7vw, 5.4rem);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    color: transparent;
+    -webkit-text-stroke: 1.2px var(--color-brand-secondary);
+    margin-bottom: 1.2rem;
+    user-select: none;
+  }
+  .reason-title {
+    font-family: var(--font-heading);
+    font-weight: 570;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    letter-spacing: -0.015em;
+    line-height: 1.1;
+    margin-bottom: 0.8rem;
+    max-width: 18ch;
+  }
+  .reason-copy {
+    color: var(--color-brand-muted);
+    line-height: 1.7;
+    font-size: 0.98rem;
+    max-width: 30rem;
+    margin-bottom: 1.1rem;
+  }
+  .reason-proof {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--color-brand-primary);
+  }
+  .reason-proof .mark { color: var(--color-brand-accent); display: inline-flex; }
+  .reason-proof .mark svg { width: 15px; height: 15px; }
+
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+  .cap {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    background: var(--color-brand-surface);
+    border: 1px solid var(--foundry-line);
+    border-radius: 14px;
+    transition: transform 0.5s var(--ease-spring), border-color 0.4s ease;
+  }
+  .cap:hover { transform: translateY(-3px); border-color: var(--foundry-line-strong); }
+  .cap img {
+    width: 44px; height: 44px; border-radius: 10px; object-fit: cover; flex: none;
+    filter: saturate(0.92);
+  }
+  .cap-label {
+    font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em; line-height: 1.25;
+    color: var(--color-brand-text);
+  }
+
+  @media (min-width: 760px) {
+    .reasons { grid-template-columns: repeat(3, 1fr); gap: 2.4rem; }
+    .reason { padding-top: 0.5rem; }
+    .caps { grid-template-columns: repeat(4, 1fr); }
+  }
+</style>

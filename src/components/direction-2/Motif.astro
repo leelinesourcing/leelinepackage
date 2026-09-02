@@ -1,0 +1,35 @@
+---
+/**
+ * "The Module" — LeelinePackage's recurring structural mark.
+ * A compartment grid (box divider) with one active cell: geometry that
+ * echoes custom inserts, dielines, and the structural engineering moat.
+ * Reused across nav, eyebrows, cards, stats, CTA and footer.
+ */
+interface Props {
+  size?: number;
+  accent?: boolean;
+  class?: string;
+  label?: string;
+}
+
+const { size = 32, accent = true, class: className = '', label = '' } = Astro.props;
+const cellFill = accent ? 'var(--color-brand-accent)' : 'currentColor';
+---
+
+<svg
+  class={`module-mark ${className}`}
+  width={size}
+  height={size}
+  viewBox="0 0 40 40"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden={label ? 'false' : 'true'}
+  role={label ? 'img' : undefined}
+  aria-label={label || undefined}
+>
+  <rect x="1.5" y="1.5" width="37" height="37" rx="9" stroke="currentColor" stroke-width="2.25" />
+  <line x1="20" y1="3" x2="20" y2="37" stroke="currentColor" stroke-width="1.4" opacity="0.45" />
+  <line x1="3" y1="20" x2="37" y2="20" stroke="currentColor" stroke-width="1.4" opacity="0.45" />
+  <rect x="5.5" y="5.5" width="10.5" height="10.5" rx="2.75" style={`fill:${cellFill}`} />
+  <rect x="26" y="26" width="8" height="8" rx="2.25" stroke="currentColor" stroke-width="2" />
+</svg>

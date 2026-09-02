@@ -1,0 +1,1780 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BrandMark from '../components/direction-4/BrandMark.astro';
+---
+
+<Layout
+  title="The Structural — LeelinePackage"
+  description="Custom structural packaging engineered for the unboxing advantage. Dieline engineering, ISTA-tested load-bearing design, and premium finishes — from 500 units to 500,000."
+>
+  <style is:global>
+    :root {
+      --color-brand-primary:   #1C2126;
+      --color-brand-secondary: #5B6470;
+      --color-brand-accent:    #2B4BD6;
+      --color-brand-bg:        #F7F8F7;
+      --color-brand-surface:   #ECEEEC;
+      --color-brand-text:      #171A1E;
+      --color-brand-muted:     #737B84;
+      --font-heading: 'Archivo Variable', system-ui, sans-serif;
+      --font-body:    'Outfit Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <style is:global>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: clip; }
+    .st-mono {
+      font-family: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Cascadia Code', 'Segoe UI Mono', Menlo, Consolas, monospace;
+      font-variant-ligatures: none;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─────────────────────────────────────────────
+       Tokens
+    ───────────────────────────────────────────── */
+    .st4 {
+      --ink: #171A1E;
+      --ink-2: #1C2126;
+      --slate: #5B6470;
+      --cobalt: #2B4BD6;
+      --cobalt-deep: #1F37A8;
+      --paper: #F7F8F7;
+      --surface: #ECEEEC;
+      --muted: #737B84;
+      --line: rgba(23, 26, 30, 0.12);
+      --line-strong: rgba(23, 26, 30, 0.22);
+      --dark: #14171A;
+      --dark-2: #101215;
+      --dark-line: rgba(247, 248, 247, 0.14);
+      --dark-muted: #9AA1AA;
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-snap: cubic-bezier(0.65, 0, 0.35, 1);
+      color: var(--ink);
+      background: var(--paper);
+      font-family: 'Outfit Variable', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .st4 * { box-sizing: border-box; }
+
+    .st4 h1, .st4 h2, .st4 h3, .st4 h4 {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      margin: 0;
+      font-weight: 780;
+      line-height: 0.98;
+      letter-spacing: -0.025em;
+    }
+
+    .st4 p { margin: 0; }
+
+    .st4 a { color: inherit; text-decoration: none; }
+
+    .st4 img { display: block; max-width: 100%; }
+
+    .st-wrap {
+      width: 100%;
+      max-width: 1320px;
+      margin-inline: auto;
+      padding-inline: clamp(20px, 4vw, 56px);
+    }
+
+    /* Eyebrow micro-label */
+    .st-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .st-eyebrow::before {
+      content: '';
+      width: 26px;
+      height: 2px;
+      background: var(--cobalt);
+    }
+    .st-eyebrow--light { color: var(--dark-muted); }
+
+    /* Buttons */
+    .st-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 17px 26px;
+      border: 0;
+      cursor: pointer;
+      transition: transform 0.45s var(--ease-spring), box-shadow 0.45s var(--ease-out), background 0.3s var(--ease-out), color 0.3s var(--ease-out);
+      white-space: nowrap;
+    }
+    .st-btn .st-btn__arrow { transition: transform 0.45s var(--ease-spring); }
+    .st-btn:hover .st-btn__arrow { transform: translateX(5px); }
+    .st-btn--solid {
+      background: var(--cobalt);
+      color: #fff;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.1) inset, 0 10px 24px -14px rgba(43,75,214,0.9);
+    }
+    .st-btn--solid:hover {
+      background: var(--cobalt-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.12) inset, 0 18px 34px -14px rgba(43,75,214,0.9);
+    }
+    .st-btn--ghost {
+      background: transparent;
+      color: var(--ink);
+      box-shadow: inset 0 0 0 1.5px var(--line-strong);
+    }
+    .st-btn--ghost:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1.5px var(--ink); }
+    .st-btn--ghost-light {
+      background: transparent;
+      color: #F7F8F7;
+      box-shadow: inset 0 0 0 1.5px var(--dark-line);
+    }
+    .st-btn--ghost-light:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1.5px #F7F8F7; }
+
+    /* ─────────────────────────────────────────────
+       Reveal system (multiple types)
+    ───────────────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transition:
+        opacity 0.9s var(--ease-out),
+        transform 0.9s var(--ease-out),
+        clip-path 1s var(--ease-snap),
+        filter 0.9s var(--ease-out);
+      will-change: transform, opacity, clip-path, filter;
+    }
+    [data-reveal='up']   { transform: translateY(42px); }
+    [data-reveal='down'] { transform: translateY(-42px); }
+    [data-reveal='left'] { transform: translateX(-48px); }
+    [data-reveal='right']{ transform: translateX(48px); }
+    [data-reveal='clip'] { clip-path: inset(0 100% 0 0); }
+    [data-reveal='clipv']{ clip-path: inset(100% 0 0 0); }
+    [data-reveal='scale']{ transform: scale(0.92) rotate(1.6deg); }
+    [data-reveal='blur'] { filter: blur(12px); transform: translateY(22px); }
+    [data-reveal].is-in {
+      opacity: 1;
+      transform: none;
+      clip-path: none;
+      filter: none;
+    }
+
+    /* SVG line-draw reveal */
+    [data-draw] path, [data-draw] line, [data-draw] rect, [data-draw] circle, [data-draw] polyline {
+      stroke-dasharray: var(--dash, 600);
+      stroke-dashoffset: var(--dash, 600);
+    }
+    [data-draw].is-in path, [data-draw].is-in line, [data-draw].is-in rect, [data-draw].is-in circle, [data-draw].is-in polyline {
+      transition: stroke-dashoffset 1.6s var(--ease-snap);
+      stroke-dashoffset: 0;
+    }
+
+    /* ─────────────────────────────────────────────
+       Keyframes
+    ───────────────────────────────────────────── */
+    @keyframes stRise { from { opacity: 0; transform: translateY(34px); } to { opacity: 1; transform: none; } }
+    @keyframes stClip { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+    @keyframes stSpin { to { transform: rotate(360deg); } }
+    @keyframes stSpinRev { to { transform: rotate(-360deg); } }
+    @keyframes stScan { 0%, 8% { transform: translateY(0); } 50%, 58% { transform: translateY(240px); } 100% { transform: translateY(0); } }
+    @keyframes stPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    @keyframes stMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes stBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes stFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    /* ─────────────────────────────────────────────
+       Navigation
+    ───────────────────────────────────────────── */
+    .st-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 60;
+      padding: 18px 0;
+      transition: padding 0.5s var(--ease-snap), background 0.5s var(--ease-snap), box-shadow 0.5s var(--ease-snap);
+    }
+    .st-nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .st-nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+    .st-nav__word {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .st-nav__word strong {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-weight: 820;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+    }
+    .st-nav__word span {
+      font-family: ui-monospace, monospace;
+      font-size: 9px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .st-nav__links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .st-nav__links a {
+      position: relative;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      opacity: 0.82;
+      transition: opacity 0.3s var(--ease-out), color 0.3s var(--ease-out);
+    }
+    .st-nav__links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 100%;
+      height: 2px;
+      background: var(--cobalt);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.45s var(--ease-spring);
+    }
+    .st-nav__links a:hover { opacity: 1; }
+    .st-nav__links a:hover::after { transform: scaleX(1); transform-origin: left; }
+    .st-nav__cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .st-nav__coords {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.5;
+    }
+    .st-nav.is-scrolled {
+      background: rgba(247, 248, 247, 0.82);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      backdrop-filter: blur(14px) saturate(1.4);
+      box-shadow: 0 1px 0 var(--line), 0 14px 40px -28px rgba(20, 23, 26, 0.55);
+      padding: 10px 0;
+    }
+    .st-nav__btn {
+      padding: 12px 20px;
+      font-size: 12.5px;
+    }
+
+    /* Burger */
+    .st-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      background: transparent;
+      border: 1.5px solid var(--line-strong);
+      cursor: pointer;
+    }
+    .st-burger span {
+      display: block;
+      height: 2px;
+      background: var(--ink);
+      transition: transform 0.4s var(--ease-spring), opacity 0.3s;
+    }
+    .st-burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .st-burger.is-open span:nth-child(2) { opacity: 0; }
+    .st-burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .st-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 55;
+      background: var(--dark-2);
+      color: #F7F8F7;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 120px 28px 40px;
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 0.6s var(--ease-snap);
+      overflow-y: auto;
+    }
+    .st-menu.is-open { clip-path: inset(0 0 0 0); }
+    .st-menu__links { display: flex; flex-direction: column; gap: 4px; }
+    .st-menu__links a {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-weight: 820;
+      font-size: clamp(34px, 9vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: #F7F8F7;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+    .st-menu.is-open .st-menu__links a { opacity: 1; transform: none; }
+    .st-menu__links a:nth-child(1) { transition-delay: .06s; }
+    .st-menu__links a:nth-child(2) { transition-delay: .11s; }
+    .st-menu__links a:nth-child(3) { transition-delay: .16s; }
+    .st-menu__links a:nth-child(4) { transition-delay: .21s; }
+    .st-menu__links a:nth-child(5) { transition-delay: .26s; }
+    .st-menu__links a .idx {
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--cobalt);
+    }
+    .st-menu__links a:hover { color: var(--cobalt); }
+    .st-menu__foot {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* ─────────────────────────────────────────────
+       Hero
+    ───────────────────────────────────────────── */
+    .st-hero {
+      position: relative;
+      padding: 168px 0 90px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+    .st-hero__grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+    }
+    .st-hero__orbit {
+      position: absolute;
+      z-index: 0;
+      top: 50%;
+      left: 52%;
+      width: min(760px, 80vw);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      color: var(--ink);
+      animation: stSpin 70s linear infinite;
+      pointer-events: none;
+    }
+    .st-hero__orbit svg { width: 100%; height: 100%; }
+    .st-hero__gridline {
+      position: absolute;
+      z-index: 1;
+      background: var(--line);
+    }
+    .st-hero__gridline--v { left: 52%; top: 0; bottom: 0; width: 1px; }
+    .st-hero__gridline--h { left: 0; right: 0; top: 60%; height: 1px; }
+
+    .st-hero__left { display: flex; flex-direction: column; gap: 30px; }
+    .st-hero__title {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-weight: 860;
+      font-size: clamp(3rem, 8.2vw, 7.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      font-variation-settings: 'wdth' 82;
+    }
+    .st-hero__title .line { display: block; overflow: hidden; }
+    .st-hero__title .line > span { display: inline-block; }
+    .st-hero__title .accent { color: var(--cobalt); }
+    .st-hero__sub {
+      max-width: 44ch;
+      font-size: clamp(16px, 1.5vw, 19px);
+      line-height: 1.6;
+      color: var(--slate);
+      font-weight: 400;
+    }
+    .st-hero__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+    .st-hero__specstrip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      margin-top: 8px;
+    }
+    .st-hero__specstrip > div {
+      flex: 1 1 auto;
+      min-width: 120px;
+      padding: 14px 18px 14px 0;
+    }
+    .st-hero__specstrip .k {
+      display: block;
+      font-family: ui-monospace, monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .st-hero__specstrip .v {
+      font-family: ui-monospace, monospace;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* Hero right — spec panel */
+    .st-panel {
+      position: relative;
+      background: #fff;
+      box-shadow: 0 1px 0 var(--line), 0 40px 80px -48px rgba(20,23,26,0.4);
+      padding: 22px;
+    }
+    .st-panel__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .st-panel__head .t {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .st-panel__img {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+      background: var(--surface);
+    }
+    .st-panel__img img { width: 100%; height: 100%; object-fit: cover; }
+    .st-panel__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(20,23,26,0.28));
+    }
+    .st-panel__dieline {
+      position: absolute;
+      inset: 0;
+      color: #fff;
+      opacity: 0.9;
+      mix-blend-mode: screen;
+    }
+    .st-panel__rows { display: grid; gap: 0; margin-top: 6px; }
+    .st-panel__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 11px 0;
+      border-bottom: 1px dashed var(--line);
+      font-family: ui-monospace, monospace;
+      font-size: 12.5px;
+      letter-spacing: 0.02em;
+    }
+    .st-panel__row .k { color: var(--muted); }
+    .st-panel__row .v { font-weight: 600; text-align: right; }
+    .st-panel__row .v.hl { color: var(--cobalt); }
+    .st-panel__scan {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 22px;
+      height: 2px;
+      background: var(--cobalt);
+      box-shadow: 0 0 12px rgba(43,75,214,0.7);
+      animation: stScan 5s var(--ease-snap) infinite;
+      pointer-events: none;
+    }
+
+    /* Dimension annotation crossing the panel edge */
+    .st-dim {
+      position: absolute;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+    }
+    .st-dim--w {
+      top: -26px;
+      left: -42px;
+    }
+    .st-dim .bar { height: 1px; background: var(--cobalt); width: 42px; }
+    .st-dim .tick { width: 7px; height: 7px; border-left: 1px solid var(--cobalt); border-bottom: 1px solid var(--cobalt); }
+    .st-dim--h {
+      right: -64px;
+      top: 42%;
+      transform: rotate(90deg);
+    }
+
+    /* Cobalt ticker */
+    .st-ticker {
+      background: var(--cobalt);
+      color: #fff;
+      overflow: hidden;
+      padding: 13px 0;
+      position: relative;
+      z-index: 3;
+    }
+    .st-ticker__track {
+      display: flex;
+      width: max-content;
+      gap: 0;
+      animation: stMarquee 32s linear infinite;
+    }
+    .st-ticker__track span {
+      display: inline-flex;
+      align-items: center;
+      gap: 22px;
+      padding-right: 22px;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .st-ticker__track span::after { content: '◆'; font-size: 8px; opacity: 0.7; }
+
+    /* ─────────────────────────────────────────────
+       Section scaffolding
+    ───────────────────────────────────────────── */
+    .st-section { position: relative; padding: clamp(72px, 9vw, 130px) 0; }
+    .st-section--surface { background: var(--surface); }
+    .st-section--dark { background: var(--dark); color: #F7F8F7; }
+    .st-section--dark h1, .st-section--dark h2, .st-section--dark h3 { color: #F7F8F7; }
+
+    .st-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: clamp(40px, 6vw, 72px);
+    }
+    .st-head__title {
+      font-size: clamp(2rem, 4.6vw, 4rem);
+      letter-spacing: -0.03em;
+      font-variation-settings: 'wdth' 88;
+    }
+    .st-head__side {
+      max-width: 36ch;
+      color: var(--slate);
+      font-size: 15.5px;
+      line-height: 1.6;
+    }
+
+    /* Registration rule divider (motif) */
+    .st-rule {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 18px 0 0;
+      margin-bottom: 0;
+    }
+    .st-rule__label {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .st-rule__line { flex: 1; height: 1px; background: var(--line-strong); position: relative; }
+    .st-rule__line::before,
+    .st-rule__line::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      width: 9px;
+      height: 9px;
+      border: 1px solid var(--cobalt);
+    }
+    .st-rule__line::before { left: 18%; }
+    .st-rule__line::after { right: 12%; border-radius: 50%; border-color: var(--muted); }
+
+    /* Angular divider (light→dark / dark→light) */
+    .st-divider { line-height: 0; position: relative; z-index: 2; }
+    .st-divider svg { display: block; width: 100%; height: clamp(44px, 6vw, 88px); }
+
+    /* ─────────────────────────────────────────────
+       Services / offerings
+    ───────────────────────────────────────────── */
+    .st-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: clamp(16px, 2vw, 24px);
+      align-items: start;
+    }
+    .st-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      box-shadow: 0 1px 0 var(--line);
+      transition: transform 0.5s var(--ease-spring), box-shadow 0.5s var(--ease-out);
+    }
+    .st-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 1px 0 var(--line), 0 34px 60px -34px rgba(20,23,26,0.5);
+    }
+    .st-card__img {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .st-card__img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.9s var(--ease-out);
+    }
+    .st-card:hover .st-card__img img { transform: scale(1.06); }
+    .st-card--clip-a .st-card__img { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 26px)); }
+    .st-card--clip-b .st-card__img { clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 100%, 0 100%); }
+    .st-card--clip-c .st-card__img { clip-path: polygon(0 0, 100% 0, 100% calc(100% - 26px), calc(100% - 26px) 100%, 0 100%); }
+    .st-card__idx {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 2;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: #fff;
+      background: rgba(20,23,26,0.72);
+      padding: 4px 8px;
+    }
+    .st-card__corner {
+      position: absolute;
+      z-index: 2;
+      width: 22px;
+      height: 22px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.4s var(--ease-out);
+    }
+    .st-card:hover .st-card__corner { opacity: 1; }
+    .st-card__corner--tl { top: 12px; right: 12px; }
+    .st-card__body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px 20px 22px;
+      flex: 1;
+    }
+    .st-card__title {
+      font-size: 21px;
+      font-weight: 760;
+      letter-spacing: -0.02em;
+    }
+    .st-card__meta {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .st-card__link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cobalt);
+      font-weight: 600;
+    }
+    .st-card__link svg { transition: transform 0.4s var(--ease-spring); }
+    .st-card:hover .st-card__link svg { transform: translateX(4px); }
+
+    .st-span-3 { grid-column: span 3; }
+    .st-span-4 { grid-column: span 4; }
+    .st-span-5 { grid-column: span 5; }
+    .st-span-6 { grid-column: span 6; }
+    .st-span-7 { grid-column: span 7; }
+    .st-span-8 { grid-column: span 8; }
+    .st-push { margin-top: clamp(0px, 3vw, 52px); }
+
+    /* ─────────────────────────────────────────────
+       Featured work (dark)
+    ───────────────────────────────────────────── */
+    .st-work { display: grid; gap: clamp(20px, 3vw, 34px); }
+    .st-case {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      background: var(--dark-2);
+      border: 1px solid var(--dark-line);
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-spring), border-color 0.5s var(--ease-out);
+    }
+    .st-case:hover { transform: translateY(-6px); border-color: rgba(43,75,214,0.6); }
+    .st-case__img { position: relative; min-height: 320px; overflow: hidden; }
+    .st-case__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease-out); }
+    .st-case:hover .st-case__img img { transform: scale(1.05); }
+    .st-case__img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(16,18,21,0.5) 100%); }
+    .st-case__body { display: flex; flex-direction: column; gap: 18px; padding: clamp(28px, 4vw, 52px); }
+    .st-case__tag {
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cobalt);
+    }
+    .st-case__title { font-size: clamp(1.6rem, 3vw, 2.5rem); color: #F7F8F7; }
+    .st-case__quote { color: var(--dark-muted); font-size: 15.5px; line-height: 1.6; }
+    .st-case__person { display: flex; align-items: center; gap: 14px; }
+    .st-case__person .who { font-weight: 650; color: #F7F8F7; }
+    .st-case__person .role { font-family: ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--dark-muted); text-transform: uppercase; }
+    .st-case__specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+    .st-case__spec {
+      font-family: ui-monospace, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.08em;
+      padding: 7px 10px;
+      border: 1px solid var(--dark-line);
+      color: var(--dark-muted);
+    }
+
+    /* ─────────────────────────────────────────────
+       Why us
+    ───────────────────────────────────────────── */
+    .st-why { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(36px, 5vw, 80px); align-items: start; }
+    .st-why__panel {
+      position: relative;
+      background: var(--ink-2);
+      color: #F7F8F7;
+      padding: clamp(28px, 4vw, 48px);
+      box-shadow: 0 40px 80px -48px rgba(20,23,26,0.6);
+    }
+    .st-why__panel .st-eyebrow { color: #9AA1AA; }
+    .st-why__panel h3 { font-size: clamp(1.7rem, 3vw, 2.6rem); margin: 18px 0 16px; }
+    .st-why__panel p { color: #C6CBD1; font-size: 15.5px; line-height: 1.65; }
+    .st-why__panel .st-why__imgwrap {
+      margin: 24px 0 0;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 30px));
+    }
+    .st-why__panel .st-why__imgwrap img { width: 100%; height: 100%; object-fit: cover; }
+    .st-why__spec {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--dark-line);
+      display: grid;
+      gap: 8px;
+      font-family: ui-monospace, monospace;
+      font-size: 11.5px;
+      letter-spacing: 0.06em;
+      color: #9AA1AA;
+    }
+    .st-why__spec b { color: #F7F8F7; font-weight: 600; }
+
+    .st-why__list { display: flex; flex-direction: column; }
+    .st-why__item {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 20px;
+      padding: 34px 0;
+      border-bottom: 1px solid var(--line-strong);
+    }
+    .st-why__item:first-child { padding-top: 0; }
+    .st-why__num {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--cobalt);
+    }
+    .st-why__item h3 { font-size: clamp(1.4rem, 2.4vw, 2rem); margin-bottom: 12px; }
+    .st-why__item p { color: var(--slate); font-size: 15.5px; line-height: 1.6; }
+    .st-why__item .chip {
+      display: inline-block;
+      margin-top: 14px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cobalt);
+      border: 1px solid rgba(43,75,214,0.35);
+      padding: 5px 9px;
+    }
+
+    /* ─────────────────────────────────────────────
+       Social proof
+    ───────────────────────────────────────────── */
+    .st-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line-strong);
+      border-left: 1px solid var(--line-strong);
+    }
+    .st-stat {
+      padding: clamp(24px, 3vw, 40px);
+      border-right: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      position: relative;
+    }
+    .st-stat__val {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-weight: 820;
+      font-size: clamp(2.4rem, 5vw, 4.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--ink);
+    }
+    .st-stat__val .u { color: var(--cobalt); }
+    .st-stat__label {
+      margin-top: 12px;
+      font-family: ui-monospace, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .st-stat__cross {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 16px;
+      height: 16px;
+      color: var(--cobalt);
+      opacity: 0.5;
+    }
+
+    .st-certs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .st-cert {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 14px;
+      border: 1px solid var(--line-strong);
+      color: var(--slate);
+    }
+    .st-cert::before { content: '✓ '; color: var(--cobalt); font-weight: 700; }
+
+    .st-quotes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(16px, 2vw, 24px);
+      margin-top: clamp(48px, 6vw, 72px);
+    }
+    .st-quote {
+      background: #fff;
+      box-shadow: 0 1px 0 var(--line);
+      padding: clamp(26px, 3vw, 40px);
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      position: relative;
+    }
+    .st-quote__mark {
+      font-family: 'Archivo Variable', system-ui, sans-serif;
+      font-size: 54px;
+      line-height: 0.6;
+      color: var(--cobalt);
+      font-weight: 800;
+    }
+    .st-quote__text { font-size: 18px; line-height: 1.55; color: var(--ink); font-weight: 420; }
+    .st-quote__foot { display: flex; align-items: center; gap: 14px; margin-top: auto; }
+    .st-quote__foot .name { font-weight: 700; }
+    .st-quote__foot .role { font-family: ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    .st-logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px 44px;
+      margin-top: 48px;
+      padding-top: 34px;
+      border-top: 1px solid var(--line);
+      opacity: 0.62;
+    }
+    .st-logos span {
+      font-family: ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--slate);
+      font-weight: 600;
+    }
+
+    /* ─────────────────────────────────────────────
+       Final CTA
+    ───────────────────────────────────────────── */
+    .st-cta {
+      position: relative;
+      background: var(--dark-2);
+      color: #F7F8F7;
+      padding: clamp(90px, 12vw, 170px) 0;
+      overflow: hidden;
+    }
+    .st-cta__gridline { position: absolute; background: var(--dark-line); }
+    .st-cta__gridline--v1 { left: 20%; top: 0; bottom: 0; width: 1px; }
+    .st-cta__gridline--v2 { right: 20%; top: 0; bottom: 0; width: 1px; }
+    .st-cta__gridline--h1 { left: 0; right: 0; top: 32%; height: 1px; }
+    .st-cta__gridline--h2 { left: 0; right: 0; bottom: 32%; height: 1px; }
+    .st-cta__inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 34px; }
+    .st-cta__title {
+      font-size: clamp(2.6rem, 6.4vw, 6rem);
+      letter-spacing: -0.03em;
+      color: #F7F8F7;
+      font-variation-settings: 'wdth' 85;
+    }
+    .st-cta__title .accent { color: var(--cobalt); }
+    .st-cta__sub { max-width: 52ch; color: #C6CBD1; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.6; }
+    .st-cta__ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+    .st-cta__orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(820px, 92vw);
+      opacity: 0.5;
+      color: var(--cobalt);
+      animation: stSpinRev 90s linear infinite;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────────
+       Footer
+    ───────────────────────────────────────────── */
+    .st-footer {
+      background: #0B0D0F;
+      color: #9AA1AA;
+      padding: clamp(60px, 8vw, 100px) 0 40px;
+    }
+    .st-footer__top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: clamp(32px, 5vw, 64px);
+      padding-bottom: clamp(40px, 6vw, 72px);
+      border-bottom: 1px solid var(--dark-line);
+    }
+    .st-footer__brand { display: flex; flex-direction: column; gap: 20px; }
+    .st-footer__brand .word { display: flex; align-items: center; gap: 13px; }
+    .st-footer__brand .word strong { font-family: 'Archivo Variable', system-ui, sans-serif; font-size: 22px; font-weight: 820; color: #F7F8F7; }
+    .st-footer__tag { font-size: 15px; line-height: 1.6; max-width: 34ch; }
+    .st-footer__col h4 {
+      font-family: ui-monospace, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: #F7F8F7;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    .st-footer__col a {
+      display: block;
+      color: #9AA1AA;
+      font-size: 14.5px;
+      padding: 6px 0;
+      transition: color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+    }
+    .st-footer__col a:hover { color: var(--cobalt); transform: translateX(4px); }
+    .st-footer__social { display: flex; gap: 12px; }
+    .st-footer__social a {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--dark-line);
+      transition: border-color 0.35s var(--ease-out), color 0.35s var(--ease-out), transform 0.35s var(--ease-spring);
+    }
+    .st-footer__social a:hover { border-color: var(--cobalt); color: var(--cobalt); transform: translateY(-3px); }
+    .st-footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 28px;
+      font-family: ui-monospace, monospace;
+      font-size: 10.5px;
+      letter-spacing: 0.12em;
+    }
+    .st-footer__coords { text-align: right; line-height: 1.7; }
+
+    /* ─────────────────────────────────────────────
+       Responsive
+    ───────────────────────────────────────────── */
+    @media (max-width: 1080px) {
+      .st-nav__links { display: none; }
+      .st-nav__coords { display: none; }
+      .st-burger { display: flex; }
+    }
+    @media (max-width: 920px) {
+      .st-hero__grid { grid-template-columns: 1fr; }
+      .st-hero__orbit { left: 70%; top: 20%; width: 130vw; }
+      .st-hero__gridline { display: none; }
+      .st-why { grid-template-columns: 1fr; }
+      .st-stats { grid-template-columns: repeat(2, 1fr); }
+      .st-quotes { grid-template-columns: 1fr; }
+      .st-case { grid-template-columns: 1fr; }
+      .st-case__img { min-height: 240px; }
+      .st-footer__top { grid-template-columns: 1fr 1fr; }
+      .st-head { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .st-span-3, .st-span-4, .st-span-5, .st-span-6, .st-span-7, .st-span-8 { grid-column: span 6; }
+      .st-push { margin-top: 0; }
+    }
+    @media (max-width: 640px) {
+      .st-span-3, .st-span-4, .st-span-5, .st-span-6, .st-span-7, .st-span-8 { grid-column: span 12; }
+      .st-stats { grid-template-columns: 1fr 1fr; }
+      .st-hero { padding-top: 132px; }
+      .st-hero__specstrip > div { min-width: 50%; }
+      .st-dim--h { display: none; }
+      .st-dim--w { left: -12px; }
+      .st-footer__top { grid-template-columns: 1fr; }
+      .st-footer__bottom { flex-direction: column; align-items: flex-start; }
+      .st-certs { gap: 8px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .st4 *, .st4 *::before, .st4 *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; filter: none !important; }
+    }
+  </style>
+
+  <!-- ══════════════════════ NAVIGATION ══════════════════════ -->
+  <header class="st4">
+    <nav class="st-nav" id="stNav">
+      <div class="st-wrap st-nav__inner">
+        <a class="st-nav__brand" href="#" aria-label="LeelinePackage home">
+          <BrandMark size={42} tone="dark" />
+          <span class="st-nav__word">
+            <strong>LeelinePackage</strong>
+            <span>Structural Packaging</span>
+          </span>
+        </a>
+        <div class="st-nav__links">
+          <a href="#offerings">Offerings</a>
+          <a href="#work">Work</a>
+          <a href="#engineering">Engineering</a>
+          <a href="#proof">Proof</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="st-nav__cta">
+          <div class="st-nav__coords">
+            30.5928° N / 114.3055° E<br />
+            WUHAN — EST. 2015
+          </div>
+          <a href="#contact" class="st-btn st-btn--solid st-nav__btn">
+            Get a Free Quote
+            <svg class="st-btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+          </a>
+          <button class="st-burger" id="stBurger" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="st-menu" id="stMenu">
+      <nav class="st-menu__links">
+        <a href="#offerings"><span class="idx">01</span>Offerings</a>
+        <a href="#work"><span class="idx">02</span>Work</a>
+        <a href="#engineering"><span class="idx">03</span>Engineering</a>
+        <a href="#proof"><span class="idx">04</span>Proof</a>
+        <a href="#contact"><span class="idx">05</span>Contact</a>
+      </nav>
+      <div class="st-menu__foot">
+        <div class="st-mono" style="color:#9AA1AA; font-size:11px; letter-spacing:.2em; text-transform:uppercase;">Wuhan · 30.5928° N</div>
+        <a href="#contact" class="st-btn st-btn--solid">Get a Free Quote</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="st4">
+
+    <!-- ══════════════════════ HERO ══════════════════════ -->
+    <section class="st-hero">
+      <div class="st-hero__gridline st-hero__gridline--v"></div>
+      <div class="st-hero__gridline st-hero__gridline--h"></div>
+
+      <div class="st-hero__orbit" aria-hidden="true">
+        <svg viewBox="0 0 400 400" fill="none">
+          <rect x="120" y="130" width="160" height="140" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5"/>
+          <path d="M120 130 L20 40 M280 130 L380 40 M120 270 L20 360 M280 270 L380 360" stroke="currentColor" stroke-width="1"/>
+          <path d="M20 40 H120 V130 M280 40 H380 V130 M20 360 H120 V270 M280 360 H380 V270" stroke="currentColor" stroke-width="1"/>
+          <circle cx="20" cy="40" r="6" stroke="currentColor" stroke-width="1"/>
+          <circle cx="380" cy="40" r="6" stroke="currentColor" stroke-width="1"/>
+          <circle cx="20" cy="360" r="6" stroke="currentColor" stroke-width="1"/>
+          <circle cx="380" cy="360" r="6" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <div class="st-wrap st-hero__grid">
+        <div class="st-hero__left">
+          <span class="st-eyebrow" style="animation: stRise .9s var(--ease-out) both;">Custom structural packaging — Wuhan · Est. 2015</span>
+
+          <h1 class="st-hero__title">
+            <span class="line" style="animation: stClip 1s var(--ease-snap) both; animation-delay:.05s;"><span>Engineered,</span></span>
+            <span class="line" style="animation: stClip 1s var(--ease-snap) both; animation-delay:.18s;"><span>not just <span class="accent">printed.</span></span></span>
+          </h1>
+
+          <p class="st-hero__sub" style="animation: stRise .9s var(--ease-out) both; animation-delay:.34s;">
+            We turn shipping containers into unboxing assets — engineering the structure, the fit, and the finish so your product arrives protected and your brand arrives unforgettable.
+          </p>
+
+          <div class="st-hero__ctas" style="animation: stRise .9s var(--ease-out) both; animation-delay:.46s;">
+            <a href="#contact" class="st-btn st-btn--solid">
+              Get a Free Quote
+              <svg class="st-btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+            </a>
+            <a href="#contact" class="st-btn st-btn--ghost">Request Your Sample Kit</a>
+          </div>
+
+          <div class="st-hero__specstrip" style="animation: stRise .9s var(--ease-out) both; animation-delay:.58s;">
+            <div><span class="k">Board</span><span class="v">E-Flute 1.6mm</span></div>
+            <div><span class="k">Test</span><span class="v">ISTA 2A Drop</span></div>
+            <div><span class="k">MOQ</span><span class="v">500 Units</span></div>
+            <div><span class="k">Lead</span><span class="v">24H Mockup</span></div>
+          </div>
+        </div>
+
+        <div class="st-hero__right" style="animation: stRise 1s var(--ease-out) both; animation-delay:.3s;">
+          <div class="st-panel">
+            <div class="st-dim st-dim--w" aria-hidden="true">
+              <span class="tick"></span><span class="bar"></span><span>BOX 320 × 240 × 120 MM</span>
+            </div>
+            <div class="st-dim st-dim--h" aria-hidden="true">
+              <span class="tick"></span><span class="bar"></span><span>240 MM</span>
+            </div>
+
+            <div class="st-panel__head">
+              <span class="t">Spec Sheet — 042</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="animation: stPulse 2.4s ease-in-out infinite;">
+                <circle cx="12" cy="12" r="9" stroke="#2B4BD6" stroke-width="1" opacity=".6"/>
+                <path d="M12 3v6M12 15v6M3 12h6M15 12h6" stroke="#2B4BD6" stroke-width="1.4"/>
+              </svg>
+            </div>
+
+            <div class="st-panel__img">
+              <img src="/images/首页/image-06.avif" alt="Rigid boxes" loading="eager" />
+              <div class="st-panel__dieline" aria-hidden="true">
+                <svg viewBox="0 0 400 300" fill="none">
+                  <rect x="150" y="60" width="100" height="180" stroke="#fff" stroke-width="1" stroke-dasharray="4 4"/>
+                  <path d="M150 60 L80 60 L80 240 L150 240 M250 60 L320 60 L320 240 L250 240" stroke="#fff" stroke-width="1"/>
+                  <circle cx="80" cy="60" r="5" stroke="#fff" stroke-width="1"/>
+                  <circle cx="320" cy="60" r="5" stroke="#fff" stroke-width="1"/>
+                  <circle cx="80" cy="240" r="5" stroke="#fff" stroke-width="1"/>
+                  <circle cx="320" cy="240" r="5" stroke="#fff" stroke-width="1"/>
+                </svg>
+              </div>
+              <div class="st-panel__scan"></div>
+            </div>
+
+            <div class="st-panel__rows">
+              <div class="st-panel__row"><span class="k">PROJECT</span><span class="v">RIGID — CUSTOM DIELINE</span></div>
+              <div class="st-panel__row"><span class="k">BOARD</span><span class="v">2MM GREYBOARD</span></div>
+              <div class="st-panel__row"><span class="k">TEST</span><span class="v">ISTA 2A · DROP / COMPRESS</span></div>
+              <div class="st-panel__row"><span class="k">FINISH</span><span class="v hl">SOFT-TOUCH + GOLD FOIL</span></div>
+              <div class="st-panel__row"><span class="k">MOQ</span><span class="v">500 UNITS</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cobalt ticker -->
+    <div class="st-ticker" aria-hidden="true">
+      <div class="st-ticker__track">
+        <span>ISTA 2A Drop-Tested</span>
+        <span>ISO 9001 Consistency</span>
+        <span>FSC-Certified Materials</span>
+        <span>MOQ From 500</span>
+        <span>24H Digital Mockups</span>
+        <span>3–5 Day White-Dummy Samples</span>
+        <span>Flat-Pack Freight Optimization</span>
+        <span>ISTA 2A Drop-Tested</span>
+        <span>ISO 9001 Consistency</span>
+        <span>FSC-Certified Materials</span>
+        <span>MOQ From 500</span>
+        <span>24H Digital Mockups</span>
+        <span>3–5 Day White-Dummy Samples</span>
+        <span>Flat-Pack Freight Optimization</span>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ OFFERINGS ══════════════════════ -->
+    <section class="st-section st-section--surface" id="offerings">
+      <div class="st-wrap">
+        <div class="st-rule" data-reveal="clip">
+          <span class="st-rule__label">/ 01 — Offerings</span>
+          <span class="st-rule__line"></span>
+        </div>
+
+        <div class="st-head">
+          <h2 class="st-head__title" data-reveal="clip">Twelve ways to<br />ship the brand.</h2>
+          <p class="st-head__side" data-reveal="up">
+            Every category is engineered to spec — custom dielines, selected flute, and finishes matched to CMYK/Pantone. Pick your structure, we'll build the moat around it.
+          </p>
+        </div>
+
+        <div class="st-grid">
+          <article class="st-card st-span-5 st-card--clip-a" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-04.avif" alt="Folding Carton Boxes" loading="lazy" /><span class="st-card__idx">CAT-01</span>
+              <svg class="st-card__corner st-card__corner--tl" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/><path d="M12 4v5M12 15v5M4 12h5M15 12h5" stroke="currentColor" stroke-width="1"/></svg>
+            </div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Folding Carton</h3>
+              <span class="st-card__meta">C1S / C2S · 300–400gsm · Tuck-end</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-4 st-push st-card--clip-b" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-05.avif" alt="Corrugated Boxes" loading="lazy" /><span class="st-card__idx">CAT-02</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Corrugated</h3>
+              <span class="st-card__meta">B/E/BC Flute · Load-bearing</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-3 st-card--clip-c" data-reveal="scale">
+            <div class="st-card__img"><img src="/images/首页/image-06.avif" alt="Rigid Boxes" loading="lazy" /><span class="st-card__idx">CAT-03</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Rigid</h3>
+              <span class="st-card__meta">2–3mm board · Magnetic lid</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-6 st-card--clip-b" data-reveal="clip">
+            <div class="st-card__img"><img src="/images/首页/image-07.avif" alt="Mailer Boxes" loading="lazy" /><span class="st-card__idx">CAT-04</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Mailer</h3>
+              <span class="st-card__meta">Self-locking · E-commerce ready</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-3 st-push st-card--clip-a" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-08.avif" alt="Display Boxes" loading="lazy" /><span class="st-card__idx">CAT-05</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Display</h3>
+              <span class="st-card__meta">Retail-ready · PDQ</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-3 st-card--clip-c" data-reveal="scale">
+            <div class="st-card__img"><img src="/images/首页/image-09.avif" alt="Pouches" loading="lazy" /><span class="st-card__idx">CAT-06</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Pouches</h3>
+              <span class="st-card__meta">Mylar / kraft · Food-safe</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-4 st-card--clip-a" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-10.avif" alt="Paper Bag" loading="lazy" /><span class="st-card__idx">CAT-07</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Paper Bag</h3>
+              <span class="st-card__meta">Kraft / art · Twisted handle</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-4 st-push st-card--clip-b" data-reveal="blur">
+            <div class="st-card__img"><img src="/images/首页/image-11.avif" alt="Tin Box" loading="lazy" /><span class="st-card__idx">CAT-08</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Tin Box</h3>
+              <span class="st-card__meta">Food-grade · Embossed lid</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-4 st-card--clip-c" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-12.avif" alt="Acrylic Box" loading="lazy" /><span class="st-card__idx">CAT-09</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Acrylic Box</h3>
+              <span class="st-card__meta">Crystal-clear · UV bonded</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-3 st-card--clip-a" data-reveal="scale">
+            <div class="st-card__img"><img src="/images/首页/image-13.avif" alt="Reusable Shopping Bags" loading="lazy" /><span class="st-card__idx">CAT-10</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Reusable Bag</h3>
+              <span class="st-card__meta">Non-woven / laminated</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-3 st-push st-card--clip-b" data-reveal="up">
+            <div class="st-card__img"><img src="/images/首页/image-14.avif" alt="Satin Bags" loading="lazy" /><span class="st-card__idx">CAT-11</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Satin Bag</h3>
+              <span class="st-card__meta">Jewelry-grade · Drawcord</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+
+          <article class="st-card st-span-6 st-card--clip-c" data-reveal="clip">
+            <div class="st-card__img"><img src="/images/首页/image-15.avif" alt="Labels & Stickers" loading="lazy" /><span class="st-card__idx">CAT-12</span></div>
+            <div class="st-card__body">
+              <h3 class="st-card__title">Labels &amp; Stickers</h3>
+              <span class="st-card__meta">Die-cut · Foil · Variable data</span>
+              <a class="st-card__link" href="#contact">Spec it <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Angular divider surface → dark -->
+    <div class="st-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <rect width="1440" height="90" fill="#14171A"/>
+        <polygon points="0,0 1440,0 0,90" fill="#ECEEEC"/>
+        <path d="M200 46 h18" stroke="#2B4BD6" stroke-width="2"/>
+        <circle cx="1200" cy="52" r="6" stroke="#2B4BD6" stroke-width="1" fill="none" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <!-- ══════════════════════ FEATURED WORK (DARK) ══════════════════════ -->
+    <section class="st-section st-section--dark" id="work">
+      <div class="st-wrap">
+        <div class="st-rule">
+          <span class="st-rule__label" style="color:#9AA1AA;">/ 02 — Featured Work</span>
+          <span class="st-rule__line" style="background:rgba(247,248,247,0.16);"></span>
+        </div>
+
+        <div class="st-head">
+          <h2 class="st-head__title" data-reveal="clip">Structures that<br />shipped the story.</h2>
+          <p class="st-head__side" style="color:#C6CBD1;" data-reveal="up">
+            Real dielines, real fit, real freight savings. A few builds that did the heavy lifting for the brand.
+          </p>
+        </div>
+
+        <div class="st-work">
+          <article class="st-case" data-reveal="up">
+            <div class="st-case__img"><img src="/images/首页/image-07.avif" alt="DTC mailer box case study" loading="lazy" /></div>
+            <div class="st-case__body">
+              <span class="st-case__tag">DTC · Mailer · Rebuild</span>
+              <h3 class="st-case__title">The mailer that went viral.</h3>
+              <p class="st-case__quote">"We shipped the new mailer and unboxing share-rate jumped from 4% to 41%. The dieline fit our product like it was machined for it — zero rattling, zero returns."</p>
+              <div class="st-case__person">
+                <span class="who">Danny R.</span>
+                <span class="role">Founder · DTC Skincare</span>
+              </div>
+              <div class="st-case__specs">
+                <span class="st-case__spec">E-FLUTE 1.6MM</span>
+                <span class="st-case__spec">SOFT-TOUCH</span>
+                <span class="st-case__spec">24H MOCKUP</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="st-case" data-reveal="scale" style="grid-template-columns: 1.1fr 1fr;">
+            <div class="st-case__body">
+              <span class="st-case__tag">Beauty · Rigid · Gold Foil</span>
+              <h3 class="st-case__title">A $200 feeling, at $1.90.</h3>
+              <p class="st-case__quote">"The rigid box with double gold foil landed at $1.90 each. Customers assume the product costs $200 — the box did that."</p>
+              <div class="st-case__person">
+                <span class="who">Carla M.</span>
+                <span class="role">Founder · Beauty Brand</span>
+              </div>
+              <div class="st-case__specs">
+                <span class="st-case__spec">RIGID 2MM</span>
+                <span class="st-case__spec">GOLD FOIL</span>
+                <span class="st-case__spec">MAGNETIC CLOSE</span>
+              </div>
+            </div>
+            <div class="st-case__img"><img src="/images/首页/image-06.avif" alt="Rigid gold foil box case study" loading="lazy" /></div>
+          </article>
+
+          <article class="st-case" data-reveal="blur">
+            <div class="st-case__img"><img src="/images/首页/image-05.avif" alt="Corrugated shipping carton case study" loading="lazy" /></div>
+            <div class="st-case__body">
+              <span class="st-case__tag">Logistics · Carton · At Scale</span>
+              <h3 class="st-case__title">50,000 cartons. Zero variance.</h3>
+              <p class="st-case__quote">"50,000 cartons, consistent E-flute, on the dock early. That's the whole review. Your engineers speak our language."</p>
+              <div class="st-case__person">
+                <span class="who">Larry K.</span>
+                <span class="role">Supply-Chain Director</span>
+              </div>
+              <div class="st-case__specs">
+                <span class="st-case__spec">B-FLUTE</span>
+                <span class="st-case__spec">ISTA COMPRESSION</span>
+                <span class="st-case__spec">50K UNITS</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="st-case" data-reveal="up" style="grid-template-columns: 1.1fr 1fr;">
+            <div class="st-case__body">
+              <span class="st-case__tag">Food · Pouch · Compostable</span>
+              <h3 class="st-case__title">Grease-proof, shelf-ready.</h3>
+              <p class="st-case__quote">"Food-safe, grease-resistant pouches that survived the freight and the fryer. The print stayed crisp on every unit."</p>
+              <div class="st-case__person">
+                <span class="who">Fred A.</span>
+                <span class="role">Producer · Gourmet Food</span>
+              </div>
+              <div class="st-case__specs">
+                <span class="st-case__spec">FOOD-SAFE</span>
+                <span class="st-case__spec">COMPOSTABLE</span>
+                <span class="st-case__spec">PANTONE MATCH</span>
+              </div>
+            </div>
+            <div class="st-case__img"><img src="/images/首页/image-09.avif" alt="Food-safe pouches case study" loading="lazy" /></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Angular divider dark → light -->
+    <div class="st-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <rect width="1440" height="90" fill="#F7F8F7"/>
+        <polygon points="0,0 1440,0 1440,90" fill="#14171A"/>
+        <path d="M1200 30 h18" stroke="#2B4BD6" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <!-- ══════════════════════ WHY US ══════════════════════ -->
+    <section class="st-section" id="engineering">
+      <div class="st-wrap">
+        <div class="st-rule">
+          <span class="st-rule__label">/ 03 — Engineering</span>
+          <span class="st-rule__line"></span>
+        </div>
+
+        <div class="st-head">
+          <h2 class="st-head__title" data-reveal="clip">The structural moat.</h2>
+          <p class="st-head__side" data-reveal="up">
+            Three reasons brands stop shopping around. One of them is the whole reason we exist.
+          </p>
+        </div>
+
+        <div class="st-why">
+          <div class="st-why__panel" data-reveal="left">
+            <span class="st-eyebrow">01 — The moat</span>
+            <h3>Dieline engineering.<br />Load-bearing by design.</h3>
+            <p>
+              We don't resize a template — we engineer the dieline to your exact product dimensions. Custom inserts, selected flute, and crush-tested walls mean nothing rattles and nothing collapses in transit. Every build is drop and compression tested to ISTA standards before it ships.
+            </p>
+            <div class="st-why__imgwrap">
+              <img src="/images/首页/image-03.avif" alt="LeelinePackage engineering team" loading="lazy" />
+            </div>
+            <div class="st-why__spec">
+              <div><b>TEST</b> · ISTA 2A drop / 6 series compression</div>
+              <div><b>FIT</b> · ±0.5mm dieline tolerance on every run</div>
+              <div><b>PROOF</b> · 3D mockup in 24h, white-dummy in 3–5 days</div>
+            </div>
+          </div>
+
+          <div class="st-why__list">
+            <div class="st-why__item" data-reveal="up">
+              <span class="st-why__num">02</span>
+              <div>
+                <h3>Premium finishes that justify the price.</h3>
+                <p>Foil, spot UV, emboss and deboss, soft-touch — matched to CMYK/Pantone at factory-direct pricing a fraction of Western cost. The finish does the convincing.</p>
+                <span class="chip">Gold foil · Spot UV · Emboss / Deboss</span>
+              </div>
+            </div>
+            <div class="st-why__item" data-reveal="up">
+              <span class="st-why__num">03</span>
+              <div>
+                <h3>From 500 units to 500,000 — seamlessly.</h3>
+                <p>Start at a 500-unit MOQ and scale to half a million. Volume-tiered pricing breaks at 1k / 5k / 10k, with flat-pack optimization that cuts dimensional-weight freight on every pallet.</p>
+                <span class="chip">MOQ 500 · Tiered pricing · Flat-pack freight</span>
+              </div>
+            </div>
+            <div class="st-why__item" data-reveal="up">
+              <span class="st-why__num">00</span>
+              <div>
+                <h3>Protect &amp; Impress.</h3>
+                <p>The Guardian Architect standard: structural integrity that protects the product, and a finish that impresses the customer. Never one without the other.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ SOCIAL PROOF ══════════════════════ -->
+    <section class="st-section st-section--surface" id="proof">
+      <div class="st-wrap">
+        <div class="st-rule">
+          <span class="st-rule__label">/ 04 — Proof</span>
+          <span class="st-rule__line"></span>
+        </div>
+
+        <div class="st-head">
+          <h2 class="st-head__title" data-reveal="clip">Numbers that hold up<br />under inspection.</h2>
+          <p class="st-head__side" data-reveal="up">
+            The specs we ship against, measured every run. This is the part procurement forwards to the boss.
+          </p>
+        </div>
+
+        <div class="st-stats">
+          <div class="st-stat" data-reveal="up">
+            <svg class="st-stat__cross" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/></svg>
+            <div class="st-stat__val"><span data-count="500" data-suffix="K+">0</span></div>
+            <div class="st-stat__label">Boxes shipped</div>
+          </div>
+          <div class="st-stat" data-reveal="up">
+            <svg class="st-stat__cross" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/></svg>
+            <div class="st-stat__val"><span data-count="500">0</span><span class="u">+</span></div>
+            <div class="st-stat__label">MOQ units</div>
+          </div>
+          <div class="st-stat" data-reveal="up">
+            <svg class="st-stat__cross" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/></svg>
+            <div class="st-stat__val"><span data-count="24">0</span><span class="u">H</span></div>
+            <div class="st-stat__label">Digital mockups</div>
+          </div>
+          <div class="st-stat" data-reveal="up">
+            <svg class="st-stat__cross" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1"/></svg>
+            <div class="st-stat__val"><span data-count="2015">0</span></div>
+            <div class="st-stat__label">Founded</div>
+          </div>
+        </div>
+
+        <div class="st-certs" data-reveal="up">
+          <span class="st-cert">ISO 9001</span>
+          <span class="st-cert">FSC Certified</span>
+          <span class="st-cert">ISTA 2A Tested</span>
+          <span class="st-cert">CMYK / Pantone</span>
+          <span class="st-cert">3–5 Day Samples</span>
+          <span class="st-cert">7–10 Day Production</span>
+        </div>
+
+        <div class="st-quotes">
+          <div class="st-quote" data-reveal="up">
+            <div class="st-quote__mark">"</div>
+            <p class="st-quote__text">Custom-sized boxes that cut our dimensional-weight bill by 18%. Every month, on time, no rattling.</p>
+            <div class="st-quote__foot"><span class="name">Sarah L.</span><span class="role">Ops Lead · Subscription Box</span></div>
+          </div>
+          <div class="st-quote" data-reveal="up">
+            <div class="st-quote__mark">"</div>
+            <p class="st-quote__text">We run five product sizes through one dieline system. ISO consistency means the 5,000th box matches the first.</p>
+            <div class="st-quote__foot"><span class="name">Danny R.</span><span class="role">Founder · DTC Skincare</span></div>
+          </div>
+        </div>
+
+        <div class="st-logos" data-reveal="blur">
+          <span>GLOWRITUAL</span>
+          <span>ORBIT TEA</span>
+          <span>KINDRED CO</span>
+          <span>POUR &amp; PRESS</span>
+          <span>NOVA SUPPLEMENTS</span>
+          <span>FERN &amp; FLOUR</span>
+          <span>ATLAS OUTDOOR</span>
+          <span>LUMEN LABS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Angular divider surface → dark -->
+    <div class="st-divider" aria-hidden="true">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <rect width="1440" height="90" fill="#101215"/>
+        <polygon points="0,0 1440,0 0,90" fill="#ECEEEC"/>
+        <path d="M180 48 h18" stroke="#2B4BD6" stroke-width="2"/>
+        <circle cx="1240" cy="58" r="6" stroke="#2B4BD6" stroke-width="1" fill="none" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <!-- ══════════════════════ FINAL CTA ══════════════════════ -->
+    <section class="st-cta" id="contact">
+      <div class="st-cta__gridline st-cta__gridline--v1"></div>
+      <div class="st-cta__gridline st-cta__gridline--v2"></div>
+      <div class="st-cta__gridline st-cta__gridline--h1"></div>
+      <div class="st-cta__gridline st-cta__gridline--h2"></div>
+
+      <div class="st-cta__orbit" aria-hidden="true">
+        <svg viewBox="0 0 400 400" fill="none">
+          <rect x="120" y="130" width="160" height="140" stroke="currentColor" stroke-width="1" stroke-dasharray="4 5"/>
+          <path d="M120 130 L20 40 M280 130 L380 40 M120 270 L20 360 M280 270 L380 360" stroke="currentColor" stroke-width="1"/>
+          <path d="M20 40 H120 V130 M280 40 H380 V130 M20 360 H120 V270 M280 360 H380 V270" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <div class="st-wrap st-cta__inner">
+        <span class="st-eyebrow st-eyebrow--light" data-reveal="up">/ 05 — Let's build it</span>
+        <h2 class="st-cta__title" data-reveal="clip">
+          Protect it.<br />Then <span class="accent">impress</span> with it.
+        </h2>
+        <p class="st-cta__sub" data-reveal="up">
+          Send your product dims and we'll engineer the dieline, price the finish, and ship a white-dummy sample in 3–5 days. From 500 units to 500,000.
+        </p>
+        <div class="st-cta__ctas" data-reveal="up">
+          <a href="#contact" class="st-btn st-btn--solid">
+            Get a Free Quote
+            <svg class="st-btn__arrow" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+          </a>
+          <a href="#contact" class="st-btn st-btn--ghost-light">Request Your Sample Kit</a>
+        </div>
+        <div class="st-mono" style="color:#9AA1AA; font-size:11px; letter-spacing:.2em; text-transform:uppercase;" data-reveal="up">
+          Reply in 24h · Free dieline review · No obligation
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════ FOOTER ══════════════════════ -->
+    <footer class="st-footer">
+      <div class="st-wrap">
+        <div class="st-footer__top">
+          <div class="st-footer__brand">
+            <div class="word">
+              <BrandMark size={46} tone="light" />
+              <strong>LeelinePackage</strong>
+            </div>
+            <p class="st-footer__tag">The Structural Brand Architect. We engineer the box, not just print on it — so your product arrives protected and your brand arrives unforgettable.</p>
+            <div class="st-footer__social">
+              <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5v11M6.5 5v.01M11 19.5v-6a2.5 2.5 0 0 1 5 0v6M11 19.5v-6"/></svg></a>
+              <a href="#" aria-label="X"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+              <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="4"/></svg></a>
+            </div>
+          </div>
+          <div class="st-footer__col">
+            <h4>Offerings</h4>
+            <a href="#offerings">Folding Carton</a>
+            <a href="#offerings">Corrugated</a>
+            <a href="#offerings">Rigid Boxes</a>
+            <a href="#offerings">Mailers</a>
+            <a href="#offerings">Pouches</a>
+          </div>
+          <div class="st-footer__col">
+            <h4>Company</h4>
+            <a href="#work">Featured Work</a>
+            <a href="#engineering">Engineering</a>
+            <a href="#proof">Proof</a>
+            <a href="#contact">Get a Quote</a>
+          </div>
+          <div class="st-footer__col">
+            <h4>Contact</h4>
+            <a href="mailto:hello@leelinepackage.com">hello@leelinepackage.com</a>
+            <a href="tel:+862700000000">+86 27 0000 0000</a>
+            <a href="#">Wuhan, Hubei, China</a>
+          </div>
+        </div>
+        <div class="st-footer__bottom">
+          <div>© <span id="stYear">2026</span> LeelinePackage — The Unboxing Advantage.</div>
+          <div class="st-footer__coords">ENGINEERED, NOT JUST PRINTED.<br />ISO 9001 · FSC · ISTA TESTED</div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    // Nav scroll state
+    const nav = document.getElementById('stNav');
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Mobile menu
+    const burger = document.getElementById('stBurger');
+    const menu = document.getElementById('stMenu');
+    const menuLinks = menu.querySelectorAll('a');
+    const toggleMenu = (open) => {
+      burger.classList.toggle('is-open', open);
+      menu.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    burger.addEventListener('click', () => toggleMenu(!menu.classList.contains('is-open')));
+    menuLinks.forEach((a) => a.addEventListener('click', () => toggleMenu(false)));
+
+    // IntersectionObserver reveal (multiple types)
+    const revealEls = document.querySelectorAll('[data-reveal], [data-draw]');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+
+    // Stat counters (rAF eased)
+    const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+    const animateCount = (el) => {
+      const target = parseFloat(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1600;
+      const start = performance.now();
+      const frame = (now) => {
+        const t = Math.min((now - start) / dur, 1);
+        const val = target * easeOutQuart(t);
+        el.textContent = Math.round(val) + suffix;
+        if (t < 1) requestAnimationFrame(frame);
+        else el.textContent = Math.round(target) + suffix;
+      };
+      requestAnimationFrame(frame);
+    };
+    const counters = document.querySelectorAll('[data-count]');
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          cio.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    counters.forEach((el) => cio.observe(el));
+
+    // Footer year
+    document.getElementById('stYear').textContent = new Date().getFullYear();
+  </script>
+</Layout>

@@ -1,0 +1,75 @@
+---
+import Ornament from './Ornament.astro';
+const rigid = '/images/首页/image-06.avif';
+const satin = '/images/首页/image-14.avif';
+---
+
+<section class="k-hero" id="top">
+  <div class="k-hero__glow" aria-hidden="true"></div>
+
+  <div class="k-hero__frame" aria-hidden="true">
+    <span class="k-hero__corner k-hero__corner--tl"><Ornament variant="corner" /></span>
+    <span class="k-hero__corner k-hero__corner--tr"><Ornament variant="corner" /></span>
+    <span class="k-hero__corner k-hero__corner--bl"><Ornament variant="corner" /></span>
+    <span class="k-hero__corner k-hero__corner--br"><Ornament variant="corner" /></span>
+  </div>
+
+  <div class="container k-hero__grid">
+    <div class="k-hero__copy">
+      <p class="k-eyebrow h-anim" style="--hd:.05s">
+        <Ornament variant="dot" class="k-eyebrow__dot" />
+        The Keepsake Collection
+        <Ornament variant="dot" class="k-eyebrow__dot" />
+      </p>
+
+      <h1 class="k-hero__title h-anim" style="--hd:.18s">
+        A box<br />
+        worth <em>keeping.</em>
+      </h1>
+
+      <p class="k-hero__lede h-anim" style="--hd:.34s">
+        Custom rigid boxes with antique-gold foil, sculpted inserts and
+        museum-grade structure — engineered in Wuhan, priced to keep your
+        margins as beautiful as your product.
+      </p>
+
+      <div class="k-hero__cta h-anim" style="--hd:.5s">
+        <a class="k-btn k-btn--gold k-btn--lg" href="#quote">Get a Free Quote</a>
+        <a class="k-btn k-btn--ghost k-btn--lg" href="#quote">Request Your Sample Kit</a>
+      </div>
+
+      <ul class="k-hero__proof h-anim" style="--hd:.64s">
+        <li><span>Foil &amp; emboss</span></li>
+        <li><span>Soft-touch &amp; spot UV</span></li>
+        <li><span>Samples in 3–5 days</span></li>
+      </ul>
+    </div>
+
+    <div class="k-hero__media h-anim" style="--hd:.28s">
+      <figure class="k-hero__figure">
+        <div class="k-hero__imgwrap">
+          <img src={rigid} alt="Luxury rigid gift boxes with gold foil finish" loading="eager" decoding="async" />
+        </div>
+        <figcaption class="k-hero__caption">
+          <Ornament variant="rule" class="k-hero__caption-rule" />
+          <span>No. 06 — Rigid Box, antique-gold foil</span>
+        </figcaption>
+      </figure>
+
+      <div class="k-hero__badge k-hero__badge--tl">
+        <span class="k-hero__badge-num">500K+</span>
+        <span class="k-hero__badge-label">keepsakes shipped since 2015</span>
+      </div>
+
+      <figure class="k-hero__sat">
+        <img src={satin} alt="Satin drawstring bags in blush tones" loading="eager" decoding="async" />
+        <span class="k-hero__sat-label"><Ornament variant="flourish" />Satin · No. 14</span>
+      </figure>
+    </div>
+  </div>
+
+  <div class="k-hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="k-hero__scroll-line"></span>
+  </div>
+</section>

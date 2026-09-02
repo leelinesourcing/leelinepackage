@@ -1,0 +1,312 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FoundryNav from '../components/direction-1/FoundryNav.astro';
+import FoundryHero from '../components/direction-1/FoundryHero.astro';
+import FoundryServices from '../components/direction-1/FoundryServices.astro';
+import FoundryWork from '../components/direction-1/FoundryWork.astro';
+import FoundryWhy from '../components/direction-1/FoundryWhy.astro';
+import FoundryProof from '../components/direction-1/FoundryProof.astro';
+import FoundryCTA from '../components/direction-1/FoundryCTA.astro';
+import FoundryFooter from '../components/direction-1/FoundryFooter.astro';
+---
+
+<Layout title="The Foundry — LeelinePackage">
+  <script is:inline>
+    document.documentElement.classList.add('js');
+  </script>
+
+  <style is:global>
+    @import '@fontsource-variable/fraunces/full-italic.css';
+
+    :root {
+      --color-brand-primary:   #605248;
+      --color-brand-secondary: #BBABA1;
+      --color-brand-accent:    #C79A63;
+      --color-brand-bg:        #FAF7F2;
+      --color-brand-surface:   #F1EDE3;
+      --color-brand-text:      #1E1A16;
+      --color-brand-muted:     #8A7C70;
+      --font-heading: 'Fraunces Variable', Georgia, serif;
+      --font-body:    'Manrope Variable', system-ui, sans-serif;
+    }
+  </style>
+
+  <style is:global>
+    :root {
+      --foundry-ink: #15110C;
+      --foundry-ink-2: #201812;
+      --foundry-espresso: #2B2119;
+      --foundry-cream: #FEF6D8;
+      --foundry-line: rgba(96, 82, 72, 0.16);
+      --foundry-line-strong: rgba(96, 82, 72, 0.30);
+      --foundry-line-light: rgba(250, 247, 242, 0.16);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-swift: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--color-brand-bg);
+      color: var(--color-brand-text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-heading); font-optical-sizing: auto; }
+
+    ::selection { background: var(--color-brand-accent); color: #1E1A16; }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(100% - 2.75rem, 78rem);
+      margin-inline: auto;
+    }
+    @media (min-width: 720px) { .container { width: min(100% - 4.5rem, 78rem); } }
+    @media (min-width: 1100px) { .container { width: min(100% - 6.5rem, 78rem); } }
+
+    /* Film grain over everything, very low opacity */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      z-index: 2147483000;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grain-shift 0.9s steps(4) infinite;
+    }
+    @keyframes grain-shift {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-2%, 1%); }
+      50% { transform: translate(1%, -2%); }
+      75% { transform: translate(-1%, 2%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* Micro label eyebrow */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.27em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+      line-height: 1;
+    }
+    .eyebrow .mark { color: var(--color-brand-accent); display: inline-flex; }
+    .eyebrow .mark svg { width: 15px; height: 15px; }
+    .on-dark.eyebrow, .on-dark .eyebrow { color: rgba(250, 247, 242, 0.62); }
+
+    /* Display heading */
+    .h-display {
+      font-family: var(--font-heading);
+      font-weight: 560;
+      line-height: 1.01;
+      letter-spacing: -0.03em;
+      font-size: clamp(2.15rem, 4.6vw, 3.6rem);
+      color: var(--color-brand-text);
+      text-wrap: balance;
+    }
+    .h-display em {
+      font-style: italic;
+      font-weight: 480;
+      color: var(--color-brand-primary);
+    }
+    .on-dark .h-display, .h-display.on-dark { color: var(--color-brand-cream); }
+    .on-dark .h-display em { color: var(--color-brand-accent); }
+
+    .lede {
+      font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+      line-height: 1.65;
+      color: var(--color-brand-muted);
+      max-width: 34rem;
+    }
+    .on-dark .lede, .lede.on-dark { color: rgba(250, 247, 242, 0.72); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      padding: 0.92rem 1.55rem;
+      border-radius: 999px;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid transparent;
+      transition:
+        transform 0.5s var(--ease-spring),
+        box-shadow 0.5s var(--ease-spring),
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+    }
+    .btn .arr { transition: transform 0.45s var(--ease-spring); }
+    .btn:hover .arr { transform: translateX(4px); }
+    .btn-primary {
+      background: var(--color-brand-accent);
+      color: #1E1A16;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px -12px rgba(199, 154, 99, 0.65);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: currentColor;
+      border-color: currentColor;
+      opacity: 0.9;
+    }
+    .btn-ghost:hover {
+      transform: translateY(-2px);
+      opacity: 1;
+      box-shadow: 0 12px 28px -18px rgba(0, 0, 0, 0.5);
+    }
+    .btn-ink {
+      background: var(--foundry-ink);
+      color: var(--color-brand-cream);
+    }
+    .btn-ink:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px -14px rgba(21, 17, 12, 0.6);
+    }
+
+    /* Scroll-reveal system — multiple authored types (animation-based so
+       hover transitions keep working after each element settles) */
+    .js [data-reveal="up"]:not(.is-inview) { opacity: 0; transform: translateY(32px); }
+    .js [data-reveal="left"]:not(.is-inview) { opacity: 0; transform: translateX(-48px); }
+    .js [data-reveal="right"]:not(.is-inview) { opacity: 0; transform: translateX(48px); }
+    .js [data-reveal="scale"]:not(.is-inview) { opacity: 0; transform: scale(0.92); }
+    .js [data-reveal="clip"]:not(.is-inview) { opacity: 1; clip-path: inset(100% 0 0 0); }
+
+    .js [data-reveal].is-inview { animation-duration: 0.9s; animation-timing-function: var(--ease-out-expo); animation-fill-mode: backwards; animation-delay: var(--d, 0ms); }
+    .js [data-reveal="up"].is-inview { animation-name: rv-up; }
+    .js [data-reveal="left"].is-inview { animation-name: rv-left; }
+    .js [data-reveal="right"].is-inview { animation-name: rv-right; }
+    .js [data-reveal="scale"].is-inview { animation-name: rv-scale; }
+    .js [data-reveal="clip"].is-inview { animation-name: rv-clip; animation-duration: 1.05s; }
+
+    @keyframes rv-up { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+    @keyframes rv-left { from { opacity: 0; transform: translateX(-48px); } to { opacity: 1; transform: none; } }
+    @keyframes rv-right { from { opacity: 0; transform: translateX(48px); } to { opacity: 1; transform: none; } }
+    @keyframes rv-scale { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+    @keyframes rv-clip { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .grain { animation: none; }
+      .js [data-reveal] { opacity: 1 !important; transform: none !important; clip-path: none !important; animation: none !important; }
+      .btn, .btn .arr { transition: none; }
+    }
+  </style>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <FoundryNav />
+  <main>
+    <FoundryHero />
+    <FoundryServices />
+    <FoundryWork />
+    <FoundryWhy />
+    <FoundryProof />
+    <FoundryCTA />
+  </main>
+  <FoundryFooter />
+
+  <script>
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Navbar responds to scroll (shrink / blur / opacity) */
+    const nav = document.getElementById('siteNav');
+    const onScroll = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 50);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* Mobile menu */
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = () => {
+      document.body.classList.remove('menu-open');
+      mobileMenu.classList.remove('is-open');
+    };
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const open = mobileMenu.classList.toggle('is-open');
+        document.body.classList.toggle('menu-open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        mobileMenu.setAttribute('aria-hidden', String(!open));
+      });
+      mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    }
+
+    /* Scroll reveal — multiple types */
+    if (!prefersReduced) {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-inview');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
+      );
+      document.querySelectorAll('[data-reveal]').forEach((el) => revealObserver.observe(el));
+    } else {
+      document.querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('is-inview'));
+    }
+
+    /* Stat counters — requestAnimationFrame eased counting */
+    const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+    function runCounter(el) {
+      if (el.dataset.done) return;
+      el.dataset.done = '1';
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const dur = 1700;
+      const start = performance.now();
+      if (prefersReduced) {
+        el.textContent = (decimals ? target.toFixed(decimals) : Math.round(target)) + suffix;
+        return;
+      }
+      const frame = (now) => {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = easeOutExpo(p);
+        const val = target * eased;
+        el.textContent = (decimals ? val.toFixed(decimals) : Math.round(val)) + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
+    }
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            runCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    document.querySelectorAll('[data-target]').forEach((el) => counterObserver.observe(el));
+  </script>
+</Layout>

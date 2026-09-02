@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import directionsData from '../../.new-site/directions.json';
+
+const directions = directionsData.directions;
+
+const paletteKeys = ['primary', 'secondary', 'accent', 'bg', 'surface', 'text', 'muted'];
+const paletteLabels = {
+  primary: 'Primary',
+  secondary: 'Secondary',
+  accent: 'Accent',
+  bg: 'Background',
+  surface: 'Surface',
+  text: 'Text',
+  muted: 'Muted',
+};
+---
+
+<Layout title="LeelinePackage — Concept Navigator">
+  <style is:global>
+    :root {
+      --nav-ink: #1a1512;
+      --nav-paper: #f6f2ea;
+      --nav-line: rgba(26, 21, 18, 0.12);
+    }
+  </style>
+
+  <header
+    style="background: var(--nav-ink); color: #f6f2ea;"
+    class="border-b border-white/10"
+  >
+    <div class="mx-auto max-w-6xl px-6 py-14 md:py-20">
+      <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-white/50">
+        LeelinePackage · Homepage Redesign
+      </p>
+      <h1 class="mt-4 font-heading text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
+        5 distinct concept directions
+      </h1>
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
+        Each is a full, finished homepage prototype for LeelinePackage — the custom-packaging
+        manufacturer and "Structural Brand Architect" in Wuhan. Browse all five, then pick the one
+        that feels like <em>your</em> brand.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3 text-sm text-white/80">
+        <span class="rounded-full border border-white/15 px-4 py-1.5">🔒 Direction 1 &amp; 2 colors locked to references</span>
+        <span class="rounded-full border border-white/15 px-4 py-1.5">Primary CTA · Get a Free Quote</span>
+        <span class="rounded-full border border-white/15 px-4 py-1.5">Real Leeline product imagery</span>
+      </div>
+    </div>
+  </header>
+
+  <main style="background: var(--nav-paper);" class="relative">
+    <!-- faint grid motif like a print house proofing wall -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none absolute inset-0 opacity-[0.35]"
+      style="background-image:
+        linear-gradient(to right, var(--nav-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--nav-line) 1px, transparent 1px);
+        background-size: 56px 56px;"
+    ></div>
+
+    <div class="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
+      <div class="grid gap-6 md:grid-cols-2 md:gap-8">
+        {directions.map((d) => (
+          <article
+            class="group relative flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03),0_24px_60px_-24px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_2px_0_rgba(0,0,0,0.03),0_40px_80px_-28px_rgba(0,0,0,0.35)]"
+          >
+            <div class="flex items-center gap-3 border-b border-black/5 px-6 pt-6 pb-4">
+              <span
+                class="flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-semibold"
+                style="background: {d.palette.primary}; color: {d.palette.bg};"
+              >
+                {String(d.id).padStart(2, '0')}
+              </span>
+              <div class="min-w-0">
+                <h2 class="truncate font-heading text-xl font-semibold tracking-tight">
+                  {d.name}
+                </h2>
+                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-black/45">
+                  /direction-{d.id}-{d.slug}
+                </p>
+              </div>
+            </div>
+
+            <div class="flex flex-1 flex-col px-6 py-5">
+              <p class="text-[15px] leading-relaxed text-black/70">{d.description}</p>
+
+              <div class="mt-6">
+                <p class="font-mono text-[10px] uppercase tracking-[0.22em] text-black/40">
+                  Palette
+                </p>
+                <div class="mt-2 flex h-12 w-full overflow-hidden rounded-lg border border-black/10">
+                  {paletteKeys.map((key) => (
+                    <span
+                      class="flex-1"
+                      style="background: {d.palette[key]};"
+                      title={`${paletteLabels[key]}: ${d.palette[key]}`}
+                    ></span>
+                  ))}
+                </div>
+                <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                  {[
+                    d.palette.primary,
+                    d.palette.accent,
+                    d.palette.bg,
+                    d.palette.text,
+                    d.palette.muted,
+                  ].map((hex) => (
+                    <span class="font-mono text-[10px] text-black/45">{hex}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div class="mt-4 flex flex-wrap gap-2 text-[12px]">
+                <span
+                  class="rounded-full border border-black/10 px-3 py-1"
+                  style="color: {d.palette.text};"
+                >
+                  Head · <span style="font-family: {d.fonts.heading};">{d.fonts.heading}</span>
+                </span>
+                <span class="rounded-full border border-black/10 px-3 py-1">
+                  Body · <span style="font-family: {d.fonts.body};">{d.fonts.body}</span>
+                </span>
+              </div>
+
+              <div class="mt-5 rounded-xl border border-black/5 bg-black/[0.025] p-4">
+                <p class="font-mono text-[10px] uppercase tracking-[0.22em] text-black/40">
+                  Why it works
+                </p>
+                <p class="mt-1.5 text-[13.5px] leading-relaxed text-black/70">{d.rationale}</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between border-t border-black/5 bg-black/[0.02] px-6 py-4">
+              <a
+                href={`/direction-${d.id}-${d.slug}`}
+                class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:gap-3"
+                style="background: {d.palette.primary};"
+              >
+                View prototype
+                <span aria-hidden="true">→</span>
+              </a>
+              <span class="font-mono text-[11px] text-black/35">Concept {d.id} of 5</span>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <footer style="background: var(--nav-ink); color: #f6f2ea;" class="px-6 py-10 text-center">
+    <p class="text-sm text-white/60">
+      Open any concept above, or press <code class="rounded bg-white/10 px-1.5 py-0.5">/direction-N-slug</code>
+      directly. Port is shown when you run <code class="rounded bg-white/10 px-1.5 py-0.5">npm run dev</code>.
+    </p>
+  </footer>
+</Layout>

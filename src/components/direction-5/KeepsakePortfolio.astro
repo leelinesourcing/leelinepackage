@@ -1,0 +1,64 @@
+---
+import Ornament from './Ornament.astro';
+
+const cases = [
+  {
+    index: 'I',
+    brand: 'Maison Lumière',
+    persona: 'Cosmetic Carla · Skincare founder',
+    img: '/images/首页/image-06.avif',
+    alt: 'Rigid keepsake boxes with gold foil for a skincare brand',
+    tag: 'Rigid set · Gold foil + emboss',
+    quote: '“My $180 serum now reads like $300. Customers film the unboxing before they touch the bottle.”',
+    stat: '2,000 units · shipped in 4 weeks',
+  },
+  {
+    index: 'II',
+    brand: 'Sable & Sage',
+    persona: 'Cosmetic Carla · Candle atelier',
+    img: '/images/首页/image-11.avif',
+    alt: 'Keepsake tin box for a luxury candle brand',
+    tag: 'Tin + soft-touch lid · Deboss',
+    quote: '“The tin stays on their vanity long after the candle is gone. That is brand presence you cannot buy back.”',
+    stat: '1,200 units · gold-stamped lid',
+  },
+  {
+    index: 'III',
+    brand: 'Véla Beauty',
+    persona: 'DTC Danny · Beauty direct-to-consumer',
+    img: '/images/首页/image-14.avif',
+    alt: 'Satin bags and rigid boxes for a beauty brand',
+    tag: 'Satin reveal + rigid outer',
+    quote: '“The satin drawstring inside the rigid shell — the double reveal made our unboxing reel hit 1M views.”',
+    stat: '5,000 units · flat-pack optimized',
+  },
+];
+---
+
+<section class="k-work" id="work">
+  <div class="container">
+    <header class="k-sechead k-sechead--dark" data-reveal="up">
+      <p class="k-eyebrow"><Ornament variant="dot" class="k-eyebrow__dot" />Keepsakes, Delivered<Ornament variant="dot" class="k-eyebrow__dot" /></p>
+      <h2 class="k-h2">Made to be<br /><em>kept.</em></h2>
+      <div class="k-sechead__rule"><Ornament variant="rule" /></div>
+    </header>
+
+    <div class="k-work__grid">
+      {cases.map((c) => (
+        <article class="k-case" data-reveal="up">
+          <div class="k-case__media">
+            <img src={c.img} alt={c.alt} loading="lazy" decoding="async" />
+            <span class="k-case__index">{c.index}</span>
+            <span class="k-case__tag">{c.tag}</span>
+          </div>
+          <div class="k-case__body">
+            <h3 class="k-case__brand">{c.brand}</h3>
+            <p class="k-case__persona">{c.persona}</p>
+            <p class="k-case__quote">{c.quote}</p>
+            <p class="k-case__stat"><Ornament variant="flourish" class="k-case__flourish" />{c.stat}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

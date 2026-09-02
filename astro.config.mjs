@@ -9,6 +9,9 @@ export default defineConfig({
     imageService: 'compile',
   }),
   integrations: [react()],
+  server: {
+    host: true,
+  },
   vite: {
     plugins: [tailwindcss()],
   },

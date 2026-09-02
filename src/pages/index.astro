@@ -1,158 +1,1971 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import directionsData from '../../.new-site/directions.json';
 
-const directions = directionsData.directions;
-
-const paletteKeys = ['primary', 'secondary', 'accent', 'bg', 'surface', 'text', 'muted'];
-const paletteLabels = {
-  primary: 'Primary',
-  secondary: 'Secondary',
-  accent: 'Accent',
-  bg: 'Background',
-  surface: 'Surface',
-  text: 'Text',
-  muted: 'Muted',
+const IMG = {
+  logo: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp',
+  team: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03.avif',
+  team480: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-480.avif',
+  team960: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-960.avif',
+  team1440: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-1440.avif',
+  certificate: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/China-certification.avif',
+  sgs: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/SGS.avif',
+  compliance: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/compliance-cert.webp',
+  ce: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/ce.avif',
+  case1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Custom-Packages-cases-1.avif',
+  case2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Personalized-Packages-cases-2.avif',
+  case3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Personalized-Packages-cases-3.avif',
+  case4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-4.avif',
+  case5: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-5.avif',
+  case6: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-6.avif',
+  proc1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Inquiry-Quote-2.avif',
+  proc2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Artwork-Sample-1.avif',
+  proc3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Quality-Control.avif',
+  proc4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Packing-Shipping-1.avif',
+  folding: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-04.avif',
+  corrugated: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-05.avif',
+  rigid: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-06.avif',
+  mailer: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-07.avif',
+  display: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-08.avif',
+  pouches: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-09.avif',
+  paperbag: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-10.avif',
+  tin: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-11.avif',
+  acrylic: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-12.avif',
+  reusable: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-13.avif',
+  satin: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-14.avif',
+  labels: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-15.avif',
+  kraft: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-16.avif',
+  fiberboard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-17.avif',
+  cardboard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-18.avif',
+  plastic: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-19.avif',
+  fsc: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-20.avif',
+  tailored: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-21.avif',
+  affordable: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-22.avif',
+  expert: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-23.avif',
+  shipping: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-24.avif',
 };
+
+const materials = [
+  { name: 'Kraft Paper', spec: 'Unbleached · 100% recyclable', img: IMG.kraft },
+  { name: 'Corrugated Fiberboard', spec: 'B / C / E flute · crush-tested', img: IMG.fiberboard },
+  { name: 'Cardboard', spec: 'Rigid chipboard · foil-ready', img: IMG.cardboard },
+  { name: 'FSC®-Certified', spec: 'Chain-of-custody verified', img: IMG.fsc },
+  { name: 'Recycled Plastic', spec: 'Molded & post-consumer options', img: IMG.plastic },
+];
+
+const customize = [
+  {
+    title: 'Size & Dimensions',
+    body: 'Dielines cut to fit your product exactly — any length, width, height or corner radius, from a miniature rigid carton to a full-size shipper.',
+    tags: ['Any shape', 'Tight tolerance', 'Inside-print'],
+    img: IMG.tailored,
+  },
+  {
+    title: 'Material & Board',
+    body: 'Choose the structural backbone for your run — from lightweight folding carton to heavy-duty corrugated shipper.',
+    tags: ['Corrugated B/C/E flute', 'Rigid chipboard', 'Kraft board', 'FSC®-certified', 'Recycled board'],
+    img: IMG.fiberboard,
+  },
+  {
+    title: 'Finishes & Effects',
+    body: 'Change how the surface feels and catches the light, to signal the price point before the box is even opened.',
+    tags: ['Matte / gloss / soft-touch', 'Gold & silver foil', 'Emboss / deboss', 'Spot UV'],
+    img: IMG.rigid,
+  },
+  {
+    title: 'Printing & Colour',
+    body: 'Lock a colour standard that holds across every run — we match to your Pantone and proof it on the same press.',
+    tags: ['Offset / flexo / digital', 'Exact Pantone match', 'Certified proofing'],
+    img: IMG.shipping,
+  },
+  {
+    title: 'Inserts & Structure',
+    body: 'Hold the product still, show it off, or let it arrive ready to gift — engineered to fit the exact contents.',
+    tags: ['EVA / foam inserts', 'Dividers & trays', 'Magnetic closure', 'Display window'],
+    img: IMG.case1,
+  },
+  {
+    title: 'Eco & Sustainable',
+    body: 'Lower the footprint without giving up shelf appeal or protection — from recycled board to compostable film.',
+    tags: ['Recycled content', 'FSC® chain-of-custody', 'Compostable pouches', 'Soy-based inks'],
+    img: IMG.fsc,
+  },
+];
+
+const services = [
+  { name: 'Corrugated', img: IMG.corrugated, blurb: 'Mailers & shippers, engineered to survive the last mile.', span: 's-4' },
+  { name: 'Rigid Box', img: IMG.rigid, blurb: 'Keepsake boxes with magnetic closures and foil.', span: 's-4' },
+  { name: 'Mailer Box', img: IMG.mailer, blurb: 'Custom-sized, self-locking, unboxing-ready.', span: 's-4' },
+  { name: 'Display Box', img: IMG.display, blurb: 'Retail-ready counter and floor displays.', span: 's-4' },
+  { name: 'Pouches', img: IMG.pouches, blurb: 'Flexible, food-safe, resealable, compostable.', span: 's-4' },
+  { name: 'Paper Bag', img: IMG.paperbag, blurb: 'Kraft and coated totes for retail carry-out.', span: 's-4' },
+  { name: 'Tin Box', img: IMG.tin, blurb: 'Reusable metal keepsakes and food tins.', span: 's-4' },
+  { name: 'Acrylic Box', img: IMG.acrylic, blurb: 'Crystal-clear display cases, precision-cut.', span: 's-4' },
+  { name: 'Reusable Bag', img: IMG.reusable, blurb: 'Woven and non-woven, built to be reused.', span: 's-4' },
+  { name: 'Satin Bag', img: IMG.satin, blurb: 'Soft-touch pouches for jewelry and gifts.', span: 's-4' },
+  { name: 'Labels & Stickers', img: IMG.labels, blurb: 'Die-cut, foil-stamped, weatherproof.', span: 's-8' },
+];
+const products = [
+  { name: 'Folding Carton', img: IMG.folding, blurb: 'Crisp retail cartons with sharp creases and full-bleed print.' },
+  ...services,
+];
+
+
+const cases = [
+  {
+    title: 'The Keepsake Rigid',
+    client: 'Nova Skin',
+    persona: 'Beauty & skincare',
+    img: IMG.case1,
+    metric: '+38%',
+    metricLabel: 'perceived value',
+    body: 'A magnetic-closure rigid box with gold foil and a debossed monogram turned a serum into a keepsake customers photograph before they even open it.',
+    tag: 'Rigid · gold foil · deboss',
+  },
+  {
+    title: 'The DTC Unboxing',
+    client: 'Bloom Supply',
+    persona: 'Direct-to-consumer',
+    img: IMG.case2,
+    metric: '2×',
+    metricLabel: 'unboxing shares',
+    body: 'A custom-sized, self-locking mailer printed inside and out made every delivery feel like a drop. Shares doubled the month it shipped.',
+    tag: 'Mailer · inside print · custom size',
+  },
+  {
+    title: 'The Flat-Pack Pivot',
+    client: 'Atlas Home',
+    persona: 'Supply chain',
+    img: IMG.case3,
+    metric: '-23%',
+    metricLabel: 'freight cost',
+    body: 'Re-engineered dielines and flat-pack nesting cut dimensional weight across a 50,000-unit run — without weakening a single flute.',
+    tag: 'Corrugated · flat-pack · ISTA tested',
+  },
+];
+
+const testimonials = [
+  {
+    quote: [
+      "Our subscription runs on a 43-piece monthly box, so fit and freight matter. We switched our mailer to a custom size and watched dimensional weight drop 28% in the first quarter - that alone paid for the redesign.",
+      "The 99.5% on-time delivery rate is real. Across six seasonal launches we have had one late shipment, and that was a carrier issue, not the box team. White-dummy samples arrived in four days, and digital mockups were in our inbox the same day.",
+      "The inside-print detail is what our subscribers photograph. Unboxing shares on our gift sets went up 2.4x the month we launched, and returns from damaged goods fell to nearly zero. We keep reordering the same spec."
+    ],
+    name: 'Priya Mehta',
+    role: 'Operations Director',
+    country: 'United States',
+    industry: 'Subscription Boxes',
+    initials: 'PM',
+  },
+  {
+    quote: [
+      "We briefed a new flat-pouch range for our coffee line - matte finish, our logo, an exact Pantone match. Their team fixed a low-res file before we noticed, and the first physical sample matched the on-screen proof to the shade.",
+      "Print quality is the reason we stayed. Run-to-run colour consistency has held at 98% across four reorders of 12,000 units each, and the food-safe barrier keeps our beans at the freshness we measure.",
+      "Lead time stayed at 7 business days even when we doubled the order mid-quarter. The pouch cost came in 18% under our Western quote. It is the rare supplier that is both cheap and precise."
+    ],
+    name: 'Callum Whitfield',
+    role: 'Product Manager',
+    country: 'Australia',
+    industry: 'Specialty Coffee',
+    initials: 'CW',
+  },
+];
+
+const brandLogos = [
+  { name: 'Under Armour', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/under-armour-3.webp' },
+  { name: 'copper', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/copper.webp' },
+  { name: 'Ring', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/RING.webp' },
+  { name: 'Sephora', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/sephora.webp' },
+  { name: 'Illy', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/illy-1.webp' },
+  { name: 'Wilderness', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/WILDERNESS.webp' },
+  { name: 'Misstomis', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/misstomis.webp' },
+  { name: 'JBL', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/JBL-2.webp' },
+  { name: 'Volcom', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/VOLCOM-1.webp' },
+  { name: 'Pufies', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/PUFIES.webp' },
+  { name: 'Disney', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/disney.webp' },
+  { name: 'pat', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/pat.webp' },
+  { name: 'Procana', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Procana.webp' },
+  { name: 'Maybelline', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/MAYBELLINE.webp' },
+  { name: 'Primaskin', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/primaskin.webp' },
+  { name: '100', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/100.webp' },
+  { name: 'Panasonic', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Panasonic.webp' },
+  { name: '1more', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/1more.webp' },
+  { name: 'Starbucks', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Starbucks.webp' },
+  { name: 'wimpet', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/wimpet.webp' },
+  { name: 'KOMOS', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/KOMOS.webp' },
+  { name: 'Lexus', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/lexus.webp' },
+  { name: 'Lacoste', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/LACOSTE-1.webp' },
+  { name: 'Casillero', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/casillero.webp' },
+  { name: 'Raymond Weil', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/RAYMOND-WEIL.webp' },
+];
+const sceneImages = [
+  { img: IMG.case1, caption: 'Rigid keepsake box — beauty & skincare' },
+  { img: IMG.case2, caption: 'Custom mailer unboxing — DTC e-commerce' },
+  { img: IMG.case3, caption: 'Rigid gift box — gifting & retail' },
+  { img: IMG.case4, caption: 'Custom packaging — subscription box' },
+  { img: IMG.case5, caption: 'Corrugated shipper — supply chain' },
+  { img: IMG.case6, caption: 'Labels & stickers — retail & merch' },
+];
+
+
+const industries = [
+  { name: 'Beauty & Cosmetics', tag: 'Cosmetic', img: IMG.rigid, blurb: 'Rigid keepsake boxes, foam inserts and exact Pantone colour match.' },
+  { name: 'Jewelry & Accessories', tag: 'Jewelry', img: IMG.satin, blurb: 'Satin bags and velvet-lined rigid boxes for keepsake presentation.' },
+  { name: 'Apparel & Fashion', tag: 'Apparel', img: IMG.reusable, blurb: 'Kraft totes, mailers and garment boxes that travel well.' },
+  { name: 'Food & Beverage', tag: 'Food-safe', img: IMG.pouches, blurb: 'Food-safe pouches and cartons that keep product fresh.' },
+  { name: 'DTC & Subscription', tag: 'DTC', img: IMG.mailer, blurb: 'Custom-sized mailers that cut dimensional weight and surprise subscribers.' },
+  { name: 'Consumer Electronics', tag: 'Electronics', img: IMG.acrylic, blurb: 'Protective rigid and acrylic cases with custom foam inserts.' },
+];
+
+const edges = [
+  { num: '01', label: 'Design', title: 'Design & Dieline', desc: 'Professional structural design and dieline development tailored to your product specifications.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-1.webp' },
+  { num: '02', label: 'Printing', title: 'Offset Printing Press', desc: 'High-quality offset printing with computer-to-plate technology for accurate color control.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Offset-Printing-Press.webp' },
+  { num: '03', label: 'Lamination', title: 'Lamination', desc: 'Matte, gloss, soft touch and special lamination options for premium tactile finishes.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-3.webp' },
+  { num: '04', label: 'Finishing', title: 'Finishing', desc: 'Hot foil stamping, embossing, debossing, spot UV and more decorative techniques.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-4.webp' },
+  { num: '05', label: 'Die Cut', title: 'Die Cutting', desc: 'Precise die cutting for perfect shape and clean edges on every piece.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-5.webp' },
+  { num: '06', label: 'Assembly', title: 'Box Assembly', desc: 'Skilled handwork and machine assembly ensuring stable quality for every box.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-6.webp' },
+  { num: '07', label: 'QC', title: 'QC & Packing', desc: '100% inspection and strong packing for safe delivery to your door.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-7.webp' },
+];
+
+const process = [
+  { title: 'Consultation', body: 'We discuss your brand needs and goals, guiding you through eco-friendly materials and custom designs that fit your vision and budget.', meta: 'Day 0', img: IMG.proc1 },
+  { title: '3D design & sampling', body: 'Our team creates 3D designs and delivers samples in 5\u201315 days. On approval we run Heidelberg presses for quality production.', meta: '5\u201315 days', img: IMG.proc2 },
+  { title: 'Quality control', body: 'ISO 9001 and ISTA-3A certified checks ensure structural integrity, print quality and eco-conscious standards in every package.', meta: '2\u20133 days', img: IMG.proc3 },
+  { title: 'Delivery', body: 'With a 99.5% on-time delivery rate and real-time tracking, your packaging arrives exactly as expected.', meta: '15\u201325 days', img: IMG.proc4 },
+];
+
+const faqs = [
+  { q: 'What is your MOQ, and are there first-order or test-run rules?', a: 'Most custom printed packaging starts at 500 units per format. First orders and test runs are welcome, and we can split some formats across SKUs - just tell us your mix and we will price it per line.' },
+  { q: 'Can you sign an NDA and keep my design confidential?', a: 'Yes. We sign an NDA up front, your dielines and moulds remain your property, and we commit in writing not to re-sell or share your artwork.' },
+  { q: 'How does sampling work - cost, turnaround, and does it credit my order?', a: 'Digital 3D mockups are free. Physical white-dummy samples ship in 3-5 days, and printed samples in 7-10 days. Sample cost is credited against your order.' },
+  { q: 'What payment methods and terms do you accept?', a: 'We accept T/T, PayPal and major cards, with flexible terms from 30% deposit plus balance before shipment for larger runs. Escrow and DDP payment options are available.' },
+  { q: 'How is production lead time split by quantity or complexity?', a: 'Standard runs are 15-25 days after design approval depending on quantity and finishing. We flag expedited and capacity limits on your quote so you can plan launches safely.' },
+  { q: 'How many revisions are included with my design work?', a: 'Our packaging engineers include two full revision rounds with every dieline and artwork project, and we log every change so you always know the current version.' },
+];
+
+const KEYWORDS = 'custom packaging manufacturers, custom printed packaging manufacturers, custom eco-friendly packaging manufacturers, custom rigid box manufacturers, custom cosmetic packaging manufacturers, custom jewelry packaging manufacturers';
+
+const seoJsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'LeelinePackage',
+  url: 'https://www.leelinepackage.com/',
+  description: 'Custom packaging manufacturer in China — corrugated mailers, rigid gift boxes, folding cartons, pouches, labels & more. Factory-direct, MOQ from 500.',
+  foundingDate: '2015',
+  areaServed: 'Worldwide',
+  address: { '@type': 'PostalAddress', addressCountry: 'CN' },
+  makesOffer: [
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Printed Packaging' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Eco-Friendly Packaging' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Rigid Boxes' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Cosmetic Packaging' } },
+    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Jewelry Packaging' } },
+  ],
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
+});
 ---
 
-<Layout title="LeelinePackage — Concept Navigator">
+<Layout
+  title="Custom Packaging Manufacturer | MOQ 500, 5-Day Samples, ISO 9001 | LeelinePackage"
+  description="LeelinePackage is a custom packaging manufacturer in China — corrugated mailers, rigid gift boxes, folding cartons, pouches, labels & more. Factory-direct pricing, MOQ from 500, fast 3D mockups, FSC & ISO 9001. Get a free quote today."
+  keywords={KEYWORDS}
+  canonical="https://www.leelinepackage.com/"
+  ogImage="https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-06.avif"
+  jsonLd={seoJsonLd}
+>
   <style is:global>
     :root {
-      --nav-ink: #1a1512;
-      --nav-paper: #f6f2ea;
-      --nav-line: rgba(26, 21, 18, 0.12);
+      --color-brand-primary:   #1F3B2C;
+      --color-brand-secondary: #C9A87C;
+      --color-brand-accent:    #B08D4C;
+      --color-brand-bg:        #F5F0E5;
+      --color-brand-surface:   #EDE5D4;
+      --color-brand-text:      #21241C;
+      --color-brand-muted:     #8C8676;
+      --font-heading: 'Newsreader Variable', Georgia, serif;
+      --font-body:    'Instrument Sans Variable', system-ui, sans-serif;
+      --forest-deep: #14261B;
+      --brass: #B08D4C;
+      --brass-soft: #C9A87C;
+      --ivory: #F5F0E5;
+      --kraft: #EDE5D4;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+    body.menu-open { overflow: hidden; }
+
+    ::selection { background: var(--brass-soft); color: var(--forest-deep); }
+
+    /* Scroll-reveal (kept global so ancestors like html/body aren't scoped away).
+       :where() zeroes the inner selector's specificity so hover transforms still win. */
+    html.js :where([data-reveal]) {
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.9s ease, clip-path 0.9s ease;
+      transition-delay: var(--d, 0s);
+    }
+    html.js :where([data-reveal="up"]) { transform: translateY(36px); }
+    html.js :where([data-reveal="left"]) { transform: translateX(-48px); }
+    html.js :where([data-reveal="right"]) { transform: translateX(48px); }
+    html.js :where([data-reveal="scale"]) { transform: scale(0.9); }
+    html.js :where([data-reveal="blur"]) { filter: blur(12px); }
+    html.js :where([data-reveal="clip"]) { clip-path: inset(0 0 100% 0); }
+    html.js :where([data-reveal].in) {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      clip-path: inset(0 0 0 0);
+    }
+
+    /* Heavy below-fold, non-anchor sections: skip off-screen paint.
+       Excludes hero (LCP), sticky #why, anchor targets, and JS carousels
+       (#scenes / #edge / logo wall) that measure element widths. */
+    #customize, #proof, #patent, #faq {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 600px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
     }
   </style>
 
-  <header
-    style="background: var(--nav-ink); color: #f6f2ea;"
-    class="border-b border-white/10"
-  >
-    <div class="mx-auto max-w-6xl px-6 py-14 md:py-20">
-      <p class="font-mono text-[11px] uppercase tracking-[0.28em] text-white/50">
-        LeelinePackage · Homepage Redesign
-      </p>
-      <h1 class="mt-4 font-heading text-4xl leading-[1.05] font-semibold tracking-tight md:text-6xl">
-        5 distinct concept directions
-      </h1>
-      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
-        Each is a full, finished homepage prototype for LeelinePackage — the custom-packaging
-        manufacturer and "Structural Brand Architect" in Wuhan. Browse all five, then pick the one
-        that feels like <em>your</em> brand.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3 text-sm text-white/80">
-        <span class="rounded-full border border-white/15 px-4 py-1.5">🔒 Direction 1 &amp; 2 colors locked to references</span>
-        <span class="rounded-full border border-white/15 px-4 py-1.5">Primary CTA · Get a Free Quote</span>
-        <span class="rounded-full border border-white/15 px-4 py-1.5">Real Leeline product imagery</span>
+  <script is:inline>document.documentElement.classList.add('js');</script>
+
+  <!-- ============ SVG MOTIF SPRITE ============ -->
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <!-- The brass leaf seal — recurring signature motif -->
+      <symbol id="i-leaf" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="1.1" />
+        <circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.45" />
+        <path d="M32 12 C 19 20 19 44 32 52 C 45 44 45 20 32 12 Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" />
+        <path d="M32 19 L32 47" stroke="currentColor" stroke-width="0.8" />
+        <path d="M32 25 C 28 27.5 26.5 30 25.5 32.5" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" />
+        <path d="M32 31 C 36 33.5 37.5 36 38.5 38.5" fill="none" stroke="currentColor" stroke-width="0.55" stroke-linecap="round" />
+        <circle cx="32" cy="6" r="1.1" fill="currentColor" />
+        <circle cx="32" cy="58" r="1.1" fill="currentColor" />
+        <circle cx="6" cy="32" r="1.1" fill="currentColor" />
+        <circle cx="58" cy="32" r="1.1" fill="currentColor" />
+      </symbol>
+
+      <!-- Foil underline flourish -->
+      <symbol id="i-foil" viewBox="0 0 140 16">
+        <path d="M2 11 C 38 4 84 4 116 10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+        <path d="M116 10 C 123 12 131 11 136 6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+        <circle cx="137" cy="6" r="1.5" fill="currentColor" />
+      </symbol>
+
+      <!-- Small leaf for inline accents -->
+      <symbol id="i-leaf-sm" viewBox="0 0 32 32">
+        <path d="M16 4 C 9 9 9 23 16 28 C 23 23 23 9 16 4 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" />
+        <path d="M16 9 L16 25" stroke="currentColor" stroke-width="0.8" />
+      </symbol>
+      <symbol id="i-logo-nova" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+      <symbol id="i-logo-marrow" viewBox="0 0 24 24"><path d="M12 2 22 12 12 22 2 12Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7 17 12 12 17 7 12Z" fill="currentColor"/></symbol>
+      <symbol id="i-logo-bloom" viewBox="0 0 24 24"><path d="M12 3c1.5 2.3 1.5 4.7 0 7-1.5-2.3-1.5-4.7 0-7Zm6 4c-1 2-2.6 3-5 3 1-2 2.6-3 5-3Zm-12 0c2.4 0 4 1 5 3-2.4 0-4-1-5-3Zm3 7c2-1 4-1 6 0 2 1 3 3 3 5-2-1-3-2-6-2s-4 1-6 2c0-2 1-4 3-5Z" fill="currentColor"/></symbol>
+      <symbol id="i-logo-keen" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 5v14" stroke="currentColor" stroke-width="1.6"/><path d="M9 8.5c1.5-1 4.5-1 6 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+      <symbol id="i-logo-atlas" viewBox="0 0 24 24"><path d="M3 11 12 4l9 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9h14v-9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+      <symbol id="i-logo-vanta" viewBox="0 0 24 24"><path d="M12 2l8 5v10l-8 5-8-5V7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" fill="currentColor"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ============ GRAIN OVERLAY ============ -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="LeelinePackage home">
+        <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" loading="eager" />
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#top">Home</a>
+        <div class="nav-drop">
+          <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Products<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu">
+            <a href="#offerings">Custom Bag</a>
+            <a href="#offerings">Custom Box</a>
+            <a href="#offerings">Custom Folding Cartons</a>
+            <a href="#offerings">Custom Paper Bag</a>
+            <a href="#offerings">Custom Rigid Boxes</a>
+            <a href="#offerings">Custom Mailer Bags</a>
+            <a href="#offerings">Custom Pouches</a>
+            <a href="#offerings">Custom Tote Bags</a>
+            <a href="#offerings">Custom Reusable Shopping Bags</a>
+            <a href="#offerings">Custom Display Box</a>
+            <a href="#offerings">Custom Corrugated Boxes</a>
+            <a href="#offerings">Custom Tin Box</a>
+            <a href="#offerings">Custom Acrylic Box</a>
+            <a href="#offerings">Custom Package Stickers</a>
+            <a href="#offerings">Custom Velvet Bags</a>
+          </div>
+        </div>
+        <div class="nav-drop">
+          <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Industries<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu">
+            <a href="#industries">Custom Jewelry Packaging</a>
+            <a href="#industries">Custom Gift Box</a>
+            <a href="#industries">Custom Shipping Box</a>
+          </div>
+        </div>
+        <a href="#about">About Us</a>
+        <a href="#work">Case Study</a>
+        <div class="nav-drop">
+          <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Services<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <div class="nav-menu">
+            <a href="#process">Structural Engineering</a>
+            <a href="#process">Packaging Artwork Design</a>
+            <a href="#process">Packaging Sample & Prototyping</a>
+          </div>
+        </div>
+        <a href="#blog">Blog</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-primary btn-sm" href="#quote">
+          Get a Free Quote
+          <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span>
+        </button>
       </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <nav class="mobile-links" aria-label="Mobile">
+        <a href="#top">Home</a>
+        <details>
+          <summary>Products</summary>
+          <div class="sub">
+          <a href="#offerings">Custom Bag</a>
+          <a href="#offerings">Custom Box</a>
+          <a href="#offerings">Custom Folding Cartons</a>
+          <a href="#offerings">Custom Paper Bag</a>
+          <a href="#offerings">Custom Rigid Boxes</a>
+          <a href="#offerings">Custom Mailer Bags</a>
+          <a href="#offerings">Custom Pouches</a>
+          <a href="#offerings">Custom Tote Bags</a>
+          <a href="#offerings">Custom Reusable Shopping Bags</a>
+          <a href="#offerings">Custom Display Box</a>
+          <a href="#offerings">Custom Corrugated Boxes</a>
+          <a href="#offerings">Custom Tin Box</a>
+          <a href="#offerings">Custom Acrylic Box</a>
+          <a href="#offerings">Custom Package Stickers</a>
+          <a href="#offerings">Custom Velvet Bags</a>
+          </div>
+        </details>
+        <details>
+          <summary>Industries</summary>
+          <div class="sub">
+          <a href="#industries">Custom Jewelry Packaging</a>
+          <a href="#industries">Custom Gift Box</a>
+          <a href="#industries">Custom Shipping Box</a>
+          </div>
+        </details>
+        <a href="#about">About Us</a>
+        <a href="#work">Case Study</a>
+        <details>
+          <summary>Services</summary>
+          <div class="sub">
+          <a href="#process">Structural Engineering</a>
+          <a href="#process">Packaging Artwork Design</a>
+          <a href="#process">Packaging Sample & Prototyping</a>
+          </div>
+        </details>
+        <a href="#blog">Blog</a>
+        <a href="#quote" class="btn btn-primary">Get a Free Quote</a>
+      </nav>
     </div>
   </header>
 
-  <main style="background: var(--nav-paper);" class="relative">
-    <!-- faint grid motif like a print house proofing wall -->
-    <div
-      aria-hidden="true"
-      class="pointer-events-none absolute inset-0 opacity-[0.35]"
-      style="background-image:
-        linear-gradient(to right, var(--nav-line) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--nav-line) 1px, transparent 1px);
-        background-size: 56px 56px;"
-    ></div>
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <svg class="hero-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
 
-    <div class="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
-      <div class="grid gap-6 md:grid-cols-2 md:gap-8">
-        {directions.map((d) => (
-          <article
-            class="group relative flex flex-col overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_1px_0_rgba(0,0,0,0.03),0_24px_60px_-24px_rgba(0,0,0,0.25)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_2px_0_rgba(0,0,0,0.03),0_40px_80px_-28px_rgba(0,0,0,0.35)]"
-          >
-            <div class="flex items-center gap-3 border-b border-black/5 px-6 pt-6 pb-4">
-              <span
-                class="flex h-9 w-9 items-center justify-center rounded-full font-heading text-sm font-semibold"
-                style="background: {d.palette.primary}; color: {d.palette.bg};"
-              >
-                {String(d.id).padStart(2, '0')}
-              </span>
-              <div class="min-w-0">
-                <h2 class="truncate font-heading text-xl font-semibold tracking-tight">
-                  {d.name}
-                </h2>
-                <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-black/45">
-                  /direction-{d.id}-{d.slug}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex flex-1 flex-col px-6 py-5">
-              <p class="text-[15px] leading-relaxed text-black/70">{d.description}</p>
-
-              <div class="mt-6">
-                <p class="font-mono text-[10px] uppercase tracking-[0.22em] text-black/40">
-                  Palette
-                </p>
-                <div class="mt-2 flex h-12 w-full overflow-hidden rounded-lg border border-black/10">
-                  {paletteKeys.map((key) => (
-                    <span
-                      class="flex-1"
-                      style="background: {d.palette[key]};"
-                      title={`${paletteLabels[key]}: ${d.palette[key]}`}
-                    ></span>
-                  ))}
-                </div>
-                <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1">
-                  {[
-                    d.palette.primary,
-                    d.palette.accent,
-                    d.palette.bg,
-                    d.palette.text,
-                    d.palette.muted,
-                  ].map((hex) => (
-                    <span class="font-mono text-[10px] text-black/45">{hex}</span>
-                  ))}
-                </div>
-              </div>
-
-              <div class="mt-4 flex flex-wrap gap-2 text-[12px]">
-                <span
-                  class="rounded-full border border-black/10 px-3 py-1"
-                  style="color: {d.palette.text};"
-                >
-                  Head · <span style="font-family: {d.fonts.heading};">{d.fonts.heading}</span>
-                </span>
-                <span class="rounded-full border border-black/10 px-3 py-1">
-                  Body · <span style="font-family: {d.fonts.body};">{d.fonts.body}</span>
-                </span>
-              </div>
-
-              <div class="mt-5 rounded-xl border border-black/5 bg-black/[0.025] p-4">
-                <p class="font-mono text-[10px] uppercase tracking-[0.22em] text-black/40">
-                  Why it works
-                </p>
-                <p class="mt-1.5 text-[13.5px] leading-relaxed text-black/70">{d.rationale}</p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between border-t border-black/5 bg-black/[0.02] px-6 py-4">
-              <a
-                href={`/direction-${d.id}-${d.slug}`}
-                class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-all duration-300 hover:gap-3"
-                style="background: {d.palette.primary};"
-              >
-                View prototype
-                <span aria-hidden="true">→</span>
-              </a>
-              <span class="font-mono text-[11px] text-black/35">Concept {d.id} of 5</span>
-            </div>
-          </article>
-        ))}
+      <div class="wrap hero-inner">
+        <div class="hero-rating" data-reveal="up">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span class="rating-text">4.9 / 5 · trusted by 10,000+ global brands</span>
+        </div>
+        <p class="eyebrow eyebrow--light" data-reveal="up" style="--d:.05s">
+          <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+          FSC-Certified · Materials-First Packaging
+        </p>
+        <h1>Custom Boxes &amp; Printed Packaging Manufacturer: <em>Lower Costs &amp; Protect Margins</em></h1>
+        <p class="hero-sub">
+          For up to 20% lower packaging costs and a 99.8% QC pass rate, partner with a custom packaging manufacturer that moves you from first dieline to shelf-ready boxes in as fast as 7 days. With free 3D mockups in 24 hours and physical samples in 3–5 days, we take your brand from prototype to mass production.
+        </p>
+        <div class="hero-cta hero-el" style="--d:.46s">
+          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-light" href="#edge">Explore Our Services</a>
+        </div>
       </div>
+    </section>
+
+    <!-- ============ MATERIALS MARQUEE ============ -->
+    <section class="hero-stats" aria-label="Highlights">
+      <div class="wrap hero-stats-row">
+        <div class="hs-stat"><strong>10K+</strong><span>global brands served</span></div>
+        <div class="hs-stat"><strong>99.5%</strong><span>on-time delivery rate</span></div>
+        <div class="hs-stat"><strong>20+</strong><span>in-house designers</span></div>
+        <div class="hs-stat"><strong>500</strong><span>MOQ, up to 500k per run</span></div>
+      </div>
+    </section>
+
+    <!-- ============ OFFERINGS ============ -->
+    <section class="offerings" id="offerings">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal="up">
+            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            The Atelier's Range
+          </p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">
+            Explore our packaging <em>types</em>.
+          </h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">
+            Folding cartons to rigid keepsakes, pouches to paper bags — each cut, creased and
+            finished in-house with the same obsessive attention to material.
+          </p>
+        </div>
+
+        <div class="offerings-grid">
+          {products.map((s, i) => (
+            <div class="product-card" data-reveal={['up','up','up'][i % 3]} style={`--d:${(i % 3) * 0.1}s`}>
+              <figure class="product-media"><img src={s.img} alt={s.name} loading="lazy" /><span class="product-ring" aria-hidden="true"></span></figure>
+              <div class="product-body">
+                <span class="card-num">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{s.name}</h3>
+                <p>{s.blurb}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    <div class="section-cta">
+      <a class="btn btn-primary" href="#quote">Get a free quote for your packaging<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
+
+    </section>
+
+    <!-- ============ CUSTOMIZE ============ -->
+    <section class="customize" id="customize">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Fully Customisable</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Every detail is <em>made to measure</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Beyond the box type, we engineer the variables that decide how it protects, presents and performs — size, material, finish, print, structure and sustainability.</p>
+        </div>
+        <div class="customize-grid">
+          {customize.map((c, i) => (
+            <article class="customize-card" data-reveal={['up','scale','up','up','scale','up'][i % 6]} style={`--d:${(i % 3) * 0.1}s`}>
+              <figure class="customize-media"><img src={c.img} alt={c.title} loading="lazy" decoding="async" width="640" height="480" /></figure>
+              <div class="customize-body">
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+                <div class="customize-tags">
+                  {c.tags.map((t) => <span>{t}</span>)}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="process" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How It Works</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">From <em>spec to shipment</em>, in four moves.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us your product and our engineers do the rest, with a 3D mockup in your inbox within a day.</p>
+        </div>
+        <ol class="process-list">
+          {process.map((p, i) => (
+            <li class="process-step" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <span class="process-num">{String(i + 1).padStart(2, '0')}</span>
+              <img class="process-thumb" src={p.img} alt={p.title} loading="lazy" width="64" height="64" />
+              <div class="process-info"><h3>{p.title}</h3><p>{p.body}</p></div>
+              <span class="process-meta">{p.meta}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ INLINE CTA (after process) ============ -->
+    <section class="cta cta--inline" id="quote-inline">
+      <div class="cta-grain" aria-hidden="true"></div>
+      <div class="wrap cta-inner">
+        <p class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Start Your Project</p>
+        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your product deserves packaging that <em>sells it</em>.</h2>
+        <p class="cta-sub" data-reveal="up" style="--d:.12s">Send us what you ship — the product, the quantity, any reference you have — and our engineers will draw the dieline, pick the material and finish, and reply with a quote the same day. Prefer to feel it first? We ship a physical sample kit before you commit to a run.</p>
+        <div class="cta-actions" data-reveal="up" style="--d:.18s">
+          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRIES ============ -->
+    <section class="industries" id="industries">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Industries We Serve</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging that <em>fits</em> how you sell.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Whatever you ship, we engineer the packaging to protect it, and to make your brand feel inevitable.</p>
+        </div>
+        <div class="industry-grid">
+          {industries.map((s, i) => (
+            <div class="industry-card" data-reveal={['up','scale','up','up','scale','up'][i % 6]} style={`--d:${(i % 3) * 0.1}s`}>
+              <figure class="industry-media"><img src={s.img} alt={s.name} loading="lazy" /><span class="industry-tint" aria-hidden="true"></span></figure>
+              <div class="industry-body">
+                <span class="industry-persona">{s.tag}</span>
+                <h3>{s.name}</h3>
+                <p>{s.blurb}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Organic divider: ivory -> kraft -->
+    <div class="curve curve--kraft" aria-hidden="true">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path d="M0 100 C 240 22, 520 92, 780 62 C 1020 34, 1260 92, 1440 40 L1440 100 Z" fill="#EDE5D4" />
+      </svg>
+    </div>
+
+    <!-- ============ FEATURED WORK ============ -->
+    <section class="work" id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal="up">
+            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            Featured Work
+          </p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">
+            Real brands. <em>Real unboxing</em> moments.
+          </h2>
+        </div>
+
+        <div class="case-grid">
+          {cases.map((c, i) => (
+            <article class="case" data-reveal={['up', 'left', 'right'][i]} style={`--d:${i * 0.12}s`}>
+              <figure class="case-media">
+                <img src={c.img} alt={`${c.title} — ${c.client}`} loading="lazy" />
+                <span class="case-metric">
+                  <strong>{c.metric}</strong>
+                  <span>{c.metricLabel}</span>
+                </span>
+              </figure>
+              <div class="case-body">
+                <div class="case-client">
+                  <span class="case-persona">{c.persona}</span>
+                  <span class="case-dot" aria-hidden="true"></span>
+                  <span class="case-name">{c.client}</span>
+                </div>
+                <h3>{c.title}</h3>
+                <p>{c.body}</p>
+                <p class="case-tag"><svg class="tag-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>{c.tag}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    <div class="section-cta">
+      <a class="btn btn-primary" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    </section>
+
+    <!-- ============ WHY US (INVERTED FOREST) ============ -->
+    <section class="why" id="why">
+      <div class="why-grain" aria-hidden="true"></div>
+      <svg class="why-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
+
+      <div class="wrap why-grid">
+        <div class="why-intro">
+          <p class="eyebrow eyebrow--light" data-reveal="up">
+            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            Why Leeline
+          </p>
+          <h2 class="why-title" data-reveal="up" style="--d:.06s">
+            Why LeelinePackage <em>stands out</em> as your custom packaging partner.
+          </h2>
+          <p class="why-sub" data-reveal="up" style="--d:.12s">
+            Five reasons global brands trust LeelinePackage — from unmatched print quality to a
+            98% satisfaction rate and factory-direct pricing you can build a margin on. Here is why a
+            decade of structural engineering keeps brands coming back.
+          </p>
+          <a class="btn btn-light" href="#quote" data-reveal="up" style="--d:.18s">
+            Start your project
+            <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="why-list">
+          <article class="reason" data-reveal="left" style="--d:0s">
+            <span class="reason-num">01</span>
+            <h3>Unmatched quality</h3>
+            <p>Heidelberg precision printing under 0.1mm, 98% colour consistency and ISTA-3A tested durability on every box. Every run is checked against your physical proof, so what you approve is exactly what arrives.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.1s">
+            <span class="reason-num">02</span>
+            <h3>10+ years of excellence</h3>
+            <p>Trusted by 10,000+ global brands with a 98% satisfaction rate. A decade of structural engineering across beauty, food and DTC means we have already solved almost every packaging problem you will hit.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.2s">
+            <span class="reason-num">03</span>
+            <h3>Fast turnaround</h3>
+            <p>Digital mockups in advance and white-dummy samples in 3&ndash;7 days, so you can test the fit before committing. Production runs 4&ndash;6 weeks with a 99.5% on-time delivery record.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.3s">
+            <span class="reason-num">04</span>
+            <h3>Low minimum orders</h3>
+            <p>Flexible MOQs from just 500 units for most packaging types. Start with a test run, then scale to 500,000 without changing suppliers or re-tooling.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.4s">
+            <span class="reason-num">05</span>
+            <h3>Factory-direct pricing</h3>
+            <p>30&ndash;50% cost savings versus Western suppliers, without compromising quality. We source materials at wholesale and fold design into manufacturing, so premium finishes cost a fraction of Western rates.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.5s">
+            <span class="reason-num">06</span>
+            <h3>IP &amp; design protection</h3>
+            <p>NDA up front, your dielines and moulds stay yours, and we never re-sell or share your artwork. Send us drawings without fear of a copycat.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ MANUFACTURING EDGE (packccp Why Delivers) ============ -->
+    <section class="edge" id="edge">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Why LeelinePackage <em>Delivers Better</em> Packaging.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">With in-house production, advanced equipment, skilled assembly and strict quality control, we turn custom packaging ideas into reliable large-scale production.</p>
+        </div>
+      </div>
+      <div class="edge-carousel" data-reveal="up">
+        <div class="edge-track" id="edgeTrack">
+          {edges.map((e, i) => (
+            <article class="edge-card" data-view={i}>
+              <span class="edge-dot">{e.num}</span>
+              <figure class="edge-media"><img src={e.img} alt={e.title} loading="lazy" decoding="async" /></figure>
+              <div class="edge-body">
+                <h3>{e.title}</h3>
+                <p>{e.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <button class="edge-arrow edge-arrow--prev" id="edgePrev" aria-label="Previous capability"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="edge-arrow edge-arrow--next" id="edgeNext" aria-label="Next capability"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT / FACTORY ============ -->
+    <section class="about" id="about">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>About LeelinePackage</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, LeelinePackage is your trusted partner for custom packaging — top-quality, tailored packaging for businesses, retailers and brands, using the best materials and skilled craft.</p>
+        </div>
+        <div class="factory-stats" data-reveal="up">
+          <div class="factory-stat"><strong>20,000 m&sup2;</strong><span>production facility in China</span></div>
+          <div class="factory-stat"><strong>0.1mm</strong><span>Heidelberg Speedmaster precision</span></div>
+          <div class="factory-stat"><strong>24/7</strong><span>automated production lines</span></div>
+          <div class="factory-stat"><strong>500,000+</strong><span>daily packaging capacity</span></div>
+        </div>
+        <p class="factory-note" data-reveal="up">
+          Our ISO 9001 certified quality system guarantees rigorous standards at every stage, with ISTA-3A testing
+          ensuring shipping durability. We focus on premium finishing — foil stamping, spot UV, emboss and deboss.
+        </p>
+      </div>
+    </section>
+    <!-- ============ PATENT CERTIFICATE ============ -->
+    <section class="patent" id="patent">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Certified &amp; Legal</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Patent Certificate For <em>LeelinePackage&#39;s</em> Custom Boxes.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Do you often encounter fraudulent companies? LeelinePackage&#39;s Patent Certificate for Custom Boxes and custom bags reflects our dedication to legal and eco-friendly practices. We put customers first.</p>
+        </div>
+        <div class="patent-certs" data-reveal="up">
+          <figure class="patent-cert figure"><img src={IMG.sgs} alt="SGS certified" loading="lazy" /></figure>
+          <figure class="patent-cert figure"><img src={IMG.certificate} alt="China certification" loading="lazy" /></figure>
+          <figure class="patent-cert figure"><img src={IMG.ce} alt="CE certified" loading="lazy" /></figure>
+          <figure class="patent-cert figure"><img src={IMG.compliance} alt="Compliance certified" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CUSTOMER SCENES CAROUSEL ============ -->
+    <section class="scenes" id="scenes">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Real Packaging, Real Brands</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging in <em>the wild</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Real customer packaging, in the hands of real brands. Use the arrows to browse the scenes.</p>
+        </div>
+      </div>
+      <div class="scene-carousel" data-reveal="up">
+        <div class="scene-track" id="sceneTrack">
+          {sceneImages.map((s) => (
+            <figure class="scene-slide">
+              <img src={s.img} alt={s.caption} loading="lazy" decoding="async" />
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        <button class="scene-arrow scene-arrow--prev" id="scenePrev" aria-label="Previous slide"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="scene-arrow scene-arrow--next" id="sceneNext" aria-label="Next slide"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ============ SOCIAL PROOF ============ -->
+    <section class="proof" id="proof">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up">
+            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            Proof, in Numbers
+          </p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">
+            Trusted by people who <em>ship every day</em>.
+          </h2>
+        </div>
+
+        <div class="testimonials">
+          {testimonials.map((t, i) => (
+            <blockquote class="t-card" data-reveal={['up', 'scale', 'up'][i]} style={`--d:${i * 0.1}s`}>
+              <svg class="t-mark" aria-hidden="true" viewBox="0 0 40 28"><path d="M0 28V14C0 4 6 0 16 0v6C9 7 6 10 6 15h8v13H0Zm24 0V14C24 4 30 0 40 0v6c-7 1-10 4-10 9h8v13H24Z" fill="currentColor"/></svg>
+              {t.quote.map((para) => (<p>{para}</p>))}
+              <footer class="t-author">
+                <span class="t-avatar">{t.initials}</span>
+                <span class="t-meta">
+                  <strong>{t.name}</strong>
+                  <span>{t.role} &middot; {t.country} &middot; {t.industry}</span>
+                </span>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+
+        <div class="logo-wall" data-reveal="up">
+          <p class="logo-wall-label">Trusted by Global Brands</p>
+          <div class="logo-slider">
+            <div class="logo-track" id="logoTrack">
+              {brandLogos.map((b) => (
+                <span class="logo-item"><img src={b.img} alt={b.name} loading="lazy" decoding="async" /></span>
+              ))}
+            </div>
+            <button class="logo-pager logo-pager--prev" id="logoPrev" aria-label="Previous logos"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="logo-pager logo-pager--next" id="logoNext" aria-label="Next logos"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>FAQs</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Straight answers <em>before you order</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">The questions procurement teams and founders ask most, answered plainly.</p>
+        </div>
+        <div class="faq-list">
+          {faqs.map((f, i) => (
+            <details class="faq-item" data-reveal="up" style={`--d:${(i % 4) * 0.05}s`}>
+              <summary><span class="faq-num">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Organic divider: ivory -> forest -->
+    <div class="curve curve--forest" aria-hidden="true">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
+        <path d="M0 100 C 300 4, 700 96, 1100 40 C 1280 16, 1380 72, 1440 42 L1440 100 Z" fill="#1F3B2C" />
+      </svg>
+    </div>
+
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="cta" id="quote">
+      <div class="cta-grain" aria-hidden="true"></div>
+      <svg class="cta-seal cta-seal--a" aria-hidden="true"><use href="#i-leaf" /></svg>
+      <svg class="cta-seal cta-seal--b" aria-hidden="true"><use href="#i-leaf" /></svg>
+
+      <div class="wrap cta-inner">
+        <p class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Let's Make It Yours</p>
+        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch your brand, <em>we'll build the box</em>.</h2>
+        <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch.</p>
+        <div class="cta-actions" data-reveal="up" style="--d:.18s">
+          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer style="background: var(--nav-ink); color: #f6f2ea;" class="px-6 py-10 text-center">
-    <p class="text-sm text-white/60">
-      Open any concept above, or press <code class="rounded bg-white/10 px-1.5 py-0.5">/direction-N-slug</code>
-      directly. Port is shown when you run <code class="rounded bg-white/10 px-1.5 py-0.5">npm run dev</code>.
-    </p>
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand brand--light" href="#top">
+            <svg class="brand-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
+            <span class="brand-word">Leeline<em>Package</em></span>
+          </a>
+          <p class="footer-tagline">
+            <svg class="tagline-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            Engineered, not just printed.
+          </p>
+          <p class="footer-note">
+            The Structural Brand Architect — protecting your product and impressing your customer,
+            from the first dieline to the final mile.
+          </p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.2 8.5h4.6V23H.2V8.5Zm7.6 0h4.4v2h.06c.61-1.16 2.1-2.38 4.33-2.38 4.63 0 5.49 3.05 5.49 7.01V23h-4.6v-6.6c0-1.57-.03-3.6-2.19-3.6-2.2 0-2.53 1.72-2.53 3.48V23H7.8V8.5Z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.74.07-1.08.05-1.66.23-2.05.38-.51.2-.88.44-1.26.82-.38.38-.62.75-.82 1.26-.15.39-.33.97-.38 2.05-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.08.23 1.66.38 2.05.2.51.44.88.82 1.26.38.38.75.62 1.26.82.39.15.97.33 2.05.38 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.08-.05 1.66-.23 2.05-.38.51-.2.88-.44 1.26-.82.38-.38.62-.75.82-1.26.15-.39.33-.97.38-2.05.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.08-.23-1.66-.38-2.05a3.4 3.4 0 0 0-.82-1.26 3.4 3.4 0 0 0-1.26-.82c-.39-.15-.97-.33-2.05-.38C15.5 4.01 15.15 4 12 4Zm0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06Zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28Zm5.15-3.14a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 1.5h3.68l-8.04 9.2L24 22.5h-7.4l-5.8-7.6-6.64 7.6H.48l8.6-9.84L0 1.5h7.59l5.24 6.93L18.9 1.5Zm-1.29 18.7h2.04L6.49 3.6H4.3l13.3 16.6Z"/></svg></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Popular Products</h4>
+          <a href="#offerings">Custom Boxes</a>
+          <a href="#offerings">Custom Bags</a>
+          <a href="#offerings">Rigid Boxes</a>
+          <a href="#offerings">Mailer Boxes</a>
+          <a href="#offerings">Custom Pouches</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Company Info</h4>
+          <a href="#offerings">About Us</a>
+          <a href="#offerings">Blog</a>
+          <a href="#offerings">Contact Us</a>
+          <a href="#offerings">Privacy Policy</a>
+        </div>
+
+        <div class="footer-col footer-col--contact">
+          <h4>Contact</h4>
+          <a href="mailto:info@LeelinePackage.com">info@LeelinePackage.com</a>
+          <a href="tel:+8613986152456">+86 139 8615 2456</a>
+          <span>Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China</span>
+          <span>Mon–Sat · 9:00–18:00 CST</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 LeelinePackage. All rights reserved.</span>
+        <span class="footer-mark">
+          <svg aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+          Engineered, not just printed.
+        </span>
+        <span>ISO 9001 · FSC®</span>
+      </div>
+    </div>
   </footer>
+
+  <style>
+    /* ============ TOKENS / RESET ============ */
+    :global(.grain) {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      pointer-events: none;
+      opacity: 0.05;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1200px, 100% - clamp(2rem, 6vw, 6rem)); margin-inline: auto; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .eyebrow-leaf { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
+    .eyebrow--light { color: var(--brass-soft); }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--color-brand-text);
+      text-wrap: balance;
+      margin: 1.1rem 0 0;
+    }
+    .section-title em {
+      font-style: italic;
+      color: var(--brass);
+    }
+    .section-sub {
+      font-size: 1.06rem;
+      line-height: 1.7;
+      color: var(--color-brand-muted);
+      max-width: 46ch;
+      margin-top: 1.2rem;
+    }
+    .section-head { margin-bottom: clamp(2.5rem, 6vw, 5rem); }
+    .section-head--center { text-align: center; max-width: 66rem; margin-inline: auto; margin-bottom: clamp(3rem, 7vw, 5.5rem); }
+    .section-head--center .section-title { font-size: clamp(2.2rem, 5.2vw, 4rem); }
+    .section-head--center .section-sub { margin-inline: auto; }
+
+    /* ============ BUTTONS ============ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      padding: 0.95rem 1.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease, background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(-1px) scale(0.98); }
+
+    .btn-leaf { width: 1em; height: 1em; flex: 0 0 auto; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .btn:hover .btn-leaf { transform: translateX(4px); }
+
+    .btn-primary {
+      background: var(--color-brand-primary);
+      color: var(--ivory);
+    }
+    .btn-primary:hover { background: var(--forest-deep); box-shadow: 0 14px 30px -12px rgba(31, 59, 44, 0.55); }
+
+    .btn-ghost {
+      border-color: rgba(31, 59, 44, 0.35);
+      color: var(--color-brand-primary);
+    }
+    .btn-ghost:hover { border-color: var(--color-brand-primary); background: rgba(31, 59, 44, 0.06); }
+
+    .btn-gold {
+      background: var(--brass);
+      color: var(--forest-deep);
+    }
+    .btn-gold:hover { background: var(--brass-soft); box-shadow: 0 14px 34px -12px rgba(31, 59, 44, 0.7); }
+
+    .btn-light {
+      border-color: rgba(245, 240, 229, 0.4);
+      color: var(--ivory);
+    }
+    .btn-light:hover { border-color: var(--ivory); background: rgba(245, 240, 229, 0.1); }
+
+    .btn-sm { padding: 0.6rem 1.15rem; font-size: 0.88rem; }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--color-brand-primary);
+      padding-bottom: 0.25rem;
+    }
+    .text-link .arrow { width: 1.15em; height: 1.15em; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .text-link:hover .arrow { transform: translateX(5px); }
+
+    .arrow { width: 1.15em; height: 1.15em; }
+
+    /* ============ NAV ============ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
+    }
+    .nav-inner {
+      width: min(1280px, 100% - clamp(2rem, 6vw, 6rem));
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      position: relative;
+      z-index: 2;
+      transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav.scrolled {
+      background: rgba(245, 240, 229, 0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(31, 59, 44, 0.08);
+    }
+    .nav.scrolled .nav-inner { padding: 0.6rem 0; }
+
+    .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
+    .brand-seal { width: 34px; height: 34px; color: var(--brass); }
+    .brand-word {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.4rem;
+      letter-spacing: -0.01em;
+      color: var(--color-brand-text);
+    }
+    .brand-word em {
+      font-style: normal;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-brand-muted);
+      margin-left: 0.35rem;
+    }
+
+    .nav-links { display: flex; gap: clamp(1.25rem, 3vw, 2.4rem); }
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--color-brand-text);
+      position: relative;
+      padding: 0.3rem 0;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 1.5px;
+      width: 100%;
+      background: var(--brass);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-drop { position: relative; }
+    .nav-drop-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem; background: none; border: 0; cursor: pointer;
+      font-size: 0.92rem; font-weight: 500; color: var(--color-brand-text); padding: 0.3rem 0; font-family: inherit;
+      position: relative;
+    }
+    .nav-drop-btn::after { content: ''; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%; background: var(--brass); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+    .nav-drop:hover .nav-drop-btn::after, .nav-drop:focus-within .nav-drop-btn::after { transform: scaleX(1); }
+    .chev { width: 11px; height: 8px; transition: transform 0.3s ease; }
+    .nav-drop:hover .chev, .nav-drop:focus-within .chev { transform: rotate(180deg); }
+    .nav-menu {
+      position: absolute; top: calc(100% + 0.7rem); left: 50%; transform: translateX(-50%) translateY(-6px);
+      min-width: 250px; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1rem;
+      padding: 0.6rem; box-shadow: 0 24px 60px -30px rgba(31, 59, 44, 0.45);
+      opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+      display: flex; flex-direction: column; max-height: 70vh; overflow-y: auto;
+    }
+    .nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+    .nav-menu a { font-size: 0.9rem; color: var(--color-brand-text); text-decoration: none; padding: 0.5rem 0.8rem; border-radius: 0.6rem; transition: background 0.2s ease, color 0.2s ease; }
+    .nav-menu a:hover { background: rgba(31, 59, 44, 0.05); color: var(--color-brand-primary); }
+    .mobile-links details { text-align: center; }
+    .mobile-links summary { list-style: none; font-family: var(--font-heading); font-size: 2rem; color: var(--color-brand-text); cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .mobile-links summary::-webkit-details-marker { display: none; }
+    .mobile-links .sub { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.7rem; }
+    .mobile-links .sub a { font-family: var(--font-body); font-size: 1rem; color: var(--color-brand-muted); }
+
+
+    .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
+
+    .menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid rgba(31, 59, 44, 0.2);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .menu-btn span {
+      display: block;
+      width: 18px;
+      height: 1.6px;
+      background: var(--color-brand-text);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    }
+    body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
+    body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: var(--ivory);
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    body.menu-open .mobile-menu { opacity: 1; visibility: visible; z-index: 1; }
+    .mobile-links { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
+    .mobile-links a {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      color: var(--color-brand-text);
+    }
+    .mobile-links a.btn { font-family: var(--font-body); font-size: 1rem; margin-top: 0.6rem; }
+
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      min-height: min(88vh, 784px);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
+      color: var(--ivory);
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-480.avif') center / cover no-repeat; }
+    @media (min-width: 641px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-960.avif'); } }
+    @media (min-width: 1025px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-1440.avif'); } }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, rgba(20, 38, 27, 0.42) 0%, rgba(20, 38, 27, 0.72) 55%, rgba(20, 38, 27, 0.9) 100%); }
+    .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translateY(-1cm); }
+    .hero-rating { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.05rem; border-radius: 999px; background: rgba(245, 240, 229, 0.12); border: 1px solid rgba(245, 240, 229, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transform: translateY(-0.3cm); }
+    .hero-rating .stars { color: var(--brass-soft); font-size: 1rem; letter-spacing: 0.12em; }
+    .hero-rating .rating-text { font-size: 0.85rem; color: rgba(245, 240, 229, 0.9); font-family: var(--font-body); }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: clamp(2.7rem, 6.6vw, 5.6rem);
+      line-height: 0.97;
+      letter-spacing: -0.03em;
+      color: var(--ivory);
+      margin: 1.3rem 0 0;
+      max-width: 22ch;
+      text-wrap: balance;
+    }
+    .hero h1 em { font-style: italic; color: var(--brass-soft); }
+    .hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(245, 240, 229, 0.82); max-width: 58ch; margin: 1.6rem 0 0; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.3rem; }
+    .hero-spec {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 2.6rem;
+      justify-content: center;
+      margin: 2.8rem 0 0;
+      padding: 1.5rem 0 0;
+      border-top: 1px solid rgba(245, 240, 229, 0.2);
+      max-width: 700px;
+    }
+    .hero-spec li { font-size: 0.92rem; color: rgba(245, 240, 229, 0.82); display: flex; align-items: baseline; gap: 0.5rem; }
+    .hero-spec span { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; color: var(--brass-soft); }
+    .hero-seal { position: absolute; top: 12%; left: 6%; width: clamp(160px, 18vw, 300px); aspect-ratio: 1; height: auto; color: rgba(245, 240, 229, 0.05); animation: drift 16s ease-in-out infinite; z-index: 1; }
+
+    /* ============ MARQUEE ============ */
+    .materials {
+      background: var(--kraft);
+      padding: 1.6rem 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(31, 59, 44, 0.08);
+      border-bottom: 1px solid rgba(31, 59, 44, 0.08);
+    }
+    .marquee { overflow: hidden; }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 42s linear infinite;
+    }
+    .materials:hover .marquee-track { animation-play-state: paused; }
+    .m-item {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-right: 2.6rem;
+    }
+    .m-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(31, 59, 44, 0.4);
+      flex: 0 0 auto;
+    }
+    .m-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .m-meta { display: flex; flex-direction: column; }
+    .m-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--color-brand-primary); }
+    .m-spec { font-size: 0.8rem; color: var(--color-brand-muted); }
+    .m-leaf { width: 20px; height: 20px; color: var(--brass); opacity: 0.7; }
+
+    /* ============ OFFERINGS ============ */
+    .offerings { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+
+
+    .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.5rem 0 1.8rem; padding: 0; }
+    .chips li {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--color-brand-primary);
+      border: 1px solid rgba(31, 59, 44, 0.5);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(201, 168, 124, 0.08);
+    }
+
+    .card-num {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--brass);
+    }
+
+    /* Format index — compact curated catalog */
+    .offerings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.6rem, 3vw, 2.4rem) clamp(1.4rem, 3vw, 2.2rem); }
+    .product-card { position: relative; display: flex; flex-direction: column; text-decoration: none; }
+    .product-media { position: relative; aspect-ratio: 1/1; overflow: hidden; border-radius: 1.3rem; background: var(--kraft); }
+    .product-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .product-card:hover .product-media img { transform: scale(1.07); }
+    .product-ring { position: absolute; inset: 0; border: 1px solid rgba(31, 59, 44, 0); border-radius: inherit; transition: border-color 0.5s ease; pointer-events: none; }
+    .product-card:hover .product-ring { border-color: rgba(31, 59, 44, 0.7); }
+    .product-body { padding: 1rem 0.2rem 0; }
+    .product-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.45rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0.35rem 0 0.4rem; }
+    .product-body p { font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+    .product-cta { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 0.9rem; font-weight: 600; font-size: 0.88rem; color: var(--color-brand-primary); opacity: 0.7; transition: opacity 0.4s ease; }
+    .product-card:hover .product-cta { opacity: 1; }
+    .product-cta .arrow { width: 1.1em; height: 1.1em; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .product-card:hover .product-cta .arrow { transform: translateX(5px); }
+
+    .brand-logo { height: 42px; width: auto; object-fit: contain; }
+
+    /* ============ HERO STATS BAND (static) ============ */
+    .hero-stats { background: var(--kraft); border-top: 1px solid rgba(31, 59, 44, 0.1); border-bottom: 1px solid rgba(31, 59, 44, 0.1); padding: 1.4rem 0; }
+    .hero-stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .hs-stat { text-align: center; }
+    .hs-stat strong { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 3.4vw, 2.6rem); color: var(--color-brand-primary); display: block; line-height: 1; }
+    .hs-stat span { font-size: 0.85rem; color: var(--color-brand-muted); display: block; margin-top: 0.35rem; }
+
+    /* ============ ORGANIC CURVES ============ */
+    .curve { line-height: 0; margin-bottom: -1px; }
+    .curve svg { display: block; width: 100%; height: clamp(50px, 8vw, 100px); }
+    .curve--kraft { background: var(--ivory); }
+    .curve--forest { background: var(--ivory); }
+
+    /* ============ WORK ============ */
+    .work { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .case-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.6rem);
+      align-items: start;
+    }
+    .case:nth-child(2) { margin-top: 0; }
+
+    .case-media {
+      position: relative;
+      border-radius: 1.4rem;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .case-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .case:hover .case-media img { transform: scale(1.06); }
+    .case-metric {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.45rem;
+      background: rgba(20, 38, 27, 0.85);
+      color: var(--ivory);
+      padding: 0.55rem 0.95rem;
+      border-radius: 0.8rem;
+      backdrop-filter: blur(4px);
+    }
+    .case-metric strong { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--brass-soft); }
+    .case-metric span { font-size: 0.78rem; }
+
+    .case-body { padding: 1.4rem 0.2rem 0; }
+    .case-client { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .case-persona { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+    .case-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(31, 59, 44, 0.35); }
+    .case-name { font-size: 0.9rem; font-weight: 600; color: var(--color-brand-primary); }
+    .case-body h3 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      letter-spacing: -0.01em;
+      color: var(--color-brand-text);
+      margin: 0 0 0.6rem;
+    }
+    .case-body p { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-muted); }
+    .case-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-brand-primary);
+      margin-top: 0.8rem;
+    }
+    .tag-leaf { width: 1.1em; height: 1.1em; color: var(--brass); }
+
+    /* ============ WHY (INVERTED) ============ */
+    .why {
+      position: relative;
+      background: var(--color-brand-primary);
+      color: var(--ivory);
+      padding: clamp(4.5rem, 10vw, 9rem) 0;
+      overflow: clip;
+    }
+    .why-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .why-seal {
+      position: absolute;
+      right: -4%;
+      bottom: -12%;
+      width: clamp(220px, 30vw, 460px);
+      aspect-ratio: 1;
+      height: auto;
+      color: rgba(201, 168, 124, 0.1);
+      animation: drift 18s ease-in-out infinite;
+    }
+    .why-intro { position: sticky; top: 7rem; align-self: start; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+      position: relative;
+      z-index: 1;
+    }
+    .why-title {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--ivory);
+      margin: 1.1rem 0 0;
+    }
+    .why-title em { font-style: italic; color: var(--brass-soft); }
+    .why-sub { font-size: 1.05rem; line-height: 1.7; color: rgba(245, 240, 229, 0.72); max-width: 46ch; margin: 1.4rem 0 2rem; }
+
+    .why-list { display: flex; flex-direction: column; gap: 1rem; }
+    .reason {
+      border: 1px solid rgba(201, 168, 124, 0.22);
+      border-radius: 1.4rem;
+      padding: 1.8rem 2rem;
+      background: rgba(245, 240, 229, 0.03);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease;
+    }
+    .reason:hover { transform: translateX(8px); border-color: rgba(201, 168, 124, 0.55); background: rgba(245, 240, 229, 0.06); }
+    .reason-num { font-family: var(--font-body); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; color: var(--brass-soft); }
+    .reason h3 {
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.5rem;
+      color: var(--ivory);
+      margin: 0.5rem 0 0.5rem;
+    }
+    .reason p { font-size: 0.98rem; line-height: 1.65; color: rgba(245, 240, 229, 0.72); margin: 0; }
+
+    /* ============ PROOF ============ */
+    .proof { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1.5rem, 4vw, 3rem);
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    .stat { text-align: center; position: relative; }
+    .stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: calc(clamp(1.5rem, 4vw, 3rem) / -2);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 60%;
+      background: rgba(31, 59, 44, 0.12);
+    }
+    .stat-num {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: clamp(2.6rem, 5.5vw, 4.2rem);
+      letter-spacing: -0.03em;
+      color: var(--color-brand-primary);
+      line-height: 1;
+    }
+    .stat-num::after {
+      content: '';
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--brass);
+      margin: 0.9rem auto 0;
+    }
+    .stat-label { font-size: 0.92rem; color: var(--color-brand-muted); margin-top: 0.7rem; }
+
+    .trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-brand-primary);
+      padding: 1.4rem 1.8rem;
+      border: 1px dashed rgba(31, 59, 44, 0.5);
+      border-radius: 1rem;
+      background: rgba(201, 168, 124, 0.06);
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+    }
+    .trust-strip i { width: 5px; height: 5px; border-radius: 50%; background: var(--brass); }
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.4rem);
+      margin-bottom: clamp(3rem, 6vw, 5rem);
+      max-width: 980px;
+      margin-inline: auto;
+    }
+    .t-card {
+      margin: 0;
+      background: var(--color-brand-surface);
+      border-radius: 1.4rem;
+      padding: 2rem 1.9rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(31, 59, 44, 0.06);
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+    }
+    .t-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(31, 59, 44, 0.5); }
+    .t-mark { width: 30px; height: 22px; color: var(--brass); opacity: 0.85; margin-bottom: 1rem; }
+    .t-card p { font-family: var(--font-heading); font-style: italic; font-size: 1.16rem; line-height: 1.8; color: var(--color-brand-text); margin: 0 0 1.2rem; }
+    .t-card p:last-child { margin-bottom: 0; }
+    .t-author { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.5rem; }
+    .t-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--color-brand-primary);
+      color: var(--ivory);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing: 0.04em;
+      flex: 0 0 auto;
+    }
+    .t-meta { display: flex; flex-direction: column; }
+    .t-meta strong { font-size: 0.95rem; color: var(--color-brand-text); }
+    .t-meta span { font-size: 0.82rem; color: var(--color-brand-muted); }
+
+    .logo-wall { text-align: center; }
+    .logo-wall-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-bottom: 1.8rem; }
+    .logo-slider { position: relative; overflow: hidden; padding: 0 3.2rem; }
+    .logo-track { display: flex; gap: 1.2rem; align-items: center; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .logo-item { flex: 0 0 calc((100% - 8.4rem) / 8); display: grid; place-items: center; }
+    .logo-item img { max-height: 82px; width: auto; max-width: 100%; object-fit: contain; filter: grayscale(0.45); opacity: 0.92; transition: filter 0.3s ease, opacity 0.3s ease; }
+    .logo-item img:hover { filter: grayscale(0); opacity: 1; }
+    .logo-pager { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(31, 59, 44, 0.2); background: #fff; color: var(--color-brand-primary); cursor: pointer; z-index: 2; display: grid; place-items: center; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+    .logo-pager:hover { background: var(--color-brand-primary); color: var(--ivory); transform: translateY(-50%) scale(1.06); }
+    .logo-pager svg { width: 18px; height: 18px; }
+    .logo-pager--prev { left: 0; }
+    .logo-pager--next { right: 0; }
+    @media (max-width: 900px) { .logo-item { flex: 0 0 calc((100% - 6rem) / 5); } }
+    @media (max-width: 640px) { .logo-item { flex: 0 0 calc((100% - 3.6rem) / 3); } }
+
+    /* ============ FINAL CTA (INVERTED) ============ */
+    .cta--inline { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+    .cta {
+      position: relative;
+      background: var(--color-brand-primary);
+      color: var(--ivory);
+      padding: clamp(4.5rem, 10vw, 9rem) 0;
+      overflow: hidden;
+    }
+    .cta-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .cta-seal { position: absolute; color: rgba(201, 168, 124, 0.12); aspect-ratio: 1; height: auto; }
+    .cta-seal--a { top: -10%; left: 4%; width: clamp(160px, 20vw, 300px); animation: floaty 12s ease-in-out infinite; }
+    .cta-seal--b { bottom: -14%; right: 5%; width: clamp(200px, 26vw, 400px); animation: drift 20s ease-in-out infinite reverse; }
+    .cta-inner { text-align: center; position: relative; z-index: 1; }
+    .cta-title {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      font-size: clamp(2.4rem, 6vw, 4.6rem);
+      line-height: 1;
+      letter-spacing: -0.025em;
+      color: var(--ivory);
+      margin: 1.2rem 0 0;
+    }
+    .cta-title em { font-style: italic; color: var(--brass-soft); }
+    .cta-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(245, 240, 229, 0.75); max-width: 56ch; margin: 1.5rem auto 0; }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.4rem; }
+
+    /* ============ FOOTER ============ */
+    .footer { background: var(--forest-deep); color: rgba(245, 240, 229, 0.72); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.3fr;
+      gap: clamp(2rem, 4vw, 3.5rem);
+    }
+    .brand--light .brand-word { color: var(--ivory); }
+    .brand--light .brand-word em { color: rgba(245, 240, 229, 0.55); }
+    .footer-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--brass-soft);
+      margin: 1.4rem 0 1rem;
+    }
+    .tagline-leaf { width: 1.1em; height: 1.1em; color: var(--brass); }
+    .footer-note { font-size: 0.95rem; line-height: 1.7; max-width: 40ch; margin: 0 0 1.6rem; }
+    .socials { display: flex; gap: 0.7rem; }
+    .socials a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 240, 229, 0.25);
+      display: grid;
+      place-items: center;
+      color: rgba(245, 240, 229, 0.8);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease;
+    }
+    .socials a svg { width: 17px; height: 17px; }
+    .socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--forest-deep); }
+
+    .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
+    .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.72); transition: color 0.3s ease; }
+    .footer-col a:hover { color: var(--ivory); }
+
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid rgba(245, 240, 229, 0.14);
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      padding-top: 1.6rem;
+      font-size: 0.82rem;
+    }
+    .footer-mark { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brass-soft); }
+    .footer-mark svg { width: 1.1em; height: 1.1em; color: var(--brass); }
+
+    /* ============ ANIMATION KEYFRAMES ============ */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes heroImg {
+      from { opacity: 0; transform: scale(1.06); filter: blur(10px); }
+      to { opacity: 1; transform: none; filter: none; }
+    }
+    .hero-el { animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+    .hero-visual.hero-el { animation-name: heroImg; animation-duration: 1.3s; }
+
+    @keyframes floaty {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1.5deg); }
+    }
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(8px, -14px) rotate(4deg); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ============ INDUSTRIES ============ */
+    .industries { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .industry-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); }
+    .industry-card { position: relative; display: flex; flex-direction: column; text-decoration: none; }
+    .industry-media { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 1.4rem; }
+    .industry-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+    .industry-card:hover .industry-media img { transform: scale(1.06); }
+    .industry-tint { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 42%, rgba(20, 38, 27, 0.55)); pointer-events: none; }
+    .industry-persona { position: absolute; left: 0.9rem; top: 0.9rem; z-index: 1; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--forest-deep); background: var(--ivory); padding: 0.3rem 0.7rem; border-radius: 999px; }
+    .industry-body { padding: 1.1rem 0.3rem 0; }
+    .industry-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0.4rem 0 0.4rem; }
+    .industry-body p { font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+
+    /* ============ CUSTOMIZE ============ */
+    .customize { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .customize-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.5vw, 1.6rem); }
+    .customize-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; overflow: hidden; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease; }
+    .customize-media { margin: 0; aspect-ratio: 4/3; overflow: hidden; background: var(--kraft); }
+    .customize-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .customize-card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -20px rgba(31, 59, 44, 0.28); border-color: rgba(176, 141, 76, 0.55); }
+    .customize-card:hover img { transform: scale(1.05); }
+    .customize-body { padding: clamp(1.4rem, 2.6vw, 1.9rem); display: flex; flex-direction: column; flex: 1; }
+    .customize-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.28rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.5rem; }
+    .customize-card p { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.15rem; }
+    .customize-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: auto; }
+    .customize-tags span { font-size: 0.76rem; font-weight: 500; padding: 0.32rem 0.72rem; border-radius: 999px; background: rgba(31, 59, 44, 0.06); border: 1px solid rgba(31, 59, 44, 0.14); color: var(--color-brand-text); }
+    @media (max-width: 900px) { .customize-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .customize-grid { grid-template-columns: 1fr; } }
+
+    /* ============ PROCESS ============ */
+    .process { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .process-list { list-style: none; margin: 0; padding: 0; }
+    .process-step { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 1.3rem; padding: 1.5rem 0; border-top: 1px solid rgba(31, 59, 44, 0.14); }
+    .process-thumb { width: 64px; height: 64px; border-radius: 1rem; object-fit: cover; }
+    .process-step:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.14); }
+    .process-num { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--brass); }
+    .process-info h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; color: var(--color-brand-text); margin: 0 0 0.3rem; }
+    .process-info p { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-muted); max-width: 62ch; margin: 0; }
+    .process-meta { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand-primary); white-space: nowrap; }
+
+    /* ============ FAQ ============ */
+    .faq { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .faq-list { max-width: 820px; margin-inline: auto; }
+    .faq-item { border-top: 1px solid rgba(31, 59, 44, 0.14); }
+    .faq-item:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.14); }
+    .faq-num { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+    .faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.4rem 0.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--color-brand-text); }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-a { padding: 0 0.2rem 1.4rem; }
+    .faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
+
+    /* ============ ABOUT ============ */
+
+    .about { background: var(--forest-deep); color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .about .section-title { color: var(--ivory); }
+    .about .section-sub { color: rgba(245, 240, 229, 0.78); }
+    .factory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); margin: 2.2rem 0 1.8rem; }
+    .factory-stat { text-align: center; }
+    .factory-stat strong { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--brass-soft); display: block; line-height: 1; }
+    .factory-stat span { font-size: 0.85rem; color: rgba(245, 240, 229, 0.7); display: block; margin-top: 0.5rem; }
+    .factory-note { text-align: center; font-size: 1rem; line-height: 1.7; color: rgba(245, 240, 229, 0.78); max-width: 62ch; margin-inline: auto; }
+
+    /* ============ SCENES CAROUSEL ============ */
+    .scenes { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0 0; }
+    .scene-carousel { position: relative; width: 100%; overflow: hidden; padding: 0 clamp(0rem, 4vw, 3rem); }
+    .scene-track { display: flex; gap: 1.1rem; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .scene-slide { flex: 0 0 calc((100% - 2.2rem) / 3); position: relative; aspect-ratio: 4/3; border-radius: 1.1rem; overflow: hidden; background: var(--kraft); }
+    .scene-slide img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .scene-slide:hover img { transform: scale(1.05); }
+    .scene-slide figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1.1rem; color: var(--ivory); background: linear-gradient(180deg, transparent, rgba(20, 38, 27, 0.75)); font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; line-height: 1.25; letter-spacing: -0.01em; }
+    .scene-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 1px solid rgba(245, 240, 229, 0.55); background: rgba(20, 38, 27, 0.5); color: var(--ivory); cursor: pointer; z-index: 2; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: background 0.3s ease, transform 0.3s ease; display: grid; place-items: center; }
+    .scene-arrow svg { width: 22px; height: 22px; }
+    .scene-arrow:hover { background: rgba(20, 38, 27, 0.85); transform: translateY(-50%) scale(1.06); }
+    .scene-arrow--prev { left: 1.2rem; }
+    .scene-arrow--next { right: 1.2rem; }
+
+    .section-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: clamp(2.4rem, 5vw, 3.5rem); }
+
+    /* ============ PATENT CERTIFICATE ============ */
+    .patent { background: var(--ivory); padding: clamp(4rem, 9vw, 7rem) 0; }
+    .patent-certs { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1.4rem, 4vw, 3rem); margin-top: clamp(2rem, 5vw, 3rem); }
+    .patent .section-sub { max-width: 72ch; margin-inline: 0; }
+    .patent-cert.figure { margin: 0; display: grid; place-items: center; }
+    .patent-cert img { height: 300px; width: auto; max-width: 100%; object-fit: contain; }
+
+    /* ============ MANUFACTURING EDGE ============ */
+    .edge { background: var(--kraft); padding: clamp(4rem, 9vw, 7rem) 0; }
+    .edge-carousel { position: relative; overflow: hidden; padding: 0 clamp(3rem, 5vw, 4rem); }
+    .edge-track { display: flex; gap: 1.6rem; transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1); }
+    .edge-card { position: relative; flex: 0 0 calc((100% - 4.8rem) / 4); }
+    .edge-dot { position: absolute; top: 0.9rem; left: 0.9rem; z-index: 2; width: 44px; height: 44px; border-radius: 50%; background: var(--ivory); color: var(--color-brand-text); display: grid; place-items: center; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; box-shadow: 0 10px 22px rgba(31, 59, 44, 0.16); }
+    .edge-media { aspect-ratio: 4/3; overflow: hidden; border-radius: 1.1rem; background: var(--ivory); }
+    .edge-media img { width: 100%; height: 100%; object-fit: cover; }
+    .edge-body { padding: 0.9rem 0.2rem 0; }
+    .edge-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.4rem; }
+    .edge-body p { font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+    .edge-arrow { position: absolute; top: 40%; transform: translateY(-50%); width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--color-brand-primary); color: var(--ivory); cursor: pointer; z-index: 3; display: grid; place-items: center; box-shadow: 0 14px 28px rgba(31, 59, 44, 0.3); transition: background 0.3s ease, transform 0.3s ease; }
+    .edge-arrow:hover { background: var(--forest-deep); transform: translateY(-50%) scale(1.06); }
+    .edge-arrow svg { width: 22px; height: 22px; }
+    .edge-arrow--prev { left: 0.6rem; }
+    .edge-arrow--next { right: 0.6rem; }
+    @media (max-width: 900px) { .edge-card { flex: 0 0 calc((100% - 1.6rem) / 2); } }
+    @media (max-width: 640px) { .edge-card { flex: 0 0 100%; } }
+
+    @media (max-width: 640px) { .patent-cert img { height: 210px; } }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .menu-btn { display: flex; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-intro { position: static; }
+      .case-grid { grid-template-columns: 1fr; }
+      .case:nth-child(2) { margin-top: 0; }
+      .testimonials { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat:not(:last-child)::after { display: none; }
+      .offerings-grid { grid-template-columns: 1fr 1fr; }
+      .industry-grid { grid-template-columns: 1fr 1fr; }
+      .patent-grid { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .patent-chips { justify-content: center; }
+      .factory-stats { grid-template-columns: 1fr 1fr; }
+      .process-step { grid-template-columns: auto 1fr; }
+      .process-thumb { display: none; }
+      .process-meta { grid-column: 2; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .offerings-grid { grid-template-columns: 1fr; }
+      .industry-grid { grid-template-columns: 1fr; }
+      .hero-stats-row { grid-template-columns: 1fr 1fr; }
+      .feature { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+      .hero-spec { gap: 0.5rem 1.4rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { justify-content: flex-start; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const toggleMenu = (open) => {
+      document.body.classList.toggle('menu-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+    };
+    menuBtn.addEventListener('click', () => toggleMenu(!document.body.classList.contains('menu-open')));
+    mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggleMenu(false)));
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    const ready = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+    ready(() => document.querySelectorAll('[data-reveal]').forEach((el) => revealIO.observe(el)));
+
+    if (!reduce) {
+      const easeOut = (t) => 1 - Math.pow(1 - t, 4);
+      const counterIO = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseFloat(el.dataset.count);
+          const suffix = el.dataset.suffix || '';
+          const dur = 1600;
+          const start = performance.now();
+          const tick = (now) => {
+            const p = Math.min((now - start) / dur, 1);
+            el.textContent = Math.round(target * easeOut(p)) + suffix;
+            if (p < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          counterIO.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      ready(() => document.querySelectorAll('[data-count]').forEach((el) => counterIO.observe(el)));
+    }
+  const sceneTrack = document.getElementById('sceneTrack');
+  if (sceneTrack) {
+    const slides = sceneTrack.children;
+    const per = 3, gap = parseFloat(getComputedStyle(sceneTrack).columnGap) || 0;
+    let sIdx = 0;
+    const maxIdx = () => Math.max(0, slides.length - per);
+    const apply = () => { sceneTrack.style.transform = 'translateX(' + (-sIdx * (slides[0].offsetWidth + gap)) + 'px)'; };
+    const sp = document.getElementById('scenePrev'), sn = document.getElementById('sceneNext');
+    if (sp) sp.addEventListener('click', () => { sIdx = Math.max(0, sIdx - 1); apply(); });
+    if (sn) sn.addEventListener('click', () => { sIdx = Math.min(maxIdx(), sIdx + 1); apply(); });
+    window.addEventListener('resize', apply);
+  }
+  const logoTrack = document.getElementById('logoTrack');
+  if (logoTrack) {
+    const items = logoTrack.children, gap = 1.2 * 16;
+    let li = 0;
+    const per = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 8);
+    const maxLi = () => Math.max(0, items.length - per());
+    const applyL = () => logoTrack.style.transform = 'translateX(' + (-li * (items[0].offsetWidth + gap)) + 'px)';
+    document.getElementById('logoPrev').addEventListener('click', () => { li = Math.max(0, li - 1); applyL(); });
+    document.getElementById('logoNext').addEventListener('click', () => { li = Math.min(maxLi(), li + 1); applyL(); });
+    window.addEventListener('resize', () => { li = Math.min(li, maxLi()); applyL(); });
+  }
+  const edgeTrack = document.getElementById('edgeTrack');
+  if (edgeTrack) {
+    const real = Array.from(edgeTrack.children);
+    const N = real.length;
+    const egap = 1.6 * 16;
+    const eper = () => window.innerWidth <= 640 ? 1 : (window.innerWidth <= 900 ? 2 : 4);
+    const stripClones = () => { const kids = Array.from(edgeTrack.children); kids.forEach((k) => { if (!real.includes(k)) k.remove(); }); };
+    const buildClones = () => { stripClones(); const pp = eper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => edgeTrack.insertBefore(c.cloneNode(true), edgeTrack.firstChild)); trail.forEach((c) => edgeTrack.appendChild(c.cloneNode(true))); return pp; };
+    let p = buildClones();
+    const kids = () => edgeTrack.children;
+    const step = () => (kids()[0].offsetWidth + egap);
+    let left = p;
+    const apply = () => edgeTrack.style.transform = 'translateX(' + (-left * step()) + 'px)';
+    edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)';
+    apply();
+    const snap = (v) => { edgeTrack.style.transition = 'none'; left = v; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)'; };
+    document.getElementById('edgeNext').addEventListener('click', () => { left += 1; apply(); if (left >= p + N) setTimeout(() => snap(left - N), 660); });
+    document.getElementById('edgePrev').addEventListener('click', () => { left -= 1; apply(); if (left < p) setTimeout(() => snap(left + N), 660); });
+    window.addEventListener('resize', () => { p = buildClones(); left = p; edgeTrack.style.transition = 'none'; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)'; });
+  }
+  </script>
 </Layout>

@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+
+// Values mirror src/styles/theme.css (@theme static) and index.astro CSS tokens.
+const colors = [
+  { name: 'forest', hex: '#1F3B2C' },
+  { name: 'kraft', hex: '#C9A87C' },
+  { name: 'brass', hex: '#B08D4C' },
+  { name: 'ivory', hex: '#F5F0E5' },
+  { name: 'clay', hex: '#EDE5D4' },
+  { name: 'charcoal', hex: '#21241C' },
+  { name: 'moss', hex: '#8C8676' },
+];
+---
+
+<Layout title="Design System" description="Component inventory and brand reference" canonical="https://leelinepackage.com/design-system">
+  <Fragment slot="head"><meta name="robots" content="noindex, nofollow" /></Fragment>
+
+  <main class="ds">
+    <header class="ds-hero">
+      <h1>Design System</h1>
+      <p>Component inventory and brand reference</p>
+    </header>
+
+    <!-- ============ COLORS ============ -->
+    <section class="ds-section">
+      <h2>Colors</h2>
+      <div class="ds-colors">
+        {colors.map((c) => (
+          <div class="ds-swatch">
+            <span class="ds-chip" style={`background: ${c.hex}`}></span>
+            <div class="ds-swatch-meta">
+              <strong>{c.name}</strong>
+              <code>bg-{c.name}</code>
+              <code>{c.hex}</code>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ TYPOGRAPHY ============ -->
+    <section class="ds-section">
+      <h2>Typography</h2>
+      <div class="ds-type">
+        <div class="ds-type-row"><span class="ds-tag">H1 / hero</span><h1 class="ds-h1">Custom packaging, made to measure.</h1></div>
+        <div class="ds-type-row"><span class="ds-tag">H2 / section</span><h2 class="ds-h2">Every detail is made to measure.</h2></div>
+        <div class="ds-type-row"><span class="ds-tag">H3 / card</span><h3 class="ds-h3">Finishes &amp; Effects</h3></div>
+        <div class="ds-type-row"><span class="ds-tag">H4 / label</span><h4 class="ds-h4">Fully Customisable</h4></div>
+        <div class="ds-type-row"><span class="ds-tag">Body</span><p class="ds-body">Dielines cut to fit your product exactly — any length, width, height or corner radius.</p></div>
+        <div class="ds-type-row"><span class="ds-tag">Caption</span><span class="ds-caption">Rigid keepsake box — beauty &amp; skincare</span></div>
+        <div class="ds-type-row"><span class="ds-tag">Eyebrow</span><span class="ds-eyebrow">Industries We Serve</span></div>
+      </div>
+    </section>
+
+    <!-- ============ COMPONENTS ============ -->
+    <section class="ds-section">
+      <h2>Components</h2>
+
+      <h3 class="ds-sub">Sections</h3>
+      <div class="ds-component">
+        <div class="ds-frame"><Navbar /></div>
+        <p class="ds-comp-name"><strong>Navbar</strong> · <code>src/components/Navbar.astro</code></p>
+      </div>
+
+      <h3 class="ds-sub">Atoms</h3>
+      <p class="ds-note">
+        No standalone atom components exist yet. The homepage defines its buttons, cards, badges and
+        section heads as CSS classes inside <code>src/pages/index.astro</code> &mdash; e.g.
+        <code>.btn</code> / <code>.btn-gold</code> / <code>.btn-light</code>, <code>.eyebrow</code>,
+        <code>.section-title</code>, <code>.product-card</code>, <code>.industry-card</code>,
+        <code>.edge-dot</code>, <code>.faq-item</code>. As these are extracted into
+        <code>src/components/</code>, they should be imported and listed here.
+      </p>
+    </section>
+  </main>
+
+  <style>
+    .ds { max-width: 1200px; margin-inline: auto; padding: clamp(3.5rem, 7vw, 6rem) clamp(1.5rem, 4vw, 3rem); }
+    .ds-hero { margin-bottom: clamp(3rem, 6vw, 5rem); }
+    .ds-hero h1 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.7rem, 6vw, 4.6rem); line-height: 0.97; letter-spacing: -0.03em; color: var(--color-charcoal); margin: 0; text-wrap: balance; }
+    .ds-hero p { font-size: 1.06rem; line-height: 1.7; color: var(--color-moss); margin-top: 1.2rem; max-width: 46ch; }
+
+    .ds-section { border-top: 1px solid rgba(31, 59, 44, 0.12); padding-top: clamp(2.5rem, 5vw, 4rem); margin-top: clamp(2.5rem, 5vw, 4rem); }
+    .ds-section > h2 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.2rem); letter-spacing: -0.02em; color: var(--color-charcoal); margin: 0 0 1.4rem; }
+    .ds-sub { font-family: var(--font-heading); font-weight: 600; font-size: 1.3rem; color: var(--color-charcoal); margin: 2rem 0 1rem; }
+
+    .ds-colors { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; }
+    .ds-swatch { background: var(--color-ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1rem; padding: 1rem; }
+    .ds-chip { display: block; height: 72px; border-radius: 0.7rem; border: 1px solid rgba(31, 59, 44, 0.12); }
+    .ds-swatch-meta { display: grid; gap: 0.2rem; margin-top: 0.8rem; }
+    .ds-swatch-meta strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--color-charcoal); }
+    .ds-swatch-meta code { font-size: 0.78rem; color: var(--color-moss); }
+
+    .ds-type-row { display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.1rem 0; border-top: 1px solid rgba(31, 59, 44, 0.08); }
+    .ds-type-row:first-child { border-top: 0; }
+    .ds-tag { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-moss); }
+    .ds-h1 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.7rem, 6.6vw, 5.6rem); line-height: 0.97; letter-spacing: -0.03em; color: var(--color-charcoal); max-width: 22ch; text-wrap: balance; margin: 0; }
+    .ds-h2 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.04; letter-spacing: -0.02em; color: var(--color-charcoal); margin: 0; }
+    .ds-h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.45rem; letter-spacing: -0.01em; color: var(--color-charcoal); margin: 0; }
+    .ds-h4 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: var(--color-charcoal); margin: 0; }
+    .ds-body { font-family: var(--font-body); font-size: 1rem; line-height: 1.65; color: var(--color-moss); max-width: 46ch; margin: 0; }
+    .ds-caption { font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; line-height: 1.25; letter-spacing: -0.01em; color: var(--color-charcoal); }
+    .ds-eyebrow { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--color-brass); }
+
+    .ds-component { border: 1px dashed rgba(31, 59, 44, 0.25); border-radius: 1.2rem; overflow: hidden; }
+    .ds-frame { padding: 0.8rem; background: var(--color-ivory); }
+    .ds-comp-name { font-size: 0.85rem; color: var(--color-moss); margin: 0.8rem 0 0; }
+    .ds-comp-name code { font-size: 0.8rem; }
+    .ds-note { font-size: 0.95rem; line-height: 1.65; color: var(--color-moss); max-width: 68ch; }
+    .ds-note code { font-size: 0.85rem; }
+
+    @media (max-width: 720px) {
+      .ds-type-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</Layout>

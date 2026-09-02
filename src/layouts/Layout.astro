@@ -4,9 +4,30 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
+  canonical?: string;
+  ogType?: string;
+  ogImage?: string;
+  jsonLd?: string;
+  preloadFont?: string;
+  preloadImage?: string;
+  preloadImageSrcset?: string;
+  preloadImageSizes?: string;
 }
 
-const { title, description = '' } = Astro.props;
+const {
+  title,
+  description = '',
+  keywords = '',
+  canonical = '',
+  ogType = 'website',
+  ogImage = '',
+  jsonLd = '',
+  preloadFont = '',
+  preloadImage = '',
+  preloadImageSrcset = '',
+  preloadImageSizes = '',
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -14,9 +35,27 @@ const { title, description = '' } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    {preloadFont && <link rel="preload" href={preloadFont} as="font" type="font/woff2" crossorigin="anonymous" />}
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} imagesrcset={preloadImageSrcset || undefined} imagesizes={preloadImageSizes || undefined} fetchpriority="high" />}
     <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd}></script>}
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <slot name="head" />
   </head>
   <body>
     <slot />

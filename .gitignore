@@ -4,6 +4,17 @@ dist/
 .astro/
 .wrangler/
 
+# images staged for R2 upload
+_images/
+_v/
+
+# one-off build/scratch python scripts
+_*.py
+
+# R2 upload config / manifest
+.r2-upload.json
+.r2-manifest.json
+
 # dependencies
 node_modules/
 

@@ -1,0 +1,212 @@
+---
+const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp';
+
+// Navbar mirrors the original leelinepackage.com structure (dropdowns kept),
+// links point to the matching in-page section (pages get built later).
+const nav = {
+  home: '#top',
+  products: [
+    'Custom Bag', 'Custom Box', 'Custom Folding Cartons', 'Custom Paper Bag', 'Custom Rigid Boxes',
+    'Custom Mailer Bags', 'Custom Pouches', 'Custom Tote Bags', 'Custom Reusable Shopping Bags',
+    'Custom Display Box', 'Custom Corrugated Boxes', 'Custom Tin Box', 'Custom Acrylic Box',
+    'Custom Package Stickers', 'Custom Velvet Bags',
+  ],
+  industries: ['Custom Jewelry Packaging', 'Custom Gift Box', 'Custom Shipping Box'],
+  about: '#about',
+  caseStudy: '#work',
+  services: ['Structural Engineering', 'Packaging Artwork Design', 'Packaging Sample & Prototyping'],
+  blog: '#',
+  cta: '#quote',
+};
+---
+
+<header class="site-nav" id="siteNav">
+  <div class="site-nav-inner">
+    <a class="brand" href="#top" aria-label="LeelinePackage home">
+      <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="eager" />
+      <span class="brand-word">Leeline<em>Package</em></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href={nav.home}>Home</a>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
+          Products
+          <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-menu">
+          {nav.products.map((p) => (
+            <a href="#offerings">{p}</a>
+          ))}
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
+          Industries
+          <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-menu">
+          {nav.industries.map((p) => (
+            <a href="#industries">{p}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href={nav.about}>About Us</a>
+      <a href={nav.caseStudy}>Case Study</a>
+
+      <div class="nav-drop">
+        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
+          Services
+          <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-menu">
+          {nav.services.map((p) => (
+            <a href="#process">{p}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href={nav.blog}>Blog</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm" href={nav.cta}>Get a Free Quote</a>
+      <button class="menu-btn" id="navMenuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="nav-mobile" id="navMobile">
+    <nav class="nav-mobile-links" aria-label="Mobile">
+      <a href="#top">Home</a>
+      <details>
+        <summary>Products</summary>
+        <div class="sub">{nav.products.map((p) => <a href="#offerings">{p}</a>)}</div>
+      </details>
+      <details>
+        <summary>Industries</summary>
+        <div class="sub">{nav.industries.map((p) => <a href="#industries">{p}</a>)}</div>
+      </details>
+      <a href="#about">About Us</a>
+      <a href="#work">Case Study</a>
+      <details>
+        <summary>Services</summary>
+        <div class="sub">{nav.services.map((p) => <a href="#process">{p}</a>)}</div>
+      </details>
+      <a href="#blog">Blog</a>
+      <a href="#quote" class="btn btn-primary">Get a Free Quote</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  :global(body) { padding-top: 0; }
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  }
+  .site-nav.scrolled {
+    background: rgba(245, 240, 229, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(31, 59, 44, 0.08);
+  }
+  .site-nav-inner {
+    width: min(1280px, 100% - clamp(2rem, 6vw, 6rem));
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    transition: padding 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .site-nav.scrolled .site-nav-inner { padding: 0.55rem 0; }
+
+  .brand { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+  .brand-logo { width: 34px; height: 34px; border-radius: 8px; object-fit: contain; }
+  .brand-word { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .brand-word em { font-style: normal; font-family: var(--font-body); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-left: 0.35rem; }
+
+  .nav-links { display: flex; align-items: center; gap: clamp(1.1rem, 2.4vw, 1.9rem); }
+  .nav-links > a, .nav-drop-btn {
+    font-size: 0.92rem; font-weight: 500; color: var(--color-brand-text); text-decoration: none;
+    background: none; border: 0; cursor: pointer; padding: 0.3rem 0; position: relative;
+    display: inline-flex; align-items: center; gap: 0.35rem; font-family: inherit;
+  }
+  .nav-links > a::after, .nav-drop-btn::after {
+    content: ''; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%;
+    background: var(--brass); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nav-links > a:hover::after, .nav-drop:hover .nav-drop-btn::after, .nav-drop:focus-within .nav-drop-btn::after { transform: scaleX(1); }
+  .chev { width: 11px; height: 8px; transition: transform 0.3s ease; }
+  .nav-drop:hover .chev, .nav-drop:focus-within .chev { transform: rotate(180deg); }
+
+  .nav-drop { position: relative; }
+  .nav-menu {
+    position: absolute; top: calc(100% + 0.6rem); left: 50%; transform: translateX(-50%) translateY(-6px);
+    min-width: 240px; background: #fff; border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1rem;
+    padding: 0.6rem; box-shadow: 0 24px 60px -28px rgba(31, 59, 44, 0.4);
+    opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    display: flex; flex-direction: column;
+  }
+  .nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .nav-menu a {
+    font-size: 0.9rem; color: var(--color-brand-text); text-decoration: none; padding: 0.55rem 0.8rem; border-radius: 0.6rem;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .nav-menu a:hover { background: rgba(31, 59, 44, 0.05); color: var(--color-brand-primary); }
+
+  .nav-actions { display: flex; align-items: center; gap: 0.8rem; }
+  .menu-btn { display: none; flex-direction: column; gap: 5px; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 1px solid rgba(31, 59, 44, 0.2); border-radius: 50%; cursor: pointer; }
+  .menu-btn span { display: block; width: 18px; height: 1.6px; background: var(--color-brand-text); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease; }
+  body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
+  body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
+
+  .nav-mobile {
+    position: fixed; inset: 0; z-index: -1; background: var(--ivory);
+    display: grid; place-items: center; opacity: 0; visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease; overflow-y: auto;
+  }
+  body.menu-open .nav-mobile { opacity: 1; visibility: visible; z-index: -1; }
+  .nav-mobile-links { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: 6rem 1.5rem 3rem; width: 100%; max-height: 100%; overflow-y: auto; }
+  .nav-mobile-links > a, .nav-mobile-links summary {
+    font-family: var(--font-heading); font-size: 1.7rem; color: var(--color-brand-text); text-decoration: none;
+    list-style: none; cursor: pointer; text-align: center;
+  }
+  .nav-mobile-links summary::-webkit-details-marker { display: none; }
+  .nav-mobile-links .sub { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.5rem; text-align: center; }
+  .nav-mobile-links .sub a { font-family: var(--font-body); font-size: 1rem; color: var(--color-brand-muted); text-decoration: none; }
+  .nav-mobile-links a.btn { font-family: var(--font-body); font-size: 1rem; margin-top: 0.6rem; }
+
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .menu-btn { display: flex; }
+  }
+</style>
+
+<script>
+  const nav = document.getElementById('siteNav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  const btn = document.getElementById('navMenuBtn');
+  const toggle = (open) => {
+    document.body.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  btn.addEventListener('click', () => toggle(!document.body.classList.contains('menu-open')));
+  document.querySelectorAll('#navMobile a').forEach((a) => a.addEventListener('click', () => toggle(false)));
+  document.querySelectorAll('.nav-drop-btn').forEach((b) => {
+    b.addEventListener('click', (e) => { e.preventDefault(); b.closest('.nav-drop').classList.toggle('open'); });
+  });
+</script>

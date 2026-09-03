@@ -24,7 +24,7 @@ const socials = [
 <footer class="footer">
   <div class="wrap footer-grid">
     <div class="footer-col footer-brand">
-      <a class="brand brand--light" href="/" aria-label="LeelinePackage home">
+      <a class="brand brand--light" href="/" target="_blank" rel="noopener" aria-label="LeelinePackage home">
         <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="lazy" />
         <span class="brand-word">Leeline<em>Package</em></span>
       </a>
@@ -44,18 +44,18 @@ const socials = [
 
     <nav class="footer-col" aria-label="Popular products">
       <h4>Popular Products</h4>
-      {products.map((p) => <a href="/#offerings">{p}</a>)}
+      {products.map((p) => <a href="/#offerings" target="_blank" rel="noopener">{p}</a>)}
     </nav>
 
     <nav class="footer-col" aria-label="Company">
       <h4>Company Info</h4>
-      {info.map((i) => <a href={i.href}>{i.label}</a>)}
+      {info.map((i) => <a href={i.href} target="_blank" rel="noopener">{i.label}</a>)}
     </nav>
 
     <div class="footer-col footer-cta">
       <h4>Get a Free Quote</h4>
       <p class="footer-note">Send us your product and quantity — we reply with a dieline, material and quote the same day.</p>
-      <a class="btn btn-light btn-sm" href="/contact">Get a Free Quote</a>
+      <a class="btn btn-light btn-sm" href="/contact" target="_blank" rel="noopener">Get a Free Quote</a>
       <p class="footer-contact">
         <span>Email: <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></span>
         <span>Phone: <a href="tel:+8613986152456">86 139 8615 2456</a></span>

@@ -14,7 +14,11 @@ const nav = {
   industries: ['Custom Jewelry Packaging', 'Custom Gift Box', 'Custom Shipping Box'],
   about: '/#about',
   caseStudy: '/#work',
-  services: ['Structural Engineering', 'Packaging Artwork Design', 'Packaging Sample & Prototyping'],
+  services: [
+    { label: 'Structural Engineering', href: '/structural-engineering-design/' },
+    { label: 'Packaging Artwork Design', href: '/#process' },
+    { label: 'Packaging Sample & Prototyping', href: '/#process' },
+  ],
   blog: '#',
   contact: '/contact',
   cta: '/contact',
@@ -23,13 +27,13 @@ const nav = {
 
 <header class="site-nav" id="siteNav">
   <div class="site-nav-inner">
-    <a class="brand" href="/" aria-label="LeelinePackage home">
+    <a class="brand" href="/" target="_blank" rel="noopener" aria-label="LeelinePackage home">
       <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="eager" />
       <span class="brand-word">Leeline<em>Package</em></span>
     </a>
 
     <nav class="nav-links" aria-label="Primary">
-      <a href={nav.home}>Home</a>
+      <a href={nav.home} target="_blank" rel="noopener">Home</a>
 
       <div class="nav-drop">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
@@ -38,7 +42,7 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.products.map((p) => (
-            <a href="/#offerings">{p}</a>
+            <a href="/#offerings" target="_blank" rel="noopener">{p}</a>
           ))}
         </div>
       </div>
@@ -50,13 +54,13 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.industries.map((p) => (
-            <a href="/#industries">{p}</a>
+            <a href="/#industries" target="_blank" rel="noopener">{p}</a>
           ))}
         </div>
       </div>
 
-      <a href={nav.about}>About Us</a>
-      <a href={nav.caseStudy}>Case Study</a>
+      <a href={nav.about} target="_blank" rel="noopener">About Us</a>
+      <a href={nav.caseStudy} target="_blank" rel="noopener">Case Study</a>
 
       <div class="nav-drop">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
@@ -65,17 +69,17 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.services.map((p) => (
-            <a href="/#process">{p}</a>
+            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
           ))}
         </div>
       </div>
 
       <a href={nav.blog}>Blog</a>
-      <a href={nav.contact}>Contact</a>
+      <a href={nav.contact} target="_blank" rel="noopener">Contact</a>
     </nav>
 
     <div class="nav-actions">
-      <a class="btn btn-primary btn-sm" href={nav.cta}>Get a Free Quote</a>
+      <a class="btn btn-primary btn-sm" href={nav.cta} target="_blank" rel="noopener">Get a Free Quote</a>
       <button class="menu-btn" id="navMenuBtn" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span>
       </button>
@@ -84,24 +88,24 @@ const nav = {
 
   <div class="nav-mobile" id="navMobile">
     <nav class="nav-mobile-links" aria-label="Mobile">
-      <a href="/">Home</a>
+      <a href="/" target="_blank" rel="noopener">Home</a>
       <details>
         <summary>Products</summary>
-        <div class="sub">{nav.products.map((p) => <a href="/#offerings">{p}</a>)}</div>
+        <div class="sub">{nav.products.map((p) => <a href="/#offerings" target="_blank" rel="noopener">{p}</a>)}</div>
       </details>
       <details>
         <summary>Industries</summary>
-        <div class="sub">{nav.industries.map((p) => <a href="/#industries">{p}</a>)}</div>
+        <div class="sub">{nav.industries.map((p) => <a href="/#industries" target="_blank" rel="noopener">{p}</a>)}</div>
       </details>
-      <a href="/#about">About Us</a>
-      <a href="/#work">Case Study</a>
+      <a href="/#about" target="_blank" rel="noopener">About Us</a>
+      <a href="/#work" target="_blank" rel="noopener">Case Study</a>
       <details>
         <summary>Services</summary>
-        <div class="sub">{nav.services.map((p) => <a href="/#process">{p}</a>)}</div>
+        <div class="sub">{nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
       </details>
-      <a href="/">Blog</a>
-      <a href="/contact">Contact</a>
-      <a href="/contact" class="btn btn-primary">Get a Free Quote</a>
+      <a href="/" target="_blank" rel="noopener">Blog</a>
+      <a href="/contact" target="_blank" rel="noopener">Contact</a>
+      <a href="/contact" class="btn btn-primary" target="_blank" rel="noopener">Get a Free Quote</a>
     </nav>
   </div>
 </header>

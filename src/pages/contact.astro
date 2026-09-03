@@ -79,12 +79,15 @@ const jsonLd = {
           <h2>Let&#8217;s talk.</h2>
           <p class="contact-sub">The fastest way to a quote is a short email with your product dims and quantity. Prefer to talk it through? Call or message us.</p>
           <ul class="contact-list">
-            {contacts.map((c) => (
-              <li>
-                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.icon} fill="currentColor"/></svg></span>
-                <div><span class="contact-label">{c.label}</span><a href={c.href}>{c.value}</a></div>
-              </li>
-            ))}
+            {contacts.map((c) => {
+              const isSpecial = c.href.startsWith('mailto:') || c.href.startsWith('tel:');
+              return (
+                <li>
+                  <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.icon} fill="currentColor"/></svg></span>
+                  <div><span class="contact-label">{c.label}</span><a href={c.href} target={isSpecial ? undefined : '_blank'} rel={isSpecial ? undefined : 'noopener'}>{c.value}</a></div>
+                </li>
+              );
+            })}
           </ul>
           <p class="contact-note">We respond to all enquiries within 24 hours, Mon&#8211;Sat. 500+ brands already ship in our packaging.</p>
         </aside>

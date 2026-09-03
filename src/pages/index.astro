@@ -448,7 +448,7 @@ const seoJsonLd = JSON.stringify({
         <div class="nav-drop">
           <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Services<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
           <div class="nav-menu">
-            <a href="#process">Structural Engineering</a>
+            <a href="/structural-engineering-design/" target="_blank" rel="noopener">Structural Engineering</a>
             <a href="#process">Packaging Artwork Design</a>
             <a href="#process">Packaging Sample & Prototyping</a>
           </div>
@@ -503,7 +503,7 @@ const seoJsonLd = JSON.stringify({
         <details>
           <summary>Services</summary>
           <div class="sub">
-          <a href="#process">Structural Engineering</a>
+          <a href="/structural-engineering-design/" target="_blank" rel="noopener">Structural Engineering</a>
           <a href="#process">Packaging Artwork Design</a>
           <a href="#process">Packaging Sample & Prototyping</a>
           </div>
@@ -820,7 +820,7 @@ const seoJsonLd = JSON.stringify({
         <div class="case-grid">
           {cases.map((c, i) => (
             <article class="case" data-reveal={['up', 'left', 'right'][i]} style={`--d:${i * 0.12}s`}>
-              <a class="case-link" href={c.url} aria-label={`${c.title} — ${c.client} case study`}>
+              <a class="case-link" href={c.url} target="_blank" rel="noopener" aria-label={`${c.title} — ${c.client} case study`}>
               <figure class="case-media">
                 <img src={c.img} alt={`${c.title} — ${c.client}`} loading="lazy" />
                 <span class="case-metric">

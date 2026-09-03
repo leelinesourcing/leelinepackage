@@ -292,8 +292,8 @@ const seoJsonLd = JSON.stringify({
 ---
 
 <Layout
-  title="Custom Packaging Manufacturer: MOQ 500, 5-Day Samples & ISO 9001 — LeelinePackage"
-  description="LeelinePackage custom packaging manufacturer in China — custom boxes, rigid gift boxes, corrugated mailers, pouches & labels. MOQ from 500, free 3D mockups, 5-day samples, FSC & ISO 9001. Get a free quote today."
+  title="Custom Packaging Manufacturer: MOQ 500, 5-Day Samples & 9001"
+  description="Custom packaging manufacturer in China. Custom boxes, rigid mailers & pouches. MOQ 500 — free 3D mockups, 5-day samples, FSC & ISO 9001. Get a free quote today."
   keywords={KEYWORDS}
   canonical="https://www.leelinepackage.com/"
   ogImage="https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-06.avif"
@@ -805,6 +805,51 @@ const seoJsonLd = JSON.stringify({
       </div>
     </section>
 
+    <!-- ============ BRAND LOGOS ============ -->
+    <section class="brand-logos">
+      <div class="wrap">
+        <div class="logo-wall" data-reveal="up">
+          <p class="logo-wall-label">Trusted by Global Brands</p>
+          <div class="logo-slider">
+            <div class="logo-track" id="logoTrack">
+              {brandLogos.map((b) => (
+                <span class="logo-item"><img src={b.img} alt={b.name} loading="lazy" decoding="async" /></span>
+              ))}
+            </div>
+            <button class="logo-pager logo-pager--prev" id="logoPrev" aria-label="Previous logos"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="logo-pager logo-pager--next" id="logoNext" aria-label="Next logos"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MANUFACTURING EDGE (packccp Why Delivers) ============ -->
+    <section class="edge" id="edge">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One roof, one standard — consistency at any <em>scale</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Each step — design, print, finish and assembly — is under one roof, so packaging stays consistent from the first sample to the 500,000th unit.</p>
+        </div>
+      </div>
+      <div class="edge-carousel" data-reveal="up">
+        <div class="edge-track" id="edgeTrack">
+          {edges.map((e, i) => (
+            <article class="edge-card" data-view={i}>
+              <span class="edge-dot">{e.num}</span>
+              <figure class="edge-media"><img src={e.img} alt={e.title} loading="lazy" decoding="async" /></figure>
+              <div class="edge-body">
+                <h3>{e.title}</h3>
+                <p>{e.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <button class="edge-arrow edge-arrow--prev" id="edgePrev" aria-label="Previous capability"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="edge-arrow edge-arrow--next" id="edgeNext" aria-label="Next capability"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </section>
+
     <!-- ============ FEATURED WORK ============ -->
     <section class="work" id="work">
       <div class="wrap">
@@ -847,33 +892,6 @@ const seoJsonLd = JSON.stringify({
             </article>
           ))}
         </div>
-      </div>
-    </section>
-
-    <!-- ============ MANUFACTURING EDGE (packccp Why Delivers) ============ -->
-    <section class="edge" id="edge">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">One roof, one standard — consistency at any <em>scale</em>.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">Each step — design, print, finish and assembly — is under one roof, so packaging stays consistent from the first sample to the 500,000th unit.</p>
-        </div>
-      </div>
-      <div class="edge-carousel" data-reveal="up">
-        <div class="edge-track" id="edgeTrack">
-          {edges.map((e, i) => (
-            <article class="edge-card" data-view={i}>
-              <span class="edge-dot">{e.num}</span>
-              <figure class="edge-media"><img src={e.img} alt={e.title} loading="lazy" decoding="async" /></figure>
-              <div class="edge-body">
-                <h3>{e.title}</h3>
-                <p>{e.desc}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <button class="edge-arrow edge-arrow--prev" id="edgePrev" aria-label="Previous capability"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button class="edge-arrow edge-arrow--next" id="edgeNext" aria-label="Next capability"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </section>
     <!-- ============ PATENT CERTIFICATE ============ -->
@@ -945,18 +963,6 @@ const seoJsonLd = JSON.stringify({
           ))}
         </div>
 
-        <div class="logo-wall" data-reveal="up">
-          <p class="logo-wall-label">Trusted by Global Brands</p>
-          <div class="logo-slider">
-            <div class="logo-track" id="logoTrack">
-              {brandLogos.map((b) => (
-                <span class="logo-item"><img src={b.img} alt={b.name} loading="lazy" decoding="async" /></span>
-              ))}
-            </div>
-            <button class="logo-pager logo-pager--prev" id="logoPrev" aria-label="Previous logos"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button class="logo-pager logo-pager--next" id="logoNext" aria-label="Next logos"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1734,16 +1740,17 @@ const seoJsonLd = JSON.stringify({
     .t-meta strong { font-size: 0.95rem; color: var(--color-brand-text); }
     .t-meta span { font-size: 0.82rem; color: var(--color-brand-muted); }
 
+    .brand-logos { background: var(--ivory); padding: clamp(4rem, 8vw, 6rem) 0; }
     .logo-wall { text-align: center; }
-    .logo-wall-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-bottom: 1.8rem; }
-    .logo-slider { position: relative; overflow: hidden; padding: 0 3.2rem; }
+    .logo-wall-label { font-size: 0.86rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-bottom: 2rem; }
+    .logo-slider { position: relative; overflow: hidden; padding: 0 3.4rem; }
     .logo-track { display: flex; gap: 1.6rem; align-items: center; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-    .logo-item { flex: 0 0 calc((100% - 11.2rem) / 8); display: grid; place-items: center; }
-    .logo-item img { max-height: 120px; width: auto; max-width: 100%; object-fit: contain; filter: grayscale(0.45); opacity: 0.92; transition: filter 0.3s ease, opacity 0.3s ease; }
+    .logo-item { flex: 0 0 calc((100% - 8rem) / 6); display: grid; place-items: center; }
+    .logo-item img { max-height: 190px; width: auto; max-width: 100%; object-fit: contain; filter: grayscale(0.45); opacity: 0.92; transition: filter 0.3s ease, opacity 0.3s ease; }
     .logo-item img:hover { filter: grayscale(0); opacity: 1; }
-    .logo-pager { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(31, 59, 44, 0.2); background: #fff; color: var(--color-brand-primary); cursor: pointer; z-index: 2; display: grid; place-items: center; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+    .logo-pager { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(31, 59, 44, 0.2); background: #fff; color: var(--color-brand-primary); cursor: pointer; z-index: 2; display: grid; place-items: center; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
     .logo-pager:hover { background: var(--color-brand-primary); color: var(--ivory); transform: translateY(-50%) scale(1.06); }
-    .logo-pager svg { width: 18px; height: 18px; }
+    .logo-pager svg { width: 21px; height: 21px; }
     .logo-pager--prev { left: 0; }
     .logo-pager--next { right: 0; }
     @media (max-width: 900px) { .logo-item { flex: 0 0 calc((100% - 6.4rem) / 5); } }
@@ -2194,7 +2201,7 @@ const seoJsonLd = JSON.stringify({
     const real = Array.from(logoTrack.children);
     const N = real.length;
     const lg = 1.6 * 16;
-    const lper = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 8);
+    const lper = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 6);
     const stripClones = () => { Array.from(logoTrack.children).forEach((k) => { if (!real.includes(k)) k.remove(); }); };
     const brate = (c) => { const n = c.cloneNode(true); const im = n.querySelector('img'); if (im) im.loading = 'eager'; return n; };
     const buildClones = () => { stripClones(); const pp = lper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => logoTrack.insertBefore(brate(c), logoTrack.firstChild)); trail.forEach((c) => logoTrack.appendChild(brate(c))); return pp; };

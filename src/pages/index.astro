@@ -42,6 +42,29 @@ const IMG = {
   affordable: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-22.avif',
   expert: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-23.avif',
   shipping: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-24.avif',
+  hero480: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp',
+  hero960: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-960.webp',
+  hero1440: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-1440.webp',
+  facility: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp',
+  ctaInline: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp',
+  ctaFinal: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp',
+  indBeauty: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-beauty-cosmetics.webp',
+  indJewelry: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-jewelry-accessories.webp',
+  indApparel: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-apparel-fashion.webp',
+  indFood: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-food-beverage.webp',
+  indDtc: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-dtc-subscription.webp',
+  indElectronics: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-consumer-electronics.webp',
+  cFinishes: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-finishes-effects.webp',
+  cInserts: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-inserts-structure.webp',
+  cPrinting: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-printing-colour.webp',
+  scene1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-1.webp',
+  scene2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-2.webp',
+  scene3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-3.webp',
+  scene4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-4.webp',
+  scene5: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-5.webp',
+  scene6: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-6.webp',
+  avPriya: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/testimonial-priya.webp',
+  avCallum: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/testimonial-callum.webp',
 };
 
 const materials = [
@@ -69,19 +92,19 @@ const customize = [
     title: 'Finishes & Effects',
     body: 'Change how the surface feels and catches the light, to signal the price point before the box is even opened.',
     tags: ['Matte / gloss / soft-touch', 'Gold & silver foil', 'Emboss / deboss', 'Spot UV'],
-    img: IMG.rigid,
+    img: IMG.cFinishes,
   },
   {
     title: 'Printing & Colour',
     body: 'Lock a colour standard that holds across every run — we match to your Pantone and proof it on the same press.',
     tags: ['Offset / flexo / digital', 'Exact Pantone match', 'Certified proofing'],
-    img: IMG.shipping,
+    img: IMG.cPrinting,
   },
   {
     title: 'Inserts & Structure',
     body: 'Hold the product still, show it off, or let it arrive ready to gift — engineered to fit the exact contents.',
     tags: ['EVA / foam inserts', 'Dividers & trays', 'Magnetic closure', 'Display window'],
-    img: IMG.case1,
+    img: IMG.cInserts,
   },
   {
     title: 'Eco & Sustainable',
@@ -155,6 +178,7 @@ const testimonials = [
     country: 'United States',
     industry: 'Subscription Boxes',
     initials: 'PM',
+    avatar: IMG.avPriya,
   },
   {
     quote: [
@@ -167,6 +191,7 @@ const testimonials = [
     country: 'Australia',
     industry: 'Specialty Coffee',
     initials: 'CW',
+    avatar: IMG.avCallum,
   },
 ];
 
@@ -198,22 +223,22 @@ const brandLogos = [
   { name: 'Raymond Weil', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/RAYMOND-WEIL.webp' },
 ];
 const sceneImages = [
-  { img: IMG.case1, caption: 'Rigid keepsake box — beauty & skincare' },
-  { img: IMG.case2, caption: 'Custom mailer unboxing — DTC e-commerce' },
-  { img: IMG.case3, caption: 'Rigid gift box — gifting & retail' },
-  { img: IMG.case4, caption: 'Custom packaging — subscription box' },
-  { img: IMG.case5, caption: 'Corrugated shipper — supply chain' },
-  { img: IMG.case6, caption: 'Labels & stickers — retail & merch' },
+  { img: IMG.scene1, caption: 'Custom mailer & labels — DTC fulfilment' },
+  { img: IMG.scene2, caption: 'Rigid keepsake unboxing — beauty & subscription' },
+  { img: IMG.scene3, caption: 'Paper shopping bags — retail & fashion' },
+  { img: IMG.scene4, caption: 'Reusable totes — everyday carry' },
+  { img: IMG.scene5, caption: 'Food & beverage pouches — retail' },
+  { img: IMG.scene6, caption: 'Reusable bags — groceries & retail' },
 ];
 
 
 const industries = [
-  { name: 'Beauty & Cosmetics', tag: 'Cosmetic', img: IMG.rigid, blurb: 'Rigid keepsake boxes, foam inserts and exact Pantone colour match.' },
-  { name: 'Jewelry & Accessories', tag: 'Jewelry', img: IMG.satin, blurb: 'Satin bags and velvet-lined rigid boxes for keepsake presentation.' },
-  { name: 'Apparel & Fashion', tag: 'Apparel', img: IMG.reusable, blurb: 'Kraft totes, mailers and garment boxes that travel well.' },
-  { name: 'Food & Beverage', tag: 'Food-safe', img: IMG.pouches, blurb: 'Food-safe pouches and cartons that keep product fresh.' },
-  { name: 'DTC & Subscription', tag: 'DTC', img: IMG.mailer, blurb: 'Custom-sized mailers that cut dimensional weight and surprise subscribers.' },
-  { name: 'Consumer Electronics', tag: 'Electronics', img: IMG.acrylic, blurb: 'Protective rigid and acrylic cases with custom foam inserts.' },
+  { name: 'Beauty & Cosmetics', tag: 'Cosmetic', img: IMG.indBeauty, blurb: 'Rigid keepsake boxes, foam inserts and exact Pantone colour match.' },
+  { name: 'Jewelry & Accessories', tag: 'Jewelry', img: IMG.indJewelry, blurb: 'Satin bags and velvet-lined rigid boxes for keepsake presentation.' },
+  { name: 'Apparel & Fashion', tag: 'Apparel', img: IMG.indApparel, blurb: 'Kraft totes, mailers and garment boxes that travel well.' },
+  { name: 'Food & Beverage', tag: 'Food-safe', img: IMG.indFood, blurb: 'Food-safe pouches and cartons that keep product fresh.' },
+  { name: 'DTC & Subscription', tag: 'DTC', img: IMG.indDtc, blurb: 'Custom-sized mailers that cut dimensional weight and surprise subscribers.' },
+  { name: 'Consumer Electronics', tag: 'Electronics', img: IMG.indElectronics, blurb: 'Protective rigid and acrylic cases with custom foam inserts.' },
 ];
 
 const edges = [
@@ -856,7 +881,7 @@ const seoJsonLd = JSON.stringify({
               <svg class="t-mark" aria-hidden="true" viewBox="0 0 40 28"><path d="M0 28V14C0 4 6 0 16 0v6C9 7 6 10 6 15h8v13H0Zm24 0V14C24 4 30 0 40 0v6c-7 1-10 4-10 9h8v13H24Z" fill="currentColor"/></svg>
               {t.quote.map((para) => (<p>{para}</p>))}
               <footer class="t-author">
-                <span class="t-avatar">{t.initials}</span>
+                <img class="t-avatar" src={t.avatar} alt={t.name} loading="lazy" />
                 <span class="t-meta">
                   <strong>{t.name}</strong>
                   <span>{t.role} &middot; {t.country} &middot; {t.industry}</span>
@@ -1260,9 +1285,9 @@ const seoJsonLd = JSON.stringify({
       padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
       color: var(--ivory);
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-480.avif') center / cover no-repeat; }
-    @media (min-width: 641px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-960.avif'); } }
-    @media (min-width: 1025px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-1440.avif'); } }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp') center / cover no-repeat; }
+    @media (min-width: 641px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-960.webp'); } }
+    @media (min-width: 1025px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-1440.webp'); } }
     .hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, rgba(20, 38, 27, 0.42) 0%, rgba(20, 38, 27, 0.72) 55%, rgba(20, 38, 27, 0.9) 100%); }
     .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translateY(-1cm); }
     .hero-rating { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.05rem; border-radius: 999px; background: rgba(245, 240, 229, 0.12); border: 1px solid rgba(245, 240, 229, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transform: translateY(-0.3cm); }
@@ -1596,13 +1621,8 @@ const seoJsonLd = JSON.stringify({
       height: 58px;
       border-radius: 50%;
       background: var(--color-brand-primary);
-      color: var(--ivory);
-      display: grid;
-      place-items: center;
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 1.15rem;
-      letter-spacing: 0.04em;
+      display: block;
+      object-fit: cover;
       flex: 0 0 auto;
     }
     .t-meta { display: flex; flex-direction: column; }
@@ -1632,6 +1652,16 @@ const seoJsonLd = JSON.stringify({
       color: var(--ivory);
       padding: clamp(4.5rem, 10vw, 9rem) 0;
       overflow: hidden;
+    }
+    #quote-inline {
+      background-image: linear-gradient(rgba(20, 38, 27, 0.84), rgba(20, 38, 27, 0.84)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp');
+      background-size: cover;
+      background-position: center;
+    }
+    #quote {
+      background-image: linear-gradient(rgba(20, 38, 27, 0.84), rgba(20, 38, 27, 0.84)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp');
+      background-size: cover;
+      background-position: center;
     }
     .cta-grain {
       position: absolute;
@@ -1789,7 +1819,7 @@ const seoJsonLd = JSON.stringify({
 
     /* ============ ABOUT ============ */
 
-    .about { background: var(--forest-deep); color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .about { background-color: var(--forest-deep); background-image: linear-gradient(rgba(20, 38, 27, 0.88), rgba(20, 38, 27, 0.88)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp'); background-size: cover; background-position: center; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
     .about .section-title { color: var(--ivory); }
     .about .section-sub { color: rgba(245, 240, 229, 0.78); }
     .factory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); margin: 2.2rem 0 1.8rem; }

@@ -263,9 +263,8 @@ const process = [
 
 const faqs = [
   { q: 'Can I split one format across a few SKUs, or run a small test order first?', a: 'Yes — that is the cleanest way to trial a product or reach a minimum without committing to a full run. Send us the mix and we will line-price each SKU, so smaller launches stay flexible.' },
-  { q: 'Who owns the tooling and dielines if we move suppliers later?', a: 'You do. We sign an NDA up front, the dielines and moulds stay yours, and we commit in writing never to re-sell, share or reuse your artwork.' },
+  { q: 'Can you match or reverse-engineer a box we already use?', a: 'Yes — send us a physical sample or a few photos with dimensions, and we rebuild the dieline and material spec to match. You keep the files, and we keep the result off the shelf.' },
   { q: 'Are samples charged, and does the cost come off my order?', a: 'Digital 3D mockups are free. A physical sample is a small charge that is credited against the production order, so you do not pay twice to see the final box in hand.' },
-  { q: 'What payment methods and terms do you accept?', a: 'We take T/T, PayPal and major cards, with flexible terms from a 30% deposit plus balance before shipment on larger runs. Escrow and DDP options are available for bigger or first orders.' },
   { q: 'What pushes production lead time out, and can you rush a launch?', a: 'Volume and finishing are the main drivers — the more complex the finish and the larger the run, the longer it takes. We flag expedited and capacity limits on the quote, so you can plan a launch to the day.' },
   { q: 'How many revisions are included with my design work?', a: 'Two full revision rounds are included with each dieline and artwork project, and we log each change so you always know which version is current.' },
 ];
@@ -643,7 +642,7 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How It Works</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">From <em>spec to shipment</em>, in four moves.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us the product and our engineers do the rest, with a 3D mockup in your inbox within a day.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us the product and our engineers do the rest, with a 3D mockup in the inbox within a day.</p>
         </div>
         <ol class="process-list">
           {process.map((p, i) => (
@@ -666,7 +665,7 @@ const seoJsonLd = JSON.stringify({
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your product deserves packaging that <em>sells it</em>.</h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Send us what you ship — the product, the quantity, any reference you have — and our engineers will draw the dieline, pick the material and finish, and reply with a quote the same day. Prefer to feel it first? We ship a physical sample kit before you commit to a run.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
-          <a class="btn btn-gold" href="#quote">Send Your Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-gold" href="#quote">Send a Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -700,6 +699,110 @@ const seoJsonLd = JSON.stringify({
         <path d="M0 100 C 240 22, 520 92, 780 62 C 1020 34, 1260 92, 1440 40 L1440 100 Z" fill="#EDE5D4" />
       </svg>
     </div>
+
+    <!-- ============ WHY US (INVERTED FOREST) ============ -->
+    <section class="why" id="why">
+      <div class="why-grain" aria-hidden="true"></div>
+      <svg class="why-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
+
+      <div class="wrap why-grid">
+        <div class="why-intro">
+          <p class="eyebrow eyebrow--light" data-reveal="up">
+            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+            Why Leeline
+          </p>
+          <h2 class="why-title" data-reveal="up" style="--d:.06s">
+            Why LeelinePackage <em>stands out</em> as a custom packaging partner.
+          </h2>
+          <p class="why-sub" data-reveal="up" style="--d:.12s">
+            Here is what a decade of structural engineering actually does for you — colour that
+            holds run to run, samples before you commit, protected IP and factory-direct pricing
+            you can build a margin on.
+          </p>
+          <a class="btn btn-ghost" href="#quote" data-reveal="up" style="--d:.18s">
+            Partner With Us
+            <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+
+        <div class="why-list">
+          <article class="reason" data-reveal="left" style="--d:0s">
+            <span class="reason-num">01</span>
+            <h3>Your colour, run after run</h3>
+            <p>The real fear with any overseas supplier is the second order coming back a different shade. We calibrate the press and lock the ink recipe, so every reorder matches the proof you approved.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.1s">
+            <span class="reason-num">02</span>
+            <h3>A real person who knows your job</h3>
+            <p>You get one engineer who has the spec and dieline on file — not a ticket queue. Ask a question and get an actual answer, from someone who has seen the box.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.2s">
+            <span class="reason-num">03</span>
+            <h3>Approve the exact box first</h3>
+            <p>You sign off a real sample and the production proof before a single unit runs, so the box in hand is the box coming off the line — no surprises at the dock.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.3s">
+            <span class="reason-num">04</span>
+            <h3>It arrives looking intentional</h3>
+            <p>A beautiful box that shows up crushed is no box at all. We fit structure to the product and its shipping route, so it lands looking like you meant it.</p>
+          </article>
+          <article class="reason" data-reveal="left" style="--d:.4s">
+            <span class="reason-num">05</span>
+            <h3>Delivered duty paid, to your door</h3>
+            <p>Ship DDP and we handle customs and duties up front, so the figure you approve is what actually lands at the warehouse — no surprise broker fees or dock holds.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW WE COMPARE ============ -->
+    <section class="assurance" id="assurance">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How We Compare</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">The LeelinePackage <em>difference</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can visit, 100% QC, and terms that keep IP and deposits safe — see how that stacks up against a typical supplier.</p>
+        </div>
+        <div class="compare" data-reveal="up">
+          <table class="compare-table">
+            <thead><tr><th></th><th>LeelinePackage</th><th>Typical supplier</th></tr></thead>
+            <tbody>
+              <tr><td>Unit cost vs Western</td><td>30&ndash;50% lower</td><td>smaller savings</td></tr>
+              <tr><td>Minimum order</td><td>from 500</td><td>2,000&ndash;10,000</td></tr>
+              <tr><td>3D mockup</td><td>free, same day</td><td>paid, takes days</td></tr>
+              <tr><td>Physical sample</td><td>3&ndash;7 days</td><td>2&ndash;4 weeks</td></tr>
+              <tr><td>Quality control</td><td>100% inspected</td><td>spot checks</td></tr>
+              <tr><td>On-time delivery</td><td>99.5%</td><td>80&ndash;90%</td></tr>
+              <tr><td>Production</td><td>4&ndash;6 weeks</td><td>8&ndash;12 weeks</td></tr>
+              <tr><td>IP &amp; tooling</td><td>NDA, moulds yours</td><td>varies</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT / FACTORY ============ -->
+    <section class="about" id="about">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>About LeelinePackage</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, we are a factory you can visit and verify — 20,000m&sup2; of in-house design, printing, finishing and assembly, so packaging is engineered and made in one accountable place.</p>
+        </div>
+        <div class="factory-stats" data-reveal="up">
+          <div class="factory-stat"><strong>20,000 m&sup2;</strong><span>production facility in China</span></div>
+          <div class="factory-stat"><strong>0.1mm</strong><span>Heidelberg Speedmaster precision</span></div>
+          <div class="factory-stat"><strong>24/7</strong><span>automated production lines</span></div>
+          <div class="factory-stat"><strong>500,000+</strong><span>daily packaging capacity</span></div>
+        </div>
+        <p class="factory-note" data-reveal="up">
+          An ISO 9001 quality system and ISTA-3A testing run at each stage, so packaging ships consistent and survives the journey — while premium finishes make it feel anything but ordinary.
+        </p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-light" href="#quote">Visit the Facility<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
 
     <!-- ============ FEATURED WORK ============ -->
     <section class="work" id="work">
@@ -744,96 +847,6 @@ const seoJsonLd = JSON.stringify({
           ))}
         </div>
       </div>
-    <div class="section-cta">
-      <a class="btn btn-primary" href="#quote">Request Industry Pricing<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-
-    </section>
-
-    <!-- ============ WHY US (INVERTED FOREST) ============ -->
-    <section class="why" id="why">
-      <div class="why-grain" aria-hidden="true"></div>
-      <svg class="why-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
-
-      <div class="wrap why-grid">
-        <div class="why-intro">
-          <p class="eyebrow eyebrow--light" data-reveal="up">
-            <svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
-            Why Leeline
-          </p>
-          <h2 class="why-title" data-reveal="up" style="--d:.06s">
-            Why LeelinePackage <em>stands out</em> as a custom packaging partner.
-          </h2>
-          <p class="why-sub" data-reveal="up" style="--d:.12s">
-            Here is what a decade of structural engineering actually does for you — colour that
-            holds run to run, samples before you commit, protected IP and factory-direct pricing
-            you can build a margin on.
-          </p>
-          <a class="btn btn-light" href="#quote" data-reveal="up" style="--d:.18s">
-            Partner With Us
-            <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </div>
-
-        <div class="why-list">
-          <article class="reason" data-reveal="left" style="--d:0s">
-            <span class="reason-num">01</span>
-            <h3>Unmatched quality</h3>
-            <p>Heidelberg precision printing under 0.1mm, 98% colour consistency and drop-tested durability on all boxes. Each run is checked against the physical proof, so what you approve is exactly what arrives.</p>
-          </article>
-          <article class="reason" data-reveal="left" style="--d:.1s">
-            <span class="reason-num">02</span>
-            <h3>10+ years of excellence</h3>
-            <p>Trusted by 10,000+ global brands with a 98% satisfaction rate. A decade of structural engineering across beauty, food and DTC means we have already solved most packaging problems you are likely to hit.</p>
-          </article>
-          <article class="reason" data-reveal="left" style="--d:.2s">
-            <span class="reason-num">03</span>
-            <h3>Fast turnaround</h3>
-            <p>Digital mockups in advance and white-dummy samples in 3&ndash;7 days, so you can test the fit before committing, then production runs of 4&ndash;6 weeks.</p>
-          </article>
-          <article class="reason" data-reveal="left" style="--d:.3s">
-            <span class="reason-num">04</span>
-            <h3>Low minimum orders</h3>
-            <p>Flexible MOQs from just 500 units for most packaging types. Start with a test run, then scale to 500,000 without changing suppliers or re-tooling.</p>
-          </article>
-          <article class="reason" data-reveal="left" style="--d:.4s">
-            <span class="reason-num">05</span>
-            <h3>Factory-direct pricing</h3>
-            <p>30&ndash;50% cost savings versus Western suppliers, without compromising quality. We source materials at wholesale and fold design into manufacturing, so premium finishes cost a fraction of Western rates.</p>
-          </article>
-          <article class="reason" data-reveal="left" style="--d:.5s">
-            <span class="reason-num">06</span>
-            <h3>IP &amp; design protection</h3>
-            <p>NDA up front, the dielines and moulds stay yours, and we never re-sell or share your artwork. Send us drawings without fear of a copycat.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ HOW WE COMPARE ============ -->
-    <section class="assurance" id="assurance">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How We Compare</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">The LeelinePackage <em>difference</em>.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can visit, 100% QC, and terms that keep IP and deposits safe — see how that stacks up against a typical supplier.</p>
-        </div>
-        <div class="compare" data-reveal="up">
-          <table class="compare-table">
-            <thead><tr><th></th><th>LeelinePackage</th><th>Typical supplier</th></tr></thead>
-            <tbody>
-              <tr><td>Unit cost vs Western</td><td>30&ndash;50% lower</td><td>smaller savings</td></tr>
-              <tr><td>Minimum order</td><td>from 500</td><td>2,000&ndash;10,000</td></tr>
-              <tr><td>3D mockup</td><td>free, same day</td><td>paid, takes days</td></tr>
-              <tr><td>Physical sample</td><td>3&ndash;7 days</td><td>2&ndash;4 weeks</td></tr>
-              <tr><td>Quality control</td><td>100% inspected</td><td>spot checks</td></tr>
-              <tr><td>On-time delivery</td><td>99.5%</td><td>80&ndash;90%</td></tr>
-              <tr><td>Production</td><td>4&ndash;6 weeks</td><td>8&ndash;12 weeks</td></tr>
-              <tr><td>IP &amp; tooling</td><td>NDA, moulds yours</td><td>varies</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
     </section>
 
     <!-- ============ MANUFACTURING EDGE (packccp Why Delivers) ============ -->
@@ -841,7 +854,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Why LeelinePackage <em>Delivers Better</em> Packaging.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One roof, one standard — consistency at any <em>scale</em>.</h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Each step — design, print, finish and assembly — is under one roof, so packaging stays consistent from the first sample to the 500,000th unit.</p>
         </div>
       </div>
@@ -860,26 +873,6 @@ const seoJsonLd = JSON.stringify({
         </div>
         <button class="edge-arrow edge-arrow--prev" id="edgePrev" aria-label="Previous capability"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="edge-arrow edge-arrow--next" id="edgeNext" aria-label="Next capability"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-      </div>
-    </section>
-
-    <!-- ============ ABOUT / FACTORY ============ -->
-    <section class="about" id="about">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>About LeelinePackage</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em>.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, we are a factory you can visit and verify — 20,000m&sup2; of in-house design, printing, finishing and assembly, so packaging is engineered and made in one accountable place.</p>
-        </div>
-        <div class="factory-stats" data-reveal="up">
-          <div class="factory-stat"><strong>20,000 m&sup2;</strong><span>production facility in China</span></div>
-          <div class="factory-stat"><strong>0.1mm</strong><span>Heidelberg Speedmaster precision</span></div>
-          <div class="factory-stat"><strong>24/7</strong><span>automated production lines</span></div>
-          <div class="factory-stat"><strong>500,000+</strong><span>daily packaging capacity</span></div>
-        </div>
-        <p class="factory-note" data-reveal="up">
-          An ISO 9001 quality system and ISTA-3A testing run at each stage, so packaging ships consistent and survives the journey — while premium finishes make it feel anything but ordinary.
-        </p>
       </div>
     </section>
     <!-- ============ PATENT CERTIFICATE ============ -->
@@ -1588,16 +1581,16 @@ const seoJsonLd = JSON.stringify({
     /* ============ WHY (INVERTED) ============ */
     .why {
       position: relative;
-      background: var(--color-brand-primary);
-      color: var(--ivory);
+      background: var(--ivory);
+      color: var(--color-brand-text);
       padding: clamp(4.5rem, 10vw, 9rem) 0;
       overflow: clip;
     }
     .why-grain {
       position: absolute;
       inset: 0;
-      opacity: 0.07;
-      mix-blend-mode: overlay;
+      opacity: 0.05;
+      mix-blend-mode: multiply;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     }
     .why-seal {
@@ -1607,7 +1600,7 @@ const seoJsonLd = JSON.stringify({
       width: clamp(220px, 30vw, 460px);
       aspect-ratio: 1;
       height: auto;
-      color: rgba(201, 168, 124, 0.1);
+      color: rgba(176, 141, 76, 0.12);
       animation: drift 18s ease-in-out infinite;
     }
     .why-intro { position: sticky; top: 7rem; align-self: start; }
@@ -1624,30 +1617,31 @@ const seoJsonLd = JSON.stringify({
       font-size: clamp(2.2rem, 4.6vw, 3.8rem);
       line-height: 1.02;
       letter-spacing: -0.02em;
-      color: var(--ivory);
+      color: var(--color-brand-text);
       margin: 1.1rem 0 0;
     }
-    .why-title em { font-style: italic; color: var(--brass-soft); }
-    .why-sub { font-size: 1.05rem; line-height: 1.7; color: rgba(245, 240, 229, 0.72); max-width: 46ch; margin: 1.4rem 0 2rem; }
+    .why-title em { font-style: italic; color: var(--brass); }
+    .why-sub { font-size: 1.05rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 46ch; margin: 1.4rem 0 2rem; }
+    .why .eyebrow--light { color: var(--brass); }
 
     .why-list { display: flex; flex-direction: column; gap: 1rem; }
     .reason {
-      border: 1px solid rgba(201, 168, 124, 0.22);
+      border: 1px solid rgba(31, 59, 44, 0.12);
       border-radius: 1.4rem;
       padding: 1.8rem 2rem;
-      background: rgba(245, 240, 229, 0.03);
+      background: rgba(255, 255, 255, 0.55);
       transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease;
     }
-    .reason:hover { transform: translateX(8px); border-color: rgba(201, 168, 124, 0.55); background: rgba(245, 240, 229, 0.06); }
-    .reason-num { font-family: var(--font-body); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; color: var(--brass-soft); }
+    .reason:hover { transform: translateX(8px); border-color: var(--brass); background: rgba(255, 255, 255, 0.9); }
+    .reason-num { font-family: var(--font-body); font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; color: var(--brass); }
     .reason h3 {
       font-family: var(--font-heading);
       font-weight: 600;
       font-size: 1.5rem;
-      color: var(--ivory);
+      color: var(--color-brand-text);
       margin: 0.5rem 0 0.5rem;
     }
-    .reason p { font-size: 0.98rem; line-height: 1.65; color: rgba(245, 240, 229, 0.72); margin: 0; }
+    .reason p { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0; }
 
     /* ============ PROOF ============ */
     .proof { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -1745,17 +1739,17 @@ const seoJsonLd = JSON.stringify({
     .logo-wall { text-align: center; }
     .logo-wall-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-bottom: 1.8rem; }
     .logo-slider { position: relative; overflow: hidden; padding: 0 3.2rem; }
-    .logo-track { display: flex; gap: 1.2rem; align-items: center; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-    .logo-item { flex: 0 0 calc((100% - 8.4rem) / 8); display: grid; place-items: center; }
-    .logo-item img { max-height: 82px; width: auto; max-width: 100%; object-fit: contain; filter: grayscale(0.45); opacity: 0.92; transition: filter 0.3s ease, opacity 0.3s ease; }
+    .logo-track { display: flex; gap: 1.6rem; align-items: center; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .logo-item { flex: 0 0 calc((100% - 11.2rem) / 8); display: grid; place-items: center; }
+    .logo-item img { max-height: 120px; width: auto; max-width: 100%; object-fit: contain; filter: grayscale(0.45); opacity: 0.92; transition: filter 0.3s ease, opacity 0.3s ease; }
     .logo-item img:hover { filter: grayscale(0); opacity: 1; }
     .logo-pager { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(31, 59, 44, 0.2); background: #fff; color: var(--color-brand-primary); cursor: pointer; z-index: 2; display: grid; place-items: center; transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease; }
     .logo-pager:hover { background: var(--color-brand-primary); color: var(--ivory); transform: translateY(-50%) scale(1.06); }
     .logo-pager svg { width: 18px; height: 18px; }
     .logo-pager--prev { left: 0; }
     .logo-pager--next { right: 0; }
-    @media (max-width: 900px) { .logo-item { flex: 0 0 calc((100% - 6rem) / 5); } }
-    @media (max-width: 640px) { .logo-item { flex: 0 0 calc((100% - 3.6rem) / 3); } }
+    @media (max-width: 900px) { .logo-item { flex: 0 0 calc((100% - 6.4rem) / 5); } }
+    @media (max-width: 640px) { .logo-item { flex: 0 0 calc((100% - 3.2rem) / 3); } }
 
     /* ============ NO-RISK SOURCING ============ */
     .assurance { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -2143,7 +2137,7 @@ const seoJsonLd = JSON.stringify({
   }
   const logoTrack = document.getElementById('logoTrack');
   if (logoTrack) {
-    const items = logoTrack.children, gap = 1.2 * 16;
+    const items = logoTrack.children, gap = 1.6 * 16;
     let li = 0;
     const per = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 8);
     const maxLi = () => Math.max(0, items.length - per());

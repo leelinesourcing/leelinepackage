@@ -4,7 +4,7 @@ const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp'
 // Navbar mirrors the original leelinepackage.com structure (dropdowns kept),
 // links point to the matching in-page section (pages get built later).
 const nav = {
-  home: '#top',
+  home: '/',
   products: [
     'Custom Bag', 'Custom Box', 'Custom Folding Cartons', 'Custom Paper Bag', 'Custom Rigid Boxes',
     'Custom Mailer Bags', 'Custom Pouches', 'Custom Tote Bags', 'Custom Reusable Shopping Bags',
@@ -12,17 +12,18 @@ const nav = {
     'Custom Package Stickers', 'Custom Velvet Bags',
   ],
   industries: ['Custom Jewelry Packaging', 'Custom Gift Box', 'Custom Shipping Box'],
-  about: '#about',
-  caseStudy: '#work',
+  about: '/#about',
+  caseStudy: '/#work',
   services: ['Structural Engineering', 'Packaging Artwork Design', 'Packaging Sample & Prototyping'],
   blog: '#',
-  cta: '#quote',
+  contact: '/contact',
+  cta: '/contact',
 };
 ---
 
 <header class="site-nav" id="siteNav">
   <div class="site-nav-inner">
-    <a class="brand" href="#top" aria-label="LeelinePackage home">
+    <a class="brand" href="/" aria-label="LeelinePackage home">
       <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="eager" />
       <span class="brand-word">Leeline<em>Package</em></span>
     </a>
@@ -37,7 +38,7 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.products.map((p) => (
-            <a href="#offerings">{p}</a>
+            <a href="/#offerings">{p}</a>
           ))}
         </div>
       </div>
@@ -49,7 +50,7 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.industries.map((p) => (
-            <a href="#industries">{p}</a>
+            <a href="/#industries">{p}</a>
           ))}
         </div>
       </div>
@@ -64,12 +65,13 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.services.map((p) => (
-            <a href="#process">{p}</a>
+            <a href="/#process">{p}</a>
           ))}
         </div>
       </div>
 
       <a href={nav.blog}>Blog</a>
+      <a href={nav.contact}>Contact</a>
     </nav>
 
     <div class="nav-actions">
@@ -82,23 +84,24 @@ const nav = {
 
   <div class="nav-mobile" id="navMobile">
     <nav class="nav-mobile-links" aria-label="Mobile">
-      <a href="#top">Home</a>
+      <a href="/">Home</a>
       <details>
         <summary>Products</summary>
-        <div class="sub">{nav.products.map((p) => <a href="#offerings">{p}</a>)}</div>
+        <div class="sub">{nav.products.map((p) => <a href="/#offerings">{p}</a>)}</div>
       </details>
       <details>
         <summary>Industries</summary>
-        <div class="sub">{nav.industries.map((p) => <a href="#industries">{p}</a>)}</div>
+        <div class="sub">{nav.industries.map((p) => <a href="/#industries">{p}</a>)}</div>
       </details>
-      <a href="#about">About Us</a>
-      <a href="#work">Case Study</a>
+      <a href="/#about">About Us</a>
+      <a href="/#work">Case Study</a>
       <details>
         <summary>Services</summary>
-        <div class="sub">{nav.services.map((p) => <a href="#process">{p}</a>)}</div>
+        <div class="sub">{nav.services.map((p) => <a href="/#process">{p}</a>)}</div>
       </details>
-      <a href="#blog">Blog</a>
-      <a href="#quote" class="btn btn-primary">Get a Free Quote</a>
+      <a href="/">Blog</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact" class="btn btn-primary">Get a Free Quote</a>
     </nav>
   </div>
 </header>

@@ -1,0 +1,135 @@
+---
+const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp';
+const year = new Date().getFullYear();
+
+const products = [
+  'Custom Bags', 'Custom Boxes', 'Folding Cartons', 'Paper Bags',
+  'Rigid Boxes', 'Mailer Bags', 'Pouches', 'Tote Bags',
+];
+const info = [
+  { label: 'About Us', href: '/#about' },
+  { label: 'Case Study', href: '/#work' },
+  { label: 'Structural Engineering', href: '/structural-engineering-and-design' },
+  { label: 'Contact', href: '/contact' },
+  { label: 'Privacy Policy', href: '/' },
+];
+
+const socials = [
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/', d: 'M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9.9h3.41v1.44h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.25 2.36 4.25 5.43v5.53zM5.34 8.14a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.03 20.45H3.64V9.9h3.39v10.55z' },
+  { name: 'Facebook', href: 'https://www.facebook.com/', d: 'M22 12.04C22 6.51 17.52 2 12 2S2 6.51 2 12.04c0 5 3.66 9.16 8.44 9.92v-7.02H7.9v-2.9h2.54V9.85c0-2.51 1.5-3.9 3.78-3.9 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33V22c4.78-.76 8.43-4.92 8.43-9.96z' },
+  { name: 'Instagram', href: 'https://www.instagram.com/', d: 'M12 2.16c-2.68 0-3.02.01-4.07.06-1.05.05-1.77.22-2.4.46-.65.25-1.2.6-1.75 1.14-.54.55-.89 1.1-1.14 1.75-.24.63-.41 1.35-.46 2.4-.05 1.05-.06 1.39-.06 4.07s.01 3.02.06 4.07c.05 1.05.22 1.77.46 2.4.25.65.6 1.2 1.14 1.75.55.54 1.1.89 1.75 1.14.63.24 1.35.41 2.4.46 1.05.05 1.39.06 4.07.06s3.02-.01 4.07-.06c1.05-.05 1.77-.22 2.4-.46.65-.25 1.2-.6 1.75-1.14.54-.55.89-1.1 1.14-1.75.24-.63.41-1.35.46-2.4.05-1.05.06-1.39.06-4.07s-.01-3.02-.06-4.07c-.05-1.05-.22-1.77-.46-2.4a4.8 4.8 0 0 0-1.14-1.75 4.8 4.8 0 0 0-1.75-1.14c-.63-.24-1.35-.41-2.4-.46-1.05-.05-1.39-.06-4.07-.06zm0 1.8c2.64 0 2.95.01 3.99.06.96.04 1.48.2 1.83.34.46.18.79.39 1.14.74.35.35.56.68.74 1.14.14.35.3.87.34 1.83.05 1.04.06 1.35.06 3.99s-.01 2.95-.06 3.99c-.04.96-.2 1.48-.34 1.83a3.07 3.07 0 0 1-.74 1.14c-.35.35-.68.56-1.14.74-.35.14-.87.3-1.83.34-1.04.05-1.35.06-3.99.06s-2.95-.01-3.99-.06c-.96-.04-1.48-.2-1.83-.34a3.07 3.07 0 0 1-1.14-.74 3.07 3.07 0 0 1-.74-1.14c-.14-.35-.3-.87-.34-1.83-.05-1.04-.06-1.35-.06-3.99s.01-2.95.06-3.99c.04-.96.2-1.48.34-1.83.18-.46.39-.79.74-1.14.35-.35.68-.56 1.14-.74.35-.14.87-.3 1.83-.34 1.04-.05 1.35-.06 3.99-.06zm0 3.06A5 5 0 1 0 12 17a5 5 0 0 0 0-9.96zm0 8.24A3.24 3.24 0 1 1 12 8.76a3.24 3.24 0 0 1 0 6.48zm5.2-8.44a1.16 1.16 0 1 1-2.33 0 1.16 1.16 0 0 1 2.33 0z' },
+];
+---
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-col footer-brand">
+      <a class="brand brand--light" href="/" aria-label="LeelinePackage home">
+        <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="lazy" />
+        <span class="brand-word">Leeline<em>Package</em></span>
+      </a>
+      <p class="footer-tagline">
+        <svg class="tagline-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4zM19.3 11.4C15 12 11.3 15 9.8 19c3.9-3.4 7.2-4.9 9.1-7.2.3-.1.4-.3.4-.4z" fill="currentColor"/></svg>
+        Protect &amp; Impress.
+      </p>
+      <p class="footer-note">Engineered, not just printed. Custom packaging manufactured in Wuhan, China — from MOQ 500 to 500,000 units.</p>
+      <div class="socials">
+        {socials.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener" aria-label={s.name}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={s.d} fill="currentColor"/></svg>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <nav class="footer-col" aria-label="Popular products">
+      <h4>Popular Products</h4>
+      {products.map((p) => <a href="/#offerings">{p}</a>)}
+    </nav>
+
+    <nav class="footer-col" aria-label="Company">
+      <h4>Company Info</h4>
+      {info.map((i) => <a href={i.href}>{i.label}</a>)}
+    </nav>
+
+    <div class="footer-col footer-cta">
+      <h4>Get a Free Quote</h4>
+      <p class="footer-note">Send us your product and quantity — we reply with a dieline, material and quote the same day.</p>
+      <a class="btn btn-light btn-sm" href="/contact">Get a Free Quote</a>
+      <p class="footer-contact">
+        <span>Email: <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></span>
+        <span>Phone: <a href="tel:+8613986152456">86 139 8615 2456</a></span>
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>&copy; {year} LeelinePackage. All rights reserved.</span>
+    <span class="footer-mark">
+      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Engineered, not just printed.
+    </span>
+  </div>
+</footer>
+
+<style>
+  :global(body) { padding-top: 0; }
+
+  .footer {
+    background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
+    color: rgba(245, 240, 229, 0.86);
+    padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.3fr;
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .brand--light .brand-word { color: var(--ivory); }
+  .brand--light .brand-word em { color: rgba(245, 240, 229, 0.55); }
+  .footer-brand .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
+  .brand-logo { width: 34px; height: 34px; border-radius: 8px; object-fit: contain; }
+  .brand-word { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--ivory); }
+  .brand-word em { font-style: normal; font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245, 240, 229, 0.55); margin-left: 0.35rem; }
+
+  .footer-tagline {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: var(--font-heading); font-style: italic; font-size: 1.35rem;
+    color: var(--brass-soft); margin: 1.4rem 0 1rem;
+  }
+  .tagline-leaf { width: 1.1em; height: 1.1em; color: var(--brass); }
+  .footer-note { font-size: 0.95rem; line-height: 1.7; max-width: 34ch; margin: 0 0 1.6rem; }
+
+  .socials { display: flex; gap: 0.7rem; }
+  .socials a {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1px solid rgba(245, 240, 229, 0.25);
+    display: grid; place-items: center; color: rgba(245, 240, 229, 0.8);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease;
+  }
+  .socials a svg { width: 17px; height: 17px; }
+  .socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--forest-deep); }
+
+  .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
+  .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.72); transition: color 0.3s ease; }
+  .footer-col a:hover { color: var(--ivory); }
+  .footer-cta .footer-note { margin-bottom: 1rem; }
+  .footer-contact { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1.1rem; }
+
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+    border-top: 1px solid rgba(245, 240, 229, 0.14);
+    margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.6rem;
+    font-size: 0.82rem;
+  }
+  .footer-mark { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brass-soft); }
+  .footer-mark svg { width: 1.1em; height: 1.1em; color: var(--brass); }
+
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { justify-content: flex-start; flex-direction: column; align-items: flex-start; }
+  }
+</style>

@@ -28,3 +28,22 @@
   --font-heading: 'Newsreader Variable', Georgia, serif;
   --font-body:    'Instrument Sans Variable', system-ui, sans-serif;
 }
+
+/* Legacy brand aliases shared by every subpage (homepage sets these in its own
+   <style is:global>; subpages inherit them here). The Material Atelier. */
+:root {
+  --color-brand-primary:   #1F3B2C;
+  --color-brand-secondary: #C9A87C;
+  --color-brand-accent:    #B08D4C;
+  --color-brand-bg:        #F5F0E5;
+  --color-brand-surface:   #EDE5D4;
+  --color-brand-text:      #2B2F26;
+  --color-brand-muted:     #605C4E;
+  --forest-deep:   #14261B;
+  --forest-light:  #2E4F3D;
+  --brass:         #B08D4C;
+  --brass-bright:  #E4B54D;
+  --brass-soft:    #C9A87C;
+  --ivory:         #F5F0E5;
+  --kraft:         #EDE5D4;
+}

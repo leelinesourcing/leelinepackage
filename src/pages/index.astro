@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 
 const IMG = {
-  logo: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp',
+  logo: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/leelinepackage-logo.webp',
   team: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03.avif',
   team480: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-480.avif',
   team960: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-960.avif',
@@ -998,7 +998,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap cta-inner">
         <p class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Let's Make It Yours</p>
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch your brand, <em>we'll build the box</em>.</h2>
-        <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch.</p>
+        <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch. One engineer stays with you from the first dieline to delivery, so nothing gets lost in handoff.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
           <a class="btn btn-gold" href="#quote">Request Your Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
@@ -1011,12 +1011,10 @@ const seoJsonLd = JSON.stringify({
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a class="brand brand--light" href="#top">
-            <svg class="brand-seal" aria-hidden="true"><use href="#i-leaf" /></svg>
-            <span class="brand-word">Leeline<em>Package</em></span>
+          <a class="brand brand--light" href="#top" aria-label="LeelinePackage home">
+            <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" loading="lazy" />
           </a>
           <p class="footer-tagline">
-            <svg class="tagline-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
             Engineered, not just printed.
           </p>
           <p class="footer-note">
@@ -1053,13 +1051,13 @@ const seoJsonLd = JSON.stringify({
           <a href="tel:+8613986152456">+86 139 8615 2456</a>
           <span>Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China</span>
           <span>Mon–Sat · 9:00–18:00 CST</span>
+          <a class="btn btn-gold btn-sm" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
 
       <div class="footer-bottom">
         <span>© 2026 LeelinePackage. All rights reserved.</span>
         <span class="footer-mark">
-          <svg aria-hidden="true"><use href="#i-leaf-sm" /></svg>
           Engineered, not just printed.
         </span>
         <span>ISO 9001 · FSC®</span>
@@ -1395,14 +1393,14 @@ const seoJsonLd = JSON.stringify({
     .hero-rating .rating-text { font-size: 0.85rem; color: rgba(255, 255, 255, 0.98); font-family: var(--font-body); }
     .hero h1 {
       font-family: var(--font-heading);
-      font-weight: 500;
-      font-size: clamp(2.7rem, 5.1vw, 4.7rem);
-      line-height: 1.16;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 5.3vw, 4.8rem);
+      line-height: 1.24;
       letter-spacing: -0.03em;
       color: #FFFFFF;
       text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4);
       margin: 1.3rem 0 0;
-      width: min(94vw, 1820px);
+      width: min(96vw, 2000px);
     }
     .hero h1 em { font-style: italic; color: #E3C29A; }
     .hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(255, 255, 255, 0.97); max-width: 58ch; margin: 1.6rem 0 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
@@ -1860,6 +1858,7 @@ const seoJsonLd = JSON.stringify({
     .cta-seal--a { top: -10%; left: 4%; width: clamp(160px, 20vw, 300px); animation: floaty 12s ease-in-out infinite; }
     .cta-seal--b { bottom: -14%; right: 5%; width: clamp(200px, 26vw, 400px); animation: drift 20s ease-in-out infinite reverse; }
     .cta-inner { text-align: center; position: relative; z-index: 1; }
+    #quote .cta-inner { padding-top: 0.5cm; }
     .cta-title {
       font-family: var(--font-heading);
       font-weight: 500;
@@ -1875,14 +1874,14 @@ const seoJsonLd = JSON.stringify({
     .cta-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.4rem; }
 
     /* ============ FOOTER ============ */
-    .footer { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(245, 240, 229, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
+    .footer { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(255, 255, 255, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1.3fr;
       gap: clamp(2rem, 4vw, 3.5rem);
     }
-    .brand--light .brand-word { color: var(--ivory); }
-    .brand--light .brand-word em { color: rgba(245, 240, 229, 0.55); }
+    .brand--light .brand-word { color: #fff; }
+    .brand--light .brand-word em { color: rgba(255, 255, 255, 0.55); }
     .footer-tagline {
       display: inline-flex;
       align-items: center;
@@ -1900,19 +1899,22 @@ const seoJsonLd = JSON.stringify({
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      border: 1px solid rgba(245, 240, 229, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.25);
       display: grid;
       place-items: center;
-      color: rgba(245, 240, 229, 0.8);
+      color: rgba(255, 255, 255, 0.8);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease;
     }
     .socials a svg { width: 17px; height: 17px; }
     .socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--forest-deep); }
 
-    .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer-col { display: flex; flex-direction: column; gap: 0.7rem; padding-top: 0.5cm; }
     .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
-    .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.72); transition: color 0.3s ease; }
-    .footer-col a:hover { color: var(--ivory); }
+    .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
+    .footer-col a:hover { color: #fff; }
+    .footer .brand-logo { height: 48px; filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35)); }
+    .footer-col--contact .btn { color: var(--forest-deep); padding: 0.6rem 1.15rem; font-size: 0.88rem; margin-top: 0.45rem; align-self: flex-start; }
+    .footer-col--contact .btn:hover { color: var(--forest-deep); background: #EFC45A; box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.5); }
 
     .footer-bottom {
       display: flex;
@@ -1920,7 +1922,7 @@ const seoJsonLd = JSON.stringify({
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      border-top: 1px solid rgba(245, 240, 229, 0.14);
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
       margin-top: clamp(2.5rem, 5vw, 4rem);
       padding-top: 1.6rem;
       font-size: 0.82rem;
@@ -2167,30 +2169,51 @@ const seoJsonLd = JSON.stringify({
     const N = real.length;
     const sg = () => parseFloat(getComputedStyle(sceneTrack).columnGap) || 0;
     const sper = () => window.innerWidth <= 640 ? 1 : (window.innerWidth <= 900 ? 2 : 3);
-    const stripClones = () => { const kids = Array.from(sceneTrack.children); kids.forEach((k) => { if (!real.includes(k)) k.remove(); }); };
-    const buildClones = () => { stripClones(); const pp = sper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => sceneTrack.insertBefore(c.cloneNode(true), sceneTrack.firstChild)); trail.forEach((c) => sceneTrack.appendChild(c.cloneNode(true))); return pp; };
+    const stripClones = () => { Array.from(sceneTrack.children).forEach((k) => { if (!real.includes(k)) k.remove(); }); };
+    const brate = (c) => { const n = c.cloneNode(true); const im = n.querySelector('img'); if (im) im.loading = 'eager'; return n; };
+    const buildClones = () => { stripClones(); const pp = sper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => sceneTrack.insertBefore(brate(c), sceneTrack.firstChild)); trail.forEach((c) => sceneTrack.appendChild(brate(c))); return pp; };
     let p = buildClones();
     const skids = () => sceneTrack.children;
     const srun = () => (skids()[0].offsetWidth + sg());
     let sc = p;
+    let busy = false;
+    const ssec = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
     const sapply = () => sceneTrack.style.transform = 'translateX(' + (-sc * srun()) + 'px)';
-    sceneTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    sceneTrack.style.transition = 'none';
     sapply();
-    const ssnap = (v) => { sceneTrack.style.transition = 'none'; sc = v; sapply(); void sceneTrack.offsetWidth; sceneTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'; };
-    document.getElementById('sceneNext').addEventListener('click', () => { sc += 1; sapply(); if (sc >= p + N) setTimeout(() => ssnap(sc - N), 620); });
-    document.getElementById('scenePrev').addEventListener('click', () => { sc -= 1; sapply(); if (sc < p) setTimeout(() => ssnap(sc + N), 620); });
-    window.addEventListener('resize', () => { p = buildClones(); sc = p; sceneTrack.style.transition = 'none'; sapply(); void sceneTrack.offsetWidth; sceneTrack.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)'; });
+    void sceneTrack.offsetWidth;
+    sceneTrack.style.transition = ssec;
+    const ssnap = (v) => { sceneTrack.style.transition = 'none'; sc = v; sapply(); void sceneTrack.offsetWidth; sceneTrack.style.transition = ssec; busy = false; };
+    const sgo = (dir) => { if (busy) return; busy = true; sc += dir; sapply(); if ((dir > 0 && sc >= p + N) || (dir < 0 && sc < p)) setTimeout(() => ssnap(sc - (dir > 0 ? N : -N)), 620); else setTimeout(() => { busy = false; }, 620); };
+    document.getElementById('sceneNext').addEventListener('click', () => sgo(1));
+    document.getElementById('scenePrev').addEventListener('click', () => sgo(-1));
+    window.addEventListener('resize', () => { p = buildClones(); sc = p; busy = false; sceneTrack.style.transition = 'none'; sapply(); void sceneTrack.offsetWidth; sceneTrack.style.transition = ssec; });
   }
   const logoTrack = document.getElementById('logoTrack');
   if (logoTrack) {
-    const items = logoTrack.children, gap = 1.6 * 16;
-    let li = 0;
-    const per = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 8);
-    const maxLi = () => Math.max(0, items.length - per());
-    const applyL = () => logoTrack.style.transform = 'translateX(' + (-li * (items[0].offsetWidth + gap)) + 'px)';
-    document.getElementById('logoPrev').addEventListener('click', () => { li = Math.max(0, li - 1); applyL(); });
-    document.getElementById('logoNext').addEventListener('click', () => { li = Math.min(maxLi(), li + 1); applyL(); });
-    window.addEventListener('resize', () => { li = Math.min(li, maxLi()); applyL(); });
+    const real = Array.from(logoTrack.children);
+    const N = real.length;
+    const lg = 1.6 * 16;
+    const lper = () => window.innerWidth <= 640 ? 3 : (window.innerWidth <= 900 ? 5 : 8);
+    const stripClones = () => { Array.from(logoTrack.children).forEach((k) => { if (!real.includes(k)) k.remove(); }); };
+    const brate = (c) => { const n = c.cloneNode(true); const im = n.querySelector('img'); if (im) im.loading = 'eager'; return n; };
+    const buildClones = () => { stripClones(); const pp = lper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => logoTrack.insertBefore(brate(c), logoTrack.firstChild)); trail.forEach((c) => logoTrack.appendChild(brate(c))); return pp; };
+    let p = buildClones();
+    const kids = () => logoTrack.children;
+    const step = () => (kids()[0].offsetWidth + lg);
+    let li = p;
+    let busy = false;
+    const lsec = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+    const apply = () => logoTrack.style.transform = 'translateX(' + (-li * step()) + 'px)';
+    logoTrack.style.transition = 'none';
+    apply();
+    void logoTrack.offsetWidth;
+    logoTrack.style.transition = lsec;
+    const snap = (v) => { logoTrack.style.transition = 'none'; li = v; apply(); void logoTrack.offsetWidth; logoTrack.style.transition = lsec; busy = false; };
+    const go = (dir) => { if (busy) return; busy = true; li += dir; apply(); if ((dir > 0 && li >= p + N) || (dir < 0 && li < p)) setTimeout(() => snap(li - (dir > 0 ? N : -N)), 620); else setTimeout(() => { busy = false; }, 620); };
+    document.getElementById('logoPrev').addEventListener('click', () => go(-1));
+    document.getElementById('logoNext').addEventListener('click', () => go(1));
+    window.addEventListener('resize', () => { p = buildClones(); li = p; busy = false; logoTrack.style.transition = 'none'; apply(); void logoTrack.offsetWidth; logoTrack.style.transition = lsec; });
   }
   const edgeTrack = document.getElementById('edgeTrack');
   if (edgeTrack) {
@@ -2198,19 +2221,25 @@ const seoJsonLd = JSON.stringify({
     const N = real.length;
     const egap = 1.6 * 16;
     const eper = () => window.innerWidth <= 640 ? 1 : (window.innerWidth <= 900 ? 2 : 4);
-    const stripClones = () => { const kids = Array.from(edgeTrack.children); kids.forEach((k) => { if (!real.includes(k)) k.remove(); }); };
-    const buildClones = () => { stripClones(); const pp = eper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => edgeTrack.insertBefore(c.cloneNode(true), edgeTrack.firstChild)); trail.forEach((c) => edgeTrack.appendChild(c.cloneNode(true))); return pp; };
+    const stripClones = () => { Array.from(edgeTrack.children).forEach((k) => { if (!real.includes(k)) k.remove(); }); };
+    const brate = (c) => { const n = c.cloneNode(true); const im = n.querySelector('img'); if (im) im.loading = 'eager'; return n; };
+    const buildClones = () => { stripClones(); const pp = eper(); const lead = real.slice(N - pp).slice().reverse(); const trail = real.slice(0, pp); lead.forEach((c) => edgeTrack.insertBefore(brate(c), edgeTrack.firstChild)); trail.forEach((c) => edgeTrack.appendChild(brate(c))); return pp; };
     let p = buildClones();
     const kids = () => edgeTrack.children;
     const step = () => (kids()[0].offsetWidth + egap);
     let left = p;
+    let busy = false;
+    const esec = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)';
     const apply = () => edgeTrack.style.transform = 'translateX(' + (-left * step()) + 'px)';
-    edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)';
+    edgeTrack.style.transition = 'none';
     apply();
-    const snap = (v) => { edgeTrack.style.transition = 'none'; left = v; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)'; };
-    document.getElementById('edgeNext').addEventListener('click', () => { left += 1; apply(); if (left >= p + N) setTimeout(() => snap(left - N), 660); });
-    document.getElementById('edgePrev').addEventListener('click', () => { left -= 1; apply(); if (left < p) setTimeout(() => snap(left + N), 660); });
-    window.addEventListener('resize', () => { p = buildClones(); left = p; edgeTrack.style.transition = 'none'; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)'; });
+    void edgeTrack.offsetWidth;
+    edgeTrack.style.transition = esec;
+    const snap = (v) => { edgeTrack.style.transition = 'none'; left = v; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = esec; busy = false; };
+    const ego = (dir) => { if (busy) return; busy = true; left += dir; apply(); if ((dir > 0 && left >= p + N) || (dir < 0 && left < p)) setTimeout(() => snap(left - (dir > 0 ? N : -N)), 660); else setTimeout(() => { busy = false; }, 660); };
+    document.getElementById('edgeNext').addEventListener('click', () => ego(1));
+    document.getElementById('edgePrev').addEventListener('click', () => ego(-1));
+    window.addEventListener('resize', () => { p = buildClones(); left = p; busy = false; edgeTrack.style.transition = 'none'; apply(); void edgeTrack.offsetWidth; edgeTrack.style.transition = esec; });
   }
   </script>
 </Layout>

@@ -1,5 +1,5 @@
 ---
-const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-01.webp';
+const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/leelinepackage-logo.webp';
 const year = new Date().getFullYear();
 
 const products = [
@@ -25,8 +25,7 @@ const socials = [
   <div class="wrap footer-grid">
     <div class="footer-col footer-brand">
       <a class="brand brand--light" href="/" target="_blank" rel="noopener" aria-label="LeelinePackage home">
-        <img class="brand-logo" src={LOGO} alt="" width="34" height="34" loading="lazy" />
-        <span class="brand-word">Leeline<em>Package</em></span>
+        <img class="brand-logo" src={LOGO} alt="LeelinePackage" width="170" height="34" loading="lazy" />
       </a>
       <p class="footer-tagline">
         <svg class="tagline-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4zM19.3 11.4C15 12 11.3 15 9.8 19c3.9-3.4 7.2-4.9 9.1-7.2.3-.1.4-.3.4-.4z" fill="currentColor"/></svg>
@@ -66,7 +65,6 @@ const socials = [
   <div class="wrap footer-bottom">
     <span>&copy; {year} LeelinePackage. All rights reserved.</span>
     <span class="footer-mark">
-      <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Engineered, not just printed.
     </span>
   </div>
@@ -77,7 +75,7 @@ const socials = [
 
   .footer {
     background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
-    color: rgba(245, 240, 229, 0.86);
+    color: rgba(255, 255, 255, 0.86);
     padding: clamp(3.5rem, 8vw, 6rem) 0 2rem;
   }
   .footer-grid {
@@ -86,10 +84,10 @@ const socials = [
     gap: clamp(2rem, 4vw, 3.5rem);
   }
 
-  .brand--light .brand-word { color: var(--ivory); }
-  .brand--light .brand-word em { color: rgba(245, 240, 229, 0.55); }
+  .brand--light .brand-word { color: #fff; }
+  .brand--light .brand-word em { color: rgba(255, 255, 255, 0.55); }
   .footer-brand .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
-  .brand-logo { width: 34px; height: 34px; border-radius: 8px; object-fit: contain; }
+  .brand-logo { width: auto; height: 34px; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3)); }
   .brand-word { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--ivory); }
   .brand-word em { font-style: normal; font-family: var(--font-body); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245, 240, 229, 0.55); margin-left: 0.35rem; }
 
@@ -104,8 +102,8 @@ const socials = [
   .socials { display: flex; gap: 0.7rem; }
   .socials a {
     width: 40px; height: 40px; border-radius: 50%;
-    border: 1px solid rgba(245, 240, 229, 0.25);
-    display: grid; place-items: center; color: rgba(245, 240, 229, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: grid; place-items: center; color: rgba(255, 255, 255, 0.8);
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease;
   }
   .socials a svg { width: 17px; height: 17px; }
@@ -113,14 +111,14 @@ const socials = [
 
   .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
   .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
-  .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.72); transition: color 0.3s ease; }
-  .footer-col a:hover { color: var(--ivory); }
+  .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
+  .footer-col a:hover { color: #fff; }
   .footer-cta .footer-note { margin-bottom: 1rem; }
   .footer-contact { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1.1rem; }
 
   .footer-bottom {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
-    border-top: 1px solid rgba(245, 240, 229, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
     margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.6rem;
     font-size: 0.82rem;
   }

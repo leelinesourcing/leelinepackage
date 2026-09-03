@@ -314,6 +314,7 @@ const seoJsonLd = JSON.stringify({
       --forest-deep: #14261B;
       --forest-light: #2E4F3D;
       --brass: #B08D4C;
+      --brass-bright: #E4B54D;
       --brass-soft: #C9A87C;
       --ivory: #F5F0E5;
       --kraft: #EDE5D4;
@@ -1154,7 +1155,7 @@ const seoJsonLd = JSON.stringify({
     .btn:hover .btn-leaf { transform: translateX(4px); }
 
     .btn-primary {
-      background: var(--color-brand-primary);
+      background: var(--forest-light);
       color: var(--ivory);
     }
     .btn-primary:hover { background: var(--forest-deep); box-shadow: 0 14px 30px -12px rgba(31, 59, 44, 0.55); }
@@ -1166,10 +1167,10 @@ const seoJsonLd = JSON.stringify({
     .btn-ghost:hover { border-color: var(--color-brand-primary); background: rgba(31, 59, 44, 0.06); }
 
     .btn-gold {
-      background: var(--brass);
+      background: var(--brass-bright);
       color: var(--forest-deep);
     }
-    .btn-gold:hover { background: var(--brass-soft); box-shadow: 0 14px 34px -12px rgba(31, 59, 44, 0.7); }
+    .btn-gold:hover { background: #EFC45A; box-shadow: 0 14px 34px -12px rgba(31, 59, 44, 0.7); }
 
     .btn-light {
       border-color: rgba(245, 240, 229, 0.4);
@@ -1369,7 +1370,7 @@ const seoJsonLd = JSON.stringify({
       gap: 0.5rem;
       padding: 0.9rem 1.7rem;
       border-radius: 999px;
-      background: #E4B54D;
+      background: var(--brass-bright);
       color: var(--forest-deep);
       font-family: var(--font-body);
       font-weight: 600;

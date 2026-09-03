@@ -57,6 +57,7 @@ const IMG = {
   cFinishes: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-finishes-effects.webp',
   cInserts: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-inserts-structure.webp',
   cPrinting: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-printing-colour.webp',
+  cMaterialBoard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-material-board.webp',
   scene1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-1.webp',
   scene2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-2.webp',
   scene3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-3.webp',
@@ -67,26 +68,25 @@ const IMG = {
   avCallum: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/testimonial-callum.webp',
 };
 
-const materials = [
-  { name: 'Kraft Paper', spec: 'Unbleached · 100% recyclable', img: IMG.kraft },
-  { name: 'Corrugated Fiberboard', spec: 'B / C / E flute · crush-tested', img: IMG.fiberboard },
-  { name: 'Cardboard', spec: 'Rigid chipboard · foil-ready', img: IMG.cardboard },
-  { name: 'FSC®-Certified', spec: 'Chain-of-custody verified', img: IMG.fsc },
-  { name: 'Recycled Plastic', spec: 'Molded & post-consumer options', img: IMG.plastic },
+const materialLibrary = [
+  { name: 'Kraft Paper', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/kraft-paper.webp', spec: 'Unbleached · 100% recyclable', best: 'DTC mailers & totes', desc: "A natural, rustic brown that reads eco-friendly and rugged — a strong first impression for conscious brands." },
+  { name: 'Corrugated Fiberboard', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/corrugated-fiberboard.webp', spec: 'B / C / E flute · crush-tested', best: 'Shippers & heavy', desc: "The arched flute cushions and absorbs impact, so the box — and what's inside — survives the last mile." },
+  { name: 'Cardboard', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cardboard.webp', spec: 'Rigid chipboard · foil-ready', best: 'Retail & keepsakes', desc: "Lightweight yet remarkably sturdy, with a smooth surface that takes high-quality print and foil." },
+  { name: 'Plastic (PET/PP/PVC)', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/plastic-pet-pp-pvc.webp', spec: 'Waterproof · mouldable', best: 'Displays & electronics', desc: "Fully waterproof, durable and mouldable into complex shapes — all-round protection for food, electronics and toys." },
 ];
 
 const customize = [
   {
     title: 'Size & Dimensions',
-    body: 'Dielines cut to fit your product exactly — any length, width, height or corner radius, from a miniature rigid carton to a full-size shipper.',
+    body: 'Dielines cut to fit the product exactly — less void-fill, lower shipping weight and no rattling in transit.',
     tags: ['Any shape', 'Tight tolerance', 'Inside-print'],
     img: IMG.tailored,
   },
   {
     title: 'Material & Board',
-    body: 'Choose the structural backbone for your run — from lightweight folding carton to heavy-duty corrugated shipper.',
+    body: 'A board that balances protection and cost for the run — from lightweight carton to heavy-duty shipper.',
     tags: ['Corrugated B/C/E flute', 'Rigid chipboard', 'Kraft board', 'FSC®-certified', 'Recycled board'],
-    img: IMG.fiberboard,
+    img: IMG.cMaterialBoard,
   },
   {
     title: 'Finishes & Effects',
@@ -96,7 +96,7 @@ const customize = [
   },
   {
     title: 'Printing & Colour',
-    body: 'Lock a colour standard that holds across every run — we match to your Pantone and proof it on the same press.',
+    body: 'Lock a colour standard that holds across each run — we match to the Pantone and proof it on the same press.',
     tags: ['Offset / flexo / digital', 'Exact Pantone match', 'Certified proofing'],
     img: IMG.cPrinting,
   },
@@ -116,16 +116,16 @@ const customize = [
 
 const services = [
   { name: 'Corrugated', img: IMG.corrugated, blurb: 'Mailers & shippers, engineered to survive the last mile.', span: 's-4' },
-  { name: 'Rigid Box', img: IMG.rigid, blurb: 'Keepsake boxes with magnetic closures and foil.', span: 's-4' },
-  { name: 'Mailer Box', img: IMG.mailer, blurb: 'Custom-sized, self-locking, unboxing-ready.', span: 's-4' },
-  { name: 'Display Box', img: IMG.display, blurb: 'Retail-ready counter and floor displays.', span: 's-4' },
-  { name: 'Pouches', img: IMG.pouches, blurb: 'Flexible, food-safe, resealable, compostable.', span: 's-4' },
-  { name: 'Paper Bag', img: IMG.paperbag, blurb: 'Kraft and coated totes for retail carry-out.', span: 's-4' },
-  { name: 'Tin Box', img: IMG.tin, blurb: 'Reusable metal keepsakes and food tins.', span: 's-4' },
-  { name: 'Acrylic Box', img: IMG.acrylic, blurb: 'Crystal-clear display cases, precision-cut.', span: 's-4' },
-  { name: 'Reusable Bag', img: IMG.reusable, blurb: 'Woven and non-woven, built to be reused.', span: 's-4' },
-  { name: 'Satin Bag', img: IMG.satin, blurb: 'Soft-touch pouches for jewelry and gifts.', span: 's-4' },
-  { name: 'Labels & Stickers', img: IMG.labels, blurb: 'Die-cut, foil-stamped, weatherproof.', span: 's-8' },
+  { name: 'Rigid Box', img: IMG.rigid, blurb: 'Keepsake boxes that make the unboxing feel like a gift.', span: 's-4' },
+  { name: 'Mailer Box', img: IMG.mailer, blurb: 'Custom-sized to cut shipping weight and feel like a drop.', span: 's-4' },
+  { name: 'Display Box', img: IMG.display, blurb: 'Shelf-ready displays that move product at the point of sale.', span: 's-4' },
+  { name: 'Pouches', img: IMG.pouches, blurb: 'Flexible, resealable pouches that keep product fresh and cut weight.', span: 's-4' },
+  { name: 'Paper Bag', img: IMG.paperbag, blurb: 'Durable kraft totes that carry the brand out of the store.', span: 's-4' },
+  { name: 'Tin Box', img: IMG.tin, blurb: 'Reusable tins that earn a second life on the shelf.', span: 's-4' },
+  { name: 'Acrylic Box', img: IMG.acrylic, blurb: 'Crystal-clear cases that put the product, not the box, front and centre.', span: 's-4' },
+  { name: 'Reusable Bag', img: IMG.reusable, blurb: 'Everyday carriers customers keep — and keep the logo in view.', span: 's-4' },
+  { name: 'Satin Bag', img: IMG.satin, blurb: 'Luxury satin pouches that turn a purchase into a moment.', span: 's-4' },
+  { name: 'Labels & Stickers', img: IMG.labels, blurb: 'Brand labels that survive handling and finish the look.', span: 's-8' },
 ];
 const products = [
   { name: 'Folding Carton', img: IMG.folding, blurb: 'Crisp retail cartons with sharp creases and full-bleed print.' },
@@ -139,9 +139,10 @@ const cases = [
     client: 'Nova Skin',
     persona: 'Beauty & skincare',
     img: IMG.case1,
+    url: 'https://www.leelinepackage.com/skincare-packaging-case-study/',
     metric: '+38%',
     metricLabel: 'perceived value',
-    body: 'A magnetic-closure rigid box with gold foil and a debossed monogram turned a serum into a keepsake customers photograph before they even open it.',
+    body: 'A magnetic-closure rigid box with gold foil and a debossed monogram turned a serum into a keepsake customers photograph before they even open it. When a 4% cap-seal failure surfaced on line, our QC re-engineered the inner sleeve, held the on-time record, and retail sell-through climbed 18% that quarter.',
     tag: 'Rigid · gold foil · deboss',
   },
   {
@@ -149,9 +150,10 @@ const cases = [
     client: 'Bloom Supply',
     persona: 'Direct-to-consumer',
     img: IMG.case2,
+    url: 'https://www.leelinepackage.com/kitchenware-launch-case-study/',
     metric: '2×',
     metricLabel: 'unboxing shares',
-    body: 'A custom-sized, self-locking mailer printed inside and out made every delivery feel like a drop. Shares doubled the month it shipped.',
+    body: 'A custom-sized, self-locking mailer printed inside and out made each delivery feel like a drop. We drop-tested the fold across a 6,000-unit first run, drove transit damage to under 1%, and the brand signed its first wholesale order within 30 days.',
     tag: 'Mailer · inside print · custom size',
   },
   {
@@ -159,9 +161,10 @@ const cases = [
     client: 'Atlas Home',
     persona: 'Supply chain',
     img: IMG.case3,
+    url: 'https://www.leelinepackage.com/recycled-corrugated-packaging/',
     metric: '-23%',
     metricLabel: 'freight cost',
-    body: 'Re-engineered dielines and flat-pack nesting cut dimensional weight across a 50,000-unit run — without weakening a single flute.',
+    body: 'Re-engineered dielines and flat-pack nesting cut dimensional weight across a 50,000-unit run — without weakening a single flute. Lighter, flatter packs trimmed packed volume by 12%, so the same goods moved in 38% fewer truckloads, and the redesign cleared its ISTA-3A pass on the first try.',
     tag: 'Corrugated · flat-pack · ISTA tested',
   },
 ];
@@ -184,7 +187,7 @@ const testimonials = [
     quote: [
       "We briefed a new flat-pouch range for our coffee line - matte finish, our logo, an exact Pantone match. Their team fixed a low-res file before we noticed, and the first physical sample matched the on-screen proof to the shade.",
       "Print quality is the reason we stayed. Run-to-run colour consistency has held at 98% across four reorders of 12,000 units each, and the food-safe barrier keeps our beans at the freshness we measure.",
-      "Lead time stayed at 7 business days even when we doubled the order mid-quarter. The pouch cost came in 18% under our Western quote. It is the rare supplier that is both cheap and precise."
+      "Lead time stayed at 7 business days even when we doubled the order mid-quarter. The pouch cost came in well under our Western quote. It is the rare supplier that is both cheap and precise."
     ],
     name: 'Callum Whitfield',
     role: 'Product Manager',
@@ -233,38 +236,38 @@ const sceneImages = [
 
 
 const industries = [
-  { name: 'Beauty & Cosmetics', tag: 'Cosmetic', img: IMG.indBeauty, blurb: 'Rigid keepsake boxes, foam inserts and exact Pantone colour match.' },
-  { name: 'Jewelry & Accessories', tag: 'Jewelry', img: IMG.indJewelry, blurb: 'Satin bags and velvet-lined rigid boxes for keepsake presentation.' },
-  { name: 'Apparel & Fashion', tag: 'Apparel', img: IMG.indApparel, blurb: 'Kraft totes, mailers and garment boxes that travel well.' },
+  { name: 'Beauty & Cosmetics', tag: 'Cosmetic', img: IMG.indBeauty, blurb: 'Keepsake boxes that make a serum feel like a gift customers photograph.' },
+  { name: 'Jewelry & Accessories', tag: 'Jewelry', img: IMG.indJewelry, blurb: 'Velvet-lined rigid boxes and satin pouches that present jewelry like the occasion it is.' },
+  { name: 'Apparel & Fashion', tag: 'Apparel', img: IMG.indApparel, blurb: 'Garment boxes and mailers that arrive crisp, not crushed.' },
   { name: 'Food & Beverage', tag: 'Food-safe', img: IMG.indFood, blurb: 'Food-safe pouches and cartons that keep product fresh.' },
   { name: 'DTC & Subscription', tag: 'DTC', img: IMG.indDtc, blurb: 'Custom-sized mailers that cut dimensional weight and surprise subscribers.' },
-  { name: 'Consumer Electronics', tag: 'Electronics', img: IMG.indElectronics, blurb: 'Protective rigid and acrylic cases with custom foam inserts.' },
+  { name: 'Consumer Electronics', tag: 'Electronics', img: IMG.indElectronics, blurb: 'Cases with custom foam that keep electronics factory-fresh to the door.' },
 ];
 
 const edges = [
-  { num: '01', label: 'Design', title: 'Design & Dieline', desc: 'Professional structural design and dieline development tailored to your product specifications.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-1.webp' },
-  { num: '02', label: 'Printing', title: 'Offset Printing Press', desc: 'High-quality offset printing with computer-to-plate technology for accurate color control.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Offset-Printing-Press.webp' },
-  { num: '03', label: 'Lamination', title: 'Lamination', desc: 'Matte, gloss, soft touch and special lamination options for premium tactile finishes.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-3.webp' },
-  { num: '04', label: 'Finishing', title: 'Finishing', desc: 'Hot foil stamping, embossing, debossing, spot UV and more decorative techniques.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-4.webp' },
-  { num: '05', label: 'Die Cut', title: 'Die Cutting', desc: 'Precise die cutting for perfect shape and clean edges on every piece.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-5.webp' },
-  { num: '06', label: 'Assembly', title: 'Box Assembly', desc: 'Skilled handwork and machine assembly ensuring stable quality for every box.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-6.webp' },
-  { num: '07', label: 'QC', title: 'QC & Packing', desc: '100% inspection and strong packing for safe delivery to your door.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-7.webp' },
+  { num: '01', label: 'Design', title: 'Design & Dieline', desc: 'Dielines tuned to the product, so it fits and protects exactly — no wasted space.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-1.webp' },
+  { num: '02', label: 'Printing', title: 'Offset Printing Press', desc: 'Colour that matches the Pantone on each run, no guessing at approval.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Offset-Printing-Press.webp' },
+  { num: '03', label: 'Lamination', title: 'Lamination', desc: 'A premium hand-feel that signals the price point before the box is opened.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-3.webp' },
+  { num: '04', label: 'Finishing', title: 'Finishing', desc: 'Foil, emboss and spot UV that make the box feel like it costs more than it does.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-4.webp' },
+  { num: '05', label: 'Die Cut', title: 'Die Cutting', desc: 'Clean, sharp edges and a precise fit on each piece.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-5.webp' },
+  { num: '06', label: 'Assembly', title: 'Box Assembly', desc: 'Consistently solid assembly whether the run is 500 or 500,000.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-6.webp' },
+  { num: '07', label: 'QC', title: 'QC & Packing', desc: '100% inspected and packed, so a defect never reaches the customer.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-pcakaging-proccess-7.webp' },
 ];
 
 const process = [
-  { title: 'Consultation', body: 'We discuss your brand needs and goals, guiding you through eco-friendly materials and custom designs that fit your vision and budget.', meta: 'Day 0', img: IMG.proc1 },
-  { title: '3D design & sampling', body: 'Our team creates 3D designs and delivers samples in 5\u201315 days. On approval we run Heidelberg presses for quality production.', meta: '5\u201315 days', img: IMG.proc2 },
-  { title: 'Quality control', body: 'ISO 9001 and ISTA-3A certified checks ensure structural integrity, print quality and eco-conscious standards in every package.', meta: '2\u20133 days', img: IMG.proc3 },
-  { title: 'Delivery', body: 'With a 99.5% on-time delivery rate and real-time tracking, your packaging arrives exactly as expected.', meta: '15\u201325 days', img: IMG.proc4 },
+  { title: 'Consultation', body: 'Tell us what you ship and where it needs to land — we steer you to eco-friendly materials and a design that fits the budget.', meta: 'Day 0', img: IMG.proc1 },
+  { title: '3D design & sampling', body: 'Get a 3D mockup in a day and a real sample in 5\u201315 days, so you approve the exact box before a single unit is run.', meta: '5\u201315 days', img: IMG.proc2 },
+  { title: 'Quality control', body: 'ISO 9001 and ISTA-3A certified checks catch defects before they reach the customer, so each box ships consistent.', meta: '2\u20133 days', img: IMG.proc3 },
+  { title: 'Delivery', body: 'With a 99.5% on-time delivery rate and real-time tracking, packaging arrives exactly as expected.', meta: '15\u201325 days', img: IMG.proc4 },
 ];
 
 const faqs = [
-  { q: 'What is your MOQ, and are there first-order or test-run rules?', a: 'Most custom printed packaging starts at 500 units per format. First orders and test runs are welcome, and we can split some formats across SKUs - just tell us your mix and we will price it per line.' },
-  { q: 'Can you sign an NDA and keep my design confidential?', a: 'Yes. We sign an NDA up front, your dielines and moulds remain your property, and we commit in writing not to re-sell or share your artwork.' },
-  { q: 'How does sampling work - cost, turnaround, and does it credit my order?', a: 'Digital 3D mockups are free. Physical white-dummy samples ship in 3-5 days, and printed samples in 7-10 days. Sample cost is credited against your order.' },
-  { q: 'What payment methods and terms do you accept?', a: 'We accept T/T, PayPal and major cards, with flexible terms from 30% deposit plus balance before shipment for larger runs. Escrow and DDP payment options are available.' },
-  { q: 'How is production lead time split by quantity or complexity?', a: 'Standard runs are 15-25 days after design approval depending on quantity and finishing. We flag expedited and capacity limits on your quote so you can plan launches safely.' },
-  { q: 'How many revisions are included with my design work?', a: 'Our packaging engineers include two full revision rounds with every dieline and artwork project, and we log every change so you always know the current version.' },
+  { q: 'Can I split one format across a few SKUs, or run a small test order first?', a: 'Yes — that is the cleanest way to trial a product or reach a minimum without committing to a full run. Send us the mix and we will line-price each SKU, so smaller launches stay flexible.' },
+  { q: 'Who owns the tooling and dielines if we move suppliers later?', a: 'You do. We sign an NDA up front, the dielines and moulds stay yours, and we commit in writing never to re-sell, share or reuse your artwork.' },
+  { q: 'Are samples charged, and does the cost come off my order?', a: 'Digital 3D mockups are free. A physical sample is a small charge that is credited against the production order, so you do not pay twice to see the final box in hand.' },
+  { q: 'What payment methods and terms do you accept?', a: 'We take T/T, PayPal and major cards, with flexible terms from a 30% deposit plus balance before shipment on larger runs. Escrow and DDP options are available for bigger or first orders.' },
+  { q: 'What pushes production lead time out, and can you rush a launch?', a: 'Volume and finishing are the main drivers — the more complex the finish and the larger the run, the longer it takes. We flag expedited and capacity limits on the quote, so you can plan a launch to the day.' },
+  { q: 'How many revisions are included with my design work?', a: 'Two full revision rounds are included with each dieline and artwork project, and we log each change so you always know which version is current.' },
 ];
 
 const KEYWORDS = 'custom packaging manufacturers, custom printed packaging manufacturers, custom eco-friendly packaging manufacturers, custom rigid box manufacturers, custom cosmetic packaging manufacturers, custom jewelry packaging manufacturers';
@@ -304,11 +307,12 @@ const seoJsonLd = JSON.stringify({
       --color-brand-accent:    #B08D4C;
       --color-brand-bg:        #F5F0E5;
       --color-brand-surface:   #EDE5D4;
-      --color-brand-text:      #21241C;
-      --color-brand-muted:     #8C8676;
+      --color-brand-text:      #2B2F26;
+      --color-brand-muted:     #605C4E;
       --font-heading: 'Newsreader Variable', Georgia, serif;
       --font-body:    'Instrument Sans Variable', system-ui, sans-serif;
       --forest-deep: #14261B;
+      --forest-light: #2E4F3D;
       --brass: #B08D4C;
       --brass-soft: #C9A87C;
       --ivory: #F5F0E5;
@@ -454,7 +458,7 @@ const seoJsonLd = JSON.stringify({
 
       <div class="nav-actions">
         <a class="btn btn-primary btn-sm" href="#quote">
-          Get a Free Quote
+          Contact Us
           <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
         <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
@@ -505,10 +509,11 @@ const seoJsonLd = JSON.stringify({
           </div>
         </details>
         <a href="#blog">Blog</a>
-        <a href="#quote" class="btn btn-primary">Get a Free Quote</a>
       </nav>
     </div>
   </header>
+
+  <a class="mobile-cta" href="#quote">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
   <main id="top">
     <!-- ============ HERO ============ -->
@@ -527,7 +532,7 @@ const seoJsonLd = JSON.stringify({
         </p>
         <h1>Custom Boxes &amp; Printed Packaging Manufacturer: <em>Lower Costs &amp; Protect Margins</em></h1>
         <p class="hero-sub">
-          For up to 20% lower packaging costs and a 99.8% QC pass rate, partner with a custom packaging manufacturer that moves you from first dieline to shelf-ready boxes in as fast as 7 days. With free 3D mockups in 24 hours and physical samples in 3–5 days, we take your brand from prototype to mass production.
+          For packaging costs that run 30–50% below other manufacturers and a 98% QC pass rate, partner with a custom packaging manufacturer that moves you from first dieline to shelf-ready boxes in as fast as 7 days. With free 3D mockups in 24 hours and white-dummy samples in 3–7 days, we take brands from prototype to mass production.
         </p>
         <div class="hero-cta hero-el" style="--d:.46s">
           <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -536,7 +541,6 @@ const seoJsonLd = JSON.stringify({
       </div>
     </section>
 
-    <!-- ============ MATERIALS MARQUEE ============ -->
     <section class="hero-stats" aria-label="Highlights">
       <div class="wrap hero-stats-row">
         <div class="hs-stat"><strong>10K+</strong><span>global brands served</span></div>
@@ -558,8 +562,8 @@ const seoJsonLd = JSON.stringify({
             Explore our packaging <em>types</em>.
           </h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">
-            Folding cartons to rigid keepsakes, pouches to paper bags — each cut, creased and
-            finished in-house with the same obsessive attention to material.
+            Folding cartons to rigid keepsakes, pouches to paper bags — the right format for
+            whatever you ship, each engineered so it protects, presents and sells on shelf.
           </p>
         </div>
 
@@ -577,7 +581,7 @@ const seoJsonLd = JSON.stringify({
         </div>
       </div>
     <div class="section-cta">
-      <a class="btn btn-primary" href="#quote">Get a free quote for your packaging<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-primary" href="#quote">Get Packaging Pricing<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
     </section>
@@ -607,13 +611,37 @@ const seoJsonLd = JSON.stringify({
       </div>
     </section>
 
+    <!-- ============ MATERIALS ============ -->
+    <section class="materials-guide" id="materials">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The Material Library</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Materials that protect, present and <em>persist</em>.</h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Each run is built on a board or film matched to the product — so it ships safe, prints sharp and reads premium, without paying for weight you don&#39;t need.</p>
+        </div>
+        <div class="materials-grid">
+          {materialLibrary.map((m, i) => (
+            <article class="material-card" data-reveal={['up','scale','up','up','scale','up'][i % 6]} style={`--d:${(i % 3) * 0.1}s`}>
+              <figure class="material-media"><img src={m.img} alt={m.name} loading="lazy" decoding="async" width="640" height="480" /></figure>
+              <div class="material-body">
+                <h3>{m.name}</h3>
+                <p class="material-spec">{m.spec}</p>
+                <p class="material-desc">{m.desc}</p>
+                <p class="material-best"><span>Best for</span>{m.best}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- ============ PROCESS ============ -->
     <section class="process" id="process">
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How It Works</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">From <em>spec to shipment</em>, in four moves.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us your product and our engineers do the rest, with a 3D mockup in your inbox within a day.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us the product and our engineers do the rest, with a 3D mockup in your inbox within a day.</p>
         </div>
         <ol class="process-list">
           {process.map((p, i) => (
@@ -636,7 +664,7 @@ const seoJsonLd = JSON.stringify({
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your product deserves packaging that <em>sells it</em>.</h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Send us what you ship — the product, the quantity, any reference you have — and our engineers will draw the dieline, pick the material and finish, and reply with a quote the same day. Prefer to feel it first? We ship a physical sample kit before you commit to a run.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
-          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-gold" href="#quote">Send Your Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -647,7 +675,7 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Industries We Serve</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging that <em>fits</em> how you sell.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">Whatever you ship, we engineer the packaging to protect it, and to make your brand feel inevitable.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Whatever you ship, we engineer the packaging to protect it, and to make the brand feel inevitable.</p>
         </div>
         <div class="industry-grid">
           {industries.map((s, i) => (
@@ -687,6 +715,7 @@ const seoJsonLd = JSON.stringify({
         <div class="case-grid">
           {cases.map((c, i) => (
             <article class="case" data-reveal={['up', 'left', 'right'][i]} style={`--d:${i * 0.12}s`}>
+              <a class="case-link" href={c.url} aria-label={`${c.title} — ${c.client} case study`}>
               <figure class="case-media">
                 <img src={c.img} alt={`${c.title} — ${c.client}`} loading="lazy" />
                 <span class="case-metric">
@@ -702,14 +731,19 @@ const seoJsonLd = JSON.stringify({
                 </div>
                 <h3>{c.title}</h3>
                 <p>{c.body}</p>
-                <p class="case-tag"><svg class="tag-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>{c.tag}</p>
+                <p class="case-tag">
+                  <svg class="tag-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>
+                  <span>{c.tag}</span>
+                  <svg class="case-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </p>
               </div>
+              </a>
             </article>
           ))}
         </div>
       </div>
     <div class="section-cta">
-      <a class="btn btn-primary" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-primary" href="#quote">Request Industry Pricing<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
     </section>
@@ -726,15 +760,15 @@ const seoJsonLd = JSON.stringify({
             Why Leeline
           </p>
           <h2 class="why-title" data-reveal="up" style="--d:.06s">
-            Why LeelinePackage <em>stands out</em> as your custom packaging partner.
+            Why LeelinePackage <em>stands out</em> as a custom packaging partner.
           </h2>
           <p class="why-sub" data-reveal="up" style="--d:.12s">
-            Five reasons global brands trust LeelinePackage — from unmatched print quality to a
-            98% satisfaction rate and factory-direct pricing you can build a margin on. Here is why a
-            decade of structural engineering keeps brands coming back.
+            Here is what a decade of structural engineering actually does for you — colour that
+            holds run to run, samples before you commit, protected IP and factory-direct pricing
+            you can build a margin on.
           </p>
           <a class="btn btn-light" href="#quote" data-reveal="up" style="--d:.18s">
-            Start your project
+            Partner With Us
             <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -743,17 +777,17 @@ const seoJsonLd = JSON.stringify({
           <article class="reason" data-reveal="left" style="--d:0s">
             <span class="reason-num">01</span>
             <h3>Unmatched quality</h3>
-            <p>Heidelberg precision printing under 0.1mm, 98% colour consistency and ISTA-3A tested durability on every box. Every run is checked against your physical proof, so what you approve is exactly what arrives.</p>
+            <p>Heidelberg precision printing under 0.1mm, 98% colour consistency and drop-tested durability on all boxes. Each run is checked against the physical proof, so what you approve is exactly what arrives.</p>
           </article>
           <article class="reason" data-reveal="left" style="--d:.1s">
             <span class="reason-num">02</span>
             <h3>10+ years of excellence</h3>
-            <p>Trusted by 10,000+ global brands with a 98% satisfaction rate. A decade of structural engineering across beauty, food and DTC means we have already solved almost every packaging problem you will hit.</p>
+            <p>Trusted by 10,000+ global brands with a 98% satisfaction rate. A decade of structural engineering across beauty, food and DTC means we have already solved most packaging problems you are likely to hit.</p>
           </article>
           <article class="reason" data-reveal="left" style="--d:.2s">
             <span class="reason-num">03</span>
             <h3>Fast turnaround</h3>
-            <p>Digital mockups in advance and white-dummy samples in 3&ndash;7 days, so you can test the fit before committing. Production runs 4&ndash;6 weeks with a 99.5% on-time delivery record.</p>
+            <p>Digital mockups in advance and white-dummy samples in 3&ndash;7 days, so you can test the fit before committing, then production runs of 4&ndash;6 weeks.</p>
           </article>
           <article class="reason" data-reveal="left" style="--d:.3s">
             <span class="reason-num">04</span>
@@ -768,7 +802,7 @@ const seoJsonLd = JSON.stringify({
           <article class="reason" data-reveal="left" style="--d:.5s">
             <span class="reason-num">06</span>
             <h3>IP &amp; design protection</h3>
-            <p>NDA up front, your dielines and moulds stay yours, and we never re-sell or share your artwork. Send us drawings without fear of a copycat.</p>
+            <p>NDA up front, the dielines and moulds stay yours, and we never re-sell or share your artwork. Send us drawings without fear of a copycat.</p>
           </article>
         </div>
       </div>
@@ -781,7 +815,7 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">Why LeelinePackage <em>Delivers Better</em> Packaging.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">With in-house production, advanced equipment, skilled assembly and strict quality control, we turn custom packaging ideas into reliable large-scale production.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Each step — design, print, finish and assembly — is under one roof, so packaging stays consistent from the first sample to the 500,000th unit.</p>
         </div>
       </div>
       <div class="edge-carousel" data-reveal="up">
@@ -808,7 +842,7 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>About LeelinePackage</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em>.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, LeelinePackage is your trusted partner for custom packaging — top-quality, tailored packaging for businesses, retailers and brands, using the best materials and skilled craft.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, we are a factory you can visit and verify — 20,000m&sup2; of in-house design, printing, finishing and assembly, so packaging is engineered and made in one accountable place.</p>
         </div>
         <div class="factory-stats" data-reveal="up">
           <div class="factory-stat"><strong>20,000 m&sup2;</strong><span>production facility in China</span></div>
@@ -817,8 +851,7 @@ const seoJsonLd = JSON.stringify({
           <div class="factory-stat"><strong>500,000+</strong><span>daily packaging capacity</span></div>
         </div>
         <p class="factory-note" data-reveal="up">
-          Our ISO 9001 certified quality system guarantees rigorous standards at every stage, with ISTA-3A testing
-          ensuring shipping durability. We focus on premium finishing — foil stamping, spot UV, emboss and deboss.
+          An ISO 9001 quality system and ISTA-3A testing run at each stage, so packaging ships consistent and survives the journey — while premium finishes make it feel anything but ordinary.
         </p>
       </div>
     </section>
@@ -828,7 +861,7 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Certified &amp; Legal</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">Patent Certificate For <em>LeelinePackage&#39;s</em> Custom Boxes.</h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">Do you often encounter fraudulent companies? LeelinePackage&#39;s Patent Certificate for Custom Boxes and custom bags reflects our dedication to legal and eco-friendly practices. We put customers first.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can verify — with our own patents on custom boxes and bags, plus SGS, CE and full compliance, so you partner with an accountable manufacturer rather than a middleman.</p>
         </div>
         <div class="patent-certs" data-reveal="up">
           <figure class="patent-cert figure"><img src={IMG.sgs} alt="SGS certified" loading="lazy" /></figure>
@@ -925,12 +958,14 @@ const seoJsonLd = JSON.stringify({
       </div>
     </section>
 
-    <!-- Organic divider: ivory -> forest -->
-    <div class="curve curve--forest" aria-hidden="true">
-      <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-        <path d="M0 100 C 300 4, 700 96, 1100 40 C 1280 16, 1380 72, 1440 42 L1440 100 Z" fill="#1F3B2C" />
-      </svg>
-    </div>
+    <!-- Final-CTA organic wave clip (ivory -> image) -->
+    <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+      <defs>
+        <clipPath id="cta-wave" clipPathUnits="objectBoundingBox">
+          <path d="M0 .12 C .208 .01, .486 .14, .764 .05 C .889 .015, .958 .10, 1 .05 L1 1 L0 1 Z" />
+        </clipPath>
+      </defs>
+    </svg>
 
 
     <!-- ============ FINAL CTA ============ -->
@@ -944,7 +979,7 @@ const seoJsonLd = JSON.stringify({
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch your brand, <em>we'll build the box</em>.</h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
-          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-gold" href="#quote">Request Your Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -964,7 +999,7 @@ const seoJsonLd = JSON.stringify({
             Engineered, not just printed.
           </p>
           <p class="footer-note">
-            The Structural Brand Architect — protecting your product and impressing your customer,
+            The Structural Brand Architect — protecting the product and impressing the customer,
             from the first dieline to the final mile.
           </p>
           <div class="socials">
@@ -1039,7 +1074,7 @@ const seoJsonLd = JSON.stringify({
       color: var(--brass);
     }
     .eyebrow-leaf { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
-    .eyebrow--light { color: var(--brass-soft); }
+    .eyebrow--light { color: #E3C29A; }
 
     .section-title {
       font-family: var(--font-heading);
@@ -1139,6 +1174,10 @@ const seoJsonLd = JSON.stringify({
       left: 0;
       right: 0;
       z-index: 1000;
+      background: rgba(245, 240, 229, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(31, 59, 44, 0.08);
       transition: background-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
     }
     .nav-inner {
@@ -1152,12 +1191,6 @@ const seoJsonLd = JSON.stringify({
       position: relative;
       z-index: 2;
       transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .nav.scrolled {
-      background: rgba(245, 240, 229, 0.78);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 0 rgba(31, 59, 44, 0.08);
     }
     .nav.scrolled .nav-inner { padding: 0.6rem 0; }
 
@@ -1255,24 +1288,70 @@ const seoJsonLd = JSON.stringify({
     body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
 
     .mobile-menu {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: var(--ivory);
-      display: grid;
-      place-items: center;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 1px solid rgba(31, 59, 44, 0.14);
+      box-shadow: 0 24px 44px -28px rgba(31, 59, 44, 0.35);
+      padding: 0.25rem clamp(1.5rem, 6vw, 3rem) 1.75rem;
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.4s ease, visibility 0.4s ease;
+      transform: translateY(-10px);
+      transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
+      max-height: calc(100vh - 72px);
+      overflow-y: auto;
     }
-    body.menu-open .mobile-menu { opacity: 1; visibility: visible; z-index: 1; }
-    .mobile-links { display: flex; flex-direction: column; align-items: center; gap: 1.6rem; }
-    .mobile-links a {
-      font-family: var(--font-heading);
-      font-size: 2rem;
+    body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .mobile-links { display: flex; flex-direction: column; }
+    .mobile-links > a {
+      display: block;
+      padding: 1rem 0;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 500;
       color: var(--color-brand-text);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(31, 59, 44, 0.06);
     }
-    .mobile-links a.btn { font-family: var(--font-body); font-size: 1rem; margin-top: 0.6rem; }
+    .mobile-links details summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--color-brand-text);
+      border-bottom: 1px solid rgba(31, 59, 44, 0.06);
+    }
+    .mobile-links details summary::-webkit-details-marker { display: none; }
+    .mobile-links .sub { display: flex; flex-direction: column; }
+    .mobile-links .sub a { display: block; padding: 0.75rem 0 0.75rem 1rem; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-brand-muted); text-decoration: none; }
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      left: 50%;
+      bottom: 0.9rem;
+      transform: translateX(-50%);
+      z-index: 990;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.7rem;
+      border-radius: 999px;
+      background: #E4B54D;
+      color: var(--forest-deep);
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 14px 30px -12px rgba(31, 59, 44, 0.55);
+    }
+    .mobile-cta svg { width: 1.1em; height: 1.1em; }
+    @media (max-width: 900px) { .mobile-cta { display: flex; } }
 
     /* ============ HERO ============ */
     .hero {
@@ -1285,27 +1364,28 @@ const seoJsonLd = JSON.stringify({
       padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
       color: var(--ivory);
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp') center / cover no-repeat; }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp') center / cover no-repeat; filter: brightness(1.12); }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(20, 38, 27, 0.45); }
     @media (min-width: 641px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-960.webp'); } }
     @media (min-width: 1025px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-1440.webp'); } }
-    .hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, rgba(20, 38, 27, 0.42) 0%, rgba(20, 38, 27, 0.72) 55%, rgba(20, 38, 27, 0.9) 100%); }
     .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translateY(-1cm); }
     .hero-rating { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.05rem; border-radius: 999px; background: rgba(245, 240, 229, 0.12); border: 1px solid rgba(245, 240, 229, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transform: translateY(-0.3cm); }
-    .hero-rating .stars { color: var(--brass-soft); font-size: 1rem; letter-spacing: 0.12em; }
-    .hero-rating .rating-text { font-size: 0.85rem; color: rgba(245, 240, 229, 0.9); font-family: var(--font-body); }
+    .hero-rating .stars { color: #E3C29A; font-size: 1rem; letter-spacing: 0.12em; }
+    .hero-rating .rating-text { font-size: 0.85rem; color: rgba(255, 255, 255, 0.98); font-family: var(--font-body); }
     .hero h1 {
       font-family: var(--font-heading);
       font-weight: 500;
       font-size: clamp(2.7rem, 6.6vw, 5.6rem);
       line-height: 0.97;
       letter-spacing: -0.03em;
-      color: var(--ivory);
+      color: #FFFFFF;
+      text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4);
       margin: 1.3rem 0 0;
       max-width: 22ch;
       text-wrap: balance;
     }
-    .hero h1 em { font-style: italic; color: var(--brass-soft); }
-    .hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(245, 240, 229, 0.82); max-width: 58ch; margin: 1.6rem 0 0; }
+    .hero h1 em { font-style: italic; color: #E3C29A; }
+    .hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(255, 255, 255, 0.97); max-width: 58ch; margin: 1.6rem 0 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
     .hero-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.3rem; }
     .hero-spec {
       list-style: none;
@@ -1411,7 +1491,6 @@ const seoJsonLd = JSON.stringify({
     .curve { line-height: 0; margin-bottom: -1px; }
     .curve svg { display: block; width: 100%; height: clamp(50px, 8vw, 100px); }
     .curve--kraft { background: var(--ivory); }
-    .curve--forest { background: var(--ivory); }
 
     /* ============ WORK ============ */
     .work { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -1419,7 +1498,7 @@ const seoJsonLd = JSON.stringify({
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: clamp(1.5rem, 3vw, 2.6rem);
-      align-items: start;
+      align-items: stretch;
     }
     .case:nth-child(2) { margin-top: 0; }
 
@@ -1447,7 +1526,10 @@ const seoJsonLd = JSON.stringify({
     .case-metric strong { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; color: var(--brass-soft); }
     .case-metric span { font-size: 0.78rem; }
 
-    .case-body { padding: 1.4rem 0.2rem 0; }
+    .case { display: flex; flex-direction: column; }
+    .case-link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; }
+    .case-link:hover .case-tag { color: var(--brass); }
+    .case-body { padding: 1.4rem 0.2rem 0; display: flex; flex-direction: column; flex: 1; }
     .case-client { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
     .case-persona { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
     .case-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(31, 59, 44, 0.35); }
@@ -1461,15 +1543,19 @@ const seoJsonLd = JSON.stringify({
       margin: 0 0 0.6rem;
     }
     .case-body p { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-muted); }
-    .case-tag {
-      display: inline-flex;
+    .case-body .case-tag {
+      display: flex;
       align-items: center;
       gap: 0.5rem;
+      margin-top: auto;
+      white-space: nowrap;
       font-size: 0.85rem;
+      line-height: 1.4;
       font-weight: 500;
       color: var(--color-brand-primary);
-      margin-top: 0.8rem;
     }
+    .case-arrow { margin-left: auto; width: 1.1em; height: 1.1em; flex: none; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .case-link:hover .case-arrow { transform: translateX(5px); }
     .tag-leaf { width: 1.1em; height: 1.1em; color: var(--brass); }
 
     /* ============ WHY (INVERTED) ============ */
@@ -1617,8 +1703,8 @@ const seoJsonLd = JSON.stringify({
     .t-card p:last-child { margin-bottom: 0; }
     .t-author { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.5rem; }
     .t-avatar {
-      width: 58px;
-      height: 58px;
+      width: 74px;
+      height: 74px;
       border-radius: 50%;
       background: var(--color-brand-primary);
       display: block;
@@ -1654,14 +1740,23 @@ const seoJsonLd = JSON.stringify({
       overflow: hidden;
     }
     #quote-inline {
-      background-image: linear-gradient(rgba(20, 38, 27, 0.84), rgba(20, 38, 27, 0.84)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp');
+      background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp');
       background-size: cover;
       background-position: center;
     }
     #quote {
-      background-image: linear-gradient(rgba(20, 38, 27, 0.84), rgba(20, 38, 27, 0.84)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp');
+      background: var(--ivory);
+    }
+    #quote::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: linear-gradient(rgba(20, 38, 27, 0.45), rgba(20, 38, 27, 0.45)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp');
       background-size: cover;
       background-position: center;
+      clip-path: url(#cta-wave);
+      filter: brightness(1.08);
     }
     .cta-grain {
       position: absolute;
@@ -1680,15 +1775,16 @@ const seoJsonLd = JSON.stringify({
       font-size: clamp(2.4rem, 6vw, 4.6rem);
       line-height: 1;
       letter-spacing: -0.025em;
-      color: var(--ivory);
+      color: #FFFFFF;
+      text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4);
       margin: 1.2rem 0 0;
     }
-    .cta-title em { font-style: italic; color: var(--brass-soft); }
-    .cta-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(245, 240, 229, 0.75); max-width: 56ch; margin: 1.5rem auto 0; }
+    .cta-title em { font-style: italic; color: #E3C29A; }
+    .cta-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(255, 255, 255, 0.97); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
     .cta-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.4rem; }
 
     /* ============ FOOTER ============ */
-    .footer { background: var(--forest-deep); color: rgba(245, 240, 229, 0.72); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
+    .footer { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(245, 240, 229, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1.3fr;
@@ -1793,6 +1889,23 @@ const seoJsonLd = JSON.stringify({
     @media (max-width: 900px) { .customize-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 640px) { .customize-grid { grid-template-columns: 1fr; } }
 
+    /* ============ MATERIALS ============ */
+    .materials-guide { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .materials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.2rem, 2.5vw, 1.6rem); }
+    .material-card { display: flex; flex-direction: column; background: var(--clay); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; overflow: hidden; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease; }
+    .material-media { margin: 0; aspect-ratio: 4/3; overflow: hidden; background: var(--kraft); position: relative; }
+    .material-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    .material-card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -20px rgba(31, 59, 44, 0.28); border-color: rgba(176, 141, 76, 0.55); }
+    .material-card:hover img { transform: scale(1.05); }
+    .material-body { padding: clamp(1.4rem, 2.6vw, 1.9rem); display: flex; flex-direction: column; flex: 1; }
+    .material-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.28rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.35rem; }
+    .material-spec { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin: 0 0 0.65rem; }
+    .material-desc { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.15rem; }
+    .material-best { margin-top: auto; white-space: nowrap; font-size: 0.82rem; line-height: 1.5; color: var(--color-brand-text); }
+    .material-best span { font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.7rem; color: var(--color-brand-primary); margin-right: 0.5rem; }
+    @media (max-width: 900px) { .materials-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .materials-grid { grid-template-columns: 1fr; } }
+
     /* ============ PROCESS ============ */
     .process { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
     .process-list { list-style: none; margin: 0; padding: 0; }
@@ -1819,20 +1932,22 @@ const seoJsonLd = JSON.stringify({
 
     /* ============ ABOUT ============ */
 
-    .about { background-color: var(--forest-deep); background-image: linear-gradient(rgba(20, 38, 27, 0.88), rgba(20, 38, 27, 0.88)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp'); background-size: cover; background-position: center; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-    .about .section-title { color: var(--ivory); }
-    .about .section-sub { color: rgba(245, 240, 229, 0.78); }
+    .about { background-color: var(--forest-deep); background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp'); background-size: cover; background-position: center 40%; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .about .section-title { color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); }
+    .about .section-sub { color: rgba(255, 255, 255, 0.97); font-size: 1.18rem; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
     .factory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); margin: 2.2rem 0 1.8rem; }
     .factory-stat { text-align: center; }
     .factory-stat strong { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 3.6vw, 2.6rem); color: var(--brass-soft); display: block; line-height: 1; }
-    .factory-stat span { font-size: 0.85rem; color: rgba(245, 240, 229, 0.7); display: block; margin-top: 0.5rem; }
-    .factory-note { text-align: center; font-size: 1rem; line-height: 1.7; color: rgba(245, 240, 229, 0.78); max-width: 62ch; margin-inline: auto; }
+    .factory-stat span { font-size: 0.85rem; color: rgba(255, 255, 255, 0.9); display: block; margin-top: 0.5rem; }
+    .factory-note { text-align: center; font-size: 1.05rem; line-height: 1.7; color: rgba(255, 255, 255, 0.92); max-width: 62ch; margin-inline: auto; text-shadow: 0 1px 16px rgba(20, 38, 27, 0.4); }
 
     /* ============ SCENES CAROUSEL ============ */
     .scenes { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0 0; }
     .scene-carousel { position: relative; width: 100%; overflow: hidden; padding: 0 clamp(0rem, 4vw, 3rem); }
     .scene-track { display: flex; gap: 1.1rem; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
     .scene-slide { flex: 0 0 calc((100% - 2.2rem) / 3); position: relative; aspect-ratio: 4/3; border-radius: 1.1rem; overflow: hidden; background: var(--kraft); }
+    @media (max-width: 900px) { .scene-slide { flex-basis: calc((100% - 1.1rem) / 2); } }
+    @media (max-width: 640px) { .scene-slide { flex-basis: 100%; } }
     .scene-slide img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
     .scene-slide:hover img { transform: scale(1.05); }
     .scene-slide figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1.1rem; color: var(--ivory); background: linear-gradient(180deg, transparent, rgba(20, 38, 27, 0.75)); font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; line-height: 1.25; letter-spacing: -0.01em; }
@@ -1876,6 +1991,7 @@ const seoJsonLd = JSON.stringify({
     @media (max-width: 900px) {
       .nav-links { display: none; }
       .menu-btn { display: flex; }
+      .nav-actions .btn { display: none; }
       .why-grid { grid-template-columns: 1fr; }
       .why-intro { position: static; }
       .case-grid { grid-template-columns: 1fr; }
@@ -1957,14 +2073,15 @@ const seoJsonLd = JSON.stringify({
   const sceneTrack = document.getElementById('sceneTrack');
   if (sceneTrack) {
     const slides = sceneTrack.children;
-    const per = 3, gap = parseFloat(getComputedStyle(sceneTrack).columnGap) || 0;
+    const per = () => window.innerWidth <= 640 ? 1 : (window.innerWidth <= 900 ? 2 : 3);
+    const gap = parseFloat(getComputedStyle(sceneTrack).columnGap) || 0;
     let sIdx = 0;
-    const maxIdx = () => Math.max(0, slides.length - per);
+    const maxIdx = () => Math.max(0, slides.length - per());
     const apply = () => { sceneTrack.style.transform = 'translateX(' + (-sIdx * (slides[0].offsetWidth + gap)) + 'px)'; };
     const sp = document.getElementById('scenePrev'), sn = document.getElementById('sceneNext');
-    if (sp) sp.addEventListener('click', () => { sIdx = Math.max(0, sIdx - 1); apply(); });
-    if (sn) sn.addEventListener('click', () => { sIdx = Math.min(maxIdx(), sIdx + 1); apply(); });
-    window.addEventListener('resize', apply);
+    if (sp) sp.addEventListener('click', () => { sIdx = sIdx <= 0 ? maxIdx() : sIdx - 1; apply(); });
+    if (sn) sn.addEventListener('click', () => { sIdx = sIdx >= maxIdx() ? 0 : sIdx + 1; apply(); });
+    window.addEventListener('resize', () => { sIdx = Math.min(sIdx, maxIdx()); apply(); });
   }
   const logoTrack = document.getElementById('logoTrack');
   if (logoTrack) {

@@ -145,7 +145,9 @@ Style the *images*, wherever they are hosted. (Storage/hosting is handled separa
 
 - **Aspect ratio:** product cards `1/1`; industry, customize, scenes, edge cards `4/3`. Use `object-fit: cover`.
 - **Corner radius:** product `1.3rem`; industry `1.4rem`; scene/edge `1.1rem`; circular elements (pager dots, arrows) `999px`/`50%`.
-- **Hero:** full-bleed background image + radial overlay gradient `linear`-style darkening — `radial-gradient(120% 70% at 50% 0%, rgba(20,38,27,.42) 0%, rgba(20,38,27,.72) 55%, rgba(20,38,27,.9) 100%)` — plus a subtle grain overlay and a slowly drifting brass leaf seal.
+- **Hero:** full-bleed background image with a slight `brightness(1.12)` lift plus a flat uniform scrim `rgba(20,38,27,.45)` (no gradient) and a subtle grain overlay and a slowly drifting brass leaf seal.
+- **CTA backgrounds:** `linear-gradient(rgba(20,38,27,.45), rgba(20,38,27,.45))` plus `brightness(1.08)` over the final CTA imagery (inline CTA remains `.66`). The **final CTA** image is clipped to the organic wave (`clip-path: url(#cta-wave)`, objectBoundingBox) so it follows the curved divider instead of forming a rectangle.
+- **Footer:** vertical gradient `linear-gradient(180deg, var(--color-forest), var(--forest-deep))` — lighter `forest` at top, darker `forest-deep` at bottom — so it fades from the final CTA instead of jumping abruptly.
 - **Caption overlays (industry & scene cards):** bottom gradient `linear-gradient(180deg, transparent 42%, rgba(20,38,27,.55))`; scene figcaptions use `linear-gradient(180deg, transparent, rgba(20,38,27,.75))`.
 - **Brand logo wall:** images `filter: grayscale(0.45); opacity: 0.92`; on hover `grayscale(0); opacity: 1`. Object-fit contain, max-height varies by breakpoint.
 - **Certificate images:** fixed `height: 300px` (210px mobile), `width: auto`, `object-fit: contain`, no drop-shadow/background card.

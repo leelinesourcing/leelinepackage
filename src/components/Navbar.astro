@@ -63,10 +63,10 @@ const nav = {
       <a href={nav.caseStudy} target="_blank" rel="noopener">Case Study</a>
 
       <div class="nav-drop">
-        <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-drop-link" href="/services/" target="_blank" rel="noopener">
           Services
           <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
+        </a>
         <div class="nav-menu">
           {nav.services.map((p) => (
             <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
@@ -101,7 +101,10 @@ const nav = {
       <a href="/#work" target="_blank" rel="noopener">Case Study</a>
       <details>
         <summary>Services</summary>
-        <div class="sub">{nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
+        <div class="sub">
+          <a href="/services" target="_blank" rel="noopener">Services Overview</a>
+          {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
+        </div>
       </details>
       <a href="/" target="_blank" rel="noopener">Blog</a>
       <a href="/contact" target="_blank" rel="noopener">Contact</a>
@@ -144,17 +147,17 @@ const nav = {
   .brand-word em { font-style: normal; font-family: var(--font-body); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); margin-left: 0.35rem; }
 
   .nav-links { display: flex; align-items: center; gap: clamp(1.1rem, 2.4vw, 1.9rem); }
-  .nav-links > a, .nav-drop-btn {
+  .nav-links > a, .nav-drop-btn, .nav-drop-link {
     font-size: 0.92rem; font-weight: 500; color: var(--color-brand-text); text-decoration: none;
     background: none; border: 0; cursor: pointer; padding: 0.3rem 0; position: relative;
     display: inline-flex; align-items: center; gap: 0.35rem; font-family: inherit;
   }
-  .nav-links > a::after, .nav-drop-btn::after {
+  .nav-links > a::after, .nav-drop-btn::after, .nav-drop-link::after {
     content: ''; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%;
     background: var(--brass); transform: scaleX(0); transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .nav-links > a:hover::after, .nav-drop:hover .nav-drop-btn::after, .nav-drop:focus-within .nav-drop-btn::after { transform: scaleX(1); }
+  .nav-links > a:hover::after, .nav-drop:hover .nav-drop-btn::after, .nav-drop:focus-within .nav-drop-btn::after, .nav-drop:hover .nav-drop-link::after, .nav-drop:focus-within .nav-drop-link::after { transform: scaleX(1); }
   .chev { width: 11px; height: 8px; transition: transform 0.3s ease; }
   .nav-drop:hover .chev, .nav-drop:focus-within .chev { transform: rotate(180deg); }
 

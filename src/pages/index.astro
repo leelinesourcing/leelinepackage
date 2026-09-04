@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
 
 const IMG = {
   logo: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/leelinepackage-logo.webp',
@@ -406,115 +407,9 @@ const seoJsonLd = JSON.stringify({
   <!-- ============ GRAIN OVERLAY ============ -->
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- ============ NAVIGATION ============ -->
-  <header class="nav" id="nav">
-    <div class="nav-inner">
-      <a class="brand" href="#top" aria-label="LeelinePackage home">
-        <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" loading="eager" />
-      </a>
+  <Navbar />
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#top">Home</a>
-        <div class="nav-drop">
-          <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Products<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="nav-menu">
-            <a href="#offerings">Custom Bag</a>
-            <a href="#offerings">Custom Box</a>
-            <a href="#offerings">Custom Folding Cartons</a>
-            <a href="#offerings">Custom Paper Bag</a>
-            <a href="#offerings">Custom Rigid Boxes</a>
-            <a href="#offerings">Custom Mailer Bags</a>
-            <a href="#offerings">Custom Pouches</a>
-            <a href="#offerings">Custom Tote Bags</a>
-            <a href="#offerings">Custom Reusable Shopping Bags</a>
-            <a href="#offerings">Custom Display Box</a>
-            <a href="#offerings">Custom Corrugated Boxes</a>
-            <a href="#offerings">Custom Tin Box</a>
-            <a href="#offerings">Custom Acrylic Box</a>
-            <a href="#offerings">Custom Package Stickers</a>
-            <a href="#offerings">Custom Velvet Bags</a>
-          </div>
-        </div>
-        <div class="nav-drop">
-          <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">Industries<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <div class="nav-menu">
-            <a href="#industries">Custom Jewelry Packaging</a>
-            <a href="#industries">Custom Gift Box</a>
-            <a href="#industries">Custom Shipping Box</a>
-          </div>
-        </div>
-        <a href="#about">About Us</a>
-        <a href="#work">Case Study</a>
-        <div class="nav-drop">
-          <a class="nav-drop-link" href="/services/" target="_blank" rel="noopener">Services<svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <div class="nav-menu">
-            <a href="/structural-engineering-design/" target="_blank" rel="noopener">Structural Engineering</a>
-            <a href="#process">Packaging Artwork Design</a>
-            <a href="#process">Packaging Sample & Prototyping</a>
-          </div>
-        </div>
-        <a href="#blog">Blog</a>
-      </nav>
-
-      <div class="nav-actions">
-        <a class="btn btn-primary btn-sm" href="#quote">
-          Contact Us
-          <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span>
-        </button>
-      </div>
-    </div>
-
-    <div class="mobile-menu" id="mobileMenu">
-      <nav class="mobile-links" aria-label="Mobile">
-        <a href="#top">Home</a>
-        <details>
-          <summary>Products</summary>
-          <div class="sub">
-          <a href="#offerings">Custom Bag</a>
-          <a href="#offerings">Custom Box</a>
-          <a href="#offerings">Custom Folding Cartons</a>
-          <a href="#offerings">Custom Paper Bag</a>
-          <a href="#offerings">Custom Rigid Boxes</a>
-          <a href="#offerings">Custom Mailer Bags</a>
-          <a href="#offerings">Custom Pouches</a>
-          <a href="#offerings">Custom Tote Bags</a>
-          <a href="#offerings">Custom Reusable Shopping Bags</a>
-          <a href="#offerings">Custom Display Box</a>
-          <a href="#offerings">Custom Corrugated Boxes</a>
-          <a href="#offerings">Custom Tin Box</a>
-          <a href="#offerings">Custom Acrylic Box</a>
-          <a href="#offerings">Custom Package Stickers</a>
-          <a href="#offerings">Custom Velvet Bags</a>
-          </div>
-        </details>
-        <details>
-          <summary>Industries</summary>
-          <div class="sub">
-          <a href="#industries">Custom Jewelry Packaging</a>
-          <a href="#industries">Custom Gift Box</a>
-          <a href="#industries">Custom Shipping Box</a>
-          </div>
-        </details>
-        <a href="#about">About Us</a>
-        <a href="#work">Case Study</a>
-        <details>
-          <summary>Services</summary>
-          <div class="sub">
-          <a href="/services/" target="_blank" rel="noopener">Services Overview</a>
-          <a href="/structural-engineering-design/" target="_blank" rel="noopener">Structural Engineering</a>
-          <a href="#process">Packaging Artwork Design</a>
-          <a href="#process">Packaging Sample & Prototyping</a>
-          </div>
-        </details>
-        <a href="#blog">Blog</a>
-      </nav>
-    </div>
-  </header>
-
-  <a class="mobile-cta" href="#quote">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a class="mobile-cta" href="/contact">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <a class="back-to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
   <main id="top">
@@ -561,7 +456,7 @@ const seoJsonLd = JSON.stringify({
             The Atelier's Range
           </p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">
-            Explore our packaging <em>types</em>.
+            Explore our packaging <em>types</em>
           </h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">
             Folding cartons to rigid keepsakes, pouches to paper bags — the right format for
@@ -593,7 +488,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Fully Customisable</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Every detail is <em>made to measure</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Every detail is <em>made to measure</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Beyond the box type, we engineer the variables that decide how it protects, presents and performs — size, material, finish, print, structure and sustainability.</p>
         </div>
         <div class="customize-grid">
@@ -618,7 +513,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The Material Library</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Materials that protect, present and <em>persist</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Materials that protect, present and <em>persist</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Each run is built on a board or film matched to the product — so it ships safe, prints sharp and reads premium, without paying for weight you don&#39;t need.</p>
         </div>
         <div class="materials-grid">
@@ -642,7 +537,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How It Works</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">From <em>spec to shipment</em>, in four moves.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">From <em>spec to shipment</em>, in four moves</h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">No design files needed — give us the product and our engineers do the rest, with a 3D mockup in the inbox within a day.</p>
         </div>
         <ol class="process-list">
@@ -663,7 +558,7 @@ const seoJsonLd = JSON.stringify({
       <div class="cta-grain" aria-hidden="true"></div>
       <div class="wrap cta-inner">
         <p class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Start Your Project</p>
-        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your product deserves packaging that <em>sells it</em>.</h2>
+        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your product deserves packaging that <em>sells it</em></h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Send us what you ship — the product, the quantity, any reference you have — and our engineers will draw the dieline, pick the material and finish, and reply with a quote the same day. Prefer to feel it first? We ship a physical sample kit before you commit to a run.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
           <a class="btn btn-gold" href="#quote">Send a Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -676,7 +571,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Industries We Serve</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging that <em>fits</em> how you sell.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging that <em>fits</em> how you sell</h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Whatever you ship, we engineer the packaging to protect it, and to make the brand feel inevitable.</p>
         </div>
         <div class="industry-grid">
@@ -713,7 +608,7 @@ const seoJsonLd = JSON.stringify({
             Why LeelinePackage
           </p>
           <h2 class="why-title" data-reveal="up" style="--d:.06s">
-            Why LeelinePackage <em>stands out</em> as a custom packaging partner.
+            Why LeelinePackage <em>stands out</em> as a custom packaging partner
           </h2>
           <p class="why-sub" data-reveal="up" style="--d:.12s">
             Here is what a decade of structural engineering actually does for you — colour that
@@ -761,7 +656,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How We Compare</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">The LeelinePackage <em>difference</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">The LeelinePackage <em>difference</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can visit, 100% QC, and terms that keep IP and deposits safe — see how that stacks up against a typical supplier.</p>
         </div>
         <div class="compare" data-reveal="up">
@@ -787,7 +682,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>About LeelinePackage</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">A 20,000m&sup2; facility in China,<br />building since <em>2015</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Started in 2015, we are a factory you can visit and verify — 20,000m&sup2; of in-house design, printing, finishing and assembly, so packaging is engineered and made in one accountable place.</p>
         </div>
         <div class="factory-stats" data-reveal="up">
@@ -828,7 +723,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>The LeelinePackage Manufacturing Edge</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">One roof, one standard — consistency at any <em>scale</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One roof, one standard — consistency at any <em>scale</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Each step — design, print, finish and assembly — is under one roof, so packaging stays consistent from the first sample to the 500,000th unit.</p>
         </div>
       </div>
@@ -859,7 +754,7 @@ const seoJsonLd = JSON.stringify({
             Featured Work
           </p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">
-            Real brands. <em>Real unboxing</em> moments.
+            Real brands. <em>Real unboxing</em> moments
           </h2>
         </div>
 
@@ -899,7 +794,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Certified &amp; Legal</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Patent Certificate For <em>LeelinePackage&#39;s</em> Custom Boxes.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Patent Certificate For <em>LeelinePackage&#39;s</em> Custom Boxes</h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can verify — with our own patents on custom boxes and bags, plus SGS, CE and full compliance, so you partner with an accountable manufacturer rather than a middleman.</p>
         </div>
         <div class="patent-certs" data-reveal="up">
@@ -916,7 +811,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Real Packaging, Real Brands</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging in <em>the wild</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Packaging in <em>the wild</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">Real customer packaging, in the hands of real brands. Use the arrows to browse the scenes.</p>
         </div>
       </div>
@@ -943,7 +838,7 @@ const seoJsonLd = JSON.stringify({
             Proof, in Numbers
           </p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">
-            Trusted by people who <em>ship every day</em>.
+            Trusted by people who <em>ship every day</em>
           </h2>
         </div>
 
@@ -971,7 +866,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap">
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>FAQs</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">Straight answers <em>before you order</em>.</h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">Straight answers <em>before you order</em></h2>
           <p class="section-sub" data-reveal="up" style="--d:.12s">The questions procurement teams and founders ask most, answered plainly.</p>
         </div>
         <div class="faq-list">
@@ -1003,7 +898,7 @@ const seoJsonLd = JSON.stringify({
 
       <div class="wrap cta-inner">
         <p class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Let's Make It Yours</p>
-        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch your brand, <em>we'll build the box</em>.</h2>
+        <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch your brand, <em>we'll build the box</em></h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch. One engineer stays with you from the first dieline to delivery, so nothing gets lost in handoff.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
           <a class="btn btn-gold" href="#quote">Request Your Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -1192,170 +1087,8 @@ const seoJsonLd = JSON.stringify({
 
     .arrow { width: 1.15em; height: 1.15em; }
 
-    /* ============ NAV ============ */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      background: rgba(245, 240, 229, 0.7);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 0 rgba(31, 59, 44, 0.08);
-      transition: background-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
-    }
-    .nav-inner {
-      width: min(1280px, 100% - clamp(2rem, 6vw, 6rem));
-      margin-inline: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding: 1.1rem 0;
-      position: relative;
-      z-index: 2;
-      transition: padding 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .nav.scrolled .nav-inner { padding: 0.6rem 0; }
-
     .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
-    .brand-seal { width: 34px; height: 34px; color: var(--brass); }
-    .brand-word {
-      font-family: var(--font-heading);
-      font-weight: 600;
-      font-size: 1.4rem;
-      letter-spacing: -0.01em;
-      color: var(--color-brand-text);
-    }
-    .brand-word em {
-      font-style: normal;
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--color-brand-muted);
-      margin-left: 0.35rem;
-    }
 
-    .nav-links { display: flex; gap: clamp(1.25rem, 3vw, 2.4rem); }
-    .nav-links a {
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--color-brand-text);
-      position: relative;
-      padding: 0.3rem 0;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 1.5px;
-      width: 100%;
-      background: var(--brass);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .nav-links a:hover::after { transform: scaleX(1); }
-    .nav-drop { position: relative; }
-    .nav-drop-btn, .nav-drop-link {
-      display: inline-flex; align-items: center; gap: 0.35rem; background: none; border: 0; cursor: pointer;
-      font-size: 0.92rem; font-weight: 500; color: var(--color-brand-text); padding: 0.3rem 0; font-family: inherit;
-      position: relative;
-    }
-    .nav-drop-btn::after, .nav-drop-link::after { content: ''; position: absolute; left: 0; bottom: 0; height: 1.5px; width: 100%; background: var(--brass); transform: scaleX(0); transform-origin: left; transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
-    .nav-drop:hover .nav-drop-btn::after, .nav-drop:focus-within .nav-drop-btn::after, .nav-drop:hover .nav-drop-link::after, .nav-drop:focus-within .nav-drop-link::after { transform: scaleX(1); }
-    .chev { width: 11px; height: 8px; transition: transform 0.3s ease; }
-    .nav-drop:hover .chev, .nav-drop:focus-within .chev { transform: rotate(180deg); }
-    .nav-menu {
-      position: absolute; top: calc(100% + 0.7rem); left: 50%; transform: translateX(-50%) translateY(-6px);
-      min-width: 250px; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1rem;
-      padding: 0.6rem; box-shadow: 0 24px 60px -30px rgba(31, 59, 44, 0.45);
-      opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-      display: flex; flex-direction: column; max-height: 70vh; overflow-y: auto;
-    }
-    .nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-    .nav-menu a { font-size: 0.9rem; color: var(--color-brand-text); text-decoration: none; padding: 0.5rem 0.8rem; border-radius: 0.6rem; transition: background 0.2s ease, color 0.2s ease; }
-    .nav-menu a:hover { background: rgba(31, 59, 44, 0.05); color: var(--color-brand-primary); }
-    .mobile-links details { text-align: center; }
-    .mobile-links summary { list-style: none; font-family: var(--font-heading); font-size: 2rem; color: var(--color-brand-text); cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
-    .mobile-links summary::-webkit-details-marker { display: none; }
-    .mobile-links .sub { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.7rem; }
-    .mobile-links .sub a { font-family: var(--font-body); font-size: 1rem; color: var(--color-brand-muted); }
-
-
-    .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
-
-    .menu-btn {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      width: 44px;
-      height: 44px;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: 1px solid rgba(31, 59, 44, 0.2);
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .menu-btn span {
-      display: block;
-      width: 18px;
-      height: 1.6px;
-      background: var(--color-brand-text);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
-    }
-    body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
-    body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
-
-    .mobile-menu {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      background: #FFFFFF;
-      border-top: 1px solid rgba(31, 59, 44, 0.14);
-      box-shadow: 0 24px 44px -28px rgba(31, 59, 44, 0.35);
-      padding: 0.25rem clamp(1.5rem, 6vw, 3rem) 1.75rem;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-10px);
-      transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
-      max-height: calc(100vh - 72px);
-      overflow-y: auto;
-    }
-    body.menu-open .mobile-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-    .mobile-links { display: flex; flex-direction: column; }
-    .mobile-links > a {
-      display: block;
-      padding: 1rem 0;
-      font-family: var(--font-body);
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--color-brand-text);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(31, 59, 44, 0.06);
-    }
-    .mobile-links details summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 0;
-      font-family: var(--font-body);
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--color-brand-text);
-      border-bottom: 1px solid rgba(31, 59, 44, 0.06);
-    }
-    .mobile-links details summary::-webkit-details-marker { display: none; }
-    .mobile-links .sub { display: flex; flex-direction: column; }
-    .mobile-links .sub a { display: block; padding: 0.75rem 0 0.75rem 1rem; font-family: var(--font-body); font-size: 0.95rem; color: var(--color-brand-muted); text-decoration: none; }
     .mobile-cta {
       display: none;
       position: fixed;
@@ -2089,9 +1822,6 @@ const seoJsonLd = JSON.stringify({
 
     /* ============ RESPONSIVE ============ */
     @media (max-width: 900px) {
-      .nav-links { display: none; }
-      .menu-btn { display: flex; }
-      .nav-actions .btn { display: none; }
       .why-grid { grid-template-columns: 1fr; }
       .why-intro { position: static; }
       .case-grid { grid-template-columns: 1fr; }
@@ -2123,20 +1853,6 @@ const seoJsonLd = JSON.stringify({
   </style>
 
   <script>
-    const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const toggleMenu = (open) => {
-      document.body.classList.toggle('menu-open', open);
-      menuBtn.setAttribute('aria-expanded', String(open));
-    };
-    menuBtn.addEventListener('click', () => toggleMenu(!document.body.classList.contains('menu-open')));
-    mobileMenu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => toggleMenu(false)));
-
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const revealIO = new IntersectionObserver((entries) => {
       entries.forEach((e) => {

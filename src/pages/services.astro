@@ -1,108 +1,246 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
 const R2 = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev';
+const svcImg = (name) => `${R2}/services/${name}.webp`;
 
-// Three services, one production path. Two child pages are still being built, so
-// their CTA points to /contact (discuss) instead of a not-yet-existing URL.
+// Three services, one production path. Structural has an in-repo page; artwork &
+// sample child pages are published but not yet rebuilt here, so they link to the
+// live URLs so the CTAs always resolve.
+const CHILD = {
+  structure: '/structural-engineering-design/',
+  artwork: 'https://www.leelinepackage.com/packaging-artwork-design/',
+  sample: 'https://www.leelinepackage.com/packaging-sample-prototyping/',
+};
+
+const heroStats = [
+  { k: '24h', v: '3D mockup' },
+  { k: '3\u20135 days', v: 'white samples' },
+  { k: 'from 500', v: 'MOQ' },
+  { k: '4\u20136 weeks', v: 'full production' },
+];
+
 const steps = [
   {
     num: '01',
     title: 'Structural engineering',
-    tag: 'Dieline, board grade, insert & ship-test logic',
-    body: 'Fit the product, cut air, and name the style before anyone draws a logo on it.',
-    href: '/structural-engineering-design/',
-    hrefLabel: 'Open structure page',
+    responsibility: 'Turn your product into a box that fits, protects and ships cheap.',
+    deliverables: ['Style + dieline (PDF / AI)', 'Board, flute or rigid spec', 'Insert, partition & ship-test notes'],
+    timing: '1\u20133 weeks to approved structure',
+    href: CHILD.structure,
+    external: false,
+    linkLabel: 'Structural engineering',
+    img: svcImg('structural'),
+    imgW: 760,
+    imgH: 569,
+    alt: 'Cutting die for a fluted carton beside a folded white dummy on a workbench',
   },
   {
     num: '02',
-    title: 'Artwork & prepress',
-    tag: 'Layout on the real dieline',
-    body: 'Bleed, safety, Pantone vs CMYK, foil/emboss plates. Files a press can run \u2014 not a mood board.',
-    href: '/contact',
-    hrefLabel: 'Start with artwork',
+    title: 'Packaging artwork design',
+    responsibility: 'Put the artwork on the real dieline so it prints exactly as approved.',
+    deliverables: ['Print-ready file on the dieline', 'CMYK / Pantone + finish map', '3D proof before the plate'],
+    timing: '3\u20137 days to approved proof',
+    href: CHILD.artwork,
+    external: true,
+    linkLabel: 'Packaging artwork design',
+    img: svcImg('artwork'),
+    imgW: 760,
+    imgH: 570,
+    alt: 'Designer sketching a dieline on paper beside kraft prototypes on a workbench',
   },
   {
     num: '03',
-    title: 'Sample & prototype',
-    tag: 'White dummy for fit. Digital print for colour.',
-    body: 'Production-grade proto when the spec is locked. Paid sample, credited on bulk.',
-    href: '/contact',
-    hrefLabel: 'Start with a sample',
+    title: 'Packaging sample & prototyping',
+    responsibility: 'Prove fit, colour and the run with a physical sample before bulk.',
+    deliverables: ['White dummy for fit', 'Colour / production prototype'],
+    timing: 'White 3\u20135 days \u00b7 printed 7\u201310 days',
+    href: CHILD.sample,
+    external: true,
+    linkLabel: 'Packaging sample & prototyping',
+    img: svcImg('sample'),
+    imgW: 612,
+    imgH: 408,
+    alt: 'Folded carton dieline laid flat beside a finished white tuck-end box',
   },
 ];
 
-const delivers = [
+const stuck = [
   {
-    num: '01',
-    title: 'Structure',
-    when: 'Use when the box does not exist yet, or the current pack wastes cube or fails in transit.',
-    items: ['Style + dieline (PDF / AI)', 'Board / flute / rigid spec', 'Insert or partition if needed', 'Typical: 1\u20133 weeks to approved structure'],
+    t: 'No box design yet',
+    icon: [
+      { d: 'M8 3h8v5h5v8h-5v5H8v-5H3v-8h5z' },
+      { d: 'M8 8h8' },
+      { d: 'M8 8v8' },
+      { d: 'M16 8v8' },
+      { d: 'M8 16h8' },
+    ],
+    body: 'A product and a target cost, but no dieline yet. Send the outer dimensions, the packed weight and a photo, and we draw the structure around it \u2014 the carton style, the board grade and the insert all picked to keep the box cheap to run and still protect the product.',
+    note: 'The box shape decides what comes after it \u2014 so front-load the structure.',
   },
   {
-    num: '02',
-    title: 'Artwork',
-    when: 'Use when the structure is chosen and you have a logo, or you need us to place it.',
-    items: ['Print-ready artwork on dieline', 'Colour mode and finish map', '3D / flat proof before plate', 'Not a brand-identity agency brief'],
+    t: 'A design that might not print',
+    icon: [
+      { d: 'M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9z' },
+      { d: 'M6 8a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
+      { d: 'M9.8 6.5a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
+      { d: 'M14 8.3a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
+      { d: 'M5.8 12.5a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
+    ],
+    body: 'A logo or a low-res file that needs placing and correcting for the press. We fix bleed, trapping and colour, and catch the details that break a print run \u2014 a panel that falls on a fold, a finish that shifts the shade, or a thin rule that only holds at one size.',
+    note: 'Press-ready artwork means no surprises on press or on the shelf.',
   },
   {
-    num: '03',
-    title: 'Sample',
-    when: 'Use before any bulk PO. Pick the sample grade that matches the risk.',
-    items: ['White dummy \u2014 fit & assembly', 'Digital print \u2014 colour & type', 'Production proto \u2014 line & transit', '3\u20137 days after files lock'],
+    t: 'Need physical proof first',
+    icon: [
+      { d: 'M21 8l-9-5-9 5v8l9 5 9-5V8z' },
+      { d: 'M3 8l9 5 9-5' },
+      { d: 'M12 13v8' },
+    ],
+    body: 'Hold, fit and sign off a piece before approving a run. We send a white dummy to prove the fit and the assembly, then a colour prototype once the artwork is locked, so the board, finish and coating are judged on the real thing \u2014 not on a screen or a guess.',
+    note: 'A physical sample stops a problem before it becomes a whole run.',
+  },
+  {
+    t: 'Ready for a full quote',
+    icon: [
+      { d: 'M3 3h8l10 10-8 8L3 11V3z' },
+      { d: 'M5.8 7a1.2 1.2 0 1 0 2.4 0 1.2 1.2 0 0 0-2.4 0z', fill: 'currentColor' },
+    ],
+    body: 'The design is locked and you know the volume. Send size, weight, quantity and channel \u2014 plus any deadline or retail target \u2014 and we price it on the actual structure and board, break down every line of the quote, and name the risks to watch before you commit a run.',
+    note: 'Get a real price band and a recommended path \u2014 not a generic \u2018contact us\u2019.',
   },
 ];
 
-const handoffs = [
-  { send: 'Product size / weight / photo, ship method, target cost', back: '1\u20132 structure options + dieline', then: 'Approve style \u2192 artwork' },
-  { send: 'Logo (AI/PDF), fonts or outlined type, Pantone if you have it', back: 'Print proof on the real dieline', then: 'Approve colour \u2192 sample' },
-  { send: 'Signed proof + sample type', back: 'Physical sample + notes (fit, colour, board)', then: 'Sign off \u2192 bulk quote' },
+const flow = [
+  {
+    num: '01', title: 'Structure',
+    detail: 'A heavy glass serum bottle was rattling inside a loose lid-and-base box. We redrew it as a one-piece folded carton with a fitted insert, so the bottle stays off the corners and the dead air is gone.',
+    spec: 'Board kept at 350gsm \u2014 lighter than the old build, still passed a 1\u00a0m drop.',
+  },
+  {
+    num: '02', title: 'Artwork',
+    detail: 'The brand artwork had to move off a fragile exterior edge onto a face that wears well in a cart. Foil landed on the front panel, and colour mapped to one Pantone plus a spot UV.',
+    spec: 'The proof matched the on-screen design before the plate was cut.',
+  },
+  {
+    num: '03', title: 'Sample',
+    detail: 'First a white dummy in 4 days to confirm the fit \u2014 no plate cost yet. Then one colour prototype over two rounds to match the proof.',
+    spec: 'Signed off and cleared to the line in about three weeks.',
+  },
+];
+const projectResult = 'No broken bottles on the first shipment \u2014 the same carton now runs for DTC and retail.';
+
+const compare = [
+  {
+    label: 'Dieline & tooling ownership',
+    us: 'You own the dieline and tooling; we keep a master on file for reorders.',
+    them: 'Often the supplier\u2019s \u2014 you re-buy tooling or re-approve the structure each run.',
+  },
+  {
+    label: '3D mockup',
+    us: 'Free 3D mockup in 24h from a product photo or sketch.',
+    them: 'Sometimes a flat 2D proof, or a paid CAD file.',
+  },
+  {
+    label: 'White sample lead time',
+    us: '3\u20135 days once the files lock.',
+    them: 'Often 1\u20132 weeks, quoted as \u201c7\u201315 days\u201d.',
+  },
+  {
+    label: 'Sample approval before bulk',
+    us: 'We won\u2019t run an order until you sign the sample.',
+    them: 'Some run straight to production on the proof alone.',
+  },
 ];
 
-const fit = [
+const checklist = [
+  'Product size, weight and a photo \u2014 or a reference pack',
+  'Channel: DTC, Amazon or retail shelf',
+  'Estimated quantity',
+  'Existing files: a dieline, an AI file, or just a JPG',
+  'Any limits: food-contact, FSC or a budget band',
+];
+
+const certs = [
+  { slug: 'brcgs', w: 493, h: 104, alt: 'BRCGS Packaging Materials certification' },
+  { slug: 'bsci', w: 508, h: 510, alt: 'BSCI \u2014 Business Social Compliance Initiative' },
+  { slug: 'fsc', w: 447, h: 447, alt: 'FSC \u2014 Forest Stewardship Council' },
+  { slug: 'iso-9001', w: 348, h: 349, alt: 'ISO 9001:2015 certified quality management system' },
+  { slug: 'sedex', w: 873, h: 253, alt: 'Sedex \u2014 Supplier Ethical Data Exchange' },
+];
+const certSrc = (slug) => `${R2}/compliance/${slug}.webp`;
+
+const faqs = [
   {
-    heading: 'A fit',
-    items: ['Folding carton, mailer, rigid, paper bag, pouch', 'You can share a product or a reference pack', 'First run is a factory MOQ, not 1-piece POD'],
+    q: 'What types of packaging do you make?',
+    a: 'Corrugated and folding cartons, rigid gift boxes, mailers, paper and tote bags, and soft-pack pouches. The board, film and finish are matched to the protection the product needs. Share a reference pack or a photo and we\u2019ll tell you honestly whether it\u2019s a fit before you pay anything.',
   },
   {
-    heading: 'Not a fit',
-    items: ['Fashion backpack / leather bag OEM', 'Unlimited free revisions with no brief', '\u201cFree finished sample, ship tomorrow\u201d'],
+    q: 'Is a smaller-than-MOQ test run possible?',
+    a: 'Our production MOQ is from 500 units, but we can run a lower first quantity or a small trial batch for market testing at a slightly higher unit cost. Volume breaks apply at 1k, 5k and 10k. Physical samples are available before you commit to a full run.',
   },
   {
-    heading: 'What we won\u2019t claim here',
-    items: ['No \u201c#1 manufacturer\u201d / \u201c10,000+ brands\u201d on this page', 'No \u201cunlimited free revisions\u201d', 'Sample fee policy matches the quote page'],
+    q: 'How is the price structured \u2014 are there setup, plate or tooling fees?',
+    a: 'You usually pay a one-off setup plus any plate or tooling your structure needs, then a per-unit price that falls as quantity rises. The 3D mockup is free; material samples carry a small fee that is credited against bulk. The quote lists each line so the total is clear before you commit.',
+  },
+  {
+    q: 'What certifications and material compliance do you offer?',
+    a: 'Our factory holds ISO 9001, and FSC-certified board and food-contact grades are sourced on request. Compliance paperwork for retail or cross-border selling is available on request. Tell us the market and we\u2019ll confirm exactly which certification is backed with documents.',
+  },
+  {
+    q: 'What won\u2019t this factory be a good fit for?',
+    a: 'Packaging is the focus, not private-label products, so it\u2019s not a fit for OEM goods, fashion bags or apparel. Unlimited free revisions with no brief aren\u2019t offered, and a finished sample can\u2019t ship overnight. If it isn\u2019t a fit, we\u2019ll say so and save you the cost.',
+  },
+  {
+    q: 'Is my design and tooling kept confidential?',
+    a: 'Yes. We work under NDA on request. The dieline, artwork and any tooling are assigned to your product and never shown to or reused for another brand. When you reorder, the master file stays with you in case you ever move suppliers.',
   },
 ];
 
 const seo = {
-  title: 'How We Work: Structure, Artwork & Samples | LeelinePackage',
-  description: 'Three packaging services, one production path: structural engineering, artwork & prepress, and samples. See what you send, what we return, and where each service fits.',
-  keywords: 'custom packaging services, packaging structural engineering, packaging artwork design, packaging samples and prototypes, how we work',
+  title: 'Custom Packaging Services: 3 Paths to a Production-Ready Box',
+  description: 'One supplier, three packaging services: structural engineering, packaging artwork design and prototyping. 24h 3D mockups, 3-5 day white samples, a 500 unit MOQ.',
+  keywords: 'custom packaging services, packaging structural engineering, packaging artwork design, packaging samples and prototyping, start a packaging project',
   canonical: 'https://www.leelinepackage.com/services/',
   ogImage: `${R2}/structural/og-structural.webp`,
 };
+
+const absUrl = (href) => href.startsWith('/') ? `https://www.leelinepackage.com${href}` : href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'Service',
+      name: 'Custom Packaging Services',
+      description: seo.description,
+      serviceType: 'Custom packaging structural engineering, artwork design and samples',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Packaging services',
+        itemListElement: steps.map((s) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: s.title }, url: absUrl(s.href) })),
+      },
+    },
+    {
       '@type': 'ItemList',
-      name: 'LeelinePackage services',
-      itemListElement: steps.map((s, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        name: s.title,
-        url: s.href.startsWith('/structural') ? `https://www.leelinepackage.com${s.href}` : 'https://www.leelinepackage.com/contact/',
-      })),
+      name: 'LeelinePackage packaging services',
+      itemListElement: steps.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: absUrl(s.href) })),
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
-        { '@type': 'ListItem', position: 2, name: 'How We Work' },
+        { '@type': 'ListItem', position: 2, name: 'Services' },
       ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
     },
   ],
 };
@@ -120,110 +258,136 @@ const jsonLd = {
   <main id="top">
     <Navbar />
 
-    <!-- ============ HERO (split, distinct from home) ============ -->
+    <!-- ============ 1. HERO (centered) ============ -->
     <header class="svc-hero">
-      <div class="wrap svc-hero-grid">
-        <div class="svc-hero-copy">
-          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How we work</span>
-          <h1>Our <em>Services</em></h1>
-          <p class="svc-hero-sub">Structure first. Artwork that prints. A sample you can refuse. Three services, one production path &mdash; engineer the pack, prep print-ready files, then a white dummy or printed proto before bulk.</p>
-          <div class="svc-hero-cta">
-            <a class="btn btn-gold" href="/contact">
-              Start with a brief
-              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="btn btn-light" href="#path">See the path</a>
-          </div>
+      <div class="svc-hero-bg" aria-hidden="true"></div>
+      <div class="wrap svc-hero-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How we work</span>
+        <h1>Custom packaging services:<br /><em>Ready for Production</em>,<br />Not Just Presentation</h1>
+        <p class="svc-hero-sub">Structure, artwork, sample &mdash; the three services that take your pack from concept to run-ready. We engineer the box, prepare print-ready files, then prove it with a sample before you commit to mass production. Start at any step, or bundle all three.</p>
+        <ul class="svc-hero-stats">
+          {heroStats.map((s) => <li><strong>{s.k}</strong><span>{s.v}</span></li>)}
+        </ul>
+        <div class="svc-hero-cta">
+          <a class="btn btn-gold" href="/contact">
+            Start a project
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
-
-        <aside class="svc-hero-panel" aria-label="The production path">
-          <p class="svc-panel-eyebrow">The path</p>
-          <ol class="svc-panel-list">
-            <li><span class="svc-panel-num">01</span> Structure</li>
-            <li><span class="svc-panel-num">02</span> Artwork</li>
-            <li><span class="svc-panel-num">03</span> Sample</li>
-          </ol>
-        </aside>
       </div>
     </header>
 
-    <!-- ============ THE 3 SERVICES (path) ============ -->
-    <section class="svc-path" id="path">
+    <!-- ============ 2. THE THREE SERVICES (core) ============ -->
+    <section class="svc-path" id="three-services">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>The Path</span>
-          <h2 class="section-title" data-reveal="up">Three services, <em>one production path</em>.</h2>
-          <p class="section-sub" data-reveal="up">Start where you are. Every pack needs a structure before artwork, and a sample before bulk &mdash; but you never have to buy all three at once.</p>
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Services</span>
+          <h2 class="section-title" data-reveal="up">Structure, artwork, sample &mdash; <em>one production path</em></h2>
+          <p class="section-sub" data-reveal="up">A pack needs a structure before artwork and a sample before bulk &mdash; each step is a separate decision.</p>
         </div>
 
         <div class="svc-path-grid">
           {steps.map((s, i) => (
             <article class="svc-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
               <figure class="svc-card-media">
-                <div class="svc-card-ph" aria-hidden="true">
-                  <svg class="svc-card-ph-icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8.5" cy="8.5" r="1.7" fill="currentColor"/><path d="M21 15.5 15.5 10 4.5 21" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
-                  <span class="svc-card-ph-text">Image placeholder</span>
-                </div>
+                <Image src={s.img} alt={s.alt} width={s.imgW} height={s.imgH} quality={80} loading="lazy" decoding="async" class="svc-card-img" />
               </figure>
               <div class="svc-card-body">
                 <span class="svc-card-step">{s.num}</span>
                 <h3>{s.title}</h3>
-                <p class="svc-card-tag">{s.tag}</p>
-                <p class="svc-card-body-text">{s.body}</p>
-                <a class="text-link" href={s.href} target="_blank" rel="noopener">{s.hrefLabel}
+                <p class="svc-card-body-text">{s.responsibility}</p>
+                <ul class="svc-deliver-list">
+                  {s.deliverables.map((d) => <li>{d}</li>)}
+                </ul>
+                <span class="svc-card-timing">{s.timing}</span>
+                <a class="text-link" href={s.href} target={s.external ? '_blank' : undefined} rel={s.external ? 'noopener' : undefined}>{s.linkLabel}
                   <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </a>
               </div>
             </article>
           ))}
         </div>
+
+        <p class="svc-bridgemote" data-reveal="up">Already have a dieline? Go straight to artwork. Only want to feel the structure first? Start with a sample.</p>
       </div>
     </section>
 
-    <!-- ============ WHAT EACH SERVICE DELIVERS ============ -->
-    <section class="svc-delivers">
+    <!-- ============ 3. WHERE ARE YOU STUCK ============ -->
+    <section class="svc-stuck" id="where">
       <div class="wrap">
         <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>What you get</span>
-          <h2 class="section-title" data-reveal="up">What each service <em>actually delivers</em>.</h2>
-          <p class="section-sub" data-reveal="up">A plain-language list of what actually lands in your hands at each step, so you know what &ldquo;done&rdquo; looks like before you commit.</p>
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Quick route</span>
+          <h2 class="section-title" data-reveal="up">Pick the step <em>you&rsquo;re stuck on</em></h2>
+          <p class="section-sub" data-reveal="up">Four quick routes. Each names the spot where a project usually stalls, then takes you to the page that fixes it &mdash; or straight to a quote.</p>
         </div>
 
-        <div class="svc-deliver-grid">
-          {delivers.map((d) => (
-            <div class="svc-deliver" data-reveal="up">
-              <span class="svc-deliver-num">{d.num}</span>
-              <h3>{d.title}</h3>
-              <p class="svc-deliver-when">{d.when}</p>
-              <ul class="svc-deliver-list">
-                {d.items.map((it) => <li>{it}</li>)}
-              </ul>
+        <div class="svc-stuck-grid">
+          {stuck.map((it, i) => (
+            <div class="svc-stuck-card" data-reveal="up" style={`--d:${(i % 4) * 0.08}s`}>
+              <span class="svc-stuck-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  {it.icon.map((p) => <path d={p.d} fill={p.fill || 'none'} />)}
+                </svg>
+              </span>
+              <h3>{it.t}</h3>
+              <p>{it.body}</p>
+              <p class="svc-stuck-note">{it.note}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- ============ HANDOFF TABLE ============ -->
-    <section class="svc-handoff">
+    <!-- ============ 4. ONE PROJECT THROUGH THREE STEPS ============ -->
+    <section class="svc-project" id="project">
       <div class="wrap">
         <div class="section-head">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Handoff</span>
-          <h2 class="section-title" data-reveal="up">What you send, <em>what we return</em>.</h2>
-          <p class="section-sub" data-reveal="up">A quick checklist of what we need from you at each step, and what you get back.</p>
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Overview</span>
+          <h2 class="section-title" data-reveal="up">One project, <em>end to end</em></h2>
+          <p class="section-sub" data-reveal="up">A heavy glass serum bottle kept arriving broken. Here is how one carton walked end to end in about three weeks.</p>
+        </div>
+
+        <div class="svc-flow" data-reveal="up">
+          {flow.map((f, i) => (
+            <Fragment>
+              <div class="svc-flow-step">
+                <span class="svc-flow-num">{f.num}</span>
+                <span class="svc-flow-title">{f.title}</span>
+                <span class="svc-flow-detail">{f.detail}</span>
+                <span class="svc-flow-spec">{f.spec}</span>
+              </div>
+              {i < flow.length - 1 && <span class="svc-flow-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>}
+            </Fragment>
+          ))}
+        </div>
+
+        <div class="svc-project-result" data-reveal="up">
+          <span class="svc-result-tag">Outcome</span>
+          <p class="svc-result-text">{projectResult}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5. SHORT COMPARISON TABLE ============ -->
+    <section class="svc-compare" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Compare</span>
+          <h2 class="section-title" data-reveal="up">LeelinePackage vs <em>a typical supplier</em></h2>
+          <p class="section-sub" data-reveal="up">Four differences that matter on an overview page &mdash; not the full long table.</p>
         </div>
 
         <div class="svc-table-wrap" data-reveal="up">
-          <table class="svc-table">
+          <table class="svc-table svc-table--compare">
             <thead>
-              <tr><th>You send</th><th>We return</th><th>Then</th></tr>
+              <tr><th></th><th>LeelinePackage</th><th>Typical supplier</th></tr>
             </thead>
             <tbody>
-              {handoffs.map((h) => (
+              {compare.map((c) => (
                 <tr>
-                  <td>{h.send}</td>
-                  <td>{h.back}</td>
-                  <td>{h.then}</td>
+                  <th scope="row">{c.label}</th>
+                  <td>{c.us}</td>
+                  <td>{c.them}</td>
                 </tr>
               ))}
             </tbody>
@@ -232,35 +396,89 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ FIT / NOT A FIT ============ -->
-    <section class="svc-fit">
+    <!-- ============ 6. COMPLIANCE / CERTIFICATIONS ============ -->
+    <section class="svc-cert" id="compliance">
       <div class="wrap">
         <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Fit check</span>
-          <h2 class="section-title" data-reveal="up">Is this path <em>a fit for you</em>?</h2>
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Compliance</span>
+          <h2 class="section-title" data-reveal="up">Certified for <em>global retail</em></h2>
+          <p class="section-sub" data-reveal="up">Quality management, responsible sourcing and food-contact materials &mdash; the certifications a buyer checks before placing an order.</p>
         </div>
 
-        <div class="svc-fit-grid">
-          {fit.map((f, i) => (
-            <div class={`svc-fit-card svc-fit-card--${i}`} data-reveal="up">
-              <h3>{f.heading}</h3>
-              <ul>
-                {f.items.map((it) => <li>{it}</li>)}
-              </ul>
-            </div>
+        <ul class="svc-cert-list" data-reveal="up">
+          {certs.map((c) => (
+            <li class="svc-cert-tile">
+              <Image src={certSrc(c.slug)} alt={c.alt} width={c.w} height={c.h} quality={80} loading="lazy" decoding="async" class="svc-cert-img" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 7. START YOUR PROJECT / BRIEF CHECKLIST ============ -->
+    <section class="svc-brief" id="brief">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Brief</span>
+          <h2 class="section-title" data-reveal="up">Start your project &mdash; <em>send us this brief</em></h2>
+        </div>
+
+        <div class="svc-brief-grid">
+          <div class="svc-brief-copy" data-reveal="up">
+            <p class="svc-brief-lead">A finished CAD file isn&rsquo;t required to get going. A photo, rough dimensions and a quantity are enough to start &mdash; not sure what to measure? Tell us and we&rsquo;ll name the few figures that matter most. The points below cover the usual brief; anything extra helps but is never required.</p>
+            <ul class="svc-check">
+              {checklist.map((c) => (
+                <li class="svc-check-item">
+                  <svg class="svc-check-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <figure class="svc-brief-media" data-reveal="up">
+            <Image src={svcImg('brief')} alt="The LeelinePackage design and production floor: artwork on screen, die-cutting, folding and packed cartons ready for dispatch" width={980} height={680} quality={80} loading="lazy" decoding="async" class="svc-brief-img" />
+          </figure>
+
+          <div class="svc-brief-cta" data-reveal="up">
+            <p class="svc-brief-promise">A real person reads every brief, then confirms the next step.</p>
+            <a class="btn btn-gold" href="/contact">
+              Send the brief
+              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. FAQ ============ -->
+    <section class="svc-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>FAQ</span>
+          <h2 class="section-title" data-reveal="up">Frequently asked <em>questions</em></h2>
+        </div>
+        <div class="svc-faq-list">
+          {faqs.map((f) => (
+            <details class="faq-item" data-reveal="up">
+              <summary><span class="faq-num">Q</span>{f.q}</summary>
+              <div class="faq-a"><p>{f.a}</p></div>
+            </details>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- ============ FINAL CTA ============ -->
-    <section class="svc-cta">
-      <div class="wrap svc-cta-inner">
-        <h2 class="svc-cta-title" data-reveal="up">Send the product, <em>not a slogan</em>.</h2>
-        <p class="svc-cta-sub" data-reveal="up">Quantity, destination, and either a dieline or a photo. We will tell you which of the three steps you still need.</p>
+    <!-- ============ 9. GET STARTED (NORMAL CTA) ============ -->
+    <section class="svc-final" id="get-started">
+      <div class="svc-final-bg" aria-hidden="true"></div>
+      <div class="wrap svc-final-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Get started</span>
+        <h2 class="svc-final-title" data-reveal="up">Turn your idea into a <em>project plan</em></h2>
+        <p class="svc-final-sub" data-reveal="up">Send the product, quantity and channel &mdash; we&rsquo;ll reply within 24&ndash;48h with a structure suggestion, whether your design can print, which sample to run and a rough price band.</p>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-gold" href="/contact">
-            Get a production quote
+            Request a quote
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -277,39 +495,40 @@ const jsonLd = {
     position: relative;
     background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
     color: var(--ivory);
-    padding: clamp(7rem, 14vw, 9.5rem) 0 clamp(4rem, 8vw, 6rem);
+    padding: calc(clamp(7rem, 14vw, 9.5rem) - 1cm) 0 calc(clamp(4rem, 8vw, 6rem) - 1cm);
     overflow: hidden;
   }
-  .svc-hero-grid {
-    display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
-    gap: clamp(2.2rem, 5vw, 4rem);
-    align-items: center;
+  .svc-hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/services/hero.webp') center / cover no-repeat;
+    filter: brightness(1.04);
+  }
+  .svc-hero-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(46, 79, 61, 0.36) 0%, rgba(20, 38, 27, 0.55) 100%);
+  }
+  .svc-hero-inner {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 1160px;
   }
   .svc-hero h1 {
-    font-family: var(--font-heading); font-weight: 500;
-    font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.03em;
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.4rem, 5vw, 4.4rem); line-height: 1; letter-spacing: -0.03em;
     color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4);
-    margin: 1.3rem 0 0; max-width: 20ch; text-wrap: balance;
+    margin: 1.3rem auto 0; max-width: none; text-wrap: balance;
   }
   .svc-hero h1 em { font-style: italic; color: #E3C29A; }
-  .svc-hero-sub { font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.7; color: rgba(255, 255, 255, 0.95); max-width: 46ch; margin: 1.5rem 0 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
-  .svc-hero-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 2.2rem; }
-
-  .svc-hero-panel {
-    background: var(--forest-deep);
-    border: 1px solid rgba(201, 168, 124, 0.3);
-    border-radius: 1.6rem;
-    padding: clamp(1.6rem, 3vw, 2.4rem);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.5);
-  }
-  .svc-panel-eyebrow { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 1.4rem; }
-  .svc-panel-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-  .svc-panel-list li { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 0; border-top: 1px solid rgba(245, 240, 229, 0.14); font-family: var(--font-heading); font-weight: 500; font-size: 1.7rem; color: var(--ivory); }
-  .svc-panel-list li:first-child { border-top: 0; padding-top: 0; }
-  .svc-panel-num { font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.14em; color: var(--brass-bright); }
+  .svc-hero-sub { font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.7; color: rgba(255, 255, 255, 0.95); max-width: 46ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+  .svc-hero-stats { list-style: none; margin: 1.9rem 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem 3.2rem; }
+  .svc-hero-stats li { display: flex; flex-direction: column; gap: 0.2rem; }
+  .svc-hero-stats strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.6rem; line-height: 1; color: var(--brass-soft); }
+  .svc-hero-stats span { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(245, 240, 229, 0.8); }
+  .svc-hero-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.9rem; margin-top: 2.2rem; }
 
   /* ============ PATH (3 services) ============ */
   .svc-path { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -323,33 +542,45 @@ const jsonLd = {
   }
   .svc-card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -20px rgba(31, 59, 44, 0.28); border-color: rgba(176, 141, 76, 0.55); }
   .svc-card-media { margin: 0; aspect-ratio: 14/9; overflow: hidden; background: var(--kraft); }
-  .svc-card-ph {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
-    height: 100%; margin: 12px; border: 1px dashed rgba(176, 141, 76, 0.4); border-radius: 0.8rem;
-    color: var(--color-brand-muted);
-  }
-  .svc-card-ph-icon { width: 30px; height: 30px; color: var(--brass); opacity: 0.7; }
-  .svc-card-ph-text { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); }
+  .svc-card-img { width: 100%; height: 100%; display: block; object-fit: cover; }
   .svc-card-body { padding: clamp(1.4rem, 2.6vw, 1.9rem); display: flex; flex-direction: column; flex: 1; }
   .svc-card-step { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; color: var(--brass); }
   .svc-card-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
-  .svc-card-tag { font-family: var(--font-heading); font-style: italic; font-size: 1.02rem; color: var(--brass); margin: 0.4rem 0 0; }
-  .svc-card-body-text { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0.7rem 0 1.2rem; }
-  .svc-card-body .text-link { margin-top: auto; }
+  .svc-card-body-text { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-text); margin: 0.7rem 0 1rem; }
+  .svc-deliver-list { list-style: none; margin: 0 0 1.1rem; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+  .svc-deliver-list li { font-size: 0.9rem; line-height: 1.5; color: var(--color-brand-muted); position: relative; padding-left: 1.2rem; }
+  .svc-deliver-list li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+  .svc-card-timing { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brand-primary); margin-bottom: 1.1rem; }
+  .svc-card-body .text-link { margin-top: auto; padding: 0.55rem 1.05rem; border: 1px solid rgba(31, 59, 44, 0.28); border-radius: 999px; transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease; }
+  .svc-card-body .text-link:hover { border-color: var(--brass); background: rgba(176, 141, 76, 0.1); }
+  .svc-bridgemote { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 72ch; margin: clamp(2rem, 4vw, 3rem) auto 0; text-align: center; }
 
-  /* ============ DELIVERS ============ */
-  .svc-delivers { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .svc-deliver-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); }
-  .svc-deliver { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.5rem, 3vw, 2rem); }
-  .svc-deliver-num { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; color: var(--brass); }
-  .svc-deliver h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; color: var(--color-brand-text); margin: 0.5rem 0 0.7rem; }
-  .svc-deliver-when { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.2rem; }
-  .svc-deliver-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-  .svc-deliver-list li { font-size: 0.9rem; line-height: 1.5; color: var(--color-brand-text); position: relative; padding-left: 1.3rem; }
-  .svc-deliver-list li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); }
+  /* ============ STUCK ============ */
+  .svc-stuck { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .svc-stuck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.2rem, 2.5vw, 1.6rem); max-width: 980px; margin-inline: auto; }
+  .svc-stuck-card { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.5rem, 3vw, 2rem); display: flex; flex-direction: column; }
+  .svc-stuck-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; color: var(--color-brand-text); margin: 0 0 0.6rem; }
+  .svc-stuck-card p { font-size: 1.05rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.1rem; }
+  .svc-stuck-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: rgba(176, 141, 76, 0.14); color: var(--brass); margin-bottom: 1.1rem; }
+  .svc-stuck-ico svg { width: 26px; height: 26px; }
+  .svc-stuck-card .svc-stuck-note { font-size: 0.96rem; line-height: 1.5; font-weight: 700; color: var(--brass); margin: auto 0 0; border-top: 1px solid rgba(31, 59, 44, 0.12); padding-top: 0.8rem; }
 
-  /* ============ HANDOFF TABLE ============ */
-  .svc-handoff { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  /* ============ PROJECT ============ */
+  .svc-project { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .svc-flow { display: flex; align-items: stretch; justify-content: center; gap: clamp(0.6rem, 1.4vw, 1rem); margin: clamp(2rem, 4vw, 3rem) auto 0; }
+  .svc-flow-step { flex: 1 1 0; min-width: 190px; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.1rem; padding: clamp(1.1rem, 2vw, 1.5rem); display: flex; flex-direction: column; gap: 0.35rem; }
+  .svc-flow-num { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; color: var(--brass); }
+  .svc-flow-title { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .svc-flow-detail { font-size: 1rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .svc-flow-spec { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); border-top: 1px solid rgba(31, 59, 44, 0.12); padding-top: 0.6rem; margin-top: 0.5rem; }
+  .svc-flow-arrow { align-self: center; color: var(--brass); flex: 0 0 auto; display: grid; place-items: center; }
+  .svc-flow-arrow svg { width: 22px; height: 22px; }
+  .svc-project-result { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; max-width: 980px; margin: clamp(1.8rem, 4vw, 2.6rem) auto 0; background: var(--forest-light); color: var(--ivory); border-radius: 1.4rem; padding: clamp(1.4rem, 3vw, 2rem); }
+  .svc-result-tag { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass-soft); }
+  .svc-result-text { font-family: var(--font-heading); font-weight: 500; font-size: 1.2rem; line-height: 1.5; margin: 0; }
+
+  /* ============ COMPARE TABLE ============ */
+  .svc-compare { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
   .svc-table-wrap { overflow-x: auto; }
   .svc-table {
     width: 100%; border-collapse: collapse;
@@ -359,31 +590,73 @@ const jsonLd = {
     font-size: 0.95rem;
   }
   .svc-table th, .svc-table td { text-align: left; padding: 1rem 1.2rem; border-bottom: 1px solid rgba(31, 59, 44, 0.1); vertical-align: top; }
-  .svc-table th { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); background: rgba(201, 168, 124, 0.12); }
+  .svc-table thead th { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-text); background: rgba(201, 168, 124, 0.12); }
+  .svc-table thead th:first-child { color: var(--color-brand-muted); }
+  .svc-table tbody th { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-text); }
+  .svc-table--compare thead th:nth-child(2) { background: var(--color-forest); color: var(--ivory); }
+  .svc-table--compare tbody td:nth-child(2) { background: rgba(31, 59, 44, 0.12); }
+  .svc-table tbody tr:last-child td, .svc-table tbody tr:last-child th { border-bottom: 0; }
   .svc-table td { color: var(--color-brand-text); }
-  .svc-table tbody tr:last-child td { border-bottom: 0; }
 
-  /* ============ FIT ============ */
-  .svc-fit { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .svc-fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); max-width: 980px; margin-inline: auto; }
-  .svc-fit-card { background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.5rem, 3vw, 2rem); }
-  .svc-fit-card--1 { border-left: 4px solid var(--clay); }
-  .svc-fit-card--2 { border-left: 4px solid var(--brass); }
-  .svc-fit-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.35rem; color: var(--color-brand-text); margin: 0 0 1rem; }
-  .svc-fit-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.6rem; }
-  .svc-fit-card li { font-size: 0.92rem; line-height: 1.55; color: var(--color-brand-muted); position: relative; padding-left: 1.3rem; }
-  .svc-fit-card li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); }
+  /* ============ COMPLIANCE ============ */
+  .svc-cert { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .svc-cert-list { list-style: none; margin: clamp(2rem, 4vw, 3rem) auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: clamp(1.6rem, 4vw, 3rem); max-width: 980px; }
+  .svc-cert-tile { display: grid; place-items: center; }
+  .svc-cert-img { display: block; max-width: 240px; max-height: 88px; width: auto; height: auto; object-fit: contain; }
+
+  /* ============ BRIEF ============ */
+  .svc-brief { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .svc-brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3rem); align-items: stretch; }
+  .svc-brief-copy { display: flex; flex-direction: column; gap: 1.2rem; }
+  .svc-brief-lead { font-size: 1rem; line-height: 1.75; color: var(--color-brand-primary); margin: 0; }
+  .svc-check { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .svc-check-item { display: flex; align-items: flex-start; gap: 0.9rem; font-size: 1rem; line-height: 1.5; color: var(--color-brand-text); }
+  .svc-check-ico { width: 24px; height: 24px; flex: 0 0 auto; color: var(--brass); margin-top: 0.1rem; }
+  .svc-brief-media { margin: 0; background: var(--ivory); border-radius: 1.2rem; overflow: hidden; }
+  .svc-brief-img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  @media (min-width: 901px) {
+    .svc-brief-media { transform: translateY(-1cm); }
+    .svc-brief-media[data-reveal].in { transform: translateY(-1cm); }
+  }
+  .svc-brief-cta { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+  .svc-brief-promise { font-size: 1rem; line-height: 1.7; color: var(--color-brand-primary); max-width: 52ch; margin: 0; }
+
+  /* ============ FAQ ============ */
+  .svc-faq { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .svc-faq-list { max-width: 820px; margin-inline: auto; }
+  .faq-item { border-top: 1px solid rgba(31, 59, 44, 0.14); background: var(--ivory); border-radius: 0 0 1rem 1rem; }
+  .faq-item:first-child { border-radius: 1rem 1rem 0 0; }
+  .faq-item:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.14); border-radius: 0 0 1rem 1rem; }
+  .faq-item:only-child { border-radius: 1rem; }
+  .faq-item + .faq-item { margin-top: 0.6rem; }
+  .faq-num { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 1rem; padding: 1.4rem 1.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: var(--color-brand-text); }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); margin-left: auto; }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-a { padding: 0 1.2rem 1.4rem; }
+  .faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
 
   /* ============ FINAL CTA ============ */
-  .svc-cta {
+  .svc-final {
     position: relative;
     background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
     color: var(--ivory); padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden;
   }
-  .svc-cta-inner { text-align: center; position: relative; z-index: 1; }
-  .svc-cta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.3rem, 6vw, 4.4rem); line-height: 1; letter-spacing: -0.025em; color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); margin: 0; max-width: 20ch; margin-inline: auto; text-wrap: balance; }
-  .svc-cta-title em { font-style: italic; color: #E3C29A; }
-  .svc-cta-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(255, 255, 255, 0.95); max-width: 52ch; margin: 1.4rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+  .svc-final-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/services/final-cta.webp') center / cover no-repeat;
+    filter: brightness(1.02);
+  }
+  .svc-final-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(46, 79, 61, 0.36) 0%, rgba(20, 38, 27, 0.55) 100%);
+  }
+  .svc-final-inner { text-align: center; position: relative; z-index: 1; }
+  .svc-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.05; letter-spacing: -0.025em; color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); margin: 1.1rem 0 0; max-width: 30ch; margin-inline: auto; text-wrap: balance; }
+  .svc-final-title em { font-style: italic; color: #E3C29A; }
+  .svc-final-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(255, 255, 255, 0.95); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+  .svc-final .section-cta { margin-top: clamp(2.2rem, 5vw, 3rem); }
 
   /* ============ REVEAL ============ */
   [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
@@ -391,12 +664,17 @@ const jsonLd = {
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 900px) {
-    .svc-hero-grid { grid-template-columns: 1fr; align-items: start; }
-    .svc-path-grid, .svc-deliver-grid, .svc-fit-grid { grid-template-columns: 1fr; }
+    .svc-path-grid { grid-template-columns: 1fr; }
+    .svc-stuck-grid { grid-template-columns: 1fr; }
+    .svc-flow { flex-direction: column; }
+    .svc-flow-step { min-width: 0; }
+    .svc-flow-arrow { transform: rotate(90deg); }
+    .svc-brief-grid { grid-template-columns: 1fr; }
+    .svc-brief-media { aspect-ratio: 4/3; }
   }
   @media (max-width: 640px) {
     .svc-hero-cta .btn { width: 100%; }
-    .svc-panel-list li { font-size: 1.4rem; }
+    .svc-hero-stats { gap: 0.7rem 1.4rem; }
   }
 </style>
 

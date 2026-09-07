@@ -7,13 +7,12 @@ import Footer from '../components/Footer.astro';
 const R2 = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev';
 const svcImg = (name) => `${R2}/services/${name}.webp`;
 
-// Three services, one production path. Structural has an in-repo page; artwork &
-// sample child pages are published but not yet rebuilt here, so they link to the
-// live URLs so the CTAs always resolve.
+// Three services, one production path. Structural, artwork and sample all have
+// in-repo pages, so the CTAs link to the built site.
 const CHILD = {
   structure: '/structural-engineering-design/',
-  artwork: 'https://www.leelinepackage.com/packaging-artwork-design/',
-  sample: 'https://www.leelinepackage.com/packaging-sample-prototyping/',
+  artwork: '/packaging-artwork-design/',
+  sample: '/packaging-sample-prototyping/',
 };
 
 const heroStats = [
@@ -45,7 +44,7 @@ const steps = [
     deliverables: ['Print-ready file on the dieline', 'CMYK / Pantone + finish map', '3D proof before the plate'],
     timing: '3\u20137 days to approved proof',
     href: CHILD.artwork,
-    external: true,
+    external: false,
     linkLabel: 'Packaging artwork design',
     img: svcImg('artwork'),
     imgW: 760,
@@ -59,7 +58,7 @@ const steps = [
     deliverables: ['White dummy for fit', 'Colour / production prototype'],
     timing: 'White 3\u20135 days \u00b7 printed 7\u201310 days',
     href: CHILD.sample,
-    external: true,
+    external: false,
     linkLabel: 'Packaging sample & prototyping',
     img: svcImg('sample'),
     imgW: 612,

@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+const R2 = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev';
+const SAMPLE = `${R2}/sample`;
 
 /* The other two services live in-repo; this page is the third service. */
 const CHILD = {
@@ -20,48 +24,44 @@ const first = [
 ];
 
 /* The four sample types, each with what it looks like and what it validates.
-   `icon` picks the inline identity glyph; `tone` tints the placeholder slot. */
+   Each maps to a real R2 image of that sample. */
 const samples = [
   {
     n: '01',
-    icon: '3d',
-    tone: 'brass',
     name: '3D Sample',
     key: 'in-screen model',
     tag: 'See the box before a sheet is cut.',
+    img: `${SAMPLE}/3d-sample.webp`, w: 740, h: 740, altH: 'A 3D box model on screen — a rotating openable white dummy',
     looks: ['Rotate it and open it from any angle', 'No physical sheet is printed', 'A link to send for client sign-off'],
     validates: ['Structure reads correctly on screen', 'Proportions and openings look right', 'Catch a dieline error before tooling'],
     media: 'A rotating, openable 3D box model on screen \u2014 the interface, not a beautified render',
   },
   {
     n: '02',
-    icon: 'white',
-    tone: 'kraft',
     name: 'White Dummy',
     key: 'unprinted rigid box prototype',
     tag: 'Hold the structure, check the fit.',
+    img: `${SAMPLE}/white-dummy.webp`, w: 740, h: 740, altH: 'White unprinted rigid box dummies standing together',
     looks: ['No print \u2014 board, flute and fold only', 'Corrugation and tuck flaps visible', 'Magnetic closure, tabs and assembly on hand'],
     validates: ['Product fits, never floats or jams', 'Assembly is easy to repeat on a line', 'Wall thickness and weight feel right'],
     media: 'A plain white unprinted box dummy with a product being fitted by hand \u2014 the hand checking the hold, not posing',
   },
   {
     n: '03',
-    icon: 'colour',
-    tone: 'clay',
     name: 'Digital Colour Sample',
     key: 'digital printed carton prototype',
     tag: 'See the artwork on the real board.',
+    img: `${SAMPLE}/colour-sample.webp`, w: 1200, h: 720, altH: 'Colourful digitally printed cartons with a spot vs process colour guide',
     looks: ['Digitally printed artwork', 'Registration crosses and cut edges visible', 'Whether the colour reads dull or true'],
     validates: ['Artwork sits inside the safe lines', 'No trapped text or bleeding', 'Screen colour holds on coated board'],
     media: 'A digitally printed carton prototype showing registration marks, cut edges and the printed artwork',
   },
   {
     n: '04',
-    icon: 'prod',
-    tone: 'forest',
     name: 'Production-Line Sample',
     key: 'production sample vs mockup',
     tag: 'The real material, the real process.',
+    img: `${SAMPLE}/production-sample.webp`, w: 1200, h: 675, altH: 'A robotic assembly line packing rigid boxes',
     looks: ['Same material, print and finish as the run', 'Foil, lamination and emboss in place', 'A transit-tested version beside it'],
     validates: ['Foil and finish hold in the hand', 'The box survives the courier route', 'Cost per unit is locked before bulk'],
     media: 'A production-line sample with foil and lamination, shown beside its half after a simulated-transit test',
@@ -98,9 +98,9 @@ const process = [
 const faqs = [
   { q: 'Why order a packaging sample?', a: 'A sample tests what a render can\u2019t \u2014 transit durability, true colour, and how easily a team assembles the box. A mistake found here costs a sample; the same mistake in production costs a run.' },
   { q: 'How does the sample process start?', a: 'The design file or a brief is checked first \u2014 print and material feasibility, a suggested build, then the first sample is cut.' },
-  { q: 'Which materials can a sample use?', a: 'Corrugated, greyboard for rigid boxes, kraft, coated carton, plus finishes such as foil stamping and embossing. A sample is built to the exact material and finish of the production order.' },
-  { q: 'Are samples revised if they are not right?', a: 'Yes. Each sample order carries up to two free revisions, made against feedback on fit, colour or finish before it is approved for the run.' },
-  { q: 'What if the sample doesn\u2019t match the spec?', a: 'Where variance is on the supplier side \u2014 colour drift or material not matching the order \u2014 it is remade at no cost, or refunded in full.' },
+  { q: 'Is the sample the same as the production order?', a: 'The approved sample is built to the board, print and finish the line will run, and it becomes the reference the whole run is checked against. The production-line sample is the version that has been through a simulated transit test, so it proves the box on the route before the first bulk run.' },
+  { q: 'Are samples revised if they are not right?', a: 'Yes. A sample is revised against feedback on fit, colour or finish until it reads the way you want, then it is signed off for the run.' },
+  { q: 'What if the sample doesn\u2019t match the spec?', a: 'Where variance is on the supplier side \u2014 colour drift or material not matching the order \u2014 the sample is reworked or the order credited, so the approved spec is the one the run is built to.' },
 ];
 
 const seo = {
@@ -147,16 +147,6 @@ const jsonLd = {
   ],
 };
 
-const idIcon = (name) => {
-  const paths = {
-    '3d': ['M12 3 3 8v8l9 5 9-5V8l-9-5Z', 'M3 8l9 5 9-5M12 13v8', 'M18.5 4.6a7.4 7.4 0 0 1 2 7.4'],
-    white: ['M4 9l8-4 8 4v8l-8 4-8-4V9Z', 'M4 9l8 4 8-4M12 13v8', 'M6.5 5l-.5 2.4M17.5 5l.5 2.4'],
-    colour: ['M4 9l8-4 8 4v7l-8 4-8-4V9Z', 'M4 9l8 4 8-4M12 13v7'],
-    prod: ['M4 9l8-4 8 4v8l-8 4-8-4V9Z', 'M4 9l8 4 8-4M12 13v8', 'M17 3.5l3.2 1.6 1.2 3.2-1.2 3.2-3.2 1.6-3.2-1.6-1.2-3.2 1.2-3.2 3.2-1.6Z'],
-  };
-  return paths[name] || [];
-};
-const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
 ---
 
 <Layout
@@ -188,10 +178,7 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
 
         <div class="sp-hero-visual" data-reveal="right">
           <figure class="sp-media sp-hero-ph">
-            <svg class="sp-media-ico sp-hero-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              {idIcon('3d').map((d) => <path d={d} />)}
-            </svg>
-            <span class="sp-tag">Sample photo</span>
+            <Image src={`${SAMPLE}/hero.webp`} alt="A flat-lay of packaging samples — a mailer box, paper bags, printed cards and tissue on a studio table" width={1200} height={1117} loading="eager" fetchpriority="high" decoding="sync" class="sp-ph-img" />
             <figcaption class="sp-media-cap">
               <span class="sp-media-k">Four samples, one structure</span>
               <span class="sp-media-s">3D &middot; white dummy &middot; digital colour &middot; production-line</span>
@@ -222,24 +209,14 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
           <p class="section-sub" data-reveal="up">Every sample is built to the same structure, so the step between the four is the material and the finish &mdash; not a different box. Here is what each one shows and the risk it takes off.</p>
         </div>
 
-        <div class="sp-id-list">
+        <div class="sp-card-grid">
           {samples.map((s, i) => (
-            <article class={"sp-id-row" + (i % 2 ? ' sp-id-row--rev' : '')} data-reveal="up">
-              <figure class={"sp-media sp-id-ph sp-media--" + s.tone}>
-                {s.icon === 'colour' ? (
-                  <svg class="sp-media-ico sp-id-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    {idIcon(s.icon).map((d) => <path d={d} />)}
-                    {colourDots.map(([x, y]) => <circle cx={x} cy={y} r="1.2" />)}
-                  </svg>
-                ) : (
-                  <svg class="sp-media-ico sp-id-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    {idIcon(s.icon).map((d) => <path d={d} />)}
-                  </svg>
-                )}
-                <span class="sp-tag">Sample photo</span>
+            <article class="sp-card" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
+              <figure class="sp-media sp-card-ph">
+                <Image src={s.img} alt={s.altH} width={s.w} height={s.h} loading="lazy" decoding="async" class="sp-ph-img" />
               </figure>
 
-              <div class="sp-id-body">
+              <div class="sp-card-body">
                 <span class="sp-id-eyebrow">{s.n} &middot; {s.key}</span>
                 <h3 class="sp-id-name">{s.name}</h3>
                 <p class="sp-id-tagline">{s.tag}</p>
@@ -271,7 +248,7 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
         <figure class="sp-media sp-approve-ph" data-reveal="left" aria-hidden="true">
           <span class="sp-note sp-note--ok">Approved</span>
           <span class="sp-note sp-note--rev">Revise &middot; fit</span>
-          <svg class="sp-media-ico sp-approve-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l8-4 8 4v8l-8 4-8-4V9Z"/><path d="M4 9l8 4 8-4M12 13v8"/></svg>
+          <Image src={`${SAMPLE}/sign-off.webp`} alt="A sample approval desk with white dummies, a dieline printout, board swatches and a colour fan" width={1000} height={1000} loading="lazy" decoding="async" class="sp-ph-img" />
           <figcaption class="sp-media-cap"><span class="sp-media-k">Sample approval</span><span class="sp-media-s">Signed, dated, stamped</span></figcaption>
         </figure>
 
@@ -284,7 +261,13 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
               <li><span class="sp-signoff-k">{s.k}</span><span class="sp-signoff-v">{s.v}</span></li>
             ))}
           </ul>
-          <p class="sp-guarantee" data-reveal="up">If the sample drifts from the spec &mdash; colour variance or a material mismatch &mdash; it is remade at no cost, or refunded in full.</p>
+          <p class="sp-guarantee" data-reveal="up">Should the sample drift from the spec &mdash; colour variance or a material mismatch &mdash; we rework the sample or credit the order, so the pack you approve is the one that ships.</p>
+          <div data-reveal="up" style="margin-top: 1.8rem;">
+            <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
+              Start With a Sample
+              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -297,8 +280,7 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
           <h2 class="section-title">Test the Material, <em>Not the Mockup</em></h2>
           <p class="section-sub">A sample is built to the material the order ships &mdash; corrugated, greyboard, kraft or coated carton, plus eco and food-contact grades and finishes like foil and emboss. That makes it a true proxy for the run, not a stand-in.</p>
           <figure class="sp-media sp-test-ph">
-            <svg class="sp-media-ico sp-test-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 9h16M4 13h16"/><path d="M12 17v3M9 18l3 3 3-3"/></svg>
-            <span class="sp-tag">Durability photo</span>
+            <Image src={`${SAMPLE}/test-material.webp`} alt="Material strength testing — a board drop test, a precision micrometer and a compression tester" width={960} height={640} loading="lazy" decoding="async" class="sp-ph-img" />
             <figcaption class="sp-media-cap"><span class="sp-media-k">Test in progress</span><span class="sp-media-s">A board section under a stack-load test</span></figcaption>
           </figure>
         </div>
@@ -326,14 +308,22 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
           <p class="section-sub" data-reveal="up">A transparent route with a review at each step &mdash; so a sample is a decision, not a gamble.</p>
         </div>
 
-        <ol class="sp-proc-list">
+        <div class="sp-proc-grid">
           {process.map((p, i) => (
-            <li class="sp-proc-step" data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
-              <span class="sp-proc-num">{p.t.slice(0, 1)}</span>
-              <div class="sp-proc-body"><h3>{p.t}</h3><p>{p.d}</p></div>
-            </li>
+            <div class="sp-proc-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <span class="sp-proc-num">0{i + 1}</span>
+              <h3 class="sp-proc-title">{p.t}</h3>
+              <p class="sp-proc-desc">{p.d}</p>
+            </div>
           ))}
-        </ol>
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
+            Send the Brief
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -388,10 +378,10 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
       <div class="wrap sp-final-inner">
         <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Request a sample</span>
         <h2 class="sp-final-title" data-reveal="up">Get a Sample in Your Hands, <em>Before You Commit</em></h2>
-        <p class="sp-final-sub" data-reveal="up">Send the artwork or a brief, and a quote and a material recommendation come back before the first sample is cut.</p>
+        <p class="sp-final-sub" data-reveal="up">Send the artwork or a brief, and a quote and a material recommendation come back before the first sample is cut. A single physical box is enough to get your team and your customer on the same page.</p>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
-            Request a Sample
+            Get a Sample Quote
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -414,20 +404,14 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
 
   .sp-hero-visual { display: flex; align-items: center; }
   .sp-hero-ph { margin: 0; width: 100%; aspect-ratio: 4 / 3; }
-  .sp-hero-ico { width: 64px; height: 64px; }
 
-  /* placeholder media slot \u2014 shared by hero cards, identity rows, approval */
-  .sp-media { position: relative; border: 1.5px dashed rgba(176, 141, 76, 0.5); border-radius: 1.1rem; background: repeating-linear-gradient(45deg, rgba(201, 168, 124, 0.1) 0 12px, transparent 12px 26px), var(--color-brand-surface); display: grid; place-items: center; color: var(--brass); overflow: hidden; }
-  .sp-media-ico { width: 42px; height: 42px; opacity: 0.85; }
-  .sp-media-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.8rem 0.85rem; background: linear-gradient(180deg, transparent, rgba(20, 38, 27, 0.62)); color: var(--ivory); display: flex; flex-direction: column; gap: 0.15rem; }
-  .sp-media-k { font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E3C29A; }
+  /* image media slot — the photo fills the box, the caption overlays the bottom */
+  .sp-media { position: relative; border: 1px solid rgba(31, 59, 44, 0.08); border-radius: 1.1rem; background: var(--color-brand-surface); overflow: hidden; }
+  .sp-ph-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sp-media-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.8rem 0.85rem; background: linear-gradient(180deg, rgba(20, 38, 27, 0.3) 0%, rgba(20, 38, 27, 0.9) 100%); color: #FFFFFF; display: flex; flex-direction: column; gap: 0.15rem; }
+  .sp-media-k { font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E3C29A; text-shadow: 0 1px 2px rgba(20, 38, 27, 0.65); }
   .sp-media-k b { color: #FFFFFF; font-weight: 700; }
-  .sp-media-s { font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
-  .sp-tag { position: absolute; left: 0.7rem; top: 0.7rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest-deep); background: rgba(245, 240, 229, 0.92); border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 999px; padding: 0.28rem 0.6rem; }
-  .sp-media--brass { border-color: rgba(176, 141, 76, 0.55); }
-  .sp-media--kraft { border-color: rgba(201, 168, 124, 0.65); }
-  .sp-media--clay { border-color: rgba(176, 141, 76, 0.5); }
-  .sp-media--forest { border-color: rgba(46, 79, 61, 0.5); color: var(--forest-light); }
+  .sp-media-s { font-size: 0.82rem; font-weight: 700; line-height: 1.35; text-shadow: 0 1px 2px rgba(20, 38, 27, 0.65); }
 
   /* ============ WHAT YOU GET FIRST ============ */
   .sp-first { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); padding: 1.8rem 0; }
@@ -438,19 +422,16 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
 
   /* ============ THE FOUR SAMPLES ============ */
   .sp-id { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .sp-id-list { display: flex; flex-direction: column; gap: clamp(1.6rem, 4vw, 2.6rem); }
-  .sp-id-row { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(1.8rem, 4vw, 3.2rem); align-items: center; }
-  .sp-id-row--rev { direction: rtl; }
-  .sp-id-row--rev > * { direction: ltr; }
-  .sp-id-ph { aspect-ratio: 4 / 3; margin: 0; }
-  .sp-id-ico { width: 48px; height: 48px; }
-  .sp-id-body { display: flex; flex-direction: column; align-items: flex-start; }
-  .sp-id-row--rev .sp-id-body { align-items: flex-end; text-align: right; }
+  .sp-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.2rem, 2.8vw, 2rem); }
+  .sp-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.2rem; padding: clamp(1.3rem, 2.6vw, 1.8rem); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; }
+  .sp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(31, 59, 44, 0.25); border-color: rgba(176, 141, 76, 0.5); }
+  .sp-card-ph { aspect-ratio: 16 / 9; margin: 0 0 clamp(1rem, 2vw, 1.3rem); }
+  .sp-card-body { display: flex; flex-direction: column; align-items: flex-start; }
   .sp-id-eyebrow { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
   .sp-id-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.7rem, 3.4vw, 2.5rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0.55rem 0 0.35rem; }
   .sp-id-tagline { font-size: 1.08rem; line-height: 1.6; color: var(--color-brand-primary); margin: 0 0 1.3rem; }
   .sp-id-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 2rem); width: 100%; }
-  .sp-id-col h4 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-deep); margin: 0 0 0.8rem; }
+  .sp-id-col h4 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-deep); margin: 0 0 0.8rem; padding-left: calc(0.6rem + 18px); }
   .sp-id-list-col { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
   .sp-id-list-col li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.96rem; line-height: 1.5; color: var(--color-brand-muted); }
   .sp-id-list-col--check li { color: var(--color-brand-primary); }
@@ -460,8 +441,7 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
   .sp-approve { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
   .sp-approve-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   .sp-approve-ph { aspect-ratio: 4 / 3; margin: 0; border-color: rgba(245, 240, 229, 0.3); color: #E3C29A; }
-  .sp-approve-ico { width: 56px; height: 56px; }
-  .sp-approve-ph .sp-media-cap { background: linear-gradient(180deg, transparent, rgba(20, 38, 27, 0.7)); }
+  .sp-approve-ph .sp-media-cap { background: linear-gradient(180deg, rgba(20, 38, 27, 0.32) 0%, rgba(20, 38, 27, 0.9) 100%); }
   .sp-note { position: absolute; font-family: var(--font-heading); font-weight: 600; padding: 0.5rem 0.8rem; border-radius: 0.5rem; box-shadow: 0 10px 22px -10px rgba(20, 38, 27, 0.6); }
   .sp-note--ok { top: 12%; right: 10%; transform: rotate(6deg); background: #F5F0E5; color: var(--forest-deep); }
   .sp-note--rev { bottom: 16%; left: 8%; transform: rotate(-5deg); background: rgba(228, 181, 77, 0.95); color: var(--forest-deep); }
@@ -479,10 +459,8 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
 
   /* ============ MATERIAL DURABILITY ============ */
   .sp-test { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .sp-test-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
-  .sp-test-head { position: sticky; top: 6rem; }
+  .sp-test-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
   .sp-test-ph { margin: clamp(1.8rem, 4vw, 2.4rem) 0 0; aspect-ratio: 4 / 3; }
-  .sp-test-ico { width: 48px; height: 48px; }
   .sp-test-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
   .sp-test-row { display: flex; gap: 1.2rem; align-items: flex-start; padding: clamp(1.2rem, 2.6vw, 1.6rem) 0; border-top: 1px solid rgba(31, 59, 44, 0.12); }
   .sp-test-row:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.12); }
@@ -490,16 +468,21 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
   .sp-test-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.4rem; }
   .sp-test-body p { font-size: 0.98rem; line-height: 1.6; color: var(--color-brand-muted); max-width: 52ch; margin: 0; }
 
-  /* ============ PROCESS ============ */
+  /* ============ PROCESS (step cards) ============ */
   .sp-process { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .sp-proc-list { list-style: none; margin: clamp(2rem, 4vw, 3rem) auto 0; padding: 0; max-width: 760px; position: relative; }
-  .sp-proc-list::before { content: ''; position: absolute; left: 24px; top: 8px; bottom: 8px; width: 1.5px; background: linear-gradient(180deg, var(--brass) 0%, rgba(176, 141, 76, 0.35) 100%); }
-  .sp-proc-step { position: relative; display: flex; gap: clamp(1.2rem, 3vw, 1.8rem); align-items: flex-start; padding: 0 0 clamp(1.8rem, 4vw, 2.4rem) 0; }
-  .sp-proc-step:last-child { padding-bottom: 0; }
-  .sp-proc-num { flex: 0 0 48px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: var(--ivory); border: 1px solid var(--brass); color: var(--forest-deep); font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; position: relative; z-index: 1; }
-  .sp-proc-body { padding: 0.3rem 0 0; }
-  .sp-proc-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.45rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.35rem; }
-  .sp-proc-body p { font-size: 1rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0; }
+  .sp-proc-grid { --pgap: clamp(1rem, 2.2vw, 1.4rem); display: flex; flex-wrap: wrap; justify-content: center; gap: var(--pgap); max-width: 1080px; margin: clamp(2.2rem, 4.5vw, 3.2rem) auto 0; }
+  .sp-proc-card { flex: 0 1 calc((100% - 2 * var(--pgap)) / 3); min-width: 210px; position: relative; display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-top: 3px solid var(--brass); border-radius: 1.1rem; padding: clamp(1.5rem, 2.8vw, 1.9rem) clamp(1.1rem, 2.2vw, 1.5rem) clamp(1.4rem, 2.6vw, 1.7rem); }
+  .sp-proc-num { flex: 0 0 auto; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--brass); color: var(--ivory); font-family: var(--font-heading); font-weight: 600; font-size: 0.95rem; }
+  .sp-proc-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.6vw, 1.35rem); letter-spacing: -0.01em; line-height: 1.2; color: var(--color-brand-text); margin: 1rem 0 0.5rem; }
+  .sp-proc-desc { font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+
+  /* Process flow arrows — desktop 3+2 only; hide when the cards wrap to <=2/row. */
+  @media (min-width: 901px) {
+    .sp-proc-card:nth-child(1)::after,
+    .sp-proc-card:nth-child(2)::after,
+    .sp-proc-card:nth-child(4)::after { content: ''; position: absolute; top: 50%; right: calc(-1 * var(--pgap) / 2); transform: translateY(-50%) rotate(45deg); width: 9px; height: 9px; border-top: 2px solid var(--brass); border-right: 2px solid var(--brass); }
+    .sp-proc-card:nth-child(3)::after { content: ''; position: absolute; bottom: calc(-1 * var(--pgap) / 2); left: 50%; transform: translateX(-50%) rotate(45deg); width: 9px; height: 9px; border-right: 2px solid var(--brass); border-bottom: 2px solid var(--brass); }
+  }
 
   /* ============ DELIVERABLES ============ */
   .sp-cross { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -510,7 +493,8 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
   .sp-next-kicker { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
   .sp-next-card h4 { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; color: var(--color-brand-text); margin: 0.55rem 0 0.6rem; }
   .sp-next-card p { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.1rem; }
-  .sp-next-card .text-link { margin-top: auto; color: var(--color-brand-primary); }
+  .sp-next-card .text-link { margin-top: auto; align-self: flex-start; padding: 0.7rem 1.2rem; border: 1px solid rgba(176, 141, 76, 0.5); border-radius: 999px; color: var(--color-brand-primary); background: var(--ivory); transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+  .sp-next-card .text-link:hover { background: rgba(176, 141, 76, 0.14); border-color: var(--brass); }
 
   /* ============ FAQ (two-column) ============ */
   .sp-faq { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -528,7 +512,7 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
   .sp-faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
 
   /* ============ FINAL CTA (dark) ============ */
-  .sp-final { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8rem) 0; position: relative; overflow: hidden; }
+  .sp-final { background: linear-gradient(180deg, rgba(20, 38, 27, 0.34) 0%, rgba(20, 38, 27, 0.5) 100%), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/sample/final-cta.webp') center / cover no-repeat; color: var(--ivory); padding: clamp(3.5rem, calc(10vw - 1.5cm), calc(8rem - 1.5cm)) 0; position: relative; overflow: hidden; }
   .sp-final::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228, 181, 77, 0.14), transparent 70%); }
   .sp-final-inner { text-align: center; position: relative; z-index: 1; }
   .sp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.025em; color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); margin: 1.1rem 0 0; max-width: 24ch; margin-inline: auto; text-wrap: balance; }
@@ -546,17 +530,16 @@ const colourDots = [[8.5, 13.5], [13, 15.5], [17.5, 12.5]];
   @media (max-width: 900px) {
     .sp-hero-grid { grid-template-columns: 1fr; }
     .sp-first-row { grid-template-columns: repeat(2, 1fr); }
-    .sp-id-row { grid-template-columns: 1fr; }
-    .sp-id-row--rev { direction: ltr; }
-    .sp-id-row--rev .sp-id-body { align-items: flex-start; text-align: left; }
+    .sp-card-grid { grid-template-columns: 1fr; }
     .sp-approve-grid { grid-template-columns: 1fr; }
     .sp-test-grid { grid-template-columns: 1fr; }
-    .sp-test-head { position: static; }
+    .sp-proc-card { flex-basis: calc((100% - var(--pgap)) / 2); }
   }
   @media (max-width: 640px) {
     .sp-id-cols { grid-template-columns: 1fr; gap: 1.1rem; }
     .sp-signoff { grid-template-columns: 1fr; }
     .sp-next-grid { grid-template-columns: 1fr; }
+    .sp-proc-card { flex-basis: 100%; min-width: 0; }
     .sp-hero-cta .btn { width: 100%; }
   }
 </style>

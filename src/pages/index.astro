@@ -3,77 +3,77 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 
 const IMG = {
-  logo: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/leelinepackage-logo.webp',
-  team: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03.avif',
-  team480: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-480.avif',
-  team960: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-960.avif',
-  team1440: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-03-1440.avif',
-  certificate: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/China-certification.avif',
-  sgs: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/SGS.avif',
-  compliance: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/compliance-cert.webp',
-  ce: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/ce.avif',
-  case1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Custom-Packages-cases-1.avif',
-  case2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Personalized-Packages-cases-2.avif',
-  case3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Personalized-Packages-cases-3.avif',
-  case4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-4.avif',
-  case5: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-5.avif',
-  case6: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/custom-Packages-cases-6.avif',
-  proc1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Inquiry-Quote-2.avif',
-  proc2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Artwork-Sample-1.avif',
-  proc3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Quality-Control.avif',
-  proc4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Packing-Shipping-1.avif',
-  folding: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-04.avif',
-  corrugated: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-05.avif',
-  rigid: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-06.avif',
-  mailer: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-07.avif',
-  display: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-08.avif',
-  pouches: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-09.avif',
-  paperbag: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-10.avif',
-  tin: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-11.avif',
-  acrylic: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Acrylic-Box.webp',
-  reusable: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-13.avif',
-  satin: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-14.avif',
-  labels: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-15.avif',
-  kraft: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-16.avif',
-  fiberboard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-17.avif',
-  cardboard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-18.avif',
-  plastic: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-19.avif',
-  fsc: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-20.avif',
-  tailored: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-21.avif',
-  affordable: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-22.avif',
-  expert: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-23.avif',
-  shipping: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-24.avif',
-  hero480: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp',
-  hero960: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-960.webp',
-  hero1440: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-1440.webp',
-  facility: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp',
-  ctaInline: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp',
-  ctaFinal: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp',
-  indBeauty: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-beauty-cosmetics.webp',
-  indJewelry: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-jewelry-accessories.webp',
-  indApparel: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-apparel-fashion.webp',
-  indFood: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-food-beverage.webp',
-  indDtc: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-dtc-subscription.webp',
-  indElectronics: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/industry-consumer-electronics.webp',
-  cFinishes: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-finishes-effects.webp',
-  cInserts: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-inserts-structure.webp',
-  cPrinting: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-printing-colour.webp',
-  cMaterialBoard: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/customize-material-board.webp',
-  scene1: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-1.webp',
-  scene2: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-2.webp',
-  scene3: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-3.webp',
-  scene4: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-4.webp',
-  scene5: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-5.webp',
-  scene6: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/scene-6.webp',
-  avPriya: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/testimonial-priya.webp',
-  avCallum: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/testimonial-callum.webp',
+  logo: 'https://img.leelinepackage.com/leelinepackage-logo.webp',
+  team: 'https://img.leelinepackage.com/image-03.avif',
+  team480: 'https://img.leelinepackage.com/image-03-480.avif',
+  team960: 'https://img.leelinepackage.com/image-03-960.avif',
+  team1440: 'https://img.leelinepackage.com/image-03-1440.avif',
+  certificate: 'https://img.leelinepackage.com/China-certification.avif',
+  sgs: 'https://img.leelinepackage.com/SGS.avif',
+  compliance: 'https://img.leelinepackage.com/compliance-cert.webp',
+  ce: 'https://img.leelinepackage.com/ce.avif',
+  case1: 'https://img.leelinepackage.com/Custom-Packages-cases-1.avif',
+  case2: 'https://img.leelinepackage.com/Personalized-Packages-cases-2.avif',
+  case3: 'https://img.leelinepackage.com/Personalized-Packages-cases-3.avif',
+  case4: 'https://img.leelinepackage.com/custom-Packages-cases-4.avif',
+  case5: 'https://img.leelinepackage.com/custom-Packages-cases-5.avif',
+  case6: 'https://img.leelinepackage.com/custom-Packages-cases-6.avif',
+  proc1: 'https://img.leelinepackage.com/Inquiry-Quote-2.avif',
+  proc2: 'https://img.leelinepackage.com/Artwork-Sample-1.avif',
+  proc3: 'https://img.leelinepackage.com/Quality-Control.avif',
+  proc4: 'https://img.leelinepackage.com/Packing-Shipping-1.avif',
+  folding: 'https://img.leelinepackage.com/image-04.avif',
+  corrugated: 'https://img.leelinepackage.com/image-05.avif',
+  rigid: 'https://img.leelinepackage.com/image-06.avif',
+  mailer: 'https://img.leelinepackage.com/image-07.avif',
+  display: 'https://img.leelinepackage.com/image-08.avif',
+  pouches: 'https://img.leelinepackage.com/image-09.avif',
+  paperbag: 'https://img.leelinepackage.com/image-10.avif',
+  tin: 'https://img.leelinepackage.com/image-11.avif',
+  acrylic: 'https://img.leelinepackage.com/Acrylic-Box.webp',
+  reusable: 'https://img.leelinepackage.com/image-13.avif',
+  satin: 'https://img.leelinepackage.com/image-14.avif',
+  labels: 'https://img.leelinepackage.com/image-15.avif',
+  kraft: 'https://img.leelinepackage.com/image-16.avif',
+  fiberboard: 'https://img.leelinepackage.com/image-17.avif',
+  cardboard: 'https://img.leelinepackage.com/image-18.avif',
+  plastic: 'https://img.leelinepackage.com/image-19.avif',
+  fsc: 'https://img.leelinepackage.com/image-20.avif',
+  tailored: 'https://img.leelinepackage.com/image-21.avif',
+  affordable: 'https://img.leelinepackage.com/image-22.avif',
+  expert: 'https://img.leelinepackage.com/image-23.avif',
+  shipping: 'https://img.leelinepackage.com/image-24.avif',
+  hero480: 'https://img.leelinepackage.com/hero-480.webp',
+  hero960: 'https://img.leelinepackage.com/hero-960.webp',
+  hero1440: 'https://img.leelinepackage.com/hero-1440.webp',
+  facility: 'https://img.leelinepackage.com/facility.webp',
+  ctaInline: 'https://img.leelinepackage.com/cta-inline.webp',
+  ctaFinal: 'https://img.leelinepackage.com/cta-final.webp',
+  indBeauty: 'https://img.leelinepackage.com/industry-beauty-cosmetics.webp',
+  indJewelry: 'https://img.leelinepackage.com/industry-jewelry-accessories.webp',
+  indApparel: 'https://img.leelinepackage.com/industry-apparel-fashion.webp',
+  indFood: 'https://img.leelinepackage.com/industry-food-beverage.webp',
+  indDtc: 'https://img.leelinepackage.com/industry-dtc-subscription.webp',
+  indElectronics: 'https://img.leelinepackage.com/industry-consumer-electronics.webp',
+  cFinishes: 'https://img.leelinepackage.com/customize-finishes-effects.webp',
+  cInserts: 'https://img.leelinepackage.com/customize-inserts-structure.webp',
+  cPrinting: 'https://img.leelinepackage.com/customize-printing-colour.webp',
+  cMaterialBoard: 'https://img.leelinepackage.com/customize-material-board.webp',
+  scene1: 'https://img.leelinepackage.com/scene-1.webp',
+  scene2: 'https://img.leelinepackage.com/scene-2.webp',
+  scene3: 'https://img.leelinepackage.com/scene-3.webp',
+  scene4: 'https://img.leelinepackage.com/scene-4.webp',
+  scene5: 'https://img.leelinepackage.com/scene-5.webp',
+  scene6: 'https://img.leelinepackage.com/scene-6.webp',
+  avPriya: 'https://img.leelinepackage.com/testimonial-priya.webp',
+  avCallum: 'https://img.leelinepackage.com/testimonial-callum.webp',
 };
 
 const materialLibrary = [
-  { name: 'Kraft Paper', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/kraft-paper.webp', spec: 'Unbleached · 100% recyclable', best: 'DTC mailers & totes', desc: "A natural, rustic brown that reads eco-friendly and rugged — a strong first impression for conscious brands." },
-  { name: 'Corrugated Fiberboard', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/corrugated-fiberboard.webp', spec: 'B / C / E flute · crush-tested', best: 'Shippers & heavy', desc: "The arched flute cushions and absorbs impact, so the box — and what's inside — survives the last mile." },
-  { name: 'Cardboard', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cardboard.webp', spec: 'Rigid chipboard · foil-ready', best: 'Retail & keepsakes', desc: "Lightweight yet remarkably sturdy, with a smooth surface that takes high-quality print and foil." },
-  { name: 'Plastic (PET/PP/PVC)', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/plastic-pet-pp-pvc.webp', spec: 'Waterproof · mouldable', best: 'Displays & electronics', desc: "Fully waterproof, durable and mouldable into complex shapes — all-round protection for food, electronics and toys." },
+  { name: 'Kraft Paper', img: 'https://img.leelinepackage.com/kraft-paper.webp', spec: 'Unbleached · 100% recyclable', best: 'DTC mailers & totes', desc: "A natural, rustic brown that reads eco-friendly and rugged — a strong first impression for conscious brands." },
+  { name: 'Corrugated Fiberboard', img: 'https://img.leelinepackage.com/corrugated-fiberboard.webp', spec: 'B / C / E flute · crush-tested', best: 'Shippers & heavy', desc: "The arched flute cushions and absorbs impact, so the box — and what's inside — survives the last mile." },
+  { name: 'Cardboard', img: 'https://img.leelinepackage.com/cardboard.webp', spec: 'Rigid chipboard · foil-ready', best: 'Retail & keepsakes', desc: "Lightweight yet remarkably sturdy, with a smooth surface that takes high-quality print and foil." },
+  { name: 'Plastic (PET/PP/PVC)', img: 'https://img.leelinepackage.com/plastic-pet-pp-pvc.webp', spec: 'Waterproof · mouldable', best: 'Displays & electronics', desc: "Fully waterproof, durable and mouldable into complex shapes — all-round protection for food, electronics and toys." },
 ];
 
 const customize = [
@@ -200,31 +200,31 @@ const testimonials = [
 ];
 
 const brandLogos = [
-  { name: 'Under Armour', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/under-armour-3.webp' },
-  { name: 'copper', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/copper.webp' },
-  { name: 'Ring', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/RING.webp' },
-  { name: 'Sephora', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/sephora.webp' },
-  { name: 'Illy', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/illy-1.webp' },
-  { name: 'Wilderness', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/WILDERNESS.webp' },
-  { name: 'Misstomis', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/misstomis.webp' },
-  { name: 'JBL', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/JBL-2.webp' },
-  { name: 'Volcom', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/VOLCOM-1.webp' },
-  { name: 'Pufies', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/PUFIES.webp' },
-  { name: 'Disney', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/disney.webp' },
-  { name: 'pat', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/pat.webp' },
-  { name: 'Procana', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Procana.webp' },
-  { name: 'Maybelline', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/MAYBELLINE.webp' },
-  { name: 'Primaskin', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/primaskin.webp' },
-  { name: '100', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/100.webp' },
-  { name: 'Panasonic', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Panasonic.webp' },
-  { name: '1more', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/1more.webp' },
-  { name: 'Starbucks', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Starbucks.webp' },
-  { name: 'wimpet', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/wimpet.webp' },
-  { name: 'KOMOS', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/KOMOS.webp' },
-  { name: 'Lexus', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/lexus.webp' },
-  { name: 'Lacoste', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/LACOSTE-1.webp' },
-  { name: 'Casillero', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/casillero.webp' },
-  { name: 'Raymond Weil', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/RAYMOND-WEIL.webp' },
+  { name: 'Under Armour', img: 'https://img.leelinepackage.com/under-armour-3.webp' },
+  { name: 'copper', img: 'https://img.leelinepackage.com/copper.webp' },
+  { name: 'Ring', img: 'https://img.leelinepackage.com/RING.webp' },
+  { name: 'Sephora', img: 'https://img.leelinepackage.com/sephora.webp' },
+  { name: 'Illy', img: 'https://img.leelinepackage.com/illy-1.webp' },
+  { name: 'Wilderness', img: 'https://img.leelinepackage.com/WILDERNESS.webp' },
+  { name: 'Misstomis', img: 'https://img.leelinepackage.com/misstomis.webp' },
+  { name: 'JBL', img: 'https://img.leelinepackage.com/JBL-2.webp' },
+  { name: 'Volcom', img: 'https://img.leelinepackage.com/VOLCOM-1.webp' },
+  { name: 'Pufies', img: 'https://img.leelinepackage.com/PUFIES.webp' },
+  { name: 'Disney', img: 'https://img.leelinepackage.com/disney.webp' },
+  { name: 'pat', img: 'https://img.leelinepackage.com/pat.webp' },
+  { name: 'Procana', img: 'https://img.leelinepackage.com/Procana.webp' },
+  { name: 'Maybelline', img: 'https://img.leelinepackage.com/MAYBELLINE.webp' },
+  { name: 'Primaskin', img: 'https://img.leelinepackage.com/primaskin.webp' },
+  { name: '100', img: 'https://img.leelinepackage.com/100.webp' },
+  { name: 'Panasonic', img: 'https://img.leelinepackage.com/Panasonic.webp' },
+  { name: '1more', img: 'https://img.leelinepackage.com/1more.webp' },
+  { name: 'Starbucks', img: 'https://img.leelinepackage.com/Starbucks.webp' },
+  { name: 'wimpet', img: 'https://img.leelinepackage.com/wimpet.webp' },
+  { name: 'KOMOS', img: 'https://img.leelinepackage.com/KOMOS.webp' },
+  { name: 'Lexus', img: 'https://img.leelinepackage.com/lexus.webp' },
+  { name: 'Lacoste', img: 'https://img.leelinepackage.com/LACOSTE-1.webp' },
+  { name: 'Casillero', img: 'https://img.leelinepackage.com/casillero.webp' },
+  { name: 'Raymond Weil', img: 'https://img.leelinepackage.com/RAYMOND-WEIL.webp' },
 ];
 const sceneImages = [
   { img: IMG.scene1, caption: 'Custom mailer & labels — DTC fulfilment' },
@@ -246,13 +246,13 @@ const industries = [
 ];
 
 const edges = [
-  { num: '01', label: 'Design', title: 'Design & Dieline', desc: 'Dielines tuned to the product, so it fits and protects exactly — no wasted space.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Design-and-Dieline.webp' },
-  { num: '02', label: 'Printing', title: 'Offset Printing Press', desc: 'Colour that matches the Pantone on each run, no guessing at approval.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Offset-Printing-Press.webp' },
-  { num: '03', label: 'Lamination', title: 'Lamination', desc: 'A premium hand-feel that signals the price point before the box is opened.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Lamination.webp' },
-  { num: '04', label: 'Finishing', title: 'Finishing', desc: 'Foil, emboss and spot UV that make the box feel like it costs more than it does.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Finishing.webp' },
-  { num: '05', label: 'Die Cut', title: 'Die Cutting', desc: 'Clean, sharp edges and a precise fit on each piece.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Die-Cutting.webp' },
-  { num: '06', label: 'Assembly', title: 'Box Assembly', desc: 'Consistently solid assembly whether the run is 500 or 500,000.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/Box-Assembly.webp?v=2' },
-  { num: '07', label: 'QC', title: 'QC & Packing', desc: '100% inspected and packed, so a defect never reaches the customer.', img: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/QC-and-Packing.webp' },
+  { num: '01', label: 'Design', title: 'Design & Dieline', desc: 'Dielines tuned to the product, so it fits and protects exactly — no wasted space.', img: 'https://img.leelinepackage.com/Design-and-Dieline.webp' },
+  { num: '02', label: 'Printing', title: 'Offset Printing Press', desc: 'Colour that matches the Pantone on each run, no guessing at approval.', img: 'https://img.leelinepackage.com/Offset-Printing-Press.webp' },
+  { num: '03', label: 'Lamination', title: 'Lamination', desc: 'A premium hand-feel that signals the price point before the box is opened.', img: 'https://img.leelinepackage.com/Lamination.webp' },
+  { num: '04', label: 'Finishing', title: 'Finishing', desc: 'Foil, emboss and spot UV that make the box feel like it costs more than it does.', img: 'https://img.leelinepackage.com/Finishing.webp' },
+  { num: '05', label: 'Die Cut', title: 'Die Cutting', desc: 'Clean, sharp edges and a precise fit on each piece.', img: 'https://img.leelinepackage.com/Die-Cutting.webp' },
+  { num: '06', label: 'Assembly', title: 'Box Assembly', desc: 'Consistently solid assembly whether the run is 500 or 500,000.', img: 'https://img.leelinepackage.com/Box-Assembly.webp?v=2' },
+  { num: '07', label: 'QC', title: 'QC & Packing', desc: '100% inspected and packed, so a defect never reaches the customer.', img: 'https://img.leelinepackage.com/QC-and-Packing.webp' },
 ];
 
 const process = [
@@ -297,7 +297,7 @@ const seoJsonLd = JSON.stringify({
   description="Custom packaging manufacturer in China. Custom boxes, rigid mailers & pouches. MOQ 500 — free 3D mockups, 5-day samples, FSC & ISO 9001. Get a free quote today."
   keywords={KEYWORDS}
   canonical="https://www.leelinepackage.com/"
-  ogImage="https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/image-06.avif"
+  ogImage="https://img.leelinepackage.com/image-06.avif"
   jsonLd={seoJsonLd}
 >
   <style is:global>
@@ -1122,10 +1122,10 @@ const seoJsonLd = JSON.stringify({
       padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
       color: var(--ivory);
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-480.webp') center / cover no-repeat; filter: brightness(1.12); }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://img.leelinepackage.com/hero-480.webp') center / cover no-repeat; filter: brightness(1.12); }
     .hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(20, 38, 27, 0.45); }
-    @media (min-width: 641px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-960.webp'); } }
-    @media (min-width: 1025px) { .hero-bg { background-image: url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/hero-1440.webp'); } }
+    @media (min-width: 641px) { .hero-bg { background-image: url('https://img.leelinepackage.com/hero-960.webp'); } }
+    @media (min-width: 1025px) { .hero-bg { background-image: url('https://img.leelinepackage.com/hero-1440.webp'); } }
     .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translateY(-1cm); }
     .hero-rating { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.05rem; border-radius: 999px; background: rgba(245, 240, 229, 0.12); border: 1px solid rgba(245, 240, 229, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transform: translateY(-0.3cm); }
     .hero-rating .stars { color: #E3C29A; font-size: 1rem; letter-spacing: 0.12em; }
@@ -1569,7 +1569,7 @@ const seoJsonLd = JSON.stringify({
       overflow: hidden;
     }
     #quote-inline {
-      background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-inline.webp');
+      background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://img.leelinepackage.com/cta-inline.webp');
       background-size: cover;
       background-position: center;
     }
@@ -1581,7 +1581,7 @@ const seoJsonLd = JSON.stringify({
       position: absolute;
       inset: 0;
       z-index: 0;
-      background-image: linear-gradient(rgba(20, 38, 27, 0.45), rgba(20, 38, 27, 0.45)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/cta-final.webp');
+      background-image: linear-gradient(rgba(20, 38, 27, 0.45), rgba(20, 38, 27, 0.45)), url('https://img.leelinepackage.com/cta-final.webp');
       background-size: cover;
       background-position: center;
       clip-path: url(#cta-wave);
@@ -1765,7 +1765,7 @@ const seoJsonLd = JSON.stringify({
 
     /* ============ ABOUT ============ */
 
-    .about { background-color: var(--forest-deep); background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/facility.webp'); background-size: cover; background-position: center 40%; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+    .about { background-color: var(--forest-deep); background-image: linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.66)), url('https://img.leelinepackage.com/facility.webp'); background-size: cover; background-position: center 40%; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
     .about .section-title { color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); }
     .about .section-sub { color: rgba(255, 255, 255, 0.97); font-size: 1.18rem; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
     .factory-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); margin: 2.2rem 0 1.8rem; }

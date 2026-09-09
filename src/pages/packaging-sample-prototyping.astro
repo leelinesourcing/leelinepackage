@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { Image } from 'astro:assets';
 
-const R2 = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev';
+const R2 = 'https://img.leelinepackage.com';
 const SAMPLE = `${R2}/sample`;
 
 /* The other two services live in-repo; this page is the third service. */
@@ -108,7 +108,7 @@ const seo = {
   description: 'Pick a sample to de-risk the run: a white dummy for fit, a digital printed prototype for colour and a production-line sample with foil \u2014 real proof on the board',
   keywords: 'packaging sample prototyping, white dummy packaging sample, digital printed carton prototype, production sample vs mockup, packaging sample approval, unprinted rigid box prototype',
   canonical: 'https://www.leelinepackage.com/packaging-sample-prototyping/',
-  ogImage: 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/services/sample.webp',
+  ogImage: 'https://img.leelinepackage.com/services/sample.webp',
 };
 
 const jsonLd = {
@@ -512,7 +512,7 @@ const jsonLd = {
   .sp-faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
 
   /* ============ FINAL CTA (dark) ============ */
-  .sp-final { background: linear-gradient(180deg, rgba(20, 38, 27, 0.34) 0%, rgba(20, 38, 27, 0.5) 100%), url('https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/sample/final-cta.webp') center / cover no-repeat; color: var(--ivory); padding: clamp(3.5rem, calc(10vw - 1.5cm), calc(8rem - 1.5cm)) 0; position: relative; overflow: hidden; }
+  .sp-final { background: linear-gradient(180deg, rgba(20, 38, 27, 0.34) 0%, rgba(20, 38, 27, 0.5) 100%), url('https://img.leelinepackage.com/sample/final-cta.webp') center / cover no-repeat; color: var(--ivory); padding: clamp(3.5rem, calc(10vw - 1.5cm), calc(8rem - 1.5cm)) 0; position: relative; overflow: hidden; }
   .sp-final::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228, 181, 77, 0.14), transparent 70%); }
   .sp-final-inner { text-align: center; position: relative; z-index: 1; }
   .sp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.025em; color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4); margin: 1.1rem 0 0; max-width: 24ch; margin-inline: auto; text-wrap: balance; }

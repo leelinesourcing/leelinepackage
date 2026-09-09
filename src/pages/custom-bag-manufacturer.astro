@@ -1,0 +1,686 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { Image } from 'astro:assets';
+
+const R2 = 'https://img.leelinepackage.com';
+const BAG = `${R2}/custom-bag`;
+
+/* Why a brand picks us — five outcomes, no repeated claims. */
+const why = [
+  { n: '01', t: 'In-house design & R&D', d: 'A rough sketch becomes a runnable sample in-house — no separate design bill.' },
+  { n: '02', t: 'Small runs, low risk', d: 'Order for the moment you are in, then scale up only once the demand is proven.' },
+  { n: '03', t: 'Shipping that bends', d: 'Air, sea or DDP express — routed to the lowest landed cost for your market.' },
+  { n: '04', t: 'Materials with a footprint', d: 'Recycled, renewable and FSC\u00ae-certified, so the label backs the claim.' },
+  { n: '05', t: 'Certified & documented', d: 'ISO 9001 from the floor to the last QC check, with proof at every handoff.' },
+];
+
+/* The 9 bag types we produce. */
+const types = [
+  { name: 'Custom Tote Bags', img: `${BAG}/type-tote.webp`, w: 550, h: 525, alt: 'An ivory and black tote bag printed with a handwritten wordmark' },
+  { name: 'Custom Reusable Shopping Bags', img: `${BAG}/type-reusable.webp`, w: 550, h: 525, alt: 'A cluster of colourful reusable shopping bags stacked together' },
+  { name: 'Custom Paper Bag', img: `${BAG}/type-paper.webp`, w: 550, h: 525, alt: 'Several printed paper bags with handles arranged on a table' },
+  { name: 'Custom Satin Bags', img: `${BAG}/type-satin.webp`, w: 550, h: 525, alt: 'Red and white satin drawstring pouches lying on a dark surface' },
+  { name: 'Custom Velvet Bags', img: `${BAG}/type-velvet.webp`, w: 550, h: 525, alt: 'Velvet drawstring pouches in deep green, navy and burgundy' },
+  { name: 'Custom Dust Bags', img: `${BAG}/type-dust.webp`, w: 550, h: 525, alt: 'Cotton dust bags with a printed botanical logo' },
+  { name: 'Eco-Friendly Jute Bags', img: `${BAG}/type-jute.webp`, w: 550, h: 525, alt: 'Natural jute tote bags with a printed pattern' },
+  { name: 'Custom Mesh Bags', img: `${BAG}/type-mesh.webp`, w: 550, h: 525, alt: 'Bright mesh drawstring bags in pink, yellow and teal' },
+  { name: 'PVC Packaging Bags', img: `${BAG}/type-pvc.webp`, w: 550, h: 525, alt: 'Clear PVC pouches with printed accents' },
+];
+
+/* Capability band — what a real manufacturer does. */
+const capability = [
+  { n: '01', t: 'China Bag Factory', d: 'Launch a bag line without your own factory — every construction method sits with one supplier.' },
+  { n: '02', t: 'OEM & ODM Bags', d: 'Your logo on a finished, shelf-ready bag — art, print and hardware set up and run for you.' },
+  { n: '03', t: 'Design & Innovation', d: 'Stay a step ahead of what\u2019s in demand — 30% of our profit goes back into new processes yearly.' },
+  { n: '04', t: 'Private Label Bags', d: 'Pick from 6,000+ styles and make one yours — tags, hardware and finishing tuned to your brand.' },
+];
+
+/* Materials. */
+const materials = [
+  { name: 'Organic Cotton', img: `${BAG}/material-cotton.webp`, w: 600, h: 400, alt: 'Layers of soft organic cotton fabric stacked in neutral and pastel tones', d: 'A soft, GMO-free feel buyers read as premium the moment it\u2019s in hand.' },
+  { name: 'Heavy-Duty Canvas', img: `${BAG}/material-canvas.webp`, w: 600, h: 400, alt: 'A close-up of cream heavy-duty canvas weave', d: 'Tough enough for daily use, so your brand is carried into the world again and again.' },
+  { name: 'Waterproof Nylon & Polyester', img: `${BAG}/material-nylon.webp`, w: 600, h: 400, alt: 'Black waterproof nylon fabric, sleek and smooth', d: 'Light and weatherproof \u2014 a sleek look that also keeps freight lean.' },
+  { name: 'Recycled & Jute', img: `${BAG}/material-eco.webp`, w: 600, h: 400, alt: 'A roll of natural jute fabric', d: 'An eco fabric that holds a real sustainability story, without a plasticky feel.' },
+];
+
+/* Customisation levers. */
+const customize = [
+  { t: 'Size & Shape', d: 'Compact crossbody, roomy tote or a gift bag — cut to the exact dimension you need.' },
+  { t: 'Functional Features', d: 'Compartments, padded laptop sleeves, waterproof linings and adjustable straps, so it carries exactly what the day needs.' },
+  { t: 'Custom Linings', d: 'Patterned fabric, printed motifs or a logo inside — a small surprise on open.' },
+  { t: 'Logo & Printing', d: 'Embroidery, screen print or embossing in your own pattern and palette — the brand shown where it is seen.' },
+];
+
+/* Industries we supply. */
+const industries = [
+  { name: 'Food & Beverage', img: `${BAG}/industry-food.webp`, w: 500, h: 400, alt: 'Liquid drink pouches with spouts', d: 'Preserves freshness and extends shelf life from production to consumption.' },
+  { name: 'Agriculture & Seed', img: `${BAG}/industry-agriculture.webp`, w: 500, h: 400, alt: 'Seed packets arranged in rows', d: 'Shields against moisture, UV and weather from storage through shipment.' },
+  { name: 'Electronics & Technology', img: `${BAG}/industry-electronics.webp`, w: 500, h: 400, alt: 'A padded electronic accessory pouch', d: 'Anti-static, moisture-resistant layers so components arrive intact.' },
+  { name: 'Cosmetics & Personal Care', img: `${BAG}/industry-cosmetics.webp`, w: 500, h: 400, alt: 'A row of cosmetic bottles and pumps', d: 'Lightweight, moisture-proof and brand-forward, pristine on the shelf.' },
+  { name: 'Chemical & Industrial', img: `${BAG}/industry-chemical.webp`, w: 500, h: 400, alt: 'Bulk industrial bags stacked on pallets', d: 'Leak-proof and chemical-resistant, built to international transport standards.' },
+  { name: 'E-commerce & Retail', img: `${BAG}/industry-ecommerce.webp`, w: 500, h: 400, alt: 'A printed poly mailer bag with a branded design', d: 'Lightweight, customisable and eco-friendly, for a memorable unboxing.' },
+];
+
+/* Real-life examples — curated bento. */
+const cases = [
+  { i: 'case-2', img: `${BAG}/case-2.webp`, w: 520, h: 400, cap: 'Kraft bags running the line', big: true },
+  { i: 'case-4', img: `${BAG}/case-4.webp`, w: 800, h: 700, cap: 'Printed totes, private label', big: false },
+  { i: 'case-6', img: `${BAG}/case-6.webp`, w: 800, h: 700, cap: 'Cosmetics pouch, soft-touch print', big: false },
+  { i: 'case-3', img: `${BAG}/case-3.webp`, w: 520, h: 400, cap: 'Single-needle canvas construction', big: false },
+  { i: 'case-retail', img: `${BAG}/case-retail.webp`, w: 800, h: 700, cap: 'Retail tote, full-bleed print', big: false },
+  { i: 'case-5', img: `${BAG}/case-5.webp`, w: 560, h: 400, cap: 'Floral-print drawstring', big: false },
+];
+
+/* Two customers, two full paragraphs, real names. */
+const testimonials = [
+  {
+    name: 'Sarah Thompson', role: 'Marketing Manager', co: 'EcoTrend Retail', loc: 'United States',
+    avatar: `${BAG}/avatar-sarah.webp`,
+    q: [
+      'The first batch of tote samples came back with stitching so clean we barely ran a second check. Their QC signs off on the factory floor, not on paper — which is exactly why the last 1,000 eco-friendly totes pushed our pop-up brand engagement up by 20%.',
+      'Lead time held to the day. We moved 500 units, then doubled the order without touching the artwork once.',
+    ],
+  },
+  {
+    name: 'Michael Chen', role: 'Event Coordinator', co: 'Horizon Conventions', loc: 'Canada',
+    avatar: `${BAG}/avatar-michael.webp`,
+    q: [
+      'The canvas drawstring sample was embroidered to spec, every logo crisp and evenly spaced. Because the prototype came back fast, sign-off took days instead of weeks.',
+      'Five hundred bags at the conference, zero defects returned, and their updates kept the whole timeline honest.',
+    ],
+  },
+];
+
+/* People also ask — no overlap with the numbers above. */
+const faqs = [
+  { q: 'How long does custom bag production take?', a: 'Once the design is approved we agree a delivery date with you, and a rush lane is available if a launch is fixed.' },
+  { q: 'Can you design the bag for me?', a: 'Yes. An in-house team turns a brief into a production-ready dieline and a sample, keeping you in the loop at each handoff.' },
+  { q: 'What materials can I choose from?', a: 'Organic cotton, heavy-duty canvas, waterproof nylon and polyester, recycled fabric and natural jute. We match the material to what the product needs to survive.' },
+  { q: 'Do you offer eco-friendly custom bags?', a: 'Recycled polyester from plastic bottles and jute are standard, and FSC\u00ae-certified options are available for brands that need the claim on the label.' },
+  { q: 'What is your MOQ for custom bags?', a: 'Low MOQ is standard, so a launch can start small and scale with volume-tier pricing as demand grows.' },
+];
+
+const seo = {
+  title: 'Custom Bag Manufacturer: OEM & ODM Bags, MOQ 500, Since 2015',
+  description: 'Custom bag manufacturer for OEM, ODM and private label: MOQ 500, 4-6 week production, eco materials, and sample-first proof from a China bag factory since 2015.',
+  keywords: 'custom bag manufacturer, OEM bag manufacturer, ODM bag manufacturer, private label bag manufacturer, custom bag factory, wholesale custom bags, bulk custom bags, custom bag supplier, contract bag manufacturer, custom bag production, low MOQ custom bags',
+  canonical: 'https://www.leelinepackage.com/custom-bag-manufacturer/',
+  ogImage: `${BAG}/hero.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Bag Manufacturer',
+      description: seo.description,
+      serviceType: 'OEM & ODM custom bag manufacturing and private label',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Bag Manufacturer' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+const stat = [
+  { v: 'Since 2015', l: 'a bag factory you can rely on' },
+  { v: '3\u20137 days', l: 'to a printed sample' },
+  { v: '4\u20136 weeks', l: 'to a full production' },
+  { v: '90%', l: 'eco-friendly materials' },
+];
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO (full-bleed · centred) ============ -->
+    <section class="cb-hero">
+      <div class="cb-hero-shade"></div>
+      <div class="cb-hero-grain"></div>
+      <div class="wrap cb-hero-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>China custom bag factory &middot; OEM &amp; ODM</span>
+        <h1 class="cb-hero-title" data-reveal="up">Custom Bag Manufacturer: <em>Lower Unit Cost, Fewer Damage Returns</em></h1>
+        <p class="cb-hero-sub" data-reveal="up">Cut what each bag costs and keep the product safe in transit, then sign off a printed sample before any bulk run &mdash; the board, print and finish you approve is the one that ships.</p>
+        <div class="cb-hero-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
+            Get a Free Quote
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <ul class="cb-hero-stats" data-reveal="up">
+          {stat.map((s) => (
+            <li><strong>{s.v}</strong><span>{s.l}</span></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ WHY (editorial numbers) ============ -->
+    <section class="cb-why">
+      <span class="cb-ghost" aria-hidden="true">why</span>
+      <div class="wrap cb-why-grid">
+        <div class="cb-why-head" data-reveal="up">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Why a brand picks us</span>
+          <h2 class="section-title">A China Bag Factory Built Around <em>Your Brand, Not Stock</em></h2>
+          <p class="section-sub">Five things that change when the factory works for you, not the other way around.</p>
+        </div>
+        <ol class="cb-why-list">
+          {why.map((w, i) => (
+            <li class="cb-why-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="cb-why-num">{w.n}</span>
+              <div class="cb-why-body">
+                <h3>{w.t}</h3>
+                <p>{w.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ BAG TYPES (offset grid) ============ -->
+    <section class="cb-types" id="bag-types">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Custom bag types</span>
+          <h2 class="section-title" data-reveal="up">The Bag Types We <em>Cut, Sew and Print</em></h2>
+          <p class="section-sub" data-reveal="up">Nine constructions, one factory. From a paper carry bag to a velvet drawstring pouch, built to your spec.</p>
+        </div>
+        <div class="cb-type-grid">
+          {types.map((t, i) => (
+            <article class="cb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.1}s`}>
+              <figure class="cb-type-ph">
+                <Image src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="cb-img" />
+              </figure>
+              <h3 class="cb-type-name">{t.name}</h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAPABILITY (diagonal forest band) ============ -->
+    <section class="cb-cap">
+      <svg class="cb-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,90 C160,20 360,8 560,32 C760,56 900,80 1120,60 C1280,44 1360,28 1440,34 L1440,90 L0,90 Z" fill="#2E4F3D"/>
+      </svg>
+      <div class="cb-cap-bg"></div>
+      <div class="wrap cb-cap-inner">
+        <div class="section-head section-head--center cb-cap-head">
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>What we can do</span>
+          <h2 class="section-title" data-reveal="up">What a Custom Bag Manufacturer <em>Can Actually Do</em></h2>
+          <p class="section-sub" data-reveal="up">A certified China bag factory that scales with you &mdash; from a startup&rsquo;s first test run to an established label&rsquo;s steady line.</p>
+        </div>
+        <div class="cb-cap-grid">
+          {capability.map((c, i) => (
+            <div class="cb-cap-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="cb-cap-num">{c.n}</span>
+              <h3>{c.t}</h3>
+              <p>{c.d}</p>
+            </div>
+          ))}
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
+            Use the Factory, Not a Middleman
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MATERIALS ============ -->
+    <section class="cb-mat" id="materials">
+      <div class="wrap cb-mat-grid">
+        <div class="cb-mat-head" data-reveal="up">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Premium materials</span>
+          <h2 class="section-title">Premium Materials, <em>Chosen for Feel and Footprint</em></h2>
+          <p class="section-sub">The fabric sets the feel in a customer&rsquo;s hand, how long the bag lasts and the story it tells.</p>
+          <figure class="cb-mat-hero" data-reveal="up">
+            <Image src={`${BAG}/material-hero.webp`} alt="A curated stack of fabric swatches in natural, neutral and earthy tones" width={600} height={512} loading="lazy" decoding="async" class="cb-img" />
+          </figure>
+        </div>
+        <div class="cb-mat-list">
+          {materials.map((m, i) => (
+            <article class="cb-mat-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="cb-mat-ph">
+                <Image src={m.img} alt={m.alt} width={m.w} height={m.h} loading="lazy" decoding="async" class="cb-img" />
+              </figure>
+              <div class="cb-mat-body">
+                <h3>{m.name}</h3>
+                <p>{m.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CUSTOMISATION ============ -->
+    <section class="cb-cust">
+      <div class="wrap cb-cust-grid">
+        <div class="cb-cust-body" data-reveal="up">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Customisation</span>
+          <h2 class="section-title">Make the Bag <em>Unmistakably Yours</em></h2>
+          <p class="section-sub">Four levers so the bag fits your product, your brand and the way you pack it.</p>
+          <ol class="cb-cust-list">
+            {customize.map((c, i) => (
+              <li class="cb-cust-item" data-reveal="up" style={`--d:${i * 0.07}s`}>
+                <span class="cb-cust-num">0{i + 1}</span>
+                <div>
+                  <h3>{c.t}</h3>
+                  <p>{c.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+        <div class="cb-cust-visual" data-reveal="right">
+          <figure class="cb-cust-ph">
+            <Image src={`${BAG}/customize-hero.webp`} alt="A finished custom tote bag with a printed logotype and rope handles" width={900} height={700} loading="lazy" decoding="async" class="cb-img" />
+            <figcaption class="cb-cust-cap">Print, lining and hardware &mdash; on one bag</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRIES ============ -->
+    <section class="cb-ind" id="industries">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Across industries</span>
+          <h2 class="section-title" data-reveal="up">Custom Bags for <em>Every Packing Industry</em></h2>
+          <p class="section-sub" data-reveal="up">Each field has its own packaging problem &mdash; we build the bag that solves it.</p>
+        </div>
+        <div class="cb-ind-grid">
+          {industries.map((it, i) => (
+            <article class="cb-ind-card" data-reveal="up" style={`--d:${(i % 3) * 0.09}s`}>
+              <figure class="cb-ind-ph">
+                <Image src={it.img} alt={it.alt} width={it.w} height={it.h} loading="lazy" decoding="async" class="cb-img" />
+              </figure>
+              <div class="cb-ind-body">
+                <h3>{it.name}</h3>
+                <p>{it.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REAL-LIFE EXAMPLES (bento) ============ -->
+    <section class="cb-cases" id="cases">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Real samples</span>
+          <h2 class="section-title" data-reveal="up">Real Samples, <em>Real Product</em></h2>
+          <p class="section-sub" data-reveal="up">A few bags that left the floor &mdash; totes, cosmetics pouches and kraft production runs.</p>
+        </div>
+        <div class="cb-carousel" data-reveal="up">
+          <button class="cb-car-btn cb-car-btn--prev" type="button" aria-label="Previous sample">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="cb-car-vp">
+            <div class="cb-car-track">
+              {cases.map((cs) => (
+                <figure class="cb-car-slide" aria-hidden="true">
+                  <Image src={cs.img} alt={cs.cap} width={cs.w} height={cs.h} loading="lazy" decoding="async" class="cb-car-img" />
+                  <figcaption class="cb-car-cap"><span>{cs.cap}</span></figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button class="cb-car-btn cb-car-btn--next" type="button" aria-label="Next sample">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="cb-quote" id="testimonials">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Customer voices</span>
+          <h2 class="section-title" data-reveal="up">What Customers Say <em>About Their Bags</em></h2>
+        </div>
+        <div class="cb-quote-grid">
+          {testimonials.map((t, i) => (
+            <blockquote class="cb-quote-card" data-reveal="up" style={`--d:${i * 0.12}s`}>
+              <div class="cb-quote-copy">
+                {t.q.map((p) => <p>{p}</p>)}
+              </div>
+              <footer class="cb-quote-person">
+                <Image src={t.avatar} alt={`${t.name} portrait`} width={400} height={400} loading="lazy" decoding="async" class="cb-avatar" />
+                <div>
+                  <strong>{t.name}</strong>
+                  <span>{t.role}, {t.co} &middot; {t.loc}</span>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="cb-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>FAQ</span>
+          <h2 class="section-title" data-reveal="up">Before You <em>Order a Bag</em></h2>
+          <p class="section-sub" data-reveal="up">The questions that come up before a first order.</p>
+        </div>
+        <div class="cb-faq-list">
+          {faqs.map((f) => (
+            <details class="cb-faq-item" data-reveal="up">
+              <summary><span class="cb-faq-num">Q</span>{f.q}</summary>
+              <div class="cb-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA (dark) ============ -->
+    <section class="cb-final" id="get-started">
+      <div class="wrap cb-final-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote</span>
+        <h2 class="cb-final-title" data-reveal="up">Ready to Put Your Name <em>on a Bag</em></h2>
+        <p class="cb-final-sub" data-reveal="up">Send a size, a logo or finished artwork &mdash; and get a quote with a material recommendation back before anything is cut.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact" target="_blank" rel="noopener">
+            Get a Free Quote
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared texture ============ */
+  :global(body) { background: var(--ivory); }
+  .cb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cb-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO (full-bleed · centred) ============ */
+  .cb-hero {
+    position: relative; overflow: hidden;
+    background-image: url('https://img.leelinepackage.com/custom-bag/hero.webp');
+    background-position: center; background-size: cover;
+    color: var(--ivory); padding: clamp(8rem, 16vw, 13rem) 0 clamp(4rem, 8vw, 6rem);
+  }
+  .cb-hero-shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,38,27,0.62) 0%, rgba(20,38,27,0.48) 42%, rgba(20,38,27,0.72) 100%); }
+  .cb-hero-inner { position: relative; z-index: 2; text-align: center; }
+  .cb-hero-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.02; letter-spacing: -0.03em; color: #fff; max-width: 20ch; margin: 1.2rem auto 0; text-wrap: balance; text-shadow: 0 2px 30px rgba(20,38,27,0.45); }
+  .cb-hero-title em { font-style: italic; color: #E3C29A; }
+  .cb-hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(245,240,229,0.94); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20,38,27,0.5); }
+  .cb-hero-cta { display: flex; justify-content: center; margin-top: 2.2rem; }
+  .cb-hero-stats { list-style: none; margin: clamp(2.4rem, 5vw, 3.4rem) auto 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.4rem, 4vw, 3rem); max-width: 60rem; }
+  .cb-hero-stats li { text-align: center; }
+  .cb-hero-stats strong { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.5rem, 3.2vw, 2.4rem); color: #E3C29A; line-height: 1; }
+  .cb-hero-stats span { display: block; font-size: 0.78rem; letter-spacing: 0.02em; color: rgba(245,240,229,0.86); margin-top: 0.4rem; }
+
+  /* ============ WHY (editorial numbers) ============ */
+  .cb-why { position: relative; background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; overflow: hidden; }
+  .cb-why::after { content: ''; position: absolute; bottom: -6%; right: -4%; width: clamp(260px, 38vw, 560px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 38% 34%, rgba(201,168,124,0.20), rgba(201,168,124,0) 66%); pointer-events: none; z-index: 0; }
+  .cb-ghost { position: absolute; top: 4%; right: -1%; font-family: var(--font-heading); font-weight: 600; font-size: clamp(6rem, 22vw, 20rem); line-height: 1; color: rgba(176,141,76,0.07); letter-spacing: -0.04em; pointer-events: none; }
+  .cb-why-grid { position: relative; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; z-index: 1; }
+  .cb-why-head { position: sticky; top: 7rem; }
+  .cb-why-list { list-style: none; margin: 0; padding: 0; }
+  .cb-why-item { display: flex; gap: 1.3rem; align-items: flex-start; padding: clamp(1.2rem, 2.6vw, 1.7rem) 0; border-top: 1px solid rgba(31,59,44,0.12); }
+  .cb-why-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.12); }
+  .cb-why-num { flex: 0 0 auto; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1; color: var(--brass); min-width: 2ch; padding-top: 0.1rem; }
+  .cb-why-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.45rem; }
+  .cb-why-body p { font-size: 0.98rem; line-height: 1.65; color: var(--color-brand-muted); max-width: 52ch; margin: 0; }
+
+  /* ============ BAG TYPES (offset grid) ============ */
+  .cb-types { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
+  .cb-type-card { background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; overflow: hidden; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), box-shadow 0.45s ease, border-color 0.45s ease; }
+  .cb-type-card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -22px rgba(31,59,44,0.3); border-color: rgba(176,141,76,0.55); }
+  .cb-type-ph { aspect-ratio: 1 / 1; margin: 0; background: var(--color-brand-surface); }
+  .cb-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.12rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; padding: 1rem 1.1rem 1.2rem; }
+
+  /* ============ CAPABILITY (diagonal forest band) ============ */
+  .cb-cap { position: relative; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; overflow: visible; }
+  .cb-wave { position: absolute; top: -89px; left: 0; width: 100%; height: 90px; display: block; pointer-events: none; }
+  .cb-cap-bg { position: absolute; inset: 0; background: linear-gradient(160deg, var(--forest-light) 0%, var(--color-forest) 58%, var(--forest-deep) 100%); }
+  .cb-cap-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 80% at 18% 12%, rgba(228,181,77,0.14), transparent 70%); }
+  .cb-cap-inner { position: relative; z-index: 2; }
+  .cb-cap-head .section-title { color: #fff; }
+  .cb-cap-head .section-title em { color: #E3C29A; }
+  .cb-cap-head .section-sub { color: rgba(245,240,229,0.85); }
+  .cb-cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .cb-cap-card { position: relative; background: rgba(245,240,229,0.06); border: 1px solid rgba(245,240,229,0.16); border-top: 3px solid var(--brass-soft); border-radius: 1.1rem; padding: clamp(1.4rem, 2.6vw, 1.9rem) clamp(1.1rem, 2.2vw, 1.5rem); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background-color 0.4s ease; }
+  .cb-cap-card:hover { transform: translateY(-6px); background: rgba(245,240,229,0.1); }
+  .cb-cap-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass-soft); }
+  .cb-cap-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.22rem; color: #fff; margin: 0.7rem 0 0.5rem; }
+  .cb-cap-card p { font-size: 0.92rem; line-height: 1.6; color: rgba(245,240,229,0.82); margin: 0; }
+  .cb-cap .section-cta { margin-top: clamp(2.4rem, 5vw, 3.2rem); }
+
+  /* ============ MATERIALS ============ */
+  .cb-mat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-mat-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .cb-mat-hero { margin: clamp(1.8rem, 4vw, 2.4rem) 0 0; border-radius: 1.1rem; overflow: hidden; border: 1px solid rgba(31,59,44,0.1); }
+  .cb-mat-hero .cb-img { aspect-ratio: 4 / 3; }
+  .cb-mat-list { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .cb-mat-card { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
+  .cb-mat-card:hover { transform: translateY(-6px); box-shadow: 0 24px 46px -22px rgba(31,59,44,0.28); }
+  .cb-mat-ph { margin: 0; aspect-ratio: 3 / 2; }
+  .cb-mat-body { padding: clamp(1rem, 2vw, 1.3rem); }
+  .cb-mat-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem; color: var(--color-brand-text); margin: 0 0 0.45rem; }
+  .cb-mat-body p { font-size: 0.94rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ CUSTOMISATION ============ */
+  .cb-cust { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-cust-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+  .cb-cust-list { list-style: none; margin: clamp(1.8rem, 4vw, 2.4rem) 0 0; padding: 0; }
+  .cb-cust-item { display: flex; gap: 1rem; align-items: flex-start; padding: clamp(1.1rem, 2.2vw, 1.5rem) 0; border-top: 1px solid rgba(31,59,44,0.12); }
+  .cb-cust-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.12); }
+  .cb-cust-num { flex: 0 0 auto; font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; color: var(--brass); padding-top: 0.15rem; }
+  .cb-cust-item h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: var(--color-brand-text); margin: 0 0 0.4rem; }
+  .cb-cust-item p { font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+  .cb-cust-visual { position: relative; }
+  .cb-cust-ph { margin: 0; border-radius: 1.2rem; overflow: hidden; border: 1px solid rgba(31,59,44,0.1); box-shadow: 0 30px 60px -30px rgba(31,59,44,0.4); }
+  .cb-cust-ph .cb-img { aspect-ratio: 4 / 3.6; }
+  .cb-cust-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.6rem 1.1rem 0.9rem; background: linear-gradient(180deg, transparent 40%, rgba(20,38,27,0.82)); color: #fff; font-size: 0.84rem; font-weight: 600; letter-spacing: 0.02em; }
+
+  /* ============ INDUSTRIES ============ */
+  .cb-ind { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
+  .cb-ind-card { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; overflow: hidden; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
+  .cb-ind-card:hover { transform: translateY(-6px); box-shadow: 0 24px 46px -22px rgba(31,59,44,0.28); }
+  .cb-ind-ph { margin: 0; aspect-ratio: 4 / 3; }
+  .cb-ind-body { padding: clamp(1rem, 2vw, 1.3rem); }
+  .cb-ind-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; color: var(--color-brand-text); margin: 0 0 0.4rem; }
+  .cb-ind-body p { font-size: 0.94rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ CASES (looping carousel) ============ */
+  .cb-cases { position: relative; background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-cases::before { content: ''; position: absolute; top: 4%; left: -6%; width: clamp(240px, 34vw, 500px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 40% 36%, rgba(31,59,44,0.12), rgba(31,59,44,0) 66%); pointer-events: none; z-index: 0; }
+  .cb-cases .wrap { position: relative; z-index: 1; }
+  .cb-carousel { position: relative; margin-top: clamp(2rem, 4vw, 3rem); }
+  .cb-car-vp { overflow: hidden; border-radius: 1.4rem; }
+  .cb-car-track { display: flex; gap: 1rem; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .cb-car-slide { flex: 0 0 calc((100% - 2rem) / 3); aspect-ratio: 4 / 3; margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--ivory); position: relative; }
+  .cb-car-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cb-car-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 2rem 1.1rem 0.9rem; background: linear-gradient(180deg, transparent 45%, rgba(20,38,27,0.8)); pointer-events: none; }
+  .cb-car-cap span { color: #fff; font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em; text-shadow: 0 1px 10px rgba(20,38,27,0.6); }
+  .cb-car-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(31,59,44,0.16); background: rgba(245,240,229,0.92); color: var(--forest-deep); cursor: pointer; display: grid; place-items: center; box-shadow: 0 12px 28px -16px rgba(31,59,44,0.5); transition: background 0.3s ease; }
+  .cb-car-btn:hover { background: var(--brass-bright); color: var(--forest-deep); }
+  .cb-car-btn--prev { left: -8px; }
+  .cb-car-btn--next { right: -8px; }
+  .cb-car-btn svg { width: 22px; height: 22px; }
+
+  /* ============ TESTIMONIALS ============ */
+  .cb-quote { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2rem); max-width: 1080px; margin-inline: auto; }
+  .cb-quote-card { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.2rem; padding: clamp(1.5rem, 3vw, 2.1rem); display: flex; flex-direction: column; gap: 1.4rem; }
+  .cb-quote-copy p { margin: 0; font-family: var(--font-heading); font-style: italic; font-size: 1.08rem; line-height: 1.75; color: var(--color-brand-text); }
+  .cb-quote-copy p + p { margin-top: 1rem; font-family: var(--font-body); font-style: normal; font-size: 0.94rem; color: var(--color-brand-muted); }
+  .cb-quote-person { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.12); }
+  .cb-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+  .cb-quote-person strong { display: block; font-size: 0.98rem; color: var(--color-brand-text); }
+  .cb-quote-person span { display: block; font-size: 0.82rem; color: var(--color-brand-muted); margin-top: 0.1rem; }
+
+  /* ============ FAQ ============ */
+  .cb-faq { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cb-faq-list { display: flex; flex-direction: column; max-width: 820px; margin-inline: auto; }
+  .cb-faq-item { border-top: 1px solid rgba(31,59,44,0.14); background: var(--ivory); }
+  .cb-faq-item:first-child { border-radius: 1rem 1rem 0 0; }
+  .cb-faq-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); border-radius: 0 0 1rem 1rem; }
+  .cb-faq-item + .cb-faq-item { margin-top: 0.6rem; }
+  .cb-faq-num { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .cb-faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.8vw, 1.22rem); color: var(--color-brand-text); }
+  .cb-faq-item summary::-webkit-details-marker { display: none; }
+  .cb-faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); margin-left: auto; }
+  .cb-faq-item[open] summary::after { transform: rotate(45deg); }
+  .cb-faq-a { padding: 0 1.2rem 1.4rem; }
+  .cb-faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
+
+  /* ============ FINAL CTA (dark) ============ */
+  .cb-final { background: linear-gradient(180deg, rgba(20,38,27,0.42) 0%, rgba(20,38,27,0.6) 100%), url('https://img.leelinepackage.com/custom-bag/final-cta.webp') center / cover no-repeat; color: var(--ivory); padding: clamp(3.5rem, 9vw, 7.5rem) 0; position: relative; overflow: hidden; }
+  .cb-final::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228,181,77,0.13), transparent 70%); }
+  .cb-final-inner { text-align: center; position: relative; z-index: 1; }
+  .cb-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.025em; color: #fff; text-shadow: 0 2px 24px rgba(20,38,27,0.4); margin: 1.1rem 0 0; max-width: 24ch; margin-inline: auto; text-wrap: balance; }
+  .cb-final-title em { font-style: italic; color: #E3C29A; }
+  .cb-final-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(255,255,255,0.95); max-width: 52ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20,38,27,0.4); }
+  .cb-final .section-cta { margin-top: clamp(2.2rem, 5vw, 3rem); }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .cb-why-grid { grid-template-columns: 1fr; }
+    .cb-why-head { position: static; margin-bottom: 1.5rem; }
+    .cb-cap-grid { grid-template-columns: repeat(2, 1fr); }
+    .cb-mat-grid { grid-template-columns: 1fr; }
+    .cb-cust-grid { grid-template-columns: 1fr; }
+    .cb-cust-visual { order: -1; }
+  }
+  @media (max-width: 900px) {
+    .cb-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .cb-ind-grid { grid-template-columns: repeat(2, 1fr); }
+    .cb-quote-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .cb-type-grid { grid-template-columns: 1fr; }
+    .cb-mat-list { grid-template-columns: 1fr; }
+    .cb-ind-grid { grid-template-columns: 1fr; }
+    .cb-cap-grid { grid-template-columns: 1fr; }
+    .cb-car-slide { flex: 0 0 100%; }
+    .cb-car-btn { width: 42px; height: 42px; }
+    .cb-car-btn--prev { left: -4px; }
+    .cb-car-btn--next { right: -4px; }
+    .cb-hero-cta .btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Infinite 3-up carousel (clone 3 at each end for a seamless wrap in both directions)
+  const track = document.querySelector('.cb-car-track');
+  if (track) {
+    const slides = Array.from(track.children);
+    const N = slides.length;
+    if (N > 0) {
+      const clones = Math.min(3, N);
+      // Front clones: copies of the LAST `clones` slides, placed directly before s0
+      for (let k = 0; k < clones; k++) {
+        const c = slides[(N - clones + k) % N].cloneNode(true);
+        c.classList.add('cb-car-clone');
+        track.insertBefore(c, slides[0]);
+      }
+      // Back clones: copies of the FIRST `clones` slides, appended after the last slide
+      for (let k = 0; k < clones; k++) {
+        const c = slides[k % N].cloneNode(true);
+        c.classList.add('cb-car-clone');
+        track.appendChild(c);
+      }
+      const start = clones;
+      let i = start;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(track).gap) || 0;
+        return track.children[start].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        track.style.transform = `translateX(${-i * step()}px)`;
+      };
+
+      const go = (dir) => {
+        if (track._busy) return;
+        track._busy = true;
+        i += dir;
+        move(true);
+        setTimeout(() => {
+          if (i < start) i += N;
+          else if (i > start + N - 1) i -= N;
+          move(false);
+          track._busy = false;
+        }, 520);
+      };
+
+      const prevBtn = document.querySelector('.cb-car-btn--prev');
+      const nextBtn = document.querySelector('.cb-car-btn--next');
+      if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!track._busy) move(false); });
+    }
+  }
+</script>

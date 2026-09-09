@@ -1,15 +1,26 @@
 ---
-const LOGO = 'https://pub-f65f4d4fa9664133a4ceca1f5d43e24d.r2.dev/leelinepackage-logo.webp';
+const LOGO = 'https://img.leelinepackage.com/leelinepackage-logo.webp';
 
 // Navbar mirrors the original leelinepackage.com structure (dropdowns kept),
 // links point to the matching in-page section (pages get built later).
 const nav = {
   home: '/',
   products: [
-    'Custom Bag', 'Custom Box', 'Custom Folding Cartons', 'Custom Paper Bag', 'Custom Rigid Boxes',
-    'Custom Mailer Bags', 'Custom Pouches', 'Custom Tote Bags', 'Custom Reusable Shopping Bags',
-    'Custom Display Box', 'Custom Corrugated Boxes', 'Custom Tin Box', 'Custom Acrylic Box',
-    'Custom Package Stickers', 'Custom Velvet Bags',
+    { label: 'Custom Bag', href: '/custom-bag-manufacturer/' },
+    { label: 'Custom Box', href: '/#offerings' },
+    { label: 'Custom Folding Cartons', href: '/#offerings' },
+    { label: 'Custom Paper Bag', href: '/#offerings' },
+    { label: 'Custom Rigid Boxes', href: '/#offerings' },
+    { label: 'Custom Mailer Bags', href: '/#offerings' },
+    { label: 'Custom Pouches', href: '/#offerings' },
+    { label: 'Custom Tote Bags', href: '/#offerings' },
+    { label: 'Custom Reusable Shopping Bags', href: '/#offerings' },
+    { label: 'Custom Display Box', href: '/#offerings' },
+    { label: 'Custom Corrugated Boxes', href: '/#offerings' },
+    { label: 'Custom Tin Box', href: '/#offerings' },
+    { label: 'Custom Acrylic Box', href: '/#offerings' },
+    { label: 'Custom Package Stickers', href: '/#offerings' },
+    { label: 'Custom Velvet Bags', href: '/#offerings' },
   ],
   industries: ['Custom Jewelry Packaging', 'Custom Gift Box', 'Custom Shipping Box'],
   about: '/#about',
@@ -40,7 +51,7 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.products.map((p) => (
-            <a href="/#offerings" target="_blank" rel="noopener">{p}</a>
+            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
           ))}
         </div>
       </div>
@@ -88,7 +99,7 @@ const nav = {
       <a href="/" target="_blank" rel="noopener">Home</a>
       <details>
         <summary>Products</summary>
-        <div class="sub">{nav.products.map((p) => <a href="/#offerings" target="_blank" rel="noopener">{p}</a>)}</div>
+        <div class="sub">{nav.products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
       </details>
       <details>
         <summary>Industries</summary>

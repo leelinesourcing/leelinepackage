@@ -4,45 +4,31 @@ import Navbar from '../components/Navbar.astro';
 
 const IMG = {
   logo: 'https://img.leelinepackage.com/leelinepackage-logo.webp',
-  team: 'https://img.leelinepackage.com/image-03.avif',
-  team480: 'https://img.leelinepackage.com/image-03-480.avif',
-  team960: 'https://img.leelinepackage.com/image-03-960.avif',
-  team1440: 'https://img.leelinepackage.com/image-03-1440.avif',
-  certificate: 'https://img.leelinepackage.com/China-certification.avif',
-  sgs: 'https://img.leelinepackage.com/SGS.avif',
+  certificate: 'https://img.leelinepackage.com/china-certification.webp',
+  sgs: 'https://img.leelinepackage.com/sgs.webp',
   compliance: 'https://img.leelinepackage.com/compliance-cert.webp',
-  ce: 'https://img.leelinepackage.com/ce.avif',
-  case1: 'https://img.leelinepackage.com/Custom-Packages-cases-1.avif',
-  case2: 'https://img.leelinepackage.com/Personalized-Packages-cases-2.avif',
-  case3: 'https://img.leelinepackage.com/Personalized-Packages-cases-3.avif',
-  case4: 'https://img.leelinepackage.com/custom-Packages-cases-4.avif',
-  case5: 'https://img.leelinepackage.com/custom-Packages-cases-5.avif',
-  case6: 'https://img.leelinepackage.com/custom-Packages-cases-6.avif',
-  proc1: 'https://img.leelinepackage.com/Inquiry-Quote-2.avif',
-  proc2: 'https://img.leelinepackage.com/Artwork-Sample-1.avif',
-  proc3: 'https://img.leelinepackage.com/Quality-Control.avif',
-  proc4: 'https://img.leelinepackage.com/Packing-Shipping-1.avif',
-  folding: 'https://img.leelinepackage.com/image-04.avif',
-  corrugated: 'https://img.leelinepackage.com/image-05.avif',
-  rigid: 'https://img.leelinepackage.com/image-06.avif',
-  mailer: 'https://img.leelinepackage.com/image-07.avif',
-  display: 'https://img.leelinepackage.com/image-08.avif',
-  pouches: 'https://img.leelinepackage.com/image-09.avif',
-  paperbag: 'https://img.leelinepackage.com/image-10.avif',
-  tin: 'https://img.leelinepackage.com/image-11.avif',
-  acrylic: 'https://img.leelinepackage.com/Acrylic-Box.webp',
-  reusable: 'https://img.leelinepackage.com/image-13.avif',
-  satin: 'https://img.leelinepackage.com/image-14.avif',
-  labels: 'https://img.leelinepackage.com/image-15.avif',
-  kraft: 'https://img.leelinepackage.com/image-16.avif',
-  fiberboard: 'https://img.leelinepackage.com/image-17.avif',
-  cardboard: 'https://img.leelinepackage.com/image-18.avif',
-  plastic: 'https://img.leelinepackage.com/image-19.avif',
-  fsc: 'https://img.leelinepackage.com/image-20.avif',
-  tailored: 'https://img.leelinepackage.com/image-21.avif',
-  affordable: 'https://img.leelinepackage.com/image-22.avif',
-  expert: 'https://img.leelinepackage.com/image-23.avif',
-  shipping: 'https://img.leelinepackage.com/image-24.avif',
+  ce: 'https://img.leelinepackage.com/ce.webp',
+  case1: 'https://img.leelinepackage.com/keepsake-rigid.webp',
+  case2: 'https://img.leelinepackage.com/dtc-unboxing.webp',
+  case3: 'https://img.leelinepackage.com/flat-pack-pivot.webp',
+  proc1: 'https://img.leelinepackage.com/consultation.webp',
+  proc2: 'https://img.leelinepackage.com/3d-design-sampling.webp',
+  proc3: 'https://img.leelinepackage.com/quality-control.webp',
+  proc4: 'https://img.leelinepackage.com/delivery.webp',
+  folding: 'https://img.leelinepackage.com/folding-carton.webp',
+  corrugated: 'https://img.leelinepackage.com/corrugated-box.webp',
+  rigid: 'https://img.leelinepackage.com/rigid-box.webp',
+  mailer: 'https://img.leelinepackage.com/mailer-box.webp',
+  display: 'https://img.leelinepackage.com/display-box.webp',
+  pouches: 'https://img.leelinepackage.com/pouches.webp',
+  paperbag: 'https://img.leelinepackage.com/paper-bag.webp',
+  tin: 'https://img.leelinepackage.com/tin-box.webp',
+  acrylic: 'https://img.leelinepackage.com/acrylic-box.webp',
+  reusable: 'https://img.leelinepackage.com/reusable-bag.webp',
+  satin: 'https://img.leelinepackage.com/satin-bag.webp',
+  labels: 'https://img.leelinepackage.com/labels-stickers.webp',
+  fsc: 'https://img.leelinepackage.com/eco-sustainable.webp',
+  tailored: 'https://img.leelinepackage.com/size-dimensions.webp',
   hero480: 'https://img.leelinepackage.com/hero-480.webp',
   hero960: 'https://img.leelinepackage.com/hero-960.webp',
   hero1440: 'https://img.leelinepackage.com/hero-1440.webp',
@@ -297,7 +283,7 @@ const seoJsonLd = JSON.stringify({
   description="Custom packaging manufacturer in China. Custom boxes, rigid mailers & pouches. MOQ 500 — free 3D mockups, 5-day samples, FSC & ISO 9001. Get a free quote today."
   keywords={KEYWORDS}
   canonical="https://www.leelinepackage.com/"
-  ogImage="https://img.leelinepackage.com/image-06.avif"
+  ogImage="https://img.leelinepackage.com/rigid-box.webp"
   jsonLd={seoJsonLd}
 >
   <style is:global>
@@ -409,7 +395,7 @@ const seoJsonLd = JSON.stringify({
 
   <Navbar />
 
-  <a class="mobile-cta" href="/contact">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  <a class="mobile-cta" href="/contact/">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   <a class="back-to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
   <main id="top">

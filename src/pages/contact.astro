@@ -17,7 +17,7 @@ const contacts = [
   { label: 'Email', value: 'info@leelinepackage.com', href: 'mailto:info@leelinepackage.com', icon: 'M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm0 2.2 8.6 6a1 1 0 0 0 1.2 0l8.4-6V7.4L12 13.4 3 7.3z' },
   { label: 'Phone', value: '+86 139 8615 2456', href: 'tel:+8613986152456', icon: 'M6.6 2.8c.4-.4 1-.3 1.4 0l2.2 2.2c.4.4.4 1 0 1.4L9 7.6c.5 1.2 1.6 2.9 2 3.4.5.4 2.3 1.6 3.5 2l1.1-1.2c.4-.4 1-.4 1.4 0l2.2 2.2c.4.4.4 1 0 1.4l-1.6 1.6c-.7.7-1.8.9-2.7.5-2-.9-4.4-2.5-6.4-4.5S4.6 8.1 3.7 6.1c-.4-.9-.2-2 .5-2.7z' },
   { label: 'WhatsApp / WeChat', value: 'Message us directly', href: 'https://wa.me/8613986152456', icon: 'M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2z' },
-  { label: 'Address', value: 'Wuhan, Hubei, China', href: '/', icon: 'M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z' },
+  { label: 'Address', value: 'Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China', href: '/', icon: 'M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z' },
 ];
 
 const reassurance = [
@@ -59,14 +59,6 @@ const jsonLd = {
   <main id="top">
     <Navbar />
 
-    <header class="page-hero">
-      <div class="wrap page-hero-inner">
-        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Contact</span>
-        <h1>Get a <em>Free Quote</em> for Your Packaging</h1>
-        <p class="page-hero-sub">Tell us what you ship and the quantity — our engineers reply with a dieline, material and complete quote within 24 hours. No obligation, no sales pitch.</p>
-      </div>
-    </header>
-
     <section class="reassure">
       <div class="wrap reassure-row">
         {reassurance.map((r) => <span class="reassure-pill">{r}</span>)}
@@ -76,8 +68,8 @@ const jsonLd = {
     <section class="contact">
       <div class="wrap contact-grid">
         <aside class="contact-info">
-          <h2>Let&#8217;s Talk</h2>
-          <p class="contact-sub">The fastest way to a quote is a short email with your product dims and quantity. Prefer to talk it through? Call or message us.</p>
+          <h2>Let&#8217;s Get in Touch</h2>
+          <p class="contact-sub">Our expertise empowers brands and businesses to achieve your packaging goals with innovative design, rigorous quality control, and sustainable, flexible production solutions.</p>
           <ul class="contact-list">
             {contacts.map((c) => {
               const isSpecial = c.href.startsWith('mailto:') || c.href.startsWith('tel:');
@@ -89,7 +81,7 @@ const jsonLd = {
               );
             })}
           </ul>
-          <p class="contact-note">We respond to all enquiries within 24 hours, Mon&#8211;Sat. 500+ brands already ship in our packaging.</p>
+          <p class="contact-note">Interested in scheduling a meeting with us? We respond to all enquiries within 24 hours, Mon&#8211;Sat. 500+ brands already ship in our packaging.</p>
         </aside>
 
         <form class="quote-form" id="quoteForm">
@@ -99,7 +91,49 @@ const jsonLd = {
             <label><span>Email *</span><input name="email" type="email" required placeholder="you@company.com" /></label>
             <label><span>Company</span><input name="company" type="text" placeholder="Company / brand" /></label>
             <label><span>Phone / WhatsApp</span><input name="phone" type="tel" placeholder="Country code + number" /></label>
-            <label class="full"><span>Product &amp; quantity *</span><input name="product" type="text" required placeholder="e.g. 2,000 rigid gift boxes — 180×90×45 mm" /></label>
+            <label><span>What do you need? *</span>
+              <select name="need" required>
+                <option value="" disabled selected>Pick a packaging type</option>
+                <option>Custom box</option>
+                <option>Custom bag</option>
+                <option>Rigid gift box</option>
+                <option>Mailer box</option>
+                <option>Display / POS</option>
+                <option>Pouches</option>
+                <option>Labels &amp; stickers</option>
+                <option>Something else</option>
+              </select>
+            </label>
+            <label><span>Estimated quantity *</span>
+              <select name="quantity" required>
+                <option value="" disabled selected>Select a range</option>
+                <option>Under 500</option>
+                <option>500 &ndash; 1,000</option>
+                <option>1,000 &ndash; 5,000</option>
+                <option>5,000 &ndash; 10,000</option>
+                <option>10,000+</option>
+              </select>
+            </label>
+            <label class="full"><span>Product &amp; dimensions *</span><input name="product" type="text" required placeholder="e.g. 2,000 rigid gift boxes — 180×90×45 mm" /></label>
+            <label><span>Material preference</span>
+              <select name="material">
+                <option>Not sure yet</option>
+                <option>Kraft &amp; corrugated (eco)</option>
+                <option>Rigid greyboard</option>
+                <option>Coated &amp; printed</option>
+                <option>Foiled / premium finish</option>
+                <option>Food-grade</option>
+              </select>
+            </label>
+            <label><span>Timeline</span>
+              <select name="timeline">
+                <option>No deadline set</option>
+                <option>ASAP (under 2 weeks)</option>
+                <option>2 &ndash; 4 weeks</option>
+                <option>1 &ndash; 2 months</option>
+                <option>Just exploring</option>
+              </select>
+            </label>
             <label class="full"><span>Message</span><textarea name="message" rows="4" placeholder="Materials, finish, deadline, any reference or sample you have&#8230;"></textarea></label>
           </div>
           <button class="btn btn-gold" type="submit">
@@ -112,27 +146,69 @@ const jsonLd = {
       </div>
     </section>
 
+    <!-- ============ FOUNDER'S NOTE ============ -->
+    <section class="founder">
+      <div class="wrap founder-grid">
+        <div class="founder-ph">
+          <img src="https://img.leelinepackage.com/contact/ray.webp" alt="Portrait of LeelinePackage founder Ray" width="768" height="1369" loading="lazy" />
+        </div>
+        <div class="founder-body">
+          <span class="eyebrow">Founder&#8217;s note</span>
+          <h2 class="founder-title">Hi, I&#8217;m <em>Ray</em>, the Founder of LeelinePackage</h2>
+          <p>Having spent over a decade in global trade, I saw firsthand the challenges businesses face in finding sustainable, reliable packaging solutions. The complexity of sourcing eco-friendly materials and ensuring quality was a constant hurdle. I knew there had to be a better way.</p>
+          <p>So, I created LeelinePackage in 2015. It&#8217;s a one-stop solution for brands wanting to bring their packaging ideas to life. We manage everything from design and sourcing to production and logistics. This lets our clients grow their business without the hassle of dealing with many suppliers.</p>
+          <p>LeelinePackage is more than packaging; it&#8217;s a partnership. We&#8217;re committed to delivering high-quality, eco-conscious solutions that meet each client&#8217;s unique needs. Our mission is to empower businesses with packaging that&#8217;s functional, sustainable, and beautifully crafted, supporting their success every step of the way.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="about-blurb">
+      <div class="wrap">
+        <h2 class="about-title">About LeelinePackage</h2>
+        <p class="about-text">Started in 2015, LeelinePackage is your trusted partner for custom packaging. We create top-quality, tailored packaging for businesses, retailers, and brands, using the best materials and skilled craftsmanship. We meet global standards with our products. We prioritize customer needs, helping them elevate their brand through innovative and personalized solutions.</p>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA (dark) ============ -->
+    <section class="cta" id="get-started">
+      <div class="wrap cta-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Contact</span>
+        <h1 class="cta-title">Get a <em>Free Quote</em> for Your Packaging</h1>
+        <p class="cta-sub">Tell us what you ship and the quantity — our engineers reply with a dieline, material and complete quote within 24 hours. No obligation, no sales pitch.</p>
+        <div class="section-cta">
+          <button class="btn btn-gold" type="button" id="ctaScroll">
+            Request Your Quote
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <Footer />
   </main>
 </Layout>
 
 <style>
-  /* Page hero (forest) */
-  .page-hero {
+  /* Final CTA band (forest) */
+  .cta {
     position: relative;
-    background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.42) 0%, rgba(20, 38, 27, 0.6) 100%), url('https://img.leelinepackage.com/contact/final-cta.webp') center / cover no-repeat;
     color: var(--ivory);
-    padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0;
     overflow: hidden;
   }
-  .page-hero-inner { position: relative; z-index: 1; text-align: center; }
-  .page-hero h1 {
+  .cta::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228, 181, 77, 0.13), transparent 70%); }
+  .cta-inner { position: relative; z-index: 1; text-align: center; }
+  .cta-title {
     font-family: var(--font-heading); font-weight: 500;
     font-size: clamp(2.6rem, 6vw, 5rem); line-height: 0.98; letter-spacing: -0.03em;
-    color: #FFFFFF; margin: 1.2rem 0 0; max-width: 22ch; margin-inline: auto; text-wrap: balance;
+    color: #FFFFFF; text-shadow: 0 2px 24px rgba(20, 38, 27, 0.4);
+    margin: 1.2rem 0 0; max-width: 22ch; margin-inline: auto; text-wrap: balance;
   }
-  .page-hero h1 em { font-style: italic; color: #E3C29A; }
-  .page-hero-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(255, 255, 255, 0.94); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+  .cta-title em { font-style: italic; color: #E3C29A; }
+  .cta-sub { font-size: clamp(1.04rem, 1.7vw, 1.22rem); line-height: 1.7; color: rgba(255, 255, 255, 0.94); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+  .cta .section-cta { margin-top: clamp(2.2rem, 5vw, 3rem); }
 
   /* Reassurance strip */
   .reassure { background: var(--kraft); border-top: 1px solid rgba(31, 59, 44, 0.1); border-bottom: 1px solid rgba(31, 59, 44, 0.1); padding: 1.1rem 0; }
@@ -142,7 +218,8 @@ const jsonLd = {
 
   /* Contact */
   .contact { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+  .contact-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+  .contact-info { order: 2; }
   .contact-info h2 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0 0 1rem; text-wrap: balance; }
   .contact-sub { font-size: 1.02rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 46ch; margin: 0 0 2.2rem; }
   .contact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.2rem; }
@@ -151,12 +228,12 @@ const jsonLd = {
   .contact-icon svg { width: 20px; height: 20px; }
   .contact-list div { display: flex; flex-direction: column; }
   .contact-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); }
-  .contact-list a { font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; color: var(--color-brand-text); }
+  .contact-list a { font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; color: var(--color-brand-text); overflow-wrap: anywhere; }
   .contact-list a:hover { color: var(--brass); }
   .contact-note { font-size: 0.92rem; line-height: 1.7; color: var(--color-brand-muted); margin-top: 2.2rem; max-width: 42ch; }
 
   /* Form */
-  .quote-form { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: 0 30px 60px -40px rgba(31, 59, 44, 0.35); }
+  .quote-form { order: 1; background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: 0 30px 60px -40px rgba(31, 59, 44, 0.35); }
   .form-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
   .form-head h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; color: var(--color-brand-text); margin: 0; }
   .form-head p { font-size: 0.8rem; color: var(--color-brand-muted); margin: 0; }
@@ -164,30 +241,63 @@ const jsonLd = {
   .form-grid label { display: flex; flex-direction: column; gap: 0.4rem; }
   .form-grid label.full { grid-column: 1 / -1; }
   .form-grid label > span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-muted); }
-  .form-grid input, .form-grid textarea {
+  .form-grid input, .form-grid textarea, .form-grid select {
     font-family: var(--font-body); font-size: 0.98rem; color: var(--color-brand-text);
     padding: 0.8rem 0.95rem; border-radius: 0.8rem; border: 1px solid rgba(31, 59, 44, 0.18); background: var(--ivory);
     transition: border-color 0.3s ease, box-shadow 0.3s ease; resize: vertical;
   }
-  .form-grid input:focus, .form-grid textarea:focus { outline: none; border-color: var(--brass); box-shadow: 0 0 0 3px rgba(176, 141, 76, 0.18); }
+  .form-grid select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23B08D4C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 0.9rem center; background-size: 16px;
+    cursor: pointer; padding-right: 2.5rem;
+  }
+  .form-grid input:focus, .form-grid textarea:focus, .form-grid select:focus { outline: none; border-color: var(--brass); box-shadow: 0 0 0 3px rgba(176, 141, 76, 0.18); }
   .quote-form .btn { width: 100%; margin-top: 1.4rem; }
   .form-status { font-size: 0.9rem; color: var(--color-brand-primary); margin: 0.9rem 0 0; min-height: 1.2rem; text-align: center; }
   .form-alt { font-size: 0.88rem; color: var(--color-brand-muted); text-align: center; margin: 0.6rem 0 0; }
   .form-alt a { color: var(--color-brand-primary); font-weight: 600; }
 
+  /* Founder's note */
+  .founder { background: var(--color-brand-surface); padding: clamp(4rem, 8vw, 7rem) 0; }
+  .founder-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+  .founder-ph {
+    aspect-ratio: 4 / 5; border-radius: 1.4rem; overflow: hidden;
+  }
+  .founder-ph img { width: 100%; height: 100%; object-fit: cover; }
+  .founder-body .eyebrow { margin-bottom: 1.1rem; }
+  .founder-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.8rem, 3.6vw, 2.9rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0; text-wrap: balance; }
+  .founder-title em { font-style: italic; color: var(--brass); }
+  .founder-body p { font-size: 1.03rem; line-height: 1.8; color: var(--color-brand-muted); margin: 1.3rem 0 0; }
+
+  /* About */
+  .about-blurb { background: var(--ivory); padding: clamp(3rem, 6vw, 5rem) 0; }
+  .about-blurb .wrap { text-align: center; }
+  .about-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0; text-wrap: balance; }
+  .about-text { font-size: 1.05rem; line-height: 1.8; color: var(--color-brand-muted); max-width: 68ch; margin: 1.3rem auto 0; }
+
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr; } }
   @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
 </style>
 
 <script>
   const form = document.getElementById('quoteForm');
   const status = document.getElementById('formStatus');
+  const ctaBtn = document.getElementById('ctaScroll');
+  ctaBtn.addEventListener('click', () => {
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => {
+      const firstInput = form.querySelector('input, select');
+      if (firstInput) firstInput.focus();
+    }, 500);
+  });
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const d = new FormData(form);
     const subject = `Quote request: ${d.get('product') || 'Packaging'}`;
     const body =
-      `Name: ${d.get('name')}\nEmail: ${d.get('email')}\nCompany: ${d.get('company') || '-'}\nPhone: ${d.get('phone') || '-'}\n\nProduct & quantity: ${d.get('product')}\n\nMessage:\n${d.get('message') || '-'}`;
+      `Name: ${d.get('name')}\nEmail: ${d.get('email')}\nCompany: ${d.get('company') || '-'}\nPhone: ${d.get('phone') || '-'}\n\nWhat do you need: ${d.get('need') || '-'}\nEstimated quantity: ${d.get('quantity') || '-'}\nMaterial preference: ${d.get('material') || '-'}\nTimeline: ${d.get('timeline') || '-'}\n\nProduct & dimensions: ${d.get('product')}\n\nMessage:\n${d.get('message') || '-'}`;
     const href = `mailto:info@leelinepackage.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     status.textContent = 'Opening your email client…';
     window.location.href = href;

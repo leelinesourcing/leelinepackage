@@ -59,29 +59,33 @@ const closures = [
   { name: 'Sleeve', v: ['Slip-on printed sleeve', 'Hand-applied', '14\u201324pt', 'No', 'Short and seasonal'] },
 ];
 
-/* What a folding carton saves against the box it replaces. */
+/* What a folding carton saves against the box it replaces. 60% is the original
+   site's own published figure ("up to 60% on transportation costs for bulk
+   orders") and was not on this page; it pairs with the 85% row as bill-vs-volume
+   rather than repeating it. */
 const savings = [
   { v: '30\u201340%', l: 'Lower unit cost', d: 'Than a rigid set-up box, printed on comparable board with the full finish range available on the surface.' },
   { v: '85%', l: 'Less freight volume', d: 'Blanks stack flat until the fill line folds them, and a container carries several times what built cartons would.' },
-  { v: '12\u201324pt', l: 'Board range', d: 'A sachet and a weighted gift set come off a single die room, leaving one supplier to cover the whole catalogue.' },
+  { v: '60%', l: 'Cheaper to land', d: 'Freight is priced on the space a load takes, not on the number of cartons, so an order of blanks costs less to move than the same run arriving assembled.' },
 ];
 
-/* The four decisions behind any carton. Each `items` entry is label + value. */
+/* The four decisions behind any carton. `img` is the card's background plate.
+   Each `items` entry is label + value. */
 const spec = [
-  { n: '01', t: 'Board', d: 'The sheet the whole structure is judged on.',
-    items: [['Stock', 'SBS, CCNB, kraft, 100% PCR'], ['Thickness', '12\u201324pt'], ['Food-grade', 'Grease and moisture barrier linings'], ['Certification', 'FSC\u00ae certificate issued per batch']] },
-  { n: '02', t: 'Structure', d: 'Drawn to the product, not to a stock size.',
+  { n: '01', t: 'Board', d: 'The sheet the whole structure is judged on.', img: `${FX}/spec-board.webp`,
+    items: [['Stock', 'SBS, CCNB, kraft, 100% PCR'], ['Thickness', '12\u201324pt'], ['Food-grade', 'Grease and moisture barrier linings'], ['Certification', 'Papers issued with every batch']] },
+  { n: '02', t: 'Structure', d: 'Drawn to the product, not to a stock size.', img: `${FX}/spec-structure.webp`,
     items: [['Constructions', 'Tuck end, auto bottom, seal end, sleeve, tray'], ['Custom', 'Die-cut silhouettes on any outline'], ['Dieline', 'Drawn in-house, or cut to a supplied file'], ['Inserts', 'Paperboard cradles, partitions, platforms']] },
-  { n: '03', t: 'Print', d: 'Colour matched to a reference, not to a screen.',
+  { n: '03', t: 'Print', d: 'Colour matched to a reference, not to a screen.', img: `${FX}/spec-print.webp`,
     items: [['Method', 'Offset, digital or flexo'], ['Colour', 'CMYK and Pantone spot'], ['Coatings', 'Soft-touch, gloss, matte, spot UV'], ['Finishes', 'Hot foil, emboss, deboss']] },
-  { n: '04', t: 'Features', d: 'The details that decide whether the carton works on the line.',
+  { n: '04', t: 'Features', d: 'The details that decide whether the carton works on the line.', img: `${FX}/spec-features.webp`,
     items: [['Windows', 'Die-cut aperture with film'], ['Security', 'Tamper-evident seal, tear strip'], ['Reclosing', 'Resealable strip, fold-over tab'], ['Hanging', 'Euro slot or hook tab for pegboard']] },
 ];
 
 /* Sustainability — the dark moment. */
 const eco = [
   { t: 'FSC\u00ae chain-of-custody board', d: 'Pulp traced from a certified forest through to the delivered pallet.' },
-  { t: 'SFI-recognised sourcing', d: 'A second scheme covering the mills that supply outside the FSC\u00ae estate.' },
+  { t: 'SFI-recognised sourcing', d: 'A second scheme covering the mills that sit outside the certified estate.' },
   { t: 'ISO 14001 management', d: 'An environmental system audited on the plant, not claimed in a brochure.' },
   { t: 'Water-based inks and adhesives', d: 'No solvent-borne VOCs vented from the press hall.' },
   { t: '42% less water, 35% less power', d: 'Measured across the plant after the last equipment upgrade.' },
@@ -120,28 +124,29 @@ const cases = [
     d: 'The construction before it becomes a box. Blanks are strapped and counted flat; a container carries far more than assembled cartons would.' },
 ];
 
-/* Real placements. Images are placeholders until the user supplies the shots. */
+/* Real placements. Keys carry `-v2` purely as a cache-bust: the originals were
+   overwritten and Cloudflare's edge held the old bytes for 4h (max-age=14400). */
 const scenes = [
-  { img: `${FX}/scene-1.webp`, cap: 'Filled and sealed on a snack line',
-    alt: 'A filling line sealing printed snack cartons' },
-  { img: `${FX}/scene-2.webp`, cap: 'Stacked two-high on a bakery counter',
-    alt: 'Printed bakery cartons stacked on a shop counter beside cakes' },
-  { img: `${FX}/scene-3.webp`, cap: 'Shelf-ready in a pharmacy aisle',
-    alt: 'Seal end cartons faced up on a pharmacy shelf' },
-  { img: `${FX}/scene-4.webp`, cap: 'Opened on a kitchen table',
-    alt: 'A customer opening a printed carton on a kitchen table' },
-  { img: `${FX}/scene-5.webp`, cap: 'Palletised for export',
-    alt: 'Bound stacks of flat cartons loaded on an export pallet' },
-  { img: `${FX}/scene-6.webp`, cap: 'Picked in a fulfilment centre',
-    alt: 'A picker scanning a printed carton in a fulfilment centre' },
+  { img: `${FX}/scene-1-v2.webp`, cap: 'Moved by hand on a warehouse floor',
+    alt: 'A warehouse worker moving a carton on a hand truck' },
+  { img: `${FX}/scene-2-v2.webp`, cap: 'Packed by hand, tissue and all',
+    alt: 'Hands packing a printed carton with coloured tissue paper' },
+  { img: `${FX}/scene-3-v2.webp`, cap: 'Checked on the floor before it ships',
+    alt: 'A woman crouching beside a carton on a warehouse floor' },
+  { img: `${FX}/scene-4-v2.webp`, cap: 'Faced up on a supermarket aisle',
+    alt: 'A supermarket aisle with printed cartons faced up on the shelves' },
+  { img: `${FX}/scene-5-v2.webp`, cap: 'Picked off the shelf, still sealed',
+    alt: 'A shopper lifting a printed carton from a store shelf' },
+  { img: `${FX}/scene-6-v2.webp`, cap: 'Opened at the counter',
+    alt: 'A shop assistant opening a white carton at a counter' },
 ];
 
 /* Two buyers, three paragraphs each. Rewritten from the factory's own review
    copy to lead with the specification instead of the praise. */
 const testimonials = [
   {
-    name: 'Michael Chen', role: 'Procurement Supervisor', co: 'FreshBite Snacks', loc: 'United States',
-    avatar: `${FX}/avatar-michael.webp`,
+    name: 'Marcus Whitfield', role: 'Procurement Supervisor', co: 'FreshBite Snacks', loc: 'United States',
+    avatar: `${FX}/avatar-marcus.webp`,
     q: [
       'Granola bars need a carton that takes a pallet and still looks worth picking up. The reverse tuck end sample came back with the board weight where it needed to be and the food-safe lining confirmed in writing.',
       'Spot UV sits on the logo exactly where the artwork placed it, and the carton reads from three metres down an aisle. Nothing scuffed through the coating on the first pallet.',
@@ -159,13 +164,14 @@ const testimonials = [
   },
 ];
 
-/* Questions the sections above have not already answered. */
+/* Questions no other section on this page answers. Anything already stated in a
+   spec row, the compare table or the process steps is deliberately kept out. */
 const faqs = [
-  { q: 'What is the smallest order for printed folding cartons?', a: '500 units per structure and artwork. Below that, the die and the plate set-up stop making economic sense, and a short run is better served by a stock carton with a printed label.' },
+  { q: 'What is the smallest order for printed folding cartons?', a: '500 units per structure and per artwork. Below that, the die and the plate set-up stop making economic sense, and a short run is better served by a stock carton with a printed label.' },
   { q: 'Will the cartons run on our existing packing line?', a: 'That is what the dieline is for. Send the line speed, the feed width and the magazine capacity, and creasing and board weight are set so the carton feeds and closes without an adjustment.' },
   { q: 'Can folding cartons be printed on the inside?', a: 'Yes. Inside print, a coloured liner and a printed insert are all available. An interior panel is the part a customer sees at the exact moment the carton opens.' },
-  { q: 'Who draws the dieline?', a: 'Either side can. Send a finished drawing and the die is cut to it, or send the flat artwork with the measurements and the die room draws the dieline first, sized to the board weight.' },
-  { q: 'Which cartons are food-safe?', a: 'Food-grade board with a grease-resistant or moisture-barrier lining, printed with water-based inks. Certificates covering both the board and the ink are issued with the batch.' },
+  { q: 'What if a batch does not match the approved sample?', a: 'The signed sample is the reference for the whole run. Where the variance sits with us, the batch is remade or the order credited.' },
+  { q: 'Can one order carry several sizes or artworks?', a: 'Each size needs its own die and each artwork its own plate set, so a mixed order is quoted as the sum of its parts. Keeping to a single size and a single artwork puts the unit price at its lowest.' },
 ];
 
 const seo = {
@@ -173,7 +179,7 @@ const seo = {
   description: 'Custom folding carton manufacturer creasing every carton to a 100% machine-automated fit, so it feeds at line speed. FSC board, 500-unit MOQ, samples in 5 days.',
   keywords: 'custom folding cartons, custom folding carton manufacturer, custom printed folding cartons, straight tuck end boxes, reverse tuck end boxes, auto bottom boxes, seal end cartons, cosmetic folding cartons, FSC certified folding cartons, folding carton supplier, paperboard cartons wholesale, custom packaging cartons China',
   canonical: 'https://www.leelinepackage.com/custom-folding-cartons/',
-  ogImage: `${FX}/hero.webp`,
+  ogImage: `${FX}/hero-v2.webp`,
 };
 
 const jsonLd = {
@@ -214,7 +220,7 @@ const jsonLd = {
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${FX}/hero.webp`}
+  preloadImage={`${FX}/hero-v2.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -236,8 +242,7 @@ const jsonLd = {
         </div>
 
         <figure class="fx-hero-figure" data-reveal="right">
-          <img src={`${FX}/hero.webp`} alt="A kraft tuck-end folding carton standing in raking sunlight" width={1080} height={864} loading="eager" fetchpriority="high" decoding="sync" class="fx-img" />
-          <figcaption class="fx-hero-chip">12&ndash;24pt board &middot; FSC&reg; stock</figcaption>
+          <img src={`${FX}/hero-v2.webp`} alt="A range of printed folding cartons in different shapes, boards and finishes" width={1300} height={867} loading="eager" fetchpriority="high" decoding="sync" class="fx-img" />
         </figure>
       </div>
 
@@ -341,7 +346,7 @@ const jsonLd = {
         </div>
         <div class="fx-save-grid">
           <figure class="fx-save-visual" data-reveal="left">
-            <img src={`${FX}/flat-packs.webp`} alt="Bound stacks of flat-folded kraft cartons waiting on the factory floor" width={500} height={400} loading="lazy" decoding="async" class="fx-img" />
+            <img src={`${FX}/savings.webp`} alt="Hands binding a kraft carton beside a strapped stack of board" width={1024} height={1024} loading="lazy" decoding="async" class="fx-img" />
             <figcaption>Bound flat, counted and strapped before they leave the floor</figcaption>
           </figure>
           <dl class="fx-save-figures">
@@ -367,7 +372,7 @@ const jsonLd = {
 
         <div class="fx-spec-grid">
           {spec.map((s, i) => (
-            <article class="fx-spec-plate" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
+            <article class="fx-spec-plate" data-reveal="up" style={`--spec-bg:url('${s.img}'); --d:${(i % 2) * 0.08}s`}>
               <span class="fx-spec-n">{s.n}</span>
               <h3>{s.t}</h3>
               <p class="fx-spec-d">{s.d}</p>
@@ -391,12 +396,12 @@ const jsonLd = {
       <div class="fx-grain"></div>
       <div class="wrap fx-eco-inner">
         <div class="fx-eco-copy" data-reveal="left">
-          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>FSC&reg; certified</span>
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Independently certified</span>
           <h2 class="section-title">Folding Cartons Are <em>the Recyclable Choice</em></h2>
           <p class="fx-eco-sub">A printed paperboard carton goes into the paper stream with the Sunday paper. Nothing about that has to be taken on trust, because every claim below is covered by a certificate that ships with the order.</p>
           <div class="fx-eco-cta">
             <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-              Request FSC Paperwork
+              Ask for the Paper Trail
               <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
           </div>
@@ -415,7 +420,7 @@ const jsonLd = {
     <!-- ============ PROCESS — plant tour + sample loop, one sequence ============ -->
     <section class="fx-flow" id="process">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How it runs</span>
           <h2 class="section-title" data-reveal="up">Drawn, Sampled, Printed and Glued <em>Under One Roof</em></h2>
           <p class="section-sub" data-reveal="up">A carton is judged in the hand, not on a proof, so the structure is signed off folded and filled before tooling is committed. Nothing is trucked between vendors, and no batch waits on another shop&rsquo;s queue.</p>
@@ -471,7 +476,7 @@ const jsonLd = {
         <div class="section-head">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>In the field</span>
           <h2 class="section-title" data-reveal="up">The Same Cartons, <em>Out in the Field</em></h2>
-          <p class="section-sub" data-reveal="up">Filled on a line, stacked on a counter, opened at home &mdash; six placements from the last year.</p>
+          <p class="section-sub" data-reveal="up">Six placements from the last year, once the cartons have left the line.</p>
         </div>
 
         <div class="fx-sc-rail" data-reveal="up">
@@ -542,7 +547,7 @@ const jsonLd = {
       <div class="wrap fx-final-inner">
         <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote, itemised</span>
         <h2 class="fx-final-title" data-reveal="up">A Carton Quote, <em>Costed Line by Line</em></h2>
-        <p class="fx-final-sub" data-reveal="up">Send the product dimensions and the artwork. Board, printing, the die and freight come back itemised separately, with the unit price broken out at each quantity break, letting the number be checked rather than taken on trust. A named account manager holds the order from that first quote through to the last pallet.</p>
+        <p class="fx-final-sub" data-reveal="up">Send the product dimensions and the artwork. Board, printing, the die and freight come back itemised separately at each quantity break, letting the number be checked rather than taken on trust.</p>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Price My Carton Run
@@ -587,11 +592,13 @@ const jsonLd = {
     content: ''; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(58% 62% at 88% 12%, rgba(228,181,77,0.16), transparent 68%);
   }
+  /* image column is 1fr at a 1.3:1.15-equivalent split and the gutter is 0.5cm
+     tighter, which grows the figure ~0.5cm wider without moving the copy column */
   .fx-hero-grid {
     position: relative;
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: clamp(2rem, 4.4vw, 3.8rem);
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(1.6rem, 2.9vw, 2.6rem);
     align-items: center;
   }
   .fx-hero-title {
@@ -620,20 +627,12 @@ const jsonLd = {
     margin: 0;
     border-radius: 1.5rem;
     overflow: hidden;
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 7 / 5;
     background: var(--clay);
     box-shadow: 0 40px 80px -50px rgba(31,59,44,0.55);
   }
-  .fx-hero-chip {
-    position: absolute; left: 1rem; bottom: 1rem;
-    background: rgba(245,240,229,0.94);
-    backdrop-filter: blur(8px);
-    color: var(--color-brand-text);
-    font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 0.55rem 0.95rem; border-radius: 999px;
-    border: 1px solid rgba(176,141,76,0.4);
-  }
+  /* the hero chip was removed: every fact it could carry (board thickness, FSC,
+     the stock list) already appears elsewhere, so it only added repetition */
 
   /* trust row — enlarged on request */
   .fx-trust {
@@ -696,7 +695,13 @@ const jsonLd = {
   .fx-cmp-table tbody tr:hover td { background: rgba(31,59,44,0.06); }
 
   /* ============ BRIDGE CTA — compare → cost ============ */
-  .fx-bridge { background: var(--color-brand-surface); padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+  /* light again, but a much thinner scrim than the first attempt (which was
+     .84/.92 and buried the photo completely) */
+  .fx-bridge {
+    position: relative;
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+    background: linear-gradient(180deg, rgba(245,240,229,0.62) 0%, rgba(245,240,229,0.74) 100%), url('https://img.leelinepackage.com/folding-cartons/mid-cta.webp') center / cover no-repeat;
+  }
   /* stacked: eyebrow + title + sub, then the button underneath */
   .fx-bridge-inner { text-align: center; max-width: 64rem; margin-inline: auto; }
   .fx-bridge .section-sub { margin-inline: auto; }
@@ -710,9 +715,10 @@ const jsonLd = {
   /* figures column tops out level with the image, not vertically centred */
   .fx-save-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
   .fx-save-visual { margin: 0; }
-  .fx-save-visual img { border-radius: 1.3rem; aspect-ratio: 5 / 4; }
+  .fx-save-visual img { border-radius: 1.3rem; aspect-ratio: 1 / 1; }
   .fx-save-visual figcaption { margin-top: 0.9rem; font-size: 0.95rem; line-height: 1.55; color: var(--color-brand-muted); }
-  .fx-save-figures { margin: 0; border-top: 1px solid rgba(31,59,44,0.18); }
+  /* dropped 1cm so the rows sit against the middle of the image, not its top edge */
+  .fx-save-figures { margin: 0; border-top: 1px solid rgba(31,59,44,0.18); position: relative; top: 1cm; }
   /* fixed first track so every description starts on the same left edge;
      `start` tops the label + copy level with the numeral rather than on its baseline */
   .fx-save-row { display: grid; grid-template-columns: 12.5rem 1fr; gap: 1.4rem; align-items: start; padding: clamp(1.2rem, 2.6vw, 1.8rem) 0; border-bottom: 1px solid rgba(31,59,44,0.14); }
@@ -729,18 +735,28 @@ const jsonLd = {
   /* ============ SPECIFICATION ============ */
   .fx-spec { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 700px; }
   .fx-spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  /* each plate is a photo under a forest scrim, so the copy inverts to ivory —
+     the user tried a light version and asked for this one back */
   .fx-spec-plate {
-    background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.3rem;
+    position: relative;
+    border: 1px solid rgba(245,240,229,0.16); border-radius: 1.3rem;
     padding: clamp(1.5rem, 3vw, 2.3rem);
-    box-shadow: 0 26px 54px -46px rgba(31,59,44,0.5);
+    background-color: var(--forest-deep);
+    background-image: linear-gradient(180deg, rgba(20,38,27,0.6) 0%, rgba(20,38,27,0.9) 100%), var(--spec-bg);
+    background-size: auto, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    box-shadow: 0 30px 60px -46px rgba(20,38,27,0.8);
   }
-  .fx-spec-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; color: var(--brass); }
-  .fx-spec-plate h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.85rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
-  .fx-spec-d { font-size: 0.95rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
-  .fx-spec-rows { display: grid; grid-template-columns: auto 1fr; gap: 0; margin: clamp(1.2rem, 2.4vw, 1.7rem) 0 0; border-top: 1px solid rgba(31,59,44,0.14); }
-  .fx-spec-rows dt, .fx-spec-rows dd { padding: 0.72rem 0; margin: 0; border-bottom: 1px solid rgba(31,59,44,0.09); font-size: 0.9rem; line-height: 1.5; }
-  .fx-spec-rows dt { font-weight: 600; color: var(--color-brand-text); padding-right: 1.2rem; white-space: nowrap; }
-  .fx-spec-rows dd { color: var(--color-brand-muted); }
+  /* the bold lines (card number + row labels) carry the on-dark accent; the
+     values stay pure white, so the two kinds of line read apart at a glance */
+  .fx-spec-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.14em; color: #E3C29A; }
+  .fx-spec-plate h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.85rem); letter-spacing: -0.015em; color: #fff; margin: 0.5rem 0 0; }
+  .fx-spec-d { font-size: 1.03rem; line-height: 1.66; color: #fff; margin: 0.7rem 0 0; }
+  .fx-spec-rows { display: grid; grid-template-columns: auto 1fr; gap: 0; margin: clamp(1.2rem, 2.4vw, 1.7rem) 0 0; border-top: 1px solid rgba(245,240,229,0.34); }
+  .fx-spec-rows dt, .fx-spec-rows dd { padding: 0.78rem 0; margin: 0; border-bottom: 1px solid rgba(245,240,229,0.2); font-size: 0.98rem; line-height: 1.5; }
+  .fx-spec-rows dt { font-weight: 600; color: #E3C29A; padding-right: 1.2rem; white-space: nowrap; }
+  .fx-spec-rows dd { color: #fff; }
 
   /* ============ SUSTAINABILITY (dark) ============ */
   .fx-eco {
@@ -762,25 +778,35 @@ const jsonLd = {
   .fx-eco-list strong { display: block; font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: #fff; }
   .fx-eco-list p { margin: 0.3rem 0 0; font-size: 0.92rem; line-height: 1.6; color: rgba(255,255,255,0.72); }
 
-  /* ============ PROCESS — a rail with nodes, not a card grid ============ */
+  /* ============ PROCESS — a centred stepper on one rail ============ */
   .fx-flow { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 800px; }
-  .fx-flow-track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2.2vw, 1.8rem); }
-  .fx-flow-step { position: relative; }
-  /* connector running from this node's right edge to the next column's left edge */
-  .fx-flow-step::before {
-    content: ''; position: absolute; top: 23px; left: 46px; height: 1px;
-    width: calc(100% + clamp(1rem, 2.2vw, 1.8rem) - 46px);
+  /* the head is not boxed into the narrow centred column any more, and the sub
+     sets in two wide lines */
+  .fx-flow .section-head--center { max-width: 100%; }
+  .fx-flow .section-sub { max-width: 100ch; margin-inline: auto; }
+  .fx-flow-track {
+    --flow-gap: clamp(1rem, 2.2vw, 1.8rem);
+    list-style: none; margin: 0; padding: 0; position: relative;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--flow-gap);
+  }
+  /* ONE rail behind the nodes, inset half a column at each end so it starts and
+     stops on the first and last node rather than running off the edge */
+  .fx-flow-track::before {
+    content: ''; position: absolute; top: 23px; height: 1px;
+    left: calc((100% - 5 * var(--flow-gap)) / 12);
+    right: calc((100% - 5 * var(--flow-gap)) / 12);
     background: rgba(31,59,44,0.24);
   }
-  .fx-flow-step:last-child::before { display: none; }
+  .fx-flow-step { text-align: center; }
   .fx-flow-node {
-    position: relative; display: grid; place-items: center;
+    position: relative; z-index: 1; margin-inline: auto;
+    display: grid; place-items: center;
     width: 46px; height: 46px; border-radius: 50%;
-    background: var(--ivory); border: 1px solid rgba(31,59,44,0.24);
-    font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; color: var(--brass);
-    transition: border-color 0.3s ease, background 0.3s ease;
+    background: var(--forest-light); color: var(--ivory);
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem;
+    transition: background 0.3s ease;
   }
-  .fx-flow-step:hover .fx-flow-node { border-color: var(--brass); background: rgba(176,141,76,0.08); }
+  .fx-flow-step:hover .fx-flow-node { background: var(--brass); }
   .fx-flow-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.25; color: var(--color-brand-text); margin: 1.1rem 0 0; }
   .fx-flow-step p { font-size: 0.87rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
 
@@ -853,7 +879,9 @@ const jsonLd = {
   .fx-final {
     position: relative; overflow: hidden; color: var(--ivory);
     background: linear-gradient(180deg, rgba(20,38,27,0.68) 0%, rgba(20,38,27,0.8) 100%), url('https://img.leelinepackage.com/folding-cartons/final-cta.webp') center / cover no-repeat;
-    padding: clamp(3.5rem, 9vw, 7.5rem) 0;
+    /* 2.5cm shorter than the shared CTA padding — 1.25cm off each side, floored
+       so narrow viewports do not lose all their breathing room */
+    padding: max(3rem, calc(clamp(3.5rem, 9vw, 7.5rem) - 1.25cm)) 0;
   }
   .fx-final-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228,181,77,0.13), transparent 70%); }
   .fx-final-inner { position: relative; text-align: center; }
@@ -866,14 +894,16 @@ const jsonLd = {
     .fx-hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
     .fx-hero-figure { aspect-ratio: 16 / 11; }
     .fx-save-grid { grid-template-columns: 1fr; }
+    .fx-save-figures { top: 0; }
     .fx-eco-inner { grid-template-columns: 1fr; }
     .fx-eco-list { top: 0; }
     .fx-flow-track { grid-template-columns: 1fr; gap: 0; }
-    .fx-flow-step { display: grid; grid-template-columns: 46px 1fr; column-gap: 1.2rem; padding-bottom: 1.7rem; }
-    .fx-flow-node { grid-row: 1 / span 2; }
+    .fx-flow-track::before { display: none; }
+    .fx-flow-step { display: grid; grid-template-columns: 46px 1fr; column-gap: 1.2rem; text-align: left; padding-bottom: 1.7rem; position: relative; }
+    .fx-flow-node { grid-row: 1 / span 2; margin-inline: 0; }
     .fx-flow-step h3 { margin-top: 0.25rem; }
-    /* rail turns vertical, running from the node down to the next one */
-    .fx-flow-step::before { top: 46px; left: 23px; width: 1px; height: calc(100% - 46px); }
+    /* rail turns vertical again, running from the node down to the next one */
+    .fx-flow-step::before { content: ''; position: absolute; top: 46px; left: 23px; width: 1px; height: calc(100% - 46px); background: rgba(31,59,44,0.24); }
     .fx-flow-step:last-child { padding-bottom: 0; }
     .fx-type-grid { grid-template-columns: repeat(2, 1fr); }
     .fx-sc-slide { flex: 0 0 calc((100% - 1rem) / 2); }

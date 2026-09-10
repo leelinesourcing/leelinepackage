@@ -19,6 +19,9 @@ const stat = [
    Kept deliberately free of taglines: the Box types section above already describes each type,
    so repeating it here would read as duplicate copy. Images are placeholders. */
 const compareRows = ['Full-colour print', 'Recyclable paperboard', 'Custom sizes and dielines', 'Rigid board shell', 'Fitted insert'];
+/* Row-level modifiers for the compare table: the zebra stripe + the hairline above every row but the
+   first (the first row butts straight onto the header band, as in the reference). */
+const cmpRow = (i) => `${i % 2 === 0 ? ' cx-cmp-lite' : ''}${i > 0 ? ' cx-cmp-rule' : ''}`;
 const compare = [
   { name: 'Rigid Boxes', yes: [true, true, true, true, true] },
   { name: 'Magnetic Closure Boxes', yes: [true, true, true, true, true] },
@@ -284,13 +287,13 @@ const jsonLd = {
         </div>
         <div class="cx-cmp-rail" data-reveal="up">
           <div class="cx-cmp-track" style={`grid-template-rows: auto repeat(${compareRows.length}, auto)`}>
-            <p class="cx-cmp-name" aria-hidden="true"></p>
-            {compareRows.map((r) => <p class="cx-cmp-label">{r}</p>)}
-            {compare.map((c) => (
+            <p class="cx-cmp-name cx-cmp-r-tl" aria-hidden="true"></p>
+            {compareRows.map((r, i) => <p class={`cx-cmp-label${cmpRow(i)}${i === compareRows.length - 1 ? ' cx-cmp-r-bl' : ''}`}>{r}</p>)}
+            {compare.map((c, ci) => (
               <>
-                <h3 class="cx-cmp-name">{c.name}</h3>
+                <h3 class={`cx-cmp-name${ci === compare.length - 1 ? ' cx-cmp-r-tr' : ''}`}>{c.name}</h3>
                 {compareRows.map((r, i) => (
-                  <p class="cx-cmp-cell">
+                  <p class={`cx-cmp-cell${cmpRow(i)}${ci === compare.length - 1 && i === compareRows.length - 1 ? ' cx-cmp-r-br' : ''}`}>
                     {c.yes[i]
                       ? <svg class="cx-cmp-ico cx-cmp-ico--yes" viewBox="0 0 24 24" role="img" aria-label={`${r}: included`}><circle cx="12" cy="12" r="11.5" fill="currentColor" /><path d="M6.8 12.3l3.4 3.4L17.2 9.1" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
                       : <svg class="cx-cmp-ico cx-cmp-ico--no" viewBox="0 0 24 24" role="img" aria-label={`${r}: not offered`}><circle cx="12" cy="12" r="11.5" fill="currentColor" opacity=".14" /><path d="M6.5 12h11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>}
@@ -669,13 +672,46 @@ const jsonLd = {
   .cx-cmp { background: var(--ivory); border-top: 1px solid rgba(31,59,44,0.1); padding: clamp(4rem, 9vw, 8rem) 0; }
   /* head sits tighter to the table than the shared .section-head default (-0.5cm) */
   .cx-cmp .section-head { margin-bottom: calc(clamp(2.5rem, 6vw, 5rem) - 0.5cm); }
-  .cx-cmp-rail { overflow-x: auto; padding-bottom: 0.9rem; }
-  /* grid-auto-flow: column makes every column share one set of rows, so the labels and the
-     check cells line up row for row — the table behaviour of the reference. */
-  .cx-cmp-track { display: grid; grid-auto-flow: column; grid-template-columns: 140px; grid-auto-columns: minmax(190px, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.15rem); }
-  .cx-cmp-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.25; color: var(--color-brand-text); text-align: center; margin: 0.4rem 0 1.1rem; }
-  .cx-cmp-label { min-height: 46px; display: flex; align-items: center; font-size: 0.86rem; line-height: 1.3; font-weight: 600; color: var(--color-brand-text); margin: 0; padding: 0.15rem 0; }
-  .cx-cmp-cell { min-height: 46px; display: flex; align-items: center; justify-content: center; margin: 0; }
+  /* Matches the supplied reference (`images/custom box/表格样式.png`): forest header band, zebra rows,
+     HORIZONTAL rules only, no outer border, rounded corners.
+     The corners are rounded on the four corner CELLS. Don't try to round the rail instead — a scroll
+     container's rounded clip renders short of the radius asked for, and stops lining up once the
+     mobile scrollbar appears. And do NOT add `overflow: hidden` to the track: it would clip the
+     columns and kill the rail's horizontal scroll on narrow screens. */
+  .cx-cmp-rail { overflow-x: auto; margin-bottom: 0.9rem; }
+  .cx-cmp-r-tl { border-top-left-radius: 0.75rem; }
+  .cx-cmp-r-tr { border-top-right-radius: 0.75rem; }
+  .cx-cmp-r-bl { border-bottom-left-radius: 0.75rem; }
+  .cx-cmp-r-br { border-bottom-right-radius: 0.75rem; }
+  /* grid-auto-flow: column makes every column share one set of rows, so the labels and the check cells
+     line up row for row — the table behaviour of the reference.
+     No gap: the rules are `border-top` on each row after the first (`.cx-cmp-rule`), NOT a tinted track
+     showing through gutters. A track background would also show through the rounded corner notches. */
+  .cx-cmp-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 200px;
+    grid-auto-columns: minmax(190px, 1fr);
+  }
+  /* the cream stripe is the page's own ivory; the lighter stripe lifts it with a white wash. Both live
+     on the label AND the cells so the band runs the full width of the row. */
+  .cx-cmp-label, .cx-cmp-cell { background-color: var(--ivory); }
+  .cx-cmp-lite { background-image: linear-gradient(rgba(255,255,255,0.68), rgba(255,255,255,0.68)); }
+  .cx-cmp-rule { border-top: 1px solid rgba(96,92,78,0.22); }  /* --color-brand-muted over ivory */
+  /* the header band; no rule under it — the band's own edge runs straight into the first row */
+  .cx-cmp-name {
+    background: var(--color-forest);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.3;
+    color: var(--ivory);
+    text-align: center;
+    margin: 0;
+    padding: 0.95rem 0.8rem 1.05rem;
+  }
+  .cx-cmp-label { min-height: 54px; display: flex; align-items: center; font-size: 0.94rem; line-height: 1.35; font-weight: 600; color: var(--color-brand-text); margin: 0; padding: 0.35rem 1rem; }
+  .cx-cmp-cell { min-height: 54px; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0.35rem 0.5rem; }
   .cx-cmp-ico { width: 26px; height: 26px; }
   .cx-cmp-ico--yes { color: var(--forest-light); }
   .cx-cmp-ico--no { color: var(--color-moss); }
@@ -887,6 +923,9 @@ const jsonLd = {
     .cx-mat-list { grid-template-columns: 1fr; }
     .cx-car-slide { flex: 0 0 100%; }
     .cx-hero-cta .btn { width: 100%; }
+    /* the table scrolls sideways on a phone either way — a narrower label column leaves more of the
+       first product column in view */
+    .cx-cmp-track { grid-template-columns: 152px; }
   }
 </style>
 

@@ -7,7 +7,7 @@ const products = ['Custom Boxes', 'Custom Bags', 'Rigid Boxes', 'Mailer Boxes', 
 const info = [
   { label: 'About Us', href: '/#about' },
   { label: 'Blog', href: '/#work' },
-  { label: 'Contact Us', href: '/contact' },
+  { label: 'Contact Us', href: '/contact/' },
   { label: 'Privacy Policy', href: '/' },
 ];
 
@@ -22,7 +22,7 @@ const socials = [
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand brand--light" href="/" aria-label="LeelinePackage home">
+        <a class="brand brand--light" href="/" target="_blank" rel="noopener" aria-label="LeelinePackage home">
           <img class="brand-logo" src={LOGO} alt="LeelinePackage" loading="lazy" />
         </a>
         <p class="footer-tagline">Engineered, not just printed.</p>
@@ -39,12 +39,12 @@ const socials = [
 
       <nav class="footer-col" aria-label="Popular products">
         <h4>Popular Products</h4>
-        {products.map((p) => <a href="/#offerings">{p}</a>)}
+        {products.map((p) => <a href="/#offerings" target="_blank" rel="noopener">{p}</a>)}
       </nav>
 
       <nav class="footer-col" aria-label="Company">
         <h4>Company Info</h4>
-        {info.map((i) => <a href={i.href}>{i.label}</a>)}
+        {info.map((i) => <a href={i.href} target="_blank" rel="noopener">{i.label}</a>)}
       </nav>
 
       <div class="footer-col footer-col--contact">
@@ -53,7 +53,7 @@ const socials = [
         <a href="tel:+8613986152456">+86 139 8615 2456</a>
         <span>Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China</span>
         <span>Mon–Sat · 9:00–18:00 CST</span>
-        <a class="btn btn-gold btn-sm" href="/contact/">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="btn btn-gold btn-sm" href="/contact/" target="_blank" rel="noopener">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
 

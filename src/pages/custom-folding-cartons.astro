@@ -592,13 +592,13 @@ const jsonLd = {
     content: ''; position: absolute; inset: 0; pointer-events: none;
     background: radial-gradient(58% 62% at 88% 12%, rgba(228,181,77,0.16), transparent 68%);
   }
-  /* image column is 1fr at a 1.3:1.15-equivalent split and the gutter is 0.5cm
-     tighter, which grows the figure ~0.5cm wider without moving the copy column */
+  /* image column is 1fr against a 1.25fr copy column, with the gutter pulled in
+     again to buy the figure another ~0.5cm without moving the text */
   .fx-hero-grid {
     position: relative;
     display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: clamp(1.6rem, 2.9vw, 2.6rem);
+    grid-template-columns: 1.25fr 1fr;
+    gap: clamp(1.25rem, 1.6vw, 1.5rem);
     align-items: center;
   }
   .fx-hero-title {

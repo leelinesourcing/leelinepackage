@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { Image } from 'astro:assets';
 
 const R2 = 'https://img.leelinepackage.com';
 const CX = `${R2}/custom-box`;
@@ -10,9 +9,22 @@ const CX = `${R2}/custom-box`;
 /* Hero stat rail — the four figures the page stands on. */
 const stat = [
   { v: '98%', l: 'customer satisfaction' },
-  { v: '500\u2013500,000', l: 'units on one order' },
+  { v: '500\u2013500,000', l: 'units on a single order' },
   { v: '4\u20136 weeks', l: 'from artwork to pallet' },
-  { v: '3\u20135 days', l: 'to hold a sample' },
+  { v: '5\u20137 days', l: 'to hold a sample' },
+];
+
+/* Compare rail — a table: a row-label column, then one column per box type.
+   Each `yes` entry lines up with `compareRows` (true = that type carries that row).
+   Kept deliberately free of taglines: the Box types section above already describes each type,
+   so repeating it here would read as duplicate copy. Images are placeholders. */
+const compareRows = ['Full-colour print', 'Recyclable paperboard', 'Custom sizes and dielines', 'Rigid board shell', 'Fitted insert'];
+const compare = [
+  { name: 'Rigid Boxes', yes: [true, true, true, true, true] },
+  { name: 'Magnetic Closure Boxes', yes: [true, true, true, true, true] },
+  { name: 'Custom Jewelry Boxes', yes: [true, true, true, true, true] },
+  { name: 'Display Boxes', yes: [true, true, true, false, false] },
+  { name: 'Apparel Boxes', yes: [true, true, true, false, false] },
 ];
 
 /* The nine box types the factory runs. */
@@ -37,38 +49,73 @@ const types = [
     alt: 'A black box with a foam insert beside a printed carton', d: 'A fitted cradle plus ESD-safe material, so the device arrives unmarked.' },
 ];
 
-/* Protection engineering — what goes wrong, and what stops it. */
+/* Protection engineering — what goes wrong, what stops it, and why the fix works.
+   `icon` is raw INNER svg markup (several shapes), injected with set:html.
+   Icons are deliberately literal — an isometric carton, a carton with a loose item, a water
+   droplet and a delivery truck — so each reads at a glance against its uppercase symptom label. */
 const protect = [
-  { bad: 'Crushed corners', fix: 'Double-wall BC flute on the faces that carry the stack.' },
-  { bad: 'Rattle inside', fix: 'A die-cut cradle that holds the item still, however it lands.' },
-  { bad: 'Moisture in transit', fix: 'A coated liner and a tight, sealed fit for the damp routes.' },
-  { bad: 'Freight paid on air', fix: 'Board right-sized to the product, not to the pallet.' },
+  { bad: 'Crushed corners', fix: 'Double-wall BC flute on the faces that carry the stack.', d: 'A corner takes the first hit whenever a pallet is set down, so the flute is doubled exactly where the load lands.',
+    icon: '<path d="M12 3 3 7.6l9 4.5 9-4.5z"/><path d="M3 7.6v8.8L12 21v-8.9"/><path d="M21 7.6v8.8L12 21"/>' },
+  { bad: 'Rattle inside', fix: 'A die-cut cradle that holds the item still, however it lands.', d: 'The insert is cut to the product rather than padded around it, and nothing shifts on a rough leg of the route.',
+    icon: '<path d="M3.5 6.5h17v13h-17z"/><circle cx="9.2" cy="15.6" r="2.2"/>' },
+  { bad: 'Moisture in transit', fix: 'A coated liner and a tight, sealed fit for the damp routes.', d: 'Damp air softens corrugated from the inside out; the liner seals moisture off before the board gives.',
+    icon: '<path d="M12 4c2.8 3.6 5.5 6.4 5.5 9.2a5.5 5.5 0 0 1-11 0C6.5 10.4 9.2 7.6 12 4z"/>' },
+  { bad: 'Freight paid on air', fix: 'Board right-sized to the product, not to the pallet.', d: 'Empty space is volume paid to ship, and paid again on the next order.',
+    icon: '<path d="M2.5 7h10.5v8.6H2.5z"/><path d="M13 10.2h3.9l2.6 2.7v2.7H13z"/><path d="M6.6 15.6a1.9 1.9 0 0 1 0 3.8 1.9 1.9 0 0 1 0-3.8"/><path d="M16.6 15.6a1.9 1.9 0 0 1 0 3.8 1.9 1.9 0 0 1 0-3.8"/>' },
+];
+
+/* The four conditions a structure is signed off against. */
+const tests = [
+  { t: 'Drop', d: 'A free-fall from the height the route actually hands a parcel.' },
+  { t: 'Compression', d: 'A stack load past the pallet those boxes will sit under.' },
+  { t: 'Vibration', d: 'Truck and rail shake, run long enough to loosen a marginal fit.' },
+  { t: 'Humidity', d: 'Damp air, where corrugated gives up its strength first.' },
 ];
 
 /* Why a brand picks this factory. */
 const why = [
-  { n: '01', t: 'Quality Assurance at Every Stage', d: 'Prepress, the press operator and a final inspector each sign off, so box ten thousand matches box one.' },
+  { n: '01', t: 'Quality Assurance at Every Stage', d: 'Prepress, the press operator and a final inspector each sign off; box ten thousand matches box one.' },
   { n: '02', t: 'Runs Sized to the Order', d: 'A test batch and a full rollout come off the same line, with nothing retooled between them.' },
-  { n: '03', t: 'Tailored, Never Template', d: 'Sizes, shapes and finishes are drawn to the product, so nothing ships in a near-enough stock carton.' },
+  { n: '03', t: 'Tailored, Never Template', d: 'Sizes, shapes and finishes follow the product, never a near-enough stock carton.' },
   { n: '04', t: 'One Account Manager', d: 'A single contact holds the order from the first quote to the last pallet, and answers on the same day.' },
 ];
 
-/* Production scale and the reasons it holds up. */
+/* Production scale and the reasons it holds up. `icon` is one <path d> drawn in a 24×24 box. */
 const facts = [
-  { t: 'Board Sourced Locally', d: 'Raw material arrives from nearby mills, so procurement never waits on an import.' },
-  { t: 'Sited Near a Major Port', d: 'Dispatch leaves from a port city, which keeps transit short and predictable.' },
-  { t: 'One-Stop Production', d: 'Printing, die-cutting, gluing and packing all happen under a single roof.' },
-  { t: 'Visible at Every Handoff', d: 'Order status is checked and shared at each stage, from prepress to pallet.' },
+  { t: 'Board Sourced Locally', tag: 'Mills a short drive away', d: 'Board comes from mills within a short drive of the floor; procurement never waits on an import to clear a port before the next run starts.', icon: 'M12 3 3 7.5l9 4.5 9-4.5zM3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5' },
+  { t: 'Sited Near a Major Port', tag: 'A short inland haul', d: 'Dispatch leaves from a port city, keeping the inland leg short with a choice of sailings each week.', icon: 'M12 3.8a2.2 2.2 0 0 1 0 4.4 2.2 2.2 0 0 1 0-4.4M12 8.2V20M8.5 11h7M4 13a8 8 0 0 0 16 0' },
+  { t: 'One-Stop Production', tag: 'Nothing leaves the building', d: 'Printing, die-cutting, gluing and packing all happen on site, with nothing trucked between vendors and no colour re-registered at a second shop.', icon: 'M3 20V9.2L12 4l9 5.2V20zM9 20v-6h6v6' },
+  { t: 'Visible at Every Handoff', tag: 'No blind spots', d: 'Order status is checked and shared at each stage, from prepress through the run to the pallet; a delay surfaces early enough to protect the delivery date.', icon: 'M2 12a10 6 0 0 1 20 0 10 6 0 0 1-20 0M12 8.6a3.4 3.4 0 0 1 0 6.8 3.4 3.4 0 0 1 0-6.8' },
 ];
 
 /* Specialty formats beyond the standard carton. */
 const formats = [
-  { name: 'Pillow Box', img: `${CX}/format-pillow.webp`, alt: 'Two striped pillow boxes with curved ends', d: 'A curved, glued pocket for small gifts and confectionery.' },
-  { name: 'Fence Partition Box', img: `${CX}/format-fence.webp`, alt: 'A kraft corrugated partition insert forming divided cells', d: 'Divided cells that keep bottles and jars from touching.' },
-  { name: 'Tray Box', img: `${CX}/format-tray.webp`, alt: 'A shallow kraft tray box with a white outer', d: 'A shallow open tray for sets, kits and subscription boxes.' },
-  { name: 'Header Card', img: `${CX}/format-header-card.webp`, alt: 'A printed header card stapled to a clear bag of granola', d: 'A printed card that hangs a bag or pouch on a retail peg.' },
-  { name: 'French Fry Box', img: `${CX}/format-french-fry.webp`, alt: 'A kraft tapered french fry box filled with fries', d: 'A tapered scoop for snacks sold and eaten on the move.' },
-  { name: 'Punch Partition Box', img: `${CX}/format-punch.webp`, alt: 'A white punch partition insert with round cut-outs', d: 'A slotted insert that locks items upright and apart.' },
+  { name: 'Pillow Box', img: `${CX}/format-pillow.webp`, alt: 'Two striped pillow boxes with curved ends',
+    d: 'A curved pocket glued from a single die-cut, rounded at both ends.', best: 'Gifts, confectionery, jewellery' },
+  { name: 'Fence Partition Box', img: `${CX}/format-fence.webp`, alt: 'A kraft corrugated partition insert forming divided cells',
+    d: 'Corrugated cells stand between bottles and jars, taking the knock of glass against glass.', best: 'Bottles, jars, spirits, oils' },
+  { name: 'Tray Box', img: `${CX}/format-tray.webp`, alt: 'A shallow kraft tray box with a white outer',
+    d: 'A shallow open tray that presents its contents as soon as the lid or sleeve comes off.', best: 'Sets, kits, subscription boxes', blend: true },
+  { name: 'Header Card', img: `${CX}/format-header-card.webp`, alt: 'A printed header card stapled to a clear bag of granola',
+    d: 'A printed card turns a plain bag or pouch into peg-ready retail, with no printed bag to order.', best: 'Bags and pouches on pegs' },
+  { name: 'French Fry Box', img: `${CX}/format-french-fry.webp`, alt: 'A kraft tapered french fry box filled with fries',
+    d: 'A tapered scoop a hand can hold and a mouth can eat from, greased and food-safe inside.', best: 'Street food, snacks, catering' },
+  { name: 'Punch Partition Box', img: `${CX}/format-punch.webp`, alt: 'A white punch partition insert with round cut-outs',
+    d: 'A slotted insert that holds each item upright and apart, a cell per unit.', best: 'Candles, tubes, ampoules' },
+];
+
+/* Materials & compliance — specifics already established elsewhere on the site (homepage, footer)
+   but NEW to this page's body, so the band adds information instead of restating it.
+   `icon` is raw inner svg markup, injected with set:html. */
+const materials = [
+  { t: 'FSC\u00ae chain-of-custody board', d: 'Paper and board traced back through the forest supply chain: the FSC claim you print is one you can stand behind.',
+    icon: '<path d="M12 3.5 7.4 9.1h9.2z"/><path d="M12 8.2 6 14.8h12z"/><path d="M12 14.8V21"/>' },
+  { t: 'Recycled kraft, B/C/E flute', d: 'The board grades most orders run on, held in stock rather than ordered job by job.',
+    icon: '<path d="M6.2 9.5a6.5 6.5 0 0 1 11.3-.5"/><path d="M17.8 5.4v3.8h-3.8"/><path d="M17.8 14.5a6.5 6.5 0 0 1-11.3.5"/><path d="M6.2 18.6v-3.8h3.8"/>' },
+  { t: 'Soy-based inks', d: 'Print chemistry that keeps the sheet in the paper recycling stream.',
+    icon: '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z"/><path d="M6.5 17.5 15.5 8.5"/>' },
+  { t: 'ISO 9001 quality system', d: 'A documented, audited system behind every run.',
+    icon: '<circle cx="12" cy="9.4" r="5.4"/><path d="M8.6 14.2 7 21l5-2.6 5 2.6-1.6-6.8"/>' },
 ];
 
 /* The four presses behind every run. */
@@ -79,12 +126,16 @@ const printMethods = [
   { name: 'Screen Printing', img: `${CX}/print-screen.webp`, alt: 'Hands pulling a squeegee across a screen-printing frame', d: 'Thick ink with a tactile lift, for bold colour on specialty board.' },
 ];
 
-/* Boxes that left the floor. */
+/* Boxes that left the floor — the user's six unboxing / application photos.
+   Keys are descriptive rather than case-1…6 on purpose: the old `case-N` URLs were already cached
+   in browsers from an earlier build, so re-using them meant visitors kept seeing the old shots. */
 const cases = [
-  { img: `${CX}/case-1.webp`, alt: 'Kraft cartons with clear window panels beside plain white boxes', cap: 'Window cartons on kraft board' },
-  { img: `${CX}/case-2.webp`, alt: 'Printed gift boxes tied with green and red ribbon', cap: 'A holiday gift box, printed and tied' },
-  { img: `${CX}/case-3.webp`, alt: 'A clear gift box with a printed insert and a bow', cap: 'A clear gift box with a printed insert' },
-  { img: `${CX}/case-4.webp`, alt: 'Black rigid boxes with a fitted insert and foil detail', cap: 'A rigid set in black, foiled and cradled' },
+  { img: `${CX}/case-unboxing.webp`, alt: 'A woman lifting orange tissue paper out of an open kraft mailer box', cap: 'A mailer unwrapped at home' },
+  { img: `${CX}/case-jewelry-box.webp`, alt: 'A child opening a floral-printed rigid jewelry box with a ballerina inside', cap: 'A printed musical jewelry box' },
+  { img: `${CX}/case-gift-box.webp`, alt: 'A couple holding a lilac rigid gift box tied with a satin bow', cap: 'A lilac rigid box, ribboned' },
+  { img: `${CX}/case-display-unit.webp`, alt: 'A large printed retail display box standing on a shop floor beside stacked confectionery cartons', cap: 'A retail display unit in store' },
+  { img: `${CX}/case-food-cartons.webp`, alt: 'A cook in black gloves closing filled kraft food cartons on a counter', cap: 'Kraft food cartons on the pass' },
+  { img: `${CX}/case-shipping-box.webp`, alt: 'A worker taping a tablet into a brown corrugated mailer beside a wall of flat-packed boxes', cap: 'A shipping box packed and taped' },
 ];
 
 /* Two customers, three paragraphs each, varied openings. */
@@ -95,7 +146,7 @@ const testimonials = [
     q: [
       'A limited-edition series needed packaging that felt handmade and still survived a courier. The first sample arrived with the dieline tight, the foil sitting exactly on the mark, and board heavier than the spec sheet promised.',
       'Nothing shifted inside on the way to the taproom. Four hundred cases were stacked, palletised and shipped without a crushed corner \u2014 something this brewery could not say before.',
-      'One contact handled the reorder from quote to delivery, and the dates never moved. A seasonal release can only be planned around a supplier that repeats itself.',
+      'The same person handled the reorder from quote to delivery, and the dates never moved. A seasonal release can only be planned around a supplier that repeats itself.',
     ],
   },
   {
@@ -104,7 +155,7 @@ const testimonials = [
     q: [
       'Scaling up meant parcels that could take a sorting belt and still look worth photographing. The mailers that came back were rigid where it mattered and printed right to the edge.',
       'Damage dropped once the flute and the insert changed. Fewer replacements, fewer refunds, and a returns pile that is now mostly size exchanges instead of crush claims.',
-      'Every size variant was drawn as one system, so each SKU folds to the same footprint and stacks without gaps in the warehouse.',
+      'The size variants were drawn as a system; each SKU folds to the same footprint and stacks without gaps in the warehouse.',
     ],
   },
 ];
@@ -114,13 +165,13 @@ const faqs = [
   { q: 'Can I approve a dieline before production starts?', a: 'Yes. A cut file and a 3D mockup are shared for sign-off before any board is cut, and the run follows the dieline that was approved.' },
   { q: 'How is the price of a custom box worked out?', a: 'Board grade, box size, print method, finish and run length set the unit price. Send the quantity and the artwork, and the quote itemises each line.' },
   { q: 'Can the inside of a box be printed?', a: 'Yes. Inside print, a coloured liner and a printed insert are all available, and they show the moment the lid comes off.' },
-  { q: 'Can the boxes ship flat to save freight?', a: 'Folding cartons and many rigid styles are delivered flat or knocked down, so a container carries far more than it would with assembled boxes.' },
+  { q: 'Can the boxes ship flat to save freight?', a: 'Folding cartons and many rigid styles are delivered flat or knocked down, and a container carries far more than it would with assembled boxes.' },
   { q: 'What if a batch does not match the approved sample?', a: 'Where the variance sits with us, the run is remade or the order credited. The approved sample is the reference for the whole batch.' },
 ];
 
 const seo = {
-  title: 'Custom Box Manufacturer: 500-Unit MOQ, Damage-Tested Cartons',
-  description: 'Custom box manufacturer building corrugated, rigid and folding cartons. Damage-tested structure, low 500-unit MOQ, and a sample signed off before the first run.',
+  title: 'Custom Box Manufacturer: 500-Unit MOQ, Damage Capped at 0.2%',
+  description: 'Custom box manufacturer building corrugated, rigid and folding cartons. A 500-unit MOQ, damage-tested structure, and transit damage held under 0.2% on each run.',
   keywords: 'custom box manufacturer, custom boxes, custom packaging boxes, corrugated box manufacturer, rigid box manufacturer, folding carton manufacturer, custom printed boxes, custom box factory, wholesale custom boxes, custom display boxes, custom mailer boxes, packaging box supplier',
   canonical: 'https://www.leelinepackage.com/custom-box-manufacturer/',
   ogImage: `${CX}/hero.webp`,
@@ -175,8 +226,8 @@ const jsonLd = {
       <div class="cx-grain"></div>
       <div class="wrap cx-hero-inner">
         <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>China custom box factory &middot; Design to pallet</span>
-        <h1 class="cx-hero-title" data-reveal="up">Custom Box Manufacturer: <em>Engineered to Protect What It Ships</em></h1>
-        <p class="cx-hero-sub" data-reveal="up">Every carton is built around the product inside &mdash; the right flute, the right fit and a structure that survives the last mile. Fewer crushed parcels, fewer refunds, and a shelf presence that still reads premium when the tape comes off.</p>
+        <h1 class="cx-hero-title" data-reveal="up">Custom Box Manufacturer: <em>Heavy-Duty Protection, &lt;0.2% Transit Damage</em></h1>
+        <p class="cx-hero-sub" data-reveal="up">Products that arrive intact, returns that stop climbing, and an unboxing that still feels worth the price. That is the job the box does in the last mile &mdash; where a crushed corner becomes a refund and a scuffed lid becomes a review.</p>
         <div class="cx-hero-cta" data-reveal="up">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Start Your Box Project
@@ -200,13 +251,13 @@ const jsonLd = {
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Box types</span>
           <h2 class="section-title" data-reveal="up">Box Types Built Around <em>the Product Inside</em></h2>
-          <p class="section-sub" data-reveal="up">Nine constructions, one factory. Pick the shape that suits what goes in it, then the board, the fit and the finish get tuned to the channel.</p>
+          <p class="section-sub" data-reveal="up">Nine constructions under a single roof: the box suits the product, not whatever the line happens to be running &mdash; with board, fit and finish tuned to the channel it sells through.</p>
         </div>
         <div class="cx-type-grid">
           {types.map((t, i) => (
             <article class="cx-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.1}s`}>
               <figure class="cx-type-ph">
-                <Image src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="cx-img" />
+                <img src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="cx-img" />
               </figure>
               <span class="cx-type-num">{t.n}</span>
               <h3 class="cx-type-name">{t.name}</h3>
@@ -223,28 +274,35 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ PROTECTION ENGINEERING (dark) ============ -->
-    <section class="cx-pro" id="protection">
-      <div class="cx-pro-shade"></div>
-      <div class="wrap cx-pro-inner">
-        <div class="cx-pro-head" data-reveal="up">
-          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Protection engineering</span>
-          <h2 class="cx-pro-title">The Cheapest Place to Stop a Return <em>Is the Box</em></h2>
-          <p class="cx-pro-sub">A crushed carton costs the product, the freight and the customer. Structure is settled before the press runs, because the flute, the board and the fit decide what survives a sorting belt.</p>
+    <!-- ============ COMPARE PRODUCTS ============ -->
+    <section class="cx-cmp" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Compare</span>
+          <h2 class="section-title" data-reveal="up">The Box Types, <em>Side by Side</em></h2>
+          <p class="section-sub" data-reveal="up">Five box types on the same five points &mdash; the decision gets made on structure rather than on a recommendation.</p>
         </div>
-        <div class="cx-pro-grid">
-          {protect.map((p, i) => (
-            <div class="cx-pro-row" data-reveal="up" style={`--d:${i * 0.07}s`}>
-              <span class="cx-pro-bad">{p.bad}</span>
-              <span class="cx-pro-arrow" aria-hidden="true">&rarr;</span>
-              <span class="cx-pro-fix">{p.fix}</span>
-            </div>
-          ))}
+        <div class="cx-cmp-rail" data-reveal="up">
+          <div class="cx-cmp-track" style={`grid-template-rows: auto repeat(${compareRows.length}, auto)`}>
+            <p class="cx-cmp-name" aria-hidden="true"></p>
+            {compareRows.map((r) => <p class="cx-cmp-label">{r}</p>)}
+            {compare.map((c) => (
+              <>
+                <h3 class="cx-cmp-name">{c.name}</h3>
+                {compareRows.map((r, i) => (
+                  <p class="cx-cmp-cell">
+                    {c.yes[i]
+                      ? <svg class="cx-cmp-ico cx-cmp-ico--yes" viewBox="0 0 24 24" role="img" aria-label={`${r}: included`}><circle cx="12" cy="12" r="11.5" fill="currentColor" /><path d="M6.8 12.3l3.4 3.4L17.2 9.1" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                      : <svg class="cx-cmp-ico cx-cmp-ico--no" viewBox="0 0 24 24" role="img" aria-label={`${r}: not offered`}><circle cx="12" cy="12" r="11.5" fill="currentColor" opacity=".14" /><path d="M6.5 12h11" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>}
+                  </p>
+                ))}
+              </>
+            ))}
+          </div>
         </div>
-        <p class="cx-pro-note" data-reveal="up">Drop and compression tested to ISTA 2A on the structure, so the failure is found in the lab rather than after the first complaint.</p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-            Book a Structure Review
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Get a Recommendation
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -253,16 +311,16 @@ const jsonLd = {
 
     <!-- ============ WHY ============ -->
     <section class="cx-why">
-      <div class="wrap cx-why-grid">
-        <figure class="cx-why-visual" data-reveal="left">
-          <Image src={`${CX}/brand.webp`} alt="Workers assembling printed boxes on the factory floor" width={800} height={761} loading="lazy" decoding="async" class="cx-img" />
-        </figure>
-        <div class="cx-why-body">
-          <div class="cx-why-head" data-reveal="up">
-            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Why a brand picks us</span>
-            <h2 class="section-title">A Custom Box Manufacturer <em>Built Around the Order</em></h2>
-            <p class="section-sub">Four things that change once the factory answers to the brand rather than to a catalogue.</p>
-          </div>
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Why a brand picks us</span>
+          <h2 class="section-title" data-reveal="up">A Custom Box Manufacturer <em>Built Around the Order</em></h2>
+          <p class="section-sub" data-reveal="up">Four things that change once the factory answers to your brand rather than to a catalogue.</p>
+        </div>
+        <div class="cx-why-grid">
+          <figure class="cx-why-visual" data-reveal="left">
+            <img src={`${CX}/brand.webp`} alt="Workers assembling printed boxes on the factory floor" width={800} height={761} loading="lazy" decoding="async" class="cx-img" />
+          </figure>
           <ol class="cx-why-list">
             {why.map((w, i) => (
               <li class="cx-why-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
@@ -278,30 +336,131 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ PRODUCTION SCALE ============ -->
+    <!-- ============ MID CTA ============ -->
+    <section class="cx-midcta">
+      <div class="wrap">
+        <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote</span>
+        <h2 class="cx-midcta-title" data-reveal="up">Tell Us What You Ship, <em>We&rsquo;ll Engineer the Box</em></h2>
+        <p class="cx-midcta-sub" data-reveal="up">An engineer works out the structure from the product and the channel it ships through &mdash; the box quoted is the box that fits.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Talk to an Engineer
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROTECTION ENGINEERING (dark) ============ -->
+    <section class="cx-pro" id="protection">
+      <div class="wrap">
+        <div class="cx-pro-head" data-reveal="up">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Protection engineering</span>
+            <h2 class="cx-pro-title">The Cheapest Place to Stop a Return <em>Is the Box</em></h2>
+            <p class="cx-pro-lead">A crushed carton costs the product, the freight and the customer. <strong>Structure is settled before the press runs</strong>, because <a class="cx-inline-link" href="/structural-engineering-and-design/" target="_blank" rel="noopener">the flute, the board and the fit</a> decide what survives a sorting belt.</p>
+          </div>
+          <aside class="cx-pro-stat">
+            <small>Engineering rule</small>
+            <p>Find the failure in the lab, not after the first complaint.</p>
+          </aside>
+        </div>
+        <p class="cx-pro-label" data-reveal="up">Four ways a carton usually loses</p>
+        <div class="cx-pro-cards">
+          {protect.map((p, i) => (
+            <article class="cx-pro-card" data-reveal="up" style={`--d:${(i % 2) * 0.07}s`}>
+              <span class="cx-pro-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" set:html={p.icon}></svg>
+              </span>
+              <div>
+                <div class="cx-pro-bad">{p.bad}</div>
+                <h3>{p.fix}</h3>
+                <p>{p.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <aside class="cx-pro-lab" data-reveal="up">
+          <div class="cx-pro-lab-top">
+            <h3 class="cx-pro-lab-title">The structure is signed off to ISTA 2A on the sample</h3>
+            <span class="cx-pro-badge">Lab before launch</span>
+          </div>
+          <p class="cx-pro-note">ISTA 2A is a partial-simulation protocol for parcels up to 68 kg: atmospheric conditioning, compression, vibration and shock.</p>
+          <div class="cx-pro-tests">
+            {tests.map((t) => (
+              <div class="cx-pro-test">
+                <span class="cx-pro-dot" aria-hidden="true"></span>
+                <b>{t.t}</b>
+                <p>{t.d}</p>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ PRODUCTION SCALE (intro column + 2×2 fact cards) ============ -->
     <section class="cx-cap">
       <div class="wrap">
-        <figure class="cx-cap-visual" data-reveal="up">
-          <Image src={`${CX}/factory.webp`} alt="Stacked corrugated sheets on the floor of the box factory" width={800} height={600} loading="lazy" decoding="async" class="cx-img" />
-        </figure>
-        <div class="cx-cap-head" data-reveal="up">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Production scale</span>
-          <h2 class="section-title">From a First Run of 500 <em>to a Half-Million Units</em></h2>
-          <p class="section-sub">One line covers the trial order and the rollout, and more than five hundred brands a month pass down it.</p>
+        <div class="cx-cap-track" data-reveal="up">
+          <div class="cx-cap-intro">
+            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Production scale</span>
+            <h2 class="cx-cap-title">Every Order Size, <em>One Floor</em></h2>
+            <p class="cx-cap-sub">Half a million units a month across more than five hundred brands &mdash; volume you can plan a launch around, with board and a container port a short hop away.</p>
+          </div>
+          <div class="cx-cap-cards">
+            {facts.map((f) => (
+              <div class="cx-cap-fact">
+                <span class="cx-cap-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={f.icon} /></svg>
+                </span>
+                <h3>{f.t}</h3>
+                <p class="cx-cap-tag">{f.tag}</p>
+                <p>{f.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="cx-cap-range" data-reveal="up">
-          <span class="cx-cap-num">500</span>
-          <span class="cx-cap-dash" aria-hidden="true">&mdash;</span>
-          <span class="cx-cap-num">500,000</span>
-          <span class="cx-cap-label">units on a single order</span>
+      </div>
+    </section>
+
+    <!-- ============ MATERIALS & COMPLIANCE ============ -->
+    <section class="cx-mat">
+      <div class="wrap">
+        <div class="cx-mat-head" data-reveal="up">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Materials</span>
+            <h2 class="section-title">Board, Inks and <em>the Paperwork</em></h2>
+            <p class="section-sub">What a box is made of decides whether it recycles and whether it passes an audit.</p>
+          </div>
+          <div class="cx-mat-certs">
+            <figure class="cx-mat-cert">
+              <img src={`${R2}/custom-box/cert-fsc.webp`} alt="FSC chain-of-custody certificate" width={880} height={1210} loading="lazy" decoding="async" class="cx-img" />
+            </figure>
+            <figure class="cx-mat-cert">
+              <img src={`${R2}/custom-box/cert-iso-9001.webp`} alt="ISO 9001 quality management system certificate" width={377} height={530} loading="lazy" decoding="async" class="cx-img" />
+            </figure>
+          </div>
         </div>
-        <div class="cx-cap-facts">
-          {facts.map((f, i) => (
-            <div class="cx-cap-fact" data-reveal="up" style={`--d:${i * 0.07}s`}>
-              <h3>{f.t}</h3>
-              <p>{f.d}</p>
-            </div>
+        <ul class="cx-mat-list">
+          {materials.map((m, i) => (
+            <li class="cx-mat-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="cx-mat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" set:html={m.icon}></svg>
+              </span>
+              <div class="cx-mat-copy">
+                <span class="cx-mat-rule" aria-hidden="true"></span>
+                <strong>{m.t}</strong>
+                <span>{m.d}</span>
+              </div>
+            </li>
           ))}
+        </ul>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Ask About Materials
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -309,21 +468,26 @@ const jsonLd = {
     <!-- ============ SPECIALTY FORMATS ============ -->
     <section class="cx-formats">
       <div class="wrap">
-        <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Specialty formats</span>
-          <h2 class="section-title" data-reveal="up">Six Shapes That Solve <em>a Specific Problem</em></h2>
-          <p class="section-sub" data-reveal="up">Beyond the standard carton, for products that refuse to sit in a rectangle.</p>
+        <div class="cx-format-head">
+          <div class="cx-format-head-l">
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Specialty formats</span>
+            <h2 class="section-title" data-reveal="up">Six Shapes That Solve <em>a Specific Problem</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Beyond the standard carton, for products that refuse to sit in a rectangle. Each shape is drawn to the product, the shelf and the count in the order.</p>
         </div>
         <div class="cx-format-grid">
           {formats.map((f, i) => (
             <article class="cx-format-item" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
-              <figure class="cx-format-ph">
-                <Image src={f.img} alt={f.alt} width={520} height={400} loading="lazy" decoding="async" class="cx-img" />
-              </figure>
-              <div class="cx-format-copy">
-                <h3>{f.name}</h3>
-                <p>{f.d}</p>
+              <div class="cx-format-top">
+                <figure class="cx-format-ph">
+                  <img src={f.img} alt={f.alt} width={520} height={400} loading="lazy" decoding="async" class={`cx-img${f.blend ? ' cx-img--blend' : ''}`} />
+                </figure>
+                <div class="cx-format-copy">
+                  <h3>{f.name}</h3>
+                  <p>{f.d}</p>
+                </div>
               </div>
+              <p class="cx-format-best"><span>Best for</span><strong>{f.best}</strong></p>
             </article>
           ))}
         </div>
@@ -336,23 +500,20 @@ const jsonLd = {
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Printing</span>
           <h2 class="section-title" data-reveal="up">Four Presses, <em>One Colour Standard</em></h2>
-          <p class="section-sub" data-reveal="up">The method is chosen for the artwork and the board, then held to a Pantone reference across every reprint.</p>
+          <p class="section-sub" data-reveal="up">Colour is held to a Pantone reference: a later reprint still sits beside the first run on the shelf.</p>
         </div>
         <div class="cx-print-grid">
           {printMethods.map((p, i) => (
             <article class="cx-print-card" data-reveal="up" style={`--d:${(i % 4) * 0.07}s`}>
               <figure class="cx-print-ph">
-                <Image src={p.img} alt={p.alt} width={600} height={500} loading="lazy" decoding="async" class="cx-img" />
+                <img src={p.img} alt={p.alt} width={600} height={500} loading="lazy" decoding="async" class="cx-img" />
               </figure>
               <h3>{p.name}</h3>
               <p>{p.d}</p>
             </article>
           ))}
         </div>
-        <figure class="cx-print-band" data-reveal="up">
-          <Image src={`${CX}/print-printed-boxes.webp`} alt="An open kraft box holding a printed thank-you card" width={600} height={400} loading="lazy" decoding="async" class="cx-img" />
-          <figcaption>Inside print, inserts and thank-you cards run on the same pass as the outside.</figcaption>
-        </figure>
+        <p class="cx-print-note" data-reveal="up"><a class="cx-inline-link" href="/packaging-artwork-design/" target="_blank" rel="noopener">Artwork can be prepared for you</a>, and <a class="cx-inline-link" href="/packaging-sample-prototyping/" target="_blank" rel="noopener">a sample run</a> puts the first printed box in your hand before the order is placed.</p>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
             Request a Printed Sample
@@ -362,20 +523,30 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ CASES ============ -->
+    <!-- ============ CASES (looping carousel) ============ -->
     <section class="cx-cases" id="cases">
       <div class="wrap">
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>From the floor</span>
           <h2 class="section-title" data-reveal="up">Boxes That Left <em>the Floor</em></h2>
         </div>
-        <div class="cx-case-grid">
-          {cases.map((c, i) => (
-            <figure class="cx-case-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
-              <Image src={c.img} alt={c.alt} width={800} height={700} loading="lazy" decoding="async" class="cx-img" />
-              <figcaption><span>{c.cap}</span></figcaption>
-            </figure>
-          ))}
+        <div class="cx-carousel" data-reveal="up">
+          <button class="cx-car-btn cx-car-btn--prev" type="button" aria-label="Previous boxes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="cx-car-vp">
+            <div class="cx-car-track">
+              {cases.map((c) => (
+                <figure class="cx-car-slide">
+                  <img src={c.img} alt={c.alt} width={800} height={700} loading="lazy" decoding="async" class="cx-img" />
+                  <figcaption class="cx-car-cap"><span>{c.cap}</span></figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button class="cx-car-btn cx-car-btn--next" type="button" aria-label="Next boxes">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -394,7 +565,7 @@ const jsonLd = {
                 {t.q.map((p) => <p>{p}</p>)}
               </div>
               <footer class="cx-quote-person">
-                <Image src={t.avatar} alt={`${t.name} portrait`} width={220} height={220} loading="lazy" decoding="async" class="cx-avatar" />
+                <img src={t.avatar} alt={`${t.name} portrait`} width={220} height={220} loading="lazy" decoding="async" class="cx-avatar" />
                 <div>
                   <strong>{t.name}</strong>
                   <span>{t.role}, {t.co} &middot; {t.loc}</span>
@@ -423,6 +594,7 @@ const jsonLd = {
         </div>
       </div>
     </section>
+
 
     <!-- ============ FINAL CTA ============ -->
     <section class="cx-final" id="get-started">
@@ -465,7 +637,7 @@ const jsonLd = {
     background-position: center; background-size: cover;
     padding: clamp(6rem, 13vw, 10rem) 0 clamp(7rem, 14vw, 10.5rem);
   }
-  .cx-hero-shade { position: absolute; inset: 0; background: linear-gradient(105deg, rgba(20,38,27,0.86) 0%, rgba(20,38,27,0.62) 46%, rgba(20,38,27,0.34) 100%); }
+  .cx-hero-shade { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(20,38,27,0.94) 0%, rgba(20,38,27,0.80) 44%, rgba(20,38,27,0.42) 100%); }
   .cx-hero-inner { position: relative; z-index: 2; }
   .cx-hero-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.4rem, 5.6vw, 4.7rem); line-height: 1.03; letter-spacing: -0.03em; color: #fff; max-width: 19ch; margin: 1.2rem 0 0; text-wrap: balance; text-shadow: 0 2px 30px rgba(20,38,27,0.5); }
   .cx-hero-title em { font-style: italic; color: #E3C29A; }
@@ -482,6 +654,8 @@ const jsonLd = {
 
   /* ============ BOX TYPES ============ */
   .cx-types { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  /* the shared 46ch sub would wrap this to 3 lines — spread it wide instead of cutting copy */
+  .cx-types .section-sub { max-width: 88ch; }
   .cx-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem) clamp(1.1rem, 2.4vw, 1.7rem); }
   .cx-type-card { border-top: 1px solid rgba(31,59,44,0.16); padding-top: clamp(1rem, 2vw, 1.4rem); }
   .cx-type-ph { margin: 0; aspect-ratio: 1 / 1; border-radius: 1rem; overflow: hidden; background: var(--color-brand-surface); }
@@ -491,55 +665,109 @@ const jsonLd = {
   .cx-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
   .cx-type-desc { font-size: 0.92rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.45rem 0 0; max-width: 40ch; }
 
-  /* ============ PROTECTION ENGINEERING (dark) ============ */
-  .cx-pro { position: relative; overflow: hidden; color: var(--ivory); padding: clamp(4.5rem, 10vw, 9rem) 0; }
-  .cx-pro::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,38,27,0.78) 0%, rgba(20,38,27,0.88) 100%), url('https://img.leelinepackage.com/custom-box/protect.webp') center / cover no-repeat; }
-  .cx-pro-shade { position: absolute; inset: 0; background: radial-gradient(70% 60% at 82% 20%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
-  .cx-pro-inner { position: relative; z-index: 2; }
-  .cx-pro-head { max-width: 62ch; }
-  .cx-pro-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.04; letter-spacing: -0.025em; color: #fff; margin: 1.1rem 0 0; text-wrap: balance; }
-  .cx-pro-title em { font-style: italic; color: #E3C29A; }
-  .cx-pro-sub { font-size: 1.05rem; line-height: 1.72; color: rgba(245,240,229,0.84); max-width: 60ch; margin: 1.3rem 0 0; }
-  .cx-pro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(1.6rem, 4vw, 3.4rem); margin-top: clamp(2.4rem, 5vw, 3.6rem); }
-  .cx-pro-row { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 0.85rem; padding: clamp(1rem, 2.2vw, 1.35rem) 0; border-top: 1px solid rgba(245,240,229,0.18); }
-  .cx-pro-bad { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; color: var(--brass-soft); }
-  .cx-pro-arrow { color: rgba(245,240,229,0.5); font-size: 0.95rem; }
-  .cx-pro-fix { font-size: 0.95rem; line-height: 1.6; color: rgba(245,240,229,0.9); }
-  .cx-pro-note { margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 1.1rem 1.3rem; border-left: 3px solid var(--brass); background: rgba(245,240,229,0.06); border-radius: 0 0.8rem 0.8rem 0; font-size: 0.98rem; line-height: 1.65; color: rgba(245,240,229,0.92); max-width: 74ch; }
-  .cx-pro .section-cta { justify-content: flex-start; }
+  /* ============ COMPARE PRODUCTS (table: row labels + one column per box type) ============ */
+  .cx-cmp { background: var(--ivory); border-top: 1px solid rgba(31,59,44,0.1); padding: clamp(4rem, 9vw, 8rem) 0; }
+  /* head sits tighter to the table than the shared .section-head default (-0.5cm) */
+  .cx-cmp .section-head { margin-bottom: calc(clamp(2.5rem, 6vw, 5rem) - 0.5cm); }
+  .cx-cmp-rail { overflow-x: auto; padding-bottom: 0.9rem; }
+  /* grid-auto-flow: column makes every column share one set of rows, so the labels and the
+     check cells line up row for row — the table behaviour of the reference. */
+  .cx-cmp-track { display: grid; grid-auto-flow: column; grid-template-columns: 140px; grid-auto-columns: minmax(190px, 1fr); column-gap: clamp(0.75rem, 1.6vw, 1.15rem); }
+  .cx-cmp-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.25; color: var(--color-brand-text); text-align: center; margin: 0.4rem 0 1.1rem; }
+  .cx-cmp-label { min-height: 46px; display: flex; align-items: center; font-size: 0.86rem; line-height: 1.3; font-weight: 600; color: var(--color-brand-text); margin: 0; padding: 0.15rem 0; }
+  .cx-cmp-cell { min-height: 46px; display: flex; align-items: center; justify-content: center; margin: 0; }
+  .cx-cmp-ico { width: 26px; height: 26px; }
+  .cx-cmp-ico--yes { color: var(--forest-light); }
+  .cx-cmp-ico--no { color: var(--color-moss); }
+
+  /* ============ PROTECTION ENGINEERING (light — head grid + failure cards + lab panel) ============ */
+  .cx-pro { position: relative; overflow: hidden; background: var(--color-brand-surface); color: var(--color-brand-text); padding: clamp(4rem, 9vw, 7rem) 0; }
+  .cx-pro-head { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 4vw, 3rem); align-items: end; padding-bottom: clamp(2rem, 4vw, 3.2rem); border-bottom: 1px solid rgba(31,59,44,0.14); }
+  .cx-pro-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.1; letter-spacing: -0.028em; color: var(--color-brand-text); text-wrap: balance; margin: 1.1rem 0 0; }
+  .cx-pro-title em { font-style: italic; color: var(--brass); }
+  .cx-pro-lead { font-size: 1.06rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 46ch; margin: 1.3rem 0 0; }
+  .cx-pro-lead strong { color: var(--color-brand-text); font-weight: 600; }
+  /* in-body cross-links to the service pages — bold + colour, no underline. Uses the green rather
+     than brass on purpose: brass on kraft/ivory is only ~2.4:1 contrast and would fail as a link. */
+  .cx-inline-link { color: var(--forest-light); font-weight: 600; text-decoration: none; transition: color 0.3s ease; }
+  .cx-inline-link:hover { color: var(--brass); }
+  .cx-pro-stat { background: var(--forest-deep); color: var(--ivory); border-radius: 1rem; padding: clamp(1.2rem, 2.2vw, 1.5rem); }
+  .cx-pro-stat small { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.72; margin-bottom: 0.5rem; }
+  .cx-pro-stat p { font-family: var(--font-heading); font-size: 1.18rem; line-height: 1.38; margin: 0; }
+  .cx-pro-label { margin: clamp(2.4rem, 4.5vw, 3.2rem) 0 clamp(1rem, 2vw, 1.35rem); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brand-muted); }
+  .cx-pro-cards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.9rem, 2vw, 1.35rem); }
+  .cx-pro-card { display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: start; background: var(--ivory); border: 1px solid rgba(31,59,44,0.12); border-radius: 1rem; padding: clamp(1.3rem, 2.2vw, 1.6rem); box-shadow: 0 10px 28px rgba(20,38,27,0.05); }
+  .cx-pro-icon { width: 44px; height: 44px; border-radius: 0.75rem; background: var(--color-brand-surface); color: var(--brass); display: grid; place-items: center; }
+  .cx-pro-icon svg { width: 22px; height: 22px; }
+  .cx-pro-bad { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.4rem; }
+  .cx-pro-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.24rem, 1.7vw, 1.36rem); line-height: 1.22; color: var(--color-brand-text); margin: 0 0 0.55rem; }
+  .cx-pro-card p { font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+  .cx-pro-lab { position: relative; overflow: hidden; margin-top: clamp(2.6rem, 5vw, 3.6rem); background: var(--forest-deep); color: var(--ivory); border-radius: 1.4rem; padding: clamp(1.8rem, 3.4vw, 2.4rem); }
+  .cx-pro-lab::after { content: ''; position: absolute; inset: auto -2.5rem -5rem auto; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(228,181,77,0.28), transparent 68%); pointer-events: none; }
+  .cx-pro-lab-top { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: start; margin-bottom: 1.5rem; }
+  .cx-pro-lab-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; letter-spacing: -0.02em; color: #fff; max-width: 28ch; margin: 0; }
+  .cx-pro-badge { border: 1px solid rgba(245,240,229,0.28); border-radius: 999px; padding: 0.5rem 0.9rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E3C29A; white-space: nowrap; }
+  .cx-pro-note { position: relative; font-size: 0.98rem; line-height: 1.65; color: rgba(245,240,229,0.78); max-width: 62ch; margin: 0 0 1.6rem; }
+  .cx-pro-tests { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.8rem; }
+  .cx-pro-test { background: rgba(245,240,229,0.06); border: 1px solid rgba(245,240,229,0.12); border-radius: 0.9rem; padding: 1rem 1rem 1.1rem; }
+  .cx-pro-dot { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--brass-soft); }
+  .cx-pro-test b { display: block; font-family: var(--font-body); font-size: 0.98rem; font-weight: 600; color: #fff; margin: 0.65rem 0 0.4rem; }
+  .cx-pro-test p { font-size: 0.86rem; line-height: 1.45; color: rgba(245,240,229,0.7); margin: 0; }
 
   /* ============ WHY ============ */
   .cx-why { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .cx-why-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(2rem, 5vw, 4.4rem); align-items: center; }
-  .cx-why-visual { margin: 0; aspect-ratio: 4 / 5; border-radius: 1.3rem; overflow: hidden; background: var(--ivory); }
-  .cx-why-list { list-style: none; margin: clamp(1.8rem, 4vw, 2.6rem) 0 0; padding: 0; }
+  .cx-why-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(2rem, 5vw, 4.4rem); align-items: stretch; }
+  .cx-why-visual { margin: 0; min-height: 340px; border-radius: 1.3rem; overflow: hidden; background: var(--ivory); }
+  .cx-why-list { list-style: none; margin: 0; padding: 0; }
   .cx-why-item { display: flex; gap: 1.2rem; align-items: flex-start; padding: clamp(1.05rem, 2.4vw, 1.5rem) 0; border-top: 1px solid rgba(31,59,44,0.14); }
   .cx-why-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); }
   .cx-why-num { flex: 0 0 auto; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1; color: var(--brass); min-width: 2ch; padding-top: 0.15rem; }
   .cx-why-copy h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.32rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0 0 0.4rem; }
   .cx-why-copy p { font-size: 0.97rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0; max-width: 54ch; }
 
-  /* ============ PRODUCTION SCALE ============ */
-  .cx-cap { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .cx-cap-visual { margin: 0 0 clamp(2.6rem, 6vw, 4.4rem); aspect-ratio: 21 / 8; border-radius: 1.3rem; overflow: hidden; background: var(--color-brand-surface); }
-  .cx-cap-head { max-width: 64ch; }
-  .cx-cap-range { display: flex; flex-wrap: wrap; align-items: baseline; gap: clamp(0.8rem, 2vw, 1.4rem); margin-top: clamp(2.2rem, 5vw, 3.4rem); }
-  .cx-cap-num { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 1; letter-spacing: -0.035em; color: var(--forest-light); }
-  .cx-cap-dash { font-family: var(--font-heading); font-size: clamp(1.6rem, 4vw, 3rem); color: var(--brass); }
-  .cx-cap-label { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brand-muted); width: 100%; margin-top: 0.7rem; }
-  .cx-cap-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.4vw, 1.8rem); margin-top: clamp(2.4rem, 5vw, 3.6rem); }
-  .cx-cap-fact { border-top: 1px solid rgba(31,59,44,0.16); padding-top: 1.1rem; }
-  .cx-cap-fact h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.08rem; color: var(--color-brand-text); margin: 0 0 0.45rem; }
-  .cx-cap-fact p { font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0; }
+  /* ============ MID CTA ============ */
+  .cx-midcta { background: linear-gradient(180deg, rgba(245,240,229,0.72) 0%, rgba(245,240,229,0.78) 100%), url('https://img.leelinepackage.com/custom-box/mid-cta.webp') center / cover no-repeat; padding: calc(clamp(3.5rem, 8vw, 6.5rem) - 1cm) 0; text-align: center; }
+  /* the photo sits behind this copy, so a soft ivory halo lifts the type off it */
+  .cx-midcta .eyebrow, .cx-midcta-title, .cx-midcta-sub { text-shadow: 0 1px 2px rgba(245,240,229,0.95), 0 0 18px rgba(245,240,229,0.9), 0 0 42px rgba(245,240,229,0.75); }
+  .cx-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.04; letter-spacing: -0.025em; color: var(--color-brand-text); max-width: 24ch; margin: 1.1rem auto 0; text-wrap: balance; }
+  .cx-midcta-title em { font-style: italic; color: var(--brass); }
+  .cx-midcta-sub { font-size: 1.06rem; line-height: 1.7; color: var(--color-brand-text); max-width: 54ch; margin: 1.4rem auto 0; }
+  .cx-midcta .section-cta { margin-top: clamp(2rem, 5vw, 3rem); }
+
+  /* ============ PRODUCTION SCALE (dark, factory photo — intro column + 2×2 fact cards) ============ */
+  .cx-cap { position: relative; overflow: hidden; color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; background-image: linear-gradient(180deg, rgba(20,38,27,0.84) 0%, rgba(20,38,27,0.92) 100%), url('https://img.leelinepackage.com/custom-box/protect.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; }
+  .cx-cap::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(52% 62% at 78% 16%, rgba(228,181,77,0.14), transparent 70%); }
+  .cx-cap .wrap { position: relative; z-index: 1; }
+  .cx-cap-track { display: grid; grid-template-columns: minmax(230px, 1fr) 2.1fr; gap: clamp(1.6rem, 4vw, 3.2rem); align-items: center; }
+  .cx-cap-intro { text-align: center; }
+  .cx-cap-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.1rem, 3.8vw, 3.1rem); line-height: 1.06; letter-spacing: -0.025em; color: #fff; text-wrap: balance; margin: 1rem 0 0; }
+  .cx-cap-title em { font-style: italic; color: #E3C29A; }
+  .cx-cap-sub { font-size: 1.08rem; line-height: 1.65; color: rgba(245,240,229,0.82); margin: 1.25rem 0 0; }
+  .cx-cap-cards { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.9rem, 1.8vw, 1.3rem); }
+  .cx-cap-fact { background: rgba(245,240,229,0.07); border: 1px solid rgba(245,240,229,0.14); border-radius: 1.1rem; padding: clamp(1.2rem, 2.2vw, 1.6rem); }
+  .cx-cap-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: rgba(228,181,77,0.16); color: var(--brass-bright); margin-bottom: 1rem; }
+  .cx-cap-icon svg { width: 24px; height: 24px; }
+  .cx-cap-fact h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; line-height: 1.25; color: #fff; margin: 0 0 0.35rem; }
+  .cx-cap-fact .cx-cap-tag { font-size: 0.88rem; font-weight: 600; color: #E3C29A; margin: 0 0 0.75rem; }
+  .cx-cap-fact p { font-size: 0.95rem; line-height: 1.6; color: rgba(245,240,229,0.76); margin: 0; }
 
   /* ============ SPECIALTY FORMATS ============ */
   .cx-formats { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .cx-format-head { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(1.6rem, 5vw, 4.4rem); align-items: end; margin-bottom: clamp(2.8rem, 6vw, 4.6rem); }
+  .cx-format-head .section-sub { margin-top: 0; max-width: 52ch; }
   .cx-format-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2rem) clamp(1.1rem, 2.4vw, 1.7rem); }
-  .cx-format-item { display: flex; gap: clamp(0.9rem, 2vw, 1.2rem); align-items: center; background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; padding: clamp(0.8rem, 1.8vw, 1rem); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, border-color 0.4s ease; }
+  .cx-format-item { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; padding: clamp(0.95rem, 2vw, 1.2rem); transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease, border-color 0.4s ease; }
   .cx-format-item:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -20px rgba(31,59,44,0.3); border-color: rgba(176,141,76,0.5); }
-  .cx-format-ph { flex: 0 0 auto; margin: 0; width: clamp(72px, 9vw, 92px); aspect-ratio: 1 / 1; border-radius: 0.8rem; overflow: hidden; background: var(--color-brand-surface); }
-  .cx-format-copy h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; color: var(--color-brand-text); margin: 0 0 0.3rem; }
-  .cx-format-copy p { font-size: 0.9rem; line-height: 1.5; color: var(--color-brand-muted); margin: 0; }
+  .cx-format-top { display: flex; gap: clamp(0.9rem, 2vw, 1.25rem); align-items: flex-start; }
+  .cx-format-ph { flex: 0 0 auto; margin: 0; width: clamp(80px, 10vw, 104px); aspect-ratio: 1 / 1; border-radius: 0.8rem; overflow: hidden; background: var(--color-brand-surface); }
+  /* shots supplied on an opaque white field: multiply lets the panel colour through */
+  .cx-format-ph .cx-img--blend { mix-blend-mode: multiply; }
+  .cx-format-copy h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem; line-height: 1.25; color: var(--color-brand-text); margin: 0 0 0.4rem; }
+  .cx-format-copy p { font-size: 0.96rem; line-height: 1.58; color: var(--color-brand-muted); margin: 0; }
+  /* BEST FOR sits in the card footer, flush with the card's left edge */
+  .cx-format-best { margin: auto 0 0; padding-top: 1rem; font-size: 0.9rem; }
+  .cx-format-best span { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-deep); background: rgba(176,141,76,0.2); border: 1px solid rgba(176,141,76,0.42); border-radius: 999px; padding: 0.2rem 0.6rem; margin-right: 0.5rem; }
+  .cx-format-best strong { font-weight: 600; color: var(--color-brand-text); }
 
   /* ============ PRINTING ============ */
   .cx-print { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -549,24 +777,34 @@ const jsonLd = {
   .cx-print-ph { margin: 0; aspect-ratio: 6 / 5; }
   .cx-print-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.12rem; color: var(--color-brand-text); margin: 1.1rem 1.2rem 0.45rem; }
   .cx-print-card p { font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0 1.2rem; }
-  .cx-print-band { position: relative; margin: clamp(2rem, 4vw, 3rem) 0 0; border-radius: 1.3rem; overflow: hidden; aspect-ratio: 2 / 1; background: var(--color-brand-surface); }
-  .cx-print-band .cx-img { object-position: center 38%; }
-  .cx-print-band figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4rem 1.4rem 1rem; background: linear-gradient(180deg, transparent 40%, rgba(20,38,27,0.82)); color: #fff; font-size: 0.94rem; font-weight: 600; }
   .cx-print .section-cta { justify-content: center; }
+  /* cross-links to the artwork + sample service pages */
+  .cx-print-note { text-align: center; max-width: 62ch; margin: clamp(2rem, 4vw, 2.6rem) auto 0; font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); }
 
-  /* ============ CASES ============ */
+  /* ============ CASES (looping carousel) ============ */
   .cx-cases { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .cx-case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2.2vw, 1.6rem); }
-  .cx-case-card { position: relative; margin: 0; border-radius: 1.2rem; overflow: hidden; aspect-ratio: 8 / 7; background: var(--ivory); }
-  .cx-case-card .cx-img { transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); }
-  .cx-case-card:hover .cx-img { transform: scale(1.05); }
-  .cx-case-card figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.6rem 1.3rem 1rem; background: linear-gradient(180deg, transparent 42%, rgba(20,38,27,0.82)); pointer-events: none; }
-  .cx-case-card figcaption span { color: #fff; font-size: 0.92rem; font-weight: 600; text-shadow: 0 1px 10px rgba(20,38,27,0.6); }
+  .cx-carousel { position: relative; margin-top: clamp(2rem, 4vw, 3rem); }
+  .cx-car-vp { overflow: hidden; border-radius: 1.4rem; }
+  .cx-car-track { display: flex; gap: 1rem; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .cx-car-slide { flex: 0 0 calc((100% - 2rem) / 3); aspect-ratio: 3 / 2; margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--ivory); position: relative; }
+  .cx-car-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.6rem 1.3rem 1rem; background: linear-gradient(180deg, transparent 42%, rgba(20,38,27,0.82)); pointer-events: none; }
+  .cx-car-cap span { color: #fff; font-size: 0.92rem; font-weight: 600; text-shadow: 0 1px 10px rgba(20,38,27,0.6); }
+  .cx-car-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 50px; height: 50px; border-radius: 50%; border: 1px solid rgba(31,59,44,0.16); background: rgba(245,240,229,0.92); color: var(--forest-deep); cursor: pointer; display: grid; place-items: center; box-shadow: 0 12px 28px -16px rgba(31,59,44,0.5); transition: background 0.3s ease; }
+  .cx-car-btn:hover { background: var(--brass-bright); color: var(--forest-deep); }
+  .cx-car-btn--prev { left: -8px; }
+  .cx-car-btn--next { right: -8px; }
+  .cx-car-btn svg { width: 22px; height: 22px; }
 
   /* ============ TESTIMONIALS ============ */
   .cx-quote { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
   .cx-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2rem); max-width: 1080px; margin-inline: auto; }
-  .cx-quote-card { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.2rem; padding: clamp(1.5rem, 3vw, 2.1rem); display: flex; flex-direction: column; gap: 1.4rem; margin: 0; }
+  .cx-quote-card { position: relative; overflow: hidden; background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.2rem; padding: clamp(1.9rem, 3.4vw, 2.5rem); display: flex; flex-direction: column; gap: 1.4rem; margin: 0; }
+  /* decorative quote marks — low-contrast so they never fight the copy */
+  .cx-quote-card::before, .cx-quote-copy::after { font-family: var(--font-heading); font-size: clamp(3.6rem, 6vw, 5rem); line-height: 1; color: var(--brass); opacity: 0.26; position: absolute; pointer-events: none; }
+  .cx-quote-card::before { content: '\201C'; top: 0.05rem; left: 0.85rem; }
+  /* closing mark hangs off the COPY block, so it sits above the person divider, not down by the avatar */
+  .cx-quote-copy { position: relative; padding-bottom: 1.5rem; }
+  .cx-quote-copy::after { content: '\201D'; right: 0; bottom: 0; }
   .cx-quote-copy p { margin: 0; font-family: var(--font-body); font-size: 1rem; line-height: 1.7; color: var(--color-brand-text); }
   .cx-quote-copy p + p { margin-top: 1rem; }
   .cx-quote-person { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.12); }
@@ -589,6 +827,26 @@ const jsonLd = {
   .cx-faq-a { padding: 0 1.2rem 1.4rem; }
   .cx-faq-a p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
 
+  /* ============ MATERIALS & COMPLIANCE ============ */
+  .cx-mat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  /* copy flush left; certificates 2.5cm to its right, in the same head row */
+  .cx-mat-head { display: grid; grid-template-columns: minmax(0, 56ch) 1fr; gap: 2.5cm; align-items: end; }
+  /* certs only: +0.5cm between them, nudged 0.3cm up (transform = no layout shift) */
+  .cx-mat-certs { display: flex; gap: calc(0.9rem + 0.5cm); align-items: flex-end; transform: translate(1cm, -0.3cm); }
+  .cx-mat-cert { margin: 0; width: clamp(98px, 10.5vw, 138px); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.6rem; overflow: hidden; background: #fff; box-shadow: 0 12px 26px -16px rgba(20,38,27,0.4); }
+  .cx-mat-cert .cx-img { width: 100%; height: auto; object-fit: contain; }
+  .cx-mat-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1rem, 2.4vw, 1.8rem); margin: clamp(2.4rem, 5vw, 3.4rem) 0 0; padding: 0; }
+  /* a brass rule, not a tick — the checkmark motif belongs to the compare table.
+     Icon chip left, text right. */
+  .cx-mat-item { display: grid; grid-template-columns: auto 1fr; gap: 1.1rem; align-items: start; border-top: 1px solid rgba(31,59,44,0.16); padding-top: 1.2rem; }
+  .cx-mat-copy { display: flex; flex-direction: column; gap: 0.7rem; }
+  .cx-mat-rule { display: block; width: 26px; height: 3px; border-radius: 2px; background: var(--brass); }
+  .cx-mat-icon { flex: 0 0 auto; width: 44px; height: 44px; border-radius: 0.8rem; background: rgba(176,141,76,0.15); color: var(--brass); display: grid; place-items: center; }
+  .cx-mat-icon svg { width: 23px; height: 23px; }
+  .cx-mat-item strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem; line-height: 1.25; color: var(--color-brand-text); }
+  .cx-mat-copy span:last-child { font-size: 1rem; line-height: 1.65; color: var(--color-brand-muted); }
+  .cx-mat .section-sub { font-size: 1.12rem; }
+
   /* ============ FINAL CTA (dark) ============ */
   .cx-final { background: linear-gradient(180deg, rgba(20,38,27,0.66) 0%, rgba(20,38,27,0.78) 100%), url('https://img.leelinepackage.com/custom-box/final-cta.webp') center / cover no-repeat; color: var(--ivory); padding: calc(clamp(3.5rem, 9vw, 7.5rem) - 1cm) 0; position: relative; overflow: hidden; }
   .cx-final::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228,181,77,0.13), transparent 70%); }
@@ -603,26 +861,31 @@ const jsonLd = {
     .cx-why-grid { grid-template-columns: 1fr; }
     .cx-why-visual { aspect-ratio: 16 / 9; }
     .cx-print-grid { grid-template-columns: repeat(2, 1fr); }
-    .cx-cap-facts { grid-template-columns: repeat(2, 1fr); }
-    .cx-pro-grid { grid-template-columns: 1fr; }
+    .cx-cap-track { grid-template-columns: 1fr; }
+    .cx-pro-tests { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 900px) {
     .cx-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .cx-pro-head, .cx-pro-lab-top { grid-template-columns: 1fr; }
+    .cx-pro-cards { grid-template-columns: 1fr; }
+    .cx-mat-head { grid-template-columns: 1fr; gap: 1.6rem; }
+    .cx-mat-certs { justify-content: center; transform: translateY(-0.3cm); }
+    .cx-format-head { grid-template-columns: 1fr; gap: 1rem; }
     .cx-format-grid { grid-template-columns: repeat(2, 1fr); }
     .cx-quote-grid { grid-template-columns: 1fr; }
-    .cx-cap-visual { aspect-ratio: 16 / 9; }
+    .cx-car-slide { flex: 0 0 calc((100% - 1rem) / 2); }
   }
   @media (max-width: 640px) {
     .cx-rail { grid-template-columns: 1fr 1fr; gap: 1.1rem 0; }
     .cx-rail li:nth-child(3) { border-left: 0; }
-    .cx-pro-row { grid-template-columns: 1fr; gap: 0.3rem; }
-    .cx-pro-arrow { display: none; }
+    .cx-pro-card { grid-template-columns: 1fr; }
+    .cx-pro-tests { grid-template-columns: 1fr; }
     .cx-type-grid { grid-template-columns: 1fr; }
     .cx-format-grid { grid-template-columns: 1fr; }
     .cx-print-grid { grid-template-columns: 1fr; }
-    .cx-cap-facts { grid-template-columns: 1fr; }
-    .cx-case-grid { grid-template-columns: 1fr; }
-    .cx-print-band { aspect-ratio: 4 / 3; }
+    .cx-cap-cards { grid-template-columns: 1fr; }
+    .cx-mat-list { grid-template-columns: 1fr; }
+    .cx-car-slide { flex: 0 0 100%; }
     .cx-hero-cta .btn { width: 100%; }
   }
 </style>
@@ -640,5 +903,60 @@ const jsonLd = {
     revealEls.forEach((el) => revealIO.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Cases carousel — 3-up, seamless infinite loop in both directions.
+  // A copy of the last `clones` slides sits before slide one and a copy of the first
+  // `clones` sits after the last, so stepping past either end animates onto a clone and
+  // is then snapped (no transition) back onto the matching real slide. No visible jump.
+  const carTrack = document.querySelector('.cx-car-track');
+  if (carTrack) {
+    const slides = Array.from(carTrack.children);
+    const N = slides.length;
+    if (N > 0) {
+      const clones = Math.min(3, N);
+      for (let k = 0; k < clones; k++) {
+        const c = slides[(N - clones + k) % N].cloneNode(true);
+        c.classList.add('cx-car-clone');
+        c.setAttribute('aria-hidden', 'true');
+        carTrack.insertBefore(c, slides[0]);
+      }
+      for (let k = 0; k < clones; k++) {
+        const c = slides[k % N].cloneNode(true);
+        c.classList.add('cx-car-clone');
+        c.setAttribute('aria-hidden', 'true');
+        carTrack.appendChild(c);
+      }
+      const start = clones;
+      let idx = start;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(carTrack).gap) || 0;
+        return carTrack.children[start].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        carTrack.style.transition = animate ? 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        carTrack.style.transform = `translateX(${-idx * step()}px)`;
+      };
+      const go = (dir) => {
+        if (carTrack._busy) return;
+        carTrack._busy = true;
+        idx += dir;
+        move(true);
+        setTimeout(() => {
+          if (idx < start) idx += N;
+          else if (idx > start + N - 1) idx -= N;
+          move(false);
+          carTrack._busy = false;
+        }, 520);
+      };
+
+      const prevBtn = document.querySelector('.cx-car-btn--prev');
+      const nextBtn = document.querySelector('.cx-car-btn--next');
+      if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!carTrack._busy) move(false); });
+    }
   }
 </script>

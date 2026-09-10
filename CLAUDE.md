@@ -45,22 +45,29 @@ or add to the token block first.
 
 ## Image handling
 
-- Content images (photos, hero, team, thumbnails) belong in `src/assets/images/`, **not** `public/`.
-  If any are found in `public/images/`, move them to `src/assets/images/` and update references.
-- Use Astro's `<Image>` (from `astro:assets`) for local content images: import the file, pass
-  explicit `width` and `height` matching the intended display size, and `quality={80}`. For
-  responsive images add both `widths` (1x and 2x array) and `sizes`.
-- For external images from an R2 bucket: add the R2 domain to `image.remotePatterns` / `image.domains`
-  in `astro.config.mjs`, then use `<Image>` the same way. Never fall back to a raw `<img>` because
-  the config is missing — update the config.
-- For third-party URLs you don't control: use a standard `<img>` with explicit `width` and `height`.
+Every content image is served from the **R2 bucket via the custom domain
+`https://img.leelinepackage.com/<key>`** (each page defines `const R2 = 'https://img.leelinepackage.com'`).
+There are no local content images in the repo — `src/assets/` is unused.
+
+- Render every content image with a **plain `<img>`** whose `src` is the raw R2 URL, passing the
+  intrinsic `width` and `height` plus `alt`, `loading`, and `decoding`:
+
+  ```astro
+  <img src={`${R2}/custom-bag/hero.webp`} alt="…" width={1200} height={800}
+       loading="lazy" decoding="async" class="cb-img" />
+  ```
+
+- **Do NOT use Astro's `<Image>`** (`astro:assets`) for these. It rewrites the `src` to
+  `/_image?href=<encoded>` in dev and copies the file into self-hosted `/_astro/*.webp` at build, so
+  the raw R2 URL never reaches the HTML. The `<Image>` component, `image.remotePatterns` and the
+  adapter's `imageService` have all been removed — do not reintroduce them for R2 imagery.
 - Above-the-fold images (hero, header) use `loading="eager"`, `fetchpriority="high"`,
-  `decoding="sync"`. All others use `loading="lazy"`.
+  `decoding="sync"`. All others use `loading="lazy"`, `decoding="async"`.
+- Full-bleed hero/CTA backgrounds stay as CSS `url('https://img.leelinepackage.com/…')` with a
+  gradient overlay — not an `<img>`.
+- For third-party URLs you don't control: use a standard `<img>` with explicit `width` and `height`.
 - `public/` is only for fixed-path system files: `favicon.ico`, `logo.svg`, `robots.txt`, OG images.
 - Always include descriptive `alt` text on every image.
-
-> Note: the homepage currently serves its imagery from Cloudflare R2 via public URLs (with the hero
-> as a CSS background image), not yet from `src/assets`. Migrate local content images as you work.
 
 ## Performance rules
 
@@ -85,12 +92,15 @@ first. Do not invent a look outside the established palette, type scale, and ima
 After every set of code changes, run:
 
 ```
-npm run lint:fix
 npm run lint
 npm run build
 ```
 
-and confirm all three pass before reporting done.
+and confirm both pass before reporting done.
+
+> Do NOT run `npm run lint:fix`. The `eslint-plugin-astro` recommended config has a bug that
+> deletes the homepage "Featured Work" section from `src/pages/index.astro`. Use `npm run lint`
+> to check, and fix lint issues by hand. If `lint:fix` is ever run, `git restore src/pages/index.astro`.
 
 ## Development
 

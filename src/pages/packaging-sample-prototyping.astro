@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { Image } from 'astro:assets';
 
 const R2 = 'https://img.leelinepackage.com';
 const SAMPLE = `${R2}/sample`;
@@ -178,7 +177,7 @@ const jsonLd = {
 
         <div class="sp-hero-visual" data-reveal="right">
           <figure class="sp-media sp-hero-ph">
-            <Image src={`${SAMPLE}/hero.webp`} alt="A flat-lay of packaging samples — a mailer box, paper bags, printed cards and tissue on a studio table" width={1200} height={1117} loading="eager" fetchpriority="high" decoding="sync" class="sp-ph-img" />
+            <img src={`${SAMPLE}/hero.webp`} alt="A flat-lay of packaging samples — a mailer box, paper bags, printed cards and tissue on a studio table" width={1200} height={1117} loading="eager" fetchpriority="high" decoding="sync" class="sp-ph-img" />
             <figcaption class="sp-media-cap">
               <span class="sp-media-k">Four samples, one structure</span>
               <span class="sp-media-s">3D &middot; white dummy &middot; digital colour &middot; production-line</span>
@@ -213,7 +212,7 @@ const jsonLd = {
           {samples.map((s, i) => (
             <article class="sp-card" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
               <figure class="sp-media sp-card-ph">
-                <Image src={s.img} alt={s.altH} width={s.w} height={s.h} loading="lazy" decoding="async" class="sp-ph-img" />
+                <img src={s.img} alt={s.altH} width={s.w} height={s.h} loading="lazy" decoding="async" class="sp-ph-img" />
               </figure>
 
               <div class="sp-card-body">
@@ -248,7 +247,7 @@ const jsonLd = {
         <figure class="sp-media sp-approve-ph" data-reveal="left" aria-hidden="true">
           <span class="sp-note sp-note--ok">Approved</span>
           <span class="sp-note sp-note--rev">Revise &middot; fit</span>
-          <Image src={`${SAMPLE}/sign-off.webp`} alt="A sample approval desk with white dummies, a dieline printout, board swatches and a colour fan" width={1000} height={1000} loading="lazy" decoding="async" class="sp-ph-img" />
+          <img src={`${SAMPLE}/sign-off.webp`} alt="A sample approval desk with white dummies, a dieline printout, board swatches and a colour fan" width={1000} height={1000} loading="lazy" decoding="async" class="sp-ph-img" />
           <figcaption class="sp-media-cap"><span class="sp-media-k">Sample approval</span><span class="sp-media-s">Signed, dated, stamped</span></figcaption>
         </figure>
 
@@ -280,7 +279,7 @@ const jsonLd = {
           <h2 class="section-title">Test the Material, <em>Not the Mockup</em></h2>
           <p class="section-sub">A sample is built to the material the order ships &mdash; corrugated, greyboard, kraft or coated carton, plus eco and food-contact grades and finishes like foil and emboss. That makes it a true proxy for the run, not a stand-in.</p>
           <figure class="sp-media sp-test-ph">
-            <Image src={`${SAMPLE}/test-material.webp`} alt="Material strength testing — a board drop test, a precision micrometer and a compression tester" width={960} height={640} loading="lazy" decoding="async" class="sp-ph-img" />
+            <img src={`${SAMPLE}/test-material.webp`} alt="Material strength testing — a board drop test, a precision micrometer and a compression tester" width={960} height={640} loading="lazy" decoding="async" class="sp-ph-img" />
             <figcaption class="sp-media-cap"><span class="sp-media-k">Test in progress</span><span class="sp-media-s">A board section under a stack-load test</span></figcaption>
           </figure>
         </div>

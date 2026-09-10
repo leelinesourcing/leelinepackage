@@ -1,0 +1,967 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const FX = `${R2}/folding-cartons`;
+
+/* The nine constructions the die room cuts. `best` is the channel; the Compare
+   table further down carries the attributes, so this stays a one-line reason. */
+const styles = [
+  { n: '01', name: 'Straight Tuck End Cartons', img: `${FX}/styles-straight-tuck-end.webp`, w: 525, h: 500,
+    alt: 'Two white folding cartons with bright orange interiors standing on a yellow surface',
+    d: 'The default for a printed range — the cheapest carton to make, with an uninterrupted panel for the artwork.',
+    best: 'Retail shelf, supplements, cosmetics' },
+  { n: '02', name: 'Reverse Tuck End Cartons', img: `${FX}/styles-reverse-tuck-end.webp`, w: 525, h: 500,
+    alt: 'Two slim black printed cartons lying flat with their tuck flaps open',
+    d: 'For light contents on a rough route, where a closure that eases open would spill the load.',
+    best: 'Snacks, small hardware, lightweight cartons' },
+  { n: '03', name: 'Auto-Lock Bottom Cartons', img: `${FX}/styles-auto-lock-bottom.webp`, w: 525, h: 500,
+    alt: 'A blue folding carton with a red interior beside its flattened blank',
+    d: 'The volume choice — the carton a long run is built around.',
+    best: 'Frozen food, chilled ranges, ready meals' },
+  { n: '04', name: 'Tray with Lid Cartons', img: `${FX}/styles-tray-with-lid.webp`, w: 525, h: 500,
+    alt: 'A stack of kraft trays with clear lids beside an open one',
+    d: 'A separate lid over a shallow tray gives a two-piece reveal that reads as a presentation piece.',
+    best: 'Confectionery, deluxe kits, hampers' },
+  { n: '05', name: 'Window Cartons', img: `${FX}/styles-window.webp`, w: 525, h: 500,
+    alt: 'A pink carton with a clear window filled with sweets beside a matching printed bag',
+    d: 'A die-cut aperture behind film shows the product itself — the strongest claim a shelf can make.',
+    best: 'Food, cosmetics, retail multipacks' },
+  { n: '06', name: 'Sleeve Cartons', img: `${FX}/styles-sleeve.webp`, w: 525, h: 500,
+    alt: 'Two kraft sleeve cartons printed in black, one partly slid off its tray',
+    d: 'Artwork changes without a new structure, so a reprint is a cheaper decision than a retool.',
+    best: 'Limited editions, gift ranges' },
+  { n: '07', name: 'Dispenser Cartons', img: `${FX}/styles-dispenser.webp`, w: 525, h: 500,
+    alt: 'A printed display carton holding sachets with a tear-away dispensing panel',
+    d: 'A pour spout or tear-away panel turns the carton into the dispenser.',
+    best: 'Confectionery, sachets, counter units' },
+  { n: '08', name: 'Custom Shape Cartons', img: `${FX}/styles-custom-shape.webp`, w: 525, h: 500,
+    alt: 'Die-cut cartons shaped as a Christmas tree and a guitar on a colourful backdrop',
+    d: 'Bespoke die-cut silhouettes, from a bottle to a mascot, on the standard board and press.',
+    best: 'Launch kits, gifting, seasonal' },
+  { n: '09', name: 'Seal End Cartons', img: `${FX}/styles-seal-end.webp`, w: 525, h: 500,
+    alt: 'A printed flat carton with glued end flaps resting on a cream surface',
+    d: 'The carton a pharmacy counter or a returns desk accepts, because it cannot be reopened unnoticed.',
+    best: 'Medicine, electronics, tamper-evident retail' },
+];
+
+/* Five closures on identical rows. "On the line" carries the machine-fit story
+   the hero promises; the style cards above already carry the description, so no
+   row here repeats prose. */
+const closureRows = ['Closure', 'On the line', 'Board weight', 'Tamper-evident', 'Best run size'];
+const closures = [
+  { name: 'Straight Tuck End', v: ['Tuck flap, ends aligned', 'Machine-tucked', '12\u201324pt', 'No', 'Short and long'] },
+  { name: 'Reverse Tuck End', v: ['Tuck flap, ends opposed', 'Machine-tucked', '12\u201320pt', 'No', 'Medium and long'] },
+  { name: 'Auto Bottom', v: ['Snap-lock base', 'Erects and locks in-line', '14\u201324pt', 'No', 'High volume'] },
+  { name: 'Seal End', v: ['Glued end flaps', 'Glue line runs in-line', '12\u201324pt', 'Yes', 'Long runs'] },
+  { name: 'Sleeve', v: ['Slip-on printed sleeve', 'Hand-applied', '14\u201324pt', 'No', 'Short and seasonal'] },
+];
+
+/* What a folding carton saves against the box it replaces. */
+const savings = [
+  { v: '30\u201340%', l: 'Lower unit cost', d: 'Than a rigid set-up box, printed on comparable board with the full finish range available on the surface.' },
+  { v: '85%', l: 'Less freight volume', d: 'Blanks stack flat until the fill line folds them, and a container carries several times what built cartons would.' },
+  { v: '12\u201324pt', l: 'Board range', d: 'A sachet and a weighted gift set come off a single die room, leaving one supplier to cover the whole catalogue.' },
+];
+
+/* The four decisions behind any carton. Each `items` entry is label + value. */
+const spec = [
+  { n: '01', t: 'Board', d: 'The sheet the whole structure is judged on.',
+    items: [['Stock', 'SBS, CCNB, kraft, 100% PCR'], ['Thickness', '12\u201324pt'], ['Food-grade', 'Grease and moisture barrier linings'], ['Certification', 'FSC\u00ae certificate issued per batch']] },
+  { n: '02', t: 'Structure', d: 'Drawn to the product, not to a stock size.',
+    items: [['Constructions', 'Tuck end, auto bottom, seal end, sleeve, tray'], ['Custom', 'Die-cut silhouettes on any outline'], ['Dieline', 'Drawn in-house, or cut to a supplied file'], ['Inserts', 'Paperboard cradles, partitions, platforms']] },
+  { n: '03', t: 'Print', d: 'Colour matched to a reference, not to a screen.',
+    items: [['Method', 'Offset, digital or flexo'], ['Colour', 'CMYK and Pantone spot'], ['Coatings', 'Soft-touch, gloss, matte, spot UV'], ['Finishes', 'Hot foil, emboss, deboss']] },
+  { n: '04', t: 'Features', d: 'The details that decide whether the carton works on the line.',
+    items: [['Windows', 'Die-cut aperture with film'], ['Security', 'Tamper-evident seal, tear strip'], ['Reclosing', 'Resealable strip, fold-over tab'], ['Hanging', 'Euro slot or hook tab for pegboard']] },
+];
+
+/* Sustainability — the dark moment. */
+const eco = [
+  { t: 'FSC\u00ae chain-of-custody board', d: 'Pulp traced from a certified forest through to the delivered pallet.' },
+  { t: 'SFI-recognised sourcing', d: 'A second scheme covering the mills that supply outside the FSC\u00ae estate.' },
+  { t: 'ISO 14001 management', d: 'An environmental system audited on the plant, not claimed in a brochure.' },
+  { t: 'Water-based inks and adhesives', d: 'No solvent-borne VOCs vented from the press hall.' },
+  { t: '42% less water, 35% less power', d: 'Measured across the plant after the last equipment upgrade.' },
+];
+
+/* One process, six stages, no subcontracted hand-offs — the plant tour and the
+   sample loop told as a single sequence, because they are the same sequence. */
+const process = [
+  { n: '01', t: 'Prepress and Dieline', d: 'The cut file is drawn or checked against the product dimensions before a die is made.' },
+  { n: '02', t: '3D Mockup', d: 'A mockup of the finished carton goes out within 24 hours, drawn to the dieline.' },
+  { n: '03', t: 'White Dummy', d: 'A white dummy lands in 5 days, for checking the fit in the hand before anything is printed.' },
+  { n: '04', t: 'Printed Sample', d: 'A printed production sample follows in 7\u201310 days, on the board and finish of the run.' },
+  { n: '05', t: 'Press', d: 'Chosen on run length and the detail the artwork has to hold.' },
+  { n: '06', t: 'Cut, Glued and Packed', d: 'Steel-rule dies cut and score on the same pass, then cartons are folded, glued, counted and bundled flat.' },
+];
+
+/* Cartons that left the die room — build notes, not captions. */
+const cases = [
+  { img: `${FX}/case-1.webp`, tag: 'Confectionery', t: 'A Printed Interior',
+    alt: 'An open blue folding carton showing a printed food-pattern interior',
+    d: 'The pattern runs inside the lid, reading as a surprise rather than a label. Reverse tuck end, 16pt coated board, matte lamination outside with a gloss varnish inside.' },
+  { img: `${FX}/case-2.webp`, tag: 'Gifting', t: 'A Milestone Invitation',
+    alt: 'Two pink cartons printed with a Sweet 16 design',
+    d: 'One carton per guest for a sixteenth birthday. Straight tuck end, 14pt board, hot pink foil on the script over a soft-touch matte panel.' },
+  { img: `${FX}/case-3.webp`, tag: 'Retail', t: 'A Stacked Sleeve',
+    alt: 'Two stacked blue cartons printed with a white polka-dot pattern',
+    d: 'Two sleeve cartons stacked on a shelf, artwork on the sleeve and a plain tray underneath. A seasonal reprint costs a fresh plate rather than a fresh die.' },
+  { img: `${FX}/case-4.webp`, tag: 'Cosmetics', t: 'Built Around a Bottle',
+    alt: 'A slim pink cosmetic carton standing beside a white pump bottle',
+    d: 'An 18pt shell with a die-cut cradle holding the pump at shelf height, and a window that shows the head without opening the carton.' },
+  { img: `${FX}/case-5.webp`, tag: 'Food service', t: 'A Takeaway Carton',
+    alt: 'A kraft food carton with a printed blue band on a takeaway counter',
+    d: 'Grease-resistant lining on kraft, over a lock base that holds its shape on a hot counter and a printed band that survives the pass.' },
+  { img: `${FX}/case-6.webp`, tag: 'Freight', t: 'A Blank, Folded Flat',
+    alt: 'A flat kraft carton blank folded on parchment paper',
+    d: 'The construction before it becomes a box. Blanks are strapped and counted flat; a container carries far more than assembled cartons would.' },
+];
+
+/* Real placements. Images are placeholders until the user supplies the shots. */
+const scenes = [
+  { img: `${FX}/scene-1.webp`, cap: 'Filled and sealed on a snack line',
+    alt: 'A filling line sealing printed snack cartons' },
+  { img: `${FX}/scene-2.webp`, cap: 'Stacked two-high on a bakery counter',
+    alt: 'Printed bakery cartons stacked on a shop counter beside cakes' },
+  { img: `${FX}/scene-3.webp`, cap: 'Shelf-ready in a pharmacy aisle',
+    alt: 'Seal end cartons faced up on a pharmacy shelf' },
+  { img: `${FX}/scene-4.webp`, cap: 'Opened on a kitchen table',
+    alt: 'A customer opening a printed carton on a kitchen table' },
+  { img: `${FX}/scene-5.webp`, cap: 'Palletised for export',
+    alt: 'Bound stacks of flat cartons loaded on an export pallet' },
+  { img: `${FX}/scene-6.webp`, cap: 'Picked in a fulfilment centre',
+    alt: 'A picker scanning a printed carton in a fulfilment centre' },
+];
+
+/* Two buyers, three paragraphs each. Rewritten from the factory's own review
+   copy to lead with the specification instead of the praise. */
+const testimonials = [
+  {
+    name: 'Michael Chen', role: 'Procurement Supervisor', co: 'FreshBite Snacks', loc: 'United States',
+    avatar: `${FX}/avatar-michael.webp`,
+    q: [
+      'Granola bars need a carton that takes a pallet and still looks worth picking up. The reverse tuck end sample came back with the board weight where it needed to be and the food-safe lining confirmed in writing.',
+      'Spot UV sits on the logo exactly where the artwork placed it, and the carton reads from three metres down an aisle. Nothing scuffed through the coating on the first pallet.',
+      'The 3D mockup landed before the tooling did, which meant the artwork could be re-cut without paying for a die twice.',
+    ],
+  },
+  {
+    name: 'Laura Bennett', role: 'Brand Coordinator', co: 'SweetTreats Bakery', loc: 'United Kingdom',
+    avatar: `${FX}/avatar-laura.webp`,
+    q: [
+      'A cupcake box has a task beyond carrying cake: the frosting has to be visible. The window carton framed it cleanly, with a film that has not clouded or creased after a year on the counter.',
+      'Side supports hold a stack of six without the bottom tier collapsing. That was the version that failed with the previous supplier.',
+      'The artwork went through five rounds before anyone was satisfied, and a single coordinator answered each one. The bakery looks like a brand now rather than a market stall.',
+    ],
+  },
+];
+
+/* Questions the sections above have not already answered. */
+const faqs = [
+  { q: 'What is the smallest order for printed folding cartons?', a: '500 units per structure and artwork. Below that, the die and the plate set-up stop making economic sense, and a short run is better served by a stock carton with a printed label.' },
+  { q: 'Will the cartons run on our existing packing line?', a: 'That is what the dieline is for. Send the line speed, the feed width and the magazine capacity, and creasing and board weight are set so the carton feeds and closes without an adjustment.' },
+  { q: 'Can folding cartons be printed on the inside?', a: 'Yes. Inside print, a coloured liner and a printed insert are all available. An interior panel is the part a customer sees at the exact moment the carton opens.' },
+  { q: 'Who draws the dieline?', a: 'Either side can. Send a finished drawing and the die is cut to it, or send the flat artwork with the measurements and the die room draws the dieline first, sized to the board weight.' },
+  { q: 'Which cartons are food-safe?', a: 'Food-grade board with a grease-resistant or moisture-barrier lining, printed with water-based inks. Certificates covering both the board and the ink are issued with the batch.' },
+];
+
+const seo = {
+  title: 'Custom Folding Cartons Manufacturer: Zero Jams, 500-Unit MOQ',
+  description: 'Custom folding carton manufacturer creasing every carton to a 100% machine-automated fit, so it feeds at line speed. FSC board, 500-unit MOQ, samples in 5 days.',
+  keywords: 'custom folding cartons, custom folding carton manufacturer, custom printed folding cartons, straight tuck end boxes, reverse tuck end boxes, auto bottom boxes, seal end cartons, cosmetic folding cartons, FSC certified folding cartons, folding carton supplier, paperboard cartons wholesale, custom packaging cartons China',
+  canonical: 'https://www.leelinepackage.com/custom-folding-cartons/',
+  ogImage: `${FX}/hero.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Folding Carton Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom folding carton design, dieline engineering and printing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Folding Cartons' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${FX}/hero.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — split, light ============ -->
+    <section class="fx-hero">
+      <div class="wrap fx-hero-grid">
+        <div class="fx-hero-copy">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Folding carton factory &middot; China</span>
+          <h1 class="fx-hero-title" data-reveal="up">Custom Folding Cartons Manufacturer: 100% Machine-Automated Fit, <em>Zero Jamming</em></h1>
+          <p class="fx-hero-sub" data-reveal="up">A carton that feeds, folds and closes on a high-speed packing line without a jam &mdash; die-cutting and creasing held to the tolerance the machine runs at, letting a run hold its line speed.</p>
+          <div class="fx-hero-actions" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+              Start the Dieline
+              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <figure class="fx-hero-figure" data-reveal="right">
+          <img src={`${FX}/hero.webp`} alt="A kraft tuck-end folding carton standing in raking sunlight" width={1080} height={864} loading="eager" fetchpriority="high" decoding="sync" class="fx-img" />
+          <figcaption class="fx-hero-chip">12&ndash;24pt board &middot; FSC&reg; stock</figcaption>
+        </figure>
+      </div>
+
+      <div class="wrap">
+        <ul class="fx-trust" data-reveal="up">
+          <li><strong>500</strong> unit minimum</li>
+          <li><strong>4&ndash;6 weeks</strong> artwork to pallet</li>
+          <li><strong>99.8%</strong> prototype accuracy</li>
+          <li><strong>0.05%</strong> defect rate</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ STRUCTURES — 3 × 3 cards ============ -->
+    <section class="fx-struct" id="structures">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Structures</span>
+          <h2 class="section-title" data-reveal="up">Nine Carton Structures, <em>One Die Room</em></h2>
+          <p class="section-sub" data-reveal="up">Every construction below is cut and creased on site, where changing the shape of a carton means a new die rather than a new supplier.</p>
+        </div>
+
+        <div class="fx-type-grid">
+          {styles.map((s, i) => (
+            <article class="fx-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <figure class="fx-type-ph">
+                <img src={s.img} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" class="fx-img" />
+                <span class="fx-type-num">{s.n}</span>
+              </figure>
+              <div class="fx-type-body">
+                <h3 class="fx-type-name">{s.name}</h3>
+                <p class="fx-type-d">{s.d}</p>
+                <p class="fx-type-best"><span>Best for</span>{s.best}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Start With a Structure
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPARE ============ -->
+    <section class="fx-cmp" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Compare</span>
+          <h2 class="section-title" data-reveal="up">Five Closures, Compared <em>Row by Row</em></h2>
+          <p class="section-sub" data-reveal="up">The construction decides how the carton closes, how fast a line runs it, and whether a tamper seal is possible at all.</p>
+        </div>
+
+        <div class="fx-cmp-scroll" data-reveal="up">
+          <table class="fx-cmp-table">
+            <caption class="sr-only">Folding carton closures compared on closure type, device, assembly, board weight and tamper evidence</caption>
+            <thead>
+              <tr>
+                <th scope="col"><span class="sr-only">Attribute</span></th>
+                {closures.map((c) => <th scope="col">{c.name}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {closureRows.map((r, ri) => (
+                <tr>
+                  <th scope="row">{r}</th>
+                  {closures.map((c) => <td>{c.v[ri]}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA — compare → cost ============ -->
+    <section class="fx-bridge">
+      <div class="wrap fx-bridge-inner">
+        <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote</span>
+        <h2 class="section-title" data-reveal="up">Send the Product, <em>We Pick the Closure</em></h2>
+        <p class="section-sub" data-reveal="up">Board weight, closure and insert settle against the product and the route it takes, not against a catalogue.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Send the Product
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SAVINGS ============ -->
+    <section class="fx-save">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>What it saves</span>
+          <h2 class="section-title" data-reveal="up">The Carton Costs Less <em>Than the Box It Replaces</em></h2>
+          <p class="section-sub" data-reveal="up">Folding cartons are cut from a single printed sheet, with no greyboard shell to wrap and no assembled box paying for air on the way over.</p>
+        </div>
+        <div class="fx-save-grid">
+          <figure class="fx-save-visual" data-reveal="left">
+            <img src={`${FX}/flat-packs.webp`} alt="Bound stacks of flat-folded kraft cartons waiting on the factory floor" width={500} height={400} loading="lazy" decoding="async" class="fx-img" />
+            <figcaption>Bound flat, counted and strapped before they leave the floor</figcaption>
+          </figure>
+          <dl class="fx-save-figures">
+            {savings.map((s, i) => (
+              <div class="fx-save-row" data-reveal="up" style={`--d:${i * 0.08}s`}>
+                <dt>{s.v}</dt>
+                <dd><strong>{s.l}</strong>{s.d}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SPECIFICATION ============ -->
+    <section class="fx-spec">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Specification</span>
+          <h2 class="section-title" data-reveal="up">Every Panel Is <em>a Decision</em></h2>
+          <p class="section-sub" data-reveal="up">Four choices set the cost, the shelf presence and whether the carton survives the route it has to travel.</p>
+        </div>
+
+        <div class="fx-spec-grid">
+          {spec.map((s, i) => (
+            <article class="fx-spec-plate" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
+              <span class="fx-spec-n">{s.n}</span>
+              <h3>{s.t}</h3>
+              <p class="fx-spec-d">{s.d}</p>
+              <dl class="fx-spec-rows">
+                {s.items.map((it) => (
+                  <>
+                    <dt>{it[0]}</dt>
+                    <dd>{it[1]}</dd>
+                  </>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SUSTAINABILITY (dark) ============ -->
+    <section class="fx-eco" id="materials">
+      <div class="fx-eco-shade"></div>
+      <div class="fx-grain"></div>
+      <div class="wrap fx-eco-inner">
+        <div class="fx-eco-copy" data-reveal="left">
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>FSC&reg; certified</span>
+          <h2 class="section-title">Folding Cartons Are <em>the Recyclable Choice</em></h2>
+          <p class="fx-eco-sub">A printed paperboard carton goes into the paper stream with the Sunday paper. Nothing about that has to be taken on trust, because every claim below is covered by a certificate that ships with the order.</p>
+          <div class="fx-eco-cta">
+            <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+              Request FSC Paperwork
+              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+        <ul class="fx-eco-list">
+          {eco.map((e, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <svg class="fx-eco-tick" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M6.8 12.3l3.4 3.4L17.2 9.1" fill="none" stroke="#14261B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div><strong>{e.t}</strong><p>{e.d}</p></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS — plant tour + sample loop, one sequence ============ -->
+    <section class="fx-flow" id="process">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How it runs</span>
+          <h2 class="section-title" data-reveal="up">Drawn, Sampled, Printed and Glued <em>Under One Roof</em></h2>
+          <p class="section-sub" data-reveal="up">A carton is judged in the hand, not on a proof, so the structure is signed off folded and filled before tooling is committed. Nothing is trucked between vendors, and no batch waits on another shop&rsquo;s queue.</p>
+        </div>
+
+        <ol class="fx-flow-track">
+          {process.map((p, i) => (
+            <li class="fx-flow-step" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <span class="fx-flow-node">{p.n}</span>
+              <h3>{p.t}</h3>
+              <p>{p.d}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Book a Sample Slot
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CASES — image over copy ============ -->
+    <section class="fx-cases">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>On the shelf</span>
+          <h2 class="section-title" data-reveal="up">Cartons That Left <em>the Die Room</em></h2>
+          <p class="section-sub" data-reveal="up">Six constructions off the same die room, with the board, closure and finish each job called for.</p>
+        </div>
+        <div class="fx-case-grid">
+          {cases.map((c, i) => (
+            <article class="fx-case" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <figure class="fx-case-ph">
+                <img src={c.img} alt={c.alt} width={800} height={700} loading="lazy" decoding="async" class="fx-img" />
+              </figure>
+              <div class="fx-case-body">
+                <span class="fx-case-tag">{c.tag}</span>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCENES — looping carousel ============ -->
+    <section class="fx-field">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>In the field</span>
+          <h2 class="section-title" data-reveal="up">The Same Cartons, <em>Out in the Field</em></h2>
+          <p class="section-sub" data-reveal="up">Filled on a line, stacked on a counter, opened at home &mdash; six placements from the last year.</p>
+        </div>
+
+        <div class="fx-sc-rail" data-reveal="up">
+          <div class="fx-sc-vp">
+            <div class="fx-sc-track">
+              {scenes.map((s) => (
+                <figure class="fx-sc-slide">
+                  <img src={s.img} alt={s.alt} width={900} height={675} loading="lazy" decoding="async" class="fx-img" />
+                  <figcaption class="fx-sc-cap">{s.cap}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button type="button" class="fx-sc-btn fx-sc-btn--prev" aria-label="Previous scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="fx-sc-btn fx-sc-btn--next" aria-label="Next scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="fx-quote">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>After the first pallet</span>
+          <h2 class="section-title" data-reveal="up">Two Buyers on <em>the First Full Run</em></h2>
+        </div>
+        <div class="fx-quote-grid">
+          {testimonials.map((t, i) => (
+            <figure class="fx-quote-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <blockquote class="fx-quote-copy">
+                {t.q.map((p) => <p>{p}</p>)}
+              </blockquote>
+              <figcaption class="fx-quote-person">
+                <img class="fx-avatar" src={t.avatar} alt={`Portrait of ${t.name}`} width={240} height={240} loading="lazy" decoding="async" />
+                <div><strong>{t.name}</strong><span>{t.role}, {t.co} &middot; {t.loc}</span></div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="fx-faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Before the first order</span>
+          <h2 class="section-title" data-reveal="up">Questions Buyers Ask <em>Before Ordering</em></h2>
+        </div>
+        <div class="fx-faq-list">
+          {faqs.map((f, i) => (
+            <details class="fx-faq-item" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <summary><span class="fx-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="fx-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA (dark) ============ -->
+    <section class="fx-final">
+      <div class="fx-final-shade"></div>
+      <div class="wrap fx-final-inner">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote, itemised</span>
+        <h2 class="fx-final-title" data-reveal="up">A Carton Quote, <em>Costed Line by Line</em></h2>
+        <p class="fx-final-sub" data-reveal="up">Send the product dimensions and the artwork. Board, printing, the die and freight come back itemised separately, with the unit price broken out at each quantity break, letting the number be checked rather than taken on trust. A named account manager holds the order from that first quote through to the last pallet.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Price My Carton Run
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ local tokens & atoms ============ */
+  .fx-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  :global(body) { background: var(--ivory); }
+
+  .fx-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO ============ */
+  .fx-hero {
+    position: relative;
+    background: var(--ivory);
+    padding: calc(clamp(4.5rem, 9vw, 7.5rem) + 4rem) 0 clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+  }
+  .fx-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(58% 62% at 88% 12%, rgba(228,181,77,0.16), transparent 68%);
+  }
+  .fx-hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 4.4vw, 3.8rem);
+    align-items: center;
+  }
+  .fx-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.15rem, 4.2vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.026em;
+    color: var(--color-brand-text);
+    margin: 1.2rem 0 0;
+    max-width: 100%;
+    text-wrap: balance;
+  }
+  .fx-hero-title em { font-style: italic; color: var(--brass); }
+  .fx-hero-sub {
+    font-size: clamp(1.02rem, 1.5vw, 1.14rem);
+    line-height: 1.72;
+    color: var(--color-brand-muted);
+    max-width: 50ch;
+    margin: 1.6rem 0 0;
+  }
+  .fx-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: clamp(2rem, 4vw, 2.8rem); }
+
+  .fx-hero-figure {
+    position: relative;
+    margin: 0;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    aspect-ratio: 5 / 4;
+    background: var(--clay);
+    box-shadow: 0 40px 80px -50px rgba(31,59,44,0.55);
+  }
+  .fx-hero-chip {
+    position: absolute; left: 1rem; bottom: 1rem;
+    background: rgba(245,240,229,0.94);
+    backdrop-filter: blur(8px);
+    color: var(--color-brand-text);
+    font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 0.55rem 0.95rem; border-radius: 999px;
+    border: 1px solid rgba(176,141,76,0.4);
+  }
+
+  /* trust row — enlarged on request */
+  .fx-trust {
+    list-style: none; margin: clamp(2.6rem, 5vw, 4rem) 0 0; padding: 1.6rem 0 0;
+    border-top: 1px solid rgba(31,59,44,0.14);
+    display: flex; flex-wrap: wrap; gap: 1rem clamp(1.6rem, 3.4vw, 3.4rem);
+    font-family: var(--font-body); font-size: 1.06rem; color: var(--color-brand-muted);
+  }
+  .fx-trust li { display: flex; align-items: baseline; gap: 0.6rem; }
+  .fx-trust strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; letter-spacing: -0.01em; color: var(--color-brand-text); }
+
+  /* ============ STRUCTURES — 3 × 3 cards ============ */
+  .fx-struct { background: var(--clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .fx-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .fx-type-card {
+    background: var(--ivory); border: 1px solid rgba(31,59,44,0.08); border-radius: 1.3rem;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 26px 54px -48px rgba(31,59,44,0.55);
+  }
+  .fx-type-ph { position: relative; margin: 0; aspect-ratio: 4 / 3; background: var(--clay); overflow: hidden; }
+  .fx-type-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .fx-type-card:hover .fx-type-ph img { transform: scale(1.045); }
+  .fx-type-num {
+    position: absolute; top: 0.85rem; left: 0.85rem;
+    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(245,240,229,0.92); backdrop-filter: blur(6px);
+    border: 1px solid rgba(176,141,76,0.45);
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; color: var(--brass);
+  }
+  .fx-type-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.1rem, 2vw, 1.5rem); }
+  .fx-type-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.9vw, 1.4rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .fx-type-d { font-size: 0.95rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .fx-type-best { margin: auto 0 0; padding-top: 1rem; border-top: 1px solid rgba(31,59,44,0.12); font-size: 0.88rem; color: var(--color-brand-text); }
+  .fx-type-best span { display: block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.35rem; }
+
+  /* ============ COMPARE ============ */
+  .fx-cmp { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .fx-cmp-scroll { overflow-x: auto; padding-bottom: 0.4rem; }
+  .fx-cmp-table { width: 100%; min-width: 880px; border-collapse: collapse; text-align: left; }
+  .fx-cmp-table th, .fx-cmp-table td { padding: 1.05rem 1.15rem; font-size: 0.95rem; line-height: 1.5; vertical-align: top; }
+  /* a tinted header band + stronger rules, because the old all-hairline version washed out */
+  .fx-cmp-table thead th {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.08rem; color: var(--color-brand-text);
+    background: rgba(31,59,44,0.05);
+    border-bottom: 2px solid rgba(31,59,44,0.42);
+    padding-top: 1.1rem; padding-bottom: 1.1rem;
+  }
+  .fx-cmp-table tbody th {
+    font-family: var(--font-body); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--brass); white-space: nowrap;
+    border-right: 1px solid rgba(31,59,44,0.2);
+    border-bottom: 1px solid rgba(31,59,44,0.16);
+  }
+  .fx-cmp-table tbody td { color: var(--color-brand-text); border-bottom: 1px solid rgba(31,59,44,0.16); }
+  .fx-cmp-table tbody tr:nth-child(even) th,
+  .fx-cmp-table tbody tr:nth-child(even) td { background: rgba(31,59,44,0.024); }
+  .fx-cmp-table tbody tr:last-child th,
+  .fx-cmp-table tbody tr:last-child td { border-bottom: 2px solid rgba(31,59,44,0.42); }
+  .fx-cmp-table tbody tr:hover th,
+  .fx-cmp-table tbody tr:hover td { background: rgba(31,59,44,0.06); }
+
+  /* ============ BRIDGE CTA — compare → cost ============ */
+  .fx-bridge { background: var(--color-brand-surface); padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+  /* stacked: eyebrow + title + sub, then the button underneath */
+  .fx-bridge-inner { text-align: center; max-width: 64rem; margin-inline: auto; }
+  .fx-bridge .section-sub { margin-inline: auto; }
+  .fx-bridge .section-cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+
+  /* ============ SAVINGS ============ */
+  .fx-save { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* the H2 stays flush left, but this one paragraph is centred under it —
+     widened so it sets in two balanced lines rather than three */
+  .fx-save .section-sub { text-align: center; margin-inline: auto; max-width: 74ch; text-wrap: balance; }
+  /* figures column tops out level with the image, not vertically centred */
+  .fx-save-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .fx-save-visual { margin: 0; }
+  .fx-save-visual img { border-radius: 1.3rem; aspect-ratio: 5 / 4; }
+  .fx-save-visual figcaption { margin-top: 0.9rem; font-size: 0.95rem; line-height: 1.55; color: var(--color-brand-muted); }
+  .fx-save-figures { margin: 0; border-top: 1px solid rgba(31,59,44,0.18); }
+  /* fixed first track so every description starts on the same left edge;
+     `start` tops the label + copy level with the numeral rather than on its baseline */
+  .fx-save-row { display: grid; grid-template-columns: 12.5rem 1fr; gap: 1.4rem; align-items: start; padding: clamp(1.2rem, 2.6vw, 1.8rem) 0; border-bottom: 1px solid rgba(31,59,44,0.14); }
+  .fx-save-row dt {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem); line-height: 1; letter-spacing: -0.03em;
+    color: var(--color-brand-primary);
+  }
+  .fx-save-row dd { margin: 0; font-size: 0.98rem; line-height: 1.68; color: var(--color-brand-muted); }
+  /* line-height is tightened so the label's cap-top lands on the numeral's cap-top
+     (~3px lower before, which reads as "the text sits low") */
+  .fx-save-row dd strong { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; line-height: 1.15; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-text); margin-bottom: 0.5rem; }
+
+  /* ============ SPECIFICATION ============ */
+  .fx-spec { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 700px; }
+  .fx-spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  .fx-spec-plate {
+    background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.3rem;
+    padding: clamp(1.5rem, 3vw, 2.3rem);
+    box-shadow: 0 26px 54px -46px rgba(31,59,44,0.5);
+  }
+  .fx-spec-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.14em; color: var(--brass); }
+  .fx-spec-plate h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.85rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .fx-spec-d { font-size: 0.95rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .fx-spec-rows { display: grid; grid-template-columns: auto 1fr; gap: 0; margin: clamp(1.2rem, 2.4vw, 1.7rem) 0 0; border-top: 1px solid rgba(31,59,44,0.14); }
+  .fx-spec-rows dt, .fx-spec-rows dd { padding: 0.72rem 0; margin: 0; border-bottom: 1px solid rgba(31,59,44,0.09); font-size: 0.9rem; line-height: 1.5; }
+  .fx-spec-rows dt { font-weight: 600; color: var(--color-brand-text); padding-right: 1.2rem; white-space: nowrap; }
+  .fx-spec-rows dd { color: var(--color-brand-muted); }
+
+  /* ============ SUSTAINABILITY (dark) ============ */
+  .fx-eco {
+    position: relative; color: var(--ivory); overflow: hidden;
+    background: linear-gradient(100deg, rgba(20,38,27,0.95) 0%, rgba(20,38,27,0.86) 46%, rgba(20,38,27,0.58) 100%), url('https://img.leelinepackage.com/folding-cartons/eco.webp') center / cover no-repeat;
+    padding: clamp(4.5rem, 10vw, 8.5rem) 0;
+  }
+  .fx-eco-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(42% 62% at 82% 22%, rgba(228,181,77,0.14), transparent 70%); }
+  .fx-eco-inner { position: relative; display: grid; grid-template-columns: 1fr 1.06fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .fx-eco .section-title { color: #fff; }
+  .fx-eco .section-title em { color: #E3C29A; }
+  .fx-eco-sub { font-size: 1.04rem; line-height: 1.74; color: rgba(255,255,255,0.82); max-width: 46ch; margin: 1.4rem 0 0; }
+  .fx-eco-cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+  /* nudged down 0.3cm against the copy column — a relative offset, because the
+     grid is `align-items: center` so a margin would only shift it by half */
+  .fx-eco-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(245,240,229,0.22); position: relative; top: 0.3cm; }
+  .fx-eco-list li { display: flex; gap: 1rem; padding: 1.15rem 0; border-bottom: 1px solid rgba(245,240,229,0.14); }
+  .fx-eco-tick { width: 22px; height: 22px; flex: 0 0 auto; margin-top: 0.15rem; color: #E3C29A; }
+  .fx-eco-list strong { display: block; font-family: var(--font-body); font-weight: 600; font-size: 1rem; color: #fff; }
+  .fx-eco-list p { margin: 0.3rem 0 0; font-size: 0.92rem; line-height: 1.6; color: rgba(255,255,255,0.72); }
+
+  /* ============ PROCESS — a rail with nodes, not a card grid ============ */
+  .fx-flow { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 800px; }
+  .fx-flow-track { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2.2vw, 1.8rem); }
+  .fx-flow-step { position: relative; }
+  /* connector running from this node's right edge to the next column's left edge */
+  .fx-flow-step::before {
+    content: ''; position: absolute; top: 23px; left: 46px; height: 1px;
+    width: calc(100% + clamp(1rem, 2.2vw, 1.8rem) - 46px);
+    background: rgba(31,59,44,0.24);
+  }
+  .fx-flow-step:last-child::before { display: none; }
+  .fx-flow-node {
+    position: relative; display: grid; place-items: center;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--ivory); border: 1px solid rgba(31,59,44,0.24);
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; color: var(--brass);
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .fx-flow-step:hover .fx-flow-node { border-color: var(--brass); background: rgba(176,141,76,0.08); }
+  .fx-flow-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.25; color: var(--color-brand-text); margin: 1.1rem 0 0; }
+  .fx-flow-step p { font-size: 0.87rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ CASES — image over copy ============ */
+  .fx-cases { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 1000px; }
+  .fx-case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem) clamp(1rem, 2.2vw, 1.6rem); }
+  .fx-case { display: flex; flex-direction: column; }
+  .fx-case-ph { margin: 0 0 1.1rem; border-radius: 1.2rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--clay); }
+  .fx-case-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .fx-case:hover .fx-case-ph img { transform: scale(1.045); }
+  .fx-case-tag { display: block; font-family: var(--font-body); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); }
+  .fx-case-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.12rem, 1.8vw, 1.34rem); line-height: 1.24; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .fx-case-body p { font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ SCENES — carousel ============ */
+  .fx-field { background: var(--clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .fx-sc-rail { position: relative; }
+  /* a clipped viewport keeps the loop clones out of the page flow */
+  .fx-sc-vp { overflow: hidden; border-radius: 1.2rem; }
+  .fx-sc-track { display: flex; gap: 1rem; }
+  .fx-sc-slide { position: relative; flex: 0 0 calc((100% - 2rem) / 3); margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--ivory); aspect-ratio: 4 / 3; }
+  .fx-sc-cap {
+    position: absolute; inset: auto 0 0; padding: 2.6rem 1.1rem 1rem;
+    background: linear-gradient(180deg, transparent 42%, rgba(20,38,27,0.82));
+    color: #fff; font-size: 0.88rem; font-weight: 600; line-height: 1.4;
+    text-shadow: 0 1px 10px rgba(20,38,27,0.6); pointer-events: none;
+  }
+  .fx-sc-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 50px; height: 50px; display: grid; place-items: center;
+    border-radius: 50%; cursor: pointer;
+    border: 1px solid rgba(31,59,44,0.16);
+    background: rgba(245,240,229,0.92); color: var(--forest-deep);
+    box-shadow: 0 12px 28px -16px rgba(31,59,44,0.5);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .fx-sc-btn svg { width: 22px; height: 22px; }
+  .fx-sc-btn:hover { background: var(--brass-bright); color: var(--forest-deep); }
+  .fx-sc-btn--prev { left: -8px; }
+  .fx-sc-btn--next { right: -8px; }
+
+  /* ============ TESTIMONIALS ============ */
+  .fx-quote { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .fx-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2rem); max-width: 1080px; margin-inline: auto; }
+  .fx-quote-card { background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.2rem; padding: clamp(1.5rem, 3vw, 2.1rem); display: flex; flex-direction: column; gap: 1.4rem; margin: 0; }
+  .fx-quote-copy { margin: 0; }
+  .fx-quote-copy p { margin: 0; font-size: 1rem; line-height: 1.72; color: var(--color-brand-text); }
+  .fx-quote-copy p + p { margin-top: 1rem; }
+  .fx-quote-person { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.12); }
+  .fx-avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .fx-quote-person strong { display: block; font-size: 0.98rem; color: var(--color-brand-text); }
+  .fx-quote-person span { display: block; font-size: 0.82rem; color: var(--color-brand-muted); margin-top: 0.1rem; }
+
+  /* ============ FAQ ============ */
+  .fx-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .fx-faq-list { display: flex; flex-direction: column; max-width: 820px; margin-inline: auto; }
+  .fx-faq-item { border-top: 1px solid rgba(31,59,44,0.14); background: var(--color-brand-surface); }
+  .fx-faq-item:first-child { border-radius: 1rem 1rem 0 0; }
+  .fx-faq-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); border-radius: 0 0 1rem 1rem; }
+  .fx-faq-item + .fx-faq-item { margin-top: 0.6rem; }
+  .fx-faq-n { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .fx-faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.8vw, 1.2rem); color: var(--color-brand-text); }
+  .fx-faq-item summary::-webkit-details-marker { display: none; }
+  .fx-faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); margin-left: auto; }
+  .fx-faq-item[open] summary::after { transform: rotate(45deg); }
+  .fx-faq-a { padding: 0 1.2rem 1.4rem; }
+  .fx-faq-a p { font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
+
+  /* ============ FINAL CTA (dark) ============ */
+  .fx-final {
+    position: relative; overflow: hidden; color: var(--ivory);
+    background: linear-gradient(180deg, rgba(20,38,27,0.68) 0%, rgba(20,38,27,0.8) 100%), url('https://img.leelinepackage.com/folding-cartons/final-cta.webp') center / cover no-repeat;
+    padding: clamp(3.5rem, 9vw, 7.5rem) 0;
+  }
+  .fx-final-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228,181,77,0.13), transparent 70%); }
+  .fx-final-inner { position: relative; text-align: center; }
+  .fx-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.025em; color: #fff; text-shadow: 0 2px 24px rgba(20,38,27,0.4); margin: 1.1rem auto 0; max-width: 22ch; text-wrap: balance; }
+  .fx-final-title em { font-style: italic; color: #E3C29A; }
+  .fx-final-sub { font-size: 1.06rem; line-height: 1.75; color: rgba(255,255,255,0.94); max-width: 62ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20,38,27,0.4); }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .fx-hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .fx-hero-figure { aspect-ratio: 16 / 11; }
+    .fx-save-grid { grid-template-columns: 1fr; }
+    .fx-eco-inner { grid-template-columns: 1fr; }
+    .fx-eco-list { top: 0; }
+    .fx-flow-track { grid-template-columns: 1fr; gap: 0; }
+    .fx-flow-step { display: grid; grid-template-columns: 46px 1fr; column-gap: 1.2rem; padding-bottom: 1.7rem; }
+    .fx-flow-node { grid-row: 1 / span 2; }
+    .fx-flow-step h3 { margin-top: 0.25rem; }
+    /* rail turns vertical, running from the node down to the next one */
+    .fx-flow-step::before { top: 46px; left: 23px; width: 1px; height: calc(100% - 46px); }
+    .fx-flow-step:last-child { padding-bottom: 0; }
+    .fx-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .fx-sc-slide { flex: 0 0 calc((100% - 1rem) / 2); }
+  }
+  @media (max-width: 900px) {
+    .fx-quote-grid { grid-template-columns: 1fr; }
+    .fx-case-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .fx-spec-grid { grid-template-columns: 1fr; }
+    .fx-type-grid { grid-template-columns: 1fr; }
+    .fx-case-grid { grid-template-columns: 1fr; }
+    .fx-save-row { grid-template-columns: 1fr; gap: 0.5rem; }
+    .fx-spec-rows { grid-template-columns: 1fr; }
+    .fx-spec-rows dt { padding-bottom: 0; border-bottom: 0; }
+    .fx-sc-slide { flex: 0 0 100%; }
+    .fx-sc-btn--prev { left: 6px; }
+    .fx-sc-btn--next { right: 6px; }
+    .fx-hero-actions .btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Scenes carousel — 3-up, seamless loop in both directions. A copy of the last
+  // three slides sits before slide one and a copy of the first three sits after
+  // the last, so stepping past either end animates onto a clone and is then
+  // snapped (no transition) onto the matching real slide. No visible jump.
+  const scTrack = document.querySelector('.fx-sc-track');
+  if (scTrack) {
+    const slides = Array.from(scTrack.children);
+    const N = slides.length;
+    if (N > 3) {
+      const clones = 3;
+      for (let k = 0; k < clones; k++) {
+        const c = slides[(N - clones + k) % N].cloneNode(true);
+        c.classList.add('fx-sc-clone');
+        c.setAttribute('aria-hidden', 'true');
+        scTrack.insertBefore(c, slides[0]);
+      }
+      for (let k = 0; k < clones; k++) {
+        const c = slides[k % N].cloneNode(true);
+        c.classList.add('fx-sc-clone');
+        c.setAttribute('aria-hidden', 'true');
+        scTrack.appendChild(c);
+      }
+      let idx = clones;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(scTrack).gap) || 0;
+        return scTrack.children[clones].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        scTrack.style.transition = animate ? 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        scTrack.style.transform = `translateX(${-idx * step()}px)`;
+      };
+      const go = (dir) => {
+        if (scTrack._busy) return;
+        scTrack._busy = true;
+        idx += dir;
+        move(true);
+        setTimeout(() => {
+          if (idx < clones) idx += N;
+          else if (idx > clones + N - 1) idx -= N;
+          move(false);
+          scTrack._busy = false;
+        }, 520);
+      };
+
+      const prevBtn = document.querySelector('.fx-sc-btn--prev');
+      const nextBtn = document.querySelector('.fx-sc-btn--next');
+      if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!scTrack._busy) move(false); });
+    }
+  }
+</script>

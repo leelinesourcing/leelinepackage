@@ -8,7 +8,7 @@ const nav = {
   products: [
     { label: 'Custom Bag', href: '/custom-bag-manufacturer/' },
     { label: 'Custom Box', href: '/custom-box-manufacturer/' },
-    { label: 'Custom Folding Cartons', href: '/#offerings' },
+    { label: 'Custom Folding Cartons', href: '/custom-folding-cartons/' },
     { label: 'Custom Paper Bag', href: '/#offerings' },
     { label: 'Custom Rigid Boxes', href: '/#offerings' },
     { label: 'Custom Mailer Bags', href: '/#offerings' },
@@ -31,7 +31,7 @@ const nav = {
     { label: 'Packaging Sample & Prototyping', href: '/packaging-sample-prototyping/' },
   ],
   blog: '#',
-  cta: '/contact',
+  cta: '/contact/',
 };
 ---
 
@@ -110,7 +110,7 @@ const nav = {
       <details>
         <summary>Services</summary>
         <div class="sub">
-          <a href="/services" target="_blank" rel="noopener">Services Overview</a>
+          <a href="/services/" target="_blank" rel="noopener">Services Overview</a>
           {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
         </div>
       </details>

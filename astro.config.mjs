@@ -6,14 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   output: 'static',
   site: 'https://www.leelinepackage.com',
-  image: {
-    remotePatterns: [
-      { protocol: 'https', hostname: 'img.leelinepackage.com' },
-    ],
-  },
-  adapter: cloudflare({
-    imageService: 'compile',
-  }),
+  adapter: cloudflare(),
   integrations: [react()],
   server: {
     host: true,

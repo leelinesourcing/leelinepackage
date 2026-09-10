@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
@@ -289,7 +288,7 @@ const jsonLd = {
           {steps.map((s, i) => (
             <article class="svc-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
               <figure class="svc-card-media">
-                <Image src={s.img} alt={s.alt} width={s.imgW} height={s.imgH} quality={80} loading="lazy" decoding="async" class="svc-card-img" />
+                <img src={s.img} alt={s.alt} width={s.imgW} height={s.imgH} loading="lazy" decoding="async" class="svc-card-img" />
               </figure>
               <div class="svc-card-body">
                 <span class="svc-card-step">{s.num}</span>
@@ -413,7 +412,7 @@ const jsonLd = {
         <ul class="svc-cert-list" data-reveal="up">
           {certs.map((c) => (
             <li class="svc-cert-tile">
-              <Image src={certSrc(c.slug)} alt={c.alt} width={c.w} height={c.h} quality={80} loading="lazy" decoding="async" class="svc-cert-img" />
+              <img src={certSrc(c.slug)} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" class="svc-cert-img" />
             </li>
           ))}
         </ul>
@@ -442,7 +441,7 @@ const jsonLd = {
           </div>
 
           <figure class="svc-brief-media" data-reveal="up">
-            <Image src={svcImg('brief')} alt="The LeelinePackage design and production floor: artwork on screen, die-cutting, folding and packed cartons ready for dispatch" width={980} height={680} quality={80} loading="lazy" decoding="async" class="svc-brief-img" />
+            <img src={svcImg('brief')} alt="The LeelinePackage design and production floor: artwork on screen, die-cutting, folding and packed cartons ready for dispatch" width={980} height={680} loading="lazy" decoding="async" class="svc-brief-img" />
           </figure>
 
           <div class="svc-brief-cta" data-reveal="up">

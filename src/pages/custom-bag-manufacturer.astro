@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { Image } from 'astro:assets';
 
 const R2 = 'https://img.leelinepackage.com';
 const BAG = `${R2}/custom-bag`;
@@ -254,7 +253,7 @@ const stat = [
           {types.map((t, i) => (
             <article class="cb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.1}s`}>
               <figure class="cb-type-ph">
-                <Image src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="cb-img" />
+                <img src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="cb-img" />
               </figure>
               <h3 class="cb-type-name">{t.name}</h3>
               <p class="cb-type-desc">{t.d}</p>
@@ -377,7 +376,7 @@ const stat = [
               <div class="cb-opt-grid">
                 {c.options.map((o) => (
                   <figure class="cb-opt">
-                    <Image src={o.img} alt={o.name} width={o.w} height={o.h} loading="lazy" decoding="async" class="cb-opt-img" />
+                    <img src={o.img} alt={o.name} width={o.w} height={o.h} loading="lazy" decoding="async" class="cb-opt-img" />
                     <figcaption class="cb-opt-name">{o.name}</figcaption>
                   </figure>
                 ))}
@@ -400,7 +399,7 @@ const stat = [
           {industries.map((it, i) => (
             <article class="cb-ind-card" data-reveal="up" style={`--d:${(i % 3) * 0.09}s`}>
               <figure class="cb-ind-ph">
-                <Image src={it.img} alt={it.alt} width={it.w} height={it.h} loading="lazy" decoding="async" class="cb-img" />
+                <img src={it.img} alt={it.alt} width={it.w} height={it.h} loading="lazy" decoding="async" class="cb-img" />
               </figure>
               <div class="cb-ind-body">
                 <h3>{it.name}</h3>
@@ -448,7 +447,7 @@ const stat = [
             <div class="cb-car-track">
               {cases.map((cs) => (
                 <figure class="cb-car-slide" aria-hidden="true">
-                  <Image src={cs.img} alt={cs.cap} width={cs.w} height={cs.h} loading="lazy" decoding="async" class="cb-car-img" />
+                  <img src={cs.img} alt={cs.cap} width={cs.w} height={cs.h} loading="lazy" decoding="async" class="cb-car-img" />
                   <figcaption class="cb-car-cap"><span>{cs.cap}</span></figcaption>
                 </figure>
               ))}
@@ -475,7 +474,7 @@ const stat = [
                 {t.q.map((p) => <p>{p}</p>)}
               </div>
               <footer class="cb-quote-person">
-                <Image src={t.avatar} alt={`${t.name} portrait`} width={400} height={400} loading="lazy" decoding="async" class="cb-avatar" />
+                <img src={t.avatar} alt={`${t.name} portrait`} width={400} height={400} loading="lazy" decoding="async" class="cb-avatar" />
                 <div>
                   <strong>{t.name}</strong>
                   <span>{t.role}, {t.co} &middot; {t.loc}</span>

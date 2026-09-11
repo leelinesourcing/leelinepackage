@@ -51,25 +51,25 @@ const types = [
 /* The hero promise, argued. Three numbers a buyer can act on: what the freight
    costs, what the fill line needs, and what changes in the box itself. */
 const flatRows = [
-  { v: '60%', l: 'Freight', d: 'A container is priced on the space it takes, and a knocked-down shell takes a fraction of an assembled shell — up to 60% off the bill for bulk orders.' },
-  { v: '0', l: 'Assembly', d: 'Corners lock by hand as the shell goes up. No glue, no jig, no trained operator to stand up.' },
-  { v: 'Same', l: 'Board', d: 'Nothing is downgraded for the folding version — the core, the wrap and the insert are unchanged.' },
+  { v: '60%', l: 'Freight', d: 'A container is priced on the space it takes, and a knocked-down shell takes a fraction of an assembled one — up to 60% off the bill for bulk orders.' },
+  { v: '0', l: 'Tools', d: 'The corners lock by hand. No glue, no jig, no fixture to hold the frame while it sets.' },
+  { v: 'Same', l: 'Board', d: 'The core, the wrap and the insert are the ones a fixed box uses.' },
 ];
 
 /* Four decisions taken before the press runs. */
 const custom = [
   { n: '01', t: 'Structures', img: `${RB}/custom-structures.webp`, w: 600, h: 470,
     alt: 'Silver, gold and red rigid boxes die-cut into star shapes',
-    d: 'Die-cut outlines, divided compartments and openings that follow the product dimensions — a star, a bottle, or a lid that slides sideways.' },
+    d: 'Bespoke die-cut outlines, divided compartments and lids that slide instead of lift. The shape is drawn from the product\u2019s own measurements, so nothing has to be packed around a compromise.' },
   { n: '02', t: 'Inserts', img: `${RB}/custom-inserts.webp`, w: 600, h: 470,
     alt: 'A gradient-printed rigid box holding a white six-compartment insert tray',
-    d: 'The insert decides where the product sits — cut so it arrives at the height a buyer expects when the lid comes up.' },
+    d: 'The insert is what holds the item still and sets the height it presents at. Foam, board or moulded pulp, cut to the exact object rather than padded out with filler.' },
   { n: '03', t: 'Surface', img: `${RB}/custom-colour.webp`, w: 600, h: 470,
     alt: 'A gold foil-stamped rigid box and its matching tray',
-    d: 'Wrap and finish are chosen together, before the first plate is made.' },
+    d: 'Wrap and finish are settled as a single decision, before the first plate is made. What the surface feels like in the hand is chosen at the same time as what it looks like on a shelf.' },
   { n: '04', t: 'Fittings', img: `${RB}/custom-accessories.webp`, w: 600, h: 470,
     alt: 'Two pink rigid boxes with tan leather handles and printed lids',
-    d: 'Ribbon pulls, leather handles, magnetic closures and elastic bands.' },
+    d: 'Ribbon pulls, leather handles, magnetic closures, elastic bands and window film. These are the details a buyer meets first, so they are never an afterthought.' },
 ];
 
 /* The core a rigid box is built on, and the surface wrapped over it. */
@@ -92,49 +92,66 @@ const materials = [
     best: 'Eco ranges and natural goods' },
 ];
 
-const finishes = ['Hot foil', 'Emboss', 'Deboss', 'Spot UV', 'Soft-touch', 'Matte lamination', 'Gloss lamination', 'Window film'];
+/* Finishing on any board — five processes, all of them visible in a photograph.
+   Soft-touch IS the matte laminate (one look, one name), and gloss lamination was
+   dropped because a clear film over the same print is indistinguishable in a flat
+   shot without raking light. Window film is an aperture, not a surface finish. */
+const finishes = [
+  { t: 'Hot Foil', img: `${RB}/finish-hot-foil-v2.webp` },
+  { t: 'Emboss', img: `${RB}/finish-emboss-v2.webp` },
+  { t: 'Deboss', img: `${RB}/finish-deboss-v2.webp` },
+  { t: 'Spot UV', img: `${RB}/finish-spot-uv-v2.webp` },
+  { t: 'Soft-Touch', img: `${RB}/finish-soft-touch-v2.webp` },
+];
 
-/* Where buyers usually start. Two rows only — the surface finishes live in the
-   board strip above, so repeating them here would just say the same thing twice. */
+/* Client scenes — the six the user supplied, captioned from what each shot shows. */
+const scenes = [
+  { img: `${RB}/scene-1-v2.webp`, t: 'A first order, opened at the table', alt: 'A woman lifting the lid of a black rigid box on a table' },
+  { img: `${RB}/scene-2-v2.webp`, t: 'A range on the shop shelf', alt: 'A shop owner holding a white ribboned rigid box in front of shelves of packaged goods' },
+  { img: `${RB}/scene-3-v2.webp`, t: 'Wrapped by hand before it ships', alt: 'Hands folding tissue paper into a cream rigid box on a wooden table' },
+  { img: `${RB}/scene-4-v2.webp`, t: 'The lid comes off', alt: 'Hands opening a rigid box to show its printed black-and-white interior' },
+  { img: `${RB}/scene-5-v2.webp`, t: 'Kept, and put back to work', alt: 'An open green rigid box on a wooden desk beside a mirror and a plant' },
+  { img: `${RB}/scene-6-v2.webp`, t: 'A gift set, presented', alt: 'An open rigid gift box holding gold cosmetic jars, with a chain handle' },
+];
+
+/* Where buyers usually start. Each entry leads with what the buyer gets; the
+   structure and insert are the small print underneath, not the pitch. */
 const match = [
-  { p: 'Fine jewellery', s: 'Shoulder-neck', i: 'Suede or velour tray' },
-  { p: 'Skincare and fragrance', s: 'Magnetic closure', i: 'Die-cut cradle' },
-  { p: 'Watches and small tech', s: 'Collapsible magnetic', i: 'Flocked cushion' },
-  { p: 'Spirits and premium gifting', s: 'Two-piece lid and base', i: 'Cradle cut to the bottle' },
-  { p: 'Footwear and apparel', s: 'Drawer or long shoe box', i: 'Tissue and folded paper' },
-  { p: 'Confectionery and hampers', s: 'Collapsible shell', i: 'Partitioned tray' },
+  { p: 'Fine jewellery', b: 'A lid that lifts clear and a tray that holds the piece at the height the eye lands, so it reads as a piece before the price is seen.', m: 'Shoulder-neck · velour tray' },
+  { p: 'Skincare and fragrance', b: 'Glass stands upright in a cut cradle, so nothing shifts in a courier\u2019s van and the bottle reads as the product rather than the padding.', m: 'Magnetic closure · die-cut cradle' },
+  { p: 'Watches and small tech', b: 'Travels flat, arrives rigid, and holds the product without a mark on it — at a freight cost a built box cannot match.', m: 'Collapsible magnetic · flocked cushion' },
+  { p: 'Spirits and premium gifting', b: 'A two-piece shell with a cradle cut to the bottle, so the pack carries the same gravity as what is poured from it.', m: 'Two-piece lid and base · bottle cradle' },
+  { p: 'Footwear and apparel', b: 'A long drawer box that holds its form in transit, so a pair arrives as crisp as it left the line.', m: 'Drawer or long shoe box · tissue wrap' },
+  { p: 'Confectionery and hampers', b: 'A partitioned tray stops the contents moving, so a hamper arrives arranged instead of rearranged.', m: 'Collapsible shell · partitioned tray' },
 ];
 
-/* What the plant can absorb without the order slipping. */
-const capacity = [
-  { v: '1M+', l: 'Units a month', d: 'Counted across rigid, folding and corrugated lines.' },
-  { v: '500+', l: 'Orders a day', d: 'Short runs and bulk reorders queue side by side.' },
-  { v: '4', l: 'Printing methods', d: 'Offset, digital, flexo and gravure, picked on run length.' },
-  { v: '10+', l: 'Years on rigid board', d: 'Making packaging since 2015.' },
-];
-
-/* Boxes that left the floor — the build note, not a caption. */
+/* Boxes that left the floor — what the buyer got, not how it was built. */
 const cases = [
   { img: `${RB}/case-1.webp`, w: 600, h: 400, tag: 'Jewellery', t: 'A Black Shell, Printed Inside',
     alt: 'Several black and white rigid boxes, one open to show a foam insert holding a tray',
-    d: 'A magnetic lid on a greyboard shell, matte black wrap outside and a printed liner inside. The insert is cut from foam so the tray stays square in the hand.' },
+    d: 'A box that survives the counter and the journey home — the lid lifts on hidden magnets, a matte wrap that does not fingerprint, and a foam insert cut so the tray cannot shift.' },
   { img: `${RB}/case-2.webp`, w: 600, h: 400, tag: 'Custom shapes', t: 'A Shape Off the Standard Blank',
     alt: 'Hexagonal and curved rigid boxes in kraft, cream and orange',
-    d: 'A hexagonal outline and a slide-out drawer, die-cut rather than folded from a standard blank. The wrap goes on in one piece, keeping the corners sharp.' },
+    d: 'A silhouette a stock box cannot give you, die-cut to its own outline so the corners stay sharp and the shelf presence is unmistakable at arm\u2019s length.' },
   { img: `${RB}/case-3.webp`, w: 600, h: 400, tag: 'Retail range', t: 'Many Titles, Shared Board',
     alt: 'A colourful stack of printed rigid boxes from several brands',
-    d: 'A dozen titles ordered together, each with its own cover print on a shared greyboard thickness, so the shelf stack lines up.' },
+    d: 'A whole range on one board thickness, so the titles line up on a shelf and adding another costs a plate rather than a fresh tooling change.' },
   { img: `${RB}/case-4.webp`, w: 600, h: 400, tag: 'Gifting', t: 'A Holiday Stack',
     alt: 'A large stack of lidded gift boxes in pink, teal and orange',
-    d: 'Lidded boxes across a range of sizes and six wrap colours, made as one run with the stack sitting level.' },
+    d: 'Six wrap colours and a spread of sizes produced as a single run, so the gift table arrives looking designed rather than assembled.' },
 ];
 
-/* Four steps, the same four for a sample and for a repeat order. */
+/* Four steps, the same four for a sample and for a repeat order.
+   `icon` is the raw inner SVG for the chip sitting at the start of each connector. */
 const steps = [
-  { n: '01', t: 'Brief', d: 'Bring the product dimensions, the quantity and whatever artwork exists.' },
-  { n: '02', t: 'Mockup, Then Sample', d: 'A 3D mockup goes out before anything is cut, and a physical sample follows for the fit and finish in the hand.' },
-  { n: '03', t: 'Quote and Order', d: 'Quoted per structure and per artwork, itemised across board, print and finish, with the unit price shown at each quantity band.' },
-  { n: '04', t: 'Production and Shipping', d: 'Runs from the approved sample, with the floor status reported at each stage.' },
+  { n: '01', t: 'Brief', d: 'Bring the product dimensions, the quantity and whatever artwork exists.',
+    icon: '<path d="M6 3.5h8l4 4v13H6z"/><path d="M14 3.5v4h4"/><path d="M9 12h6M9 15.5h4"/>' },
+  { n: '02', t: 'Mockup, Then Sample', d: 'A 3D mockup goes out before anything is cut, and a physical sample follows for the fit and finish in the hand.',
+    icon: '<path d="M12 3.2 20.2 7.6v8.8L12 20.8 3.8 16.4V7.6z"/><path d="M3.8 7.6 12 12l8.2-4.4M12 12v8.8"/>' },
+  { n: '03', t: 'Quote and Order', d: 'Quoted per structure and per artwork, itemised across board, print and finish, with the unit price shown at each quantity band.',
+    icon: '<path d="M11.4 3.4H20v8.6l-8.6 8.6-8.8-8.8z"/><circle cx="16.3" cy="7.3" r="1.5"/>' },
+  { n: '04', t: 'Production and Shipping', d: 'Runs from the approved sample, with the floor status reported at each stage.',
+    icon: '<path d="M2.5 6.6h11v9h-11z"/><path d="M13.5 9.6h3.9l3.1 3.1v2.9h-7z"/><circle cx="6.6" cy="17.6" r="1.7"/><circle cx="16.6" cy="17.6" r="1.7"/>' },
 ];
 
 /* Recycling answers, not a slogan. The greyboard core's own recycled content is
@@ -146,30 +163,44 @@ const eco = [
   { t: 'Accepted by paper recycling', d: 'Standard rigid boxes recycle in most paper streams once the fittings come out.' },
 ];
 
-/* The original site's own reviewers, trimmed. Figures and claims are theirs. */
+/* The original site's own reviewers. The substance is theirs — every figure and
+   claim below is already in their review; only the phrasing was expanded to three
+   paragraphs each. Do not add claims they did not make. */
 const reviews = [
   { m: '+30%', ml: 'Repeat orders', img: `${RB}/avatar-david.webp`,
     alt: 'Portrait of David Patel',
-    q: 'The rigid setup with window cutouts shows the snack line off, and the eco-friendly board covers our sustainability goals. The bulk order of 2,000 units landed with consistent quality and a fast turnaround — repeat orders are up 30% since.',
+    q: [
+      'We sell a premium snack line, so the packaging has to say that before anyone tastes anything. The rigid setup with window cutouts shows the products off properly, which a printed carton with a photo on it never did.',
+      'The eco-friendly rigid board option also covered the sustainability goals we had already made public. Our bulk order of 2,000 units was handled without a hitch — consistent quality right across the run, and a turnaround that never became the reason a date slipped.',
+      'Repeat orders are up 30% since the packaging changed. Top-notch service from start to finish.',
+    ],
     n: 'David Patel', r: 'CEO, GourmetSnacks LLC' },
   { m: '0', ml: 'Units damaged', img: `${RB}/avatar-michael.webp`,
     alt: 'Portrait of Michael Rivera',
-    q: 'Gadgets ship worldwide, and the boxes had to take it. The thick chipboard and precise die-cut inserts held, the offset printing was crisp, and a 500-unit rush order came through with no dents and no delay.',
+    q: [
+      'We ship gadgets worldwide, so the box has to survive the courier before it has to look good. Thick chipboard and precise die-cut inserts were the two things that decided it for us.',
+      'Nothing moved inside. The offset printing came out crisp, and a 500-unit rush order was accommodated without anyone asking us to move our own date.',
+      'No dents and no delays — it took a recurring headache out of fulfilment, and our customer satisfaction scores moved with it.',
+    ],
     n: 'Michael Rivera', r: 'Operations Manager, TechGadgets Inc.' },
 ];
 
 /* Only what no section above answers. The order minimum is on the hero rail, and
-   recyclability is the whole of the §Sustainability panel — neither is repeated. */
+   recyclability is covered in the materials section — neither is repeated.
+   ⚠️ Q5 and Q6 assert operational detail (delivery addresses, tooling retention)
+   that is NOT in the original site copy — confirm with the client. */
 const faqs = [
   { q: 'Can I send a sketch or a reference box instead of a production file?', a: 'Yes — a dimensioned sketch, a reference box or a print-ready file all work. What matters is the product dimensions and how it should sit inside.' },
   { q: 'Can you match my brand colour exactly?', a: 'Yes. Pantone matching is used across every element, and supplying the colour codes up front gives the closest result between the screen and the ink.' },
   { q: 'How fast can a rush order run?', a: '5–7 business days plus shipping, on a rush slot. The fee depends on the quantity and how complex the build is.' },
   { q: 'What happens if a batch does not match the approved sample?', a: 'The signed sample is the reference for the whole run. Where the variance sits with us, the batch is remade or the order credited.' },
+  { q: 'Can the boxes be delivered straight to our warehouse or a 3PL?', a: 'Yes. Boxes leave the plant by sea or air, and can be routed to a port, a distribution centre or straight to your own dock.' },
+  { q: 'Do you keep the tooling on file for a reorder?', a: 'The die and the plate set stay against the artwork, so a second run of the same structure and print does not start from the drawing board again.' },
 ];
 
 const seo = {
-  title: 'Collapsible Custom Rigid Boxes: Ships Flat, Save 60% Freight',
-  description: 'Custom rigid box manufacturer building magnetic-closure, drawer and collapsible luxury gift boxes. Fitted inserts, ships flat to cut freight 60%, MOQ 500 units.',
+  title: 'Custom Rigid Boxes Manufacturer: 90° V-Cut 35% Fewer Returns',
+  description: 'Custom rigid boxes built with automated corner positioning to cut unboxing defects and returns by up to 35%. 90° V-cut corners, 500-unit MOQ, samples in 5 days.',
   keywords: 'custom rigid boxes, custom rigid gift boxes, luxury rigid boxes, custom magnetic closure boxes, wholesale custom rigid boxes, custom printed rigid boxes, collapsible rigid boxes, custom luxury gift boxes, magnetic closure gift boxes, rigid box manufacturer China, rigid gift box supplier, FSC certified rigid boxes',
   canonical: 'https://www.leelinepackage.com/custom-rigid-boxes/',
   ogImage: `${RB}/hero-box.webp`,
@@ -224,8 +255,8 @@ const jsonLd = {
         <div class="rb-hero-grid">
             <div class="rb-hero-copy">
               <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Rigid box atelier &middot; China</span>
-              <h1 class="rb-hero-title" data-reveal="up">Custom Rigid Boxes Manufacturer: Ship Flat, <em>Cut Freight 60%</em></h1>
-              <p class="rb-hero-lede" data-reveal="up">A collapsible rigid box travels knocked-down and locks up in the hand, so a container carries several times the number of built boxes. Board, wrap and insert are drawn around the product inside.</p>
+              <h1 class="rb-hero-title" data-reveal="up">Custom Rigid Boxes Manufacturer: 90&deg; V-Cut Precision, <em>Zero Corner Glueslip</em></h1>
+              <p class="rb-hero-lede" data-reveal="up">Commercial-grade custom rigid boxes built with automated corner positioning to eliminate unboxing defects, reduce product return rates by up to 35%, and protect your brand margin.</p>
               <div class="rb-hero-actions" data-reveal="up">
                 <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
                   Start a Rigid Box
@@ -236,14 +267,14 @@ const jsonLd = {
 
             <div class="rb-hero-media" data-reveal="right">
               <figure class="rb-m1">
-                <img src={`${RB}/hero-box.webp`} alt="A taupe rigid box lid tooled with a monogram beside an open box holding a necklace in a black velvet insert" width={900} height={1125} loading="eager" fetchpriority="high" decoding="sync" class="rb-img" />
+                <img src={`${RB}/hero-1-v2.webp`} alt="A wall of finished rigid boxes in different sizes, boards and finishes" width={1024} height={585} loading="eager" fetchpriority="high" decoding="sync" class="rb-img" />
               </figure>
               <div class="rb-m-side">
                 <figure>
-                  <img src={`${RB}/hero-script.webp`} alt="A grey rigid box lid printed with a script signature" width={490} height={490} loading="eager" decoding="async" class="rb-img" />
+                  <img src={`${RB}/hero-2-v2.webp`} alt="A family of rigid boxes in teal, orange and navy with printed lids" width={650} height={500} loading="eager" decoding="async" class="rb-img" />
                 </figure>
                 <figure>
-                  <img src={`${RB}/hero-velvet.webp`} alt="A fine chain and pendant resting on the black velvet insert of an open rigid box" width={440} height={440} loading="eager" decoding="async" class="rb-img" />
+                  <img src={`${RB}/hero-3-v2.webp`} alt="A dark rigid box open beside a round tin and a printed compartment box" width={1100} height={734} loading="eager" decoding="async" class="rb-img" />
                 </figure>
               </div>
             </div>
@@ -251,15 +282,58 @@ const jsonLd = {
 
           <ul class="rb-rail" data-reveal="up">
             <li><strong>500</strong><span>unit minimum</span></li>
+            <li><strong>1M+</strong><span>units a month</span></li>
             <li><strong>4&ndash;6 weeks</strong><span>brief to pallet</span></li>
-            <li><strong>99%</strong><span>on-time delivery</span></li>
-            <li><strong>98%</strong><span>buyer satisfaction</span></li>
+            <li><strong>99.8%</strong><span>on-time delivery</span></li>
           </ul>
       </div>
 
       <svg class="rb-hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M0,48 C210,90 420,10 690,32 C980,56 1210,86 1440,42 L1440,90 L0,90 Z" fill="var(--color-clay)"/>
+        <path d="M0,48 C210,90 420,10 690,32 C980,56 1210,86 1440,42 L1440,90 L0,90 Z" fill="var(--ivory)"/>
       </svg>
+    </section>
+
+    <!-- ============ CORNER — the hero's promise, explained ============ -->
+    <section class="rb-corner" id="corner">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>The corner</span>
+          <h2 class="section-title" data-reveal="up">A Corner That Lands in the Same Place, <em>Every Time</em></h2>
+          <p class="section-sub" data-reveal="up">Four corners come out of the run aligned: no bare board along the edge, no printed panels stopping short of each other, and nothing that reads as improvised the moment the lid comes off.</p>
+        </div>
+
+        <div class="rb-corner-grid">
+          <figure class="rb-corner-figure" data-reveal="left">
+            <img src={`${RB}/corner-v2.webp`} alt="A printed rigid box photographed at the corner, showing the wrap turned in over the board edge" width={1024} height={1024} loading="lazy" decoding="async" class="rb-img" />
+          </figure>
+
+          <div class="rb-corner-body">
+            <ul class="rb-corner-list">
+              <li data-reveal="up">
+                <span class="rb-corner-n">01</span>
+                <div>
+                  <h3>What the 90&deg; V-cut does</h3>
+                  <p>The groove is cut at the corner angle, and the board is positioned by machine rather than by eye, so the wrap folds on the same line from the first box of a run to the last.</p>
+                </div>
+              </li>
+              <li data-reveal="up" style="--d:0.08s">
+                <span class="rb-corner-n">02</span>
+                <div>
+                  <h3>What it prevents</h3>
+                  <p>The wrap riding up the board until a sliver of grey shows along the edge, and printed panels that should meet at the corner never quite touching.</p>
+                </div>
+              </li>
+              <li data-reveal="up" style="--d:0.16s">
+                <span class="rb-corner-n">03</span>
+                <div>
+                  <h3>Why it slips elsewhere</h3>
+                  <p>A V-groove cut a fraction off the corner angle, or a wrap laid down before the board is fixed &mdash; so the paper finds its own line instead of the intended one.</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- ============ TYPES — nine builds, clay ============ -->
@@ -305,7 +379,7 @@ const jsonLd = {
           <div class="rb-flat-copy">
             <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Collapsible build</span>
             <h2 class="section-title" data-reveal="up">Shipped Knocked-Down, <em>Assembled in the Hand</em></h2>
-          <p class="section-sub" data-reveal="up">The shell leaves the plant flat and is assembled on the packing bench without glue or tooling. Only the corners fold &mdash; in every other respect the box that reaches the customer is unchanged.</p>
+          <p class="section-sub" data-reveal="up">A collapsible shell ships flat and is built up where the order is packed.</p>
             <div class="rb-flat-actions" data-reveal="up">
               <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
                 Request the Flat-Pack Spec
@@ -314,16 +388,10 @@ const jsonLd = {
             </div>
           </div>
 
-          <div class="rb-flat-figs" data-reveal="left">
-            <figure class="rb-flat-fig">
-              <img src={`${RB}/flat-open.webp`} alt="A dark green collapsible rigid box folded down with its corners open" width={550} height={525} loading="lazy" decoding="async" class="rb-img" />
-              <figcaption>Collapsed for the trip</figcaption>
-            </figure>
-            <figure class="rb-flat-fig">
-              <img src={`${RB}/flat-stack.webp`} alt="Stacks of die-cut box blanks resting flat on a machine bed" width={500} height={500} loading="lazy" decoding="async" class="rb-img" />
-              <figcaption>Flat on the way out</figcaption>
-            </figure>
-          </div>
+          <figure class="rb-flat-figure" data-reveal="left">
+            <img src={`${RB}/flat-stack.webp`} alt="Stacks of die-cut box blanks resting flat on a die-cutter bed in the plant" width={500} height={500} loading="lazy" decoding="async" class="rb-img" />
+            <figcaption>Flat blanks, stacked off the die-cutter</figcaption>
+          </figure>
         </div>
 
         <ul class="rb-flat-rows">
@@ -349,23 +417,18 @@ const jsonLd = {
 
         <div class="rb-cust-grid">
           {custom.map((c, i) => (
-            <article class="rb-cust-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+            <article class="rb-cust-card" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
               <figure class="rb-cust-ph">
                 <img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" class="rb-img" />
               </figure>
               <div class="rb-cust-body">
                 <span class="rb-cust-n">{c.n}</span>
-                <h3 class="rb-cust-t">{c.t}</h3>
-                <p class="rb-cust-d">{c.d}</p>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
               </div>
             </article>
           ))}
         </div>
-
-        <p class="rb-cust-note" data-reveal="up">The same team draws the dieline, prepares the artwork and builds the first physical sample &mdash;
-          <a href="/structural-engineering-and-design/" target="_blank" rel="noopener">structural engineering</a>,
-          <a href="/packaging-artwork-design/" target="_blank" rel="noopener">artwork preparation</a> and
-          <a href="/packaging-sample-prototyping/" target="_blank" rel="noopener">sample prototyping</a> all sit in-house.</p>
       </div>
     </section>
 
@@ -388,14 +451,35 @@ const jsonLd = {
               </figure>
               <h3 class="rb-mat-t">{m.t}</h3>
               <p class="rb-mat-d">{m.d}</p>
-              <p class="rb-mat-best"><span>Best for</span>{m.best}</p>
+              <p class="rb-mat-best"><span>Best for</span><strong>{m.best}</strong></p>
             </article>
           ))}
         </div>
 
-        <div class="rb-finish" data-reveal="up">
+        <div class="rb-fin" data-reveal="up">
           <span class="rb-finish-l">Finishing on any board</span>
-          <ul>{finishes.map((f) => <li>{f}</li>)}</ul>
+          <ul class="rb-fin-row">
+            {finishes.map((f) => (
+              <li>
+                <figure>
+                  <img src={f.img} alt={`${f.t} finish on a rigid box`} width={480} height={360} loading="lazy" decoding="async" class="rb-img" />
+                  <figcaption>{f.t}</figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="rb-mat-eco" data-reveal="up">
+          <span class="rb-finish-l">Where the board ends up</span>
+          <ul>
+            {eco.map((e) => (
+              <li>
+                <h3>{e.t}</h3>
+                <p>{e.d}</p>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div class="section-cta" data-reveal="up">
@@ -420,35 +504,11 @@ const jsonLd = {
           {match.map((m, i) => (
             <article class="rb-match-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
               <h3 class="rb-match-p">{m.p}</h3>
-              <dl class="rb-match-rows">
-                <div><dt>Structure</dt><dd>{m.s}</dd></div>
-                <div><dt>Insert</dt><dd>{m.i}</dd></div>
-              </dl>
+              <p class="rb-match-b">{m.b}</p>
+              <p class="rb-match-m">{m.m}</p>
             </article>
           ))}
         </div>
-      </div>
-    </section>
-
-    <!-- ============ CAPACITY — light, over the floor ============ -->
-    <section class="rb-cap" id="capacity">
-      <div class="rb-grain" aria-hidden="true"></div>
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Capacity</span>
-          <h2 class="section-title" data-reveal="up">Production at <em>a Million Boxes a Month</em></h2>
-          <p class="section-sub" data-reveal="up">Printing, wrapping, lining and packing share a plant &mdash; a change of board or finish is a message to the next bay, never a new supplier.</p>
-        </div>
-
-        <ul class="rb-cap-ribbon">
-          {capacity.map((c, i) => (
-            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
-              <strong>{c.v}</strong>
-              <span class="rb-cap-l">{c.l}</span>
-              <p>{c.d}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
 
@@ -477,56 +537,52 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ PROCESS — four steps beside the press ============ -->
+    <!-- ============ PROCESS — a horizontal flow, arrows between steps ============ -->
     <section class="rb-flow" id="process">
-      <div class="wrap rb-flow-grid">
-        <div class="rb-flow-copy">
+      <div class="wrap">
+        <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How it runs</span>
           <h2 class="section-title" data-reveal="up">Four Steps From <em>Brief to Pallet</em></h2>
           <p class="section-sub" data-reveal="up">The same four steps run for a first sample and for a repeat order.</p>
-          <ol class="rb-flow-steps">
-            {steps.map((s, i) => (
-              <li data-reveal="up" style={`--d:${i * 0.07}s`}>
-                <span class="rb-flow-n">{s.n}</span>
-                <div>
-                  <h3>{s.t}</h3>
-                  <p>{s.d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
 
-        <figure class="rb-flow-figure" data-reveal="left">
-          <img src={`${RB}/press.webp`} alt="A four-colour offset printing press running board sheets in a print hall" width={500} height={500} loading="lazy" decoding="async" class="rb-img" />
-          <figcaption>The press hall, where board is printed before it is wrapped</figcaption>
-        </figure>
+        <ol class="rb-flow-track">
+          {steps.map((s, i) => (
+            <li class="rb-flow-step" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="rb-flow-ico" aria-hidden="true" set:html={`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg>`} />
+              <span class="rb-flow-n">{s.n}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
-    <!-- ============ SUSTAINABILITY — light section, forest panel ============ -->
-    <section class="rb-eco" id="sustainability">
+    <!-- ============ SCENES — client scenes carousel (placeholders) ============ -->
+    <section class="rb-sc" id="scenes">
       <div class="wrap">
-        <div class="rb-eco-panel" data-reveal="up">
-          <div class="rb-eco-head">
-            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Materials, revisited</span>
-            <h2 class="section-title">Rigid Does Not Have to Mean <em>Landfill</em></h2>
-            <p class="section-sub">Board, paper and glue are the whole of it. What decides where a rigid box ends up is what those three are made of.</p>
-            <div class="rb-eco-actions">
-              <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-                Ask About Recycled Board
-                <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
+        <div class="rb-sc-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>In the field</span>
+          <h2 class="section-title" data-reveal="up">Where the Boxes <em>End Up</em></h2>
+        </div>
+
+        <div class="rb-sc-body">
+          <div class="rb-sc-vp">
+            <div class="rb-sc-track">
+              {scenes.map((s) => (
+                <figure class="rb-sc-slide">
+                  <img src={s.img} alt={s.alt} width={900} height={675} loading="lazy" decoding="async" class="rb-img" />
+                </figure>
+              ))}
             </div>
           </div>
-          <ul class="rb-eco-list">
-            {eco.map((e, i) => (
-              <li style={`--d:${i * 0.07}s`}>
-                <h3>{e.t}</h3>
-                <p>{e.d}</p>
-              </li>
-            ))}
-          </ul>
+          <button class="rb-sc-btn rb-sc-prev" type="button" aria-label="Previous scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="rb-sc-btn rb-sc-next" type="button" aria-label="Next scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -546,7 +602,9 @@ const jsonLd = {
                 <strong>{r.m}</strong>
                 <span>{r.ml}</span>
               </div>
-              <p class="rb-rev-q">{r.q}</p>
+              <div class="rb-rev-q">
+                {r.q.map((para) => <p>{para}</p>)}
+              </div>
               <div class="rb-rev-by">
                 <img src={r.img} alt={r.alt} width={240} height={240} loading="lazy" decoding="async" class="rb-rev-img" />
                 <div>
@@ -585,7 +643,7 @@ const jsonLd = {
       <div class="wrap rb-final-inner">
         <span class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote</span>
         <h2 class="rb-final-title" data-reveal="up">Let's Build Your <em>First Rigid Box</em></h2>
-        <p class="rb-final-sub" data-reveal="up">The quote comes back against a specific build, not a price list.</p>
+        <p class="rb-final-sub" data-reveal="up">The quote comes back against a specific build, not a price list. Asking for one commits you to nothing, and you do not need the packaging vocabulary &mdash; describe what you ship and the build gets named for you.</p>
         <div class="rb-final-actions" data-reveal="up">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Cost Out My Rigid Boxes
@@ -642,9 +700,9 @@ const jsonLd = {
   }
   .rb-hero-title {
     font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: clamp(2.05rem, 3.7vw, 2.95rem);
-    line-height: 1.06;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 4.6vw, 3.9rem);
+    line-height: 1.08;
     letter-spacing: -0.026em;
     color: var(--ivory);
     margin: 1.1rem 0 0;
@@ -656,23 +714,25 @@ const jsonLd = {
     line-height: 1.72;
     color: rgba(245,240,229,0.8);
     max-width: 46ch;
-    margin: 1.3rem 0 0;
+    margin: 1.9rem 0 0;
   }
-  .rb-hero-actions { margin-top: clamp(1.7rem, 3vw, 2.2rem); }
+  .rb-hero-actions { margin-top: clamp(2.2rem, 4vw, 3.1rem); }
 
-  /* one large plate with two small ones stacked beside it */
-  .rb-hero-media {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: clamp(0.6rem, 1.2vw, 0.95rem);
-  }
-  .rb-hero-media figure {
-    margin: 0; overflow: hidden; border-radius: 1.1rem;
+  /* one wide plate above, two small ones side by side — the supplied shots are landscape */
+  .rb-hero-media { display: grid; gap: clamp(0.7rem, 1.4vw, 1rem); }
+  .rb-m1 {
+    margin: 0; overflow: hidden; border-radius: 1.2rem;
+    aspect-ratio: 16 / 9;
     background: var(--color-clay);
-    box-shadow: 0 30px 58px -44px rgba(31,59,44,0.6);
+    box-shadow: 0 40px 70px -40px rgba(0,0,0,0.55);
   }
-  .rb-m1 { aspect-ratio: 4 / 5; }
-  .rb-m-side { display: grid; grid-template-rows: 1fr 1fr; gap: clamp(0.6rem, 1.2vw, 0.95rem); }
+  .rb-m-side { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.7rem, 1.4vw, 1rem); }
+  .rb-m-side figure {
+    margin: 0; overflow: hidden; border-radius: 1rem;
+    aspect-ratio: 4 / 3;
+    background: var(--color-clay);
+    box-shadow: 0 26px 46px -28px rgba(0,0,0,0.6);
+  }
 
   /* the numbers sit inside the same card */
   .rb-rail {
@@ -697,6 +757,25 @@ const jsonLd = {
     letter-spacing: -0.02em; color: var(--color-brand-primary);
   }
   .rb-rail span { font-family: var(--font-body); font-size: 0.86rem; color: var(--color-brand-muted); }
+
+  /* ============ CORNER — the buyer's fear, then the cause, then the fix ============ */
+  .rb-corner { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* centred head, but the sub needs a wider measure than the shared 46ch or it
+     runs to five short lines */
+  .rb-corner .section-sub { max-width: 78ch; }
+  /* the plate takes the height of the three points, so top and bottom both line up —
+     with the copy this short it lands around 400px, so it does not read as a long column.
+     The image is absolute so it contributes no intrinsic height: the text sets the row
+     height and the plate stretches to it. */
+  .rb-corner-grid { display: grid; grid-template-columns: 0.82fr 1fr; gap: clamp(2rem, 4.6vw, 4rem); align-items: stretch; }
+  .rb-corner-figure { position: relative; margin: 0; border-radius: 1.3rem; overflow: hidden; background: var(--color-clay); box-shadow: 0 34px 64px -50px rgba(31,59,44,0.6); min-height: 320px; }
+  .rb-corner-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .rb-corner-list { list-style: none; margin: 0; padding: 0; }
+  .rb-corner-list li { display: grid; grid-template-columns: 2.6rem 1fr; gap: 0.9rem; padding: 1.05rem 0; border-top: 1px solid rgba(31,59,44,0.14); }
+  .rb-corner-list li:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); }
+  .rb-corner-n { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; color: var(--brass); padding-top: 0.32rem; }
+  .rb-corner-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.12rem, 1.7vw, 1.3rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .rb-corner-list p { font-size: 0.98rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
 
   /* ============ TYPES — clay, ivory cards ============ */
   .rb-types {
@@ -738,18 +817,16 @@ const jsonLd = {
 
   /* ============ COLLAPSIBLE ============ */
   .rb-flat { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .rb-flat-grid { display: grid; grid-template-columns: 1.06fr 1fr; gap: clamp(2rem, 4.4vw, 4rem); align-items: center; }
+  .rb-flat-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 4.4vw, 4rem); align-items: center; }
   .rb-flat-actions { margin-top: clamp(1.9rem, 3.4vw, 2.5rem); }
-  .rb-flat-figs { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 1.6vw, 1.2rem); }
-  .rb-flat-fig { margin: 0; }
-  .rb-flat-fig img { border-radius: 1.1rem; aspect-ratio: 1 / 1; box-shadow: 0 30px 60px -46px rgba(31,59,44,0.6); }
-  .rb-flat-fig:last-child { transform: translateY(1.6rem); }
-  .rb-flat-fig figcaption {
+  .rb-flat-figure { margin: 0; }
+  .rb-flat-figure img { border-radius: 1.2rem; aspect-ratio: 4 / 3; box-shadow: 0 34px 64px -48px rgba(31,59,44,0.6); }
+  .rb-flat-figure figcaption {
     margin-top: 0.7rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
     letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted);
   }
   .rb-flat-rows {
-    list-style: none; margin: clamp(3.4rem, 6vw, 5.2rem) 0 0; padding: 0;
+    list-style: none; margin: clamp(2.6rem, 5vw, 4rem) 0 0; padding: 0;
     display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 3vw, 2.6rem);
   }
   .rb-flat-row { padding-top: 1.3rem; border-top: 2px solid rgba(31,59,44,0.24); }
@@ -764,22 +841,28 @@ const jsonLd = {
   .rb-flat-row p { margin: 0.75rem 0 0; font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); }
 
   /* ============ CUSTOMIZATION ============ */
+  /* ============ CUSTOMIZATION — 2 × 2, centred: plate above, copy below ============ */
   .rb-cust { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .rb-cust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
-  .rb-cust-card { display: flex; flex-direction: column; }
-  .rb-cust-ph { margin: 0; border-radius: 1.1rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--ivory); box-shadow: 0 26px 50px -46px rgba(31,59,44,0.6); }
+  .rb-cust .section-sub { font-size: 1.14rem; max-width: 56ch; }
+  .rb-cust-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(2.2rem, 4.4vw, 3.4rem) clamp(1.8rem, 3.6vw, 3rem);
+    max-width: 1040px; margin-inline: auto;
+  }
+  .rb-cust-card {
+    text-align: center;
+    background: var(--ivory);
+    border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.3rem;
+    padding: clamp(1.1rem, 2.2vw, 1.6rem);
+    box-shadow: 0 28px 56px -50px rgba(31,59,44,0.55);
+  }
+  .rb-cust-ph { margin: 0; border-radius: 1rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-clay); }
   .rb-cust-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
   .rb-cust-card:hover .rb-cust-ph img { transform: scale(1.05); }
-  .rb-cust-body { padding-top: 1.15rem; }
-  .rb-cust-n { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; color: var(--brass); }
-  .rb-cust-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.35rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.45rem 0 0; }
-  .rb-cust-d { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
-  .rb-cust-note {
-    max-width: 78ch; margin: clamp(2.4rem, 4.6vw, 3.6rem) auto 0; text-align: center;
-    font-size: 1rem; line-height: 1.75; color: var(--color-brand-muted);
-  }
-  .rb-cust-note a { color: var(--forest-light); font-weight: 600; transition: color 0.3s ease; }
-  .rb-cust-note a:hover { color: var(--brass); }
+  .rb-cust-n { display: block; margin-top: 1.25rem; font-family: var(--font-body); font-size: 0.76rem; font-weight: 600; letter-spacing: 0.24em; color: var(--brass); }
+  .rb-cust-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.35rem, 2.1vw, 1.62rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .rb-cust-body p { font-size: 1.02rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.7rem 0 0; padding-bottom: 0.3rem; }
 
   /* ============ MATERIALS ============ */
   .rb-mat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -795,24 +878,29 @@ const jsonLd = {
   .rb-mat-card:hover .rb-mat-ph img { transform: scale(1.05); }
   .rb-mat-t { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 1.1rem 1.15rem 0; }
   .rb-mat-d { font-size: 0.92rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.55rem 1.15rem 0; }
-  .rb-mat-best { margin: auto 1.15rem 0; padding-top: 0.95rem; font-size: 0.87rem; color: var(--color-brand-text); }
-  .rb-mat-best span { display: block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.3rem; }
+  .rb-mat-best { margin: auto 1.15rem 0; padding-top: 0.95rem; font-size: 0.9rem; color: var(--color-brand-text); }
+  .rb-mat-best span { display: block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.3rem; }
+  .rb-mat-best strong { font-weight: 700; }
 
-  .rb-finish {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem clamp(1.2rem, 3vw, 2.4rem);
-    margin-top: clamp(2.2rem, 4vw, 3rem); padding-top: 1.5rem; border-top: 1px solid rgba(31,59,44,0.14);
+  /* finishing — a static row; these five all read in a normal photograph */
+  .rb-fin {
+    margin-top: clamp(2.6rem, 5vw, 4rem); padding-top: clamp(1.6rem, 3vw, 2.4rem);
+    border-top: 1px solid rgba(31,59,44,0.14);
   }
-  .rb-finish-l { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); }
-  .rb-finish ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; }
-  .rb-finish li {
-    font-family: var(--font-body); font-size: 0.86rem; color: var(--color-brand-text);
-    padding: 0.42rem 0.85rem; border: 1px solid rgba(31,59,44,0.16); border-radius: 999px; background: rgba(245,240,229,0.7);
+  .rb-finish-l { display: block; margin-bottom: clamp(1.2rem, 2.4vw, 1.8rem); font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); }
+  .rb-fin-row {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: clamp(0.8rem, 1.8vw, 1.4rem);
   }
+  .rb-fin-row figure { margin: 0; }
+  .rb-fin-row img { border-radius: 1rem; aspect-ratio: 4 / 3; box-shadow: 0 22px 42px -42px rgba(31,59,44,0.6); }
+  .rb-fin-row figcaption { margin-top: 0.6rem; font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--color-brand-text); text-align: center; }
 
   /* ============ MATCH — the page's dark moment ============ */
   .rb-match {
     position: relative;
-    background: linear-gradient(180deg, var(--color-forest) 0%, var(--forest-deep) 100%);
+    background: linear-gradient(180deg, rgba(20,38,27,0.86), rgba(20,38,27,0.92)), url('https://img.leelinepackage.com/rigid-boxes/match-bg-v2.webp') center / cover no-repeat;
     padding: clamp(4rem, 9vw, 8rem) 0;
   }
   .rb-match::before {
@@ -829,36 +917,12 @@ const jsonLd = {
     padding: clamp(1.3rem, 2.4vw, 1.8rem);
   }
   .rb-match-p { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.34rem); letter-spacing: -0.015em; color: var(--ivory); margin: 0; }
-  .rb-match-rows { margin: 1.15rem 0 0; padding-top: 1.05rem; border-top: 1px solid rgba(245,240,229,0.18); }
-  .rb-match-rows > div { display: grid; grid-template-columns: 5.6rem 1fr; gap: 0.6rem; padding: 0.42rem 0; }
-  .rb-match-rows dt { font-family: var(--font-body); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass-soft); padding-top: 0.24rem; }
-  .rb-match-rows dd { margin: 0; font-size: 0.94rem; line-height: 1.5; color: rgba(245,240,229,0.9); }
-
-  /* ============ CAPACITY — light, over the floor ============ */
-  .rb-cap {
-    position: relative;
-    background: linear-gradient(180deg, rgba(245,240,229,0.88), rgba(245,240,229,0.93)), url('https://img.leelinepackage.com/rigid-boxes/plant.webp') center / cover no-repeat;
-    padding: clamp(4rem, 9vw, 7.5rem) 0;
+  .rb-match-b { margin: 1.05rem 0 0; font-size: 0.94rem; line-height: 1.66; color: rgba(245,240,229,0.88); }
+  .rb-match-m {
+    margin: 0.95rem 0 0; padding-top: 0.85rem; border-top: 1px solid rgba(245,240,229,0.18);
+    font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass-soft);
   }
-  .rb-cap::before {
-    content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(46% 54% at 84% 8%, rgba(228,181,77,0.16), transparent 68%);
-  }
-  .rb-cap .wrap { position: relative; z-index: 1; }
-
-  .rb-cap-ribbon {
-    list-style: none; margin: clamp(1rem, 3vw, 2rem) 0 0; padding: 0;
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    border-top: 2px solid rgba(31,59,44,0.3); border-bottom: 1px solid rgba(31,59,44,0.16);
-  }
-  .rb-cap-ribbon li { padding: clamp(1.5rem, 3vw, 2.2rem) clamp(1rem, 2vw, 1.6rem); border-left: 1px solid rgba(31,59,44,0.14); }
-  .rb-cap-ribbon li:first-child { border-left: 0; }
-  .rb-cap-ribbon strong {
-    display: block; font-family: var(--font-heading); font-weight: 600;
-    font-size: clamp(1.9rem, 3.4vw, 2.7rem); line-height: 1; letter-spacing: -0.02em; color: var(--color-brand-primary);
-  }
-  .rb-cap-l { display: block; margin-top: 0.5rem; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); }
-  .rb-cap-ribbon p { margin: 0.7rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
 
   /* ============ CASES — 2 × 2 ============ */
   /* compact 2 × 2 — the four builds side by side rather than four full-width rows */
@@ -878,44 +942,79 @@ const jsonLd = {
   .rb-case-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.5vw, 1.22rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
   .rb-case-d { font-size: 0.87rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
 
-  /* ============ PROCESS ============ */
+  /* ============ PROCESS — a horizontal flow with arrows between the steps ============ */
   .rb-flow { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .rb-flow-grid { display: grid; grid-template-columns: 1.18fr 1fr; gap: clamp(2rem, 4.6vw, 4rem); align-items: start; }
-  .rb-flow-steps { list-style: none; margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 0; }
-  .rb-flow-steps li { display: grid; grid-template-columns: 3rem 1fr; gap: 1.1rem; padding: 1.15rem 0; border-top: 1px solid rgba(31,59,44,0.14); }
-  .rb-flow-steps li:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); }
-  .rb-flow-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--brass); padding-top: 0.18rem; }
-  .rb-flow-steps h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.26rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
-  .rb-flow-steps p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
-  .rb-flow-figure { margin: 0; position: sticky; top: 7rem; }
-  .rb-flow-figure img { border-radius: 1.3rem; aspect-ratio: 1 / 1; box-shadow: 0 40px 74px -54px rgba(31,59,44,0.62); }
-  .rb-flow-figure figcaption {
-    margin-top: 0.85rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); text-align: center;
+  .rb-flow-track {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.4vw, 2rem);
   }
+  .rb-flow-step { position: relative; padding-top: 3.5rem; }
+  /* the connector runs from this step's icon chip across to the next one */
+  .rb-flow-step::before { content: ''; position: absolute; left: 52px; right: 0; top: 21px; height: 2px; background: rgba(31,59,44,0.28); }
+  .rb-flow-step::after {
+    content: ''; position: absolute; top: 16px; right: calc(-1 * clamp(0.5rem, 1.2vw, 1rem));
+    width: 12px; height: 12px; border-top: 2px solid rgba(31,59,44,0.28); border-right: 2px solid rgba(31,59,44,0.28);
+    transform: rotate(45deg);
+  }
+  .rb-flow-step:last-child::after { display: none; }
+  .rb-flow-ico {
+    position: absolute; left: 0; top: 0; width: 44px; height: 44px;
+    display: grid; place-items: center; border-radius: 13px;
+    background: rgba(176,141,76,0.16); color: var(--brass);
+  }
+  .rb-flow-ico svg { width: 22px; height: 22px; }
+  .rb-flow-n {
+    display: block;
+    font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.22em; color: var(--brass);
+  }
+  .rb-flow-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.26rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.45rem 0 0; }
+  .rb-flow-step p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
 
-  /* ============ SUSTAINABILITY ============ */
-  .rb-eco { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .rb-eco-panel {
+  /* where the board ends up — its own dark panel so the section is not three flat strips */
+  .rb-mat-eco {
     position: relative; overflow: hidden;
-    background: linear-gradient(155deg, var(--color-forest) 0%, var(--forest-deep) 100%);
-    border-radius: 1.7rem;
-    padding: clamp(2rem, 5vw, 4.2rem);
-    display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 4.6vw, 4.2rem); align-items: center;
+    margin-top: clamp(2.6rem, 5vw, 4rem);
+    background: linear-gradient(150deg, var(--color-forest) 0%, var(--forest-deep) 100%);
+    border-radius: 1.6rem;
+    padding: clamp(1.8rem, 3.6vw, 3rem);
   }
-  .rb-eco-panel::before {
+  .rb-mat-eco::before {
     content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(46% 62% at 14% 88%, rgba(228,181,77,0.16), transparent 70%);
+    background: radial-gradient(44% 60% at 12% 86%, rgba(228,181,77,0.16), transparent 70%);
   }
-  .rb-eco-head { position: relative; z-index: 1; }
-  .rb-eco-head .section-title { color: var(--ivory); font-size: clamp(1.85rem, 3.6vw, 2.9rem); }
-  .rb-eco-head .section-title em { color: #E3C29A; }
-  .rb-eco-head .section-sub { color: rgba(245,240,229,0.78); max-width: 40ch; }
-  .rb-eco-actions { margin-top: clamp(1.8rem, 3.2vw, 2.4rem); }
-  .rb-eco-list { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem clamp(1.2rem, 2.6vw, 2.2rem); }
-  .rb-eco-list li { padding-top: 1rem; border-top: 1px solid rgba(245,240,229,0.24); }
-  .rb-eco-list h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.98rem; letter-spacing: -0.005em; color: var(--brass-soft); margin: 0; }
-  .rb-eco-list p { font-size: 0.92rem; line-height: 1.64; color: rgba(245,240,229,0.76); margin: 0.5rem 0 0; }
+  .rb-mat-eco .rb-finish-l { position: relative; z-index: 1; color: #E3C29A; }
+  .rb-mat-eco ul {
+    position: relative; z-index: 1;
+    list-style: none; margin: clamp(1rem, 2vw, 1.5rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.8rem);
+  }
+  .rb-mat-eco li { padding-top: 1rem; border-top: 1px solid rgba(245,240,229,0.22); }
+  .rb-mat-eco h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.96rem; color: var(--brass-soft); margin: 0; }
+  .rb-mat-eco p { font-size: 0.9rem; line-height: 1.62; color: rgba(245,240,229,0.78); margin: 0.45rem 0 0; }
+
+  /* ============ SCENES — looping carousel of client scenes (placeholders) ============ */
+  .rb-sc { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .rb-sc-head { margin-bottom: clamp(1.8rem, 3.6vw, 2.8rem); }
+  /* the arrows sit on the images, one at each side */
+  .rb-sc-body { position: relative; }
+  .rb-sc-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 50px; height: 50px; display: grid; place-items: center; cursor: pointer;
+    border-radius: 50%; border: 1px solid rgba(245,240,229,0.55);
+    background: rgba(31,59,44,0.72); color: var(--ivory);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .rb-sc-btn:hover { background: var(--color-forest); border-color: var(--ivory); }
+  .rb-sc-btn svg { width: 22px; height: 22px; }
+  .rb-sc-prev { left: 0.9rem; }
+  .rb-sc-next { right: 0.9rem; }
+  /* the viewport must clip, or the loop's clones bleed across the page */
+  .rb-sc-vp { overflow: hidden; }
+  .rb-sc-track { --sg: clamp(0.9rem, 2vw, 1.5rem); display: flex; gap: var(--sg); }
+  .rb-sc-slide { flex: 0 0 calc((100% - 2 * var(--sg)) / 3); margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--color-brand-surface); }
+  .rb-sc-slide img { aspect-ratio: 4 / 3; }
 
   /* ============ REVIEWS ============ */
   .rb-rev { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
@@ -928,11 +1027,13 @@ const jsonLd = {
   .rb-rev-top { display: flex; align-items: baseline; gap: 0.7rem; padding-bottom: 1.1rem; border-bottom: 1px solid rgba(31,59,44,0.13); }
   .rb-rev-top strong { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.8rem, 3.2vw, 2.5rem); line-height: 1; letter-spacing: -0.025em; color: var(--brass); }
   .rb-rev-top span { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-brand-muted); }
-  .rb-rev-q { font-family: var(--font-heading); font-size: clamp(1.02rem, 1.5vw, 1.16rem); line-height: 1.72; color: var(--color-brand-text); margin: 1.2rem 0 0; flex: 1; }
-  .rb-rev-by { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.13); }
-  .rb-rev-img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
-  .rb-rev-n { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.96rem; color: var(--color-brand-text); }
-  .rb-rev-r { display: block; font-size: 0.87rem; color: var(--color-brand-muted); margin-top: 0.15rem; }
+  .rb-rev-q { margin: 1.2rem 0 0; flex: 1; }
+  .rb-rev-q p { font-family: var(--font-body); font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-text); margin: 0; }
+  .rb-rev-q p + p { margin-top: 0.9rem; }
+  .rb-rev-by { display: flex; align-items: center; gap: 1rem; margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px solid rgba(31,59,44,0.13); }
+  .rb-rev-img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .rb-rev-n { display: block; font-family: var(--font-body); font-weight: 600; font-size: 1.02rem; color: var(--color-brand-text); }
+  .rb-rev-r { display: block; font-size: 0.89rem; color: var(--color-brand-muted); margin-top: 0.2rem; }
 
   /* ============ FAQ ============ */
   .rb-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
@@ -972,35 +1073,42 @@ const jsonLd = {
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 1024px) {
-    .rb-hero-grid { grid-template-columns: 1fr; gap: clamp(1.6rem, 3.4vw, 2.4rem); }
+    .rb-corner-grid { grid-template-columns: 1fr; gap: clamp(1.8rem, 4vw, 2.6rem); }
+    .rb-corner-figure { max-width: 420px; }
+    .rb-hero-grid { grid-template-columns: 1fr; gap: clamp(2rem, 4vw, 3rem); }
     .rb-hero-media { max-width: 560px; }
     .rb-rail { grid-template-columns: repeat(2, 1fr); }
     .rb-types-head, .rb-mat-head { grid-template-columns: 1fr; gap: 1.2rem; }
     .rb-type-grid { grid-template-columns: repeat(2, 1fr); }
     .rb-flat-grid { grid-template-columns: 1fr; }
-    .rb-flat-fig:last-child { transform: none; }
-    .rb-cust-grid { grid-template-columns: repeat(2, 1fr); }
+    .rb-cust-grid { grid-template-columns: 1fr; gap: clamp(1.6rem, 3.4vw, 2.2rem); }
     .rb-mat-grid { grid-template-columns: repeat(2, 1fr); }
     .rb-match-grid { grid-template-columns: repeat(2, 1fr); }
-    .rb-cap-ribbon { grid-template-columns: repeat(2, 1fr); }
-    .rb-cap-ribbon li:nth-child(3) { border-left: 0; }
-    .rb-cap-ribbon li:nth-child(n + 3) { border-top: 1px solid rgba(31,59,44,0.14); }
+    .rb-mat-eco ul { grid-template-columns: repeat(2, 1fr); }
     .rb-case-list { grid-template-columns: 1fr; }
     .rb-case { grid-template-columns: 38% 1fr; }
-    .rb-flow-grid { grid-template-columns: 1fr; }
-    .rb-flow-figure { position: static; max-width: 520px; }
-    .rb-eco-panel { grid-template-columns: 1fr; gap: clamp(1.8rem, 4vw, 2.6rem); }
+    .rb-flow-track { grid-template-columns: repeat(2, 1fr); gap: clamp(1.4rem, 3vw, 2rem); }
+    .rb-flow-step::after { display: none; }
+    .rb-fin-row { grid-template-columns: repeat(3, 1fr); }
+    .rb-sc-slide { flex-basis: calc((100% - var(--sg)) / 2); }
   }
   @media (max-width: 640px) {
     .rb-hero { padding-top: calc(clamp(3rem, 8vw, 4.2rem) + 4rem); }
-    .rb-hero-media { max-width: 420px; }
+    .rb-hero-media { max-width: 460px; }
     .rb-rail { grid-template-columns: 1fr; }
-    .rb-type-grid, .rb-cust-grid, .rb-mat-grid, .rb-match-grid { grid-template-columns: 1fr; }
+    .rb-type-grid, .rb-mat-grid, .rb-match-grid { grid-template-columns: 1fr; }
     .rb-flat-rows { grid-template-columns: 1fr; }
-    .rb-eco-list { grid-template-columns: 1fr; }
+    .rb-mat-eco ul { grid-template-columns: 1fr; }
+    .rb-case { grid-template-columns: 1fr; }
+    .rb-flow-track { grid-template-columns: 1fr; }
+    .rb-flow-step::before { display: none; }
+    .rb-fin-row { grid-template-columns: repeat(2, 1fr); }
+    .rb-sc-btn { width: 42px; height: 42px; }
+    .rb-sc-prev { left: 0.5rem; }
+    .rb-sc-next { right: 0.5rem; }
+    .rb-sc-slide { flex-basis: 100%; }
     .rb-rev-grid { grid-template-columns: 1fr; }
-    .rb-finish { flex-direction: column; align-items: flex-start; }
-    .rb-match-rows > div { grid-template-columns: 5.2rem 1fr; }
+    .rb-rev-img { width: 64px; height: 64px; }
   }
 </style>
 
@@ -1017,5 +1125,64 @@ const jsonLd = {
     revealEls.forEach((el) => revealIO.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Seamless carousel: `clones` copies of the last slides sit before slide one and
+  // `clones` of the first sit after the last, so stepping past either end animates
+  // onto a clone and is then snapped (transition: none) onto the matching real
+  // slide. It loops in both directions with no visible jump. Clones are JS-only, so
+  // the static HTML keeps just the real slides.
+  function loopCarousel(trackSel, prevSel, nextSel, clones) {
+    const track = document.querySelector(trackSel);
+    if (!track) return;
+    const slides = Array.from(track.children);
+    const N = slides.length;
+    if (N <= clones) return;
+
+    for (let k = 0; k < clones; k++) {
+      const c = slides[(N - clones + k) % N].cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.classList.add('is-clone');
+      track.insertBefore(c, slides[0]);
+    }
+    for (let k = 0; k < clones; k++) {
+      const c = slides[k % N].cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.classList.add('is-clone');
+      track.appendChild(c);
+    }
+
+    let idx = clones;
+    const step = () => {
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return track.children[clones].getBoundingClientRect().width + gap;
+    };
+    const move = (animate) => {
+      track.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+      track.style.transform = `translateX(${-idx * step()}px)`;
+    };
+    const go = (dir) => {
+      if (track._busy) return;
+      track._busy = true;
+      idx += dir;
+      move(true);
+      setTimeout(() => {
+        if (idx < clones) idx += N;
+        else if (idx > clones + N - 1) idx -= N;
+        move(false);
+        track._busy = false;
+      }, 570);
+    };
+
+    const prev = document.querySelector(prevSel);
+    const next = document.querySelector(nextSel);
+    if (prev) prev.addEventListener('click', () => go(-1));
+    if (next) next.addEventListener('click', () => go(1));
+    move(false);
+    window.addEventListener('resize', () => { if (!track._busy) move(false); });
+  }
+
+  if (!reduce) {
+    loopCarousel('.rb-sc-track', '.rb-sc-prev', '.rb-sc-next', 3);
   }
 </script>

@@ -900,7 +900,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     padding: 0.6rem 1.25rem;
     transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
   }
-  .pb-tab-btn:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+  /* only the unselected pills react to hover — the selected (green) pill keeps its
+     ivory text instead of flipping to dark green on dark green */
+  .pb-tab-btn:hover:not(.pb-tab-btn--active) { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
   .pb-tab-btn--active { background: var(--forest-light); border-color: var(--forest-light); color: var(--ivory); }
   .pb-panel { display: none; }
   .pb-panel--active { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: clamp(1.4rem, 3.4vw, 3.2rem); align-items: center; animation: pb-fade 0.5s ease both; }

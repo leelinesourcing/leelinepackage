@@ -1,0 +1,1129 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const PB = `${R2}/custom-paper-bag`;
+
+/* The nine styles. One short clause each — the trade switcher further down
+   carries the per-industry build. */
+const types = [
+  { n: '01', name: 'Euro Tote Bags', img: `${PB}/type-euro-tote.webp`,
+    alt: 'A yellow paper tote bag with rope handles printed with a tropical resort logo',
+    d: 'Rigid board and rope handles, for a boutique where the bag is carried open.' },
+  { n: '02', name: 'Kraft Paper Shopping Bags', img: `${PB}/type-kraft.webp`,
+    alt: 'A plain brown kraft paper shopping bag with twisted paper handles',
+    d: 'Unbleached brown stock under a single spot colour.' },
+  { n: '03', name: 'Die-Cut Handle Bags', img: `${PB}/type-diecut.webp`,
+    alt: 'A kraft bag with an integrated die-cut handle and a printed fashion logo',
+    d: 'The handle is cut in the same pass as the bag itself.' },
+  { n: '04', name: 'Gift Bags', img: `${PB}/type-gift.webp`,
+    alt: 'A cream gift bag tied with a wide brown ribbon bow',
+    d: 'A structured body with a ribbon, for the counter where a purchase becomes a present.' },
+  { n: '05', name: 'Wide Gusset Bags', img: `${PB}/type-wide-gusset.webp`,
+    alt: 'A white paper bag with deep side gussets printed with a burger restaurant logo',
+    d: 'A deep gusset for boxed goods and folded garments.' },
+  { n: '06', name: 'Paper Carrier Bags', img: `${PB}/type-carrier.webp`,
+    alt: 'A kraft carrier bag with twisted handles printed with a botanical illustration',
+    d: 'The glued block bottom that stacks flat and opens at the till.' },
+  { n: '07', name: 'Wine & Liquor Bags', img: `${PB}/type-wine.webp`,
+    alt: 'Three kraft bottle bags of different sizes lying beside each other',
+    d: 'A reinforced base sized to the bottle.' },
+  { n: '08', name: 'Recycled Paper Event Bags', img: `${PB}/type-event-v2.webp`,
+    alt: 'A stack of printed paper bags in black, red, green and kraft with loop handles',
+    d: 'Post-consumer stock in a single colour, priced for volume.' },
+  { n: '09', name: 'Printed Paper Bags', img: `${PB}/type-printed.webp`,
+    alt: 'A kraft bag printed with a colourful illustrative design and the words your design goes here',
+    d: 'Full-surface print up to eight colours with a spot varnish.' },
+];
+
+/* What the buyer gets from a single supplier. Each icon is deliberately
+   literal, one per heading: pencil = the dieline is drawn, person = the one
+   contact, magnifier+tick = inspected against the sample, truck = freight. */
+const why = [
+  { icon: '<path d="M15.6 4.6l3.8 3.8L8.2 19.6H4.4v-3.8L15.6 4.6z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13.9 6.3l3.8 3.8" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+    t: 'Design Included', d: 'The dieline is drawn as part of the order rather than billed as a separate service, which turns a structural change into a conversation instead of an invoice.' },
+  { icon: '<circle cx="12" cy="8.2" r="3.7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4.9 20.2a7.1 7.1 0 0 1 14.2 0" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
+    t: 'One Contact, One Record', d: 'A named coordinator answers from brief to delivery. Nothing is passed to a second vendor, which means nothing is explained twice.' },
+  { icon: '<circle cx="10.6" cy="10.6" r="6.1" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15.1 15.1L20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7.9 10.7l1.9 1.9 3.3-3.7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>',
+    t: 'Inspected Against the Sample', d: 'Colour is checked against the approved reference, and each batch is signed off against that sample before it is strapped.' },
+  { icon: '<path d="M3 7h10v8H3z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M13 9.5h3.4L20 12.9V15h-7z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="17" r="1.9" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16" cy="17" r="1.9" fill="none" stroke="currentColor" stroke-width="1.5"/>',
+    t: 'Freight Decided Early', d: 'Bags ship flat and counted, and the packing pattern is drawn around the container — which is where a large share of the landed cost is set.' },
+];
+
+/* Six handle fixings. This section owns the attachment; the types grid above
+   owns the bag, so no sentence is shared between them. */
+const handles = [
+  { name: 'Macramé Handles', img: `${PB}/handle-macrame.webp`,
+    alt: 'A macramé rope handle knotted through the punched hole of a paper bag',
+    d: 'Knotted rope with a hand-made texture, tied through a punched hole — for a carrier meant to look made rather than milled.',
+    best: 'Boutiques, high-end retail' },
+  { name: 'Grosgrain Polyester', img: `${PB}/handle-grosgrain.webp`,
+    alt: 'A ribbed grosgrain ribbon handle fitted through the top edge of a printed bag',
+    d: 'Ribbed ribbon with a firm grip that stays on a wrist through a crowded street.',
+    best: 'Gift bags, formal packaging' },
+  { name: 'Cotton Handles', img: `${PB}/handle-cotton.webp`,
+    alt: 'A soft woven cotton tape handle attached to a cream paper bag',
+    d: 'Woven tape that spreads the weight across the palm — the choice when a customer carries the bag for more than a block.',
+    best: 'Heavier items, sustainable brands' },
+  { name: 'Twisted Paper', img: `${PB}/handle-twisted.webp`,
+    alt: 'Twisted paper cord handles in a kraft tone on a plain brown bag',
+    d: 'Rolled paper cord colour-matched to the bag, so the handle disappears into the print and the whole unit recycles together.',
+    best: 'Kraft ranges, value retail' },
+  { name: 'Die-Cut Handles', img: `${PB}/handle-diecut.webp`,
+    alt: 'A paper bag with a handle cut directly from its own top panel',
+    d: 'Cut from the bag&rsquo;s own board, which removes a component, an assembly step and a line from the quote.',
+    best: 'Lightweight items, promotions' },
+  { name: 'Flat Nylon Cord', img: `${PB}/handle-nylon.webp`,
+    alt: 'A satin-finish flat nylon cord handle with a reinforced anchor on a kraft bag',
+    d: 'A satin cord on a reinforced anchor, for the weight of a boxed set or a single bottle.',
+    best: 'Luxury retail, bottle sets' },
+];
+
+/* Four presses. Colour control belongs to the section intro, so the rows stay
+   on what each method is for. */
+const presses = [
+  { name: 'Offset Printing', img: `${PB}/print-offset.webp`,
+    alt: 'A sheet-fed offset printing press running a large printed sheet',
+    d: 'For long runs where the last sheet has to match the first, because that is what a reorder is measured against.',
+    tag: 'Best on 5,000+' },
+  { name: 'Digital Printing', img: `${PB}/print-digital.webp`,
+    alt: 'A wide-format digital press printing a full-colour banner',
+    d: 'For short runs and fine artwork a plate would flatten, including variable data, letting each bag carry a different name.',
+    tag: 'Best on 500–2,000' },
+  { name: 'Flexography', img: `${PB}/print-flexo.webp`,
+    alt: 'Printed colour swatch charts fanned out after a flexographic run',
+    d: 'For a plain spot-colour job at the lowest unit price, on kraft where a coating would only add cost.',
+    tag: 'Best on 10,000+' },
+  { name: 'UV Printing', img: `${PB}/print-uv.webp`,
+    alt: 'A printed sheet curing under UV lamps on a press',
+    d: 'Ink set the instant it lands, so the print resists scuffing and water on a carrier used more than once.',
+    tag: 'Best for reuse' },
+];
+
+/* Four surfaces. Only the sheet and the finish change — the price is quoted
+   at the same size so the difference is comparable. */
+const papers = [
+  { name: 'Gloss Art Paper', img: `${PB}/material-gloss.webp`,
+    alt: 'A smooth cream coated paper surface in raking light',
+    d: 'A coated surface that holds a photographic print, so colour lands on the bag the way it did on the proof.' },
+  { name: 'Uncoated Kraft', img: `${PB}/material-kraft.webp`,
+    alt: 'A sheet of natural uncoated kraft paper with visible fibre',
+    d: 'Raw brown stock: plastic-free, recyclable, and the cheapest board to carry a single-colour stamp.' },
+  { name: 'Metallic & Holographic', img: `${PB}/material-metallic.webp`,
+    alt: 'A gold foil surface reflecting a soft gradient of light',
+    d: 'A foil-bearing sheet that throws light back, for a launch that has to be spotted from across a room.' },
+  { name: 'Soft-Touch & Embossed', img: `${PB}/material-softtouch.webp`,
+    alt: 'A white sheet with a floral pattern embossed into its surface',
+    d: 'A matte laminate with a pattern raised under the finger — the finish that makes a bag feel more considered than it cost.' },
+];
+
+/* The size-chart and spec-drawing facts are not a standalone block — each pair
+   sits under the drawing it annotates, as that figure's own caption. */
+
+/* The signature section — five trades, five builds. Every row is a spec, so
+   the switcher never re-tells a bag description from the grid above. */
+const trades = [
+  { key: 'retail', label: 'Retail & Boutique', img: `${PB}/trade-retail-v2.webp`,
+    alt: 'A pink printed carrier bag on a marble tray beside folded tissue paper',
+    spec: [['Bag', 'Euro tote, 210 gsm'], ['Paper', 'Gloss art, laminated'], ['Handle', 'Cotton rope, 60 cm'], ['Size', '250 × 320 × 100 mm']],
+    why: 'A bag carried open down a high street is a sign that keeps moving. Lamination holds the print through a full day of handling, and a rope handle reads as a brand rather than a shop.' },
+  { key: 'food', label: 'Food & Drink', img: `${PB}/trade-food-v2.webp`,
+    alt: 'Two printed kraft carrier bags on a counter beside takeaway coffee cups and pastries',
+    spec: [['Bag', 'Carrier, grease-resistant'], ['Paper', 'Uncoated kraft, 130 gsm'], ['Handle', 'Twisted paper'], ['Size', '220 × 280 × 120 mm']],
+    why: 'Grease and moisture sit against the board rather than soaking through it. Kraft takes a one-colour stamp without a coating, which keeps the whole unit in the paper stream with the wrappers.' },
+  { key: 'cosmetics', label: 'Cosmetics & Beauty', img: `${PB}/trade-cosmetics-v2.webp`,
+    alt: 'Pink and black printed gift bags arranged with cosmetics and a mirror',
+    spec: [['Bag', 'Gift bag, bow closure'], ['Paper', 'Soft-touch matte, 210 gsm'], ['Handle', 'Grosgrain ribbon'], ['Size', '180 × 230 × 90 mm']],
+    why: 'The bag has to feel like the product it holds. A soft-touch laminate and a ribbon handle carry the price point past the till and into the photograph.' },
+  { key: 'events', label: 'Events & Trade Shows', img: `${PB}/trade-events-v2.webp`,
+    alt: 'White printed bags with green ribbon handles held by staff at an event',
+    spec: [['Bag', 'Recycled event bag'], ['Paper', '100% post-consumer, 150 gsm'], ['Handle', 'Die-cut, integrated'], ['Size', '300 × 400 × 130 mm']],
+    why: 'Volume against a short window. An integrated handle removes an assembly step, letting a thousand units print, cut and pack in the same run without a rush premium.' },
+  { key: 'wine', label: 'Wine & Spirits', img: `${PB}/trade-wine-v2.webp`,
+    alt: 'Two kraft bottle bags standing beside wine glasses and a bottle',
+    spec: [['Bag', 'Bottle bag, doubled base'], ['Paper', 'Rigid board, 300 gsm'], ['Handle', 'Flat nylon cord'], ['Size', '120 × 380 × 120 mm']],
+    why: 'A bottle is the heaviest single item a carrier ever takes. Two layers of board in the base and a nylon anchor hold the load where a standard bag opens up.' },
+];
+
+/* Six real-use scenes, looping carousel. Captions and alts follow the supplied
+   photographs — one per stage of a shop, not per trade. */
+const scenes = [
+  { img: `${PB}/scene-1-v2.webp`, cap: 'Into the boot at the supermarket',
+    alt: 'A man loading a paper grocery bag into the open boot of a car' },
+  { img: `${PB}/scene-2-v2.webp`, cap: 'Sorted at home after the shop',
+    alt: 'A woman sitting on a sofa with several kraft paper bags around her' },
+  { img: `${PB}/scene-3-v2.webp`, cap: 'Carried back on the walk home',
+    alt: 'Two children walking outdoors, each carrying a paper bag' },
+  { img: `${PB}/scene-4-v2.webp`, cap: 'Out of the trolley, into the car',
+    alt: 'A man carrying a paper bag through a car park beside a trolley' },
+  { img: `${PB}/scene-5-v2.webp`, cap: 'A full shop in one pair of hands',
+    alt: 'A woman carrying several shopping bags along a street' },
+  { img: `${PB}/scene-6-v2.webp`, cap: 'Bagged at the wine counter',
+    alt: 'A woman placing a wine bottle into a kraft paper bag at a shop counter' },
+];
+
+/* Two buyers, three paragraphs each. Written from the factory's own review
+   copy, led by the specification rather than the praise. */
+const testimonials = [
+  {
+    name: 'David Ramirez', role: 'Founder', co: 'Verde Mercado', loc: 'United States',
+    avatar: `${PB}/avatar-david.webp`,
+    q: [
+      'A young brand is normally priced out of a printed bag before the first order. Starting at 500 meant the kraft carrier with cotton handles could be ordered at the same quantity as the first production run of the product itself.',
+      'The handle was the part worth paying for. It spreads the load across the palm, so somebody carrying two jars does not feel a cord edge by the time they reach the car.',
+      'Feedback came back naming the bag before the product, which is not an outcome a small brand budgets for.',
+    ],
+  },
+  {
+    name: 'Marcus Williams', role: 'Brand Manager', co: 'Summit Spice Co.', loc: 'Canada',
+    avatar: `${PB}/avatar-marcus.webp`,
+    q: [
+      'Three suppliers had tried our spice artwork and lost the linework in the pattern every time. The digital sample came back with the detail intact at 180 mm tall, which is the size where a carrier stops being a bag and starts being a label.',
+      'A trade show needed 2,000 units inside three weeks. The rush arrived without a surcharge attached to it, and the pallet landed with two days to spare.',
+      'The file was set up once. The second order reprinted from it without a colour drifting, which is the whole reason for staying with a single supplier.',
+    ],
+  },
+];
+
+/* Only what the sections above do not answer: file format, commercial terms,
+   confidentiality, and the reorder rule. Nothing here restates a spec row, a
+   trade build, the sample rule in §Why, or the 500-unit figure in the hero. */
+const faqs = [
+  { q: 'What file should the artwork arrive in?', a: 'A vector file with the dieline on its own layer, or a print-ready PDF at 300 dpi with 3 mm of bleed. Keeping the cut file separate from the design means a size change never means redrawing the artwork.' },
+  { q: 'How are the payment terms set?', a: 'A deposit confirms the order and the balance clears before the goods leave the plant. T/T and L/C are both accepted, and the split is written into the price rather than agreed at the end.' },
+  { q: 'Who books the freight, and what terms does the price use?', a: 'Carriage is quoted against the destination port on FOB, CIF or DDP, whichever the buying team works in, and the term is named on the quote. Air is priced separately when a launch cannot wait on a sailing.' },
+  { q: 'Will you sign an NDA before we share the design?', a: 'Yes. A confidentiality agreement is signed before a design file is opened, and a brand&rsquo;s artwork is never reused as a sample for another client.' },
+  { q: 'Does a reorder start at the same minimum as a first run?', a: 'No. The minimum applies to a first run of a new design; a reorder that reuses the same die and plates starts lower, because the tooling is already made and only board and press time are being bought.' },
+];
+
+const seo = {
+  title: 'Custom Paper Bag Manufacturer: 99.8% On-Time, AQL 1.0 Tested',
+  description: 'Commercial-grade custom paper bags with reinforced handle joins and AQL 1.0 inspection that cuts handle pull-out and bottom failure. 500-unit MOQ, 4-6 week run.',
+  keywords: 'custom paper bag, custom paper bag manufacturer, custom printed paper bags, custom kraft paper bags, wholesale custom paper bags, custom paper shopping bags, custom logo paper bags, eco-friendly custom paper bags, custom paper gift bags, personalized paper bags, reinforced handle paper bags, paper bag supplier China',
+  canonical: 'https://www.leelinepackage.com/custom-paper-bag/',
+  ogImage: `${PB}/hero-v2.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Paper Bag Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom paper shopping bag design, printing and manufacture',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Paper Bag' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${PB}/hero-v2.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — full-bleed forest, centred ============ -->
+    <section class="pb-hero">
+      <img class="pb-hero-bg" src={`${PB}/hero-v2.webp`} alt="A range of printed paper shopping bags in different colours and handle styles" width={1376} height={768} loading="eager" fetchpriority="high" decoding="sync" />
+      <div class="pb-hero-wash" aria-hidden="true"></div>
+      <div class="pb-grain" aria-hidden="true"></div>
+
+      <div class="wrap pb-hero-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Custom paper bag factory &middot; China</span>
+        <h1 class="pb-hero-title" data-reveal="up">Custom Paper Bag Manufacturer: 99.8% <span class="pb-nowrap">On-Time</span> Delivery, Reinforced <em>Handles That Hold</em></h1>
+        <p class="pb-hero-sub" data-reveal="up">Commercial-grade custom paper bags with reinforced handle joins and AQL 1.0 inspection to reduce handle pull-out and bottom failure. A signed print reference keeps the tenth run sitting beside the first.</p>
+        <div class="pb-hero-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Start Your Bag Project
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+
+      <div class="wrap pb-hero-bar">
+        <ul class="pb-stats" data-reveal="up">
+          <li><strong>500</strong> units to start</li>
+          <li><strong>4&ndash;6 weeks</strong> artwork to pallet</li>
+          <li><strong>10+ years</strong> in paper</li>
+          <li><strong>FSC&reg;</strong> certified board</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICATIONS — its own band under the hero ============ -->
+    <section class="pb-certs">
+      <div class="wrap">
+        <ul class="pb-certs-logos">
+          <li class="pb-cert-big"><img src={`${R2}/compliance/iso-9001.webp`} alt="ISO 9001 certified" width={348} height={349} loading="lazy" decoding="async" /></li>
+          <li class="pb-cert-ce" role="img" aria-label="CE marked">
+            <svg viewBox="0 0 176.6 154.3" aria-hidden="true">
+              <path d="M176.6,131.1v23c-28.5,1.6-51.9-8.2-69.3-30.9-18.9-24.8-20.6-58.4-4.4-85.5C118.8,10.8,148.8-2.8,176.6.5v22.5c-35-3.8-56.8,21.9-60.4,42.2h44.2v23.6h-44.3c3.3,14.1,10.7,25,22.2,33,11.5,8,24.4,10.9,38.4,9.2h0Z" />
+              <path d="M84.8,131.1v22.6c-24.4,3.2-54.4-7.7-71.9-34.1-17.3-26.1-17.3-60,.3-85.4C30.5,9.5,54.6-1.5,84.8.2v22.9c-19.2-1.9-35.6,3.8-48.5,18.3-9.6,10.9-14,23.7-13.5,38.2,1,29.3,27.5,55.7,61.9,51.5h0Z" />
+            </svg>
+          </li>
+          <li class="pb-cert-xl"><img src={`${R2}/compliance/fsc.webp`} alt="FSC certified" width={447} height={447} loading="lazy" decoding="async" /></li>
+          <li><img src={`${R2}/compliance/brcgs.webp`} alt="BRCGS certified" width={493} height={104} loading="lazy" decoding="async" /></li>
+          <li class="pb-cert-xl"><img src={`${R2}/compliance/bsci.webp`} alt="BSCI audited" width={508} height={510} loading="lazy" decoding="async" /></li>
+          <li><img src={`${R2}/compliance/sedex.webp`} alt="Sedex member" width={873} height={253} loading="lazy" decoding="async" /></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ THE RANGE — 9 styles, 3 x 3 ============ -->
+    <section class="pb-types" id="range">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />The range</span>
+          <h2 class="section-title" data-reveal="up">Nine Custom Paper Bag Styles, <em>Cut to Order</em></h2>
+          <p class="section-sub" data-reveal="up">Each style answers a different counter question &mdash; what your item weighs, how far it is carried, and what the bag says before a word is read.</p>
+        </div>
+
+        <div class="pb-type-grid">
+          {types.map((t, i) => (
+            <article class="pb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <figure class="pb-type-ph">
+                <img src={t.img} alt={t.alt} width={525} height={500} loading="lazy" decoding="async" class="pb-img" />
+                <span class="pb-type-idx">{t.n}</span>
+              </figure>
+              <div class="pb-type-body">
+                <h3 class="pb-type-name">{t.name}</h3>
+                <p class="pb-type-d">{t.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send Your Bag Spec
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY ============ -->
+    <section class="pb-why" id="why">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Why LeelinePackage</span>
+          <h2 class="section-title" data-reveal="up">What Changes When <em>One Factory Holds the Order</em></h2>
+          <p class="section-sub" data-reveal="up">A bag passes through four pairs of hands before it reaches a customer. Keeping all four on the same floor removes the hand-offs where a brief starts to drift.</p>
+        </div>
+
+        <ul class="pb-why-grid">
+          {why.map((w, i) => (
+            <li class="pb-why-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="pb-why-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><Fragment set:html={w.icon} /></svg></span>
+              <div>
+                <h3>{w.t}</h3>
+                <p>{w.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA ============ -->
+    <section class="pb-midcta">
+      <div class="wrap pb-midcta-inner">
+        <span class="eyebrow"><Fragment set:html={leaf} />Free quote</span>
+        <h2 class="section-title" data-reveal="up">Send the Item, <em>Get a Bag Built Around It</em></h2>
+        <p class="section-sub" data-reveal="up">Dimensions in, a bag spec out &mdash; board, handle and print costed together rather than guessed apart. Once the item is measured, the rest of the spec follows from it.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Talk Through the Brief
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HANDLES — 6 horizontal rows ============ -->
+    <section class="pb-handles" id="handles">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Handles</span>
+          <h2 class="section-title" data-reveal="up">A Loaded Bag Fails <em>at the Handle, Never the Board</em></h2>
+          <p class="section-sub" data-reveal="up">The attachment is picked for the weight it will take rather than the way it photographs. Six options, each paired with the carrier it suits.</p>
+        </div>
+
+        <div class="pb-handle-grid">
+          {handles.map((h, i) => (
+            <article class="pb-handle" data-reveal="up" style={`--d:${(i % 2) * 0.07}s`}>
+              <figure class="pb-handle-ph">
+                <img src={h.img} alt={h.alt} width={600} height={420} loading="lazy" decoding="async" class="pb-img" />
+              </figure>
+              <div class="pb-handle-body">
+                <h3 class="pb-handle-name">{h.name}</h3>
+                <p class="pb-handle-d">{h.d}</p>
+                <p class="pb-handle-best"><span>Best for</span>{h.best}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRINTING — one compact 4-across strip ============ -->
+    <section class="pb-print" id="printing">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Print</span>
+          <h2 class="section-title" data-reveal="up">Four Presses, <em>One Colour Reference</em></h2>
+          <p class="section-sub" data-reveal="up">Run length and the detail inside the artwork pick the press. Colour is a separate decision: a reference is signed off on the proof and checked on the first sheet, which is what keeps a reorder two years later sitting beside the bag it matches. Artwork can be <a class="pb-inline-link" href="/packaging-artwork-design/" target="_blank" rel="noopener">prepared for you</a> if none is drawn yet.</p>
+        </div>
+
+        <div class="pb-press-grid">
+          {presses.map((p, i) => (
+            <article class="pb-press" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure class="pb-press-media">
+                <img src={p.img} alt={p.alt} width={500} height={380} loading="lazy" decoding="async" class="pb-img" />
+              </figure>
+              <div class="pb-press-body">
+                <span class="pb-press-n">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{p.name}</h3>
+                <p>{p.d}</p>
+                <span class="pb-press-tag">{p.tag}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Match My Brand Colour
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAPER & FINISH — 4 swatch tiles ============ -->
+    <section class="pb-paper" id="paper">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />Paper &amp; finish</span>
+          <h2 class="section-title" data-reveal="up">The Sheet Decides <em>How the Bag Feels</em></h2>
+          <p class="section-sub" data-reveal="up">Four surfaces cover most briefs. Each is quoted at the same size, so the difference in price sits right next to the difference in the hand.</p>
+        </div>
+
+        <div class="pb-paper-grid">
+          {papers.map((s, i) => (
+            <article class="pb-swatch" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure class="pb-swatch-ph">
+                <img src={s.img} alt={s.alt} width={860} height={645} loading="lazy" decoding="async" class="pb-img" />
+              </figure>
+              <h3 class="pb-swatch-name">{s.name}</h3>
+              <p class="pb-swatch-d">{s.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIZES & SPEC — two drawings ============ -->
+    <section class="pb-size" id="sizes">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Fit</span>
+          <h2 class="section-title" data-reveal="up">Any Size, <em>Drawn to the Item</em></h2>
+          <p class="section-sub" data-reveal="up">A stock bag forces a product into the nearest available size. The dieline follows the item instead &mdash; the drawings below are the ones the press is set to.</p>
+        </div>
+
+        <div class="pb-size-grid">
+          <figure class="pb-size-fig" data-reveal="left">
+            <img src={`${PB}/size-chart.webp`} alt="A size chart showing five paper bag codes with their width, height and gusset dimensions in centimetres" width={600} height={600} loading="lazy" decoding="async" class="pb-img" />
+            <figcaption class="pb-size-cap">
+              <dl class="pb-size-facts">
+                <div class="pb-fact">
+                  <dt>Stock codes</dt>
+                  <dd>Five sizes, from a boutique bag to an oversized tote, dimensioned across width, height and gusset</dd>
+                </div>
+                <div class="pb-fact">
+                  <dt>Custom sizes</dt>
+                  <dd>Any size in between, measured to the item rather than picked from a list</dd>
+                </div>
+              </dl>
+            </figcaption>
+          </figure>
+
+          <figure class="pb-size-fig" data-reveal="right">
+            <img src={`${PB}/spec-drawing.webp`} alt="A technical drawing of a paper bag showing the front, back, side, long, width and high measurements with four handle fixing types" width={600} height={600} loading="lazy" decoding="async" class="pb-img" />
+            <figcaption class="pb-size-cap">
+              <dl class="pb-size-facts">
+                <div class="pb-fact">
+                  <dt>Handle fixings</dt>
+                  <dd>Blocked string, glued twisted paper, embossed, die-cut</dd>
+                </div>
+                <div class="pb-fact">
+                  <dt>Panels</dt>
+                  <dd>Front, back and two gussets &mdash; quoted Long &times; Width &times; High</dd>
+                </div>
+              </dl>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send Your Dimensions
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRADE SWITCHER — the signature section ============ -->
+    <section class="pb-trade" id="trades">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />By trade</span>
+          <h2 class="section-title" data-reveal="up">Five Trades, <em>Five Different Bags</em></h2>
+          <p class="section-sub" data-reveal="up">The same questions come up behind every counter &mdash; what the item weighs, how it leaves the shop, and what the carrier has to say on the way out. Pick a trade for the build that answers them.</p>
+        </div>
+
+        <div class="pb-tabs" data-reveal="up">
+          <div class="pb-tab-bar" role="tablist" aria-label="Choose a trade">
+            {trades.map((t, i) => (
+              <button
+                type="button"
+                role="tab"
+                class={`pb-tab-btn${i === 0 ? ' pb-tab-btn--active' : ''}`}
+                data-tab={t.key}
+                id={`pb-tab-${t.key}`}
+                aria-controls={`pb-panel-${t.key}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+              >{t.label}</button>
+            ))}
+          </div>
+
+          {trades.map((t, i) => (
+            <div
+              class={`pb-panel${i === 0 ? ' pb-panel--active' : ''}`}
+              data-panel={t.key}
+              id={`pb-panel-${t.key}`}
+              role="tabpanel"
+              aria-labelledby={`pb-tab-${t.key}`}
+            >
+              <figure class="pb-panel-media">
+                <img src={t.img} alt={t.alt} width={1100} height={825} loading="lazy" decoding="async" class="pb-img" />
+              </figure>
+              <div class="pb-panel-body">
+                <div class="pb-panel-head">
+                  <h3>{t.label}</h3>
+                  <span>Recommended build</span>
+                </div>
+                <div class="pb-panel-spec">
+                  {t.spec.map((row) => (
+                    <div class="pb-spec-tile">
+                      <span class="pb-spec-k">{row[0]}</span>
+                      <strong class="pb-spec-v">{row[1]}</strong>
+                    </div>
+                  ))}
+                </div>
+                <p class="pb-panel-why">{t.why}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCENES — looping carousel ============ -->
+    <section class="pb-scenes" id="scenes">
+      <div class="pb-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />In use</span>
+          <h2 class="section-title" data-reveal="up">Where a Printed Carrier <em>Actually Ends Up</em></h2>
+          <p class="section-sub" data-reveal="up">A printed carrier travels further than the product inside it &mdash; out of the shop, into a car boot and onto a kitchen table. Six of the places it gets used.</p>
+        </div>
+
+        <div class="pb-car-rail" data-reveal="up">
+          <div class="pb-car-vp">
+            <div class="pb-car-track">
+              {scenes.map((s) => (
+                <figure class="pb-car-slide">
+                  <img src={s.img} alt={s.alt} width={1100} height={825} loading="lazy" decoding="async" class="pb-img" />
+                  <figcaption class="pb-car-cap">{s.cap}</figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button type="button" class="pb-car-btn pb-car-btn--prev" aria-label="Previous scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="pb-car-btn pb-car-btn--next" aria-label="Next scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <section class="pb-quote">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />After the first run</span>
+          <h2 class="section-title" data-reveal="up">Two Buyers on <em>Their First Full Run</em></h2>
+        </div>
+
+        <div class="pb-quote-grid">
+          {testimonials.map((t, i) => (
+            <figure class="pb-quote-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <span class="pb-stars" role="img" aria-label="Rated 5 out of 5">
+                {[0, 1, 2, 3, 4].map(() => (
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z" fill="currentColor"/></svg>
+                ))}
+              </span>
+              <blockquote class="pb-quote-copy">
+                {t.q.map((p) => <p>{p}</p>)}
+              </blockquote>
+              <figcaption class="pb-quote-person">
+                <img class="pb-avatar" src={t.avatar} alt={`Portrait of ${t.name}`} width={280} height={280} loading="lazy" decoding="async" />
+                <div><strong>{t.name}</strong><span>{t.role}, {t.co} &middot; {t.loc}</span></div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="pb-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />Before you commit</span>
+          <h2 class="section-title" data-reveal="up">Questions Buyers Ask <em>Before Ordering</em></h2>
+        </div>
+
+        <div class="pb-faq-list">
+          {faqs.map((f, i) => (
+            <details class="pb-faq-item" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <summary><span class="pb-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="pb-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA (dark) ============ -->
+    <section class="pb-final">
+      <div class="pb-final-shade" aria-hidden="true"></div>
+      <div class="wrap pb-final-inner">
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Itemised quote</span>
+        <h2 class="pb-final-title" data-reveal="up">Approve One Sample, <em>Print the Whole Run</em></h2>
+        <p class="pb-final-sub" data-reveal="up">Send the item&rsquo;s dimensions and the artwork. What returns is a bag price split into board, print, handle and freight, quoted at each quantity break so the volume worth aiming for is obvious before anything is ordered.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Get My Bag Quote
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ local atoms ============ */
+  .pb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  :global(body) { background: var(--color-brand-bg); }
+
+  .pb-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* bold + colour, deliberately no underline */
+  .pb-inline-link { color: var(--forest-light); font-weight: 700; text-decoration: none; transition: color 0.3s ease; }
+  .pb-inline-link:hover { color: var(--brass); }
+
+  /* ============ HERO — full-bleed forest ============ */
+  .pb-hero {
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: min(94vh, 900px);
+    padding: calc(clamp(4.5rem, 9vw, 7rem) + 4.5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+    background: linear-gradient(155deg, var(--forest-deep) 0%, var(--color-brand-primary) 52%, var(--forest-light) 100%);
+  }
+  /* the supplied hero is sharp and well lit — shown at full strength, with a
+     forest scrim concentrated behind the centred copy so the bags still read */
+  .pb-hero-bg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center 46%;
+  }
+  .pb-hero-wash {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(44% 50% at 80% 12%, rgba(228,181,77,0.14), transparent 70%),
+      radial-gradient(66% 62% at 50% 45%, rgba(20,38,27,0.74) 0%, rgba(20,38,27,0.5) 56%, rgba(20,38,27,0.26) 100%),
+      linear-gradient(180deg, rgba(20,38,27,0.42) 0%, rgba(20,38,27,0.24) 34%, rgba(20,38,27,0.24) 66%, rgba(20,38,27,0.54) 100%);
+  }
+  .pb-hero-inner { position: relative; text-align: center; }
+  /* H1 is BOLD (700) — the one heading on the site that is; section H2s stay at
+     500. Bold is wider, so size + measure are tuned together below. */
+  .pb-hero-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 4.1rem);
+    line-height: 1.04; letter-spacing: -0.03em;
+    color: #fff; max-width: 27ch; margin: 1.3rem auto 0;
+    text-wrap: balance; text-shadow: 0 2px 30px rgba(20,38,27,0.45);
+  }
+  .pb-hero-title em { font-style: italic; color: #E3C29A; }
+  /* keeps the compound word whole so the line breaks before it, not inside it */
+  .pb-nowrap { white-space: nowrap; }
+  .pb-hero-sub { font-size: clamp(1.04rem, 1.6vw, 1.2rem); line-height: 1.74; color: rgba(255,255,255,0.84); max-width: 62ch; margin: 1.6rem auto 0; text-shadow: 0 1px 20px rgba(20,38,27,0.4); }
+  .pb-hero-actions { display: flex; justify-content: center; gap: 1rem; margin-top: clamp(2rem, 4vw, 2.8rem); }
+
+  /* frosted stat bar pinned to the hero foot — the page's one glass element */
+  .pb-hero-bar { position: relative; margin-top: clamp(2.6rem, 6vw, 4.5rem); }
+  .pb-stats {
+    list-style: none; margin: 0; padding: 1.15rem clamp(1rem, 2.6vw, 2rem);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.7rem clamp(1rem, 2.6vw, 2rem);
+    border-radius: 1.2rem;
+    background: rgba(245,240,229,0.07);
+    border: 1px solid rgba(245,240,229,0.18);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 24px 60px -40px rgba(0,0,0,0.6);
+    font-family: var(--font-body); font-size: 0.94rem; color: rgba(255,255,255,0.76);
+  }
+  .pb-stats li { display: flex; align-items: baseline; gap: 0.5rem; }
+  .pb-stats strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.28rem; letter-spacing: -0.015em; color: #E3C29A; }
+
+  /* ============ CERTIFICATIONS — a band of its own under the hero ============ */
+  /* carries the SAME clay as §The Range directly below it, so the page reads
+     forest → clay with one edge instead of a third tone sandwiched in the
+     middle. No border, or the seam it creates is the thing being removed. */
+  .pb-certs { background: var(--color-brand-surface); padding: clamp(1.6rem, 3.2vw, 2.4rem) 0; }
+  /* a FIXED gap, centred — `space-between` derives its gaps from how much width
+     the logos leave, so resizing one silently re-spaced the whole row (156px →
+     147px when FSC/BSCI were enlarged). A set gap cannot drift. */
+  .pb-certs-logos {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: clamp(1.4rem, 8vw, 7.2rem);
+  }
+  .pb-certs-logos li { display: grid; place-items: center; }
+  .pb-certs-logos img { height: clamp(26px, 3vw, 34px); width: auto; object-fit: contain; display: block; }
+  /* ISO 9001 and BSCI are fine-line marks, so they read smaller than the solid
+     tile / wide wordmarks at the same box height — scaled up to match, and only
+     these two */
+  .pb-cert-big img { height: clamp(34px, 3.9vw, 46px); }
+  /* FSC (solid tile) + BSCI (fine ring) carried one step further on request —
+     ISO 9001 keeps .pb-cert-big above and nothing else is touched */
+  .pb-cert-xl img { height: clamp(36px, 4.2vw, 50px); }
+  /* CE is inline SVG (its exact geometry, lifted from the reference) — the mark
+     has no brand colour of its own, so it stays charcoal rather than being
+     tinted to match the others */
+  .pb-cert-ce { color: var(--color-charcoal); }
+  .pb-cert-ce svg { display: block; height: clamp(26px, 3vw, 34px); width: calc(clamp(26px, 3vw, 34px) * 1.145); fill: currentColor; }
+
+  /* ============ THE RANGE — bag cards on paper ============ */
+  .pb-types { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* centred head, sub widened so it sets in two lines rather than three */
+  .pb-types .section-sub { max-width: 76ch; text-wrap: balance; }
+  .pb-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .pb-type-card {
+    position: relative; background: var(--color-brand-bg);
+    border: 1px solid rgba(31,59,44,0.07); border-radius: 1.4rem;
+    overflow: hidden; display: flex; flex-direction: column;
+    box-shadow: 0 26px 54px -46px rgba(31,59,44,0.5);
+  }
+  /* every type shot is supplied on a white field — `contain` shows the whole
+     bag, and multiply drops the white into the card beneath it */
+  .pb-type-ph { position: relative; margin: 0; aspect-ratio: 4 / 3; background: var(--color-brand-bg); overflow: hidden; }
+  .pb-type-ph .pb-img { object-fit: contain; mix-blend-mode: multiply; transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .pb-type-card:hover .pb-type-ph .pb-img { transform: scale(1.05); }
+  .pb-type-idx {
+    position: absolute; top: 0.7rem; left: 0.7rem;
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.1em;
+    color: var(--brass);
+  }
+  .pb-type-body { display: flex; flex-direction: column; flex: 1; padding: 0 clamp(1.05rem, 2vw, 1.4rem) clamp(1.15rem, 2vw, 1.45rem); }
+  .pb-type-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.8vw, 1.32rem); line-height: 1.22; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .pb-type-d { font-size: 0.93rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.55rem 0 0; }
+
+  /* ============ WHY ============ */
+  .pb-why { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pb-why-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.6rem, 3.6vw, 3.2rem) clamp(1.6rem, 4vw, 3.6rem); }
+  .pb-why-item { display: grid; grid-template-columns: auto 1fr; gap: clamp(1rem, 2vw, 1.4rem); align-items: start; }
+  .pb-why-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 1rem; background: rgba(176,141,76,0.15); color: var(--brass); flex: 0 0 auto; }
+  .pb-why-icon svg { width: 26px; height: 26px; }
+  .pb-why-item h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.8vw, 1.32rem); line-height: 1.24; color: var(--color-brand-text); margin: 0; }
+  .pb-why-item p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.55rem 0 0; }
+
+  /* ============ MID CTA ============ */
+  .pb-midcta {
+    position: relative; padding: clamp(3.5rem, 8vw, 6.5rem) 0;
+    /* the photo is a FIXED layer (parallax); the scrim is a separate ::before so
+       it tracks the BAND. In one background shorthand with `fixed`, the gradient
+       anchors to the viewport too and slides off the copy as you scroll.
+       Degrades to `scroll` on iOS. */
+    background: url('https://img.leelinepackage.com/custom-paper-bag/mid-cta-v2.webp') center / cover no-repeat;
+    background-attachment: fixed;
+  }
+  /* scrim concentrated behind the copy and light towards the edges, so the bag
+     artwork stays visible either side instead of a flat heavy overlay burying it */
+  .pb-midcta::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(74% 92% at 50% 50%, rgba(245,240,229,0.9) 0%, rgba(245,240,229,0.7) 54%, rgba(245,240,229,0.24) 100%);
+  }
+  .pb-midcta-inner { position: relative; z-index: 1; text-align: center; max-width: 64rem; margin-inline: auto; }
+  /* the photograph is deliberately light now, so the copy carries a soft halo
+     rather than a heavier wash — it holds over the pale bag artwork behind it */
+  .pb-midcta .eyebrow { text-shadow: 0 1px 14px rgba(245,240,229,0.92); }
+  .pb-midcta .section-title { text-shadow: 0 1px 22px rgba(245,240,229,0.88); }
+  .pb-midcta .section-sub { margin-inline: auto; max-width: 68ch; text-shadow: 0 1px 16px rgba(245,240,229,0.85); }
+  .pb-midcta .section-cta { margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+
+  /* ============ HANDLES — horizontal rows ============ */
+  .pb-handles { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pb-handle-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.9rem, 2vw, 1.4rem); }
+  .pb-handle {
+    display: grid; grid-template-columns: clamp(108px, 15vw, 152px) 1fr; gap: clamp(1rem, 2vw, 1.5rem);
+    align-items: center;
+    background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.2rem; padding: clamp(0.85rem, 1.6vw, 1.15rem);
+    transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .pb-handle:hover { border-color: rgba(176,141,76,0.55); transform: translateY(-3px); }
+  .pb-handle-ph { margin: 0; aspect-ratio: 4 / 3; border-radius: 0.9rem; overflow: hidden; background: var(--color-clay); }
+  .pb-handle-body { min-width: 0; }
+  .pb-handle-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.24; color: var(--color-brand-text); margin: 0; }
+  .pb-handle-d { font-size: 0.9rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
+  .pb-handle-best { margin: 0.7rem 0 0; font-size: 0.8rem; color: var(--color-brand-text); }
+  .pb-handle-best span { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); margin-right: 0.55rem; }
+
+  /* ============ PRINTING — one compact 4-across strip ============ */
+  .pb-print { background: var(--color-clay); padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .pb-print .section-sub { max-width: 78ch; }
+  .pb-press-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.4vw, 1.8rem); }
+  /* hairline-topped columns, not cards — the section carries four short facts,
+     so the images stay small and the row height stays low */
+  .pb-press { display: flex; flex-direction: column; border-top: 2px solid rgba(31,59,44,0.26); padding-top: clamp(1rem, 1.8vw, 1.3rem); }
+  .pb-press-media { margin: 0 0 0.95rem; border-radius: 1rem; overflow: hidden; aspect-ratio: 3 / 2; background: var(--color-brand-bg); }
+  .pb-press-media .pb-img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .pb-press:hover .pb-press-media .pb-img { transform: scale(1.05); }
+  .pb-press-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.16em; color: var(--brass); }
+  .pb-press-body { display: flex; flex-direction: column; flex: 1; }
+  .pb-press-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.04rem, 1.5vw, 1.2rem); line-height: 1.22; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.3rem 0 0; }
+  .pb-press-body p { font-size: 0.88rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
+  .pb-press-tag { margin: auto 0 0; padding-top: 0.9rem; align-self: flex-start; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+
+  /* ============ PAPER — swatch tiles ============ */
+  .pb-paper { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pb-paper-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .pb-swatch { display: flex; flex-direction: column; }
+  .pb-swatch-ph { margin: 0 0 1rem; border-radius: 1.2rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-clay); box-shadow: 0 24px 50px -46px rgba(31,59,44,0.6); }
+  .pb-swatch-ph .pb-img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .pb-swatch:hover .pb-swatch-ph .pb-img { transform: scale(1.05); }
+  .pb-swatch-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.24; color: var(--color-brand-text); margin: 0; }
+  .pb-swatch-d { font-size: 0.9rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
+
+  /* ============ SIZES & SPEC ============ */
+  .pb-size { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 800px; }
+  /* `stretch` + `grid-auto-rows: 1fr` levels the two plates: equal card heights,
+     so the row rules and the bottom edge line up across both columns instead of
+     stepping down wherever a fact happens to wrap */
+  .pb-size-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 3vw, 2.4rem); align-items: stretch; }
+  .pb-size-fig { margin: 0; background: var(--color-brand-bg); border: 1px solid rgba(31,59,44,0.09); border-radius: 1.3rem; padding: clamp(0.9rem, 1.8vw, 1.25rem); display: flex; flex-direction: column; }
+  .pb-size-fig .pb-img { height: auto; object-fit: contain; border-radius: 0.8rem; }
+  /* the facts sit under the drawing they annotate — not in a block of their own */
+  .pb-size-cap { margin-top: clamp(0.9rem, 1.8vw, 1.2rem); flex: 1; display: flex; }
+  /* Each fact is ONE grid item so its rule can stretch to the row boundary.
+     With dt/dd as bare grid items, the baseline alignment that keeps the label
+     on the value's first line also stops them stretching — so every rule lands
+     on its own text bottom and the two plates step out of level. */
+  .pb-size-facts { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; width: 100%; gap: 0; margin: 0; border-top: 1px solid rgba(31,59,44,0.2); }
+  .pb-fact { display: grid; grid-template-columns: auto 1fr; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid rgba(31,59,44,0.12); }
+  .pb-fact dt, .pb-fact dd { margin: 0; font-size: 0.94rem; line-height: 1.55; }
+  .pb-fact dt { font-family: var(--font-body); font-weight: 600; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); padding-right: 1.3rem; white-space: nowrap; }
+  .pb-fact dd { color: var(--color-brand-text); }
+
+  /* ============ TRADE SWITCHER ============ */
+  .pb-trade { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* centred head, but the sub runs wide so it sets in two lines, not three —
+     widen the measure rather than trimming the sentence */
+  .pb-trade .section-sub { max-width: 100ch; }
+  .pb-tab-bar {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+    border-bottom: 1px solid rgba(31,59,44,0.16);
+    padding-bottom: 1rem; margin-bottom: clamp(1.8rem, 3.5vw, 2.6rem);
+  }
+  .pb-tab-btn {
+    font-family: var(--font-body); font-weight: 600; font-size: 0.92rem; letter-spacing: 0.01em;
+    color: var(--color-brand-muted); background: none; cursor: pointer;
+    border: 1px solid rgba(31,59,44,0.2); border-radius: 999px;
+    padding: 0.6rem 1.25rem;
+    transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+  }
+  .pb-tab-btn:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+  .pb-tab-btn--active { background: var(--forest-light); border-color: var(--forest-light); color: var(--ivory); }
+  .pb-panel { display: none; }
+  .pb-panel--active { display: grid; grid-template-columns: 0.94fr 1.06fr; gap: clamp(1.4rem, 3.4vw, 3.2rem); align-items: center; animation: pb-fade 0.5s ease both; }
+  @keyframes pb-fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .pb-panel-media { margin: 0; border-radius: 1.4rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--color-clay); }
+  /* the right column carries a titled head, a 2×2 tile grid and a quoted why,
+     so it holds its own against the photograph on the left */
+  .pb-panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding-bottom: 0.9rem; border-bottom: 2px solid rgba(31,59,44,0.3); }
+  .pb-panel-head h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.45rem, 2.5vw, 2rem); line-height: 1.14; letter-spacing: -0.022em; color: var(--color-brand-text); margin: 0; }
+  .pb-panel-head span { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); white-space: nowrap; }
+  .pb-panel-spec { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.7rem; margin-top: 1.2rem; }
+  .pb-spec-tile { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.08); border-radius: 0.95rem; padding: 0.85rem 1rem; }
+  .pb-spec-k { display: block; font-size: 0.63rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); }
+  .pb-spec-v { display: block; margin-top: 0.35rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(0.98rem, 1.3vw, 1.1rem); line-height: 1.3; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .pb-panel-why { margin: 1.2rem 0 0; padding: 1rem 1.2rem; border-left: 3px solid var(--brass); background: rgba(31,59,44,0.045); border-radius: 0 0.85rem 0.85rem 0; font-size: 0.97rem; line-height: 1.68; color: var(--color-brand-muted); }
+
+  /* ============ SCENES — carousel on dark ============ */
+  .pb-scenes {
+    position: relative; overflow: hidden; color: var(--ivory);
+    background: linear-gradient(158deg, var(--forest-deep) 0%, var(--color-brand-primary) 56%, var(--forest-light) 100%);
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+  }
+  .pb-scenes .wrap { position: relative; z-index: 1; }
+  .pb-scenes .section-title { color: #fff; }
+  .pb-scenes .section-title em { color: #E3C29A; }
+  .pb-scenes .section-sub { color: rgba(255,255,255,0.78); max-width: 78ch; }
+  .pb-car-rail { position: relative; }
+  /* a clipped viewport keeps the loop clones out of the page flow */
+  .pb-car-vp { overflow: hidden; border-radius: 1.2rem; }
+  .pb-car-track { display: flex; gap: 1rem; }
+  .pb-car-slide { position: relative; flex: 0 0 calc((100% - 2rem) / 3); margin: 0; border-radius: 1.2rem; overflow: hidden; background: rgba(245,240,229,0.06); aspect-ratio: 4 / 3; }
+  .pb-car-cap {
+    position: absolute; inset: auto 0 0; padding: 2.6rem 1.1rem 1rem;
+    background: linear-gradient(180deg, transparent 42%, rgba(20,38,27,0.86));
+    color: #fff; font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+    text-shadow: 0 1px 10px rgba(20,38,27,0.6); pointer-events: none;
+  }
+  .pb-car-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 50px; height: 50px; display: grid; place-items: center;
+    border-radius: 50%; cursor: pointer;
+    border: 1px solid rgba(245,240,229,0.3);
+    background: rgba(245,240,229,0.92); color: var(--forest-deep);
+    box-shadow: 0 12px 28px -16px rgba(0,0,0,0.6);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .pb-car-btn svg { width: 22px; height: 22px; }
+  .pb-car-btn:hover { background: var(--brass-bright); }
+  .pb-car-btn--prev { left: -8px; }
+  .pb-car-btn--next { right: -8px; }
+
+  /* ============ TESTIMONIALS ============ */
+  .pb-quote { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pb-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2rem); }
+  .pb-quote-card {
+    position: relative; background: var(--color-brand-bg);
+    border: 1px solid rgba(31,59,44,0.1); border-left: 3px solid var(--brass);
+    border-radius: 1.2rem; padding: clamp(1.5rem, 3vw, 2.2rem);
+    display: flex; flex-direction: column; gap: 1.5rem; margin: 0;
+  }
+  .pb-quote-copy { margin: 0; }
+  .pb-stars { display: inline-flex; gap: 0.22rem; color: var(--brass); }
+  .pb-stars svg { width: 17px; height: 17px; }
+  .pb-quote-copy p { margin: 0; font-size: 1rem; line-height: 1.72; color: var(--color-brand-text); }
+  .pb-quote-copy p + p { margin-top: 1rem; }
+  .pb-quote-person { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.12); }
+  .pb-avatar { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .pb-quote-person strong { display: block; font-size: 0.98rem; color: var(--color-brand-text); }
+  .pb-quote-person span { display: block; font-size: 0.82rem; color: var(--color-brand-muted); margin-top: 0.1rem; }
+
+  /* ============ FAQ ============ */
+  .pb-faq { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .pb-faq-list { display: flex; flex-direction: column; max-width: 820px; margin-inline: auto; }
+  .pb-faq-item { border-top: 1px solid rgba(31,59,44,0.14); background: var(--color-brand-surface); }
+  .pb-faq-item:first-child { border-radius: 1rem 1rem 0 0; }
+  .pb-faq-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); border-radius: 0 0 1rem 1rem; }
+  .pb-faq-item + .pb-faq-item { margin-top: 0.6rem; }
+  .pb-faq-n { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .pb-faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.8vw, 1.2rem); color: var(--color-brand-text); }
+  .pb-faq-item summary::-webkit-details-marker { display: none; }
+  .pb-faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); margin-left: auto; }
+  .pb-faq-item[open] summary::after { transform: rotate(45deg); }
+  .pb-faq-a { padding: 0 1.2rem 1.4rem; }
+  .pb-faq-a p { font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
+
+  /* ============ FINAL CTA (dark) ============ */
+  .pb-final {
+    position: relative; overflow: hidden; color: var(--ivory);
+    /* scrim lightened from .72/.84 for the same reason */
+    background: linear-gradient(180deg, rgba(20,38,27,0.64) 0%, rgba(20,38,27,0.76) 100%), url('https://img.leelinepackage.com/custom-paper-bag/final-cta-v2.webp') center / cover no-repeat;
+    /* 2cm shorter than the shared CTA padding — 1cm off each side, floored so
+       narrow viewports do not lose all their breathing room */
+    padding: max(3rem, calc(clamp(4rem, 9vw, 7.5rem) - 1cm)) 0;
+  }
+  .pb-final-shade { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 24% 28%, rgba(228,181,77,0.15), transparent 70%); }
+  .pb-final-inner { position: relative; text-align: center; }
+  .pb-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 1.04; letter-spacing: -0.025em; color: #fff; text-shadow: 0 2px 24px rgba(20,38,27,0.4); margin: 1.1rem auto 0; max-width: 22ch; text-wrap: balance; }
+  .pb-final-title em { font-style: italic; color: #E3C29A; }
+  .pb-final-sub { font-size: 1.06rem; line-height: 1.75; color: rgba(255,255,255,0.94); max-width: 78ch; margin: 1.5rem auto 0; text-wrap: balance; text-shadow: 0 1px 18px rgba(20,38,27,0.4); }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .pb-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .pb-panel--active { grid-template-columns: 1fr; }
+    .pb-paper-grid { grid-template-columns: repeat(2, 1fr); }
+    .pb-press-grid { grid-template-columns: repeat(2, 1fr); }
+    .pb-size-grid { grid-template-columns: 1fr; }
+    .pb-car-slide { flex: 0 0 calc((100% - 1rem) / 2); }
+  }
+  @media (max-width: 900px) {
+    .pb-handle-grid { grid-template-columns: 1fr; }
+    .pb-why-grid { grid-template-columns: 1fr; }
+    .pb-quote-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .pb-type-grid { grid-template-columns: 1fr; }
+    .pb-paper-grid { grid-template-columns: 1fr; }
+    .pb-hero-actions .btn { width: 100%; }
+    .pb-stats { justify-content: flex-start; gap: 0.7rem 1.6rem; }
+    .pb-certs-logos { justify-content: center; }
+    /* fixed attachment scales the photo to the viewport, which looks wrong on a
+       tall phone screen — drop back to a normal scrolling background there */
+    .pb-midcta { background-attachment: scroll; }
+    .pb-handle { grid-template-columns: 1fr; }
+    .pb-handle-ph { aspect-ratio: 16 / 9; }
+    .pb-panel-spec { grid-template-columns: 1fr; }
+    .pb-panel-head { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+    .pb-size-facts dt { padding-right: 1.2rem; }
+    .pb-car-slide { flex: 0 0 100%; }
+    .pb-car-btn--prev { left: 6px; }
+    .pb-car-btn--next { right: 6px; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Trade switcher — one panel at a time. Panels carry no [data-reveal], so a
+  // panel that is hidden at load cannot be left stuck at opacity 0.
+  const tabBtns = Array.from(document.querySelectorAll('.pb-tab-btn'));
+  const panels = Array.from(document.querySelectorAll('.pb-panel'));
+  const selectTab = (key) => {
+    tabBtns.forEach((b) => {
+      const on = b.dataset.tab === key;
+      b.classList.toggle('pb-tab-btn--active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach((p) => p.classList.toggle('pb-panel--active', p.dataset.panel === key));
+  };
+  tabBtns.forEach((b) => b.addEventListener('click', () => selectTab(b.dataset.tab)));
+  tabBtns.forEach((b, i) => {
+    b.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const next = (i + (e.key === 'ArrowRight' ? 1 : -1) + tabBtns.length) % tabBtns.length;
+      tabBtns[next].focus();
+      selectTab(tabBtns[next].dataset.tab);
+    });
+  });
+
+  // Scenes carousel — 3-up, seamless loop in both directions. A copy of the
+  // last three slides sits before slide one and a copy of the first three sits
+  // after the last, so stepping past either end animates onto a clone and is
+  // then snapped (no transition) onto the matching real slide. No visible jump.
+  const carTrack = document.querySelector('.pb-car-track');
+  if (carTrack) {
+    const slides = Array.from(carTrack.children);
+    const N = slides.length;
+    if (N > 3) {
+      const clones = 3;
+      for (let k = 0; k < clones; k++) {
+        const c = slides[(N - clones + k) % N].cloneNode(true);
+        c.classList.add('pb-car-clone');
+        c.setAttribute('aria-hidden', 'true');
+        carTrack.insertBefore(c, slides[0]);
+      }
+      for (let k = 0; k < clones; k++) {
+        const c = slides[k % N].cloneNode(true);
+        c.classList.add('pb-car-clone');
+        c.setAttribute('aria-hidden', 'true');
+        carTrack.appendChild(c);
+      }
+      let idx = clones;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(carTrack).gap) || 0;
+        return carTrack.children[clones].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        carTrack.style.transition = animate ? 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        carTrack.style.transform = `translateX(${-idx * step()}px)`;
+      };
+      const go = (dir) => {
+        if (carTrack._busy) return;
+        carTrack._busy = true;
+        idx += dir;
+        move(true);
+        setTimeout(() => {
+          if (idx < clones) idx += N;
+          else if (idx > clones + N - 1) idx -= N;
+          move(false);
+          carTrack._busy = false;
+        }, 520);
+      };
+
+      const prevBtn = document.querySelector('.pb-car-btn--prev');
+      const nextBtn = document.querySelector('.pb-car-btn--next');
+      if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!carTrack._busy) move(false); });
+    }
+  }
+</script>

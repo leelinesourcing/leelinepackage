@@ -1,0 +1,1021 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const RB = `${R2}/rigid-boxes`;
+
+/* The nine builds, in the order a buyer usually meets them. Each card says why the
+   structure earns its place and who it suits — the mechanism lives in the section
+   below, so no line here describes how a box is put together. */
+const types = [
+  { n: '01', name: 'Magnetic Closure Rigid Box', img: `${RB}/type-magnetic.webp`, w: 550, h: 525,
+    alt: 'An open pink rigid box with a floral print on the lid and a printed inner panel',
+    d: 'Hidden magnets pull the lid shut, so the box opens like a book and closes with a snap — the build most often kept after the product is gone.',
+    best: 'Cosmetics, gift sets, small tech' },
+  { n: '02', name: 'Drawer Box', img: `${RB}/type-drawer.webp`, w: 550, h: 525,
+    alt: 'A stack of pink drawer boxes, each with a ribbon pull on the drawer front',
+    d: 'One pull slides the tray clear, which suits a set that has to be shown rather than tipped onto a table.',
+    best: 'Jewellery sets, hampers, candles' },
+  { n: '03', name: 'Shoulder-Neck Box', img: `${RB}/type-shoulder-neck.webp`, w: 550, h: 525,
+    alt: 'A white and a black two-piece rigid box with their lids resting beside them',
+    d: 'The lid sits over a raised shoulder, which keeps both halves lined up on every box in a run and lets the lid lift without sticking.',
+    best: 'Premium retail, cosmetics, spirits' },
+  { n: '04', name: 'Collapsible Rigid Box', img: `${RB}/type-collapsible.webp`, w: 550, h: 525,
+    alt: 'A dark green rigid box folded part-way down to show how the corners collapse',
+    d: 'The build for a brand that fills its own boxes and pays its own freight.',
+    best: 'E-commerce, subscription, DTC' },
+  { n: '05', name: 'Book-Style Rigid Box', img: `${RB}/type-book-style.webp`, w: 550, h: 525,
+    alt: 'A silver rigid box hinged open like a book, showing a patterned inside panel',
+    d: 'Hinged along one edge, the inside becomes a second surface — room for a printed story or a fitted tray.',
+    best: 'Corporate gifting, keepsakes, media' },
+  { n: '06', name: 'Rigid Jewelry Box', img: `${RB}/type-jewelry.webp`, w: 550, h: 525,
+    alt: 'A white jewellery box with a mirrored lid open above tiered drawers of rings',
+    d: 'A mirrored lid and tiered drawers, built at the scale of a ring rather than a shoebox.',
+    best: 'Rings, watches, fine jewellery' },
+  { n: '07', name: 'Rigid Shoe Box', img: `${RB}/type-shoe.webp`, w: 550, h: 525,
+    alt: 'An open navy rigid shoe box with a brown leather shoe resting inside on tissue',
+    d: 'A long, deep shell that keeps a pair in shape through courier handling.',
+    best: 'Footwear, apparel, limited drops' },
+  { n: '08', name: 'Cosmetic Rigid Box', img: `${RB}/type-cosmetic.webp`, w: 550, h: 525,
+    alt: 'An open brown rigid box with glass bottles held upright in a fitted tray',
+    d: 'A layered insert stands glass upright; nothing knocks against anything else on the way to a counter.',
+    best: 'Skincare, fragrance, makeup' },
+  { n: '09', name: 'Luxury Gift Box', img: `${RB}/type-gift.webp`, w: 550, h: 525,
+    alt: 'A floral-printed rigid gift box tied with a gold ribbon beside macarons',
+    d: 'The gifting build — printed wrap, ribbon or magnetic lid, and an insert cut to the present it holds.',
+    best: 'Gifting, seasonal, confectionery' },
+];
+
+/* The hero promise, argued. Three numbers a buyer can act on: what the freight
+   costs, what the fill line needs, and what changes in the box itself. */
+const flatRows = [
+  { v: '60%', l: 'Freight', d: 'A container is priced on the space it takes, and a knocked-down shell takes a fraction of an assembled shell — up to 60% off the bill for bulk orders.' },
+  { v: '0', l: 'Assembly', d: 'Corners lock by hand as the shell goes up. No glue, no jig, no trained operator to stand up.' },
+  { v: 'Same', l: 'Board', d: 'Nothing is downgraded for the folding version — the core, the wrap and the insert are unchanged.' },
+];
+
+/* Four decisions taken before the press runs. */
+const custom = [
+  { n: '01', t: 'Structures', img: `${RB}/custom-structures.webp`, w: 600, h: 470,
+    alt: 'Silver, gold and red rigid boxes die-cut into star shapes',
+    d: 'Die-cut outlines, divided compartments and openings that follow the product dimensions — a star, a bottle, or a lid that slides sideways.' },
+  { n: '02', t: 'Inserts', img: `${RB}/custom-inserts.webp`, w: 600, h: 470,
+    alt: 'A gradient-printed rigid box holding a white six-compartment insert tray',
+    d: 'The insert decides where the product sits — cut so it arrives at the height a buyer expects when the lid comes up.' },
+  { n: '03', t: 'Surface', img: `${RB}/custom-colour.webp`, w: 600, h: 470,
+    alt: 'A gold foil-stamped rigid box and its matching tray',
+    d: 'Wrap and finish are chosen together, before the first plate is made.' },
+  { n: '04', t: 'Fittings', img: `${RB}/custom-accessories.webp`, w: 600, h: 470,
+    alt: 'Two pink rigid boxes with tan leather handles and printed lids',
+    d: 'Ribbon pulls, leather handles, magnetic closures and elastic bands.' },
+];
+
+/* The core a rigid box is built on, and the surface wrapped over it. */
+const materials = [
+  { t: 'Grey Chipboard', img: `${RB}/mat-grey-chipboard.webp`, w: 400, h: 400,
+    alt: 'A stack of grey recycled chipboard sheets fanned on a pale surface',
+    d: 'Recycled pulp pressed into a dense core — the reason a rigid box keeps a shape a folding carton cannot.',
+    best: 'The structural core of every rigid box' },
+  { t: 'Duplex Chipboard', img: `${RB}/mat-duplex-chipboard.webp`, w: 400, h: 400,
+    alt: 'A stack of duplex board sheets with a kraft back and a white face',
+    d: 'Grey on the back and white on the face, so a printed wrap needs no separate liner.',
+    best: 'Printed wraps on a tighter budget' },
+  { t: 'SBS C2S', img: `${RB}/mat-sbs-c2s.webp`, w: 400, h: 400,
+    alt: 'A roll of coated bleached white carton board on a grey background',
+    d: 'Bleached board coated on both faces; the smoothest sheet for fine line detail and a soft-touch lamination.',
+    best: 'Cosmetics and premium retail' },
+  { t: 'White Kraft', img: `${RB}/mat-white-kraft.webp`, w: 400, h: 400,
+    alt: 'A fanned stack of white kraft paper on a wooden block',
+    d: 'Unbleached fibre with a clean white face, for a natural look without the brown.',
+    best: 'Eco ranges and natural goods' },
+];
+
+const finishes = ['Hot foil', 'Emboss', 'Deboss', 'Spot UV', 'Soft-touch', 'Matte lamination', 'Gloss lamination', 'Window film'];
+
+/* Where buyers usually start. Two rows only — the surface finishes live in the
+   board strip above, so repeating them here would just say the same thing twice. */
+const match = [
+  { p: 'Fine jewellery', s: 'Shoulder-neck', i: 'Suede or velour tray' },
+  { p: 'Skincare and fragrance', s: 'Magnetic closure', i: 'Die-cut cradle' },
+  { p: 'Watches and small tech', s: 'Collapsible magnetic', i: 'Flocked cushion' },
+  { p: 'Spirits and premium gifting', s: 'Two-piece lid and base', i: 'Cradle cut to the bottle' },
+  { p: 'Footwear and apparel', s: 'Drawer or long shoe box', i: 'Tissue and folded paper' },
+  { p: 'Confectionery and hampers', s: 'Collapsible shell', i: 'Partitioned tray' },
+];
+
+/* What the plant can absorb without the order slipping. */
+const capacity = [
+  { v: '1M+', l: 'Units a month', d: 'Counted across rigid, folding and corrugated lines.' },
+  { v: '500+', l: 'Orders a day', d: 'Short runs and bulk reorders queue side by side.' },
+  { v: '4', l: 'Printing methods', d: 'Offset, digital, flexo and gravure, picked on run length.' },
+  { v: '10+', l: 'Years on rigid board', d: 'Making packaging since 2015.' },
+];
+
+/* Boxes that left the floor — the build note, not a caption. */
+const cases = [
+  { img: `${RB}/case-1.webp`, w: 600, h: 400, tag: 'Jewellery', t: 'A Black Shell, Printed Inside',
+    alt: 'Several black and white rigid boxes, one open to show a foam insert holding a tray',
+    d: 'A magnetic lid on a greyboard shell, matte black wrap outside and a printed liner inside. The insert is cut from foam so the tray stays square in the hand.' },
+  { img: `${RB}/case-2.webp`, w: 600, h: 400, tag: 'Custom shapes', t: 'A Shape Off the Standard Blank',
+    alt: 'Hexagonal and curved rigid boxes in kraft, cream and orange',
+    d: 'A hexagonal outline and a slide-out drawer, die-cut rather than folded from a standard blank. The wrap goes on in one piece, keeping the corners sharp.' },
+  { img: `${RB}/case-3.webp`, w: 600, h: 400, tag: 'Retail range', t: 'Many Titles, Shared Board',
+    alt: 'A colourful stack of printed rigid boxes from several brands',
+    d: 'A dozen titles ordered together, each with its own cover print on a shared greyboard thickness, so the shelf stack lines up.' },
+  { img: `${RB}/case-4.webp`, w: 600, h: 400, tag: 'Gifting', t: 'A Holiday Stack',
+    alt: 'A large stack of lidded gift boxes in pink, teal and orange',
+    d: 'Lidded boxes across a range of sizes and six wrap colours, made as one run with the stack sitting level.' },
+];
+
+/* Four steps, the same four for a sample and for a repeat order. */
+const steps = [
+  { n: '01', t: 'Brief', d: 'Bring the product dimensions, the quantity and whatever artwork exists.' },
+  { n: '02', t: 'Mockup, Then Sample', d: 'A 3D mockup goes out before anything is cut, and a physical sample follows for the fit and finish in the hand.' },
+  { n: '03', t: 'Quote and Order', d: 'Quoted per structure and per artwork, itemised across board, print and finish, with the unit price shown at each quantity band.' },
+  { n: '04', t: 'Production and Shipping', d: 'Runs from the approved sample, with the floor status reported at each stage.' },
+];
+
+/* Recycling answers, not a slogan. The greyboard core's own recycled content is
+   stated on the board card above, so it is not repeated here. */
+const eco = [
+  { t: 'FSC® chain-of-custody board', d: 'Pulp traced from a certified forest through to the delivered pallet.' },
+  { t: 'Production waste reused', d: 'Trim and offcuts are baled and sold back into the paper stream rather than landfilled.' },
+  { t: 'Soy inks, water-based adhesive', d: 'No solvent-borne VOC vented over the press hall.' },
+  { t: 'Accepted by paper recycling', d: 'Standard rigid boxes recycle in most paper streams once the fittings come out.' },
+];
+
+/* The original site's own reviewers, trimmed. Figures and claims are theirs. */
+const reviews = [
+  { m: '+30%', ml: 'Repeat orders', img: `${RB}/avatar-david.webp`,
+    alt: 'Portrait of David Patel',
+    q: 'The rigid setup with window cutouts shows the snack line off, and the eco-friendly board covers our sustainability goals. The bulk order of 2,000 units landed with consistent quality and a fast turnaround — repeat orders are up 30% since.',
+    n: 'David Patel', r: 'CEO, GourmetSnacks LLC' },
+  { m: '0', ml: 'Units damaged', img: `${RB}/avatar-michael.webp`,
+    alt: 'Portrait of Michael Rivera',
+    q: 'Gadgets ship worldwide, and the boxes had to take it. The thick chipboard and precise die-cut inserts held, the offset printing was crisp, and a 500-unit rush order came through with no dents and no delay.',
+    n: 'Michael Rivera', r: 'Operations Manager, TechGadgets Inc.' },
+];
+
+/* Only what no section above answers. The order minimum is on the hero rail, and
+   recyclability is the whole of the §Sustainability panel — neither is repeated. */
+const faqs = [
+  { q: 'Can I send a sketch or a reference box instead of a production file?', a: 'Yes — a dimensioned sketch, a reference box or a print-ready file all work. What matters is the product dimensions and how it should sit inside.' },
+  { q: 'Can you match my brand colour exactly?', a: 'Yes. Pantone matching is used across every element, and supplying the colour codes up front gives the closest result between the screen and the ink.' },
+  { q: 'How fast can a rush order run?', a: '5–7 business days plus shipping, on a rush slot. The fee depends on the quantity and how complex the build is.' },
+  { q: 'What happens if a batch does not match the approved sample?', a: 'The signed sample is the reference for the whole run. Where the variance sits with us, the batch is remade or the order credited.' },
+];
+
+const seo = {
+  title: 'Collapsible Custom Rigid Boxes: Ships Flat, Save 60% Freight',
+  description: 'Custom rigid box manufacturer building magnetic-closure, drawer and collapsible luxury gift boxes. Fitted inserts, ships flat to cut freight 60%, MOQ 500 units.',
+  keywords: 'custom rigid boxes, custom rigid gift boxes, luxury rigid boxes, custom magnetic closure boxes, wholesale custom rigid boxes, custom printed rigid boxes, collapsible rigid boxes, custom luxury gift boxes, magnetic closure gift boxes, rigid box manufacturer China, rigid gift box supplier, FSC certified rigid boxes',
+  canonical: 'https://www.leelinepackage.com/custom-rigid-boxes/',
+  ogImage: `${RB}/hero-box.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Rigid Box Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom rigid box design, collapsible construction, insert engineering and printing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Rigid Boxes' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — copy left · one large + two small images right · rail inside ============ -->
+    <section class="rb-hero">
+      <div class="wrap">
+        <div class="rb-hero-grid">
+            <div class="rb-hero-copy">
+              <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Rigid box atelier &middot; China</span>
+              <h1 class="rb-hero-title" data-reveal="up">Custom Rigid Boxes Manufacturer: Ship Flat, <em>Cut Freight 60%</em></h1>
+              <p class="rb-hero-lede" data-reveal="up">A collapsible rigid box travels knocked-down and locks up in the hand, so a container carries several times the number of built boxes. Board, wrap and insert are drawn around the product inside.</p>
+              <div class="rb-hero-actions" data-reveal="up">
+                <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+                  Start a Rigid Box
+                  <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="rb-hero-media" data-reveal="right">
+              <figure class="rb-m1">
+                <img src={`${RB}/hero-box.webp`} alt="A taupe rigid box lid tooled with a monogram beside an open box holding a necklace in a black velvet insert" width={900} height={1125} loading="eager" fetchpriority="high" decoding="sync" class="rb-img" />
+              </figure>
+              <div class="rb-m-side">
+                <figure>
+                  <img src={`${RB}/hero-script.webp`} alt="A grey rigid box lid printed with a script signature" width={490} height={490} loading="eager" decoding="async" class="rb-img" />
+                </figure>
+                <figure>
+                  <img src={`${RB}/hero-velvet.webp`} alt="A fine chain and pendant resting on the black velvet insert of an open rigid box" width={440} height={440} loading="eager" decoding="async" class="rb-img" />
+                </figure>
+              </div>
+            </div>
+          </div>
+
+          <ul class="rb-rail" data-reveal="up">
+            <li><strong>500</strong><span>unit minimum</span></li>
+            <li><strong>4&ndash;6 weeks</strong><span>brief to pallet</span></li>
+            <li><strong>99%</strong><span>on-time delivery</span></li>
+            <li><strong>98%</strong><span>buyer satisfaction</span></li>
+          </ul>
+      </div>
+
+      <svg class="rb-hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,48 C210,90 420,10 690,32 C980,56 1210,86 1440,42 L1440,90 L0,90 Z" fill="var(--color-clay)"/>
+      </svg>
+    </section>
+
+    <!-- ============ TYPES — nine builds, clay ============ -->
+    <section class="rb-types" id="types">
+      <div class="wrap">
+        <div class="rb-types-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Constructions</span>
+            <h2 class="section-title" data-reveal="up">Nine Rigid Box Constructions, <em>One Assembly Floor</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Magnetic, drawer, shoulder-neck or collapsible — the build is chosen for the product and the channel, then cut, wrapped and lined by the team that quoted it.</p>
+        </div>
+
+        <div class="rb-type-grid">
+          {types.map((t, i) => (
+            <article class="rb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <figure class="rb-type-ph">
+                <img src={t.img} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" class="rb-img" />
+                <span class="rb-type-num">{t.n}</span>
+              </figure>
+              <div class="rb-type-body">
+                <h3 class="rb-type-name">{t.name}</h3>
+                <p class="rb-type-d">{t.d}</p>
+                <p class="rb-type-best"><span>Best for</span>{t.best}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Match the Structure
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COLLAPSIBLE — the hero promise, argued ============ -->
+    <section class="rb-flat" id="collapsible">
+      <div class="wrap">
+        <div class="rb-flat-grid">
+          <div class="rb-flat-copy">
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Collapsible build</span>
+            <h2 class="section-title" data-reveal="up">Shipped Knocked-Down, <em>Assembled in the Hand</em></h2>
+          <p class="section-sub" data-reveal="up">The shell leaves the plant flat and is assembled on the packing bench without glue or tooling. Only the corners fold &mdash; in every other respect the box that reaches the customer is unchanged.</p>
+            <div class="rb-flat-actions" data-reveal="up">
+              <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+                Request the Flat-Pack Spec
+                <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="rb-flat-figs" data-reveal="left">
+            <figure class="rb-flat-fig">
+              <img src={`${RB}/flat-open.webp`} alt="A dark green collapsible rigid box folded down with its corners open" width={550} height={525} loading="lazy" decoding="async" class="rb-img" />
+              <figcaption>Collapsed for the trip</figcaption>
+            </figure>
+            <figure class="rb-flat-fig">
+              <img src={`${RB}/flat-stack.webp`} alt="Stacks of die-cut box blanks resting flat on a machine bed" width={500} height={500} loading="lazy" decoding="async" class="rb-img" />
+              <figcaption>Flat on the way out</figcaption>
+            </figure>
+          </div>
+        </div>
+
+        <ul class="rb-flat-rows">
+          {flatRows.map((r, i) => (
+            <li class="rb-flat-row" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <strong>{r.v}</strong>
+              <span class="rb-flat-l">{r.l}</span>
+              <p>{r.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CUSTOMIZATION — four decisions ============ -->
+    <section class="rb-cust" id="customize">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Customization</span>
+          <h2 class="section-title" data-reveal="up">Built Around the Product, <em>Not a Stock Size</em></h2>
+          <p class="section-sub" data-reveal="up">Four decisions are settled before the press runs, and each is drawn against a real object rather than a catalogue page.</p>
+        </div>
+
+        <div class="rb-cust-grid">
+          {custom.map((c, i) => (
+            <article class="rb-cust-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="rb-cust-ph">
+                <img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" class="rb-img" />
+              </figure>
+              <div class="rb-cust-body">
+                <span class="rb-cust-n">{c.n}</span>
+                <h3 class="rb-cust-t">{c.t}</h3>
+                <p class="rb-cust-d">{c.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="rb-cust-note" data-reveal="up">The same team draws the dieline, prepares the artwork and builds the first physical sample &mdash;
+          <a href="/structural-engineering-and-design/" target="_blank" rel="noopener">structural engineering</a>,
+          <a href="/packaging-artwork-design/" target="_blank" rel="noopener">artwork preparation</a> and
+          <a href="/packaging-sample-prototyping/" target="_blank" rel="noopener">sample prototyping</a> all sit in-house.</p>
+      </div>
+    </section>
+
+    <!-- ============ MATERIALS — the core and the wrap ============ -->
+    <section class="rb-mat" id="materials">
+      <div class="wrap">
+        <div class="rb-mat-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Board</span>
+            <h2 class="section-title" data-reveal="up">The Core Under the Wrap, <em>Chosen on Purpose</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">A rigid box is a greyboard core finished with a wrapped surface. Those two choices decide the weight in the hand and how the print reads.</p>
+        </div>
+
+        <div class="rb-mat-grid">
+          {materials.map((m, i) => (
+            <article class="rb-mat-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="rb-mat-ph">
+                <img src={m.img} alt={m.alt} width={m.w} height={m.h} loading="lazy" decoding="async" class="rb-img" />
+              </figure>
+              <h3 class="rb-mat-t">{m.t}</h3>
+              <p class="rb-mat-d">{m.d}</p>
+              <p class="rb-mat-best"><span>Best for</span>{m.best}</p>
+            </article>
+          ))}
+        </div>
+
+        <div class="rb-finish" data-reveal="up">
+          <span class="rb-finish-l">Finishing on any board</span>
+          <ul>{finishes.map((f) => <li>{f}</li>)}</ul>
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Specify Board and Finish
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MATCH — where buyers usually start (dark) ============ -->
+    <section class="rb-match" id="match">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Starting points</span>
+          <h2 class="section-title" data-reveal="up">Match the Structure to <em>What Sells</em></h2>
+          <p class="section-sub" data-reveal="up">Six product families, with the structure and the insert that usually fit each. A place to open the quote from, not a rule set.</p>
+        </div>
+
+        <div class="rb-match-grid">
+          {match.map((m, i) => (
+            <article class="rb-match-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <h3 class="rb-match-p">{m.p}</h3>
+              <dl class="rb-match-rows">
+                <div><dt>Structure</dt><dd>{m.s}</dd></div>
+                <div><dt>Insert</dt><dd>{m.i}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CAPACITY — light, over the floor ============ -->
+    <section class="rb-cap" id="capacity">
+      <div class="rb-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Capacity</span>
+          <h2 class="section-title" data-reveal="up">Production at <em>a Million Boxes a Month</em></h2>
+          <p class="section-sub" data-reveal="up">Printing, wrapping, lining and packing share a plant &mdash; a change of board or finish is a message to the next bay, never a new supplier.</p>
+        </div>
+
+        <ul class="rb-cap-ribbon">
+          {capacity.map((c, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <strong>{c.v}</strong>
+              <span class="rb-cap-l">{c.l}</span>
+              <p>{c.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CASES — 2 x 2 ============ -->
+    <section class="rb-cases" id="cases">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>From the floor</span>
+          <h2 class="section-title" data-reveal="up">Rigid Boxes That <em>Left the Floor</em></h2>
+        </div>
+
+        <div class="rb-case-list">
+          {cases.map((c) => (
+            <article class="rb-case" data-reveal="up">
+              <figure class="rb-case-ph">
+                <img src={c.img} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" class="rb-img" />
+              </figure>
+              <div class="rb-case-body">
+                <span class="rb-case-tag">{c.tag}</span>
+                <h3 class="rb-case-t">{c.t}</h3>
+                <p class="rb-case-d">{c.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS — four steps beside the press ============ -->
+    <section class="rb-flow" id="process">
+      <div class="wrap rb-flow-grid">
+        <div class="rb-flow-copy">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>How it runs</span>
+          <h2 class="section-title" data-reveal="up">Four Steps From <em>Brief to Pallet</em></h2>
+          <p class="section-sub" data-reveal="up">The same four steps run for a first sample and for a repeat order.</p>
+          <ol class="rb-flow-steps">
+            {steps.map((s, i) => (
+              <li data-reveal="up" style={`--d:${i * 0.07}s`}>
+                <span class="rb-flow-n">{s.n}</span>
+                <div>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <figure class="rb-flow-figure" data-reveal="left">
+          <img src={`${RB}/press.webp`} alt="A four-colour offset printing press running board sheets in a print hall" width={500} height={500} loading="lazy" decoding="async" class="rb-img" />
+          <figcaption>The press hall, where board is printed before it is wrapped</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SUSTAINABILITY — light section, forest panel ============ -->
+    <section class="rb-eco" id="sustainability">
+      <div class="wrap">
+        <div class="rb-eco-panel" data-reveal="up">
+          <div class="rb-eco-head">
+            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Materials, revisited</span>
+            <h2 class="section-title">Rigid Does Not Have to Mean <em>Landfill</em></h2>
+            <p class="section-sub">Board, paper and glue are the whole of it. What decides where a rigid box ends up is what those three are made of.</p>
+            <div class="rb-eco-actions">
+              <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+                Ask About Recycled Board
+                <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+          <ul class="rb-eco-list">
+            {eco.map((e, i) => (
+              <li style={`--d:${i * 0.07}s`}>
+                <h3>{e.t}</h3>
+                <p>{e.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section class="rb-rev" id="reviews">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Two buyers</span>
+          <h2 class="section-title" data-reveal="up">Two First Runs, <em>Both Still Ordering</em></h2>
+        </div>
+
+        <div class="rb-rev-grid">
+          {reviews.map((r, i) => (
+            <article class="rb-rev-card" data-reveal="up" style={`--d:${i * 0.09}s`}>
+              <div class="rb-rev-top">
+                <strong>{r.m}</strong>
+                <span>{r.ml}</span>
+              </div>
+              <p class="rb-rev-q">{r.q}</p>
+              <div class="rb-rev-by">
+                <img src={r.img} alt={r.alt} width={240} height={240} loading="lazy" decoding="async" class="rb-rev-img" />
+                <div>
+                  <span class="rb-rev-n">{r.n}</span>
+                  <span class="rb-rev-r">{r.r}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="rb-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Questions</span>
+          <h2 class="section-title" data-reveal="up">The Answers <em>Before You Write</em></h2>
+        </div>
+
+        <div class="rb-faq-list">
+          {faqs.map((f, i) => (
+            <details class="rb-faq-item" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <summary><span class="rb-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="rb-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="rb-final">
+      <div class="rb-grain" aria-hidden="true"></div>
+      <div class="wrap rb-final-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Free quote</span>
+        <h2 class="rb-final-title" data-reveal="up">Let's Build Your <em>First Rigid Box</em></h2>
+        <p class="rb-final-sub" data-reveal="up">The quote comes back against a specific build, not a price list.</p>
+        <div class="rb-final-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Cost Out My Rigid Boxes
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ============ local tokens & atoms ============ */
+  .rb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  :global(body) { background: var(--ivory); }
+
+  .rb-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO — forest green · copy left · one large + two small images right ============ */
+  .rb-hero {
+    position: relative;
+    background: var(--color-forest);
+    padding: calc(clamp(3.4rem, 7vw, 5.2rem) + 4.2rem) 0 clamp(5rem, 9vw, 7.5rem);
+    overflow: hidden;
+  }
+  .rb-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 54% at 86% 6%, rgba(228,181,77,0.2), transparent 66%);
+  }
+  .rb-hero .wrap { position: relative; z-index: 1; }
+  /* the green curves down into the clay section below — the fill must match that
+     section's background, not the hero's, or it reads as a band with a hard edge */
+  .rb-hero-wave {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    width: 100%; height: clamp(42px, 6.5vw, 84px);
+    display: block; pointer-events: none;
+  }
+  .rb-hero-grid {
+    display: grid;
+    grid-template-columns: 1.02fr 1fr;
+    gap: clamp(1.6rem, 3.6vw, 3.2rem);
+    align-items: center;
+  }
+  .rb-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.05rem, 3.7vw, 2.95rem);
+    line-height: 1.06;
+    letter-spacing: -0.026em;
+    color: var(--ivory);
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .rb-hero-title em { font-style: italic; color: #E3C29A; }
+  .rb-hero-lede {
+    font-size: clamp(0.98rem, 1.3vw, 1.07rem);
+    line-height: 1.72;
+    color: rgba(245,240,229,0.8);
+    max-width: 46ch;
+    margin: 1.3rem 0 0;
+  }
+  .rb-hero-actions { margin-top: clamp(1.7rem, 3vw, 2.2rem); }
+
+  /* one large plate with two small ones stacked beside it */
+  .rb-hero-media {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(0.6rem, 1.2vw, 0.95rem);
+  }
+  .rb-hero-media figure {
+    margin: 0; overflow: hidden; border-radius: 1.1rem;
+    background: var(--color-clay);
+    box-shadow: 0 30px 58px -44px rgba(31,59,44,0.6);
+  }
+  .rb-m1 { aspect-ratio: 4 / 5; }
+  .rb-m-side { display: grid; grid-template-rows: 1fr 1fr; gap: clamp(0.6rem, 1.2vw, 0.95rem); }
+
+  /* the numbers sit inside the same card */
+  .rb-rail {
+    list-style: none; margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding: clamp(1.6rem, 3.2vw, 2.4rem) 0 0;
+    border-top: 1px solid rgba(245,240,229,0.22);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.7rem, 1.5vw, 1.1rem);
+  }
+  .rb-rail li {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    background: #fff; border: 1px solid rgba(31,59,44,0.08);
+    border-top: 4px solid var(--color-forest);
+    border-radius: 0.85rem;
+    box-shadow: 0 26px 46px -42px rgba(31,59,44,0.55);
+    padding: clamp(1rem, 2vw, 1.4rem) clamp(0.8rem, 1.6vw, 1.2rem);
+    text-align: center;
+  }
+  .rb-rail strong {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1;
+    letter-spacing: -0.02em; color: var(--color-brand-primary);
+  }
+  .rb-rail span { font-family: var(--font-body); font-size: 0.86rem; color: var(--color-brand-muted); }
+
+  /* ============ TYPES — clay, ivory cards ============ */
+  .rb-types {
+    position: relative;
+    background: var(--color-clay);
+    padding: clamp(4rem, 9vw, 8rem) 0;
+  }
+  .rb-types-head {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem);
+  }
+  .rb-types-head .section-sub { margin-top: 0; }
+
+  .rb-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .rb-type-card {
+    display: flex; flex-direction: column;
+    background: var(--ivory);
+    border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.15rem; overflow: hidden;
+    box-shadow: 0 26px 54px -48px rgba(31,59,44,0.55);
+    transition: box-shadow 0.4s ease;
+  }
+  .rb-type-card:hover { box-shadow: 0 34px 62px -44px rgba(31,59,44,0.62); }
+  .rb-type-ph { position: relative; margin: 0; aspect-ratio: 1 / 1; background: var(--color-clay); overflow: hidden; }
+  .rb-type-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .rb-type-card:hover .rb-type-ph img { transform: scale(1.05); }
+  .rb-type-num {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    display: grid; place-items: center; min-width: 34px; height: 34px; padding: 0 0.5rem;
+    border-radius: 999px; background: rgba(245,240,229,0.92); backdrop-filter: blur(6px);
+    border: 1px solid rgba(176,141,76,0.45);
+    font-family: var(--font-body); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--brass);
+  }
+  .rb-type-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.05rem, 1.9vw, 1.45rem); }
+  .rb-type-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.12rem, 1.8vw, 1.32rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .rb-type-d { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .rb-type-best { margin: auto 0 0; padding-top: 0.95rem; border-top: 1px solid rgba(31,59,44,0.12); font-size: 0.9rem; color: var(--color-brand-text); }
+  .rb-type-best span { display: block; font-size: 0.64rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.35rem; }
+
+  /* ============ COLLAPSIBLE ============ */
+  .rb-flat { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .rb-flat-grid { display: grid; grid-template-columns: 1.06fr 1fr; gap: clamp(2rem, 4.4vw, 4rem); align-items: center; }
+  .rb-flat-actions { margin-top: clamp(1.9rem, 3.4vw, 2.5rem); }
+  .rb-flat-figs { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.8rem, 1.6vw, 1.2rem); }
+  .rb-flat-fig { margin: 0; }
+  .rb-flat-fig img { border-radius: 1.1rem; aspect-ratio: 1 / 1; box-shadow: 0 30px 60px -46px rgba(31,59,44,0.6); }
+  .rb-flat-fig:last-child { transform: translateY(1.6rem); }
+  .rb-flat-fig figcaption {
+    margin-top: 0.7rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted);
+  }
+  .rb-flat-rows {
+    list-style: none; margin: clamp(3.4rem, 6vw, 5.2rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 3vw, 2.6rem);
+  }
+  .rb-flat-row { padding-top: 1.3rem; border-top: 2px solid rgba(31,59,44,0.24); }
+  .rb-flat-row strong {
+    display: block; font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(2rem, 3.6vw, 2.9rem); line-height: 1; letter-spacing: -0.02em; color: var(--color-brand-text);
+  }
+  .rb-flat-l {
+    display: block; margin-top: 0.55rem; font-family: var(--font-body); font-size: 0.72rem;
+    font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass);
+  }
+  .rb-flat-row p { margin: 0.75rem 0 0; font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); }
+
+  /* ============ CUSTOMIZATION ============ */
+  .rb-cust { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .rb-cust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .rb-cust-card { display: flex; flex-direction: column; }
+  .rb-cust-ph { margin: 0; border-radius: 1.1rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--ivory); box-shadow: 0 26px 50px -46px rgba(31,59,44,0.6); }
+  .rb-cust-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .rb-cust-card:hover .rb-cust-ph img { transform: scale(1.05); }
+  .rb-cust-body { padding-top: 1.15rem; }
+  .rb-cust-n { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; color: var(--brass); }
+  .rb-cust-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.35rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.45rem 0 0; }
+  .rb-cust-d { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+  .rb-cust-note {
+    max-width: 78ch; margin: clamp(2.4rem, 4.6vw, 3.6rem) auto 0; text-align: center;
+    font-size: 1rem; line-height: 1.75; color: var(--color-brand-muted);
+  }
+  .rb-cust-note a { color: var(--forest-light); font-weight: 600; transition: color 0.3s ease; }
+  .rb-cust-note a:hover { color: var(--brass); }
+
+  /* ============ MATERIALS ============ */
+  .rb-mat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .rb-mat-head {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.2rem);
+  }
+  .rb-mat-head .section-sub { margin-top: 0; }
+  .rb-mat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .rb-mat-card { display: flex; flex-direction: column; background: var(--color-clay); border-radius: 1.2rem; overflow: hidden; padding-bottom: 1.3rem; }
+  .rb-mat-ph { margin: 0; aspect-ratio: 1 / 1; background: var(--ivory); overflow: hidden; }
+  .rb-mat-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .rb-mat-card:hover .rb-mat-ph img { transform: scale(1.05); }
+  .rb-mat-t { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 1.1rem 1.15rem 0; }
+  .rb-mat-d { font-size: 0.92rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.55rem 1.15rem 0; }
+  .rb-mat-best { margin: auto 1.15rem 0; padding-top: 0.95rem; font-size: 0.87rem; color: var(--color-brand-text); }
+  .rb-mat-best span { display: block; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.3rem; }
+
+  .rb-finish {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem clamp(1.2rem, 3vw, 2.4rem);
+    margin-top: clamp(2.2rem, 4vw, 3rem); padding-top: 1.5rem; border-top: 1px solid rgba(31,59,44,0.14);
+  }
+  .rb-finish-l { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass); }
+  .rb-finish ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; }
+  .rb-finish li {
+    font-family: var(--font-body); font-size: 0.86rem; color: var(--color-brand-text);
+    padding: 0.42rem 0.85rem; border: 1px solid rgba(31,59,44,0.16); border-radius: 999px; background: rgba(245,240,229,0.7);
+  }
+
+  /* ============ MATCH — the page's dark moment ============ */
+  .rb-match {
+    position: relative;
+    background: linear-gradient(180deg, var(--color-forest) 0%, var(--forest-deep) 100%);
+    padding: clamp(4rem, 9vw, 8rem) 0;
+  }
+  .rb-match::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(48% 56% at 84% 10%, rgba(228,181,77,0.14), transparent 70%);
+  }
+  .rb-match .wrap { position: relative; z-index: 1; }
+  .rb-match .section-title { color: var(--ivory); }
+  .rb-match .section-title em { color: #E3C29A; }
+  .rb-match .section-sub { color: rgba(245,240,229,0.76); }
+  .rb-match-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .rb-match-card {
+    background: rgba(245,240,229,0.05); border: 1px solid rgba(245,240,229,0.14); border-radius: 1.2rem;
+    padding: clamp(1.3rem, 2.4vw, 1.8rem);
+  }
+  .rb-match-p { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.34rem); letter-spacing: -0.015em; color: var(--ivory); margin: 0; }
+  .rb-match-rows { margin: 1.15rem 0 0; padding-top: 1.05rem; border-top: 1px solid rgba(245,240,229,0.18); }
+  .rb-match-rows > div { display: grid; grid-template-columns: 5.6rem 1fr; gap: 0.6rem; padding: 0.42rem 0; }
+  .rb-match-rows dt { font-family: var(--font-body); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass-soft); padding-top: 0.24rem; }
+  .rb-match-rows dd { margin: 0; font-size: 0.94rem; line-height: 1.5; color: rgba(245,240,229,0.9); }
+
+  /* ============ CAPACITY — light, over the floor ============ */
+  .rb-cap {
+    position: relative;
+    background: linear-gradient(180deg, rgba(245,240,229,0.88), rgba(245,240,229,0.93)), url('https://img.leelinepackage.com/rigid-boxes/plant.webp') center / cover no-repeat;
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+  }
+  .rb-cap::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 54% at 84% 8%, rgba(228,181,77,0.16), transparent 68%);
+  }
+  .rb-cap .wrap { position: relative; z-index: 1; }
+
+  .rb-cap-ribbon {
+    list-style: none; margin: clamp(1rem, 3vw, 2rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 2px solid rgba(31,59,44,0.3); border-bottom: 1px solid rgba(31,59,44,0.16);
+  }
+  .rb-cap-ribbon li { padding: clamp(1.5rem, 3vw, 2.2rem) clamp(1rem, 2vw, 1.6rem); border-left: 1px solid rgba(31,59,44,0.14); }
+  .rb-cap-ribbon li:first-child { border-left: 0; }
+  .rb-cap-ribbon strong {
+    display: block; font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.9rem, 3.4vw, 2.7rem); line-height: 1; letter-spacing: -0.02em; color: var(--color-brand-primary);
+  }
+  .rb-cap-l { display: block; margin-top: 0.5rem; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); }
+  .rb-cap-ribbon p { margin: 0.7rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
+
+  /* ============ CASES — 2 × 2 ============ */
+  /* compact 2 × 2 — the four builds side by side rather than four full-width rows */
+  .rb-cases { background: var(--ivory); padding: clamp(3.5rem, 7vw, 6rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .rb-case-list { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.9rem, 2vw, 1.5rem); }
+  .rb-case {
+    display: grid; grid-template-columns: 40% 1fr; gap: clamp(0.85rem, 1.8vw, 1.3rem);
+    align-items: center;
+    background: var(--color-clay); border-radius: 1.15rem;
+    padding: clamp(0.75rem, 1.4vw, 1rem);
+  }
+  .rb-case-ph { margin: 0; border-radius: 0.85rem; overflow: hidden; aspect-ratio: 4 / 3; background: var(--ivory); }
+  .rb-case-tag {
+    display: block; font-family: var(--font-body); font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass);
+  }
+  .rb-case-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.5vw, 1.22rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .rb-case-d { font-size: 0.87rem; line-height: 1.6; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
+
+  /* ============ PROCESS ============ */
+  .rb-flow { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .rb-flow-grid { display: grid; grid-template-columns: 1.18fr 1fr; gap: clamp(2rem, 4.6vw, 4rem); align-items: start; }
+  .rb-flow-steps { list-style: none; margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 0; }
+  .rb-flow-steps li { display: grid; grid-template-columns: 3rem 1fr; gap: 1.1rem; padding: 1.15rem 0; border-top: 1px solid rgba(31,59,44,0.14); }
+  .rb-flow-steps li:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); }
+  .rb-flow-n { font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--brass); padding-top: 0.18rem; }
+  .rb-flow-steps h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.26rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .rb-flow-steps p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
+  .rb-flow-figure { margin: 0; position: sticky; top: 7rem; }
+  .rb-flow-figure img { border-radius: 1.3rem; aspect-ratio: 1 / 1; box-shadow: 0 40px 74px -54px rgba(31,59,44,0.62); }
+  .rb-flow-figure figcaption {
+    margin-top: 0.85rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); text-align: center;
+  }
+
+  /* ============ SUSTAINABILITY ============ */
+  .rb-eco { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .rb-eco-panel {
+    position: relative; overflow: hidden;
+    background: linear-gradient(155deg, var(--color-forest) 0%, var(--forest-deep) 100%);
+    border-radius: 1.7rem;
+    padding: clamp(2rem, 5vw, 4.2rem);
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(2rem, 4.6vw, 4.2rem); align-items: center;
+  }
+  .rb-eco-panel::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 62% at 14% 88%, rgba(228,181,77,0.16), transparent 70%);
+  }
+  .rb-eco-head { position: relative; z-index: 1; }
+  .rb-eco-head .section-title { color: var(--ivory); font-size: clamp(1.85rem, 3.6vw, 2.9rem); }
+  .rb-eco-head .section-title em { color: #E3C29A; }
+  .rb-eco-head .section-sub { color: rgba(245,240,229,0.78); max-width: 40ch; }
+  .rb-eco-actions { margin-top: clamp(1.8rem, 3.2vw, 2.4rem); }
+  .rb-eco-list { position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem clamp(1.2rem, 2.6vw, 2.2rem); }
+  .rb-eco-list li { padding-top: 1rem; border-top: 1px solid rgba(245,240,229,0.24); }
+  .rb-eco-list h3 { font-family: var(--font-body); font-weight: 600; font-size: 0.98rem; letter-spacing: -0.005em; color: var(--brass-soft); margin: 0; }
+  .rb-eco-list p { font-size: 0.92rem; line-height: 1.64; color: rgba(245,240,229,0.76); margin: 0.5rem 0 0; }
+
+  /* ============ REVIEWS ============ */
+  .rb-rev { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .rb-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 2.6vw, 2rem); }
+  .rb-rev-card {
+    display: flex; flex-direction: column;
+    background: var(--ivory); border: 1px solid rgba(31,59,44,0.09); border-radius: 1.3rem;
+    padding: clamp(1.6rem, 3vw, 2.3rem); box-shadow: 0 30px 60px -52px rgba(31,59,44,0.55);
+  }
+  .rb-rev-top { display: flex; align-items: baseline; gap: 0.7rem; padding-bottom: 1.1rem; border-bottom: 1px solid rgba(31,59,44,0.13); }
+  .rb-rev-top strong { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.8rem, 3.2vw, 2.5rem); line-height: 1; letter-spacing: -0.025em; color: var(--brass); }
+  .rb-rev-top span { font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-brand-muted); }
+  .rb-rev-q { font-family: var(--font-heading); font-size: clamp(1.02rem, 1.5vw, 1.16rem); line-height: 1.72; color: var(--color-brand-text); margin: 1.2rem 0 0; flex: 1; }
+  .rb-rev-by { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(31,59,44,0.13); }
+  .rb-rev-img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .rb-rev-n { display: block; font-family: var(--font-body); font-weight: 600; font-size: 0.96rem; color: var(--color-brand-text); }
+  .rb-rev-r { display: block; font-size: 0.87rem; color: var(--color-brand-muted); margin-top: 0.15rem; }
+
+  /* ============ FAQ ============ */
+  .rb-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; content-visibility: auto; contain-intrinsic-size: auto 600px; }
+  .rb-faq-list { display: flex; flex-direction: column; max-width: 820px; margin-inline: auto; }
+  .rb-faq-item { border-top: 1px solid rgba(31,59,44,0.14); background: var(--color-brand-surface); }
+  .rb-faq-item:first-child { border-radius: 1rem 1rem 0 0; }
+  .rb-faq-item:last-child { border-bottom: 1px solid rgba(31,59,44,0.14); border-radius: 0 0 1rem 1rem; }
+  .rb-faq-item + .rb-faq-item { margin-top: 0.6rem; }
+  .rb-faq-n { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .rb-faq-item summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 1rem; padding: 1.3rem 1.2rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.8vw, 1.2rem); color: var(--color-brand-text); }
+  .rb-faq-item summary::-webkit-details-marker { display: none; }
+  .rb-faq-item summary::after { content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass); transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1); margin-left: auto; }
+  .rb-faq-item[open] summary::after { transform: rotate(45deg); }
+  .rb-faq-a { padding: 0 1.2rem 1.4rem; }
+  .rb-faq-a p { font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 68ch; margin: 0; }
+
+  /* ============ FINAL CTA ============ */
+  .rb-final {
+    position: relative;
+    background: linear-gradient(180deg, rgba(20,38,27,0.72), rgba(20,38,27,0.86)), url('https://img.leelinepackage.com/rigid-boxes/final-cta.webp') center / cover no-repeat;
+    padding: clamp(3.5rem, 9vw, 7.5rem) 0;
+    text-align: center;
+  }
+  .rb-final::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(52% 62% at 50% 0%, rgba(228,181,77,0.16), transparent 68%);
+  }
+  .rb-final-inner { position: relative; z-index: 1; }
+  .rb-final-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2.2rem, 5.4vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em;
+    color: var(--ivory); margin: 1.1rem 0 0; text-wrap: balance;
+  }
+  .rb-final-title em { font-style: italic; color: #E3C29A; }
+  .rb-final-sub { font-size: clamp(1.02rem, 1.5vw, 1.14rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 60ch; margin: 1.3rem auto 0; }
+  .rb-final-actions { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.8rem); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .rb-hero-grid { grid-template-columns: 1fr; gap: clamp(1.6rem, 3.4vw, 2.4rem); }
+    .rb-hero-media { max-width: 560px; }
+    .rb-rail { grid-template-columns: repeat(2, 1fr); }
+    .rb-types-head, .rb-mat-head { grid-template-columns: 1fr; gap: 1.2rem; }
+    .rb-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .rb-flat-grid { grid-template-columns: 1fr; }
+    .rb-flat-fig:last-child { transform: none; }
+    .rb-cust-grid { grid-template-columns: repeat(2, 1fr); }
+    .rb-mat-grid { grid-template-columns: repeat(2, 1fr); }
+    .rb-match-grid { grid-template-columns: repeat(2, 1fr); }
+    .rb-cap-ribbon { grid-template-columns: repeat(2, 1fr); }
+    .rb-cap-ribbon li:nth-child(3) { border-left: 0; }
+    .rb-cap-ribbon li:nth-child(n + 3) { border-top: 1px solid rgba(31,59,44,0.14); }
+    .rb-case-list { grid-template-columns: 1fr; }
+    .rb-case { grid-template-columns: 38% 1fr; }
+    .rb-flow-grid { grid-template-columns: 1fr; }
+    .rb-flow-figure { position: static; max-width: 520px; }
+    .rb-eco-panel { grid-template-columns: 1fr; gap: clamp(1.8rem, 4vw, 2.6rem); }
+  }
+  @media (max-width: 640px) {
+    .rb-hero { padding-top: calc(clamp(3rem, 8vw, 4.2rem) + 4rem); }
+    .rb-hero-media { max-width: 420px; }
+    .rb-rail { grid-template-columns: 1fr; }
+    .rb-type-grid, .rb-cust-grid, .rb-mat-grid, .rb-match-grid { grid-template-columns: 1fr; }
+    .rb-flat-rows { grid-template-columns: 1fr; }
+    .rb-eco-list { grid-template-columns: 1fr; }
+    .rb-rev-grid { grid-template-columns: 1fr; }
+    .rb-finish { flex-direction: column; align-items: flex-start; }
+    .rb-match-rows > div { grid-template-columns: 5.2rem 1fr; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

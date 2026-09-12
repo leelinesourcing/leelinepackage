@@ -27,9 +27,9 @@ interface Props {
 
 const { eyebrow, title, sub = '', tone = 'ivory', id, members } = Astro.props;
 const cols = Math.min(members.length, 3);
-// Two people in a full-width grid would each stretch to half the page, so cap
-// the measure there; three across is allowed to fill the wrap.
-const gridMax = cols < 3 ? `calc(${cols} * 260px + ${cols - 1} * 1.8rem)` : 'none';
+// Cap the measure so neither a sparse grid nor a full one stretches its cards
+// across the whole wrap — three across otherwise lands at ~380px per portrait.
+const gridMax = `calc(${cols} * ${cols < 3 ? 260 : 320}px + ${cols - 1} * 1.8rem)`;
 
 // Inline rather than <use href="#i-leaf-sm">: that sprite only exists on the
 // homepage, so subpages each carry their own copy of the leaf.

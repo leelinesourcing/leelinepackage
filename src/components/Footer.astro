@@ -8,7 +8,13 @@ const info = [
   { label: 'About Us', href: '/about-us/' },
   { label: 'Blog', href: '/#work' },
   { label: 'Contact Us', href: '/contact/' },
-  { label: 'Privacy Policy', href: '/' },
+];
+
+const legal = [
+  { label: 'Privacy Policy', href: '/privacy-policy/' },
+  { label: 'Disclaimer', href: '/disclaimer/' },
+  { label: 'Editorial Policy', href: '/editorial-policy/' },
+  { label: 'Fact Checking Process', href: '/fact-checking-process/' },
 ];
 
 const socials = [
@@ -58,8 +64,9 @@ const socials = [
 
     <div class="footer-bottom">
       <span>&copy; {year} LeelinePackage. All rights reserved.</span>
-      <span class="footer-mark">Engineered, not just printed.</span>
-      <span>ISO 9001 · FSC&reg;</span>
+      <nav class="footer-legal" aria-label="Legal">
+        {legal.map((l) => <a href={l.href} target="_blank" rel="noopener">{l.label}</a>)}
+      </nav>
     </div>
   </div>
 </footer>
@@ -89,7 +96,10 @@ const socials = [
   .footer-col--contact .btn:hover { color: var(--forest-deep); background: #EFC45A; box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.5); }
 
   .footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.14); margin-top: clamp(2.5rem, 5vw, 4rem); padding-top: 1.6rem; font-size: 0.82rem; }
-  .footer-mark { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brass-soft); }
+
+  .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
+  .footer-legal a { color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
+  .footer-legal a:hover { color: var(--brass-soft); }
 
   @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 640px) {

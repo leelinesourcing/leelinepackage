@@ -929,7 +929,6 @@ const seoJsonLd = JSON.stringify({
           <a href="#offerings">About Us</a>
           <a href="#offerings">Blog</a>
           <a href="#offerings">Contact Us</a>
-          <a href="#offerings">Privacy Policy</a>
         </div>
 
         <div class="footer-col footer-col--contact">
@@ -943,10 +942,12 @@ const seoJsonLd = JSON.stringify({
 
       <div class="footer-bottom">
         <span>© 2026 LeelinePackage. All rights reserved.</span>
-        <span class="footer-mark">
-          Engineered, not just printed.
-        </span>
-        <span>ISO 9001 · FSC®</span>
+        <nav class="footer-legal" aria-label="Legal">
+          <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+          <a href="/disclaimer/" target="_blank" rel="noopener">Disclaimer</a>
+          <a href="/editorial-policy/" target="_blank" rel="noopener">Editorial Policy</a>
+          <a href="/fact-checking-process/" target="_blank" rel="noopener">Fact Checking Process</a>
+        </nav>
       </div>
     </div>
   </footer>
@@ -1652,8 +1653,9 @@ const seoJsonLd = JSON.stringify({
       padding-top: 1.6rem;
       font-size: 0.82rem;
     }
-    .footer-mark { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brass-soft); }
-    .footer-mark svg { width: 1.1em; height: 1.1em; color: var(--brass); }
+    .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
+    .footer-legal a { color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
+    .footer-legal a:hover { color: var(--brass-soft); }
 
     /* ============ ANIMATION KEYFRAMES ============ */
     @keyframes rise {

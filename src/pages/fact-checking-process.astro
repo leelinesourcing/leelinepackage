@@ -1,0 +1,238 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import LegalDoc from '../components/LegalDoc.astro';
+
+const seo = {
+  title: 'Fact Checking Process | LeelinePackage Packaging Specialists',
+  description: 'How every LeelinePackage packaging guide is checked: source hierarchy, material stress testing, standards cross-reference, sign-off, and our corrections policy.',
+  keywords: 'LeelinePackage fact checking, packaging content verification, ISTA standards check, material stress test, packaging correction policy',
+};
+
+const sections = [
+  { id: 'standards', label: 'The Standards We Check Against' },
+  { id: 'workflow', label: 'The Seven-Step Check Before Publication' },
+  { id: 'sources', label: 'Sources We Accept and Sources We Reject' },
+  { id: 'stress-test', label: 'The Material Stress Test' },
+  { id: 'roles', label: 'Who Checks What' },
+  { id: 'corrections', label: 'Corrections and Updates' },
+  { id: 'limits', label: 'What This Process Does Not Cover' },
+  { id: 'questions', label: 'Questions About Our Process?' },
+];
+
+/* The seven gates a technical guide passes before it publishes. */
+const steps = [
+  {
+    title: 'Brief and Claim Inventory',
+    role: 'Editor',
+    body: 'Every factual assertion in a draft is pulled out into a claim list before review starts: numbers, standard names, material designations, load limits, lead times. Anything that reads as a fact has to appear on that list.',
+  },
+  {
+    title: 'Source Assignment',
+    role: 'Writer',
+    body: 'Each claim is matched to a primary source — a published standard, a mill test certificate, a factory measurement, or our own test result. A claim that cannot be matched is rewritten or cut. There is no &ldquo;everyone knows&rdquo; category.',
+  },
+  {
+    title: 'First Verification Pass',
+    role: 'Technical reviewer',
+    body: 'Standards, material designations and units are checked line by line against the current edition of the reference. Where a figure comes from a test, the method and the test conditions are recorded next to it so a reader can see what it actually measures.',
+  },
+  {
+    title: 'Independent Cross-Check',
+    role: 'Second reviewer',
+    body: 'A second person re-checks anything a buyer could make a purchasing decision on: MOQ, board grade, stacking load, lead times, cost bands. One reviewer is never enough on a number that moves money.',
+  },
+  {
+    title: 'Physical or Computational Test',
+    role: 'Engineering / lab',
+    body: 'Load, drop and compression claims are measured in-house or reproduced from a standard method rather than copied from a supplier sheet. Dimensional Weight figures are recomputed against the carrier formula instead of being quoted from memory.',
+  },
+  {
+    title: 'Editorial Sign-Off',
+    role: 'Editor',
+    body: 'The editor confirms the claim list is fully closed, the disclosures required by our Editorial Policy are in place, and no unsourced number survived. An open claim list means the piece does not publish.',
+  },
+  {
+    title: 'Post-Publish Audit',
+    role: 'Corrections owner',
+    body: 'Standards are revised. Any guide that touches a regulated subject — food contact, hazardous goods, phytosanitary wood packaging — is re-checked against the current edition of its reference at least once every 12 months, and the review date is updated.',
+  },
+];
+
+/* Roles on the review bench. */
+const roles = [
+  { name: 'Writer', duty: 'Builds the claim list and attaches a primary source to every claim; rewrites or removes anything unsourced.' },
+  { name: 'Technical reviewer', duty: 'Checks standards, material designations, units and test methods against the current published edition.' },
+  { name: 'Second reviewer', duty: 'Independently re-checks every number a buyer could act on, without seeing the first reviewer&rsquo;s notes.' },
+  { name: 'Engineering / lab', duty: 'Measures or reproduces load, drop and compression claims, and recomputes Dimensional Weight.' },
+  { name: 'Editor', duty: 'Owns final sign-off. No closed claim list, no publication.' },
+  { name: 'Corrections owner', duty: 'Logs reader error reports, runs the re-check, and publishes dated correction notes.' },
+];
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="https://www.leelinepackage.com/fact-checking-process/"
+  ogType="website"
+>
+  <main id="top">
+    <Navbar />
+
+    <LegalDoc
+      title="Fact Checking Process"
+      subtitle="A single error in a material spec can fail a whole shipment. Every technical claim on this site is traced to a standard, a test result or a primary document before it publishes — and correcting one later is a documented step, not an embarrassment."
+      updated="September 2026"
+      sections={sections}
+    >
+      <p>Packaging is the first line of defense for your bottom line. That is why our guides are held to an engineering standard rather than an editorial one: each specification is validated against an industry standard or a measured result before publication, and each one is signed off by someone who did not write it.</p>
+
+      <h2 id="standards">The Standards We Check Against</h2>
+      <p>We reject anecdotal &ldquo;unboxing&rdquo; experience in favor of empirical data. The references our guides are checked against most often:</p>
+      <ul>
+        <li><strong>Structural Standards:</strong> Edge Crush Test (ECT) and Mullen Burst Test ratings verified against official <strong>ISTA 3A</strong> and <strong>ISTA 6-Amazon</strong> protocols before any stacking load is quoted.</li>
+        <li><strong>Regulatory Compliance:</strong> Material safety data cross-referenced with <strong>REACH (EU)</strong> and <strong>FDA (US)</strong> food-contact requirements wherever a pack touches food, cosmetics or a child&rsquo;s product.</li>
+        <li><strong>Sustainability Claims:</strong> Eco claims such as &ldquo;compostable&rdquo; or &ldquo;biodegradable&rdquo; must map to a named certification — <strong>ASTM D6400</strong>, <strong>EN 13432</strong>, FSC or equivalent. We do not use the term &ldquo;sustainable&rdquo; without one.</li>
+        <li><strong>Transit and Labelling:</strong> Dimensional Weight (DIM) calculations checked against the current FedEx, DHL and UPS formulas; wood-packaging instructions checked against <strong>ISPM 15</strong> so a compliant crate is not held at the border over a missing stamp.</li>
+        <li><strong>Hazardous Goods:</strong> Lithium-battery and aerosol shipping instructions checked against <strong>IATA PI 965</strong> and its current amendments.</li>
+      </ul>
+
+      <h2 id="workflow">The Seven-Step Check Before Publication</h2>
+      <p>A technical guide moves through the same seven gates every time. Missing any one of them keeps the piece out of the publishing queue until it is closed.</p>
+      <ol class="fc-steps">
+        {steps.map((s) => (
+          <li>
+            <h3 class="fc-step-title">{s.title}</h3>
+            <span class="fc-step-role">{s.role}</span>
+            <p class="fc-step-body" set:html={s.body} />
+          </li>
+        ))}
+      </ol>
+
+      <h2 id="sources">Sources We Accept and Sources We Reject</h2>
+      <p>The distinction matters more than the number of citations. A guide with one traced, primary source is stronger than one with six untraceable ones.</p>
+
+      <h3>What earns a citation</h3>
+      <ul>
+        <li>Published standards and their current editions — ISTA, ASTM, ISO, EN, ISPM 15, IATA.</li>
+        <li>Mill and converter test certificates, with the issuing laboratory named.</li>
+        <li>Our own measured results, recorded with the method and the sample size.</li>
+        <li>Primary regulatory texts and official customs guidance.</li>
+        <li>Peer-reviewed work and technical papers from industry associations.</li>
+      </ul>
+
+      <h3>What never earns one</h3>
+      <ul>
+        <li>Non-technical supplier blogs and promotional videos that carry no standardised test data.</li>
+        <li>Figures with no traceable origin — the classic &ldquo;studies show&rdquo; with no study attached.</li>
+        <li>Screenshots of spec sheets with the issuing laboratory removed.</li>
+        <li>AI-generated summaries used as a source in their own right, rather than a pointer to one.</li>
+      </ul>
+
+      <h2 id="stress-test">The Material Stress Test</h2>
+      <p>Before a guide such as &ldquo;packaging for electronics&rdquo; or &ldquo;packaging for fragile goods&rdquo; is published, an editor verifies the Dimensional Weight (DIM) calculation against the current carrier formulas and runs a compliance audit on every labelling instruction in the piece.</p>
+      <p>A lab number on its own proves very little. Where a guide assumes a real-world duty — a stack four high, a thirty-day warehouse stay, a parcel that is thrown rather than placed — the board grade has to clear that duty, not just the bench test. We state the assumed condition alongside the figure so the reader can see whether it matches their own.</p>
+
+      <h2 id="roles">Who Checks What</h2>
+      <p>Six roles sit on the review bench. No single person can carry a piece through all of them, which is the point.</p>
+      <ul>
+        {roles.map((r) => (
+          <li><strong>{r.name}:</strong> <span set:html={r.duty} /></li>
+        ))}
+      </ul>
+
+      <h2 id="corrections">Corrections and Updates</h2>
+      <p>A correction is part of the process, not an exception to it. When a reader finds an error, here is what happens next:</p>
+      <ul>
+        <li><strong>Reporting:</strong> an error report can be sent to us by email, quoting the article and the claim. We acknowledge it within 48 hours.</li>
+        <li><strong>Re-check:</strong> the claim is re-verified against its original source and the current edition of the standard it leans on.</li>
+        <li><strong>Publishing:</strong> where a correction is warranted, the article is updated and a dated note is added at the foot of the piece describing what changed and why. The original wording is not silently overwritten.</li>
+        <li><strong>Permanent record:</strong> substantive corrections stay visible on the article. We do not delete them once the traffic has moved on.</li>
+        <li><strong>Re-review:</strong> guides on regulated subjects are re-checked at least once every 12 months, whether or not anyone has complained.</li>
+      </ul>
+
+      <div class="fc-callout">
+        <h3>Worked Example</h3>
+        <p>A guide on protective inserts for lithium-ion battery shipping had recommended expanded polystyrene (EPS) for internal cushioning. Under the updated <strong>IATA PI 965</strong> regulations, that recommendation was withdrawn and replaced with anti-static specialized foam, because standard EPS can generate static discharge around a damaged cell. The &ldquo;Safety Compliance&rdquo; table in the article was adjusted to reflect current hazardous-material shipping law, and a dated correction note now sits at the foot of the page.</p>
+        <p class="fc-callout-note">Correction published: our previous version recommended EPS for this application.</p>
+      </div>
+
+      <h2 id="limits">What This Process Does Not Cover</h2>
+      <p>Being specific about the limits is part of earning the trust the rest of this page asks for.</p>
+      <ul>
+        <li><strong>Pricing:</strong> a cost band we publish is a snapshot. Board and freight prices move, so it is never a quotation.</li>
+        <li><strong>Your specific pack:</strong> a published grade is a starting point, not a verdict. A structure is only confirmed once there is a dieline and a sample carrying your actual product.</li>
+        <li><strong>Regulatory responsibility:</strong> we check against published regulation, but the importer of record owns the compliance decision. Our <a href="/disclaimer/" target="_blank" rel="noopener">Disclaimer</a> applies to everything on this site.</li>
+      </ul>
+
+      <h2 id="questions">Questions About Our Process?</h2>
+      <p>If a claim on this site looks wrong, we would rather hear it than not. Write to us with the article and the specific claim.</p>
+      <ul>
+        <li>By email: <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></li>
+        <li>By visiting our contact page: <a href="/contact/" target="_blank" rel="noopener">https://www.leelinepackage.com/contact/</a></li>
+      </ul>
+    </LegalDoc>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ WORKFLOW STEPS ============ */
+  .fc-steps {
+    list-style: none; margin: 1.8rem 0 0; padding: 0;
+    display: grid; gap: 1.5rem;
+    counter-reset: fcstep;
+  }
+  .fc-steps li { position: relative; padding-left: 3.2rem; }
+  .fc-steps li::before {
+    counter-increment: fcstep;
+    content: counter(fcstep);
+    position: absolute; left: 0; top: -0.1rem;
+    width: 2.2rem; height: 2.2rem;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: rgba(201, 168, 124, 0.36);
+    color: var(--forest-deep);
+    font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 700;
+  }
+  .fc-step-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.12rem, 2vw, 1.3rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .fc-step-role {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(31, 59, 44, 0.08);
+    color: var(--color-brand-primary);
+    font-family: var(--font-body);
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .fc-step-body { margin-top: 0.7rem; }
+
+  /* ============ CORRECTION CALLOUT ============ */
+  .fc-callout {
+    margin-top: 1.8rem;
+    padding: 1.5rem 1.7rem;
+    border-left: 3px solid var(--brass);
+    border-radius: 0 1rem 1rem 0;
+    background: rgba(201, 168, 124, 0.18);
+  }
+  .fc-callout h3 { margin-top: 0; }
+  .fc-callout-note { font-size: 0.9rem !important; font-style: italic; color: var(--brass) !important; }
+
+  @media (max-width: 640px) {
+    .fc-steps li { padding-left: 0; padding-top: 2.9rem; }
+    .fc-steps li::before { top: 0; }
+  }
+</style>

@@ -1,0 +1,163 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  updated?: string;
+  sections?: { id: string; label: string }[];
+}
+
+const { eyebrow = 'Legal', title, subtitle = '', updated = '', sections = [] } = Astro.props;
+
+const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z';
+---
+
+<section class="legal-hero">
+  <div class="wrap legal-hero-inner">
+    <span class="eyebrow">
+      <svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>{eyebrow}
+    </span>
+    <h1 class="legal-title">{title}</h1>
+    {subtitle && <p class="legal-sub">{subtitle}</p>}
+    {updated && <p class="legal-updated">Last updated: {updated}</p>}
+  </div>
+</section>
+
+<slot name="band" />
+
+<section class="legal-doc">
+  <div class="wrap">
+    <div class="legal-layout">
+      {sections.length > 0 && (
+        <nav class="legal-toc" aria-label="On this page">
+          <h2 class="legal-toc-title">On This Page</h2>
+          <ul class="legal-toc-list">
+            {sections.map((s) => <li><a href={`#${s.id}`}>{s.label}</a></li>)}
+          </ul>
+        </nav>
+      )}
+
+      <article class="legal-content"><slot /></article>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ============ HERO ============ */
+  .legal-hero {
+    position: relative;
+    background: var(--ivory);
+    padding: calc(clamp(3.5rem, 7vw, 6rem) + 4.5rem) 0 clamp(3.2rem, 6.5vw, 5rem);
+    overflow: hidden;
+  }
+  .legal-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(52% 58% at 50% 0%, rgba(228,181,77,0.18), transparent 70%);
+  }
+  .legal-hero-inner { position: relative; z-index: 1; max-width: 46rem; margin-inline: auto; text-align: center; }
+  .legal-hero .eyebrow { justify-content: center; }
+
+  .legal-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    margin: 1rem 0 0;
+    text-wrap: balance;
+  }
+  .legal-sub {
+    font-size: clamp(1.02rem, 1.5vw, 1.15rem);
+    line-height: 1.75;
+    color: var(--color-brand-muted);
+    max-width: 62ch;
+    margin: 1.5rem auto 0;
+  }
+  .legal-updated {
+    font-family: var(--font-body);
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--brass);
+    margin: 1.6rem 0 0;
+  }
+
+  /* ============ DOCUMENT ============ */
+  .legal-doc { background: var(--ivory); padding: clamp(2.4rem, 5vw, 4rem) 0 clamp(4rem, 9vw, 7rem); }
+  .legal-layout { max-width: 78ch; margin-inline: auto; }
+
+  .legal-toc {
+    background: var(--color-brand-surface);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-radius: 1.3rem;
+    padding: clamp(1.4rem, 2.6vw, 1.9rem);
+    box-shadow: 0 26px 54px -48px rgba(31, 59, 44, 0.55);
+    margin-bottom: clamp(2.6rem, 6vw, 4rem);
+  }
+  .legal-toc-title {
+    font-family: var(--font-body);
+    font-size: 0.76rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--brass);
+    margin: 0 0 1rem;
+  }
+  .legal-toc-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1.6rem; }
+  .legal-toc-list a {
+    display: inline-flex; align-items: baseline; gap: 0.6rem;
+    font-size: 0.95rem; line-height: 1.5; color: var(--color-brand-text);
+    transition: color 0.3s ease;
+  }
+  .legal-toc-list a::before { content: ''; flex: 0 0 auto; width: 0.5rem; height: 1px; transform: translateY(-0.35em); background: var(--brass); }
+  .legal-toc-list a:hover { color: var(--color-brand-primary); text-decoration: underline; }
+
+  /* Slotted article copy — :global() because the markup comes from the page. */
+  .legal-content { color: var(--color-brand-muted); }
+  .legal-content :global(p) { font-size: 1.02rem; line-height: 1.8; margin: 1.1rem 0 0; }
+
+  .legal-content :global(h2) {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3.4vw, 2.15rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-text);
+    margin: clamp(3rem, 6vw, 4rem) 0 0;
+    padding-top: clamp(1.6rem, 3vw, 2.2rem);
+    border-top: 1px solid rgba(31, 59, 44, 0.14);
+    scroll-margin-top: 6rem;
+  }
+  .legal-content :global(h2:first-child) { margin-top: 0; padding-top: 0; border-top: 0; }
+
+  .legal-content :global(h3) {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-primary);
+    margin: 2.2rem 0 0;
+  }
+  .legal-content :global(h4) {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    color: var(--color-brand-text);
+    margin: 1.8rem 0 0;
+  }
+
+  .legal-content :global(ul) { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; gap: 0.7rem; }
+  .legal-content :global(li) { position: relative; padding-left: 1.35rem; font-size: 1.02rem; line-height: 1.75; }
+  .legal-content :global(li)::before {
+    content: ''; position: absolute; left: 0.1rem; top: 0.68em;
+    width: 0.42rem; height: 0.42rem; border-radius: 50%;
+    background: var(--brass);
+  }
+  .legal-content :global(strong) { color: var(--color-brand-text); font-weight: 700; }
+  .legal-content :global(a) { color: var(--color-brand-primary); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(176, 141, 76, 0.6); text-underline-offset: 0.18em; }
+  .legal-content :global(a:hover) { text-decoration-color: var(--brass); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 640px) {
+    .legal-toc-list { grid-template-columns: 1fr; }
+    .legal-content :global(p), .legal-content :global(li) { font-size: 1rem; }
+  }
+</style>

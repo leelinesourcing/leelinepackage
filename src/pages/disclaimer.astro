@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import LegalDoc from '../components/LegalDoc.astro';
+
+const seo = {
+  title: 'Website Disclaimer | LeelinePackage Custom Packaging Factory',
+  description: 'Read the leelinepackage.com disclaimer: our site content is general information, not manufacturing or legal advice, and we are not liable for third-party links.',
+  keywords: 'LeelinePackage disclaimer, website disclaimer, packaging site terms, no professional advice, affiliate disclosure',
+};
+
+const sections = [
+  { id: 'website-disclaimer', label: 'Website Disclaimer' },
+  { id: 'external-links', label: 'External Links Disclaimer' },
+  { id: 'professional', label: 'Professional Disclaimer' },
+  { id: 'affiliates', label: 'Affiliates Disclaimer' },
+  { id: 'questions', label: 'Questions About This Disclaimer?' },
+];
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="https://www.leelinepackage.com/disclaimer/"
+  ogType="website"
+>
+  <main id="top">
+    <Navbar />
+
+    <LegalDoc
+      title="Disclaimer"
+      subtitle="How to read the guides, specifications and supplier information published on this site, and the limits of what we can warrant."
+      updated="September 2026"
+      sections={sections}
+    >
+      <h2 id="website-disclaimer">Website Disclaimer</h2>
+      <p>The information on leelinepackage.com is for general informational purposes only. All information is provided in good faith, however we make no warranty of any kind regarding accuracy, adequacy, validity, reliability, or completeness. Your use of the Site and reliance on any information is solely at your own risk.</p>
+
+      <h2 id="external-links">External Links Disclaimer</h2>
+      <p>The Site may contain links to third-party websites. Such external links are not investigated, monitored, or checked for accuracy by us. We assume no responsibility for third-party content, privacy policies, or practices.</p>
+
+      <h2 id="professional">Professional Disclaimer</h2>
+      <p>The Site does not contain professional manufacturing or legal advice. Information is for general informational and educational purposes only. Before taking any actions, we encourage you to consult with appropriate professionals. We do not provide professional manufacturing, legal, or safety compliance advice.</p>
+
+      <h2 id="affiliates">Affiliates Disclaimer</h2>
+      <p>The Site may contain links to affiliate websites, and we may receive an affiliate commission for purchases made through such links. This does not affect our editorial integrity or the price you pay.</p>
+
+      <h2 id="questions">Questions About This Disclaimer?</h2>
+      <p>Reach out to us and we&rsquo;ll be happy to clarify.</p>
+      <ul>
+        <li>By email: <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></li>
+        <li>By visiting our contact page: <a href="/contact/" target="_blank" rel="noopener">https://www.leelinepackage.com/contact/</a></li>
+      </ul>
+    </LegalDoc>
+
+    <Footer />
+  </main>
+</Layout>

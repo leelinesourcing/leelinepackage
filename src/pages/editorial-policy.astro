@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import LegalDoc from '../components/LegalDoc.astro';
+
+const seo = {
+  title: 'Editorial Policy | LeelinePackage Custom Packaging Standards',
+  description: 'How LeelinePackage stays independent of its suppliers: full disclosure of financial stakes, no finder\u2019s fees, self-funded audits, and labeled sponsored content.',
+  keywords: 'LeelinePackage editorial policy, packaging content standards, editorial independence, affiliate disclosure, supplier disclosure, sponsored content policy',
+};
+
+const sections = [
+  { id: 'disclosures', label: 'Mandatory Financial Disclosures' },
+  { id: 'samples', label: 'Samples and Prototype Policy' },
+  { id: 'independence', label: 'Dogmatic Independence from Manufacturers' },
+  { id: 'sponsored', label: 'Sponsored Content and Advertising' },
+  { id: 'report', label: 'Report a Violation' },
+];
+
+const standards = [
+  { value: 'Zero Finder\u2019s Fees', label: 'No placement commissions accepted' },
+  { value: 'Self-Funded Audits', label: 'We pay for every supplier visit' },
+  { value: 'Buyer-First Mandate', label: 'Your interest over the supplier\u2019s' },
+  { value: '48-Hour Response', label: 'Guaranteed reply to error reports' },
+];
+
+const publish = [
+  'Transparent lead time data, even when a factory runs behind',
+  'Honest pricing breakdowns, including raw material cost fluctuations',
+  'Supplier condition assessments based on actual audit reports',
+  'Labor practice evaluations drawn from BSCI and SEDEX data',
+  'Unfiltered pros and cons for every supplier we cover',
+];
+
+const resist = [
+  'Pressure to remove or soften a critical supplier assessment',
+  'Requests to inflate capacity numbers to attract more RFQs',
+  'Demands to hide how a labor shortage is affecting timelines',
+  'Threats of advertising withdrawal over a factual review',
+  'Offers of &ldquo;exclusive access&rdquo; in exchange for favorable coverage',
+];
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="https://www.leelinepackage.com/editorial-policy/"
+  ogType="website"
+>
+  <main id="top">
+    <Navbar />
+
+    <LegalDoc
+      title="Editorial Policy"
+      subtitle="The integrity of LeelinePackage rests on our independence from the suppliers and factories we cover. Brand owners, retailers and e-commerce teams rely on us for guidance that is not for sale."
+      updated="September 2026"
+      sections={sections}
+    >
+      <!-- ============ STANDARDS AT A GLANCE ============ -->
+      <Fragment slot="band">
+        <section class="ep-stats">
+          <div class="wrap">
+            <div class="ep-stats-grid">
+              {standards.map((s) => (
+                <div class="ep-stat">
+                  <b>{s.value}</b>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </Fragment>
+
+      <h2 id="disclosures"><span class="ep-num" aria-hidden="true">1</span>Mandatory Financial Disclosures</h2>
+
+      <h3>Equity and Ownership</h3>
+      <p>Any financial stake in a board mill, paper merchant, film or rigid-box supplier, molding or printing plant, logistics firm or material supplier must be disclosed.</p>
+
+      <h3>Consultancy Ties</h3>
+      <p>Current or past paid consulting for packaging brands, sourcing agents or factories &mdash; within the last 24 months &mdash; must be disclosed.</p>
+
+      <h3>Sourcing Commissions</h3>
+      <p>We do not accept finder&rsquo;s fees. Where content is sponsored, it is labeled <strong>&ldquo;Supplier Spotlight: Sponsored&rdquo;</strong>.</p>
+
+      <h2 id="samples"><span class="ep-num" aria-hidden="true">2</span>Samples and Prototype Policy</h2>
+
+      <h3>Prototype Disposal Protocol</h3>
+      <p>Samples undergo destructive testing &mdash; drop, compression and rub &mdash; after which surviving units are broken down for material recycling or kept in our reference library. None are resold.</p>
+
+      <h3>Strict No-Resale Rule</h3>
+      <p>Staff are prohibited from reselling samples on any secondary market. A violation results in immediate termination and public disclosure.</p>
+
+      <h3>Supplier Visit Ethics</h3>
+      <p>LeelinePackage pays 100% of travel and lodging for every supplier audit. We never accept supplier-sponsored trips or hospitality packages.</p>
+
+      <h2 id="independence"><span class="ep-num" aria-hidden="true">3</span>Dogmatic Independence from Manufacturers</h2>
+
+      <h3>What We Publish</h3>
+      <ul>
+        {publish.map((p) => <li>{p}</li>)}
+      </ul>
+
+      <h3>What We Resist</h3>
+      <ul>
+        {resist.map((r) => <li set:html={r} />)}
+      </ul>
+
+      <h2 id="sponsored"><span class="ep-num" aria-hidden="true">4</span>Sponsored Content and Advertising</h2>
+
+      <h3>Clear Labeling</h3>
+      <p>All sponsored content carries a prominent <strong>&ldquo;Supplier Spotlight: Sponsored&rdquo;</strong> badge with a distinct visual treatment, kept fully separate from editorial recommendations.</p>
+
+      <h3>No Ranking Influence</h3>
+      <p>Sponsored suppliers cannot buy placement in Top 10 lists or editorial rankings. Paid placements live in a dedicated <strong>Spotlight</strong> section.</p>
+
+      <h3>Full Transparency</h3>
+      <p>Every sponsored article discloses the commercial relationship &mdash; compensation, samples received, or access provided &mdash; within the first 100 words.</p>
+
+      <h2 id="report"><span class="ep-num" aria-hidden="true">5</span>Report a Violation</h2>
+      <p>Report an error, an undisclosed interest or a sponsored-content breach directly to us. Every report is confidential and reviewed within 48 hours.</p>
+      <ul>
+        <li>By email: <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></li>
+        <li>By visiting our contact page: <a href="/contact/" target="_blank" rel="noopener">https://www.leelinepackage.com/contact/</a></li>
+      </ul>
+    </LegalDoc>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ STANDARDS BAND ============ */
+  .ep-stats { background: var(--ivory); padding-bottom: clamp(0.5rem, 1.5vw, 1rem); }
+  .ep-stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(31, 59, 44, 0.12);
+    border: 1px solid rgba(31, 59, 44, 0.12);
+    border-radius: 1.3rem;
+    overflow: hidden;
+    box-shadow: 0 26px 54px -48px rgba(31, 59, 44, 0.55);
+  }
+  .ep-stat { background: var(--color-brand-surface); padding: clamp(1.1rem, 2.2vw, 1.5rem); }
+  .ep-stat b {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  .ep-stat span { display: block; margin-top: 0.45rem; font-size: 0.82rem; line-height: 1.45; color: var(--color-brand-muted); }
+
+  /* ============ NUMBERED SECTIONS ============ */
+  .ep-num {
+    display: inline-block;
+    margin-right: 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.62em;
+    font-weight: 700;
+    vertical-align: 0.3em;
+    color: var(--brass);
+  }
+
+  @media (max-width: 900px) { .ep-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .ep-stats-grid { grid-template-columns: 1fr; } }
+</style>

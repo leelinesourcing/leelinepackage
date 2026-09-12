@@ -3,6 +3,12 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import TeamSection from '../components/TeamSection.astro';
+import LegalDoc from '../components/LegalDoc.astro';
+
+const demoLegalSections = [
+  { id: 'preview-first', label: 'First Section' },
+  { id: 'preview-second', label: 'Second Section' },
+];
 
 const AB = 'https://img.leelinepackage.com/about';
 
@@ -88,6 +94,25 @@ const colors = [
       <div class="ds-component">
         <div class="ds-frame"><TeamSection {...demoTeam} /></div>
         <p class="ds-comp-name"><strong>TeamSection</strong> · <code>src/components/TeamSection.astro</code> — department band: eyebrow + title + sub + a 2- or 3-across portrait grid, sized to the number of members.</p>
+      </div>
+      <div class="ds-component">
+        <div class="ds-frame">
+          <LegalDoc
+            title="Page Title"
+            subtitle="One short paragraph explaining how to read the page."
+            updated="September 2026"
+            sections={demoLegalSections}
+          >
+            <h2 id="preview-first">First Section</h2>
+            <p>Body copy set at 1.02rem / 1.8 in <code>--color-brand-muted</code>. Headings are Newsreader, lists carry a brass dot.</p>
+            <ul>
+              <li><strong>A term:</strong> the bullet style used for definitions and clauses.</li>
+            </ul>
+            <h2 id="preview-second">Second Section</h2>
+            <p>A second section shows the top rule and spacing between blocks.</p>
+          </LegalDoc>
+        </div>
+        <p class="ds-comp-name"><strong>LegalDoc</strong> · <code>src/components/LegalDoc.astro</code> — legal-document shell: ivory hero (eyebrow + bold title + optional sub + optional &ldquo;Last updated&rdquo;) over a kraft &ldquo;On This Page&rdquo; card and a 78ch article column. Pass <code>sections</code> for the TOC and put the h2/h3/h4 + lists in the default slot. Used by <code>privacy-policy</code>, <code>disclaimer</code>, <code>editorial-policy</code> and <code>fact-checking-process</code>.</p>
       </div>
 
       <h3 class="ds-sub">Atoms</h3>

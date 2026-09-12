@@ -19,13 +19,6 @@ const reading = [
     d: 'Print, foil and fold lines laid against the dieline rather than a flat rectangle, keeping the logo off the crease and the colour on the panel.' },
 ];
 
-/* What sits between this page and a delivered order. */
-const steps = [
-  { n: '01', title: 'Your Brief Lands', d: 'Product, quantity, artwork and deadline go straight to the designer who will draw your dieline.' },
-  { n: '02', title: 'A Dieline Comes Back', d: 'Usually within 24 hours, with material options and pricing you can compare line by line.' },
-  { n: '03', title: 'A Sample Ships', d: 'Approve the drawing and a white dummy follows in 5 days for a fit check in the hand.' },
-];
-
 const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z';
 ---
 
@@ -55,33 +48,8 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
             Back to Home
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a class="btn btn-ghost" href="/#offerings" target="_blank" rel="noopener">
-            Browse the Packaging Range
-            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
         </div>
         <p class="ty-alt">Rather talk it through? <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></p>
-      </div>
-    </section>
-
-    <!-- ============ WHAT HAPPENS NEXT ============ -->
-    <section class="ty-steps-sec">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Next Steps</span>
-          <h2 class="section-title">What Happens Next</h2>
-          <p class="section-sub">Three things sit between this page and a delivered order, and you see a drawing and a sample before anything goes to press.</p>
-        </div>
-
-        <ol class="ty-steps">
-          {steps.map((s) => (
-            <li class="ty-step">
-              <span class="ty-step-n">{s.n}</span>
-              <h3 class="ty-step-title">{s.title}</h3>
-              <p class="ty-step-d">{s.d}</p>
-            </li>
-          ))}
-        </ol>
       </div>
     </section>
 
@@ -165,23 +133,6 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
   .ty-alt a { color: var(--color-brand-primary); font-weight: 600; }
   .ty-alt a:hover { text-decoration: underline; }
 
-  /* ============ WHAT HAPPENS NEXT ============ */
-  .ty-steps-sec { background: var(--color-clay); padding: clamp(3.6rem, 8vw, 6.5rem) 0; }
-  .ty-steps-sec .section-sub { max-width: 62ch; }
-  .ty-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2.4rem); margin: 0; padding: 0; }
-  .ty-step { padding-top: 1.6rem; border-top: 1px solid rgba(31, 59, 44, 0.16); }
-  .ty-step-n {
-    display: block;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(1.7rem, 3vw, 2.3rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--brass);
-  }
-  .ty-step-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.7rem 0 0; }
-  .ty-step-d { font-size: 0.96rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
-
   /* ============ RECOMMENDED READING ============ */
   .ty-reading { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
   .ty-reading .section-sub { max-width: 64ch; }
@@ -214,9 +165,6 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 1024px) {
     .ty-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 900px) {
-    .ty-steps { grid-template-columns: 1fr; gap: 1.6rem; }
   }
   @media (max-width: 640px) {
     .ty-actions .btn { width: 100%; }

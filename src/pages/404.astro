@@ -3,43 +3,25 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
-const R2 = 'https://img.leelinepackage.com';
-
 const seo = {
-  title: 'Page Not Found | LeelinePackage Custom Packaging',
-  description: 'The page you requested is not here. Jump to custom boxes, bags, rigid boxes or folding cartons, or email us for a free quote in 24h.',
+  title: 'Page Not Found | LeelinePackage Custom Packaging Specialists',
+  description: 'That page has moved, or never existed. Jump to our custom boxes, paper bags, rigid boxes or folding cartons, or get a free quote for your packaging in 24 hours.',
   keywords: 'LeelinePackage page not found, custom packaging manufacturer, custom packaging quote',
 };
 
-/* Stop-gap routes: the four constructions buyers ask about most. */
-const products = [
-  { title: 'Custom Boxes', url: '/custom-box-manufacturer/', img: `${R2}/custom-box/hero.webp`, w: 1376, h: 768,
-    alt: 'Printed corrugated custom boxes stacked beside their flattened blanks',
+/* The four constructions buyers ask about most. */
+const pages = [
+  { pill: 'Boxes', title: 'Custom Boxes', url: '/custom-box-manufacturer/',
     d: 'Corrugated and mailer constructions, scored so a full pallet stacks without the base giving way.' },
-  { title: 'Custom Paper Bags', url: '/custom-paper-bag/', img: `${R2}/custom-paper-bag/hero-v2.webp`, w: 1376, h: 768,
-    alt: 'A row of printed kraft paper bags with twisted handles',
+  { pill: 'Bags', title: 'Custom Paper Bags', url: '/custom-paper-bag/',
     d: 'Kraft and laminated bags with the handle and base set to a tested load weight.' },
-  { title: 'Custom Rigid Boxes', url: '/custom-rigid-boxes/', img: `${R2}/rigid-boxes/hero-1-v2.webp`, w: 1024, h: 585,
-    alt: 'A rigid greyboard gift box with its lid lifted to show the interior',
+  { pill: 'Rigid', title: 'Custom Rigid Boxes', url: '/custom-rigid-boxes/',
     d: 'Greyboard keepsake boxes, wrapped and lined for a luxury unboxing.' },
-  { title: 'Custom Folding Cartons', url: '/custom-folding-cartons/', img: `${R2}/folding-cartons/hero-v2.webp`, w: 1300, h: 867,
-    alt: 'A range of printed folding cartons in different shapes and finishes',
+  { pill: 'Cartons', title: 'Custom Folding Cartons', url: '/custom-folding-cartons/',
     d: 'Printed paperboard cartons creased to feed and close at line speed.' },
 ];
 
-/* The three teams, reached by drawing rather than by catalogue. */
-const services = [
-  { title: 'Structural Engineering', url: '/structural-engineering-and-design/', img: `${R2}/services/structural.webp`, w: 760, h: 569,
-    alt: 'A structural designer working on a packaging dieline',
-    d: 'Dielines drawn to the product, with the fit and the stacking load worked out before a die is cut.' },
-  { title: 'Packaging Artwork Design', url: '/packaging-artwork-design/', img: `${R2}/services/artwork.webp`, w: 760, h: 570,
-    alt: 'Artwork for a printed carton laid out on a screen',
-    d: 'Artwork placed to the dieline, so folds, print and finish land where they were intended.' },
-  { title: 'Packaging Sample & Prototyping', url: '/packaging-sample-prototyping/', img: `${R2}/services/sample.webp`, w: 612, h: 408,
-    alt: 'A white packaging dummy held beside a printed production sample',
-    d: 'A 3D mockup inside 24 hours, then a white dummy in 5 days for checking the fit in the hand.' },
-];
-
+const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z';
 ---
 <Layout
   title={seo.title}
@@ -52,97 +34,50 @@ const services = [
   <main id="top">
     <Navbar />
 
-    <!-- ============ HERO — split, light ============ -->
+    <!-- ============ NOT FOUND ============ -->
     <section class="nf-hero">
-      <div class="wrap nf-hero-grid">
-        <div class="nf-hero-copy">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Error 404</span>
-          <h1 class="nf-hero-title">We Couldn&#8217;t Find That Page</h1>
-          <p class="nf-hero-sub">The link may be out of date, or the page has been renamed or retired. Pick a direction below, or start a quote.</p>
-          <div class="nf-hero-actions">
-            <a class="btn btn-primary" href="/" target="_blank" rel="noopener">
-              Back to Home
-              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="/services/" target="_blank" rel="noopener">
-              Explore Our Services
-              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <figure class="nf-hero-figure">
-          <img src={`${R2}/structural/hero.webp`} alt="A structural designer building a packaging prototype on a workbench" width={1024} height={1024} loading="eager" fetchpriority="high" decoding="sync" />
-        </figure>
-      </div>
-    </section>
-
-    <!-- ============ POPULAR PRODUCTS ============ -->
-    <section class="nf-products">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Popular Right Now</span>
-          <h2 class="section-title">Popular Products</h2>
-          <p class="section-sub">The four constructions buyers ask about most, with structure and stock already settled.</p>
-        </div>
-
-        <div class="nf-card-grid">
-          {products.map((p) => (
-            <a class="nf-card" href={p.url} target="_blank" rel="noopener">
-              <figure class="nf-card-ph">
-                <img src={p.img} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" />
-              </figure>
-              <div class="nf-card-body">
-                <h3 class="nf-card-title">{p.title}</h3>
-                <p class="nf-card-d">{p.d}</p>
-                <span class="nf-card-go">View details
-                  <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ SERVICES ============ -->
-    <section class="nf-services">
-      <div class="wrap">
-        <div class="section-head section-head--center">
-          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Our Services</span>
-          <h2 class="section-title">How We Can Help</h2>
-          <p class="section-sub">Three teams &mdash; structural engineering, artwork and sampling &mdash; that answer with drawings rather than a product catalogue.</p>
-        </div>
-
-        <div class="nf-service-grid">
-          {services.map((s) => (
-            <a class="nf-service-card" href={s.url} target="_blank" rel="noopener">
-              <figure class="nf-service-ph">
-                <img src={s.img} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" />
-              </figure>
-              <div class="nf-service-body">
-                <h3 class="nf-service-title">{s.title}</h3>
-                <p class="nf-service-d">{s.d}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ CLOSING CTA (dark) ============ -->
-    <section class="nf-cta" id="keep-going">
-      <div class="wrap nf-cta-inner">
-        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Keep Going</span>
-        <h2 class="nf-cta-title">Let&#8217;s Get You to the <em>Right Place</em></h2>
-        <p class="nf-cta-sub">Send the product and the quantity &mdash; a dieline, a material and a complete quote come back within 24 hours. No obligation, no sales pitch.</p>
-        <div class="section-cta">
-          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-            Get a Free Quote
+      <div class="wrap nf-hero-inner">
+        <span class="nf-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7" /><path d="m20.5 20.5-4.2-4.2" /></svg>
+        </span>
+        <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Error 404</span>
+        <h1 class="nf-title">We Couldn&#8217;t Find That Page</h1>
+        <p class="nf-sub">The link may be out of date, or the page has been renamed or retired. Pick a direction below, or start a quote.</p>
+        <div class="nf-actions">
+          <a class="btn btn-primary" href="/" target="_blank" rel="noopener">
+            Back to Home
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a class="btn btn-light" href="/#offerings" target="_blank" rel="noopener">
-            Browse the Packaging Range
+        </div>
+        <p class="nf-alt">Still stuck? <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></p>
+      </div>
+    </section>
+
+    <!-- ============ WHERE TO GO NEXT ============ -->
+    <section class="nf-pages">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Keep Browsing</span>
+          <h2 class="section-title">Where to Go Next</h2>
+          <p class="section-sub">The four constructions buyers ask about most, each with its structure and stock already settled.</p>
+        </div>
+
+        <div class="nf-grid">
+          {pages.map((p) => (
+            <a class="nf-card" href={p.url} target="_blank" rel="noopener">
+              <span class="nf-pill">{p.pill}</span>
+              <h3 class="nf-card-title">{p.title}</h3>
+              <p class="nf-card-d">{p.d}</p>
+              <span class="nf-card-go">View details
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="/services/" target="_blank" rel="noopener">
+            View All Services
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -154,131 +89,86 @@ const services = [
 </Layout>
 
 <style>
-  /* ============ HERO ============ */
+  /* ============ NOT FOUND ============ */
   .nf-hero {
     position: relative;
     background: var(--ivory);
-    padding: calc(clamp(3.5rem, 7vw, 6rem) + 4.5rem) 0 clamp(3rem, 6vw, 5rem);
+    padding: calc(clamp(3.5rem, 7vw, 6rem) + 4.5rem) 0 clamp(3.4rem, 7vw, 5.5rem);
     overflow: hidden;
   }
   .nf-hero::before {
     content: ''; position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(58% 62% at 88% 12%, rgba(228,181,77,0.16), transparent 68%);
+    background: radial-gradient(52% 58% at 50% 0%, rgba(228,181,77,0.18), transparent 70%);
   }
-  .nf-hero-grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    gap: clamp(1.6rem, 4vw, 3.5rem);
-    align-items: center;
+  .nf-hero-inner { position: relative; z-index: 1; max-width: 46rem; margin-inline: auto; text-align: center; }
+  .nf-hero .eyebrow { justify-content: center; }
+
+  .nf-badge {
+    width: 76px; height: 76px; margin: 0 auto 1.5rem;
+    border-radius: 50%; display: grid; place-items: center;
+    background: rgba(31, 59, 44, 0.08);
+    border: 1px solid rgba(31, 59, 44, 0.14);
+    color: var(--forest-light);
   }
-  .nf-hero-title {
+  .nf-badge svg { width: 34px; height: 34px; }
+
+  .nf-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
     color: var(--color-brand-text);
-    margin: 1.2rem 0 0;
-    max-width: 15ch;
+    margin: 1rem 0 0;
     text-wrap: balance;
   }
-  .nf-hero-sub {
-    font-size: clamp(1.02rem, 1.5vw, 1.14rem);
-    line-height: 1.72;
+  .nf-sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.7;
     color: var(--color-brand-muted);
-    max-width: 48ch;
-    margin: 1.6rem 0 0;
+    max-width: 56ch;
+    margin: 1.5rem auto 0;
   }
-  .nf-hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: clamp(2rem, 4vw, 2.8rem); }
-  .nf-hero-figure {
-    margin: 0;
-    border-radius: 1.5rem;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
-    background: var(--color-clay);
-    box-shadow: 0 40px 80px -50px rgba(31,59,44,0.55);
-  }
-  .nf-hero-figure img { width: 100%; height: 100%; object-fit: cover; }
+  .nf-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem; margin-top: clamp(2rem, 4vw, 2.6rem); }
+  .nf-alt { font-size: 0.9rem; color: var(--color-brand-muted); margin: 1.3rem 0 0; }
+  .nf-alt a { color: var(--color-brand-primary); font-weight: 600; }
+  .nf-alt a:hover { text-decoration: underline; }
 
-  /* ============ CARD GRIDS ============ */
-  .nf-products { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .nf-card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+  /* ============ WHERE TO GO NEXT ============ */
+  .nf-pages { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .nf-pages .section-sub { max-width: 64ch; }
+  .nf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
   .nf-card {
     display: flex; flex-direction: column;
-    background: var(--ivory);
-    border: 1px solid rgba(31,59,44,0.12);
+    background: var(--color-brand-surface);
+    border: 1px solid rgba(31, 59, 44, 0.1);
     border-radius: 1.3rem;
-    overflow: hidden;
-    box-shadow: 0 26px 54px -48px rgba(31,59,44,0.55);
-    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, border-color 0.4s ease;
+    padding: clamp(1.4rem, 2.6vw, 1.9rem);
+    box-shadow: 0 26px 54px -48px rgba(31, 59, 44, 0.55);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.4s ease;
   }
-  .nf-card:hover { transform: translateY(-4px); border-color: rgba(176,141,76,0.5); box-shadow: 0 34px 64px -42px rgba(31,59,44,0.6); }
-  .nf-card-ph { position: relative; margin: 0; aspect-ratio: 4 / 3; background: var(--color-clay); overflow: hidden; }
-  .nf-card-ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
-  .nf-card:hover .nf-card-ph img { transform: scale(1.045); }
-  .nf-card-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.1rem, 2vw, 1.4rem); }
-  .nf-card-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
-  .nf-card-d { font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.65rem 0 0; }
-  .nf-card-go {
-    display: inline-flex; align-items: center; gap: 0.45rem;
-    margin-top: auto; padding-top: 1rem;
-    font-size: 0.86rem; font-weight: 600; color: var(--brass);
+  .nf-card:hover { transform: translateY(-4px); border-color: rgba(176, 141, 76, 0.5); box-shadow: 0 34px 64px -42px rgba(31, 59, 44, 0.6); }
+  .nf-pill {
+    align-self: flex-start;
+    display: inline-flex; align-items: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(201, 168, 124, 0.36);
+    color: var(--forest-deep);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
   }
-  .nf-card-go .arrow { width: 1.1em; height: 1.1em; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .nf-card-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.25; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 1rem 0 0; }
+  .nf-card-d { font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .nf-card-go { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: auto; padding-top: 1.3rem; font-size: 0.87rem; font-weight: 600; color: var(--brass); }
+  .nf-card-go .arrow { width: 1.1em; height: 1.1em; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .nf-card:hover .nf-card-go .arrow { transform: translateX(4px); }
-
-  .nf-services { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .nf-service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
-  .nf-service-card {
-    display: flex; flex-direction: column;
-    background: var(--ivory);
-    border: 1px solid rgba(31,59,44,0.08);
-    border-radius: 1.3rem;
-    overflow: hidden;
-    box-shadow: 0 26px 54px -48px rgba(31,59,44,0.55);
-    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease, border-color 0.4s ease;
-  }
-  .nf-service-card:hover { transform: translateY(-4px); border-color: rgba(176,141,76,0.5); box-shadow: 0 34px 64px -42px rgba(31,59,44,0.6); }
-  .nf-service-ph { position: relative; margin: 0; aspect-ratio: 4 / 3; background: var(--color-clay); overflow: hidden; }
-  .nf-service-ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
-  .nf-service-card:hover .nf-service-ph img { transform: scale(1.045); }
-  .nf-service-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.1rem, 2vw, 1.5rem); }
-  .nf-service-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.9vw, 1.4rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
-  .nf-service-d { font-size: 0.95rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
-
-  /* ============ CLOSING CTA ============ */
-  .nf-cta {
-    position: relative;
-    background: linear-gradient(180deg, var(--forest-light) 0%, var(--forest-deep) 100%);
-    color: var(--ivory);
-    padding: clamp(3.5rem, 8vw, 6.5rem) 0;
-    overflow: hidden;
-  }
-  .nf-cta::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(48% 70% at 22% 30%, rgba(228,181,77,0.14), transparent 70%); }
-  .nf-cta-inner { position: relative; z-index: 1; text-align: center; }
-  .nf-cta-inner .eyebrow { justify-content: center; }
-  .nf-cta-title {
-    font-family: var(--font-heading); font-weight: 500;
-    font-size: clamp(2.4rem, 5.6vw, 4.4rem); line-height: 1.02; letter-spacing: -0.03em;
-    color: #FFFFFF; margin: 1.2rem auto 0; max-width: 18ch; text-wrap: balance;
-  }
-  .nf-cta-title em { font-style: italic; color: #E3C29A; }
-  .nf-cta-sub { font-size: clamp(1.02rem, 1.6vw, 1.18rem); line-height: 1.7; color: rgba(255,255,255,0.9); max-width: 56ch; margin: 1.5rem auto 0; }
-  .nf-cta .section-cta { margin-top: clamp(2.2rem, 5vw, 3rem); }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 1024px) {
-    .nf-card-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 900px) {
-    .nf-hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
-    .nf-hero-figure { aspect-ratio: 16 / 11; max-width: 34rem; }
-    .nf-hero-title { max-width: 100%; }
-    .nf-service-grid { grid-template-columns: 1fr; }
+    .nf-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
-    .nf-hero-actions .btn { width: 100%; }
-    .nf-card-grid { grid-template-columns: 1fr; }
+    .nf-actions .btn { width: 100%; }
+    .nf-grid { grid-template-columns: 1fr; }
   }
 </style>

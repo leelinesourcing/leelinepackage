@@ -115,6 +115,10 @@ const jsonLd = {
               </select>
             </label>
             <label class="full"><span>Message</span><textarea name="message" rows="4" placeholder="Materials, finish, deadline, any reference or sample you have&#8230;"></textarea></label>
+            <label class="hp-field" aria-hidden="true">
+              <span>Website</span>
+              <input name="website" type="text" tabindex="-1" autocomplete="off" />
+            </label>
           </div>
           <button class="btn btn-gold" type="submit">
             Send my request
@@ -247,14 +251,19 @@ const jsonLd = {
   .form-status { font-size: 0.9rem; color: var(--color-brand-primary); margin: 0.9rem 0 0; min-height: 1.2rem; text-align: center; }
   .form-alt { font-size: 0.88rem; color: var(--color-brand-muted); text-align: center; margin: 0.6rem 0 0; }
   .form-alt a { color: var(--color-brand-primary); font-weight: 600; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
 
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
   @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
 </style>
 
 <script>
+  const N8N_WEBHOOK = 'https://n8n.ileeline.com/webhook/d28edfd5-ae34-4ae7-bb9f-4e67d84e58ab';
   const form = document.getElementById('quoteForm');
   const status = document.getElementById('formStatus');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const btnHTML = submitBtn.innerHTML;
+  const loadedAt = Date.now();
   const ctaBtn = document.getElementById('ctaScroll');
   ctaBtn.addEventListener('click', () => {
     form.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -263,14 +272,40 @@ const jsonLd = {
       if (firstInput) firstInput.focus();
     }, 500);
   });
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = new FormData(form);
-    const subject = `Quote request: ${d.get('product') || 'Packaging'}`;
-    const body =
-      `Name: ${d.get('name')}\nEmail: ${d.get('email')}\nCompany: ${d.get('company') || '-'}\nPhone: ${d.get('phone') || '-'}\n\nWhat do you need: ${d.get('need') || '-'}\nEstimated quantity: ${d.get('quantity') || '-'}\nMaterial preference: ${d.get('material') || '-'}\nTimeline: ${d.get('timeline') || '-'}\n\nProduct & dimensions: ${d.get('product')}\n\nMessage:\n${d.get('message') || '-'}`;
-    const href = `mailto:info@leelinepackage.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    status.textContent = 'Opening your email client…';
-    window.location.href = href;
+
+    // Spam gates: bots fill the hidden field and post within milliseconds of load.
+    if ((d.get('website') || '').toString().trim() !== '') return;   // dropped silently
+    if (Date.now() - loadedAt < 2000) return;                        // dropped silently
+
+    const str = (k) => ((d.get(k) || '') + '').trim();
+    const payload = {
+      name: str('name'), email: str('email'), company: str('company'), phone: str('phone'),
+      need: str('need'), quantity: str('quantity'), product: str('product'),
+      material: str('material'), timeline: str('timeline'), message: str('message'),
+      submittedAt: new Date().toISOString(),
+      source: 'contact-page',
+      pageUrl: window.location.href,
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+    status.textContent = '';
+
+    try {
+      const res = await fetch(N8N_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(String(res.status));   // 4xx/5xx from n8n
+      window.location.href = '/thank-you/';               // same-tab, on success only
+    } catch {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = btnHTML;
+      status.textContent = 'Sorry — sending failed. Please try again, or email info@leelinepackage.com.';
+    }
   });
 </script>

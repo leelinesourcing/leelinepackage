@@ -14,7 +14,7 @@ const seo = {
   description: 'Inside the factory behind 10,000+ brands: a 20,000 m² OEM and ODM packaging plant in China, operating since 2015. ISO 9001, FSC and BRC certified, MOQ from 500.',
   keywords: 'about leelinepackage, custom packaging manufacturer china, oem odm packaging factory, packaging supplier for brands, iso 9001 packaging factory',
   canonical: 'https://www.leelinepackage.com/about-us/',
-  ogImage: `${AB}/hero.webp?v=3`,
+  ogImage: `${AB}/hero.webp?v=4`,
 };
 
 /* The stats banner that bridges the hero and the first section. */
@@ -229,14 +229,14 @@ const jsonLd = {
       <div class="wrap ab-who-grid">
         <div class="ab-who-body">
           <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Who We Are</p>
-          <h2 class="section-title" data-reveal="up" style="--d:.06s">One Plant in Wuhan, Shipping to <em>Four Continents</em></h2>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One Plant in China, Shipping to <em>Four Continents</em></h2>
           <p class="ab-who-sub" data-reveal="up" style="--d:.12s">A Chinese manufacturer that brands visit, audit and reorder from &mdash; rather than a trading desk standing in the middle.</p>
-          <p data-reveal="up" style="--d:.16s">LeelinePackage has been making packaging in Wuhan since 2015. Orders leave for North America, Europe, Asia and Australia, from a first run of 500 units to brands reordering by the container.</p>
+          <p data-reveal="up" style="--d:.16s">LeelinePackage has been making packaging in China since 2015. Orders leave for North America, Europe, Asia and Australia, from a first run of 500 units to brands reordering by the container.</p>
           <p data-reveal="up" style="--d:.2s">The 20,000 m² plant turns out more than a million units a month. Hand-finishing sits beside automated lines, so detail lands where it shows and volume lands where it counts &mdash; and the box shipped in December matches the proof signed in January.</p>
         </div>
         <figure class="ab-who-media" data-reveal="right">
           <img src={`${AB}/factory.webp?v=2`} alt="Printing presses running on the LeelinePackage factory floor" width="640" height="480" loading="lazy" decoding="async" />
-          <figcaption class="ab-who-badge"><strong>Since 2015</strong><span>Wuhan, Hubei, China</span></figcaption>
+          <figcaption class="ab-who-badge"><strong>Since 2015</strong><span>China</span></figcaption>
         </figure>
       </div>
     </section>
@@ -272,13 +272,13 @@ const jsonLd = {
       <div class="ab-grain"></div>
       <div class="wrap ab-founder-grid">
         <figure class="ab-founder-media" data-reveal="left">
-          <img src={`${R2}/contact/ray.webp`} alt="Ray, founder of LeelinePackage, at the Wuhan factory" width="768" height="1369" loading="lazy" decoding="async" />
+          <img src={`${R2}/contact/ray.webp`} alt="Ray, founder of LeelinePackage, at the factory in China" width="768" height="1369" loading="lazy" decoding="async" />
         </figure>
         <div class="ab-founder-body">
           <p class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />The Founder</p>
           <h2 class="ab-founder-title" data-reveal="up" style="--d:.06s">Built in 2015 to Take the Guesswork Out of <em>Sourcing</em></h2>
           <p data-reveal="up" style="--d:.12s">Ray spent more than a decade in global trade before he started LeelinePackage. Buying packaging back then meant juggling a designer, a printer, a materials broker and a freight forwarder &mdash; four companies, four sets of promises, and the buyer holding the risk when any of them slipped.</p>
-          <p data-reveal="up" style="--d:.16s">In 2015 he built the opposite: a single plant in Wuhan that draws, proofs, prints, finishes and packs, with one team on the hook for the result. Brands stopped coordinating suppliers and started placing orders.</p>
+          <p data-reveal="up" style="--d:.16s">In 2015 he built the opposite: a single plant in China that draws, proofs, prints, finishes and packs, with one team on the hook for the result. Brands stopped coordinating suppliers and started placing orders.</p>
           <p data-reveal="up" style="--d:.2s">The rule has not moved in ten years. Recyclable materials where the brief allows, quality that repeats run to run, and a named person on the other end of the email who already knows the order.</p>
           <p class="ab-founder-sign" data-reveal="up" style="--d:.24s"><strong>Ray</strong><span>Founder, LeelinePackage</span></p>
         </div>
@@ -383,39 +383,54 @@ const jsonLd = {
   .ab-wide { max-width: 76ch; }
 
   /* ============ HERO ============ */
-  /* The source hero is 1160×788 (aspect 1.472), so `background-size: cover` only
-     shows all of it when the band is width/1.472 ≈ 68vw tall — at 520px it was
-     cropping ~half the picture. Height tracks 68vw up to a 980px cap so the
-     artwork reads; past that cap (≈1440px viewports and wider) the sides crop. */
+  /* The source hero is 1500×600 (aspect 2.5) — a wide product line-up, so the
+     band only needs to be width/2.5 = 40vw tall for `cover` to show all of it
+     (the older 1160×788 artwork needed 68vw, which is what made the hero read
+     as too tall). Height tracks 34.5vw up to a 620px cap; past that (≈1800px
+     viewports and wider) cover crops the top and bottom of the line-up instead,
+     so the cap is kept high enough that only the outer edges go.
+     NOTE the fixed navbar is a frosted ivory bar over the top ~74px, so the
+     first stop of the scrim is almost never visible. */
   .ab-hero {
     position: relative; overflow: hidden; color: var(--ivory);
     display: flex; flex-direction: column; justify-content: center;
-    min-height: clamp(520px, 68vw, 980px);
-    padding: calc(clamp(4.5rem, 9vw, 7rem) + 3rem) 0 clamp(4.5rem, 8vw, 6.5rem);
+    min-height: clamp(400px, 34.5vw, 620px);
+    padding: calc(clamp(3.4rem, 6vw, 4rem) + 3rem) 0 clamp(2.6rem, 4.2vw, 3rem);
     background-color: var(--forest-deep);
+    /* The scrim is CHARCOAL (#21241C), not forest — a saturated green over this
+       bright white-swept product shot turned the whites khaki and read muddy.
+       Charcoal is near-neutral, so it darkens the picture without re-tinting the
+       boxes. The linear layer stays light through the middle (where the products
+       are) and only firms up at the top edge for the eyebrow; the bottom stop is
+       mostly hidden by the kraft wave. Text contrast comes from the .ab-hero-wash
+       ellipse, not from drowning the whole picture. */
     background-image:
-      linear-gradient(180deg, rgba(20, 38, 27, 0.66) 0%, rgba(20, 38, 27, 0.44) 38%, rgba(20, 38, 27, 0.36) 62%, rgba(20, 38, 27, 0.74) 100%),
-      url('https://img.leelinepackage.com/about/hero.webp?v=3');
+      linear-gradient(180deg, rgba(33, 36, 28, 0.56) 0%, rgba(33, 36, 28, 0.24) 30%, rgba(33, 36, 28, 0.15) 56%, rgba(33, 36, 28, 0.32) 84%, rgba(33, 36, 28, 0.66) 100%),
+      url('https://img.leelinepackage.com/about/hero.webp?v=4');
     background-size: cover, cover;
     background-position: center, center 52%;
     background-repeat: no-repeat, no-repeat;
   }
   .ab-hero-wash {
     position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(46% 54% at 50% 42%, rgba(20, 38, 27, 0.62) 0%, rgba(20, 38, 27, 0.2) 62%, transparent 100%),
-      radial-gradient(38% 46% at 84% 8%, rgba(228, 181, 77, 0.16), transparent 70%);
+    background: radial-gradient(54% 62% at 50% 46%, rgba(33, 36, 28, 0.6) 0%, rgba(33, 36, 28, 0.22) 60%, transparent 100%),
+      radial-gradient(38% 46% at 84% 8%, rgba(228, 181, 77, 0.14), transparent 70%);
   }
   .ab-hero-inner { position: relative; text-align: center; }
+  /* Hero type is deliberately one step larger than the shared atoms (the user:
+     "hero整体文字放大一点，纵向高度不要变") — the vertical rhythm was tightened by the
+     same amount so the band's height is unchanged, not re-laid-out. */
+  .ab-hero-inner .eyebrow { font-size: 0.8rem; }
   /* H1 is BOLD (700) site-wide; section H2s stay at 500. */
   .ab-hero-title {
     font-family: var(--font-heading); font-weight: 700;
-    font-size: clamp(2.6rem, 6.4vw, 5rem);
+    font-size: clamp(2.8rem, 7vw, 5.6rem);
     line-height: 1.03; letter-spacing: -0.03em;
-    color: #fff; margin: 1.2rem auto 0;
+    color: #fff; margin: 0.95rem auto 0;
     text-wrap: balance; text-shadow: 0 2px 30px rgba(20, 38, 27, 0.5);
   }
-  .ab-hero-sub { font-size: clamp(1.04rem, 1.6vw, 1.2rem); line-height: 1.74; color: rgba(255, 255, 255, 0.86); max-width: 54ch; margin: 1.4rem auto 0; text-shadow: 0 1px 20px rgba(20, 38, 27, 0.45); }
-  .ab-hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.2rem; margin-top: clamp(1.9rem, 3.6vw, 2.6rem); }
+  .ab-hero-sub { font-size: clamp(1.14rem, 1.75vw, 1.32rem); line-height: 1.74; color: #E3C29A; max-width: 54ch; margin: 1.15rem auto 0; text-shadow: 0 1px 20px rgba(20, 38, 27, 0.45); }
+  .ab-hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.2rem; margin-top: clamp(1.5rem, 2.8vw, 2rem); }
   /* the hero curves into the stats band below — fill matches that band's kraft,
      so the two read as one shape instead of a rectangle meeting a rectangle */
   .ab-hero-wave {

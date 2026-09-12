@@ -1,0 +1,225 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const seo = {
+  title: 'Thank You, Packaging Quote Request Received | LeelinePackage',
+  description: 'Your quote request is with our packaging engineers. A dieline, material options and a full quote come back within 24 hours, and a free sample follows in 5 days.',
+  keywords: 'LeelinePackage quote request received, custom packaging quote, packaging manufacturer reply time',
+};
+
+/* The three pages buyers open most while they wait. */
+const reading = [
+  { pill: 'Structures', title: 'How a Packaging Dieline Is Drawn', url: '/structural-engineering-and-design/',
+    d: 'What the designer needs from your brief, and how the fit, the stacking load and the board grade are settled before any tooling.' },
+  { pill: 'Proofing', title: 'Samples and Prototypes Before You Commit', url: '/packaging-sample-prototyping/',
+    d: 'A 3D mockup inside 24 hours, then a white dummy in 5 days for checking the hinge, the insert and the hand feel.' },
+  { pill: 'Artwork', title: 'Why Artwork Is Placed to the Dieline', url: '/packaging-artwork-design/',
+    d: 'Print, foil and fold lines laid against the dieline rather than a flat rectangle, keeping the logo off the crease and the colour on the panel.' },
+];
+
+/* What sits between this page and a delivered order. */
+const steps = [
+  { n: '01', title: 'Your Brief Lands', d: 'Product, quantity, artwork and deadline go straight to the designer who will draw your dieline.' },
+  { n: '02', title: 'A Dieline Comes Back', d: 'Usually within 24 hours, with material options and pricing you can compare line by line.' },
+  { n: '03', title: 'A Sample Ships', d: 'Approve the drawing and a white dummy follows in 5 days for a fit check in the hand.' },
+];
+
+const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical="https://www.leelinepackage.com/thank-you/"
+  ogType="website"
+>
+  <Fragment slot="head"><meta name="robots" content="noindex, nofollow" /></Fragment>
+
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ CONFIRMATION ============ -->
+    <section class="ty-hero">
+      <div class="wrap ty-hero-inner">
+        <span class="ty-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.5 10 18 19.5 7" /></svg>
+        </span>
+        <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Message Received</span>
+        <h1 class="ty-title">Thank You</h1>
+        <p class="ty-sub">Your brief landed on a structural designer&#8217;s desk, not in a queue. A dieline, material options and a complete quote are on the way, usually inside 24 hours.</p>
+        <div class="ty-actions">
+          <a class="btn btn-primary" href="/" target="_blank" rel="noopener">
+            Back to Home
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="/#offerings" target="_blank" rel="noopener">
+            Browse the Packaging Range
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <p class="ty-alt">Rather talk it through? <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></p>
+      </div>
+    </section>
+
+    <!-- ============ WHAT HAPPENS NEXT ============ -->
+    <section class="ty-steps-sec">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Next Steps</span>
+          <h2 class="section-title">What Happens Next</h2>
+          <p class="section-sub">Three things sit between this page and a delivered order, and you see a drawing and a sample before anything goes to press.</p>
+        </div>
+
+        <ol class="ty-steps">
+          {steps.map((s) => (
+            <li class="ty-step">
+              <span class="ty-step-n">{s.n}</span>
+              <h3 class="ty-step-title">{s.title}</h3>
+              <p class="ty-step-d">{s.d}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ RECOMMENDED READING ============ -->
+    <section class="ty-reading">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Keep Reading</span>
+          <h2 class="section-title">Recommended Reading</h2>
+          <p class="section-sub">The three guides buyers open most while they wait, covering the dieline, the sample and the artwork behind every order.</p>
+        </div>
+
+        <div class="ty-grid">
+          {reading.map((r) => (
+            <a class="ty-card" href={r.url} target="_blank" rel="noopener">
+              <span class="ty-pill">{r.pill}</span>
+              <h3 class="ty-card-title">{r.title}</h3>
+              <p class="ty-card-d">{r.d}</p>
+              <span class="ty-card-go">Read the guide
+                <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="/services/" target="_blank" rel="noopener">
+            View All Services
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ CONFIRMATION ============ */
+  .ty-hero {
+    position: relative;
+    background: var(--ivory);
+    padding: calc(clamp(3.5rem, 7vw, 6rem) + 4.5rem) 0 clamp(3.4rem, 7vw, 5.5rem);
+    overflow: hidden;
+  }
+  .ty-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(52% 58% at 50% 0%, rgba(228,181,77,0.18), transparent 70%);
+  }
+  .ty-hero-inner { position: relative; z-index: 1; max-width: 46rem; margin-inline: auto; text-align: center; }
+  .ty-hero .eyebrow { justify-content: center; }
+
+  .ty-badge {
+    width: 76px; height: 76px; margin: 0 auto 1.5rem;
+    border-radius: 50%; display: grid; place-items: center;
+    background: rgba(31, 59, 44, 0.08);
+    border: 1px solid rgba(31, 59, 44, 0.14);
+    color: var(--forest-light);
+  }
+  .ty-badge svg { width: 34px; height: 34px; }
+
+  .ty-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    margin: 1rem 0 0;
+  }
+  .ty-sub {
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    max-width: 60ch;
+    margin: 1.5rem auto 0;
+  }
+  .ty-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem; margin-top: clamp(2rem, 4vw, 2.6rem); }
+  .ty-alt { font-size: 0.9rem; color: var(--color-brand-muted); margin: 1.3rem 0 0; }
+  .ty-alt a { color: var(--color-brand-primary); font-weight: 600; }
+  .ty-alt a:hover { text-decoration: underline; }
+
+  /* ============ WHAT HAPPENS NEXT ============ */
+  .ty-steps-sec { background: var(--color-clay); padding: clamp(3.6rem, 8vw, 6.5rem) 0; }
+  .ty-steps-sec .section-sub { max-width: 62ch; }
+  .ty-steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2.4rem); margin: 0; padding: 0; }
+  .ty-step { padding-top: 1.6rem; border-top: 1px solid rgba(31, 59, 44, 0.16); }
+  .ty-step-n {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3vw, 2.3rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--brass);
+  }
+  .ty-step-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  .ty-step-d { font-size: 0.96rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ RECOMMENDED READING ============ */
+  .ty-reading { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .ty-reading .section-sub { max-width: 64ch; }
+  .ty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .ty-card {
+    display: flex; flex-direction: column;
+    background: var(--color-brand-surface);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-radius: 1.3rem;
+    padding: clamp(1.4rem, 2.6vw, 1.9rem);
+    box-shadow: 0 26px 54px -48px rgba(31, 59, 44, 0.55);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+  }
+  .ty-card:hover { transform: translateY(-4px); border-color: rgba(176, 141, 76, 0.5); box-shadow: 0 34px 64px -42px rgba(31, 59, 44, 0.6); }
+  .ty-pill {
+    align-self: flex-start;
+    display: inline-flex; align-items: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    background: rgba(201, 168, 124, 0.36);
+    color: var(--forest-deep);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  .ty-card-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.25; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 1rem 0 0; }
+  .ty-card-d { font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .ty-card-go { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: auto; padding-top: 1.3rem; font-size: 0.87rem; font-weight: 600; color: var(--brass); }
+  .ty-card-go .arrow { width: 1.1em; height: 1.1em; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .ty-card:hover .ty-card-go .arrow { transform: translateX(4px); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .ty-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .ty-steps { grid-template-columns: 1fr; gap: 1.6rem; }
+  }
+  @media (max-width: 640px) {
+    .ty-actions .btn { width: 100%; }
+    .ty-grid { grid-template-columns: 1fr; }
+  }
+</style>

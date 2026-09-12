@@ -7,15 +7,15 @@ const R2 = 'https://img.leelinepackage.com';
 
 const seo = {
   title: 'Contact LeelinePackage | Custom Packaging Quote in 24h',
-  description: 'Get a custom packaging quote within 24 hours. MOQ from 500, 3D mockups in 24h, ISO 9001 + FSC-certified factory in Wuhan. Email or call for a free quote.',
+  description: 'Get a custom packaging quote within 24 hours. MOQ from 500, 3D mockups in 24h, ISO 9001 + FSC-certified factory in China. Email or call for a free quote.',
   keywords: 'contact custom packaging manufacturer, get packaging quote, custom packaging supplier China, free packaging quote',
   canonical: 'https://www.leelinepackage.com/contact/',
   ogImage: `${R2}/structural/og-structural.webp`,
 };
 
 const contacts = [
-  { label: 'Email', value: 'info@leelinepackage.com', href: 'mailto:info@leelinepackage.com', icon: 'M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm0 2.2 8.6 6a1 1 0 0 0 1.2 0l8.4-6V7.4L12 13.4 3 7.3z' },
-  { label: 'Address', value: 'Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China', href: '/', icon: 'M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z' },
+  { label: 'Email', value: 'info@leelinepackage.com', href: 'mailto:info@leelinepackage.com', icon: 'M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z' },
+  { label: 'Address', value: 'Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China', href: null, icon: 'M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z' },
 ];
 
 const reassurance = [
@@ -64,23 +64,6 @@ const jsonLd = {
 
     <section class="contact">
       <div class="wrap contact-grid">
-        <aside class="contact-info">
-          <h2>Let&#8217;s Get in Touch</h2>
-          <p class="contact-sub">Our expertise empowers brands and businesses to achieve your packaging goals with innovative design, rigorous quality control, and sustainable, flexible production solutions.</p>
-          <ul class="contact-list">
-            {contacts.map((c) => {
-              const isSpecial = c.href.startsWith('mailto:') || c.href.startsWith('tel:');
-              return (
-                <li>
-                  <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.icon} fill="currentColor"/></svg></span>
-                  <div><span class="contact-label">{c.label}</span><a href={c.href} target={isSpecial ? undefined : '_blank'} rel={isSpecial ? undefined : 'noopener'}>{c.value}</a></div>
-                </li>
-              );
-            })}
-          </ul>
-          <p class="contact-note">Interested in scheduling a meeting with us? We respond to all enquiries within 24 hours, Mon&#8211;Sat. 500+ brands already ship in our packaging.</p>
-        </aside>
-
         <form class="quote-form" id="quoteForm">
           <div class="form-head"><h3>Request a free quote</h3><p>* required</p></div>
           <div class="form-grid">
@@ -140,30 +123,32 @@ const jsonLd = {
           <p class="form-status" id="formStatus" role="status"></p>
           <p class="form-alt">Prefer email? <a href="mailto:info@leelinepackage.com">info@leelinepackage.com</a></p>
         </form>
-      </div>
-    </section>
 
-    <!-- ============ FOUNDER'S NOTE ============ -->
-    <section class="founder">
-      <div class="wrap founder-grid">
-        <div class="founder-ph">
-          <img src="https://img.leelinepackage.com/contact/ray.webp" alt="Portrait of LeelinePackage founder Ray" width="768" height="1369" loading="lazy" />
-        </div>
-        <div class="founder-body">
-          <span class="eyebrow">Founder&#8217;s note</span>
-          <h2 class="founder-title">Hi, I&#8217;m <em>Ray</em>, the Founder of LeelinePackage</h2>
+        <!-- ============ FOUNDER'S NOTE (right column) ============ -->
+        <aside class="founder-col">
+          <div class="founder-head">
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Founder&#8217;s note</span>
+            <div class="founder-ph">
+              <img src="https://img.leelinepackage.com/contact/ray.webp" alt="Ray, the founder of LeelinePackage" width="768" height="1369" loading="lazy" decoding="async" />
+            </div>
+            <h2 class="founder-title">Hi, I&#8217;m <em>Ray</em>, the Founder of LeelinePackage</h2>
+          </div>
           <p>Having spent over a decade in global trade, I saw firsthand the challenges businesses face in finding sustainable, reliable packaging solutions. The complexity of sourcing eco-friendly materials and ensuring quality was a constant hurdle. I knew there had to be a better way.</p>
           <p>So, I created LeelinePackage in 2015. It&#8217;s a one-stop solution for brands wanting to bring their packaging ideas to life. We manage everything from design and sourcing to production and logistics. This lets our clients grow their business without the hassle of dealing with many suppliers.</p>
           <p>LeelinePackage is more than packaging; it&#8217;s a partnership. We&#8217;re committed to delivering high-quality, eco-conscious solutions that meet each client&#8217;s unique needs. Our mission is to empower businesses with packaging that&#8217;s functional, sustainable, and beautifully crafted, supporting their success every step of the way.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ ABOUT ============ -->
-    <section class="about-blurb">
-      <div class="wrap">
-        <h2 class="about-title">About LeelinePackage</h2>
-        <p class="about-text">Started in 2015, LeelinePackage is your trusted partner for custom packaging. We create top-quality, tailored packaging for businesses, retailers, and brands, using the best materials and skilled craftsmanship. We meet global standards with our products. We prioritize customer needs, helping them elevate their brand through innovative and personalized solutions.</p>
+          <ul class="contact-list">
+            {contacts.map((c) => (
+              <li>
+                <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={c.icon} fill="currentColor"/></svg></span>
+                <div>
+                  <span class="contact-label">{c.label}</span>
+                  {c.href ? <a href={c.href}>{c.value}</a> : <span class="contact-value">{c.value}</span>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </aside>
       </div>
     </section>
 
@@ -213,24 +198,32 @@ const jsonLd = {
   .reassure-pill { font-size: 0.85rem; font-weight: 600; color: var(--color-brand-primary); display: inline-flex; align-items: center; gap: 0.5rem; }
   .reassure-pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
 
-  /* Contact */
+  /* Contact — quote form left, founder + details right */
   .contact { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .contact-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
-  .contact-info { order: 2; }
-  .contact-info h2 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0 0 1rem; text-wrap: balance; }
-  .contact-sub { font-size: 1.02rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 46ch; margin: 0 0 2.2rem; }
-  .contact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: start; }
+
+  /* Contact details list (founder column) */
+  .contact-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.1rem; }
   .contact-list li { display: flex; align-items: center; gap: 1rem; }
   .contact-icon { width: 46px; height: 46px; border-radius: 50%; background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.12); display: grid; place-items: center; color: var(--brass); flex: 0 0 auto; }
   .contact-icon svg { width: 20px; height: 20px; }
   .contact-list div { display: flex; flex-direction: column; }
   .contact-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); }
-  .contact-list a { font-family: var(--font-heading); font-weight: 600; font-size: 1.15rem; color: var(--color-brand-text); overflow-wrap: anywhere; }
+  .contact-list a, .contact-value { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--color-brand-text); overflow-wrap: anywhere; }
   .contact-list a:hover { color: var(--brass); }
-  .contact-note { font-size: 0.92rem; line-height: 1.7; color: var(--color-brand-muted); margin-top: 2.2rem; max-width: 42ch; }
+
+  /* Founder's note */
+  .founder-head { text-align: center; }
+  .founder-head .eyebrow { margin-bottom: 1.4rem; }
+  .founder-ph { width: clamp(150px, 58%, 190px); aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; margin: 0 auto; }
+  .founder-ph img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+  .founder-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.5rem, 2.4vw, 1.95rem); line-height: 1.16; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 1.5rem 0 0; text-wrap: balance; }
+  .founder-title em { font-style: italic; color: var(--brass); }
+  .founder-col p { font-size: 0.97rem; line-height: 1.75; color: var(--color-brand-muted); margin: 0.95rem 0 0; }
+  .founder-col .contact-list { margin-top: 2rem; }
 
   /* Form */
-  .quote-form { order: 1; background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: 0 30px 60px -40px rgba(31, 59, 44, 0.35); }
+  .quote-form { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); box-shadow: 0 30px 60px -40px rgba(31, 59, 44, 0.35); }
   .form-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1.6rem; }
   .form-head h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.5rem; color: var(--color-brand-text); margin: 0; }
   .form-head p { font-size: 0.8rem; color: var(--color-brand-muted); margin: 0; }
@@ -255,26 +248,7 @@ const jsonLd = {
   .form-alt { font-size: 0.88rem; color: var(--color-brand-muted); text-align: center; margin: 0.6rem 0 0; }
   .form-alt a { color: var(--color-brand-primary); font-weight: 600; }
 
-  /* Founder's note */
-  .founder { background: var(--color-brand-surface); padding: clamp(4rem, 8vw, 7rem) 0; }
-  .founder-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
-  .founder-ph {
-    aspect-ratio: 4 / 5; border-radius: 1.4rem; overflow: hidden;
-  }
-  .founder-ph img { width: 100%; height: 100%; object-fit: cover; }
-  .founder-body .eyebrow { margin-bottom: 1.1rem; }
-  .founder-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.8rem, 3.6vw, 2.9rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0; text-wrap: balance; }
-  .founder-title em { font-style: italic; color: var(--brass); }
-  .founder-body p { font-size: 1.03rem; line-height: 1.8; color: var(--color-brand-muted); margin: 1.3rem 0 0; }
-
-  /* About */
-  .about-blurb { background: var(--ivory); padding: clamp(3rem, 6vw, 5rem) 0; }
-  .about-blurb .wrap { text-align: center; }
-  .about-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.8rem, 4vw, 2.8rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0; text-wrap: balance; }
-  .about-text { font-size: 1.05rem; line-height: 1.8; color: var(--color-brand-muted); max-width: 68ch; margin: 1.3rem auto 0; }
-
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 900px) { .founder-grid { grid-template-columns: 1fr; } }
   @media (max-width: 540px) { .form-grid { grid-template-columns: 1fr; } }
 </style>
 

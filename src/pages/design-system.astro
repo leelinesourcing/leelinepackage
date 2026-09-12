@@ -2,6 +2,23 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import TeamSection from '../components/TeamSection.astro';
+
+const AB = 'https://img.leelinepackage.com/about';
+
+// Demo data for the TeamSection preview below.
+const demoTeam = {
+  id: 'preview-team',
+  eyebrow: 'The Team',
+  tone: 'ivory' as const,
+  title: 'The Nine People Behind Every <em>Order</em>',
+  sub: 'Design, operations, sales and warehouse all sit on the same floor. Whoever takes your brief stays with it, from the first drawing to the loaded container.',
+  members: [
+    { name: 'Mia Lin', role: 'Design', img: `${AB}/team-mia-lin.webp`, alt: 'Mia Lin, packaging designer at LeelinePackage' },
+    { name: 'Ryan Li', role: 'Design', img: `${AB}/team-ryan-li.webp`, alt: 'Ryan Li, structural designer at LeelinePackage' },
+    { name: 'Ryan Sun', role: 'Operations', img: `${AB}/team-ryan-sun.webp`, alt: 'Ryan Sun, operations manager at LeelinePackage' },
+  ],
+};
 
 // Values mirror src/styles/theme.css (@theme static) and index.astro CSS tokens.
 const colors = [
@@ -67,6 +84,10 @@ const colors = [
       <div class="ds-component">
         <div class="ds-frame"><Footer /></div>
         <p class="ds-comp-name"><strong>Footer</strong> · <code>src/components/Footer.astro</code></p>
+      </div>
+      <div class="ds-component">
+        <div class="ds-frame"><TeamSection {...demoTeam} /></div>
+        <p class="ds-comp-name"><strong>TeamSection</strong> · <code>src/components/TeamSection.astro</code> — department band: eyebrow + title + sub + a 2- or 3-across portrait grid, sized to the number of members.</p>
       </div>
 
       <h3 class="ds-sub">Atoms</h3>

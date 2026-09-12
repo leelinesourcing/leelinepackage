@@ -1,0 +1,132 @@
+---
+/*
+  TeamSection — the people grid on the About page.
+
+  Renders a brass eyebrow, an H2, an optional sub, then a portrait grid sized to
+  the number of people (2 or 3 across, never a lone stretched card). A full team
+  goes in as one section; the grid fills the wrap at three columns and only caps
+  its width when there are fewer people than columns.
+*/
+interface Member {
+  name: string;
+  role: string;
+  img: string;
+  w?: number;
+  h?: number;
+  alt?: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  sub?: string;
+  tone?: 'ivory' | 'clay';
+  id?: string;
+  members: Member[];
+}
+
+const { eyebrow, title, sub = '', tone = 'ivory', id, members } = Astro.props;
+const cols = Math.min(members.length, 3);
+// Two people in a full-width grid would each stretch to half the page, so cap
+// the measure there; three across is allowed to fill the wrap.
+const gridMax = cols < 3 ? `calc(${cols} * 260px + ${cols - 1} * 1.8rem)` : 'none';
+
+// Inline rather than <use href="#i-leaf-sm">: that sprite only exists on the
+// homepage, so subpages each carry their own copy of the leaf.
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+---
+
+<section class={`team team--${tone}`} id={id}>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />{eyebrow}</p>
+      <h2 class="section-title" data-reveal="up" style="--d:.06s" set:html={title} />
+      {sub && <p class="section-sub" data-reveal="up" style="--d:.12s">{sub}</p>}
+    </div>
+
+    <ul class="team-grid" style={`--cols:${cols};--grid-max:${gridMax}`}>
+      {members.map((m, i) => (
+        <li class="team-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+          <figure class="team-media">
+            <img
+              src={m.img}
+              alt={m.alt ?? `${m.name} — ${m.role} at LeelinePackage`}
+              width={m.w ?? 720}
+              height={m.h ?? 900}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="team-body">
+            <h3>{m.name}</h3>
+            <span class="team-role">{m.role}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team { padding: clamp(3.5rem, 7vw, 6rem) 0; }
+  .team--ivory { background: var(--ivory); }
+  .team--clay { background: var(--kraft); }
+
+  .team .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+  /* the shared 46ch cap wraps a full-team sub to three lines; widen it */
+  .team .section-sub { max-width: 78ch; }
+
+  .team-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.4vw, 1.8rem);
+    max-width: var(--grid-max, none);
+  }
+
+  .team-card { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+  .team-card:hover { transform: translateY(-5px); }
+
+  .team-media {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    background: var(--color-brand-surface);
+    box-shadow: 0 20px 44px -34px rgba(31, 59, 44, 0.55);
+  }
+  .team-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .team-card:hover .team-media img { transform: scale(1.035); }
+
+  .team-body { padding: 1rem 0.2rem 0; }
+  .team-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.24rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .team-role {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  @media (max-width: 640px) {
+    .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+  }
+</style>

@@ -1,0 +1,606 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import TeamSection from '../components/TeamSection.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const AB = `${R2}/about`;
+
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+
+const seo = {
+  title: 'About LeelinePackage: Custom Packaging Manufacturer in China',
+  description: 'Inside the factory behind 10,000+ brands: a 20,000 m² OEM and ODM packaging plant in China, operating since 2015. ISO 9001, FSC and BRC certified, MOQ from 500.',
+  keywords: 'about leelinepackage, custom packaging manufacturer china, oem odm packaging factory, packaging supplier for brands, iso 9001 packaging factory',
+  canonical: 'https://www.leelinepackage.com/about-us/',
+  ogImage: `${AB}/hero.webp?v=3`,
+};
+
+/* The stats banner that bridges the hero and the first section. */
+const bandStats = [
+  { v: '10+', l: 'Years of packaging expertise' },
+  { v: '1M+', l: 'Units produced a month' },
+  { v: '4', l: 'Continents served' },
+  { v: '500', l: 'Minimum order quantity' },
+];
+
+/* The four capabilities the plant covers in-house. */
+const solutions = [
+  {
+    n: '01',
+    title: 'Custom Packaging Design',
+    img: `${AB}/solution-design.webp?v=2`,
+    alt: 'A folding carton shown as a 3D structure drawing beside its flat dieline',
+    d: 'Folding cartons, rigid gift boxes, mailers, labels and stickers, drawn around the product first. Send artwork or send a sketch — the structure is settled before anything is quoted.',
+  },
+  {
+    n: '02',
+    title: 'Advanced Printing & Finishing',
+    img: `${AB}/solution-print.webp?v=2`,
+    alt: 'A press running printed artwork beside a finished orange gift box',
+    d: 'Heidelberg presses for high-resolution print, then foil stamping, embossing, UV and lamination. Colour is matched once and held, so a reorder still sits beside the original.',
+  },
+  {
+    n: '03',
+    title: 'Industry-Specific Boxes',
+    img: `${AB}/solution-industry.webp?v=2`,
+    alt: 'Printed cartons and mailers for bakery, artisan and premium retail brands',
+    d: 'E-commerce, cosmetics, jewellery, wine and candles, each with the liners and inserts the product asks for: moisture-resistant liners, velvet inserts, builds that survive the channel.',
+  },
+  {
+    n: '04',
+    title: 'Sustainable Packaging',
+    img: `${AB}/solution-eco.webp?v=2`,
+    alt: 'A kraft eco packaging set — box, bag, cup, tray and pouches printed with recycle marks',
+    d: 'FSC-certified board, soy-based inks and recyclable paper, run under ISO 14001. In 2024 the plant worked at 22% recyclable material, with a 50% target set for 2026.',
+  },
+];
+
+/* One grid, ordered the way a brief travels through the plant. The department
+   sits on each card rather than as its own band — nine people do not fill four. */
+const team = {
+  id: 'team',
+  eyebrow: 'The Team',
+  tone: 'ivory' as const,
+  title: 'The Nine People Behind Every <em>Order</em>',
+  sub: 'Design, operations, sales and warehouse all sit on the same floor. Whoever takes your brief stays with it, from the first drawing to the loaded container.',
+  members: [
+    { name: 'Mia Lin', role: 'Design', img: `${AB}/team-mia-lin.webp`, alt: 'Mia Lin, packaging designer at LeelinePackage' },
+    { name: 'Ryan Li', role: 'Design', img: `${AB}/team-ryan-li.webp`, alt: 'Ryan Li, structural designer at LeelinePackage' },
+    { name: 'Ryan Sun', role: 'Operations', img: `${AB}/team-ryan-sun.webp`, alt: 'Ryan Sun, operations manager at LeelinePackage' },
+    { name: 'Stella Zhou', role: 'Operations', img: `${AB}/team-stella-zhou.webp`, alt: 'Stella Zhou, operations coordinator at LeelinePackage' },
+    { name: 'Chloe Chen', role: 'Sales', img: `${AB}/team-chloe-chen.webp`, alt: 'Chloe Chen, account manager at LeelinePackage' },
+    { name: 'Claire Wu', role: 'Sales', img: `${AB}/team-claire-wu.webp`, alt: 'Claire Wu, account manager at LeelinePackage' },
+    { name: 'Julian Huang', role: 'Sales', img: `${AB}/team-julian-huang.webp`, alt: 'Julian Huang, packaging consultant at LeelinePackage' },
+    { name: 'Bo Zhang', role: 'Warehouse', img: `${AB}/team-bo-zhang.webp`, alt: 'Bo Zhang, warehouse manager at LeelinePackage' },
+    { name: 'Haoran Wang', role: 'Warehouse', img: `${AB}/team-haoran-wang.webp`, alt: 'Haoran Wang, logistics coordinator at LeelinePackage' },
+  ],
+};
+
+/* Six standards the plant actually holds. */
+/* The six standards, verbatim from the original page (text + icons + card backgrounds). */
+const certs = [
+  {
+    title: 'ISO 9001:2015',
+    img: `${AB}/cert-iso-9001.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 384 512"><path fill="currentColor" d="M97.12 362.63c-8.69-8.69-4.16-6.24-25.12-11.85-9.51-2.55-17.87-7.45-25.43-13.32L1.2 448.7c-4.39 10.77 3.81 22.47 15.43 22.03l52.69-2.01L105.56 507c8 8.44 22.04 5.81 26.43-4.96l52.05-127.62c-10.84 6.04-22.87 9.58-35.31 9.58-19.5 0-37.82-7.59-51.61-21.37zM382.8 448.7l-45.37-111.24c-7.56 5.88-15.92 10.77-25.43 13.32-21.07 5.64-16.45 3.18-25.12 11.85-13.79 13.78-32.12 21.37-51.62 21.37-12.44 0-24.47-3.55-35.31-9.58L252 502.04c4.39 10.77 18.44 13.4 26.43 4.96l36.25-38.28 52.69 2.01c11.62.44 19.82-11.27 15.43-22.03zM263 340c15.28-15.55 17.03-14.21 38.79-20.14 13.89-3.79 24.75-14.84 28.47-28.98 7.48-28.4 5.54-24.97 25.95-45.75 10.17-10.35 14.14-25.44 10.42-39.58-7.47-28.38-7.48-24.42 0-52.83 3.72-14.14-.25-29.23-10.42-39.58-20.41-20.78-18.47-17.36-25.95-45.75-3.72-14.14-14.58-25.19-28.47-28.98-27.88-7.61-24.52-5.62-44.95-26.41-10.17-10.35-25-14.4-38.89-10.61-27.87 7.6-23.98 7.61-51.9 0-13.89-3.79-28.72.25-38.89 10.61-20.41 20.78-17.05 18.8-44.94 26.41-13.89 3.79-24.75 14.84-28.47 28.98-7.47 28.39-5.54 24.97-25.95 45.75-10.17 10.35-14.15 25.44-10.42 39.58 7.47 28.36 7.48 24.4 0 52.82-3.72 14.14.25 29.23 10.42 39.59 20.41 20.78 18.47 17.35 25.95 45.75 3.72 14.14 14.58 25.19 28.47 28.98C104.6 325.96 106.27 325 121 340c13.23 13.47 33.84 15.88 49.74 5.82a39.676 39.676 0 0 1 42.53 0c15.89 10.06 36.5 7.65 49.73-5.82zM97.66 175.96c0-53.03 42.24-96.02 94.34-96.02s94.34 42.99 94.34 96.02-42.24 96.02-94.34 96.02-94.34-42.99-94.34-96.02z"></path></svg>',
+    d: 'Our quality management system meets global standards. This ensures we have consistent, high-quality production and keeps our customers happy.',
+  },
+  {
+    title: 'BRC Packaging Certified',
+    img: `${AB}/cert-brc.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 512 512"><path fill="currentColor" d="M466.5 83.7l-192-80a48.15 48.15 0 0 0-36.9 0l-192 80C27.7 91.1 16 108.6 16 128c0 198.5 114.5 335.7 221.5 380.3 11.8 4.9 25.1 4.9 36.9 0C360.1 472.6 496 349.3 496 128c0-19.4-11.7-36.9-29.5-44.3zM256.1 446.3l-.1-381 175.9 73.3c-3.3 151.4-82.1 261.1-175.8 307.7z"></path></svg>',
+    d: 'Global Standard for Packaging Materials certification ensures our products are safe for food contact and meet hygiene requirements.',
+  },
+  {
+    title: 'FSC Certified',
+    img: `${AB}/cert-fsc.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg>',
+    d: 'Forest Stewardship Council certification ensures our paper and wood products come from responsibly managed forests that provide environmental benefits.',
+  },
+  {
+    title: 'SGS Verified',
+    img: `${AB}/cert-sgs.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 512 512"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>',
+    d: 'Independent inspection, verification and testing confirms our products meet quality and performance standards across global markets.',
+  },
+  {
+    title: 'ISO 14001:2015',
+    img: `${AB}/cert-iso-14001.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>',
+    d: 'Shows our commitment to environmental management. We aim to minimize our impact on nature with sustainable practices.',
+  },
+  {
+    title: 'ISTA-3A Compliant',
+    img: `${AB}/cert-ista.webp`,
+    icon: '<svg aria-hidden="true" viewBox="0 0 448 512"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg>',
+    d: 'The International Safe Transit Association tests show our packaging keeps contents safe during shipping. This cuts down on damage and waste.',
+  },
+];
+
+/* Two buyers, kept to the orders they actually placed. */
+const testimonials = [
+  {
+    name: 'Sarah Mitchell',
+    role: 'Founder, Candle Brand',
+    loc: 'United States',
+    avatar: `${AB}/avatar-sarah.webp`,
+    q: [
+      'I sent my logo expecting the usual run-around. A digital mock-up came back in two days, I asked for a colour tweak, and it was fixed inside the week.',
+      'The 1,000 candle boxes landed in three weeks, printed brightly on sturdy kraft. More embossing options would be the only thing I would add.',
+      'Reordering at double the volume was the real test, and the second run came back matching the first — same colour, same board, nothing to re-check.',
+    ],
+  },
+  {
+    name: 'Michael Brown',
+    role: 'Retail Store Manager, Bakery Group',
+    loc: 'United Kingdom',
+    avatar: `${AB}/avatar-michael.webp`,
+    q: [
+      'They talked me through board options on a call rather than hiding behind a spec sheet, and the proof arrived in 48 hours with a small alignment fix.',
+      'The 800 display boxes turned up in three weeks looking professional and holding up on the shelf. The team chased the details before I had to.',
+      'We added a second size for the pastry line the following quarter, and it went through without a fresh round of proofs to sign off.',
+    ],
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      name: seo.title,
+      url: seo.canonical,
+      description: seo.description,
+      primaryImageOfPage: seo.ogImage,
+    },
+    {
+      '@type': 'Organization',
+      name: 'LeelinePackage',
+      url: 'https://www.leelinepackage.com/',
+      foundingDate: '2015',
+      email: 'info@leelinepackage.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District',
+        addressLocality: 'Wuhan',
+        addressRegion: 'Hubei',
+        addressCountry: 'CN',
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'About Us' },
+      ],
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={seo.ogImage}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — full-bleed facility ============ -->
+    <section class="ab-hero">
+      <div class="ab-hero-wash"></div>
+      <div class="ab-grain"></div>
+      <div class="wrap ab-hero-inner">
+        <p class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Since 2015</p>
+        <h1 class="ab-hero-title" data-reveal="up">About Us</h1>
+        <p class="ab-hero-sub" data-reveal="up">A 20,000 m² OEM &amp; ODM packaging factory in China &mdash; design, print, finishing and assembly under a single roof.</p>
+        <div class="ab-hero-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start Your Project<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+
+      <!-- dark hero curves down into the kraft stats band (fill matches that band) -->
+      <svg class="ab-hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,48 C210,90 420,10 690,32 C980,56 1210,86 1440,42 L1440,90 L0,90 Z" fill="var(--kraft)"/>
+      </svg>
+    </section>
+
+    <!-- ============ STATS BANNER ============ -->
+    <section class="ab-band">
+      <div class="wrap ab-band-grid">
+        {bandStats.map((s, i) => (
+          <div class="ab-band-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
+            <strong>{s.v}</strong>
+            <span>{s.l}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ============ WHO WE ARE ============ -->
+    <section class="ab-who">
+      <div class="wrap ab-who-grid">
+        <div class="ab-who-body">
+          <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Who We Are</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One Plant in Wuhan, Shipping to <em>Four Continents</em></h2>
+          <p class="ab-who-sub" data-reveal="up" style="--d:.12s">A Chinese manufacturer that brands visit, audit and reorder from &mdash; rather than a trading desk standing in the middle.</p>
+          <p data-reveal="up" style="--d:.16s">LeelinePackage has been making packaging in Wuhan since 2015. Orders leave for North America, Europe, Asia and Australia, from a first run of 500 units to brands reordering by the container.</p>
+          <p data-reveal="up" style="--d:.2s">The 20,000 m² plant turns out more than a million units a month. Hand-finishing sits beside automated lines, so detail lands where it shows and volume lands where it counts &mdash; and the box shipped in December matches the proof signed in January.</p>
+        </div>
+        <figure class="ab-who-media" data-reveal="right">
+          <img src={`${AB}/factory.webp?v=2`} alt="Printing presses running on the LeelinePackage factory floor" width="640" height="480" loading="lazy" decoding="async" />
+          <figcaption class="ab-who-badge"><strong>Since 2015</strong><span>Wuhan, Hubei, China</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SOLUTIONS ============ -->
+    <section class="ab-solutions">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />What We Make</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">One-Stop OEM and ODM, From Brief to <em>Loading Dock</em></h2>
+          <p class="section-sub ab-wide" data-reveal="up" style="--d:.12s">Four capabilities cover most briefs. All four run in-house, so nothing gets quoted by one company and produced by another.</p>
+        </div>
+
+        <div class="ab-solution-grid">
+          {solutions.map((s, i) => (
+            <article class="ab-solution" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
+              <figure class="ab-solution-media">
+                <img src={s.img} alt={s.alt} width="500" height="420" loading="lazy" decoding="async" />
+                <span class="ab-solution-num">{s.n}</span>
+              </figure>
+              <div class="ab-solution-body">
+                <h3>{s.title}</h3>
+                <p>{s.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE FOUNDER ============ -->
+    <section class="ab-founder">
+      <div class="ab-grain"></div>
+      <div class="wrap ab-founder-grid">
+        <figure class="ab-founder-media" data-reveal="left">
+          <img src={`${R2}/contact/ray.webp`} alt="Ray, founder of LeelinePackage, at the Wuhan factory" width="768" height="1369" loading="lazy" decoding="async" />
+        </figure>
+        <div class="ab-founder-body">
+          <p class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />The Founder</p>
+          <h2 class="ab-founder-title" data-reveal="up" style="--d:.06s">Built in 2015 to Take the Guesswork Out of <em>Sourcing</em></h2>
+          <p data-reveal="up" style="--d:.12s">Ray spent more than a decade in global trade before he started LeelinePackage. Buying packaging back then meant juggling a designer, a printer, a materials broker and a freight forwarder &mdash; four companies, four sets of promises, and the buyer holding the risk when any of them slipped.</p>
+          <p data-reveal="up" style="--d:.16s">In 2015 he built the opposite: a single plant in Wuhan that draws, proofs, prints, finishes and packs, with one team on the hook for the result. Brands stopped coordinating suppliers and started placing orders.</p>
+          <p data-reveal="up" style="--d:.2s">The rule has not moved in ten years. Recyclable materials where the brief allows, quality that repeats run to run, and a named person on the other end of the email who already knows the order.</p>
+          <p class="ab-founder-sign" data-reveal="up" style="--d:.24s"><strong>Ray</strong><span>Founder, LeelinePackage</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE TEAM ============ -->
+    <TeamSection id={team.id} eyebrow={team.eyebrow} title={team.title} sub={team.sub} tone={team.tone} members={team.members} />
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <section class="ab-certs">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <h2 class="section-title" data-reveal="up">Our Certifications &amp; Qualifications</h2>
+          <p class="section-sub ab-wide" data-reveal="up" style="--d:.06s">Firstly we love packaging! We kind of have to, to be doing what we are doing. We are proud to be supplying great quality packaging. Internationally recognized standards that validate our commitment to quality, sustainability and excellence.</p>
+        </div>
+
+        <ul class="ab-cert-grid">
+          {certs.map((c, i) => (
+            <li class="ab-cert" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <span class="ab-cert-bg" aria-hidden="true">
+                <img src={c.img} alt="" width="600" height="400" loading="lazy" decoding="async" />
+              </span>
+              <span class="ab-cert-icon" aria-hidden="true" set:html={c.icon} />
+              <h3>{c.title}</h3>
+              <p>{c.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section class="ab-reviews">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Customer Reviews</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">What Buyers Say After the <em>First Order</em></h2>
+        </div>
+
+        <div class="ab-review-grid">
+          {testimonials.map((t, i) => (
+            <figure class="ab-review" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <span class="ab-review-mark ab-review-mark--open" aria-hidden="true">&ldquo;</span>
+              <blockquote class="ab-review-quote">
+                {t.q.map((p) => <p>{p}</p>)}
+              </blockquote>
+              <span class="ab-review-mark ab-review-mark--close" aria-hidden="true">&rdquo;</span>
+              <figcaption class="ab-review-by">
+                <img src={t.avatar} alt={`${t.name}, ${t.role}`} width="150" height="150" loading="lazy" decoding="async" />
+                <span class="ab-review-id">
+                  <strong>{t.name}</strong>
+                  <span>{t.role} &middot; {t.loc}</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="ab-cta">
+      <div class="ab-grain"></div>
+      <div class="wrap ab-cta-inner">
+        <p class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Get Started</p>
+        <h2 class="ab-cta-title" data-reveal="up" style="--d:.06s">Let&rsquo;s Build the Next <em>Ten Years</em> Together</h2>
+        <p class="ab-cta-sub" data-reveal="up" style="--d:.12s">More than 10,000 brands order from this plant. Send the product, the quantity and the deadline &mdash; a dieline, a material and a full quote come back within 24 hours.</p>
+        <div class="section-cta" data-reveal="up" style="--d:.18s">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get Started Today<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ shared atoms ============ */
+  :global(body) { background: var(--color-brand-bg); }
+
+  /* :global so the TeamSection component's [data-reveal] elements animate too —
+     a scoped selector would not reach into a child component. */
+  :global([data-reveal]) {
+    opacity: 0; transform: translateY(36px);
+    transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--d, 0s);
+  }
+  :global([data-reveal='right']) { transform: translateX(48px); }
+  :global([data-reveal='left']) { transform: translateX(-48px); }
+  :global([data-reveal].in) { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    :global([data-reveal]) { opacity: 1; transform: none; transition: none; }
+  }
+
+  .ab-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* the shared .section-sub is capped at 46ch; a centred head wants more room */
+  .ab-wide { max-width: 76ch; }
+
+  /* ============ HERO ============ */
+  /* The source hero is 1160×788 (aspect 1.472), so `background-size: cover` only
+     shows all of it when the band is width/1.472 ≈ 68vw tall — at 520px it was
+     cropping ~half the picture. Height tracks 68vw up to a 980px cap so the
+     artwork reads; past that cap (≈1440px viewports and wider) the sides crop. */
+  .ab-hero {
+    position: relative; overflow: hidden; color: var(--ivory);
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: clamp(520px, 68vw, 980px);
+    padding: calc(clamp(4.5rem, 9vw, 7rem) + 3rem) 0 clamp(4.5rem, 8vw, 6.5rem);
+    background-color: var(--forest-deep);
+    background-image:
+      linear-gradient(180deg, rgba(20, 38, 27, 0.66) 0%, rgba(20, 38, 27, 0.44) 38%, rgba(20, 38, 27, 0.36) 62%, rgba(20, 38, 27, 0.74) 100%),
+      url('https://img.leelinepackage.com/about/hero.webp?v=3');
+    background-size: cover, cover;
+    background-position: center, center 52%;
+    background-repeat: no-repeat, no-repeat;
+  }
+  .ab-hero-wash {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 54% at 50% 42%, rgba(20, 38, 27, 0.62) 0%, rgba(20, 38, 27, 0.2) 62%, transparent 100%),
+      radial-gradient(38% 46% at 84% 8%, rgba(228, 181, 77, 0.16), transparent 70%);
+  }
+  .ab-hero-inner { position: relative; text-align: center; }
+  /* H1 is BOLD (700) site-wide; section H2s stay at 500. */
+  .ab-hero-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.6rem, 6.4vw, 5rem);
+    line-height: 1.03; letter-spacing: -0.03em;
+    color: #fff; margin: 1.2rem auto 0;
+    text-wrap: balance; text-shadow: 0 2px 30px rgba(20, 38, 27, 0.5);
+  }
+  .ab-hero-sub { font-size: clamp(1.04rem, 1.6vw, 1.2rem); line-height: 1.74; color: rgba(255, 255, 255, 0.86); max-width: 54ch; margin: 1.4rem auto 0; text-shadow: 0 1px 20px rgba(20, 38, 27, 0.45); }
+  .ab-hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.2rem; margin-top: clamp(1.9rem, 3.6vw, 2.6rem); }
+  /* the hero curves into the stats band below — fill matches that band's kraft,
+     so the two read as one shape instead of a rectangle meeting a rectangle */
+  .ab-hero-wave {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    width: 100%; height: clamp(40px, 6vw, 78px);
+    display: block; pointer-events: none;
+  }
+
+  /* ============ STATS BANNER — bridges hero and first section ============ */
+  .ab-band {
+    background: var(--kraft);
+    padding: clamp(1.6rem, 3.2vw, 2.2rem) 0;
+  }
+  .ab-band-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+  .ab-band-item { display: flex; flex-direction: column; gap: 0.3rem; padding-left: clamp(0.9rem, 2vw, 1.5rem); border-left: 1px solid rgba(31, 59, 44, 0.18); }
+  .ab-band-item:first-child { border-left: 0; padding-left: 0; }
+  .ab-band-item strong { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1; letter-spacing: -0.02em; color: var(--color-brand-primary); }
+  .ab-band-item span { font-size: 0.84rem; line-height: 1.45; color: var(--color-brand-muted); max-width: 24ch; }
+
+  /* ============ WHO WE ARE ============ */
+  .ab-who { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .ab-who-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+  .ab-who-sub { font-size: 1.06rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 46ch; margin-top: 1.2rem; }
+  .ab-who-body p:not(.eyebrow):not(.ab-who-sub) { font-size: 1.02rem; line-height: 1.8; color: var(--color-brand-muted); margin: 1.2rem 0 0; max-width: 54ch; }
+
+  .ab-who-media { position: relative; margin: 0; border-radius: 1.4rem; overflow: hidden; aspect-ratio: 4 / 3; box-shadow: 0 34px 70px -46px rgba(31, 59, 44, 0.6); }
+  .ab-who-media img { width: 100%; height: 100%; object-fit: cover; }
+  .ab-who-badge {
+    position: absolute; left: 1rem; bottom: 1rem;
+    display: flex; flex-direction: column; gap: 0.1rem;
+    background: rgba(245, 240, 229, 0.94); border-radius: 0.9rem; padding: 0.7rem 1rem;
+    box-shadow: 0 16px 34px -22px rgba(31, 59, 44, 0.7);
+  }
+  .ab-who-badge strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--color-brand-primary); }
+  .ab-who-badge span { font-size: 0.76rem; color: var(--color-brand-muted); }
+
+  /* ============ SOLUTIONS ============ */
+  .ab-solutions { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .ab-solution-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
+  /* image sits beside the copy: big enough to read as a real photograph, small
+     enough that four cards stay a scannable list rather than a photo grid.
+     ~310px wide at desktop (the first draft was a 545px plate on top, then an
+     over-corrected 200px thumbnail — this is the middle) */
+  .ab-solution {
+    display: grid;
+    grid-template-columns: clamp(240px, 56%, 360px) minmax(0, 1fr);
+    gap: clamp(1.1rem, 2.2vw, 1.7rem);
+    align-items: center;
+    background: var(--ivory); border-radius: 1.3rem; padding: clamp(0.85rem, 1.6vw, 1.15rem);
+    box-shadow: 0 24px 50px -40px rgba(31, 59, 44, 0.6);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ab-solution:hover { transform: translateY(-5px); }
+  .ab-solution-media { position: relative; margin: 0; border-radius: 0.9rem; overflow: hidden; aspect-ratio: 4 / 3; }
+  .ab-solution-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  .ab-solution:hover .ab-solution-media img { transform: scale(1.04); }
+  .ab-solution-num {
+    position: absolute; top: 0.6rem; left: 0.6rem;
+    display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%;
+    background: var(--ivory); color: var(--brass);
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.88rem;
+    box-shadow: 0 10px 22px -12px rgba(20, 38, 27, 0.7);
+  }
+  .ab-solution-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
+  .ab-solution-body p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ FOUNDER ============ */
+  .ab-founder { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--color-forest) 0%, var(--forest-deep) 100%); color: rgba(255, 255, 255, 0.84); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .ab-founder-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
+  .ab-founder-media { margin: 0; aspect-ratio: 4 / 5; border-radius: 1.4rem; overflow: hidden; box-shadow: 0 40px 80px -50px rgba(0, 0, 0, 0.8); }
+  .ab-founder-media img { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; }
+  .ab-founder-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.06; letter-spacing: -0.02em; color: #fff; margin: 1.1rem 0 0; text-wrap: balance; }
+  .ab-founder-title em { font-style: italic; color: #E3C29A; }
+  .ab-founder-body p:not(.eyebrow):not(.ab-founder-title):not(.ab-founder-sign) { font-size: 1.02rem; line-height: 1.8; color: rgba(255, 255, 255, 0.78); margin: 1.3rem 0 0; max-width: 60ch; }
+  .ab-founder-sign { display: flex; align-items: baseline; gap: 0.8rem; margin: 1.8rem 0 0; }
+  .ab-founder-sign strong { font-family: var(--font-heading); font-style: italic; font-weight: 600; font-size: 1.4rem; color: var(--brass-soft); }
+  .ab-founder-sign span { font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
+
+  /* ============ CERTIFICATIONS ============ */
+  /* Heading, intro, the six titles/descriptions, the icons and the card background
+     images are all copied verbatim from the original about-us page — only the card
+     shell (radius, spacing, palette) is ours. */
+  .ab-certs { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .ab-cert-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.2rem, 2.6vw, 1.8rem); }
+  .ab-cert {
+    position: relative; overflow: hidden;
+    background: var(--color-forest);
+    border: 1px solid rgba(245, 240, 229, 0.16);
+    border-radius: 1.2rem; padding: clamp(1.6rem, 3vw, 2.2rem);
+    text-align: center; color: var(--ivory);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .ab-cert:hover { transform: translateY(-4px); box-shadow: 0 26px 50px -34px rgba(20, 38, 27, 0.85); }
+  /* Same language as the site's dark image cards: the artwork runs full-bleed
+     and a forest gradient deepens it toward the copy, so the photo reads while
+     ivory type keeps its contrast. No blend modes — they only greyed it out. */
+  .ab-cert-bg { position: absolute; inset: 0; pointer-events: none; }
+  .ab-cert-bg img { width: 100%; height: 100%; object-fit: cover; }
+  .ab-cert-bg::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.5) 0%, rgba(20, 38, 27, 0.74) 46%, rgba(20, 38, 27, 0.88) 100%);
+  }
+  .ab-cert-icon, .ab-cert h3, .ab-cert p { position: relative; z-index: 1; }
+  .ab-cert-icon { display: inline-flex; color: var(--brass-soft); margin-bottom: 0.9rem; filter: drop-shadow(0 2px 8px rgba(20, 38, 27, 0.6)); }
+  .ab-cert-icon :global(svg) { width: 2.4rem; height: 2.4rem; }
+  .ab-cert h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.22rem; letter-spacing: -0.01em; color: #fff; margin: 0; text-shadow: 0 2px 14px rgba(20, 38, 27, 0.75); }
+  .ab-cert p { font-size: 0.94rem; line-height: 1.7; color: rgba(255, 255, 255, 0.84); margin: 0.65rem 0 0; text-shadow: 0 1px 12px rgba(20, 38, 27, 0.75); }
+
+  /* ============ REVIEWS ============ */
+  /* ivory section + kraft cards — the certifications band above is kraft, so the
+     two must not share a background or they merge into one block */
+  .ab-reviews { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .ab-review-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.6rem, 3.4vw, 2.6rem); }
+  .ab-review {
+    position: relative; margin: 0;
+    display: flex; flex-direction: column;
+    background: var(--kraft); border-radius: 1.4rem;
+    /* extra top padding leaves the opening mark its own band above the type */
+    padding: clamp(2.6rem, 4.4vw, 3.4rem) clamp(1.8rem, 3.4vw, 2.6rem) clamp(1.8rem, 3.4vw, 2.6rem);
+    box-shadow: 0 26px 54px -42px rgba(31, 59, 44, 0.6);
+  }
+  /* a matched pair — opening mark above the quote, closing mark under it. One
+     floating mark on its own read as a mistake. */
+  .ab-review-mark { font-family: var(--font-heading); line-height: 1; color: rgba(176, 141, 76, 0.3); }
+  .ab-review-mark--open { position: absolute; top: 0.5rem; left: clamp(1.4rem, 2.6vw, 2rem); font-size: 4rem; }
+  .ab-review-mark--close { align-self: flex-end; font-size: 3rem; line-height: 0.4; margin-top: 0.5rem; color: rgba(176, 141, 76, 0.3); }
+  /* the quote takes the slack so the byline always lands on the card's bottom
+     edge — without this the two cards' bylines sit at different heights */
+  .ab-review-quote { flex: 1 1 auto; }
+  .ab-review-quote p { font-family: var(--font-heading); font-style: italic; font-weight: 400; font-size: 1.14rem; line-height: 1.8; color: var(--color-brand-text); margin: 0; }
+  .ab-review-quote p + p { margin-top: 1rem; }
+  .ab-review-by { display: flex; align-items: center; gap: 1rem; margin: 1.4rem 0 0; padding-top: 1.5rem; border-top: 1px solid rgba(31, 59, 44, 0.12); }
+  .ab-review-by img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; box-shadow: 0 10px 24px -14px rgba(31, 59, 44, 0.7); }
+  .ab-review-id { display: flex; flex-direction: column; gap: 0.2rem; }
+  .ab-review-id strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; color: var(--color-brand-text); }
+  .ab-review-id span { font-size: 0.88rem; color: var(--color-brand-muted); }
+
+  /* ============ FINAL CTA ============ */
+  .ab-cta {
+    position: relative; overflow: hidden; color: var(--ivory);
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    background-color: var(--forest-deep);
+    background-image: linear-gradient(rgba(20, 38, 27, 0.5), rgba(20, 38, 27, 0.66)), url('https://img.leelinepackage.com/about/final-cta.webp');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+  }
+  .ab-cta-inner { position: relative; z-index: 1; text-align: center; }
+  .ab-cta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.3rem, 5.6vw, 4.4rem); line-height: 1; letter-spacing: -0.02em; color: #fff; margin: 1.15rem auto 0; max-width: 22ch; text-wrap: balance; text-shadow: 0 2px 30px rgba(20, 38, 27, 0.45); }
+  .ab-cta-title em { font-style: italic; color: #E3C29A; }
+  .ab-cta-sub { font-size: clamp(1.02rem, 1.6vw, 1.16rem); line-height: 1.7; color: rgba(255, 255, 255, 0.9); max-width: 58ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 900px) {
+    .ab-who-grid, .ab-founder-grid { grid-template-columns: 1fr; }
+    .ab-who-media { order: -1; }
+    .ab-founder-grid { gap: 2rem; }
+    .ab-founder-media { max-width: 320px; }
+    .ab-cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .ab-band-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 1.2rem; }
+    .ab-band-item { border-left: 0; padding-left: 0; }
+    .ab-solution-grid, .ab-review-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .ab-cert-grid { grid-template-columns: 1fr; }
+    /* too narrow to sit beside the copy — stack, with a wide short banner image */
+    .ab-solution { grid-template-columns: 1fr; align-items: stretch; }
+    .ab-solution-media { aspect-ratio: 16 / 9; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

@@ -29,7 +29,9 @@ const { eyebrow, title, sub = '', tone = 'ivory', id, members } = Astro.props;
 const cols = Math.min(members.length, 3);
 // Cap the measure so neither a sparse grid nor a full one stretches its cards
 // across the whole wrap — three across otherwise lands at ~380px per portrait.
-const gridMax = `calc(${cols} * ${cols < 3 ? 260 : 320}px + ${cols - 1} * 1.8rem)`;
+// The extra `0.5cm` per gutter matches the widened column-gap below, so the
+// cards keep their width instead of giving the space back.
+const gridMax = `calc(${cols} * ${cols < 3 ? 260 : 320}px + ${cols - 1} * 1.8rem + ${cols - 1} * 0.5cm)`;
 
 // Inline rather than <use href="#i-leaf-sm">: that sprite only exists on the
 // homepage, so subpages each carry their own copy of the leaf.
@@ -78,12 +80,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
 
   .team-grid {
     list-style: none;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     display: grid;
     grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
     gap: clamp(1.2rem, 2.4vw, 1.8rem);
     max-width: var(--grid-max, none);
+  }
+  /* 0.5cm of extra air between the portraits, horizontally only. Left out of the
+     phone layout, where the gutters are already a large share of the card. */
+  @media (min-width: 641px) {
+    .team-grid { column-gap: calc(clamp(1.2rem, 2.4vw, 1.8rem) + 0.5cm); }
   }
 
   .team-card { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }

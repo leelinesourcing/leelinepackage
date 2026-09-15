@@ -1,0 +1,1535 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const MB = `${R2}/mailer-bags`;
+
+/* Every image on this page is now either the client's own photography or (for the §Types range and
+   the §Reviews portraits) the original site's own files. There are **no placeholder slots left** —
+   the last one, the hero, landed 2026-09-15. The files live in
+   `images/Custom Mailer Bags/`, in a sub-folder named after the section and a file named after the
+   card; `_images/mailer-bags/encode_client.py` turns them into webp **without cropping** (it only
+   resizes), and each slot's `aspect-ratio` is set to the file's own shape so nothing is trimmed.
+   To add one: drop the file in the matching folder, add a JOBS line there, upload with wrangler to a
+   NEW key, and point the data array at it.
+   The three files that sit in the folder root rather than a section folder are the BACKGROUND
+   photographs (§Time, §Mid CTA, §Final).
+   The §Types range (9 plates) and the §Reviews portraits are still the original site's own AVIFs —
+   the client asked for those to be archived rather than replaced. */
+
+/* The nine mailers, in the order the original site lists them. Each card says what
+   the buyer ends up with, and the footer line names the order it usually lands in.
+   No card describes how a bag is made — that sits in the materials section below. */
+const types = [
+  { n: '01', name: 'Poly Mailers', img: `${MB}/types-poly.webp`,
+    alt: 'A white poly mailer holding a folded brown box against a clean background',
+    d: 'A light, water-resistant film that keeps a garment dry and flat, at a unit cost that barely registers on the freight line.',
+    best: 'Apparel, accessories, soft goods' },
+  { n: '02', name: 'Bubble Mailers', img: `${MB}/types-bubble.webp`,
+    alt: 'White bubble mailers printed with a color logo, one standing behind the other',
+    d: 'A bubble layer bonded inside the film; a bottle, a phone or a pair of earrings lands without a mark and without a box.',
+    best: 'Electronics, jewelry, small fragile items' },
+  { n: '03', name: 'Eco-Friendly Mailers', img: `${MB}/types-eco.webp`,
+    alt: 'A green mailer printed with a sustainability message, resting on a pale surface',
+    d: 'Recycled or compostable film that decomposes after use, for a range whose sustainability claims are already public.',
+    best: 'Ranges carrying a public target' },
+  { n: '04', name: 'Paper Mailers', img: `${MB}/types-paper.webp`,
+    alt: 'Close view of kraft paper mailers carrying shipping labels and recycling marks',
+    d: 'Kraft paper over the same protective core, with a face that takes a stamp, a sticker or a handwritten note.',
+    best: 'Premium unboxing, gifting, retail' },
+  { n: '05', name: 'Custom Printed Mailers', img: `${MB}/types-printed.webp`,
+    alt: 'Several printed poly mailers with bold logo artwork stacked on a dark surface',
+    d: 'Full-color print across the whole panel: a logo or a pattern is the first thing the customer meets.',
+    best: 'Campaigns, seasonal drops, launches' },
+  { n: '06', name: 'Rigid Mailers', img: `${MB}/types-rigid.webp`,
+    alt: 'Flat rigid mailers in pink and white arranged on a pink background',
+    d: 'A stiff board shell that keeps a certificate, a print or a photograph flat from the press to the frame.',
+    best: 'Documents, photographs, flat art' },
+  { n: '07', name: 'Security Mailers', img: `${MB}/types-security.webp`,
+    alt: 'White tamper-evident security mailers printed with seal and security text',
+    d: 'A tamper-evident seal that shows when a bag has been opened, keeping a high-value order accounted for end to end.',
+    best: 'High-value, confidential shipments' },
+  { n: '08', name: 'Colored Mailers', img: `${MB}/types-colored.webp`,
+    alt: 'Coral, black and pink mailers laid out together to show a solid-color range',
+    d: 'Solid film in the exact shade the palette uses; a shelf of packs then reads as a single range, not several.',
+    best: 'Range building, shelf presence' },
+  { n: '09', name: 'Specialty Size Mailers', img: `${MB}/types-specialty.webp`,
+    alt: 'Mailers in a spread of sizes from small to oversized, printed in white and orange',
+    d: 'Any dimension between the smallest and the largest stock size, drawn to the object instead of rounded to the nearest standard.',
+    best: 'Odd-shaped or oversized products' },
+];
+
+/* The original site's LeelinePackage-vs-Other table, rebuilt as two panels that share
+   one set of row labels. Our answers are cut to what the sections above do not already
+   say, so the panel argues the quote rather than repeating the spec. */
+const compare = [
+  { l: 'Price', us: 'Factory-direct, quoted against the quantity band you actually expect to order.',
+    them: 'Marked up through an agent, with the lowest bid hiding a thinner film.' },
+  { l: 'Quality Control', us: 'Checked from the film roll through to the sealed pallet, with the sample on file.',
+    them: 'Varies between runs, and is rarely visible before the container leaves.' },
+  { l: 'Lead Time', us: 'A dated production window of seven to ten days, counted from proof approval.',
+    them: 'Scheduled around whichever queue the factory is already running.' },
+  { l: 'MOQ', us: 'Order from 500 units: a first run can be a test rather than a bet.',
+    them: 'Three to five thousand units before the line will start at all.' },
+  { l: 'Customization', us: 'Size, film and print settled together, with Pantone matching across all three.',
+    them: 'Stock sizes, with the print as the only variable worth quoting.' },
+];
+
+/* Three buying patterns. The three industries are the original site's own (they tag its three
+   testimonials); the packing problem each card describes is written for this page, and the card
+   deliberately stops there. There used to be a spec line under a hairline — it was cut because
+   every value in it (MOQ, lead time, film, print route, seal) is already stated elsewhere on this
+   page, so it added nothing but repetition. */
+const uses = [
+  { img: `${MB}/use-apparel-v2.webp`, t: 'Apparel and Soft Goods', w: 1400, h: 875,
+    alt: 'A person holding a bundle of dark blue poly mailers',
+    d: 'A folded tee or a denim jacket needs a pack that stays flat and dry, not a box that adds weight to every parcel. Stock sizes run from 6″×9″ to 24″×24″, printed flexographically in two colors.' },
+  { img: `${MB}/use-subscription-v2.webp`, t: 'Subscription Boxes', w: 1024, h: 1024,
+    alt: 'An open lilac mailer box with fluffy slippers inside, surrounded by more boxes',
+    d: 'Each cycle is a fresh run, and the bag carries that month’s artwork. The stock film, the mailer size and the sealing line stay where they were, which makes a new design a new plate and not a fresh setup.' },
+  { img: `${MB}/use-ecommerce-v2.webp`, t: 'E-commerce', w: 1336, h: 800,
+    alt: 'Hands folding a kraft mailer over a pair of shoes on a green surface',
+    d: 'A seal that holds through a courier’s network: parcels arrive intact and returns stop climbing. Pantone-matched film keeps a reorder the same shade as the first run.' },
+];
+
+/* What the film is, and how the print goes onto it. */
+const materials = [
+  { t: 'PE Film (LDPE / HDPE)', img: `${MB}/mat-pe-film-v2.webp`, w: 1024, h: 1024,
+    alt: 'A hand opening a white poly mailer to show the film across its face',
+    d: 'Low-density film gives a soft, flexible bag; high-density film a crisper, stiffer build. Both resist water and take print straight onto the surface.',
+    best: 'The default for apparel and accessories' },
+  { t: 'Bubble Lining', img: `${MB}/mat-bubble-v2.webp`, w: 1024, h: 1024,
+    alt: 'Bubble-lined mailers showing the air cells under the outer film',
+    d: 'A layer of air cells bonded between two film faces. It is the difference between carrying a fragile item and protecting it.',
+    best: 'Electronics, cosmetics, jewelry' },
+  { t: 'Kraft Paper', img: `${MB}/mat-kraft-v2.webp`, w: 1100, h: 1100,
+    alt: 'A pile of kraft paper mailers printed with shipping labels',
+    d: 'A paper face bonded over the protective core, for a bag that photographs as premium and recycles in the paper stream.',
+    best: 'Premium retail and gifting' },
+  { t: 'Recycled and Compostable', img: `${MB}/mat-recycled-v2.webp`, w: 1024, h: 1024,
+    alt: 'Green mailers printed with a recycled-material message',
+    d: 'Film made from recovered material, or a film that composts after use, giving a sustainability claim that can be printed on the bag itself.',
+    best: 'Brands with published eco targets' },
+];
+
+/* The three print routes, each with the client's own photograph. The three files are not the same
+   shape (1.9 / 1.75 / 1.51), so the plate takes its ratio from the file rather than cropping it —
+   the row is intentionally ragged until the client says otherwise. */
+const printMethods = [
+  { t: 'Flexographic', d: 'The economical route for flat two-color work at volume.',
+    img: `${MB}/print-flexo.webp`, w: 764, h: 401,
+    alt: 'Printed film webs stacked at a flexographic press' },
+  { t: 'Screen', d: 'Dense, opaque coverage where a flat color has to dominate.',
+    img: `${MB}/print-screen.webp`, w: 700, h: 400,
+    alt: 'A screen-printing bench with a squeegee drawn across the screen' },
+  { t: 'Digital Inkjet', d: 'Full-color artwork with no plate cost, for shorter runs and changing designs.',
+    img: `${MB}/print-digital.webp`, w: 550, h: 363,
+    alt: 'A digital press printing full-color sheets' },
+];
+
+/* Three decisions taken before the press, one even row of cards.
+   Each carries a small brass mark beside its title so the row is not just three blocks of text.
+   ⚠️ The third slot is a placeholder — the client asked for it to read "Seal" instead of "Shape",
+   and the old photo was a stand-up bag (i.e. shape, not closure), so the art has to be re-supplied.
+   The three paragraphs are kept to the same length on purpose: a longer one left the card bottoms
+   at different heights inside equal-height cards.
+   Marks are painted by `markInk` below — read the note on it before editing these. */
+/* shared paint for the small glyphs in §The operation. ⚠️ Anything inside a `set:html` string is
+   invisible to this file's scoped <style> — Astro never stamps the scope attribute onto it — so a
+   rule like `.mb-mark svg * { fill: none }` silently does nothing and the shape falls back to SVG's
+   default: **solid black**. These strings therefore carry their own attributes, on a <g> the
+   children inherit. (`arrow`, `leaf` and `tick` do the same for the same reason.) */
+const markInk = 'fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
+const fit = [
+  { t: 'Color', img: `${MB}/fit-colour-v3.webp`, w: 550, h: 550,
+    alt: 'Pastel mailers in lilac, black, blue and tan printed with a slogan, laid out on grass',
+    d: 'Any Pantone in the book, matched on the film. A reorder two seasons later comes back the same shade, and the range still lines up on a shelf.' },
+  { t: 'Branding', img: `${MB}/fit-branding-v2.webp`, w: 800, h: 800,
+    alt: 'Mailers and bags printed with a placeholder logo, standing among packed parcels',
+    d: 'Logo, pattern or full-panel artwork, printed onto the film. The design is settled on a proof before a plate is cut, and the run is held to it — the bag that ships is the bag that was approved.' },
+  { t: 'Seal', img: `${MB}/fit-seal.webp`, w: 1024, h: 1024,
+    alt: 'A hand peeling back the adhesive seal strip of a black mailer',
+    d: 'The closure is settled with the size and the film, not added afterwards: a plain seal for steady daily packing, a tamper-evident one where the parcel has to arrive unopened.' },
+];
+
+/* The first run, dated. Answers the writing guide's "how do I start, and how long". */
+const steps = [
+  { d: 'Hour 1–24', t: 'Proof', x: 'Artwork comes back as a digital proof with the size, the film and the Pantone confirmed on it.' },
+  { d: 'Day 2–4', t: 'Sample', x: 'A physical bag in the chosen film, printed and sealed, so the thickness and the color are judged in the hand.' },
+  { d: 'Day 5–14', t: 'Production', x: 'The floor starts from the approved sample, with status reported at each stage.' },
+  { d: 'After that', t: 'Freight', x: 'Bagged, palletized and routed by sea or air to a port, a 3PL, or a warehouse dock.' },
+];
+
+/* The operation behind the bag. This slot used to hold three "recent runs" written from an outline:
+   no client, no order, no result existed behind them, which made it the one block on the page a
+   buyer could disprove by asking a question. It now carries the plant instead — facts the client
+   already publishes, and photographs they can take themselves.
+   ⚠️ sourcing: "more than 10,000" clients is the original page's own H1; "since 2015" is its About
+   paragraph; buying material beside the plant is its materials paragraph; answering the brief and
+   flagging a bad spec comes from its service paragraph ("never misled or left in the dark"). */
+/* The operation behind the bag — text only, on purpose: the block makes a claim about the plant,
+   not about a photograph, so it needs no art from the client (the user's call, 2026-09-15).
+   The three paragraphs are kept to roughly the same length so the columns finish level.
+   ⚠️ sourcing: "more than 10,000" clients is the original page's own H1; "since 2015" is its About
+   paragraph; sitting beside the material markets and sourcing directly is its materials paragraph;
+   answering the brief and flagging a bad spec comes from its service copy ("never misled or left in
+   the dark", "answer your questions … promptly"). */
+const operation = [
+  { tag: 'Since 2015', t: 'Quoted, Printed and Packed in the Same Building',
+    /* factory: one site, start to finish */
+    mark: `<g ${markInk}><path d="M4.6 20.2V11l4.6 2.9V11l4.6 2.9V8.4h4.2a1.4 1.4 0 0 1 1.4 1.4v10.4z"/><path d="M3 20.2h18"/></g>`,
+    d: 'One production site has run since 2015 and now ships for more than 10,000 clients. Film, print line and packing benches share the building, so nothing is handed down a chain between the quote and the seal.' },
+  { tag: 'Supply', t: 'Film Sourced Beside the Plant',
+    /* a roll of film */
+    mark: `<g ${markInk}><circle cx="9.8" cy="12" r="5.6"/><circle cx="9.8" cy="12" r="1.8"/><path d="M15.4 12h5"/></g>`,
+    d: 'The plant sits beside its material markets, so film is sourced directly rather than through a broker, and a spec change or a reorder does not wait on someone else’s stock.' },
+  { tag: 'The team', t: 'The Brief and the Answers Come From the Same Desk',
+    /* an answer coming back */
+    mark: `<g ${markInk}><path d="M4.6 12.4c0-3.4 3.3-6.2 7.4-6.2s7.4 2.8 7.4 6.2-3.3 6.2-7.4 6.2c-.9 0-1.8-.1-2.6-.4L5.4 20l1-3.4a5.9 5.9 0 0 1-1.8-4.2z"/></g>`,
+    d: 'Technical questions go to the people who priced the bag, and a spec that will not work is raised before the run rather than after it ships, with answers that come back promptly.' },
+];
+
+/* The six customer-usage moments. Three slides show at a time and the track loops
+   seamlessly, so the section keeps the ivory run of the cases block above it while
+   still reading as its own moment. */
+/* All six are the client's own photographs, all the same shape (1376×768). */
+const scenes = [
+  { img: `${MB}/scene-1-v3.webp`, alt: 'A customer walking away with filled paper bags' },
+  { img: `${MB}/scene-2-v3.webp`, alt: 'A person sitting on a bench outdoors with printed mailers on their lap' },
+  { img: `${MB}/scene-3-v3.webp`, alt: 'A person collecting a parcel from a smart locker' },
+  { img: `${MB}/scene-4-v3.webp`, alt: 'A person opening a printed mailer on a green sofa' },
+  { img: `${MB}/scene-5-v3.webp`, alt: 'A person holding up a labelled kraft mailer at a desk' },
+  { img: `${MB}/scene-6-v3.webp`, alt: 'A person holding two grey mailers against a white wall' },
+];
+
+/* The original site's own reviewers. The substance is theirs — every claim below is
+   one they already made; only the phrasing was expanded to three paragraphs each.
+   Do not add anything they did not say. */
+const reviews = [
+  { tag: 'Apparel and soft goods', img: `${MB}/avatar-emily.webp`,
+    alt: 'Portrait of Emily Carter',
+    q: [
+      'We ship a clothing line, and these mailers were the first packaging decision that did not cost us anything in weight. They are light in the hand, they stack flat on the bench, and a full season of orders later they have held up exactly as promised.',
+      'The look is what customers mention. A plain gray bag used to make a new jacket feel like a return, and this does not — it reads as a considered pack rather than a plastic bag, which is the impression a first order is meant to make.',
+      'We have reordered since, and the bags have come through the same each time — the part a repeat order depends on most.',
+    ],
+    n: 'Emily Carter', r: 'Fashion Brand Owner' },
+  { tag: 'Subscription boxes', img: `${MB}/avatar-michael.webp`,
+    alt: 'Portrait of Michael Thompson',
+    q: [
+      'Our boxes go out monthly, and switching to custom mailers changed how they read when they land. What used to arrive in a plain parcel now carries our name on the outside, on every unit in the run.',
+      'Professional is the word our own team uses. The pack looks like it belongs to the brand before it is even opened, which was not true of the old packaging, and it has kept that standard cycle after cycle.',
+      'Brand recognition has moved with it. More of what people mention is the packaging itself, and that is a change we can trace back to the switch.',
+    ],
+    n: 'Michael Thompson', r: 'Subscription Service Founder' },
+  { tag: 'E-commerce', img: `${MB}/avatar-sarah.webp`,
+    alt: 'Portrait of Sarah Mitchell',
+    q: [
+      'We run an online store, so shipping cost is the number we watch. Moving to these mailers brought it down — the bag weighs less than what it replaced, and the parcel rate followed it down.',
+      'The customer side improved too. Opening a parcel from us is simply not the experience it was, and the difference shows from the moment it lands.',
+      'Another order is already planned. It is the rare change that helps both lines at once — the cost line and the customer line.',
+    ],
+    n: 'Sarah Mitchell', r: 'Online Store Manager' },
+];
+
+/* Only what no section above answers: the order minimum is on the hero rail, lead time
+   is on the timeline, sizes are on the rail and in the use-case cards, sampling has its
+   own band, and the materials are the dark section. None of those are repeated here.
+   ⚠️ Q2–Q5 assert operational detail (film as a spec, flat supply, artwork changes on
+   reorder) that is NOT in the original site copy — confirm with the client. */
+const faqs = [
+  { q: 'Can I send a reference bag instead of a full spec?', a: 'A photograph, a stock bag you already like, or a dimensioned sketch is enough to open the quote — nothing has to be drawn to scale on your side.' },
+  { q: 'Can a single mailer size cover more than one product?', a: 'Often, yes, and it is worth asking before the quote is written. A single gusseted size frequently covers a whole range, which takes rolls off a packing bench and simplifies reordering.' },
+  { q: 'How is the film thickness chosen?', a: 'Thickness is set alongside the size rather than assumed. A heavier film costs more per bag and takes more of a knock before it tears, and the two are quoted together.' },
+  { q: 'Do the bags arrive flat, ready for our own bench?', a: 'Mailers are supplied flat, on the roll or boxed. They store in a fraction of the space a built pack needs, and they are sealed at the bench where the order is picked.' },
+  { q: 'What artwork do you need from us?', a: 'A logo or artwork file starts the job. Panel layout, print method and Pantone codes are worked out with you, and none of it is left to guesswork.' },
+];
+
+const seo = {
+  // title exactly 60 chars · description exactly 160 — both checked with len()
+  title: 'Custom Mailer Bags Manufacturer: 7-10 Day Runs, 4 Film Types',
+  description: 'Custom mailer bags up to 80% lighter than corrugated boxes, so freight drops by up to 40%. Order from 500 units, Pantone matched on the film, proof in 24 hours.',
+  keywords: 'custom mailer bags, custom poly mailers, custom printed mailer bags, wholesale custom mailer bags, eco-friendly mailers, branded mailers, bubble mailers manufacturer, kraft mailers, compostable mailers, mailer bag supplier China, custom mailing bags, poly mailer manufacturer',
+  canonical: 'https://www.leelinepackage.com/custom-mailer-bags/',
+  // the hero is a placeholder slot, so the social card borrows the client's own
+  // mailer spread rather than a sourced photo
+  ogImage: `${MB}/final-cta-v3.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Mailer Bag Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom mailer bag design, film selection, Pantone matching and flexographic, screen or digital printing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Mailer Bags' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+/* How a mailer size is settled. Every line here is already on the page elsewhere —
+   the stock range is on the hero rail, sampling is on the timeline. */
+const sizing = [
+  { n: '01', t: 'Measure the Product', d: 'The quote starts from the item, not a catalog page: the footprint of the folded, rolled or boxed piece, taken at the widest point it reaches.' },
+  { n: '02', t: 'Allow for the Packing Method', d: 'A loose garment, a taped bundle and a tray each take up a different amount of room, and the dimension follows the way the bench actually packs.' },
+  { n: '03', t: 'Confirm It on the Sample', d: 'The chosen size is made up and posted, and the fit is judged with the real item in the real bag before the film is cut for the run.' },
+];
+
+/* The arrow every button on this page carries. */
+const arrow = '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/>';
+/* ⚠️ Paint for the glyphs below lives INSIDE these strings, wrapped in a <g> whose presentation
+   attributes every child inherits. Astro's scoped <style> cannot reach into a `set:html` string —
+   it never gets the scope attribute — so a rule like `.mb-ph-ico path { fill: none }` silently does
+   nothing and the icon falls back to SVG's default: **solid black**, i.e. a shapeless blob. The
+   `arrow`, `leaf` and `tick` strings carry their own attributes for the same reason. */
+/* the tick that marks our column in the comparison table */
+const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — ivory editorial · copy left · one plate on the right ============ -->
+    <section class="mb-hero">
+      <div class="mb-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="mb-hero-grid">
+          <div class="mb-hero-copy">
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Mailer bag atelier &middot; China</span>
+            <h1 class="mb-hero-title" data-reveal="up">Custom Mailer Bags Manufacturer: Cut Shipping Costs by <em>Up to 40%</em></h1>
+            <p class="mb-hero-lede" data-reveal="up">Mailers run up to 80% lighter than traditional corrugated boxes, drastically reducing volumetric freight charges. Engineered with multi-layer co-extruded film, our custom mailers deliver 100% puncture, tear, and moisture protection to keep your products completely safe in transit.</p>
+            <div class="mb-hero-actions" data-reveal="up">
+              <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+                Price My Mailer Bags
+                <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+              </a>
+            </div>
+
+            <ul class="mb-rail" data-reveal="up">
+              <li><strong>500</strong><span>unit minimum</span></li>
+              <li><strong>7&ndash;10 days</strong><span>from proof approval</span></li>
+              <li><strong>99.8%</strong><span>on-time delivery</span></li>
+            </ul>
+          </div>
+
+          <div class="mb-hero-plate" data-reveal="right">
+            <figure class="mb-hero-figure">
+              <img src={`${MB}/hero-2.webp`} alt="Printed stand-up pouches in blue, green and lilac standing on a light wood bench, with a kraft box and mailers beside them"
+                   width={928} height={1152} loading="eager" fetchpriority="high" decoding="sync" class="mb-img" />
+            </figure>
+          </div>
+        </div>
+      </div>
+
+      <svg class="mb-hero-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,52 C214,88 430,14 700,34 C986,55 1214,84 1440,44 L1440,90 L0,90 Z" fill="var(--color-clay)"/>
+      </svg>
+    </section>
+
+    <!-- ============ TYPES — nine mailers, three to a row, clay ============ -->
+    <section class="mb-types" id="types">
+      <div class="wrap">
+        <div class="mb-types-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />The range</span>
+            <h2 class="section-title" data-reveal="up">Nine Mailers, One <em>Sealing Line</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">The film is chosen by what travels inside it and how it has to be packed, then cut, printed and sealed by the team that quoted it.</p>
+        </div>
+
+        <div class="mb-type-grid">
+          {types.map((t, i) => (
+            <article class="mb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <figure class="mb-type-ph">
+                <img src={t.img} alt={t.alt} width={525} height={525} loading="lazy" decoding="async" class="mb-img" />
+                <span class="mb-type-num">{t.n}</span>
+              </figure>
+              <div class="mb-type-body">
+                <h3 class="mb-type-name">{t.name}</h3>
+                <p class="mb-type-d">{t.d}</p>
+                <p class="mb-type-best"><span>Best for</span><strong>{t.best}</strong></p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Request a Sample Kit
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE OPERATION — who makes the bag · text only, no photography ============ -->
+    <section class="mb-ops">
+      <div class="wrap">
+        <div class="mb-ops-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />The plant</span>
+            <h2 class="section-title" data-reveal="up">The Operation <em>Behind the Bag</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">One plant, material sourced nearby, and the team that takes the brief also answering the questions on it.</p>
+        </div>
+
+        <div class="mb-ops-grid">
+          {operation.map((o, i) => (
+            <article class="mb-ops-item" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="mb-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24" set:html={o.mark} />
+              </span>
+              <span class="mb-ops-tag">{o.tag}</span>
+              <h3>{o.t}</h3>
+              <p>{o.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA — full-bleed forest band, centred, above the comparison ============ -->
+    <section class="mb-mid" id="mid-cta">
+      <div class="mb-mid-glow" aria-hidden="true"></div>
+      <div class="wrap mb-mid-inner" data-reveal="up">
+        <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Next step</span>
+        <h2 class="mb-mid-title">Send the Product, Get a Sized Spec Back</h2>
+        <p class="mb-mid-sub">Give the item&rsquo;s own measurements and the quantity you expect. Film, size and print come back as one itemized price, with a proof inside the first 24 hours.</p>
+        <div class="mb-mid-actions">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Match the Mailer to the Product
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPARE — two panels sharing one set of row labels ============ -->
+    <section class="mb-cmp" id="compare">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Line by line</span>
+          <h2 class="section-title" data-reveal="up">Factory-Direct Mailer Bags, Compared <em>Line by Line</em></h2>
+          <p class="section-sub" data-reveal="up">Five questions decide every mailer quote. The answers are where the two columns stop matching.</p>
+        </div>
+
+        <div class="mb-cmp-grid" data-reveal="up">
+          <div class="mb-cmp-lab mb-cmp-lab--top"></div>
+          <div class="mb-cmp-us mb-cmp-us--top">LeelinePackage</div>
+          <div class="mb-cmp-them mb-cmp-them--top">A Typical Supplier</div>
+          {compare.map((r) => (
+            <>
+              <div class="mb-cmp-lab">{r.l}</div>
+              <div class="mb-cmp-us">
+                <svg class="mb-cmp-tick" viewBox="0 0 24 24" aria-hidden="true" set:html={tick} />
+                <span>{r.us}</span>
+              </div>
+              <div class="mb-cmp-them">{r.them}</div>
+            </>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIZE — how a bag dimension is settled, drawn rather than photographed ============ -->
+    <section class="mb-size" id="sizes">
+      <div class="wrap">
+        <div class="mb-size-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Custom size</span>
+            <h2 class="section-title" data-reveal="up">Sized to the Product, From 6&Prime;&times;9&Prime; to 24&Prime;&times;24&Prime;</h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Nine stock sizes cover most orders, and anything else is drawn to the item that has to travel inside it.</p>
+        </div>
+
+        <div class="mb-size-body">
+          <figure class="mb-size-fig-wrap" data-reveal="up">
+            <svg class="mb-size-fig" viewBox="0 0 560 430" role="img" aria-label="A mailer bag drawn with its width, height and gusset depth dimensioned">
+              <path class="sf-depth" d="M404 128 L468 96 L468 344 L404 376 Z" />
+              <rect class="sf-face" x="124" y="128" width="280" height="248" rx="6" />
+              <path class="sf-seam" d="M124 186 H404" />
+              <path class="sf-dim" d="M124 96 H404" />
+              <path class="sf-tick" d="M124 86 V106 M404 86 V106" />
+              <path class="sf-dim" d="M96 128 V376" />
+              <path class="sf-tick" d="M86 128 H106 M86 376 H106" />
+              <path class="sf-dim" d="M412 396 L476 364" />
+              <path class="sf-tick" d="M408 388 L416 404 M472 356 L480 372" />
+              <text x="264" y="78" text-anchor="middle">WIDTH</text>
+              <text x="76" y="252" text-anchor="middle" transform="rotate(-90 76 252)">HEIGHT</text>
+              <text x="450" y="418" text-anchor="middle">DEPTH</text>
+              <text class="sf-note" x="316" y="170" text-anchor="end">SEAL</text>
+            </svg>
+          </figure>
+
+          <ol class="mb-size-list">
+            {sizing.map((s, i) => (
+              <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+                <span class="mb-size-n">{s.n}</span>
+                <div>
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MATERIALS & PRINT — the page's dark moment ============ -->
+    <section class="mb-mat" id="materials">
+      <div class="mb-mat-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="mb-mat-head">
+          <div>
+            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Film</span>
+            <h2 class="section-title" data-reveal="up">Four Films, and the Print That <em>Goes on Them</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">A mailer is a film with a print on it. Those two choices decide what the pack weighs, what it protects, and how the artwork reads at arm&rsquo;s length.</p>
+        </div>
+
+        <div class="mb-mat-grid">
+          {materials.map((m, i) => (
+            <article class="mb-mat-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="mb-mat-ph">
+                <img src={m.img} alt={m.alt} width={m.w} height={m.h} loading="lazy" decoding="async" class="mb-img" />
+              </figure>
+              <h3 class="mb-mat-t">{m.t}</h3>
+              <p class="mb-mat-d">{m.d}</p>
+              <p class="mb-mat-best"><span>Best for</span><strong>{m.best}</strong></p>
+            </article>
+          ))}
+        </div>
+
+        <div class="mb-print" data-reveal="up">
+          <div class="mb-print-head">
+            <span class="mb-print-l">Printing on any film</span>
+            <p class="mb-print-sub">Three routes onto the same film, chosen by the artwork and the length of the run.</p>
+          </div>
+          <ul class="mb-print-row">
+            {printMethods.map((p) => (
+              <li class="mb-print-card">
+                <figure class="mb-print-ph">
+                  <img src={p.img} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" class="mb-img" />
+                </figure>
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="mb-print-note">Pantone matching runs across all three routes, and the color code is best supplied before the proof goes out &mdash; that is what keeps a screen rendering and a printed film in step.</p>
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Ask About the Film and the Print
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FIT — color, branding, shape · one even row ============ -->
+    <section class="mb-fit" id="fit">
+      <div class="wrap">
+        <div class="mb-fit-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Three decisions</span>
+            <h2 class="section-title" data-reveal="up">Color, Logo and Seal, Settled Before the <em>First Print</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Each of the three is decided against a real product, and all three are confirmed on the proof.</p>
+        </div>
+
+        <div class="mb-fit-grid">
+          {fit.map((f, i) => (
+            <article class="mb-fit-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <figure class="mb-fit-ph">
+                <img src={f.img} alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async" class="mb-img" />
+              </figure>
+              <div class="mb-fit-body">
+                <div class="mb-fit-label">
+                  <span class="mb-fit-n">{String(i + 1).padStart(2, '0')}</span>
+                  <h3>{f.t}</h3>
+                </div>
+                <p>{f.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHERE THEY SHIP — three buying patterns, clay ============ -->
+    <section class="mb-use" id="where-they-ship">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Buying patterns</span>
+          <h2 class="section-title" data-reveal="up">Three Buyers, Three Mailer <em>Specifications</em></h2>
+          <p class="section-sub" data-reveal="up">Each buys the same product differently. These are the three specs that come back most often.</p>
+        </div>
+
+        <div class="mb-use-grid">
+          {uses.map((u, i) => (
+            <article class="mb-use-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <figure class="mb-use-ph">
+                <img src={u.img} alt={u.alt} width={u.w} height={u.h} loading="lazy" decoding="async" class="mb-img" />
+              </figure>
+              <div class="mb-use-body">
+                <h3>{u.t}</h3>
+                <p>{u.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Tell Us What You Ship
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIMELINE — full-bleed photo band, four dots on a brass rule ============ -->
+    <section class="mb-time" id="process">
+      <div class="mb-time-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Timeline</span>
+          <h2 class="section-title" data-reveal="up">Four Steps, From Brief to <em>Sealed Pallet</em></h2>
+          <p class="section-sub" data-reveal="up">Seven to ten business days of production, once a proof and a sample have been signed off.</p>
+        </div>
+
+        <ol class="mb-time-rail">
+          {steps.map((s, i) => (
+            <li class="mb-time-step" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="mb-time-d">{s.d}</span>
+              <h3>{s.t}</h3>
+              <p>{s.x}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ SCENES — six customer-usage moments, seamless 3-up carousel ============ -->
+    <section class="mb-sc" id="in-the-field">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />In the field</span>
+          <h2 class="section-title" data-reveal="up">Six Scenes, From Packing Bench <em>to Doorstep</em></h2>
+          <p class="section-sub" data-reveal="up">Six moments a mailer has to hold up in, from the bench where it is sealed to the door where it lands.</p>
+        </div>
+      </div>
+
+      <!-- The rail is outside `.wrap`: three slides inside a 1200px column read as thumbnails, so it
+           runs the full viewport width with a side gutter the arrows sit in. -->
+      <div class="mb-sc-body" data-reveal="up">
+          <div class="mb-sc-vp">
+            <div class="mb-sc-track">
+              {scenes.map((s) => (
+                <figure class="mb-sc-slide">
+                  <img src={s.img} alt={s.alt} width={1376} height={768} loading="lazy" decoding="async" class="mb-img" />
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button class="mb-sc-btn mb-sc-prev" type="button" aria-label="Previous scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+          <button class="mb-sc-btn mb-sc-next" type="button" aria-label="Next scenes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS — speech-bubble carousel, clay ============ -->
+    <section class="mb-rev">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Buyers</span>
+          <h2 class="section-title" data-reveal="up">What Changed After <em>the Switch</em></h2>
+          <p class="section-sub" data-reveal="up">Three buyers describing the same decision from three different businesses.</p>
+        </div>
+
+        <div class="mb-tm" data-reveal="up">
+          <div class="mb-tm-vp">
+            <div class="mb-tm-track">
+              {reviews.map((r) => (
+                <article class="mb-tm-item">
+                  <div class="mb-tm-bubble">
+                    <span class="mb-tm-tag">{r.tag}</span>
+                    <span class="mb-tm-rank" role="img" aria-label="Rated five out of five">
+                      {Array.from({ length: 5 }).map(() => (
+                        <svg class="mb-tm-star" viewBox="0 0 29 27" aria-hidden="true">
+                          <polygon class="s1" points="17,23 9.9,26.7 11.3,18.9 5.6,13.3 13.5,12.1 17,5 20.5,12.1 28.4,13.3 22.7,18.9 24.1,26.7" />
+                          <polygon class="s2" points="13,19 5.9,22.7 7.3,14.9 1.6,9.3 9.5,8.1 13,1 16.5,8.1 24.4,9.3 18.7,14.9 20.1,22.7" />
+                        </svg>
+                      ))}
+                    </span>
+                    <div class="mb-tm-text">
+                      {r.q.map((p) => <p>{p}</p>)}
+                    </div>
+                  </div>
+
+                  <div class="mb-tm-person">
+                    <div class="mb-tm-ava">
+                      <svg class="mb-tm-mark mb-tm-mark--a" viewBox="0 0 30 23" aria-hidden="true"><path class="m1" d="M7.653 20.762l20.337-6.715m-2.881-5.88L4.79 14.821M22.327 2.24L1.999 8.89" /></svg>
+                      <svg class="mb-tm-mark mb-tm-mark--b" viewBox="0 0 29 26" aria-hidden="true"><path class="m2" d="M16.148 24L27 8.807 2 2z" /></svg>
+                      <img src={r.img} alt={r.alt} width={240} height={240} loading="lazy" decoding="async" />
+                    </div>
+                    <div class="mb-tm-who">
+                      <span class="mb-tm-name">{r.n}</span>
+                      <span class="mb-tm-role">{r.r}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <button class="mb-tm-btn mb-tm-prev" type="button" aria-label="Previous review">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+          <button class="mb-tm-btn mb-tm-next" type="button" aria-label="Next review">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ — one centred column, only what the sections above leave open ============ -->
+    <section class="mb-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Questions</span>
+          <h2 class="section-title" data-reveal="up">Five Questions Before <em>the First Quote</em></h2>
+          <p class="section-sub" data-reveal="up">Everything else a buyer usually asks is already answered further up this page.</p>
+        </div>
+
+        <div class="mb-faq-grid">
+          {faqs.map((f, i) => (
+            <details class="mb-faq-item" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <summary><span class="mb-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="mb-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="mb-final">
+      <div class="mb-final-grain" aria-hidden="true"></div>
+      <div class="wrap mb-final-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Free quote</span>
+        <h2 class="mb-final-title" data-reveal="up">Let&rsquo;s Size Your <em>First Mailer</em></h2>
+        <p class="mb-final-sub" data-reveal="up">The quote comes back itemized against a specific bag, not a price list — every line costed, and nothing left to ask about. A person writes it and stays with the job.</p>
+        <div class="mb-final-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Start the Run
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ============ local atoms ============ */
+  .mb-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  :global(body) { background: var(--ivory); }
+
+  /* the mark is an emblem above a title, on its own plate — shared by §The operation and §Fit.
+     A bare 22px outline glyph beside a heading was too small to read as anything: it needed weight,
+     not a better drawing. The glyph's own paint rides in the `markInk` string, because a scoped rule
+     cannot reach inside a `set:html` string. */
+  .mb-mark {
+    display: grid; place-items: center;
+    width: clamp(44px, 4.4vw, 50px); height: clamp(44px, 4.4vw, 50px);
+    border-radius: 50%; margin-bottom: 1rem;
+    color: var(--brass);
+    background: rgba(245,240,229,0.72);
+    border: 1px solid rgba(176,141,76,0.45);
+  }
+  .mb-mark svg { width: 56%; height: 56%; }
+
+  .mb-grain, .mb-mat-grain, .mb-final-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO — ivory · copy left · plate on the right ============ */
+  .mb-hero {
+    position: relative;
+    background: var(--ivory);
+    /* --mb-pb is the strip the wave is drawn in */
+    --mb-pb: clamp(4rem, 8vw, 6.5rem);
+    padding: calc(clamp(3.4rem, 7vw, 5.2rem) + 4.2rem) 0 var(--mb-pb);
+  }
+  .mb-hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(48% 56% at 88% 8%, rgba(176,141,76,0.22), transparent 66%);
+  }
+  .mb-hero .wrap { position: relative; z-index: 1; }
+  /* the clay band below is what the wave is cut out of, so the fill has to match it */
+  .mb-hero-wave {
+    position: absolute; left: 0; right: 0; bottom: -1px;
+    width: 100%; height: clamp(42px, 6.5vw, 84px);
+    display: block; pointer-events: none;
+  }
+  .mb-hero-grid {
+    display: grid;
+    grid-template-columns: 1.14fr 0.86fr;
+    gap: clamp(1.8rem, 4vw, 3.4rem);
+    align-items: center;
+  }
+  .mb-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 4.4vw, 3.85rem);
+    line-height: 1.1;
+    letter-spacing: -0.026em;
+    color: var(--color-brand-text);
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .mb-hero-title em { font-style: italic; color: var(--brass); white-space: nowrap; }
+  .mb-hero-lede {
+    font-size: clamp(0.99rem, 1.3vw, 1.08rem);
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    max-width: 56ch;
+    margin: 1.7rem 0 0;
+  }
+  .mb-hero-actions { margin-top: clamp(2.1rem, 3.8vw, 2.9rem); }
+  /* The plate sits square in its column — the wave below it is the section's own edge.
+     The decoration is an offset outline plus a field of brass dots behind the top corner. */
+  .mb-hero-plate { position: relative; width: 100%; max-width: 560px; margin-left: auto; }
+  .mb-hero-plate::before {
+    content: ''; position: absolute; inset: 0;
+    border: 2px solid var(--brass); border-radius: 1.55rem;
+    transform: translate(22px, 24px);
+    opacity: 0.75; pointer-events: none;
+  }
+  .mb-hero-plate::after {
+    content: ''; position: absolute; top: -32px; left: -32px;
+    width: 112px; height: 112px; pointer-events: none; opacity: 0.7;
+    background-image: radial-gradient(var(--brass) 2px, transparent 2.1px);
+    background-size: 18px 18px;
+  }
+  .mb-hero-figure {
+    position: relative; z-index: 1;
+    margin: 0;
+    /* the client's hero file is 928x1152, so the plate takes its shape rather than a crop */
+    aspect-ratio: 928 / 1152;
+    border-radius: 1.3rem; overflow: hidden;
+    background: var(--color-clay);
+    box-shadow: 0 44px 74px -44px rgba(31,59,44,0.6);
+  }
+
+  .mb-rail {
+    list-style: none; margin: clamp(2.2rem, 4.4vw, 3.4rem) 0 0;
+    padding: clamp(1.5rem, 3vw, 2.2rem) 0 0;
+    border-top: 1px solid rgba(31,59,44,0.18);
+    /* content-sized tracks spread across the whole rail, so the gap between the three items
+       comes out the same whatever the label lengths are (1fr thirds left it ragged) */
+    display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between;
+    gap: clamp(0.8rem, 1.6vw, 1.3rem);
+  }
+  .mb-rail li { display: flex; flex-direction: column; gap: 0.4rem; }
+  .mb-rail strong {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem); line-height: 1.1;
+    letter-spacing: -0.02em; color: var(--color-brand-primary);
+  }
+  .mb-rail span { font-family: var(--font-body); font-size: 0.82rem; line-height: 1.5; color: var(--color-brand-muted); }
+
+  /* ============ TYPES — clay, ivory cards, three to a row ============ */
+  .mb-types { position: relative; z-index: 1; background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-types-head {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem);
+  }
+  .mb-types-head .section-sub { margin-top: 0; }
+
+  /* the column gutter is a step wider than the row gutter — the client asked for the cards to be
+     spaced out sideways only, so the two gaps are set separately */
+  .mb-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); row-gap: clamp(1rem, 2.2vw, 1.6rem); column-gap: clamp(1.1rem, 2.6vw, 2.3rem); }
+  .mb-type-card {
+    display: flex; flex-direction: column;
+    background: var(--ivory);
+    border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.15rem; overflow: hidden;
+    box-shadow: 0 26px 54px -48px rgba(31,59,44,0.55);
+    transition: box-shadow 0.4s ease;
+  }
+  .mb-type-card:hover { box-shadow: 0 34px 62px -44px rgba(31,59,44,0.62); }
+  /* 0.3 cm off the square (≈3% at the desktop card width), so the plate is a touch wider than tall */
+  .mb-type-ph { position: relative; margin: 0; aspect-ratio: 1 / 0.97; background: var(--color-clay); overflow: hidden; }
+  .mb-type-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .mb-type-card:hover .mb-type-ph img { transform: scale(1.05); }
+  .mb-type-num {
+    position: absolute; top: 0.75rem; left: 0.75rem;
+    display: grid; place-items: center; min-width: 34px; height: 34px; padding: 0 0.5rem;
+    border-radius: 999px; background: rgba(245,240,229,0.92); backdrop-filter: blur(6px);
+    border: 1px solid rgba(176,141,76,0.45);
+    font-family: var(--font-body); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.1em; color: var(--brass);
+  }
+  .mb-type-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.05rem, 1.9vw, 1.45rem); }
+  .mb-type-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .mb-type-d { font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+  .mb-type-best { margin: auto 0 0; padding-top: 1rem; border-top: 1px solid rgba(31,59,44,0.14); font-size: 0.95rem; line-height: 1.5; color: var(--color-brand-text); }
+  .mb-type-best span { display: block; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.4rem; }
+  .mb-type-best strong { font-weight: 700; color: var(--color-brand-primary); }
+
+  /* ============ COMPARE — two panels, one shared set of row labels ============ */
+  .mb-cmp { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-cmp .section-sub { max-width: 62ch; }
+  .mb-cmp-grid {
+    display: grid;
+    grid-template-columns: minmax(94px, 0.62fr) 1.5fr 1.15fr;
+    border-radius: 1.3rem;
+    overflow: hidden;
+    box-shadow: 0 34px 68px -54px rgba(31,59,44,0.6);
+  }
+  .mb-cmp-lab {
+    display: flex; align-items: center;
+    padding: clamp(0.9rem, 1.8vw, 1.25rem) clamp(0.8rem, 1.6vw, 1.2rem);
+    background: var(--color-clay);
+    border-top: 1px solid rgba(31,59,44,0.1);
+    font-family: var(--font-body); font-weight: 600; font-size: 0.86rem;
+    color: var(--color-brand-text);
+  }
+  .mb-cmp-lab--top { border-top: 0; }
+  .mb-cmp-us, .mb-cmp-them {
+    padding: clamp(0.9rem, 1.8vw, 1.25rem) clamp(1rem, 2vw, 1.5rem);
+    font-size: 0.93rem; line-height: 1.62;
+    border-top: 1px solid rgba(245,240,229,0.16);
+  }
+  /* our column reads as a single forest panel: the left brass rule runs the full height,
+     and every answer opens with the same tick */
+  .mb-cmp-us {
+    display: flex; align-items: flex-start; gap: 0.7rem;
+    background: var(--color-forest);
+    border-left: 4px solid var(--brass);
+    border-top-color: rgba(245,240,229,0.16);
+    color: rgba(245,240,229,0.9);
+  }
+  .mb-cmp-tick { flex: 0 0 auto; width: 17px; height: 17px; margin-top: 0.32rem; color: var(--brass-bright); }
+  .mb-cmp-them { background: var(--ivory); color: var(--color-brand-muted); border-left: 1px solid rgba(31,59,44,0.12); border-top-color: rgba(31,59,44,0.1); }
+  .mb-cmp-us--top, .mb-cmp-them--top {
+    border-top: 0;
+    font-family: var(--font-heading); font-weight: 600; letter-spacing: -0.015em;
+  }
+  .mb-cmp-us--top { color: var(--ivory); font-size: clamp(1.02rem, 1.6vw, 1.2rem); }
+  .mb-cmp-them--top { color: var(--color-brand-text); font-size: clamp(1.02rem, 1.6vw, 1.2rem); }
+
+  /* ============ WHERE THEY SHIP — clay, three wide cards ============ */
+  .mb-use { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-use-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
+  .mb-use-card {
+    display: flex; flex-direction: column;
+    background: var(--ivory); border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.25rem; overflow: hidden;
+    box-shadow: 0 28px 56px -50px rgba(31,59,44,0.55);
+  }
+  /* one shared ratio so the three cards finish level; two of the three files are ~1.6, so 8/5 crops
+     the square one and leaves the other two almost whole */
+  .mb-use-ph { margin: 0; aspect-ratio: 8 / 5; background: var(--color-clay); overflow: hidden; }
+  .mb-use-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .mb-use-card:hover .mb-use-ph img { transform: scale(1.05); }
+  .mb-use-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.2rem, 2.2vw, 1.7rem); }
+  .mb-use-body h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.16rem, 1.8vw, 1.36rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .mb-use-body p { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.75rem 0 0; }
+
+  /* ============ SIZE — how a bag dimension is settled, drawn rather than photographed ============ */
+  .mb-size { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-size-head {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.2rem);
+  }
+  .mb-size-head .section-sub { margin-top: 0; }
+  .mb-size-body { display: grid; grid-template-columns: 1fr 1.04fr; gap: clamp(1.8rem, 4vw, 3.6rem); align-items: center; }
+  .mb-size-fig-wrap {
+    margin: 0; padding: clamp(1rem, 2.4vw, 1.8rem);
+    background: var(--color-clay); border-radius: 1.3rem;
+    box-shadow: 0 28px 56px -48px rgba(31,59,44,0.5);
+  }
+  .mb-size-fig { display: block; width: 100%; height: auto; }
+  .mb-size-fig .sf-face { fill: var(--ivory); stroke: var(--color-forest); stroke-width: 1.8; }
+  .mb-size-fig .sf-depth { fill: rgba(31,59,44,0.1); stroke: var(--color-forest); stroke-width: 1.8; stroke-linejoin: round; }
+  .mb-size-fig .sf-seam { fill: none; stroke: var(--color-forest); stroke-width: 1.4; stroke-dasharray: 6 6; opacity: 0.55; }
+  .mb-size-fig .sf-dim { fill: none; stroke: var(--brass); stroke-width: 1.5; }
+  .mb-size-fig .sf-tick { fill: none; stroke: var(--brass); stroke-width: 1.5; stroke-linecap: round; }
+  .mb-size-fig text {
+    font-family: var(--font-body); font-size: 15px; font-weight: 600;
+    letter-spacing: 0.16em; fill: var(--brass);
+  }
+  .mb-size-fig .sf-note { font-size: 12px; opacity: 0.8; }
+
+  .mb-size-list { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  .mb-size-list li {
+    display: grid; grid-template-columns: auto 1fr; gap: clamp(0.9rem, 2vw, 1.4rem);
+    padding-top: clamp(1.1rem, 2.4vw, 1.8rem); border-top: 1px solid rgba(31,59,44,0.14);
+  }
+  .mb-size-list li:first-child { padding-top: 0; border-top: 0; }
+  .mb-size-n { font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; color: var(--brass); }
+  .mb-size-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.3rem); letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0; }
+  .mb-size-list p { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
+
+  /* ============ MID CTA — full-bleed forest band between the range and the comparison ============ */
+  /* ⚠️ BACKGROUND IMAGE SLOT — the client is supplying a full-bleed background for this band.
+     When it lands, give `.mb-mid` the same treatment as `.mb-final`: a forest gradient layered
+     over url('https://img.leelinepackage.com/mailer-bags/<key>') with center / cover no-repeat. */
+  .mb-mid {
+    position: relative; overflow: hidden;
+    /* lighter than the other dark bands (0.76 → 0.86) so the flat lay reads as a picture rather than
+       a texture — the client asked to see more of it. It is still a light plate underneath ivory type,
+       so do not thin this further without checking the headline. */
+    background: linear-gradient(180deg, rgba(20,38,27,0.76), rgba(20,38,27,0.86)),
+                url('https://img.leelinepackage.com/mailer-bags/mid-cta-bg.webp') center / cover no-repeat;
+    padding: clamp(3.6rem, 8vw, 7rem) 0;
+    text-align: center;
+  }
+  /* a brass hairline closes the clay band above it */
+  .mb-mid::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+    background: linear-gradient(90deg, var(--brass), rgba(176,141,76,0.12));
+  }
+  .mb-mid-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(58% 74% at 50% 0%, rgba(228,181,77,0.14), transparent 68%);
+  }
+  .mb-mid-inner { position: relative; z-index: 1; }
+  .mb-mid-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.024em;
+    color: var(--ivory); margin: 1.1rem 0 0; text-wrap: balance;
+  }
+  .mb-mid-sub { font-size: clamp(0.99rem, 1.3vw, 1.1rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 62ch; margin: 1.2rem auto 0; }
+  .mb-mid-actions { display: flex; justify-content: center; margin-top: clamp(1.8rem, 3.4vw, 2.4rem); }
+
+  /* ============ MATERIALS & PRINT — the page's dark moment ============ */
+  .mb-mat {
+    position: relative; background: var(--color-forest);
+    padding: clamp(4rem, 9vw, 8rem) 0;
+  }
+  .mb-mat::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(46% 54% at 88% 4%, rgba(228,181,77,0.16), transparent 68%);
+  }
+  .mb-mat .wrap { position: relative; z-index: 1; }
+  .mb-mat .section-title { color: var(--ivory); }
+  .mb-mat .section-title em { color: #E3C29A; }
+  .mb-mat-head {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.2rem);
+  }
+  .mb-mat-head .section-sub { margin-top: 0; color: rgba(245,240,229,0.76); }
+  .mb-mat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .mb-mat-card {
+    display: flex; flex-direction: column;
+    background: rgba(245,240,229,0.06);
+    border: 1px solid rgba(245,240,229,0.14);
+    border-radius: 1.2rem; overflow: hidden; padding-bottom: 1.4rem;
+  }
+  /* the four client film plates are square */
+  .mb-mat-ph { margin: 0; aspect-ratio: 1 / 1; background: rgba(245,240,229,0.08); overflow: hidden; }
+  .mb-mat-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .mb-mat-card:hover .mb-mat-ph img { transform: scale(1.05); }
+  .mb-mat-t { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; letter-spacing: -0.015em; color: var(--ivory); margin: 1.15rem 1.15rem 0; }
+  .mb-mat-d { font-size: 0.91rem; line-height: 1.64; color: rgba(245,240,229,0.74); margin: 0.55rem 1.15rem 0; }
+  .mb-mat-best { margin: auto 1.15rem 0; padding-top: 0.95rem; border-top: 1px solid rgba(245,240,229,0.14); font-size: 0.88rem; color: rgba(245,240,229,0.9); }
+  .mb-mat-best span { display: block; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass-soft); margin-bottom: 0.3rem; }
+  .mb-mat-best strong { font-weight: 700; }
+
+  /* the print row reuses the film-card language, so the second group reads as a second row of
+     cards rather than a stray pair of text columns underneath the first */
+  .mb-print { margin-top: clamp(2.8rem, 5.4vw, 4.4rem); padding-top: clamp(1.8rem, 3.4vw, 2.6rem); border-top: 1px solid rgba(245,240,229,0.18); }
+  .mb-print-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 0.6rem 2rem; margin-bottom: clamp(1.5rem, 3vw, 2.1rem);
+  }
+  .mb-print-l { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--brass-soft); }
+  .mb-print-sub { font-size: 0.95rem; line-height: 1.6; color: rgba(245,240,229,0.72); margin: 0; }
+  .mb-print-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .mb-print-card {
+    display: flex; flex-direction: column;
+    background: rgba(245,240,229,0.06);
+    border: 1px solid rgba(245,240,229,0.14);
+    border-radius: 1.2rem; overflow: hidden; padding-bottom: 1.4rem;
+  }
+  /* one shared ratio so the three plates finish level; the files are 1.90 / 1.75 / 1.51, so 1.75
+     is the middle and costs each of them the least crop */
+  .mb-print-ph { margin: 0; aspect-ratio: 7 / 4; background: rgba(245,240,229,0.08); overflow: hidden; }
+  .mb-print-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; letter-spacing: -0.015em; color: var(--ivory); margin: 1.15rem 1.15rem 0; }
+  .mb-print-card p { font-size: 0.91rem; line-height: 1.64; color: rgba(245,240,229,0.74); margin: 0.55rem 1.15rem 0; }
+  .mb-print-note { margin: clamp(1.6rem, 3vw, 2.2rem) 0 0; font-size: 0.92rem; line-height: 1.66; color: rgba(245,240,229,0.82); max-width: 82ch; }
+
+  /* ============ FIT — three decisions, one even row ============ */
+  .mb-fit { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-fit-head {
+    display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem);
+  }
+  .mb-fit-head .section-sub { margin-top: 0; }
+  .mb-fit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2.1rem); }
+  /* the copy lives inside the card, so the three of them finish level even though the
+     paragraphs are different lengths */
+  .mb-fit-card {
+    display: flex; flex-direction: column;
+    background: var(--color-clay);
+    border: 1px solid rgba(31,59,44,0.08);
+    border-radius: 1.25rem; overflow: hidden;
+    box-shadow: 0 28px 56px -50px rgba(31,59,44,0.55);
+  }
+  /* the three client plates are square, so the frame is square — nothing is cropped */
+  .mb-fit-ph { position: relative; margin: 0; aspect-ratio: 1 / 1; background: var(--ivory); overflow: hidden; }
+  .mb-fit-ph img { transition: transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .mb-fit-card:hover .mb-fit-ph img { transform: scale(1.05); }
+  .mb-fit-card h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.28rem, 2vw, 1.55rem);
+    letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0;
+  }
+  .mb-fit-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1.15rem, 2.1vw, 1.6rem); }
+  /* A brass rule and an index number give the row a spine. Three identical photo-and-text tiles read
+     flat whatever glyph is pinned on them, so the interest comes from the rule, the number and a
+     taller portrait plate — not from an icon. */
+  .mb-fit-label { display: flex; align-items: baseline; gap: 0.75rem; padding-top: 0.95rem; border-top: 2px solid var(--brass); }
+  .mb-fit-n { flex: 0 0 auto; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; letter-spacing: 0.06em; color: var(--brass); }
+  .mb-fit-card p { font-size: 0.96rem; line-height: 1.7; color: var(--color-brand-text); margin: 0.75rem 0 0; }
+
+  /* ============ TIMELINE — full-bleed photo band, four dots on a brass rule ============ */
+  /* Dark on purpose: §Use directly above it is clay, so a second clay section read as one long block
+     with no seam. The photograph is the client's — a container ship, which is where the last step of
+     the timeline ends up. The shot is a bright one, so the forest gradient over it is what keeps the
+     ivory type readable: do not thin the overlay without re-checking the text. */
+  /* Two independent gaps live here, and they must not be confused:
+       · head → rail   = `.section-head--center`'s own margin-bottom (overridden below)
+       · rail → steps  = `--mb-time-pad`, the rail's padding-top
+     `--mb-time-rule` is where the brass rule sits inside the rail's padding, and the dot is offset
+     from it below, so the rule and the dots keep their distance from the step text whatever the head
+     margin does. */
+  .mb-time {
+    position: relative;
+    --mb-time-pad: clamp(2.8rem, 5vw, 3.6rem);
+    --mb-time-rule: clamp(2.2rem, 4vw, 2.9rem);
+    background: linear-gradient(180deg, rgba(20,38,27,0.76), rgba(20,38,27,0.9)),
+                url('https://img.leelinepackage.com/mailer-bags/timeline-bg.webp') center / cover no-repeat;
+    padding: clamp(4rem, 9vw, 8rem) 0;
+  }
+  /* tighten only the sub → rail gap (0.5 cm off the centred head's default clamps) */
+  .mb-time .section-head { margin-bottom: clamp(2rem, 4.8vw, 4.3rem); }
+  /* a brass hairline marks the top edge, the way the mid CTA band does */
+  .mb-time::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; z-index: 1;
+    background: linear-gradient(90deg, var(--brass), rgba(176,141,76,0.12));
+  }
+  .mb-time-grain { position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: screen; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .mb-time .wrap { position: relative; z-index: 1; }
+  .mb-time .section-title { color: var(--ivory); }
+  .mb-time .section-title em { color: #E3C29A; }
+  .mb-time .section-sub { color: rgba(245,240,229,0.78); }
+  .mb-time-rail {
+    list-style: none; margin: 0; padding: var(--mb-time-pad) 0 0;
+    position: relative;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.2rem, 3vw, 2.4rem);
+  }
+  /* the rule sits under the dots; the gradient fades it out at the far end */
+  .mb-time-rail::before {
+    content: ''; position: absolute; left: 0; right: 0; top: var(--mb-time-rule);
+    height: 2px;
+    background: linear-gradient(90deg, var(--brass), rgba(176,141,76,0.22));
+  }
+  .mb-time-step { position: relative; }
+  .mb-time-step::before {
+    content: ''; position: absolute; left: 0; top: calc(var(--mb-time-rule) - var(--mb-time-pad) - 7px);
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--brass);
+    box-shadow: 0 0 0 6px rgba(228,181,77,0.2);
+  }
+  /* the last dot closes the rule instead of pointing off the end */
+  .mb-time-step:last-child::before { background: var(--ivory); box-shadow: 0 0 0 6px rgba(245,240,229,0.16); }
+  .mb-time-d { display: block; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); }
+  .mb-time-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.28rem); letter-spacing: -0.015em; color: var(--ivory); margin: 0.55rem 0 0; }
+  .mb-time-step p { font-size: 0.93rem; line-height: 1.66; color: rgba(245,240,229,0.76); margin: 0.5rem 0 0; }
+
+  /* ============ CASES — one large run + two stacked ============ */
+  /* ============ THE OPERATION — who makes the bag · text only, no photography ============ */
+  .mb-ops { background: var(--ivory); padding: clamp(3.6rem, 7.5vw, 6.4rem) 0; }
+  .mb-ops-head {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: end; margin-bottom: clamp(2.4rem, 5vw, 3.6rem);
+  }
+  .mb-ops-head .section-sub { margin-top: 0; }
+  /* three text columns divided by hairlines — the page already runs four card rows, so this one
+     stays plain and reads as a statement rather than another grid of tiles */
+  .mb-ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3.2vw, 2.6rem); }
+  .mb-ops-item { padding-left: clamp(1.1rem, 2.4vw, 1.8rem); border-left: 1px solid rgba(31,59,44,0.14); }
+  .mb-ops-item:first-child { padding-left: 0; border-left: 0; }
+  .mb-ops-tag { display: block; font-family: var(--font-body); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); }
+  .mb-ops-item h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.12rem, 1.75vw, 1.32rem); line-height: 1.22; letter-spacing: -0.015em; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  .mb-ops-item p { font-size: 0.93rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ SCENES — seamless 3-up carousel ============ */
+  /* Deliberately NO content-visibility here: the loop measures slide widths on load,
+     which a skipped subtree cannot answer. */
+  .mb-sc {
+    position: relative;
+    background: var(--ivory);
+    padding: clamp(3.5rem, 8vw, 6.5rem) 0 clamp(4rem, 9vw, 7rem);
+    border-top: 1px solid rgba(31,59,44,0.12);
+  }
+  .mb-sc-body { position: relative; padding-inline: clamp(1rem, 3vw, 2.5rem); }
+  .mb-sc-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+    width: 50px; height: 50px; display: grid; place-items: center; cursor: pointer;
+    border-radius: 50%; border: 1px solid rgba(245,240,229,0.55);
+    background: rgba(31,59,44,0.72); color: var(--ivory);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .mb-sc-btn:hover { background: var(--color-forest); border-color: var(--ivory); }
+  .mb-sc-btn svg { width: 22px; height: 22px; }
+  /* the arrows sit in the rail's side gutter, just inside the first and last slide */
+  .mb-sc-prev { left: calc(clamp(1rem, 3vw, 2.5rem) + 0.9rem); }
+  .mb-sc-next { right: calc(clamp(1rem, 3vw, 2.5rem) + 0.9rem); }
+  /* the viewport must clip, or the loop's clones bleed across the page */
+  .mb-sc-vp { overflow: hidden; }
+  .mb-sc-track { --sg: clamp(0.9rem, 2vw, 1.5rem); display: flex; gap: var(--sg); }
+  /* three per row, but the rail spans the viewport (see the markup), so each slide is ~480px at
+     1440 rather than the ~380px it was inside the 1200px wrap */
+  .mb-sc-slide { flex: 0 0 calc((100% - 2 * var(--sg)) / 3); aspect-ratio: 1376 / 768; margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--color-clay); }
+
+  /* ============ REVIEWS — speech-bubble carousel ============ */
+  /* Geometry mirrors the reference (a bordered speech bubble with the rating riding its
+     top edge and a tail at the bottom right, then a 138px round portrait with two
+     hand-drawn accent marks). The colors are ours: forest border, brass stars. */
+  .mb-rev { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .mb-tm { position: relative; }
+  .mb-tm-vp { overflow: hidden; }
+  .mb-tm-track { display: flex; }
+  /* one slide per view; the horizontal padding is what narrows the bubble, exactly as the
+     reference does it, so the arrows sit in clear space either side */
+  .mb-tm-item { flex: 0 0 100%; min-width: 0; padding: 0 clamp(0rem, 11vw, 150px); }
+
+  .mb-tm-bubble {
+    position: relative;
+    margin-top: 26px;
+    border: 2px solid var(--color-forest);
+    border-radius: 6px;
+    padding: clamp(1.5rem, 3.2vw, 2.3rem) clamp(1.2rem, 3.2vw, 2.4rem);
+    text-align: left;
+  }
+  /* the tail: one square with two borders, turned 45° and parked on the bottom edge */
+  .mb-tm-bubble::after {
+    content: ''; position: absolute; bottom: -18px; right: 19%;
+    width: 32px; height: 32px;
+    background: var(--color-clay);
+    border-right: 2px solid var(--color-forest);
+    border-bottom: 2px solid var(--color-forest);
+    transform: rotate(45deg);
+  }
+  /* the rating is a plate of band colour sitting across the top border */
+  .mb-tm-rank {
+    position: absolute; top: -15px; right: 19%;
+    display: flex; gap: 3px;
+    background: var(--color-clay);
+    padding: 0 9px;
+  }
+  .mb-tm-star { width: 25px; height: 23px; flex: 0 0 auto; }
+  .mb-tm-star .s1 { fill: var(--brass-bright); }
+  .mb-tm-star .s2 { fill: none; stroke: var(--color-forest); stroke-width: 2; stroke-linejoin: round; }
+
+  /* the industry label mirrors the rating on the other end of the same border */
+  .mb-tm-tag {
+    position: absolute; top: -0.72rem; left: 19%;
+    background: var(--color-clay); padding: 0 0.7rem;
+    font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass);
+  }
+
+  /* the bubble is far wider than a comfortable line, so the quote runs left-aligned inside a
+     capped measure — the tail and the rating still sit on the right of that measure */
+  .mb-tm-text { max-width: 68ch; }
+  .mb-tm-text p {
+    font-family: var(--font-body);
+    font-size: clamp(0.96rem, 1.25vw, 1.06rem);
+    line-height: 1.62;
+    color: var(--color-brand-text);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .mb-tm-text p + p { margin-top: 0.95rem; }
+
+  /* portrait row, centred under the tail */
+  .mb-tm-person { display: flex; align-items: center; justify-content: center; margin-top: 26px; }
+  .mb-tm-ava { position: relative; width: 110px; flex: 0 0 auto; margin-right: 1rem; }
+  .mb-tm-ava img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; display: block; }
+  /* an <svg> with no width/height sizes to 300x150, so the accent marks are given both */
+  .mb-tm-mark { position: absolute; z-index: 2; overflow: visible; }
+  /* the two hand-drawn accents ride the portrait, so their offsets scale with it */
+  .mb-tm-mark--a { top: 41px; left: -13px; width: 26px; height: 20px; }
+  .mb-tm-mark--b { top: 90px; right: 6px; width: 25px; height: 22px; }
+  .mb-tm-mark path { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .mb-tm-mark .m1 { stroke: var(--brass-bright); }
+  .mb-tm-mark .m2 { stroke: var(--kraft); }
+
+  .mb-tm-name { display: block; font-family: var(--font-body); font-weight: 700; font-size: clamp(0.94rem, 1.15vw, 1.02rem); line-height: 1.5; color: var(--color-brand-text); }
+  .mb-tm-role { display: block; font-family: var(--font-body); font-size: clamp(0.94rem, 1.15vw, 1.02rem); line-height: 1.5; color: var(--color-brand-muted); }
+
+  .mb-tm-btn {
+    position: absolute; top: 42%; z-index: 2;
+    width: 48px; height: 48px; display: grid; place-items: center; cursor: pointer;
+    border-radius: 50%; border: 1px solid var(--color-forest);
+    background: var(--color-forest); color: var(--ivory);
+    box-shadow: 0 14px 28px -16px rgba(31,59,44,0.85);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .mb-tm-btn:hover { background: var(--brass); border-color: var(--brass); color: var(--forest-deep); }
+  .mb-tm-btn svg { width: 22px; height: 22px; }
+  .mb-tm-prev { left: 0; }
+  .mb-tm-next { right: 0; }
+
+  /* ============ FAQ — one centred column, stacked ============ */
+  .mb-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .mb-faq-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 0.7rem;
+    max-width: 860px; margin-inline: auto;
+    align-items: start;
+  }
+  .mb-faq-item {
+    background: var(--color-clay);
+    border: 1px solid rgba(31,59,44,0.09);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  .mb-faq-n { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.85rem; }
+  .mb-faq-item summary {
+    list-style: none; cursor: pointer; display: flex; align-items: flex-start;
+    padding: 1.2rem 1.15rem;
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1rem, 1.6vw, 1.18rem); line-height: 1.32;
+    color: var(--color-brand-text);
+  }
+  .mb-faq-item summary::-webkit-details-marker { display: none; }
+  .mb-faq-item summary::after {
+    content: '+'; font-family: var(--font-body); font-weight: 400; font-size: 1.5rem; line-height: 1;
+    color: var(--brass); margin-left: auto; padding-left: 1rem;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .mb-faq-item[open] summary::after { transform: rotate(45deg); }
+  .mb-faq-a { padding: 0 1.15rem 1.3rem; }
+  .mb-faq-a p { font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ FINAL CTA ============ */
+  .mb-final {
+    position: relative;
+    background: linear-gradient(180deg, rgba(20,38,27,0.66), rgba(20,38,27,0.84)), url('https://img.leelinepackage.com/mailer-bags/final-cta-v3.webp') center / cover no-repeat;
+    /* 1 cm shorter than the page's other full-bleed bands, at the client's request */
+    padding: clamp(3rem, 8vw, 6.3rem) 0;
+    text-align: center;
+  }
+  .mb-final::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(52% 62% at 50% 0%, rgba(228,181,77,0.16), transparent 68%);
+  }
+  .mb-final-inner { position: relative; z-index: 1; }
+  .mb-final-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2.2rem, 5.4vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em;
+    color: var(--ivory); margin: 1.1rem 0 0; text-wrap: balance;
+  }
+  .mb-final-title em { font-style: italic; color: #E3C29A; }
+  .mb-final-sub { font-size: clamp(1.02rem, 1.5vw, 1.14rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 62ch; margin: 1.3rem auto 0; }
+  .mb-final-actions { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 2.8rem); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .mb-hero-grid { grid-template-columns: 1fr; gap: clamp(2rem, 4vw, 3rem); align-items: start; }
+    /* stacked, the plate goes under the copy at a fixed width and centres itself */
+    .mb-hero-plate { max-width: 520px; margin-inline: auto; }
+    .mb-types-head, .mb-mat-head, .mb-fit-head, .mb-ops-head, .mb-size-head { grid-template-columns: 1fr; gap: 1.2rem; }
+    .mb-size-body { grid-template-columns: 1fr; }
+    .mb-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .mb-cmp-grid { grid-template-columns: minmax(84px, 0.55fr) 1.4fr 1.1fr; }
+    .mb-use-grid { grid-template-columns: 1fr; }
+    .mb-mat-grid { grid-template-columns: repeat(2, 1fr); }
+    .mb-print-row { grid-template-columns: repeat(2, 1fr); }
+    .mb-fit-grid { grid-template-columns: repeat(2, 1fr); gap: clamp(1.6rem, 3.4vw, 2.2rem); }
+    .mb-time-rail { grid-template-columns: repeat(2, 1fr); gap: clamp(1.8rem, 4vw, 2.4rem); }
+    /* two-up means the rule would run under the gap: dot the steps instead */
+    .mb-time-rail::before { display: none; }
+    .mb-time-rail { padding-top: 0; }
+    .mb-time-step { padding-top: 1.4rem; border-top: 2px solid rgba(176,141,76,0.5); }
+    .mb-time-step::before { top: -8px; left: 0; }
+    .mb-ops-grid { grid-template-columns: 1fr; gap: 0; }
+    .mb-ops-item { padding: clamp(1.3rem, 3vw, 1.8rem) 0 0; border-left: 0; border-top: 1px solid rgba(31,59,44,0.14); }
+    .mb-ops-item:first-child { padding-top: 0; border-top: 0; }
+    .mb-faq-grid { max-width: 100%; }
+    .mb-sc-slide { flex-basis: calc((100% - var(--sg)) / 2); }
+  }
+  @media (max-width: 640px) {
+    .mb-hero { padding-top: calc(clamp(3rem, 8vw, 4.2rem) + 4rem); }
+    .mb-rail { grid-template-columns: repeat(2, 1fr); }
+    .mb-type-grid { grid-template-columns: 1fr; }
+    .mb-cmp-grid { grid-template-columns: 1fr; }
+    /* stacked, the shared-label grid has nothing to align to: label above each answer */
+    .mb-cmp-lab { display: none; }
+    .mb-cmp-us, .mb-cmp-them { padding-left: 1rem; }
+    .mb-cmp-us { border-left-width: 4px; }
+    .mb-cmp-us--top, .mb-cmp-them--top { padding-top: 1.1rem; }
+    .mb-mat-grid { grid-template-columns: 1fr; }
+    .mb-fit-grid { grid-template-columns: 1fr; }
+    .mb-print-row { grid-template-columns: 1fr; }
+    .mb-time-rail { grid-template-columns: 1fr; }
+    /* the side gutter is gone at this width, so the arrows drop under the carousel */
+    .mb-tm-item { padding: 0 0.4rem; }
+    .mb-tm-btn { top: auto; bottom: -1.2rem; }
+    .mb-tm-prev { left: calc(50% - 3.4rem); }
+    .mb-tm-next { right: calc(50% - 3.4rem); }
+    /* one label at a time on the top border: the stars centre, the tag steps aside */
+    .mb-tm-tag { display: none; }
+    .mb-tm-bubble::after { right: calc(50% - 16px); }
+    .mb-tm-rank { right: calc(50% - 65px); }
+    .mb-tm-person { flex-direction: column; margin-top: 30px; }
+    .mb-tm-ava { width: 88px; margin: 0 0 0.7rem; }
+    .mb-tm-ava img { width: 88px; height: 88px; }
+    .mb-tm-mark--a { top: 28px; left: -10px; }
+    .mb-tm-mark--b { top: 64px; right: 3px; }
+    .mb-tm-who { text-align: center; }
+    .mb-rev { padding-bottom: clamp(5rem, 12vw, 7.5rem); }
+    .mb-sc-slide { flex-basis: 100%; }
+    .mb-sc-btn { width: 42px; height: 42px; }
+    .mb-sc-prev { left: calc(clamp(1rem, 3vw, 2.5rem) + 0.5rem); }
+    .mb-sc-next { right: calc(clamp(1rem, 3vw, 2.5rem) + 0.5rem); }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // One panel at a time, so the list stays scannable as answers open and close.
+  const faqItems = document.querySelectorAll('.mb-faq-item');
+  faqItems.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+
+  // Seamless carousel: `clones` copies of the last slides sit before slide one and
+  // `clones` of the first sit after the last, so stepping past either end animates
+  // onto a clone and is then snapped (transition: none) onto the matching real
+  // slide. It loops in both directions with no visible jump. Clones are JS-only, so
+  // the static HTML keeps just the real slides.
+  function loopCarousel(trackSel, prevSel, nextSel, clones) {
+    const track = document.querySelector(trackSel);
+    if (!track) return;
+    const slides = Array.from(track.children);
+    const N = slides.length;
+    if (N <= clones) return;
+
+    for (let k = 0; k < clones; k++) {
+      const c = slides[(N - clones + k) % N].cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.classList.add('is-clone');
+      track.insertBefore(c, slides[0]);
+    }
+    for (let k = 0; k < clones; k++) {
+      const c = slides[k % N].cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      c.classList.add('is-clone');
+      track.appendChild(c);
+    }
+
+    let idx = clones;
+    const step = () => {
+      const gap = parseFloat(getComputedStyle(track).gap) || 0;
+      return track.children[clones].getBoundingClientRect().width + gap;
+    };
+    const move = (animate) => {
+      track.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+      track.style.transform = `translateX(${-idx * step()}px)`;
+    };
+    const go = (dir) => {
+      if (track._busy) return;
+      track._busy = true;
+      idx += dir;
+      move(true);
+      setTimeout(() => {
+        if (idx < clones) idx += N;
+        else if (idx > clones + N - 1) idx -= N;
+        move(false);
+        track._busy = false;
+      }, 570);
+    };
+
+    const prev = document.querySelector(prevSel);
+    const next = document.querySelector(nextSel);
+    if (prev) prev.addEventListener('click', () => go(-1));
+    if (next) next.addEventListener('click', () => go(1));
+    move(false);
+    window.addEventListener('resize', () => { if (!track._busy) move(false); });
+  }
+
+  // One review per view, so a single clone on each side is enough to close the loop.
+  if (!reduce) loopCarousel('.mb-tm-track', '.mb-tm-prev', '.mb-tm-next', 1);
+  // Three scenes per view again, so three clones on each side are needed — with fewer the track
+  // would show a gap at the moment the last real slide is on screen.
+  if (!reduce) loopCarousel('.mb-sc-track', '.mb-sc-prev', '.mb-sc-next', 3);
+</script>

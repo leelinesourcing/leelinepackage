@@ -1,0 +1,1764 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const PC = `${R2}/pouches`;
+
+/* ── the nine constructions ─────────────────────────────────────────────
+   Plain name + description. A per-card "Typically holds" footer was dropped as
+   pile-up, and the §Holds reference list that replaced it was dropped in turn —
+   §Fills and §Sizes already answer what-goes-with-what, and the list had no
+   data of its own. */
+const types = [
+  { n: '01', name: 'Stand-Up Pouches', img: `${PC}/type-01.webp`,
+    alt: 'A printed stand-up pouch with a resealable zipper standing on a light surface',
+    d: 'The default pick for snacks, coffee and granola.' },
+  { n: '02', name: 'Flat Bottom Pouches', img: `${PC}/type-02-v2.webp`,
+    alt: 'A dark green flat-bottom pouch printed with the words Flat Bottom Pouch',
+    d: 'Faces the shopper square-on for tea and premium dry goods.' },
+  { n: '03', name: 'Resealable Zipper Pouches', img: `${PC}/type-03.webp`,
+    alt: 'A kraft stand-up pouch with a press-to-close zipper at the top',
+    d: 'Keeps coffee, nuts and dried fruit fresh between openings.' },
+  { n: '04', name: 'Spout Pouches', img: `${PC}/type-04.webp`,
+    alt: 'A stand-up pouch with a welded plastic spout and screw cap',
+    d: 'Pours sauces, juices and liquids without a funnel.' },
+  { n: '05', name: 'Child-Resistant Pouches', img: `${PC}/type-05.webp`,
+    alt: 'A printed pouch with a child-resistant press-and-turn closure',
+    d: 'Keeps supplements, concentrates and cleaners out of small hands.' },
+  { n: '06', name: 'Eco-Friendly Compostable Pouches', img: `${PC}/type-06.webp`,
+    alt: 'A kraft compostable stand-up pouch printed with a single color',
+    d: 'Suits organic food, tea and wellness lines making a sustainability claim.' },
+  { n: '07', name: 'Gusseted Pouches', img: `${PC}/type-07-v2.webp`,
+    alt: 'A pink side-gusseted pouch lying flat with its folded sides open',
+    d: 'Adds usable volume for bulk dry goods and sample sets.' },
+  { n: '08', name: 'Die-Cut Custom Shape Pouches', img: `${PC}/type-08.webp`,
+    alt: 'A die-cut pouch with a shaped top and a printed ribbon detail',
+    d: 'Carries gift sets, promos and seasonal runs where the silhouette sells.' },
+  { n: '09', name: 'High-Barrier Laminated Pouches', img: `${PC}/type-09.webp`,
+    alt: 'A silver high-barrier laminated pouch with a sealed top seam',
+    d: 'Protects coffee, powders and technical goods through a long shelf life.' },
+];
+
+/* ── the anatomy legend. Numbers match the callout dots on the drawing. ── */
+const anatomy = [
+  { n: '01', t: 'Hang hole', d: 'An optional euro slot punched through the header, letting the pouch hang on a pegboard rail instead of standing on a shelf.' },
+  { n: '02', t: 'Tear notch', d: 'A notch cut into both edges just above the zipper. The first open is a straight line across the pouch rather than a torn corner.' },
+  { n: '03', t: 'Resealable zipper', d: 'A micro-textured grip that closes under thumb pressure. The profile is chosen for the fill — fine powders need a wider track than beans.' },
+  { n: '04', t: 'Degassing valve', d: 'A one-way valve that lets a fresh roast release carbon dioxide without letting oxygen back in. The pouch settles instead of ballooning.' },
+  { n: '05', t: 'Heat-seal seam', d: 'Wide, even seals on every edge, tested in-line. A weak seal is the one failure a pouch cannot hide — a leak shows up as a soft pouch, not a visible tear.' },
+  { n: '06', t: 'Bottom gusset', d: 'The fold that decides whether a pouch stands up. Its depth sets the fill volume and the shelf footprint together.' },
+];
+
+/* ── the barrier selector. Every figure here comes off the source page or the
+   film supplier's own data sheet; nothing is estimated. ── */
+const fills = [
+  { key: 'coffee', tab: 'Coffee &amp; Roast', img: `${PC}/fill-coffee-v2.webp`, w: 700, h: 800,
+    alt: 'A kraft coffee pouch standing beside a scatter of roasted beans',
+    structure: 'Printed PET / foil / food-contact PE, valve welded into the top seal',
+    barrier: 'The foil layer blocks light and oxygen, which is what stales a roast',
+    life: 'Adds 20–30% to the shelf life of a plain bag',
+    style: 'Flat bottom or side gusset, split valve' },
+  { key: 'snacks', tab: 'Snacks &amp; Dry Goods', img: `${PC}/fill-snacks-v2.webp`, w: 700, h: 800,
+    alt: 'A pantry shelf of printed pouches holding granola and dry goods',
+    structure: 'Printed PET / EVOH barrier / PE seal',
+    barrier: 'Moisture and oxygen held out by a metallized or EVOH layer in place of foil',
+    life: 'Keeps a crisp fill crisp past the stated shelf life',
+    style: 'Stand-up with a resealable zipper' },
+  { key: 'supplements', tab: 'Supplements &amp; Powders', img: `${PC}/fill-supplements-v2.webp`, w: 700, h: 800,
+    alt: 'A tub of chocolate protein powder beside a scoop on a kitchen counter',
+    structure: 'Matte PET / EVOH barrier / PE seal, with a child-resistant option',
+    barrier: 'Hygroscopic powders pull moisture out of the air; the inner PE layer is what holds it back',
+    life: 'Keeps a powder free-flowing to the end of the pack',
+    style: 'Stand-up, wide zipper track, optional child-resistant closure' },
+  { key: 'liquids', tab: 'Liquids &amp; Sauces', img: `${PC}/fill-liquids-v2.webp`, w: 700, h: 800,
+    alt: 'Bone broth pouches with fitted spouts standing in a row',
+    structure: 'Printed PET / foil or EVOH / PE seal, with a fitted spout',
+    barrier: 'Foil or EVOH for oxygen-sensitive fills, matched to the fill temperature',
+    life: 'Hot-fill and cold-fill films, the spout fitted in-line',
+    style: 'Spout pouch from 100 ml to 5 L' },
+];
+
+/* ── the shapes comparison. `fig` states the film panels used, since the
+   panel-count bar chart that used to sit here read as a gradient block rather
+   than a product. ── */
+const shapes = [
+  { n: '01', name: 'Flat Pouch', fig: 'Two film panels, sealed on four edges',
+    img: `${PC}/shape-flat.webp`,
+    alt: 'Two flat pouches, one blue and one black, lying side by side on a pale surface',
+    d: 'Front and back, joined on four edges. The least film per pouch, the largest uninterrupted print area, and the lowest carton weight per unit.',
+    when: 'It is a refill, or it ships inside an outer carton anyway' },
+  { n: '02', name: 'Stand-Up Pouch', fig: 'Two panels plus a folded bottom gusset',
+    img: `${PC}/shape-standup-v3.webp`,
+    alt: 'Three brightly printed stand-up pouches in a row, standing upright',
+    d: 'The gusset unfolds into a base and the pouch stands unaided, keeping its shape as the contents settle.',
+    when: 'The pouch has to sell itself off a shelf' },
+  { n: '03', name: 'Side-Gusseted Pouch', fig: 'Two panels, two side gussets and a base',
+    img: `${PC}/shape-gusset.webp`,
+    alt: 'A row of narrow side-gusseted clear pouches filled with nuts on a lit shelf',
+    d: 'Two side gussets plus a base lift usable capacity 30–50% on an unchanged footprint, and give the pouch four more printable faces.',
+    when: 'The fill is bulky and the shelf width is fixed' },
+];
+
+/* ── starting dimensions for the sizes table. These are the figures quoted with
+   most first orders, NOT a fixed catalogue: every pouch is drawn around the
+   product and the fill line. Confirm against the client's own size chart before
+   this page is treated as a specification. `key: true` marks the two rows that
+   most first quotes land on; they are highlighted in the table. ── */
+const sizes = [
+  { fill: '50 g', style: 'Flat pouch', size: '90 &times; 140 mm', gusset: '—', structure: 'PET / PE' },
+  { fill: '100 g', style: 'Stand-up', size: '120 &times; 190 mm', gusset: '30 mm', structure: 'PET / PE' },
+  { fill: '250 g', style: 'Stand-up', size: '160 &times; 240 mm', gusset: '45 mm', structure: 'PET / EVOH / PE', key: true },
+  { fill: '500 g', style: 'Stand-up', size: '190 &times; 290 mm', gusset: '60 mm', structure: 'PET / EVOH / PE', key: true },
+  { fill: '1 kg', style: 'Side-gusseted stand-up', size: '240 &times; 350 mm', gusset: '90 mm', structure: 'PET / foil / PE' },
+  { fill: '5 kg', style: 'Flat bottom', size: '350 &times; 500 mm', gusset: '120 mm', structure: 'PET / foil / PE' },
+];
+
+const steps = [
+  { when: 'Day 1', t: 'Quote', d: 'A reference pouch, a photograph or a dimensioned sketch is enough to open the quote. The print cylinder cost is shown separately from the unit price, and the two can be weighed against each other.' },
+  { when: 'Day 1–3', t: 'Dieline', d: 'Drawn around the fill weight, sent as a layered vector PDF that artwork drops straight into. A 3D mockup comes back within 24 hours of the brief.' },
+  { when: 'Day 3–10', t: 'Printed sample', d: 'A printed, sealed and filled pouch arrives by courier. The zipper is felt, the seal is squeezed and the Pantone is checked in daylight rather than on a screen.' },
+  { when: 'Day 10–20', t: 'Production', d: 'The run goes across the press and the laminator. Incoming film is checked on arrival, seals are tested in-line, and finished pouches are pulled for AQL inspection before packing.' },
+  { when: 'Week 4–6', t: 'Freight', d: 'Pre-made pouches ship in cartons. Where the pouches are filled on a form-fill-seal line, printed roll stock ships instead, wound to the core diameter that machine takes. FOB, CIF or DDP, named on the quote.' },
+];
+
+const films = [
+  { t: 'PET (Polyethylene Terephthalate)', img: `${PC}/film-pet.webp`, w: 400, h: 450,
+    alt: 'A printed clear film pouch panel catching the light against a light background',
+    d: 'High clarity and tensile strength with a good barrier against gases and moisture. It is the printed outer layer on most pouches we run.',
+    use: 'Snack food, hardware, cosmetics' },
+  { t: 'Kraft with Foil Barriers', img: `${PC}/film-kraft-foil.webp`, w: 400, h: 450,
+    alt: 'Layers of kraft paper and metal foil stacked to show the laminate build',
+    d: 'Kraft’s matte, natural surface over a thin foil layer. The foil does the barrier work; the kraft does the talking.',
+    use: 'Premium coffee, gourmet food, technical goods' },
+  { t: 'EVOH Barrier Laminate', img: `${PC}/film-evoh.webp`, w: 400, h: 450,
+    alt: 'A roll of clear barrier film curving through a pale minimal frame',
+    d: 'An oxygen barrier with no metal in it, so the pouch stays see-through. The alternative when a full foil layer is more barrier than the fill calls for.',
+    use: 'Fresh food, snacks, anything that has to show through' },
+  { t: 'Compostable Film', img: `${PC}/film-compostable.webp`, w: 400, h: 450,
+    alt: 'A kraft paper pouch made from renewable stock standing on a plain surface',
+    d: 'A film made from plant stock rather than oil, engineered to break down in a garden bin and not only in an industrial one.',
+    use: 'Organic food, tea, artisanal goods' },
+];
+
+const finishes = [
+  /* No `img` yet — the client is supplying one photograph per finish. The plates
+     in the markup are fixed 4/5 placeholders, so dropping the files in later moves
+     nothing. (Placeholder images used here before: use-1 / use-4 / finish-foil /
+     use-5, all still on R2.) */
+  { t: 'Matte', img: `${PC}/fin-matte.webp`,
+    alt: 'Four matte-printed stand-up pouches in soft pastel colors',
+    d: 'A flat, non-reflective surface that keeps fine type readable straight under shop lighting.' },
+  { t: 'Gloss', img: `${PC}/fin-gloss.webp`,
+    alt: 'Two glossy marbled stand-up pouches catching the light',
+    d: 'High contrast and depth. The default when the artwork is photographic.' },
+  { t: 'Metallic Foil', img: `${PC}/fin-foil.webp`,
+    alt: 'Three metallic pouches in black, gold and violet',
+    d: 'A metallized layer or a hot-foil stamp for a mirror finish on a logo or a single band.' },
+  { t: 'Soft-Touch', img: `${PC}/fin-soft.webp`,
+    alt: 'Pastel gradient flat pouches printed with a placeholder logo',
+    d: 'A velvet-matte laminate. It changes how the pouch reads in the hand before the label is read.' },
+];
+
+/* §Print is the three axes a pouch print is decided on — which press runs it,
+   which face the ink sits on, and how the colors are mixed. It carries no
+   photographs on purpose: see the note on `.pc-print` in the style block. */
+/* The three §Print Method plates are PLACEHOLDERS — the client is supplying the
+   photographs. Images used here before, all still on R2, in this order:
+     use-2.webp  Clear-front stand-up pouches filled with colored sweets on a wooden tray
+     use-3.webp  Flat kraft pouches with clear windows holding nuts, beside a bowl of the same nuts
+     use-6.webp  Two printed kraft pouches with a pyramid mark standing beside a matching printed carton
+*/
+
+const presses = [
+  { n: '01', t: 'Flexographic',
+    d: 'Ink laid from a plate on a cylinder. The cheapest route once the artwork stops changing and the run is long.' },
+  { n: '02', t: 'Digital',
+    d: 'No plate and no cylinder — the file goes straight to the press. For short runs and artwork that changes between orders.' },
+  { n: '03', t: 'Screen',
+    d: 'Ink pushed through a mesh and laid on thick, for a solid or a metallic that has to cover completely.' },
+];
+
+const whys = [
+  { n: '01', t: 'The Film Is Specified, Not Padded',
+    d: 'A barrier layer more than the fill needs is the most common way a pouch quote grows.',
+    rec: 'Specify the lightest structure that holds the shelf life you need — and name the layer doing the work.' },
+  { n: '02', t: 'Cylinders Are Priced Separately',
+    d: 'Cylinder tooling is a fixed cost. Folded into the per-pouch price, it never comes down.',
+    rec: 'Quote the cylinder and the dieline on their own line, so a repeat order shows the drop.' },
+  { n: '03', t: 'Color Is Locked Before Engraving',
+    d: 'The Pantone is agreed at the proof stage, ahead of the cylinder being cut.',
+    rec: 'Sign the Pantone off at the proof, before the cylinder is cut.' },
+  { n: '04', t: 'Freight Is Quoted on the Route',
+    d: 'A pouch can travel flat, wound on a roll, or packed into the same carton as another item.',
+    rec: 'Quote freight per route, not per order.' },
+];
+
+const reviews = [
+  { name: 'Emily Rodriguez', role: 'Procurement Supervisor, VitalFit Supplements Inc.',
+    img: `${PC}/avatar-emily.webp`, alt: 'Portrait of Emily Rodriguez',
+    facts: ['Supplement pouches', 'Moisture-proof film', '2-week run'],
+    q: [
+      'The pouches are moisture-proof and oxidation-resistant, with accurate color printing. We worked with Leeline Packaging for custom supplement pouches, and they delivered in just two weeks.',
+      'As repeat customers, we’re consistently impressed by their exceptional service.',
+      'The film and the print were settled before production, which is what made the two-week turnaround possible.',
+    ] },
+  { name: 'David Patel', role: 'Product Development Director, PawPal Pet Foods',
+    img: `${PC}/avatar-david.webp`, alt: 'Portrait of David Patel',
+    facts: ['Pet food pouches', 'Eco-friendly materials', 'Zipper closure'],
+    q: [
+      'The eco-friendly materials and practical zipper design make them ideal for retail display. Leeline Packaging’s custom pouches have been a game-changer for our pet food brand.',
+      'Communication was seamless, and their quality control is outstanding. A reliable custom package partner.',
+      'We judge a pouch on the shelf rather than in transit — the print, the closure, and how the pouch stands.',
+    ] },
+];
+
+/* Audited against every section above. The first draft failed: four of its five
+   questions were already answered further up the page (see the note in the memory
+   file). These five are territory the page otherwise leaves open — matching a
+   pouch you already have, PPWR recyclability, variable-data print, commercial
+   terms, and what happens when a batch misses the sample. */
+const faqs = [
+  { q: 'Can you match a pouch we already use?',
+    a: 'Send a sample. The film is measured for thickness and layer count, the gusset and the seal width are taken off the pack itself, and the dieline is drawn from that rather than from a written description. A printed sample comes back to compare side by side before anything is committed.' },
+  { q: 'Which films count as recyclable under EU PPWR?',
+    a: 'Mono-material structures — an all-PE or an all-PP pouch — are the ones aligned with the direction PPWR sets for packaging. Laminates that combine PET, foil and PE are not, which is why the film call is made with the destination market in mind. Tell us where the pack will be sold and the structure is proposed against that rule.' },
+  { q: 'Can you print barcodes, QR codes and batch numbers?',
+    a: 'Yes, as part of the artwork rather than as a label applied afterwards. A code is printed to the same tolerance as the rest of the design, and where the code changes between batches the print file is versioned so an outdated file cannot reach the press.' },
+  { q: 'How do payment terms and milestones work?',
+    a: 'A deposit against the print cylinders, then the balance against the shipping documents, by T/T. The printed sample sits ahead of both as its own smaller milestone, so the bulk run is never released against an unapproved proof.' },
+  { q: 'What happens if a batch does not match the approved sample?',
+    a: 'The approved sample is the reference and it stays on file. A batch that measures outside it is stopped before packing rather than shipped, and the pouches are remade or the film reprinted — nothing leaves until it matches what was signed off.' },
+];
+
+const seo = {
+  /* title exactly 60 chars, description exactly 160 — both measured, not estimated */
+  title: 'Custom Pouches Manufacturer: 500-Unit Minimum, 7-10 Day Runs',
+  description: 'Custom pouches manufacturer for stand up, flat and spouted packs. PET, EVOH and foil barrier films add 20-30% shelf life, at 500-unit MOQ with 7-10 day samples.',
+  keywords: 'custom pouches manufacturer, custom stand up pouches, custom printed pouches, flexible packaging manufacturer, custom zipper pouches, custom pouch packaging, wholesale custom pouches, custom food pouches, stand up pouch manufacturer',
+  canonical: 'https://www.leelinepackage.com/custom-pouches/',
+  ogImage: `${PC}/hero-og.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Pouch Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom stand up, flat, flat bottom, spouted and zippered pouch manufacturing in PET, EVOH, foil and compostable films, with Pantone color matching',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Pouches' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+const arrow = '<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>';
+const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${PC}/hero-2-sm.webp`}
+  preloadImageSrcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1210w`}
+  preloadImageSizes="100vw"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — full-bleed photo, dark scrim, film-spec rail ============ -->
+    <section class="pc-hero">
+      <img
+        class="pc-hero-bg"
+        src={`${PC}/hero-2-sm.webp`}
+        srcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1210w`}
+        sizes="100vw"
+        alt="A collection of printed coffee and snack pouches in orange, blue, kraft and yellow"
+        width={1210}
+        height={726}
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+      />
+      <div class="pc-hero-scrim" aria-hidden="true"></div>
+      <div class="pc-grain" aria-hidden="true"></div>
+
+      <div class="wrap pc-hero-inner">
+        <div class="pc-hero-copy">
+          <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Flexible packaging &middot; China</span>
+          <h1 class="pc-hero-title" data-reveal="up">Custom Pouches Manufacturer for Up to 40% <em>Lower Carbon Packaging</em></h1>
+          <p class="pc-hero-lede" data-reveal="up">Work with a custom pouches manufacturer on recyclable mono-material films with full supply-chain traceability, designed to support EU PPWR compliance for retail packaging. Printed samples come back in 7–10 days and the run takes 10–20.</p>
+          <div class="pc-hero-actions" data-reveal="up">
+            <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+              Get Pouch Pricing
+              <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+            </a>
+                      </div>
+        </div>
+
+        <ul class="pc-rail" data-reveal="up">
+          <li><strong>500</strong><span>unit minimum order</span></li>
+          <li><strong>99.5%</strong><span>orders produced to the approved spec</span></li>
+          <li><strong>99.7%</strong><span>puncture-test reliability across runs</span></li>
+          <li><strong>60+</strong><span>industries served from the same plant</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ CERTIFICATIONS — its own band, same tone as the section below ============ -->
+    <section class="pc-certs">
+      <div class="wrap">
+        <ul class="pc-certs-logos">
+          <li class="pc-cert-big"><img src={`${R2}/compliance/iso-9001.webp`} alt="ISO 9001 certified" width={348} height={349} loading="lazy" decoding="async" /></li>
+          <li class="pc-cert-ce" role="img" aria-label="CE marked">
+            <svg viewBox="0 0 176.6 154.3" aria-hidden="true">
+              <path d="M176.6,131.1v23c-28.5,1.6-51.9-8.2-69.3-30.9-18.9-24.8-20.6-58.4-4.4-85.5C118.8,10.8,148.8-2.8,176.6.5v22.5c-35-3.8-56.8,21.9-60.4,42.2h44.2v23.6h-44.3c3.3,14.1,10.7,25,22.2,33,11.5,8,24.4,10.9,38.4,9.2h0Z" />
+              <path d="M84.8,131.1v22.6c-24.4,3.2-54.4-7.7-71.9-34.1-17.3-26.1-17.3-60,.3-85.4C30.5,9.5,54.6-1.5,84.8.2v22.9c-19.2-1.9-35.6,3.8-48.5,18.3-9.6,10.9-14,23.7-13.5,38.2,1,29.3,27.5,55.7,61.9,51.5h0Z" />
+            </svg>
+          </li>
+          <li class="pc-cert-xl"><img src={`${R2}/compliance/fsc.webp`} alt="FSC certified" width={447} height={447} loading="lazy" decoding="async" /></li>
+          <li><img src={`${R2}/compliance/brcgs.webp`} alt="BRCGS certified" width={493} height={104} loading="lazy" decoding="async" /></li>
+          <li class="pc-cert-xl"><img src={`${R2}/compliance/bsci.webp`} alt="BSCI audited" width={508} height={510} loading="lazy" decoding="async" /></li>
+          <li><img src={`${R2}/compliance/sedex.webp`} alt="Sedex member" width={873} height={253} loading="lazy" decoding="async" /></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ THE RANGE — nine constructions, three to a row ============ -->
+    <section class="pc-types" id="range">
+      <div class="wrap">
+        <div class="pc-types-head">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />The range</span>
+          <h2 class="section-title" data-reveal="up">Nine Pouch Constructions, Cut to the Fill</h2>
+          <p class="section-sub" data-reveal="up">Each construction answers a different shelf question — does it stand, does it reseal, does it pour, or does the silhouette carry the brand on its own.</p>
+        </div>
+
+        <div class="pc-type-grid">
+          {types.map((t, i) => (
+            <article class="pc-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
+              <figure class="pc-type-ph">
+                <img src={t.img} alt={t.alt} width={550} height={525} loading="lazy" decoding="async" class="pc-img" />
+                <span class="pc-type-num">{t.n}</span>
+              </figure>
+              <div class="pc-type-body">
+                <h3 class="pc-type-name">{t.name}</h3>
+                <p class="pc-type-d">{t.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send Your Pouch Spec
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHAPED POUCHES — full-bleed centred CTA band ============
+         The client is supplying background art for this band. Until it lands the
+         ground is the forest tone plus a brass glow, so the section reads as a
+         deliberate moment rather than a placeholder — see the note on
+         `.pc-band` in the style block for the one-line swap. -->
+    <section class="pc-band">
+      <div class="pc-grain" aria-hidden="true"></div>
+      <div class="wrap pc-band-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Die-cut shapes</span>
+        <h2 class="pc-band-t" data-reveal="up">Have a Shape <em>in Mind?</em></h2>
+        <p data-reveal="up">Bring a sketch, a silhouette or the product itself — the die is quoted alongside the first run.</p>
+        <div class="pc-band-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Draw It to My Shape
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ANATOMY — a drawn pouch with numbered callouts, dark ============ -->
+    <section class="pc-anat" id="anatomy">
+      <div class="pc-anat-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="pc-anat-head">
+          <div>
+            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Built up, not bought in</span>
+            <h2 class="section-title" data-reveal="up">Six Decisions Inside <em>One Printed Pouch</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Every pouch is the same handful of layers and the same four seals. What gets specified is which of these six details are built into yours — and each is a line on the quote.</p>
+        </div>
+
+        <div class="pc-anat-grid">
+          <figure class="pc-anat-fig" data-reveal="left">
+            <svg viewBox="0 0 320 440" role="img" aria-label="A line drawing of a stand-up pouch with six numbered callouts: hang hole, tear notch, resealable zipper, degassing valve, heat-seal seam and bottom gusset">
+              <g class="pc-anat-line" fill="none" stroke-linejoin="round">
+                <path d="M54 46 h212 v32 h-212 z" />
+                <path d="M54 78 L46 340 h228 L266 78" />
+                <path d="M46 340 v14 q0 12 14 12 h200 q14 0 14-12 v-14" />
+                <path class="pc-anat-zip" d="M58 116 h204" />
+                <path class="pc-anat-zip" d="M58 126 h204" />
+                <path class="pc-anat-fold" d="M46 340 L160 304 L274 340" />
+              </g>
+              <g class="pc-anat-line" fill="none" stroke-linejoin="round">
+                <path d="M54 92 l12 10 l-12 10 z" />
+                <path d="M266 92 l-12 10 l12 10 z" />
+                <circle cx="196" cy="180" r="11" />
+                <circle cx="196" cy="180" r="4" />
+                <circle cx="160" cy="62" r="7" />
+              </g>
+              <g class="pc-anat-dot">
+                <circle cx="160" cy="62" r="16" />
+                <circle cx="42" cy="102" r="16" />
+                <circle cx="278" cy="121" r="16" />
+                <circle cx="232" cy="180" r="16" />
+                <circle cx="32" cy="248" r="16" />
+                <circle cx="160" cy="350" r="16" />
+              </g>
+              <g class="pc-anat-n">
+                <text x="160" y="62">1</text>
+                <text x="42" y="102">2</text>
+                <text x="278" y="121">3</text>
+                <text x="232" y="180">4</text>
+                <text x="32" y="248">5</text>
+                <text x="160" y="350">6</text>
+              </g>
+            </svg>
+          </figure>
+
+          <ol class="pc-anat-list">
+            {anatomy.map((a, i) => (
+              <li data-reveal="up" style={`--d:${i * 0.05}s`}>
+                <span class="pc-anat-key">{a.n}</span>
+                <div>
+                  <h3>{a.t}</h3>
+                  <p>{a.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BARRIER — tabs, one recommendation per fill ============ -->
+    <section class="pc-fill" id="film-choice">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Film choice</span>
+          <h2 class="section-title" data-reveal="up">What Goes Inside <em>Picks the Film</em></h2>
+          <p class="section-sub" data-reveal="up">Tell us the product and the number of months it needs to last. The barrier, the closure and the structure come back as a single recommendation instead of a menu to guess from.</p>
+        </div>
+
+        <div class="pc-fill-tabs" role="tablist" aria-label="Choose a fill type">
+          {fills.map((f, i) => (
+            <button
+              type="button"
+              role="tab"
+              class:list={['pc-fill-tab', { 'is-on': i === 0 }]}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              aria-controls={`pc-panel-${f.key}`}
+              id={`pc-tab-${f.key}`}
+              data-tab={f.key}
+            ><Fragment set:html={f.tab} /></button>
+          ))}
+        </div>
+
+        <div class="pc-fill-stage">
+          {fills.map((f, i) => (
+            <div
+              class:list={['pc-fill-panel', { 'is-on': i === 0 }]}
+              id={`pc-panel-${f.key}`}
+              role="tabpanel"
+              aria-labelledby={`pc-tab-${f.key}`}
+              data-panel={f.key}
+            >
+              <figure class="pc-fill-ph">
+                <img src={f.img} alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async" class="pc-img" />
+              </figure>
+              <dl class="pc-fill-spec">
+                <div><dt>Structure</dt><dd><Fragment set:html={f.structure} /></dd></div>
+                <div><dt>Barrier</dt><dd><Fragment set:html={f.barrier} /></dd></div>
+                <div><dt>Shelf life</dt><dd><Fragment set:html={f.life} /></dd></div>
+                <div><dt>Typical build</dt><dd><Fragment set:html={f.style} /></dd></div>
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Match a Film to My Product
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHAPES — three constructions, panel diagram each ============ -->
+    <section class="pc-shapes" id="shapes">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Same fill, three costs</span>
+          <h2 class="section-title" data-reveal="up">Three Ways to Build <em>the Same Pouch</em></h2>
+          <p class="section-sub" data-reveal="up">The same 250 g of coffee fills any of these. What changes is how much film goes in, whether it stands by itself, and how much of it the shelf can see.</p>
+        </div>
+
+        <div class="pc-shape-grid">
+          {shapes.map((s, i) => (
+            <article class="pc-shape-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="pc-shape-ph">
+                <img src={s.img} alt={s.alt} width={560} height={420} loading="lazy" decoding="async" class="pc-img" />
+                <span class="pc-shape-n">{s.n}</span>
+              </figure>
+              <div class="pc-shape-body">
+                <h3 class="pc-shape-name">{s.name}</h3>
+                <p class="pc-shape-fig">{s.fig}</p>
+                <p class="pc-shape-d">{s.d}</p>
+                <p class="pc-shape-when"><span>Choose it when</span>{s.when}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SIZES — starting dimensions per fill weight ============ -->
+    <section class="pc-sizes" id="sizes">
+      <div class="wrap">
+        <div class="pc-sizes-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Starting point</span>
+            <h2 class="section-title" data-reveal="up">The Fill Weight Sets the Pouch, Not the Other Way Round</h2>
+          </div>
+          <p class="section-sub" data-reveal="up">These are the dimensions that go out with most first quotes — enough to see the shape of the answer before you send anything. Yours gets drawn around the product and its fill line.</p>
+        </div>
+
+        <div class="pc-table-wrap" data-reveal="up">
+          <table class="pc-table">
+            <caption class="pc-table-cap">Starting dimensions by fill weight — dry, free-flowing product</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fill weight</th>
+                <th scope="col">Pouch style</th>
+                <th scope="col">External size</th>
+                <th scope="col">Gusset</th>
+                <th scope="col">Typical structure</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sizes.map((r) => (
+                <tr class:list={[{ 'is-key': r.key }]}>
+                  <th scope="row">
+                    <Fragment set:html={r.fill} />
+                    {r.key && <span class="pc-table-key">Most quoted</span>}
+                  </th>
+                  <td><Fragment set:html={r.style} /></td>
+                  <td class="pc-table-dim"><Fragment set:html={r.size} /></td>
+                  <td><Fragment set:html={r.gusset} /></td>
+                  <td class="pc-table-fil"><Fragment set:html={r.structure} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="pc-size-note" data-reveal="up">Figures assume a free-flowing dry product at ordinary bulk density. Powders, liquids, irregular shapes and multi-packs are drawn individually, because a fill line moves with how a product settles.</p>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send My Fill Weight
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS — five stages as a schedule of dated rows ============ -->
+    <section class="pc-time" id="process">
+      <div class="wrap">
+        <div class="pc-time-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Process</span>
+            <h2 class="section-title" data-reveal="up">From Brief to Pallet in <em>Four to Six Weeks</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Five stages, each with a deliverable you can hold, and no stage released until the stage before it is signed off.</p>
+        </div>
+
+        <ol class="pc-sched">
+          {steps.map((s, i) => (
+            <li class="pc-sched-row" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <span class="pc-sched-when"><Fragment set:html={s.when} /></span>
+              <h3 class="pc-sched-t">{s.t}</h3>
+              <p class="pc-sched-d"><Fragment set:html={s.d} /></p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ FILMS — three films and the finish on top, dark ============ -->
+    <section class="pc-films" id="films">
+      <div class="pc-films-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="pc-films-head">
+          <div>
+            <span class="eyebrow eyebrow--light"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Film</span>
+            <h2 class="section-title" data-reveal="up">Four Films, Chosen by What Has to <em>Stay Out</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Each of these blocks something different — light, oxygen, moisture or grease — and that is what decides which one a fill gets.</p>
+        </div>
+
+        <!-- One stacked swatch column on the left, the three entries beside it.
+             The plates keep their sources' 8:9 portrait ratio, so nothing is
+             cropped, and they butt together into a single column that reads as
+             the plies of a laminate. The two columns share one grid row, so the
+             plates and the entries stay level all the way down. -->
+        <div class="pc-film-grid2">
+          {films.map((f, i) => (
+            <article class="pc-film-cell" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
+              <figure class="pc-film-ph">
+                <img src={f.img} alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async" class="pc-img" />
+              </figure>
+              <!-- the copy is wrapped so the cell is a clean two-item grid: without
+                   this the auto-placement filled row-by-row and dropped the note
+                   into the image column -->
+              <div class="pc-film-body">
+                <h3 class="pc-film-t">{f.t}</h3>
+                <p class="pc-film-d">{f.d}</p>
+                <p class="pc-film-use"><span>Goes to</span>{f.use}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-light" href="/contact/" target="_blank" rel="noopener">
+            Request a Film Swatch
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRINT METHODS — three axes: the press, the face, the ink ============ -->
+    <!-- Deliberately image-free. The six photographs this section used to carry
+         could not honestly be paired with a press type, so the two laminate
+         cross-sections below are drawn rather than photographed. -->
+    <section class="pc-print" id="print">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Print methods</span>
+          <h2 class="section-title" data-reveal="up">The Press, the Face <em>and the Ink</em></h2>
+          <p class="section-sub" data-reveal="up">Three decisions taken in order, and the three that decide whether a run repeats cleanly: which press runs the job, which face the ink sits on, and how the colors are mixed.</p>
+        </div>
+
+        <div class="pc-print-stack">
+          <!-- The press: image left, the three presses right (user: 左图右文). -->
+          <div class="pc-press-block">
+            <div class="pc-press-left" data-reveal="left">
+              <!-- PLACEHOLDER — the client is supplying this photograph. It has no
+                   intrinsic ratio: it stretches to the height of the press list
+                   beside it, so the two always end level. -->
+              <figure class="pc-press-ph">
+                <img src={`${PC}/method-press.webp`} alt="Printed pouch sheets running off a digital press" width={1024} height={1024} loading="lazy" decoding="async" class="pc-img" />
+              </figure>
+            </div>
+            <div class="pc-axis" data-reveal="right">
+              <h3 class="pc-axis-t">The press</h3>
+              <ol class="pc-press">
+                {presses.map((p) => (
+                  <li>
+                    <span class="pc-axis-n">{p.n}</span>
+                    <h4>{p.t}</h4>
+                    <p>{p.d}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+
+          <!-- The face and the ink, side by side beneath the press. -->
+          <div class="pc-lower">
+            <div class="pc-axis" data-reveal="up">
+              <h3 class="pc-axis-t">The face</h3>
+              <p class="pc-face-note">A pouch wall is four layers. Which one the ink goes into is the whole difference between these two.</p>
+              <div class="pc-face">
+                <figure class="pc-face-item">
+                  <svg class="pc-stack" viewBox="0 0 260 136" role="img" aria-label="Cross-section, not to scale: outer film, then the ink, then adhesive, then the seal layer">
+                    <rect class="pc-lyr" x="14" y="10" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="23">Outer film</text>
+                    <rect class="pc-lyr pc-lyr--ink" x="14" y="39" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t pc-lyr-t--ink" x="130" y="52">Ink</text>
+                    <rect class="pc-lyr" x="14" y="68" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="81">Adhesive</text>
+                    <rect class="pc-lyr" x="14" y="97" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="110">Seal layer</text>
+                  </svg>
+                  <figcaption>
+                    <h4>Reverse Print</h4>
+                    <p>Ink <em>under</em> the film. It cannot scuff, and it never reaches the product.</p>
+                  </figcaption>
+                </figure>
+                <figure class="pc-face-item">
+                  <svg class="pc-stack" viewBox="0 0 260 136" role="img" aria-label="Cross-section, not to scale: the ink, then outer film, then adhesive, then the seal layer">
+                    <rect class="pc-lyr pc-lyr--ink" x="14" y="10" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t pc-lyr-t--ink" x="130" y="23">Ink</text>
+                    <rect class="pc-lyr" x="14" y="39" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="52">Outer film</text>
+                    <rect class="pc-lyr" x="14" y="68" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="81">Adhesive</text>
+                    <rect class="pc-lyr" x="14" y="97" width="232" height="26" rx="4" />
+                    <text class="pc-lyr-t" x="130" y="110">Seal layer</text>
+                  </svg>
+                  <figcaption>
+                    <h4>Surface Print</h4>
+                    <p>Ink <em>on top of</em> the film — the brightest result, and the most exposed to handling.</p>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div class="pc-axis" data-reveal="up">
+              <h3 class="pc-axis-t">The ink</h3>
+              <div class="pc-ink">
+                <!-- PLACEHOLDER — the client is supplying this photograph. It has no
+                     ratio: it takes whatever height is left in the panel, so the ink
+                     column keeps meeting the face column's baseline at any width. -->
+                <figure class="pc-ink-ph">
+                  <img src={`${PC}/method-ink.webp`} alt="Printed pouches standing behind a Pantone color fan deck" width={1366} height={768} loading="lazy" decoding="async" class="pc-img" />
+                </figure>
+                <h4>Spot Colour</h4>
+                <p>A single ink mixed to a Pantone reference per color, so a brand color repeats exactly on the next run. It is the default on every pouch we quote, and the reason a reprint matches the run already in the market.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINISH — shelf presence and hand feel ============ -->
+    <!-- Its own section rather than the fourth axis of §Print Method: the two ask
+         different questions (a repeat buyer wants to know a run will hold; a brand
+         wants to know how it reads), and combining them buried both. There is no
+         Branding section on this page, so this stands alone. -->
+    <section class="pc-fins" id="finish">
+      <div class="wrap">
+        <div class="pc-fins-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Finish</span>
+            <h2 class="section-title" data-reveal="up">What the Shelf Sees and <em>the Hand Feels</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">The print decides what a pouch says. The finish decides how it reads across a shop floor, and what it feels like in the hand.</p>
+        </div>
+
+        <div class="pc-fins-grid">
+          {finishes.map((f, i) => (
+            <article class="pc-fin" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure class="pc-fin-ph">
+                <img src={f.img} alt={f.alt} width={360} height={405} loading="lazy" decoding="async" class="pc-img" />
+              </figure>
+              <h3 class="pc-fin-t">{f.t}</h3>
+              <p class="pc-fin-d">{f.d}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY — four things that move the unit price ============ -->
+    <section class="pc-why" id="why">
+      <div class="wrap">
+        <div class="pc-why-head">
+          <div>
+            <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Unit price</span>
+            <h2 class="section-title" data-reveal="up">What Actually Moves <em>the Unit Price</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Four decisions set what a pouch costs, and all four are made before a purchase order exists. The panel under each is the advice we would give.</p>
+        </div>
+
+        <ol class="pc-why-list">
+          {whys.map((w, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="pc-why-n">{w.n}</span>
+              <h3>{w.t}</h3>
+              <p>{w.d}</p>
+              <p class="pc-why-rec"><span>Our recommendation</span>{w.rec}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS — the source page's own two reviewers ============ -->
+    <section class="pc-rev" id="reviews">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Buyers</span>
+          <h2 class="section-title" data-reveal="up">Two Buyers, Two Pouch Builds, <em>One Supplier</em></h2>
+          <p class="section-sub" data-reveal="up">A supplement brand and a pet food brand. Different fills, different barriers, and the reviews below are theirs.</p>
+        </div>
+
+        <div class="pc-rev-grid">
+          {reviews.map((r, i) => (
+            <figure class="pc-quote" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <div class="pc-stars" role="img" aria-label="Rated 5 out of 5">
+                {Array.from({ length: 5 }).map(() => (
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.58 1.11 6.47L12 17.44 6.19 20.5 7.3 14.03 2.6 9.45l6.5-.95z" /></svg>
+                ))}
+              </div>
+              {r.q.map((p) => (<blockquote><p><Fragment set:html={p} /></p></blockquote>))}
+              <ul class="pc-quote-facts">
+                {r.facts.map((f) => (<li>{f}</li>))}
+              </ul>
+              <figcaption>
+                <img src={r.img} alt={r.alt} width={240} height={240} loading="lazy" decoding="async" class="pc-img" />
+                <span><strong>{r.name}</strong><em><Fragment set:html={r.role} /></em></span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ FAQ — only what the sections above leave open ============ -->
+    <section class="pc-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Questions</span>
+          <h2 class="section-title" data-reveal="up">What Buyers Ask <em>Before Signing Off a Pouch</em></h2>
+          <p class="section-sub" data-reveal="up">Five questions the sections above do not already answer.</p>
+        </div>
+
+        <div class="pc-faq-grid">
+          {faqs.map((f, i) => (
+            <details class="pc-faq-item" data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <summary><span class="pc-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="pc-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="pc-final">
+      <div class="pc-grain" aria-hidden="true"></div>
+      <div class="wrap pc-final-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Free quote</span>
+        <h2 class="pc-final-title" data-reveal="up">Let’s Build the Pouch <em>Around the Fill</em></h2>
+        <p class="pc-final-sub" data-reveal="up">Send the product, the pack size and how long it has to stay fresh. The structure, the cylinder cost and the price come back together.</p>
+        <div class="pc-final-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Start My Pouch Run
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ============ local atoms ============ */
+  .pc-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  .pc-grain,
+  .pc-anat-grain,
+  .pc-films-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO ============ */
+  /* +3cm of vertical in two steps (1.5cm off each end) on the user call. */
+  .pc-hero {
+    position: relative;
+    isolation: isolate;
+    background: var(--forest-deep);
+    padding: calc(clamp(3.6rem, 7vw, 5.6rem) + 1.5cm) 0 calc(clamp(2.6rem, 5vw, 3.8rem) + 1.5cm);
+    overflow: hidden;
+  }
+  .pc-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 34%; }
+  /* Scrim, not blur, is what keeps white copy legible over a photograph. It is
+     anchored at 50% now that the copy is centred, and lighter than the left-aligned
+     version — the supplied hero art is already a dark shot, so it does not need
+     much help. Raise these values if the copy ever stops reading. */
+  .pc-hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(72% 88% at 50% 50%, rgba(15, 30, 21, 0.62), rgba(15, 30, 21, 0.38) 58%, rgba(15, 30, 21, 0.14) 100%),
+      linear-gradient(180deg, rgba(15, 30, 21, 0.44), rgba(15, 30, 21, 0.18) 36%, rgba(15, 30, 21, 0.62));
+  }
+  .pc-hero-inner { position: relative; z-index: 1; }
+
+  .pc-hero-copy { max-width: 64rem; margin-inline: auto; text-align: center; }
+  /* The hero H1 is the one bold heading on the page. Bold runs wider, so the
+     size and the column width were set together — see the note in CLAUDE.md. */
+  .pc-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 4.5vw, 3.85rem);
+    line-height: 1.08;
+    letter-spacing: -0.026em;
+    color: var(--ivory);
+    margin: 1.2rem 0 0;
+    text-wrap: balance;
+  }
+  .pc-hero-title em { font-style: italic; color: #E3C29A; }
+  /* The hero lede is a long sentence, so the measure is set to land it on two
+     full lines — at 60ch it broke to three with a lone word on the last. */
+  .pc-hero-lede {
+    margin-inline: auto;
+    font-size: clamp(1.02rem, 1.6vw, 1.16rem);
+    line-height: 1.7;
+    color: rgba(245, 240, 229, 0.82);
+    max-width: 74ch;
+    text-wrap: balance;
+    margin-top: 1.4rem;
+  }
+  .pc-hero-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.1rem 1.6rem; margin-top: 2.1rem; }
+
+  /* The proof rail: three production figures on glass, pinned to the foot of the
+     hero. It used to carry the film layers (PET / EVOH / PE / FOIL) — that is a
+     materials story and now lives only in §Films, which has a section of its own
+     for it, so the hero could show numbers instead. */
+  .pc-rail {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: clamp(2.6rem, 5.5vw, 4rem);
+    background: rgba(245, 240, 229, 0.16);
+    border: 1px solid rgba(245, 240, 229, 0.18);
+    border-radius: 1.1rem;
+    overflow: hidden;
+    backdrop-filter: blur(7px);
+  }
+  .pc-rail li {
+    background: rgba(20, 38, 27, 0.52);
+    padding: 1.15rem 1.3rem 1.25rem;
+  }
+  .pc-rail strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+    letter-spacing: 0.04em;
+    color: #E3C29A;
+  }
+  .pc-rail span { display: block; margin-top: 0.4rem; font-size: 0.84rem; line-height: 1.5; color: rgba(245, 240, 229, 0.74); }
+
+  /* ============ CERTIFICATIONS ============ */
+  /* Same tone as the section beneath, so the hero → content edge is one seam
+     rather than a three-tone sandwich. No rule: the border was the seam. */
+  .pc-certs { background: var(--color-clay); padding: clamp(1.6rem, 3.2vw, 2.4rem) 0 0; }
+  .pc-certs-logos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.4rem, 8vw, 7.2rem);
+  }
+  .pc-certs-logos li { display: grid; place-items: center; }
+  .pc-certs-logos img { height: clamp(26px, 3vw, 34px); width: auto; object-fit: contain; display: block; }
+  .pc-cert-big img { height: clamp(34px, 3.9vw, 46px); }
+  .pc-cert-xl img { height: clamp(36px, 4.2vw, 50px); }
+  .pc-cert-ce { color: var(--color-charcoal); }
+  .pc-cert-ce svg { display: block; height: clamp(26px, 3vw, 34px); width: calc(clamp(26px, 3vw, 34px) * 1.145); fill: currentColor; }
+
+  /* ============ THE RANGE ============ */
+  .pc-types { background: var(--color-clay); padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 9vw, 8rem); }
+  .pc-types-head { max-width: 62rem; margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem); }
+  .pc-types-head .section-title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+  .pc-types .section-sub { max-width: 74ch; }
+
+  .pc-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  .pc-type-card {
+    background: var(--ivory);
+    border-radius: 1.3rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 44px -34px rgba(31, 59, 44, 0.45);
+  }
+  /* All nine sources are product shots on a white field. Multiplied against the
+     ivory plate the white drops into it, so the grid reads warm instead of nine
+     white blocks sitting on the clay. Same trick as the paper-bag page. The
+     `isolation` keeps the blend on this plate and off the section behind it. */
+  .pc-type-ph { position: relative; isolation: isolate; margin: 0; aspect-ratio: 550 / 525; background: var(--ivory); }
+  .pc-type-ph img { mix-blend-mode: multiply; }
+  .pc-type-num {
+    position: absolute;
+    left: 0.85rem;
+    top: 0.85rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-brand-primary);
+    background: rgba(245, 240, 229, 0.9);
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+  }
+  .pc-type-body { padding: 1.2rem 1.3rem 1.35rem; display: flex; flex-direction: column; flex: 1; }
+  .pc-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem; line-height: 1.16; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .pc-type-d { margin-top: 0.6rem; font-size: 0.93rem; line-height: 1.62; color: var(--color-brand-muted); }
+
+  /* ============ ANATOMY (dark) ============ */
+  .pc-anat { position: relative; isolation: isolate; background: var(--color-forest); padding: clamp(4rem, 9vw, 8rem) 0; overflow: hidden; }
+  .pc-anat::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(44% 52% at 12% 6%, rgba(228, 181, 77, 0.15), transparent 68%);
+  }
+  .pc-anat .wrap { position: relative; z-index: 1; }
+  /* Both grids below use the SAME column template on purpose: the head's sub and
+     the legend's numerals share a left edge, so the opening character of the
+     paragraph lines up with 01–06. Changing one without the other breaks it. */
+  .pc-anat-head {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem);
+  }
+  .pc-anat-head .section-sub { margin-top: 0; max-width: 66ch; }
+  .pc-anat .section-title { color: var(--ivory); }
+  .pc-anat .section-title em { color: #E3C29A; }
+  .pc-anat .section-sub { color: rgba(245, 240, 229, 0.76); }
+
+  .pc-anat-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(1.6rem, 5vw, 4.4rem); align-items: center; }
+  .pc-anat-fig {
+    margin: 0;
+    background: rgba(245, 240, 229, 0.05);
+    border: 1px solid rgba(245, 240, 229, 0.15);
+    border-radius: 1.4rem;
+    padding: clamp(1.2rem, 3.4vw, 2.4rem);
+  }
+  .pc-anat-fig svg { width: 100%; height: auto; display: block; }
+  .pc-anat-line { stroke: rgba(245, 240, 229, 0.5); stroke-width: 2.2; }
+  .pc-anat-zip { stroke-dasharray: 9 6; }
+  .pc-anat-fold { stroke: rgba(227, 194, 154, 0.55); stroke-width: 2; stroke-dasharray: 6 7; }
+  .pc-anat-dot circle { fill: var(--brass-bright); }
+  .pc-anat-n text {
+    fill: var(--forest-deep);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    text-anchor: middle;
+    dominant-baseline: central;
+  }
+
+  .pc-anat-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+  .pc-anat-list li { display: grid; grid-template-columns: 2.9rem 1fr; gap: 1rem; padding: 1.15rem 0; border-top: 1px solid rgba(245, 240, 229, 0.14); }
+  .pc-anat-list li:last-child { border-bottom: 1px solid rgba(245, 240, 229, 0.14); }
+  .pc-anat-key {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: #E3C29A;
+    line-height: 1.1;
+  }
+  .pc-anat-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.22rem; letter-spacing: -0.01em; color: var(--ivory); }
+  .pc-anat-list p { margin-top: 0.4rem; font-size: 0.94rem; line-height: 1.62; color: rgba(245, 240, 229, 0.72); }
+
+  /* ============ BARRIER SELECTOR ============ */
+  .pc-fill { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-fill .section-sub { max-width: 78ch; }
+
+  .pc-fill-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: clamp(1.8rem, 3.6vw, 2.6rem); }
+  .pc-fill-tab {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-brand-muted);
+    background: transparent;
+    border: 1px solid rgba(31, 59, 44, 0.2);
+    border-radius: 999px;
+    padding: 0.62rem 1.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .pc-fill-tab:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+  .pc-fill-tab.is-on { background: var(--forest-light); border-color: var(--forest-light); color: var(--ivory); }
+
+  .pc-fill-stage { position: relative; }
+  .pc-fill-panel { display: none; }
+  /* Photo and the four spec tiles are stretched to one another, so the panel
+     ends on a single line instead of the picture overhanging the copy. The photo
+     is the one with the intrinsic size, so it sets the row. */
+  .pc-fill-panel.is-on {
+    display: grid;
+    /* 0.81/1.19 rather than 0.74/1.26 — about 1cm handed from the spec column to
+       the photo on the user's call. */
+    grid-template-columns: 0.81fr 1.19fr;
+    gap: clamp(1.6rem, 4vw, 3.2rem);
+    align-items: stretch;
+  }
+  .pc-fill-ph { margin: 0; min-height: 24rem; border-radius: 1.4rem; overflow: hidden; background: var(--color-clay); }
+  .pc-fill-spec { display: grid; grid-template-columns: 1fr; grid-auto-rows: 1fr; gap: 1px; margin: 0; background: rgba(31, 59, 44, 0.14); border-radius: 1.4rem; overflow: hidden; }
+  /* each tile fills an equal quarter of the stack, so the label and its value are
+     centred inside it rather than pinned to the top with slack underneath */
+  .pc-fill-spec > div { background: var(--color-clay); padding: 1.1rem 1.35rem; display: grid; align-content: center; }
+  .pc-fill-spec dt {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  /* Body face, NOT the serif: these are product notes, and setting them in the
+     heading font made this one panel read as a page from somewhere else. */
+  .pc-fill-spec dd {
+    margin: 0.5rem 0 0;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--color-brand-text);
+  }
+
+  /* ============ SHAPES ============ */
+  .pc-shapes { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-shapes .section-sub { max-width: 74ch; }
+  .pc-shape-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  .pc-shape-card {
+    background: var(--ivory);
+    border-radius: 1.3rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 44px -34px rgba(31, 59, 44, 0.4);
+  }
+  /* These three cards used to carry a drawn bar chart, one bar per film panel.
+     It read as a gradient block rather than a product, so each card now leads
+     with a photograph of the construction it describes. */
+  /* Same treatment as §Types — two of these three are also white-field shots, and
+     leaving them white beside a warmed grid read as an inconsistency. */
+  .pc-shape-ph { position: relative; isolation: isolate; margin: 0; aspect-ratio: 4 / 3; background: var(--ivory); }
+  .pc-shape-ph img { mix-blend-mode: multiply; }
+  .pc-shape-n {
+    position: absolute;
+    left: 0.9rem;
+    top: 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--color-brand-primary);
+    background: rgba(245, 240, 229, 0.92);
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+  }
+  .pc-shape-body { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .pc-shape-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.34rem; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .pc-shape-fig { margin-top: 0.3rem; font-size: 0.79rem; letter-spacing: 0.03em; color: var(--brass); }
+  .pc-shape-d { margin-top: 0.8rem; font-size: 0.94rem; line-height: 1.63; color: var(--color-brand-muted); }
+  /* The `Choose it when` value is the decision, so it carries the weight — the
+     label above it stays the brass field marker. */
+  .pc-shape-when { margin: auto 0 0; padding-top: 1.05rem; border-top: 1px solid rgba(31, 59, 44, 0.12); font-size: 0.93rem; line-height: 1.5; font-weight: 600; color: var(--color-brand-text); }
+  .pc-shape-when span { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.3rem; }
+
+  /* ============ SHAPED POUCHES — full-bleed centred CTA band ============ */
+  /* The client is supplying art for this band. To install it, add it as the LAST
+     layer of the background-image stack and keep the gradient in front — the
+     gradient IS the scrim that holds the copy legible:
+
+       background-image:
+         linear-gradient(180deg, rgba(20, 38, 27, 0.7), rgba(20, 38, 27, 0.86)),
+         url('https://img.leelinepackage.com/pouches/<key>.webp');
+       background-size: auto, cover;
+       background-position: center, center;
+
+     Until then the single radial below stands in, so the band does not read as
+     an unfinished block. */
+  .pc-band {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--color-forest);
+    /* The client's art. The gradient stays IN FRONT as the scrim — drop it and the
+       centred copy stops being legible over a bright mockup shot. */
+    background-image:
+      linear-gradient(180deg, rgba(20, 38, 27, 0.74), rgba(20, 38, 27, 0.9)),
+      url('https://img.leelinepackage.com/pouches/band-bg.webp');
+    background-size: auto, cover;
+    background-position: center, center;
+    padding: clamp(3.8rem, 8.5vw, 6.6rem) 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .pc-band-inner { display: flex; flex-direction: column; align-items: center; }
+  .pc-band-t {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2rem, 4.6vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    color: var(--ivory);
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .pc-band-inner p {
+    margin: 1.2rem 0 0;
+    font-size: 1.06rem;
+    line-height: 1.72;
+    color: rgba(245, 240, 229, 0.82);
+    max-width: 72ch;
+    text-wrap: balance;
+  }
+  .pc-band-actions { margin-top: clamp(1.9rem, 3.8vw, 2.6rem); }
+
+
+  /* ============ SIZES TABLE ============ */
+  .pc-sizes { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-sizes-head {
+    display: grid;
+    grid-template-columns: 1.12fr 1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.4rem, 5vw, 3.8rem);
+  }
+  .pc-sizes-head .section-sub { margin-top: 0; max-width: 60ch; }
+
+  .pc-table-wrap { border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 1.3rem; overflow: hidden; background: var(--color-brand-surface); }
+  .pc-table { width: 100%; border-collapse: collapse; }
+  .pc-table-cap {
+    caption-side: top;
+    text-align: left;
+    padding: 1rem 1.3rem 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .pc-table thead th {
+    text-align: left;
+    padding: 0.85rem 1.3rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 229, 0.82);
+    background: var(--color-forest);
+    border-bottom: 1px solid rgba(31, 59, 44, 0.2);
+  }
+  .pc-table tbody tr { background: var(--ivory); }
+  .pc-table tbody tr:nth-child(even) { background: var(--color-brand-surface); }
+  /* The two rows most first quotes land on are lifted out of the zebra striping
+     with a brass wash and a left rule, so the table has a focal point instead of
+     reading as six equally-weighted lines. */
+  .pc-table tbody tr.is-key { background: rgba(228, 181, 77, 0.16); }
+  .pc-table tbody tr.is-key:nth-child(even) { background: rgba(228, 181, 77, 0.2); }
+  .pc-table tbody tr.is-key th,
+  .pc-table tbody tr.is-key td { border-top-color: rgba(176, 141, 76, 0.4); }
+  .pc-table tbody tr.is-key th { box-shadow: inset 3px 0 0 var(--brass); }
+  .pc-table tbody tr.is-key .pc-table-dim { color: var(--color-brand-primary); }
+  .pc-table-key {
+    display: inline-block;
+    margin-left: 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest-deep);
+    background: var(--brass-bright);
+    border-radius: 999px;
+    padding: 0.2rem 0.5rem;
+    vertical-align: 0.06em;
+  }
+  .pc-table tbody th,
+  .pc-table tbody td {
+    text-align: left;
+    padding: 0.95rem 1.3rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-brand-muted);
+    border-top: 1px solid rgba(31, 59, 44, 0.1);
+  }
+  .pc-table tbody th {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.06rem;
+    color: var(--color-brand-text);
+    white-space: nowrap;
+  }
+  .pc-table-dim { font-family: var(--font-heading); font-size: 1.06rem; color: var(--color-brand-text); white-space: nowrap; }
+  .pc-table-fil { letter-spacing: 0.03em; color: var(--color-brand-text); }
+  .pc-size-note { margin-top: 1.1rem; font-size: 0.88rem; line-height: 1.62; color: var(--color-brand-muted); max-width: 82ch; }
+
+  /* ============ PROCESS ============ */
+  /* The five stages were a five-across rail, which squeezed every note into a
+     240px column. They now read as a schedule: the date, the stage name and the
+     note each hold a column, so the stage names line up down the page and the
+     notes get the full remaining width. The proof strip that used to close this
+     section moved up into the hero rail. */
+  .pc-time { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-time-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.2rem, 4.6vw, 3.4rem);
+  }
+  .pc-time-head .section-sub { margin-top: 0; max-width: 58ch; }
+
+  .pc-sched { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+  .pc-sched-row {
+    display: grid;
+    grid-template-columns: 8.5rem 11.5rem minmax(0, 1fr);
+    gap: 0 clamp(1rem, 2.4vw, 2rem);
+    align-items: baseline;
+    padding: clamp(1.1rem, 2.4vw, 1.5rem) 0;
+    border-top: 1px solid rgba(31, 59, 44, 0.16);
+  }
+  .pc-sched-when { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+  .pc-sched-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.22rem, 2.1vw, 1.5rem); letter-spacing: -0.014em; color: var(--color-brand-text); }
+  .pc-sched-d { font-size: 0.95rem; line-height: 1.66; color: var(--color-brand-muted); }
+
+  /* ============ FILMS (dark) ============ */
+  .pc-films { position: relative; isolation: isolate; background: var(--color-forest); padding: clamp(4rem, 9vw, 8rem) 0; overflow: hidden; }
+  .pc-films::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(46% 54% at 90% 4%, rgba(228, 181, 77, 0.16), transparent 68%);
+  }
+  .pc-films .wrap { position: relative; z-index: 1; }
+  .pc-films-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.6rem, 5.5vw, 4.4rem);
+  }
+  .pc-films-head .section-sub { margin-top: 0; max-width: 62ch; }
+  .pc-films .section-title { color: var(--ivory); }
+  .pc-films .section-title em { color: #E3C29A; }
+  .pc-films .section-sub { color: rgba(245, 240, 229, 0.76); }
+
+  /* Four films in a 2x2. The source page lists four materials; §Films carried
+     three for a while because the fourth on that page is Duplex Chipboard, which
+     is a paperboard rather than a pouch film — the honest fourth is EVOH, which
+     the source page names in its own FAQ. */
+  .pc-film-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 3.6vw, 2.8rem); }
+  /* Each cell is a small SQUARE plate beside its copy, not a full-width banner —
+     the 2x2 outside, a two-column row inside. */
+  .pc-film-cell { display: grid; grid-template-columns: 13rem minmax(0, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); align-items: center; }
+  .pc-film-body { display: flex; flex-direction: column; }
+  /* SQUARE, and small: the sources are 8:9 (400x450) so a 1:1 slot crops almost
+     nothing, and 13rem keeps the plate a swatch rather than a banner. */
+  .pc-film-ph { margin: 0; aspect-ratio: 1 / 1; border-radius: 1rem; overflow: hidden; background: rgba(245, 240, 229, 0.08); }
+  .pc-film-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.62rem); line-height: 1.14; letter-spacing: -0.016em; color: var(--ivory); }
+  .pc-film-d { margin-top: 0.65rem; font-size: 1rem; line-height: 1.68; color: rgba(245, 240, 229, 0.76); }
+  /* The example list is the payoff of the cell, so it is not left as another muted
+     line: brass rule, serif, full ivory. */
+  .pc-film-use {
+    margin-top: 1.05rem;
+    padding-left: 0.8rem;
+    border-left: 2px solid var(--brass);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ivory);
+  }
+  .pc-film-use span { display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #E3C29A; margin-bottom: 0.3rem; }
+
+  .pc-films .section-cta { margin-top: clamp(2.2rem, 4.4vw, 3rem); }
+
+  /* ============ PRINT METHODS ============ */
+  /* Layout: the press block is image-left / text-right, and the face and ink sit
+     side by side beneath it. Deliberately WITHOUT full-width rules — §Process is
+     already the page's hairline ledger, so the axes are separated by space plus a
+     short brass underline on the label only.
+     The three press plates are PLACEHOLDERS until the client supplies photographs;
+     a stock pouch shot cannot honestly be captioned with a press name anyway. */
+  /* Clay, so §Print Method (clay) and §Finish (ivory, below) alternate against
+     each other and against §Films' forest. */
+  .pc-print { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-print .section-sub { max-width: 76ch; }
+
+  /* Press = image left / text right; face and ink sit side by side underneath. */
+  .pc-print-stack { display: grid; gap: clamp(2rem, 4.4vw, 3.2rem); }
+
+  /* Image left, press list right, and the two are the SAME height: the plate has
+     no intrinsic ratio and stretches to the list, so neither side ends early. */
+  .pc-press-block { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: clamp(1.6rem, 4vw, 3.2rem); align-items: stretch; }
+  .pc-press-left { display: flex; align-items: center; }
+  /* 4:3, not stretched: `flex: 1` made this square once the press copy was
+     enlarged, which is taller than the plate ever was. */
+  .pc-press-ph { width: 100%; aspect-ratio: 4 / 3; min-height: 17rem; margin: 0; border-radius: 1.2rem; overflow: hidden; background: rgba(245, 240, 229, 0.55); }
+
+  /* The face and the ink are matched the same way — the ink panel takes the slack
+     so both columns finish on one line instead of stepping. */
+  .pc-lower { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3.2rem); align-items: stretch; }
+  .pc-lower > .pc-axis { display: flex; flex-direction: column; }
+
+
+  .pc-axis-t {
+    position: relative;
+    padding-bottom: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .pc-axis-t::after { content: ''; position: absolute; left: 0; bottom: 0; width: 1.8rem; height: 2px; background: var(--brass); }
+
+  .pc-press { display: grid; gap: 1.05rem; margin: 1.2rem 0 0; padding: 0; list-style: none; }
+  .pc-press li { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0 0.5rem; align-items: baseline; }
+  .pc-axis-n { grid-row: span 2; font-family: var(--font-heading); font-style: italic; font-size: 1.3rem; line-height: 1.15; color: var(--brass); }
+  .pc-press h4 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.24rem, 2.1vw, 1.6rem); letter-spacing: -0.014em; color: var(--color-brand-text); }
+  .pc-press p { grid-column: 2; margin-top: 0.35rem; font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* Every bar is labelled IN PLACE. The first version put the names in a legend
+     that grouped three layers as "film, adhesive and seal layer", so no bar said
+     what it was and the diagram read as decoration. There is no legend now —
+     the labels replaced it. */
+  .pc-face-note { margin-top: 0.85rem; font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .pc-face { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 3vw, 2.4rem); margin-top: 1.2rem; }
+  .pc-face-item { margin: 0; }
+  .pc-stack { display: block; width: 100%; height: auto; }
+  .pc-lyr { fill: rgba(31, 59, 44, 0.16); }
+  .pc-lyr--ink { fill: var(--brass-bright); }
+  .pc-lyr-t {
+    fill: var(--color-brand-text);
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-anchor: middle;
+    dominant-baseline: central;
+  }
+  .pc-lyr-t--ink { fill: var(--forest-deep); }
+  .pc-face-item h4 { font-family: var(--font-heading); font-weight: 600; font-size: 1.08rem; letter-spacing: -0.01em; color: var(--color-brand-text); margin-top: 0.8rem; }
+  .pc-face-item p { margin-top: 0.35rem; font-size: 0.9rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .pc-face-item em { font-style: italic; color: var(--color-brand-primary); }
+
+  .pc-ink {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.2rem;
+    padding: 1rem 1.15rem 1.15rem;
+    border-left: 3px solid var(--brass);
+    border-radius: 0 0.7rem 0.7rem 0;
+    background: rgba(245, 240, 229, 0.78);
+  }
+  /* flex: 1 here is what keeps the two lower columns level — the frame grows into
+     the slack instead of the ink panel running short. */
+  .pc-ink-ph {
+    flex: 1;
+    min-height: 8rem;
+    margin: 0 0 1.05rem;
+    border-radius: 0.65rem;
+    overflow: hidden;
+    background: rgba(237, 229, 212, 0.6);
+  }
+  .pc-ink h4 { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .pc-ink p { margin-top: 0.45rem; font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); }
+
+  /* ============ FINISH ============ */
+  /* Four plates rather than four cards: the label sits ON the photograph over a
+     scrim and the note hangs below on the section ground, so this does not read
+     as another §Types-style card grid. */
+  .pc-fins { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-fins-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.4rem, 5vw, 3.8rem);
+  }
+  .pc-fins-head .section-sub { margin-top: 0; max-width: 62ch; }
+
+  .pc-fins-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 2.4vw, 1.6rem); }
+  .pc-fin { display: flex; flex-direction: column; }
+  /* Placeholder slot. Fixed 4/5 with a brass hairline so it reads as a reserved
+     swatch rather than a broken image; an <img> drops straight in here. */
+  /* 8/9 rather than 4/5 — roughly 1cm shorter down a 290px column at 1440, and
+     proportional as the grid narrows (a fixed 1cm would only be right at one
+     width). */
+  .pc-fin-ph {
+    margin: 0;
+    aspect-ratio: 8 / 9;
+    border-radius: 1.2rem;
+    background: rgba(237, 229, 212, 0.6);
+    box-shadow: inset 0 0 0 1px rgba(176, 141, 76, 0.45);
+  }
+  .pc-fin-t { margin-top: 1.05rem; font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .pc-fin-d { margin-top: 0.5rem; font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* ============ WHY ============ */
+  .pc-why { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-why-head {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    align-items: end;
+    gap: clamp(1.4rem, 4vw, 3.4rem);
+    margin-bottom: clamp(2.4rem, 5vw, 3.8rem);
+  }
+  .pc-why-head .section-sub { margin-top: 0; max-width: 62ch; }
+
+  .pc-why-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 clamp(1.6rem, 4vw, 3.4rem); margin: 0; padding: 0; list-style: none; }
+  .pc-why-list li { display: grid; grid-template-columns: 3.6rem minmax(0, 1fr); gap: 0.5rem 0.9rem; align-items: start; padding: 1.5rem 0; border-top: 1px solid rgba(31, 59, 44, 0.16); }
+  .pc-why-list li:nth-child(3), .pc-why-list li:nth-child(4) { border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+  .pc-why-n { grid-row: span 2; font-family: var(--font-heading); font-style: italic; font-size: 1.6rem; line-height: 1; color: var(--brass); }
+  .pc-why-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .pc-why-list p { margin-top: 0.5rem; font-size: 0.93rem; line-height: 1.64; color: var(--color-brand-muted); }
+  /* The advice is the reason the section exists, so it is not left inside the
+     paragraph — a brass-ruled tinted panel carries it in the serif, where it
+     reads as a call rather than as more description. */
+  .pc-why-rec {
+    grid-column: 2;
+    margin-top: 0.9rem;
+    padding: 0.7rem 0.95rem;
+    border-left: 3px solid var(--brass);
+    border-radius: 0 0.6rem 0.6rem 0;
+    background: rgba(228, 181, 77, 0.2);
+    font-family: var(--font-heading);
+    font-size: clamp(1.08rem, 1.7vw, 1.24rem);
+    font-weight: 600;
+    line-height: 1.42;
+    color: var(--color-brand-primary);
+  }
+  .pc-why-rec span {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-family: var(--font-body);
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  /* ============ REVIEWS ============ */
+  .pc-rev { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; content-visibility: auto; contain-intrinsic-size: auto 700px; }
+  .pc-rev .section-sub { max-width: 66ch; }
+
+  .pc-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.1rem, 2.6vw, 2rem); }
+  .pc-quote {
+    margin: 0;
+    background: var(--color-brand-surface);
+    border-left: 3px solid var(--brass);
+    border-radius: 0 1.3rem 1.3rem 0;
+    padding: 1.7rem 1.7rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .pc-stars { display: inline-flex; gap: 3px; }
+  .pc-stars svg { width: 17px; height: 17px; fill: var(--brass); }
+  .pc-quote blockquote { margin: 1rem 0 0; }
+  .pc-quote-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 0.5rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
+  .pc-quote-facts li {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-brand-primary);
+    border: 1px solid rgba(31, 59, 44, 0.22);
+    border-radius: 999px;
+    padding: 0.28rem 0.65rem;
+  }
+  .pc-quote blockquote + blockquote { margin-top: 0.7rem; }
+  .pc-quote blockquote p { font-family: var(--font-heading); font-style: italic; font-size: 1.1rem; line-height: 1.68; color: var(--color-brand-text); }
+  .pc-quote figcaption { display: flex; align-items: center; gap: 0.85rem; margin: auto 0 0; padding-top: 1.5rem; }
+  .pc-quote figcaption img { width: 76px; height: 76px; border-radius: 999px; object-fit: cover; flex: 0 0 auto; }
+  .pc-quote figcaption strong { display: block; font-size: 1.02rem; font-weight: 600; color: var(--color-brand-text); }
+  .pc-quote figcaption em { display: block; margin-top: 0.15rem; font-style: normal; font-size: 0.86rem; line-height: 1.45; color: var(--color-brand-muted); }
+
+  /* ============ FAQ ============ */
+  .pc-faq { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .pc-faq .section-sub { max-width: 60ch; }
+  /* A vertical list, not a card grid: full-width rows divided by hairlines, so
+     the questions read as one enumerable set. */
+  .pc-faq-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid rgba(31, 59, 44, 0.2); }
+  .pc-faq-item { background: transparent; border-radius: 0; border-bottom: 1px solid rgba(31, 59, 44, 0.2); }
+  .pc-faq-item summary {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: clamp(1.1rem, 2.2vw, 1.5rem) 0;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.02rem, 1.7vw, 1.18rem);
+    letter-spacing: -0.008em;
+    line-height: 1.38;
+    color: var(--color-brand-text);
+  }
+  .pc-faq-item summary::-webkit-details-marker { display: none; }
+  .pc-faq-n { font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: var(--brass); flex: 0 0 auto; }
+  .pc-faq-a { padding: 0 0 clamp(1.2rem, 2.4vw, 1.6rem) 2.4rem; max-width: 96ch; }
+  .pc-faq-a p { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); }
+  .pc-faq-item[open] summary { color: var(--color-brand-primary); }
+
+  /* ============ FINAL CTA ============ */
+  .pc-final {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.62), rgba(20, 38, 27, 0.8)),
+                url('https://img.leelinepackage.com/pouches/final-cta-v2.webp') center / cover no-repeat;
+    padding: max(3rem, calc(clamp(4rem, 9vw, 7.5rem) - 1cm)) 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .pc-final-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+  .pc-final-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5.4vw, 4.2rem);
+    line-height: 1.06;
+    letter-spacing: -0.022em;
+    color: var(--ivory);
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .pc-final-title em { font-style: italic; color: #E3C29A; }
+  .pc-final-sub { margin-top: 1.3rem; font-size: 1.06rem; line-height: 1.7; color: rgba(245, 240, 229, 0.84); max-width: 78ch; text-wrap: balance; }
+  .pc-final-actions { margin-top: clamp(2rem, 4vw, 2.8rem); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1024px) {
+    .pc-rail { grid-template-columns: repeat(2, 1fr); }
+    .pc-type-grid,
+    .pc-shape-grid { grid-template-columns: repeat(2, 1fr); }
+    .pc-anat-head,
+    .pc-films-head,
+    .pc-sizes-head,
+    .pc-why-head,
+    .pc-time-head,
+    .pc-anat-grid { grid-template-columns: 1fr; }
+    .pc-anat-fig { max-width: 30rem; margin-inline: auto; }
+    .pc-fill-panel.is-on { grid-template-columns: 1fr; }
+    .pc-fill-ph { aspect-ratio: 16 / 10; min-height: 0; }
+    /* the schedule drops the note onto its own line but keeps the date gutter */
+    .pc-sched-row { grid-template-columns: 7.5rem minmax(0, 1fr); }
+    .pc-sched-d { grid-column: 2; margin-top: 0.45rem; }
+    .pc-finish { grid-template-columns: repeat(2, 1fr); }
+    .pc-why-list { grid-template-columns: 1fr; }
+    .pc-why-list li:nth-child(3) { border-bottom: 0; }
+    .pc-why-list li:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+    .pc-press-block,
+    .pc-lower { grid-template-columns: 1fr; }
+    .pc-press-ph { min-height: 14rem; }
+    .pc-fins-grid { grid-template-columns: repeat(2, 1fr); }
+    .pc-fins-head { grid-template-columns: 1fr; align-items: start; }
+    .pc-face { grid-template-columns: 1fr; }
+    .pc-rev-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    .pc-hero { padding-top: clamp(2.6rem, 9vw, 3.4rem); }
+    .pc-rail { grid-template-columns: 1fr; }
+    .pc-type-grid,
+    .pc-shape-grid { grid-template-columns: 1fr; }
+    .pc-fill-spec { grid-template-columns: 1fr; }
+    .pc-sched-row { grid-template-columns: 1fr; gap: 0; }
+    .pc-sched-d { grid-column: auto; margin-top: 0.4rem; }
+    .pc-finish { grid-template-columns: 1fr; }
+    /* the sizes table cannot reflow to one column without losing its alignment,
+       so it scrolls horizontally inside its own frame instead */
+    .pc-table-wrap { overflow-x: auto; }
+    .pc-table { min-width: 40rem; }
+    .pc-fins-grid { grid-template-columns: 1fr; }
+    .pc-film-grid2 { grid-template-columns: 1fr; }
+    .pc-film-cell { grid-template-columns: 11rem minmax(0, 1fr); }
+    .pc-finish { grid-template-columns: 1fr; }
+    .pc-rev { content-visibility: visible; contain-intrinsic-size: none; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // The film-choice tabs swap one panel at a time. Every panel ships in the HTML
+  // and only the first carries `is-on`, so the section still shows a complete
+  // recommendation with JS unavailable; the tabs simply do nothing.
+  const tabs = Array.from(document.querySelectorAll('.pc-fill-tab'));
+  const panels = Array.from(document.querySelectorAll('.pc-fill-panel'));
+  function pickFilm(key) {
+    tabs.forEach((t) => {
+      const on = t.dataset.tab === key;
+      t.classList.toggle('is-on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach((p) => p.classList.toggle('is-on', p.dataset.panel === key));
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pickFilm(t.dataset.tab));
+    t.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      next.focus();
+      pickFilm(next.dataset.tab);
+    });
+  });
+
+  // Only one panel stays open at a time on the two-column FAQ, so the grid stops
+  // reflowing a whole row of neighbours when a long answer is expanded.
+  const faqItems = document.querySelectorAll('.pc-faq-item');
+  faqItems.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+</script>

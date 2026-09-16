@@ -906,12 +906,14 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
   }
 
   /* ============ HERO ============ */
-  /* +3cm of vertical in two steps (1.5cm off each end) on the user call. */
+  /* +3cm of vertical in two steps (1.5cm off each end) on the user call.
+     The copy then moved 1cm down (2026-09-16) — 1cm was taken off the foot and
+     given to the head, so the section is exactly as tall as it was before. */
   .pc-hero {
     position: relative;
     isolation: isolate;
     background: var(--forest-deep);
-    padding: calc(clamp(3.6rem, 7vw, 5.6rem) + 1.5cm) 0 calc(clamp(2.6rem, 5vw, 3.8rem) + 1.5cm);
+    padding: calc(clamp(3.6rem, 7vw, 5.6rem) + 2.5cm) 0 calc(clamp(2.6rem, 5vw, 3.8rem) + 0.5cm);
     overflow: hidden;
   }
   .pc-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 34%; }
@@ -928,13 +930,15 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
   }
   .pc-hero-inner { position: relative; z-index: 1; }
 
-  .pc-hero-copy { max-width: 64rem; margin-inline: auto; text-align: center; }
   /* The hero H1 is the one bold heading on the page. Bold runs wider, so the
-     size and the column width were set together — see the note in CLAUDE.md. */
+     size and the column width were set together — see the note in CLAUDE.md.
+     Enlarged 1 step on the user call (2026-09-16); the column was widened with
+     it so the headline still holds two lines at 1440. */
+  .pc-hero-copy { max-width: 68rem; margin-inline: auto; text-align: center; }
   .pc-hero-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: clamp(2.4rem, 4.5vw, 3.85rem);
+    font-size: clamp(2.5rem, 4.8vw, 4.2rem);
     line-height: 1.08;
     letter-spacing: -0.026em;
     color: var(--ivory);
@@ -948,7 +952,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
     margin-inline: auto;
     font-size: clamp(1.02rem, 1.6vw, 1.16rem);
     line-height: 1.7;
-    color: rgba(245, 240, 229, 0.82);
+    color: #ffffff;
     max-width: 74ch;
     text-wrap: balance;
     margin-top: 1.4rem;
@@ -1428,9 +1432,13 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
      enlarged, which is taller than the plate ever was. */
   .pc-press-ph { width: 100%; aspect-ratio: 4 / 3; min-height: 17rem; margin: 0; border-radius: 1.2rem; overflow: hidden; background: rgba(245, 240, 229, 0.55); }
 
-  /* The face and the ink are matched the same way — the ink panel takes the slack
-     so both columns finish on one line instead of stepping. */
-  .pc-lower { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3.2rem); align-items: stretch; }
+  /* The face and the ink blocks are sized by their own content and land on one
+     line. They used to be stretched to a shared row height with `flex: 1` on the
+     ink panel, which pushed all the slack into the ink photograph — it grew to
+     301px beside 140px cross-sections and the tinted panel hung ~147px below the
+     face captions. The photograph's ratio is now the thing that keeps the two
+     blocks level (user call, 2026-09-16). */
+  .pc-lower { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 4vw, 3.2rem); align-items: start; }
   .pc-lower > .pc-axis { display: flex; flex-direction: column; }
 
 
@@ -1478,7 +1486,6 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
   .pc-face-item em { font-style: italic; color: var(--color-brand-primary); }
 
   .pc-ink {
-    flex: 1;
     display: flex;
     flex-direction: column;
     margin-top: 1.2rem;
@@ -1487,11 +1494,10 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
     border-radius: 0 0.7rem 0.7rem 0;
     background: rgba(245, 240, 229, 0.78);
   }
-  /* flex: 1 here is what keeps the two lower columns level — the frame grows into
-     the slack instead of the ink panel running short. */
+  /* A wide band, not a portrait frame: the ratio is what makes the ink panel
+     end level with the cross-sections beside it. See `.pc-lower`. */
   .pc-ink-ph {
-    flex: 1;
-    min-height: 8rem;
+    aspect-ratio: 7 / 2;
     margin: 0 0 1.05rem;
     border-radius: 0.65rem;
     overflow: hidden;

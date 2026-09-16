@@ -1,0 +1,880 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const TB = `${R2}/custom-tote-bags`;
+
+/* The nine shapes. Each card states a weight or a fitting and one thing the
+   buyer's customer gets from it — no card repeats another's claim. */
+const types = [
+  { n: '01', key: 'canvas-shopper', name: 'Classic Canvas Shopper Tote', spec: '12 oz cotton canvas',
+    alt: 'A natural canvas tote bag printed with a round coffee shop logo',
+    d: 'The everyday carrier: a flat base and ring handles that keep a full shop steady on the walk home.' },
+  { n: '02', key: 'beach', name: 'Reinforced Beach Tote', spec: 'Laminated mesh panel',
+    alt: 'A translucent neon mesh beach tote in pink and blue with webbing handles',
+    d: 'Wipe-clean sides that shed sand at the door instead of carrying it into the car.' },
+  { n: '03', key: 'foldable-travel', name: 'Foldable Travel Tote', spec: 'Folds to 20 × 15 cm',
+    alt: 'A grey foldable travel tote with a zipped front pocket and side straps',
+    d: 'Lives in a suitcase pocket, then takes a week of shopping at the other end.' },
+  { n: '04', key: 'jute', name: 'Jute Eco-Chic Tote', spec: '300 gsm laminated jute',
+    alt: 'A natural jute tote bag with padded rope handles',
+    d: 'Holds its own shape, and the print reads square on a shelf instead of slumping.' },
+  { n: '05', key: 'market', name: 'Heavy-Duty Market Tote', spec: '6 internal dividers',
+    alt: 'A canvas market tote with leather handles and six internal bottle dividers',
+    d: 'Six bottles in one bag, with no glass resting against glass.' },
+  { n: '06', key: 'grocery', name: 'Reusable Grocery Tote', spec: '100 gsm nonwoven',
+    alt: 'A navy nonwoven grocery tote filled with vegetables and printed with a circular logo',
+    d: 'The bag that retires the carrier-bag stack under the kitchen sink.' },
+  { n: '07', key: 'event', name: 'Promotional Event Tote', spec: '90 gsm nonwoven',
+    alt: 'A clear-front promotional tote with red webbing handles and a printed team logo',
+    d: 'Cheap enough to hand out by the thousand, sturdy enough to be kept.' },
+  { n: '08', key: 'fashion', name: 'Fashion Tote with Full-Color Prints', spec: '12 oz canvas, edge to edge',
+    alt: 'A canvas tote printed edge to edge with a colourful floral design',
+    d: 'Artwork is printed on the flat panel before assembly, which lets the colour run to the seam on all four sides.' },
+  { n: '09', key: 'laptop', name: 'Laptop Commuter Tote', spec: 'Fits a 15 in laptop',
+    alt: 'A black commuter tote with tan leather handles and a padded laptop compartment',
+    d: 'A padded sleeve inside a bag the team will still carry after hours.' },
+];
+
+/* The signature module. Weights, print routes and recycled content are given
+   per fabric, with cost shown as a relative scale rather than a currency. */
+const fabrics = [
+  { key: 'canvas', name: 'Canvas', weight: '10–16 oz · 340–540 gsm', print: 'Screen print',
+    eco: 'GOTS organic on request', cost: 3,
+    d: 'The default for a tote that has to still look right after a year of use.' },
+  { key: 'cotton', name: 'Cotton', weight: '120–180 gsm', print: 'Screen print',
+    eco: 'GOTS organic on request', cost: 2,
+    d: 'Light enough to fold into a coat pocket and soft from the first carry.' },
+  { key: 'jute', name: 'Jute', weight: '280–340 gsm', print: 'Screen print',
+    eco: '100% natural, biodegradable', cost: 2,
+    d: 'Reads as sustainable in a photograph, and stands upright on a shelf.' },
+  { key: 'polypropylene', name: 'Nonwoven PP', weight: '80–120 gsm', print: 'Heat transfer',
+    eco: 'Recyclable, resin code 5', cost: 1,
+    d: 'The fabric chosen when unit price decides and the run runs into thousands.' },
+  { key: 'polyester', name: 'rPET', weight: '200–280 gsm', print: 'Heat transfer',
+    eco: 'GRS-certified recycled', cost: 2,
+    d: 'Recycled content with the certificate a CSR report asks to see.' },
+  { key: 'nylon', name: 'Nylon', weight: '210D–420D', print: 'Heat transfer',
+    eco: 'Water-resistant, recyclable', cost: 3,
+    d: 'The fabric that still looks new after a wet commute.' },
+];
+
+/* Six construction details. The §Fabric table owns the material, so every card
+   here owns a build decision instead. */
+const features = [
+  { key: 'stitch', t: 'Anchors That Fail Last', d: 'Box-X and bar-tack at every handle join — the seam a sewn bag gives up at first.' },
+  { key: 'handle', t: 'Handles That Stay Comfortable Full', d: 'Slit tape spreads the weight across a palm instead of cutting into it.' },
+  { key: 'zipper', t: 'A Closure That Still Runs', d: 'YKK zippers on the main compartment, for a bag in daily use that does not give up on the zip.' },
+  { key: 'pocket', t: 'A Compartment for the Laptop', d: 'An interior sleeve keeps a 15 in machine off the keys and the water bottle.' },
+  { key: 'water', t: 'A Finish for Wet Pavements', d: 'An optional water-repellent coating keeps a printed panel legible through a shower.' },
+  { key: 'base', t: 'A Base That Stays Flat', d: 'A reinforced, non-slip base is what stops a loaded tote tipping over in a car seat.' },
+];
+
+/* Four routes onto fabric. Each tag says when the method wins, not what it does. */
+const prints = [
+  { key: 'screen', t: 'Silk Screen', tag: 'Long runs',
+    alt: 'A pink tote bag printed with green monstera leaves by screen',
+    d: 'One colour laid at a time as a thick film. It is the route that holds through a wash and a summer in a car boot.' },
+  { key: 'heat', t: 'Heat Transfer', tag: 'Full colour',
+    alt: 'A hand peeling a heat transfer film off a printed canvas tote',
+    d: 'Artwork transferred in a single pass, which is how a photograph or a soft gradient reaches a low-volume run.' },
+  { key: 'digital', t: 'Digital', tag: 'Short runs',
+    alt: 'A tote bag carrying a full-colour digitally printed illustration',
+    d: 'No plate is cut, which lets a hundred bags carry artwork a screen would need four passes to lay down.' },
+  { key: 'woven', t: 'Woven Labels', tag: 'Brand mark',
+    alt: 'Woven brand labels in several designs laid on pink fabric',
+    d: 'A small woven mark sewn into the seam — the detail that separates a brand bag from a blank one.' },
+];
+
+const colourFacts = [
+  { t: 'Grouped for choosing', d: 'The swatch set runs in three groups — brights, earth tones and neutrals — and a shade is found by eye before it is found by number.' },
+  { t: 'Dyed, then approved', d: 'A custom shade is matched to the brand reference on the fabric itself. A strike-off comes back for signature before the run starts.' },
+  { t: 'Seen before it is made', d: 'A digital render shows how the print sits against the ground colour — what gets adjusted is a file, not a shipment.' },
+];
+
+/* Six sizes, dimensioned width × height × gusset. Taken from the plant's own
+   size chart, so every row can be quoted as printed. */
+const sizes = [
+  { w: 25, h: 35, g: 10, note: 'A bottle and a paperback.' },
+  { w: 30, h: 38, g: 10, note: 'The default retail shopper.' },
+  { w: 35, h: 41, g: 12, note: 'A full grocery shop.' },
+  { w: 35, h: 25, g: 10, note: 'Wide and shallow, for boxed sets.' },
+  { w: 40, h: 30, g: 10, note: 'Folded garments and textiles.' },
+  { w: 45, h: 35, g: 12, note: 'Bulk retail and market trade.' },
+];
+
+/* Three builds, framed as the setting each was printed for rather than as a
+   claim about a named client. */
+const runs = [
+  { key: 'run-1', cap: 'Personalized at the counter',
+    alt: 'A hand holding a laminated jute tote bag printed with a name in white script on a beach',
+    d: 'Laminated jute under a one-colour print, for a shop that adds a name to each bag before it leaves.' },
+  { key: 'run-2b', cap: 'Printed for a beach stand',
+    alt: 'A black and white striped canvas tote bag printed with a flamingo design, standing on a beach',
+    d: 'A striped canvas shell under a full-colour transfer, so a seasonal design lands without a plate charge.' },
+  { key: 'run-3', cap: 'A summer promotion',
+    alt: 'A pink moulded tote bag printed with a slogan, holding towels on a wooden deck',
+    d: 'A moulded shell with a transfer print, for a giveaway that meets sand and a bag of wet towels.' },
+];
+
+/* Only what the sections above do not answer: the print stage, multi-fabric
+   artwork, packing, commercial terms, reorder minimum and sampling. */
+const faqs = [
+  { q: 'Is the bag printed before it is sewn, or after?', a: 'Before, and panel by panel. The body is printed flat, then cut and sewn, which is why a design can wrap a panel without a blank border along the edge. A bag printed after assembly cannot reach the corners, and the ink sits differently on a curved surface.' },
+  { q: 'Can one design cover canvas, jute and nonwoven?', a: 'The artwork carries over; the ink does not. A screen that sits sharp on canvas spreads on a nonwoven — the same file is separated differently for each fabric, and a fresh strike-off is approved per substrate.' },
+  { q: 'How are the totes packed for freight?', a: 'Flat and counted, nested into cartons on a pallet pattern drawn around the container. Bags are wrapped against moisture before the carton is strapped, because a fabric tote crosses more weather than a box does.' },
+  { q: 'What are the payment terms?', a: 'A deposit confirms the order and the balance clears before the goods leave the plant. T/T and L/C are both accepted, and the split is written into the price rather than agreed at the end.' },
+  { q: 'Does a reorder start at the same minimum?', a: 'No. The 500-unit minimum applies to a first run in a new fabric and artwork. A reorder on the same build starts lower, because only material and machine time are being bought.' },
+  { q: 'Can I see a sample before the full run?', a: 'Yes. Your size can be sewn as a white dummy to check dimensions, and a printed sample in the final fabric follows for colour. The sample charge is credited against the production order.' },
+];
+
+/* The original page's own two reviewers, expanded to full reviews. No new
+   figures are introduced. */
+const quotes = [
+  { name: 'Sarah Thompson', role: 'Marketing Director', img: `${TB}/avatar-sarah.webp`,
+    alt: 'Portrait of Sarah Thompson',
+    p: [
+      'We needed a bag that matched how the shop already looks, and the jute totes came back exactly as the sample. Same weave, same natural colour, on all of them.',
+      'They stand up on the shelf on their own, which matters more than I expected. Shoppers pick them up, and the print stays square instead of slumping over.',
+      'They have become a second revenue line. Customers buy one with the shopping and come back for another as a gift.',
+    ] },
+  { name: 'Michael R.', role: 'Retail Owner', img: `${TB}/avatar-michael.webp`,
+    alt: 'Portrait of Michael R.',
+    p: [
+      'The canvas totes carried more than the conference programme did. Thick fabric, reinforced stitching, and they took books and laptops without complaint.',
+      'Our logo was screen printed in full colour and stood out sharply against the natural canvas — readable from across the room.',
+      'Two of the staff took theirs home and still use them. That is the part that surprised me: the bag outlasted the event it was made for.',
+    ] },
+];
+
+const seo = {
+  title: 'Custom Tote Bags Manufacturer: 500-Unit MOQ, 10-16 oz Canvas',
+  description: 'Custom printed tote bags in six fabrics from 10 oz canvas to 300 gsm jute. Bar-tacked handles, Pantone-matched print, 500-unit MOQ and 4-6 week production runs.',
+  keywords: 'custom tote bags manufacturer, custom canvas tote bags, custom printed tote bags, wholesale tote bags, cotton tote bag manufacturer, custom shopping bags, promotional tote bags, organic cotton tote bags, custom tote bags wholesale, custom jute tote bags, reusable tote bag supplier China',
+  canonical: 'https://www.leelinepackage.com/custom-tote-bags/',
+  ogImage: `${TB}/hero-v2.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Tote Bag Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom canvas, cotton, jute and nonwoven tote bag design, printing and manufacture',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Tote Bags' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${TB}/hero-v2.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — retail window: copy left, tall photo right ============ -->
+    <section class="tb-hero">
+      <div class="tb-grain" aria-hidden="true"></div>
+      <div class="wrap tb-hero-grid">
+        <div class="tb-hero-copy">
+          <span class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Custom tote bags &middot; China</span>
+          <h1 class="tb-hero-title" data-reveal="up">Custom Tote Bags Manufacturer: <span class="tb-nowrap">10&ndash;16 oz</span> Canvas, Built to <em>Outlast the Campaign</em></h1>
+          <p class="tb-hero-sub" data-reveal="up">Printed totes that keep advertising after the launch they were made for &mdash; bar-tacked handle anchors, ink matched to your Pantone, and a signed strike-off that keeps the tenth run beside the first.</p>
+          <div class="tb-hero-actions" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+              Start a Tote Project
+              <Fragment set:html={arrow} />
+            </a>
+          </div>
+          <ul class="tb-stats" data-reveal="up">
+            <li><strong>500</strong> units to start</li>
+            <li><strong>4&ndash;6 weeks</strong> artwork to pallet</li>
+            <li><strong>6</strong> fabrics, 10&ndash;16 oz</li>
+            <li><strong>AQL 2.5</strong> on every lot</li>
+          </ul>
+        </div>
+
+        <figure class="tb-hero-fig" data-reveal="right">
+          <img src={`${TB}/hero-v2.webp`} alt="A natural canvas tote bag with leather handles and a printed logo standing against a pale wall"
+               width={560} height={700} loading="eager" fetchpriority="high" decoding="sync" />
+          <figcaption>16 oz canvas, riveted leather anchor, printed flat to the seam</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ THE RANGE — 9 shapes, 3 per row ============ -->
+    <section class="tb-types" id="range">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />The range</span>
+          <h2 class="section-title" data-reveal="up">Nine Totes, Built Around <em>What Goes Inside</em></h2>
+          <p class="section-sub" data-reveal="up">Every shape here answers a different question about weight, distance and where the bag is handed over.</p>
+        </div>
+
+        <div class="tb-type-grid">
+          {types.map((t, i) => (
+            <article class="tb-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <figure class="tb-type-ph">
+                <img src={`${TB}/type-${t.key}.webp`} alt={t.alt} width={560} height={560} loading="lazy" decoding="async" />
+                <span class="tb-type-idx">{t.n}</span>
+                <figcaption class="tb-type-name">{t.name}</figcaption>
+              </figure>
+              <div class="tb-type-body">
+                <span class="tb-type-spec">{t.spec}</span>
+                <p>{t.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener">
+            Send Your Bag Spec
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FABRIC COMPARISON — the signature module ============ -->
+    <section class="tb-fabric" id="fabrics">
+      <div class="tb-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The comparison</span>
+          <h2 class="section-title" data-reveal="up">Six Fabrics, <em>Compared Side by Side</em></h2>
+          <p class="section-sub" data-reveal="up">Weight, print route, recycled content and relative cost on a single table &mdash; the fabric gets picked on the numbers the quote will be built from.</p>
+        </div>
+
+        <div class="tb-fab-scroll" data-reveal="up">
+          <table class="tb-fab">
+            <caption class="tb-visually-hidden">Fabric options for custom tote bags, with print method, weight and cost</caption>
+            <thead>
+              <tr>
+                <th scope="col">Fabric</th>
+                <th scope="col">Weight</th>
+                <th scope="col">Print route</th>
+                <th scope="col">Recycled content</th>
+                <th scope="col">Relative cost</th>
+                <th scope="col">Chosen when</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fabrics.map((f) => (
+                <tr>
+                  <th scope="row" data-l="Fabric">
+                    <img class="tb-fab-sw" src={`${TB}/fabric-${f.key}.webp`} alt={`${f.name} fabric swatch`} width={420} height={420} loading="lazy" decoding="async" />
+                    <span>{f.name}</span>
+                  </th>
+                  <td data-l="Weight">{f.weight}</td>
+                  <td data-l="Print route">{f.print}</td>
+                  <td data-l="Recycled content">{f.eco}</td>
+                  <td data-l="Relative cost">
+                    <span class="tb-cost" role="img" aria-label={`Relative cost ${f.cost} of 3`}>
+                      {[1, 2, 3].map((i) => <i class={i <= f.cost ? 'on' : ''} />)}
+                    </span>
+                  </td>
+                  <td data-l="Chosen when">{f.d}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="tb-fab-note" data-reveal="up">Relative cost is a scale against the six fabrics above, not a price. Print routes carry their own minimum once the fabric is fixed &mdash; both figures come back itemised on the quote, at every quantity break.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONSTRUCTION — 6 details, image chip + text ============ -->
+    <section class="tb-features">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Construction</span>
+          <h2 class="section-title" data-reveal="up">Built for the Second Year, <em>Not the First Week</em></h2>
+          <p class="section-sub" data-reveal="up">Six details that decide whether a printed tote is still in circulation long after the campaign ends.</p>
+        </div>
+
+        <div class="tb-feat-grid">
+          {features.map((f, i) => (
+            <article class="tb-feat" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <img src={`${TB}/feature-${f.key}.webp`} alt={`${f.t} — detail on a custom tote bag`} width={530} height={398} loading="lazy" decoding="async" />
+              <div>
+                <h3>{f.t}</h3>
+                <p>{f.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA — photo band ============ -->
+    <section class="tb-mid">
+      <img class="tb-mid-bg" src={`${TB}/mid-cta-v3.webp`} alt="" width={1600} height={900} loading="lazy" decoding="async" aria-hidden="true" />
+      <div class="tb-mid-scrim" aria-hidden="true"></div>
+      <div class="wrap tb-mid-inner">
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Free design consultation</span>
+        <h2 class="tb-mid-title" data-reveal="up">Tell Us What the Bag <em>Has to Carry</em></h2>
+        <p class="tb-mid-sub" data-reveal="up">Send the item, the volume and the setting it will be handed out in. A dieline and a fabric recommendation come back before any price is fixed, which settles the first decision before anything is committed.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Walk Me Through the Build
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRINTING — 4 routes, 2 x 2 wide cards ============ -->
+    <section class="tb-print">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Printing</span>
+          <h2 class="section-title" data-reveal="up">Four Ways to Put <em>a Brand on Fabric</em></h2>
+          <p class="section-sub" data-reveal="up">The route is decided by artwork and volume, not by habit &mdash; a gradient and a one-colour logo do not travel the same way onto a bag.</p>
+        </div>
+
+        <div class="tb-print-grid">
+          {prints.map((p, i) => (
+            <article class="tb-print-card" data-reveal="up" style={`--d:${(i % 2) * 0.07}s`}>
+              <img src={`${TB}/print-${p.key}.webp`} alt={p.alt} width={530} height={530} loading="lazy" decoding="async" />
+              <div class="tb-print-body">
+                <span class="tb-print-tag">{p.tag}</span>
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener">
+            Proof My Artwork
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COLOUR — swatch photo + 3 dye facts ============ -->
+    <section class="tb-color">
+      <div class="wrap tb-color-grid">
+        <div class="tb-color-copy">
+          <span class="eyebrow"><Fragment set:html={leaf} />Colour</span>
+          <h2 class="section-title" data-reveal="up">Three Colour Groups, <em>Dyed to Your Pantone</em></h2>
+          <p class="section-sub" data-reveal="up">A fabric is dyed before it is cut, so the shade is settled at the mill and not at the press. That is the point at which a brand colour becomes repeatable.</p>
+          <ul class="tb-color-facts">
+            {colourFacts.map((c) => (
+              <li data-reveal="up">
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <figure class="tb-color-fig" data-reveal="left">
+          <img src={`${TB}/color-range.webp`} alt="Six nonwoven tote bags in blue, orange, yellow and black showing the dyed colour range"
+               width={520} height={520} loading="lazy" decoding="async" />
+          <div class="tb-chips" aria-hidden="true">
+            <span style="--c:#1F3B2C"></span><span style="--c:#2E4F3D"></span><span style="--c:#8C8676"></span>
+            <span style="--c:#B08D4C"></span><span style="--c:#E4B54D"></span><span style="--c:#C9A87C"></span>
+            <span style="--c:#EDE5D4"></span><span style="--c:#21241C"></span>
+          </div>
+          <figcaption>A swatch set sorted into three groups before a shade is picked.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ SIZES — 6 dimensioned rows ============ -->
+    <section class="tb-sizes">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Sizes &amp; specification</span>
+          <h2 class="section-title" data-reveal="up">Any Size, <em>Drawn to the Item</em></h2>
+          <p class="section-sub" data-reveal="up">Six sizes cover most runs, given as width &times; height &times; gusset. Anything between them is cut to your dimensions and drawn as a dieline before fabric is ordered.</p>
+        </div>
+
+        <ul class="tb-size-list">
+          {sizes.map((s) => (
+            <li data-reveal="up">
+              <span class="tb-size-dim">{s.w} &times; {s.h} &times; {s.g} <em>cm</em></span>
+              <span class="tb-size-rule" aria-hidden="true"></span>
+              <span class="tb-size-note">{s.note}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="section-cta">
+          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener">
+            Quote My Size
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ IN USE — 3 builds, dark ============ -->
+    <section class="tb-runs">
+      <div class="tb-grain" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />In use</span>
+          <h2 class="section-title" data-reveal="up">Where a Printed Tote <em>Ends Up</em></h2>
+          <p class="section-sub" data-reveal="up">Three of the builds that leave this plant most often, and the setting each was printed for.</p>
+        </div>
+
+        <div class="tb-run-grid">
+          {runs.map((r, i) => (
+            <figure class="tb-run" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <img src={`${TB}/${r.key}.webp`} alt={r.alt} width={800} height={600} loading="lazy" decoding="async" />
+              <figcaption>
+                <h3>{r.cap}</h3>
+                <p>{r.d}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS — the original page's two reviewers ============ -->
+    <section class="tb-quotes">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow"><Fragment set:html={leaf} />Buyers</span>
+          <h2 class="section-title" data-reveal="up">Two Buyers on <em>Their First Full Run</em></h2>
+        </div>
+
+        <div class="tb-quote-grid">
+          {quotes.map((q) => (
+            <figure class="tb-quote" data-reveal="up">
+              <span class="tb-stars" role="img" aria-label="Rated 5 out of 5">
+                {[1, 2, 3, 4, 5].map(() => (
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5l-5.9 3.1 1.2-6.5L2.5 9.5l6.6-.9z" fill="currentColor"/></svg>
+                ))}
+              </span>
+              {q.p.map((para) => <blockquote>{para}</blockquote>)}
+              <figcaption>
+                <img src={q.img} alt={q.alt} width={160} height={160} loading="lazy" decoding="async" />
+                <span><strong>{q.name}</strong><em>{q.role}</em></span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ — only what the sections above leave open ============ -->
+    <section class="tb-faq">
+      <div class="wrap tb-faq-grid">
+        <div class="tb-faq-head">
+          <span class="eyebrow"><Fragment set:html={leaf} />Questions</span>
+          <h2 class="section-title" data-reveal="up">Before You <em>Send an Enquiry</em></h2>
+          <p class="section-sub" data-reveal="up">Six things a buying team asks once the fabric and the size are settled.</p>
+        </div>
+
+        <div class="tb-faq-list">
+          {faqs.map((f) => (
+            <details data-reveal="up">
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA (dark) ============ -->
+    <section class="tb-final">
+      <img class="tb-final-bg" src={`${TB}/final-cta-v2.webp`} alt="" width={1600} height={900} loading="lazy" decoding="async" aria-hidden="true" />
+      <div class="tb-final-scrim" aria-hidden="true"></div>
+      <div class="wrap tb-final-inner">
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Itemised quote</span>
+        <h2 class="tb-final-title" data-reveal="up">A Quote Split Into Fabric, <em>Print, Handle and Freight</em></h2>
+        <p class="tb-final-sub" data-reveal="up">Send the item&rsquo;s dimensions and the artwork. What returns is a bag price line by line and at each quantity break, so the volume worth aiming for is obvious before anything is ordered.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Get My Tote Quote
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ local atoms ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  :global(body) { background: var(--color-brand-bg); }
+
+  .tb-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  .tb-grain {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ============ HERO — retail window: copy left, tall photo right ============ */
+  .tb-hero {
+    position: relative; overflow: hidden;
+    padding: calc(clamp(4rem, 8vw, 6.5rem) + 4.5rem) 0 clamp(3.2rem, 7vw, 5.5rem);
+    background:
+      radial-gradient(52% 46% at 8% 0%, rgba(201,168,124,0.20), transparent 68%),
+      linear-gradient(180deg, #FBF8F0 0%, var(--ivory) 100%);
+  }
+  .tb-hero-grid {
+    position: relative;
+    display: grid; grid-template-columns: 1.06fr 0.94fr;
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+  }
+  .tb-hero-copy { min-width: 0; }
+  /* H1 is BOLD (700) — the one heading on the site that is; section H2s stay at
+     500. Bold is wider, so the size and the measure are tuned together below. */
+  .tb-hero-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.05rem, 4.1vw, 3.5rem);
+    line-height: 1.06; letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    max-width: 20ch; margin: 1.2rem 0 0; text-wrap: balance;
+  }
+  .tb-hero-title em { font-style: italic; color: var(--brass); }
+  .tb-nowrap { white-space: nowrap; }
+  .tb-hero-sub {
+    font-size: clamp(1.02rem, 1.35vw, 1.14rem); line-height: 1.72;
+    color: var(--color-brand-muted); max-width: 46ch; margin-top: 1.5rem;
+  }
+  .tb-hero-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: clamp(1.8rem, 3.4vw, 2.4rem); }
+  .tb-stats {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem 1.6rem; margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 0; list-style: none;
+    border-top: 1px solid rgba(31, 59, 44, 0.14); padding-top: 1.4rem;
+  }
+  .tb-stats li { font-size: 0.88rem; line-height: 1.45; color: var(--color-brand-muted); }
+  .tb-stats strong { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 1.26rem; color: var(--color-brand-primary); letter-spacing: -0.01em; }
+
+  .tb-hero-fig { position: relative; margin: 0; }
+  .tb-hero-fig img {
+    width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 58%;
+    border-radius: 1.4rem; box-shadow: 0 40px 80px -46px rgba(31, 59, 44, 0.6);
+  }
+  .tb-hero-fig figcaption {
+    margin-top: 0.85rem; font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.04em; color: var(--color-brand-muted);
+  }
+  @media (max-width: 900px) {
+    .tb-hero-grid { grid-template-columns: 1fr; gap: clamp(2rem, 6vw, 2.8rem); }
+    .tb-hero-fig { order: -1; }
+    .tb-hero-fig img { aspect-ratio: 4 / 3; object-position: center 52%; }
+    .tb-hero-title { max-width: 100%; }
+  }
+
+  /* ============ THE RANGE — 9 cards, 3 per row ============ */
+  .tb-types { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  .tb-types .section-sub { max-width: 62ch; }
+  .tb-type-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.1rem, 2.2vw, 1.7rem); }
+  .tb-type-card {
+    display: flex; flex-direction: column;
+    background: var(--ivory); border-radius: 1.3rem; overflow: hidden;
+    box-shadow: 0 18px 40px -34px rgba(31, 59, 44, 0.5);
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+  }
+  .tb-type-card:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -34px rgba(31, 59, 44, 0.62); }
+  .tb-type-ph { position: relative; margin: 0; }
+  .tb-type-ph img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  /* the name rides the photograph, so the card body stays a single line of copy */
+  .tb-type-ph::after {
+    content: ''; position: absolute; inset: auto 0 0 0; height: 58%;
+    background: linear-gradient(180deg, transparent, rgba(20, 38, 27, 0.78)); pointer-events: none;
+  }
+  .tb-type-idx {
+    position: absolute; top: 0.85rem; left: 0.85rem; z-index: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 30px; height: 30px; padding: 0 0.45rem;
+    border-radius: 999px; background: rgba(20, 38, 27, 0.52); backdrop-filter: blur(6px);
+    border: 1px solid rgba(245, 240, 229, 0.42);
+    font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; color: var(--ivory);
+  }
+  .tb-type-name {
+    position: absolute; inset: auto 0 0 0; z-index: 1;
+    padding: 0 1.05rem 0.9rem; margin: 0;
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; line-height: 1.25; letter-spacing: -0.01em;
+    color: #fff; text-wrap: balance;
+  }
+  .tb-type-body { display: flex; flex-direction: column; gap: 0.5rem; padding: 1rem 1.05rem 1.15rem; }
+  .tb-type-spec {
+    align-self: flex-start; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--brass);
+  }
+  .tb-type-body p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); }
+  @media (max-width: 900px) { .tb-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .tb-type-grid { grid-template-columns: 1fr; } }
+
+  /* ============ FABRIC COMPARISON — signature, dark ============ */
+  .tb-fabric {
+    position: relative; overflow: hidden;
+    padding: clamp(4rem, 9vw, 8rem) 0;
+    background: linear-gradient(160deg, var(--forest-deep) 0%, var(--color-brand-primary) 58%, var(--forest-light) 100%);
+  }
+  .tb-fabric .section-title { color: #fff; }
+  .tb-fabric .section-title em { color: #E3C29A; }
+  .tb-fabric .section-sub { color: rgba(245, 240, 229, 0.76); max-width: 64ch; }
+  .tb-fab-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tb-fab { width: 100%; border-collapse: collapse; text-align: left; }
+  .tb-fab th, .tb-fab td { padding: 1.05rem 1rem; vertical-align: top; border-bottom: 1px solid rgba(245, 240, 229, 0.16); }
+  .tb-fab thead th {
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #E3C29A; border-bottom-color: rgba(245, 240, 229, 0.34);
+    padding-bottom: 0.8rem; white-space: nowrap;
+  }
+  .tb-fab tbody th {
+    display: flex; align-items: center; gap: 0.75rem; font-weight: 600; white-space: nowrap;
+    font-family: var(--font-heading); font-size: 1.06rem; color: #fff;
+  }
+  .tb-fab tbody td { font-size: 0.9rem; line-height: 1.55; color: rgba(245, 240, 229, 0.78); }
+  .tb-fab tbody td:last-child { min-width: 21ch; color: rgba(245, 240, 229, 0.9); }
+  .tb-fab tbody tr:last-child th, .tb-fab tbody tr:last-child td { border-bottom: 0; }
+  .tb-fab-sw { width: 42px; height: 42px; flex: 0 0 auto; border-radius: 50%; object-fit: cover; border: 1px solid rgba(245, 240, 229, 0.3); }
+  .tb-cost { display: inline-flex; gap: 5px; align-items: center; padding-top: 0.2rem; }
+  .tb-cost i { width: 8px; height: 8px; border-radius: 50%; background: rgba(245, 240, 229, 0.24); }
+  .tb-cost i.on { background: #E3C29A; }
+  .tb-fab-note { margin-top: 1.6rem; max-width: 68ch; font-size: 0.86rem; line-height: 1.65; color: rgba(245, 240, 229, 0.66); }
+
+  /* narrow: the table becomes a stack of labelled rows */
+  @media (max-width: 900px) {
+    .tb-fab-scroll { overflow-x: visible; }
+    .tb-fab thead { display: none; }
+    .tb-fab, .tb-fab tbody, .tb-fab tr, .tb-fab th, .tb-fab td { display: block; width: 100%; }
+    .tb-fab tbody tr {
+      padding: 1.2rem 0; border-bottom: 1px solid rgba(245, 240, 229, 0.16);
+    }
+    .tb-fab tbody tr:last-child { border-bottom: 0; }
+    .tb-fab tbody th { border-bottom: 0; padding: 0 0 0.7rem; }
+    .tb-fab tbody td { border-bottom: 0; padding: 0.3rem 0 0.3rem 0; }
+    .tb-fab tbody td:last-child { min-width: 0; padding-top: 0.7rem; }
+    .tb-fab tbody td::before {
+      content: attr(data-l); display: block;
+      font-size: 0.64rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(227, 194, 154, 0.72); margin-bottom: 0.15rem;
+    }
+  }
+
+  /* ============ CONSTRUCTION — 6 text-led cards ============ */
+  .tb-features { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--ivory); }
+  .tb-feat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 2.8vw, 2.4rem); }
+  .tb-feat { display: flex; gap: 1rem; align-items: flex-start; }
+  .tb-feat img {
+    width: 64px; height: 64px; flex: 0 0 auto; border-radius: 1rem; object-fit: cover;
+    border: 1px solid rgba(31, 59, 44, 0.1);
+  }
+  .tb-feat h3 { margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; line-height: 1.28; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .tb-feat p { margin: 0.5rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
+  @media (max-width: 1024px) { .tb-feat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .tb-feat-grid { grid-template-columns: 1fr; } }
+
+  /* ============ MID CTA — photo band ============ */
+  .tb-mid { position: relative; overflow: hidden; }
+  .tb-mid-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 46%; }
+  .tb-mid-scrim {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(70% 88% at 50% 52%, rgba(20, 38, 27, 0.72) 0%, rgba(20, 38, 27, 0.5) 58%, rgba(20, 38, 27, 0.34) 100%),
+      linear-gradient(180deg, rgba(20, 38, 27, 0.46) 0%, rgba(20, 38, 27, 0.3) 40%, rgba(20, 38, 27, 0.56) 100%);
+  }
+  .tb-mid-inner { position: relative; z-index: 1; text-align: center; padding: clamp(4.5rem, 10vw, 8.5rem) 0; }
+  .tb-mid-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.05; letter-spacing: -0.02em;
+    color: #fff; max-width: 22ch; margin: 1.1rem auto 0; text-wrap: balance;
+  }
+  .tb-mid-title em { font-style: italic; color: #E3C29A; }
+  .tb-mid-sub { margin: 1.2rem auto 0; max-width: 68ch; font-size: 1.05rem; line-height: 1.7; color: rgba(255,255,255,0.86); }
+
+  /* ============ PRINTING — 2 x 2 wide cards ============ */
+  .tb-print { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  .tb-print-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 2.4vw, 1.8rem); }
+  .tb-print-card {
+    display: grid; grid-template-columns: 42% 1fr; gap: 0;
+    background: var(--ivory); border-radius: 1.2rem; overflow: hidden;
+    box-shadow: 0 18px 40px -36px rgba(31, 59, 44, 0.5);
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s ease;
+  }
+  .tb-print-card:hover { transform: translateY(-5px); box-shadow: 0 28px 56px -34px rgba(31, 59, 44, 0.6); }
+  .tb-print-card img { width: 100%; height: 100%; min-height: 210px; object-fit: cover; }
+  .tb-print-body { padding: 1.4rem 1.5rem 1.5rem; display: flex; flex-direction: column; }
+  .tb-print-tag {
+    align-self: flex-start; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--brass);
+  }
+  .tb-print-card h3 { margin: 0.7rem 0 0; font-family: var(--font-heading); font-weight: 600; font-size: 1.28rem; line-height: 1.25; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .tb-print-card p { margin: 0.6rem 0 0; font-size: 0.93rem; line-height: 1.62; color: var(--color-brand-muted); }
+  @media (max-width: 900px) { .tb-print-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .tb-print-card { grid-template-columns: 1fr; } .tb-print-card img { min-height: 180px; } }
+
+  /* ============ COLOUR ============ */
+  .tb-color { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--ivory); }
+  .tb-color-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .tb-color-copy { min-width: 0; }
+  .tb-color-facts { list-style: none; margin: clamp(1.8rem, 3.4vw, 2.4rem) 0 0; padding: 0; display: grid; gap: 1.3rem; }
+  .tb-color-facts li { padding-left: 1.1rem; border-left: 2px solid var(--brass-soft); }
+  .tb-color-facts h3 { margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 1.04rem; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .tb-color-facts p { margin: 0.4rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
+  .tb-color-fig { margin: 0; }
+  .tb-color-fig img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 1.3rem; }
+  .tb-chips { display: flex; gap: 0.4rem; margin-top: 1rem; }
+  .tb-chips span { flex: 1 1 0; height: 26px; border-radius: 7px; background: var(--c); border: 1px solid rgba(31, 59, 44, 0.12); }
+  .tb-color-fig figcaption { margin-top: 0.8rem; font-size: 0.8rem; line-height: 1.55; color: var(--color-brand-muted); }
+  @media (max-width: 900px) { .tb-color-grid { grid-template-columns: 1fr; } }
+
+  /* ============ SIZES ============ */
+  .tb-sizes { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  .tb-size-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(31, 59, 44, 0.16); }
+  .tb-size-list li { display: flex; align-items: baseline; gap: 1.1rem; padding: 1.05rem 0; border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+  .tb-size-dim { font-family: var(--font-heading); font-weight: 600; font-size: 1.22rem; letter-spacing: -0.01em; color: var(--color-brand-text); white-space: nowrap; }
+  .tb-size-dim em { font-style: normal; font-size: 0.82rem; font-weight: 500; color: var(--color-brand-muted); letter-spacing: 0.06em; }
+  .tb-size-rule { flex: 1 1 auto; border-bottom: 1px dotted rgba(31, 59, 44, 0.3); transform: translateY(-0.28em); }
+  .tb-size-note { font-size: 0.94rem; color: var(--color-brand-muted); text-align: right; }
+  @media (max-width: 640px) {
+    .tb-size-list li { flex-wrap: wrap; gap: 0.3rem 0.9rem; }
+    .tb-size-rule { display: none; }
+    .tb-size-note { flex: 1 1 100%; text-align: left; }
+  }
+
+  /* ============ IN USE — dark gallery ============ */
+  .tb-runs {
+    position: relative; overflow: hidden;
+    padding: clamp(4rem, 9vw, 8rem) 0;
+    background: linear-gradient(200deg, var(--forest-light) 0%, var(--color-brand-primary) 46%, var(--forest-deep) 100%);
+  }
+  .tb-runs .section-title { color: #fff; }
+  .tb-runs .section-title em { color: #E3C29A; }
+  .tb-runs .section-sub { color: rgba(245, 240, 229, 0.76); max-width: 62ch; }
+  .tb-run-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.2rem, 2.4vw, 1.8rem); }
+  .tb-run { margin: 0; }
+  .tb-run img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 1.2rem; }
+  .tb-run figcaption { padding-top: 1.05rem; }
+  .tb-run h3 { margin: 0; font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; letter-spacing: -0.01em; color: #fff; }
+  .tb-run p { margin: 0.5rem 0 0; font-size: 0.91rem; line-height: 1.6; color: rgba(245, 240, 229, 0.74); }
+  @media (max-width: 900px) { .tb-run-grid { grid-template-columns: 1fr; max-width: 34rem; } }
+
+  /* ============ TESTIMONIALS ============ */
+  .tb-quotes { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-brand-surface); }
+  .tb-quote-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 2.6vw, 2rem); }
+  .tb-quote {
+    margin: 0; padding: 1.7rem 1.7rem 1.5rem;
+    background: var(--ivory); border-radius: 1.3rem;
+    border-left: 3px solid var(--brass);
+    box-shadow: 0 20px 44px -38px rgba(31, 59, 44, 0.5);
+  }
+  .tb-stars { display: inline-flex; gap: 3px; color: var(--brass); }
+  .tb-stars svg { width: 16px; height: 16px; }
+  .tb-quote blockquote { margin: 1rem 0 0; font-family: var(--font-heading); font-style: italic; font-size: 1.02rem; line-height: 1.72; color: var(--color-brand-text); }
+  .tb-quote figcaption { display: flex; align-items: center; gap: 0.85rem; margin-top: 1.4rem; padding-top: 1.2rem; border-top: 1px solid rgba(31, 59, 44, 0.12); }
+  .tb-quote figcaption img { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }
+  .tb-quote figcaption span { display: flex; flex-direction: column; }
+  .tb-quote figcaption strong { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-text); }
+  .tb-quote figcaption em { font-style: normal; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand-muted); }
+  @media (max-width: 900px) { .tb-quote-grid { grid-template-columns: 1fr; } }
+
+  /* ============ FAQ ============ */
+  .tb-faq { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--ivory); }
+  .tb-faq-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .tb-faq-head { position: sticky; top: 6rem; }
+  .tb-faq-head .section-title { font-size: clamp(1.9rem, 3.4vw, 2.9rem); }
+  .tb-faq-list details { border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+  .tb-faq-list details:first-child { border-top: 1px solid rgba(31, 59, 44, 0.16); }
+  .tb-faq-list summary {
+    position: relative; list-style: none; cursor: pointer;
+    padding: 1.15rem 2.6rem 1.15rem 0;
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.35;
+    color: var(--color-brand-text); transition: color 0.3s ease;
+  }
+  .tb-faq-list summary::-webkit-details-marker { display: none; }
+  .tb-faq-list summary:hover { color: var(--brass); }
+  .tb-faq-list summary::after {
+    content: ''; position: absolute; right: 0.35rem; top: 1.6rem;
+    width: 10px; height: 10px; border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+    transform: rotate(45deg); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .tb-faq-list details[open] summary::after { transform: rotate(-135deg); }
+  .tb-faq-list details p { margin: 0; padding: 0 2.6rem 1.35rem 0; font-size: 0.95rem; line-height: 1.72; color: var(--color-brand-muted); }
+  @media (max-width: 900px) { .tb-faq-grid { grid-template-columns: 1fr; } .tb-faq-head { position: static; } }
+
+  /* ============ FINAL CTA ============ */
+  .tb-final { position: relative; overflow: hidden; }
+  .tb-final-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 50%; }
+  .tb-final-scrim { position: absolute; inset: 0; background: linear-gradient(rgba(20,38,27,0.68), rgba(20,38,27,0.8)); }
+  .tb-final-inner { position: relative; z-index: 1; text-align: center; padding: clamp(4rem, 8.5vw, 7rem) 0; }
+  .tb-final-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2rem, 4.8vw, 3.4rem); line-height: 1.06; letter-spacing: -0.02em;
+    color: #fff; max-width: 24ch; margin: 1.1rem auto 0; text-wrap: balance;
+  }
+  .tb-final-title em { font-style: italic; color: #E3C29A; }
+  .tb-final-sub { margin: 1.3rem auto 0; max-width: 76ch; font-size: 1.04rem; line-height: 1.72; color: rgba(255,255,255,0.84); text-wrap: balance; }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && hasIO) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // One FAQ open at a time — the list sits in a narrow column, so two open
+  // answers push the page instead of reading as a set.
+  const faqItems = Array.from(document.querySelectorAll('.tb-faq-list details'));
+  faqItems.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      faqItems.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+</script>

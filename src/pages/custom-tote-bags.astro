@@ -792,13 +792,15 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .tb-hero-copy { min-width: 0; }
   /* H1 is BOLD (700) — the one heading on the site that is; section H2s stay at
-     500. Bold is wider, so the size and the measure are tuned together below. */
+     500. Bold is wider, so the size and the measure are tuned together: the size
+     went up ~11% and the max-width from 20ch to 22ch so the extra weight does not
+     buy an extra line. Re-check the wrap after any change here. */
   .tb-hero-title {
     font-family: var(--font-heading); font-weight: 700;
-    font-size: clamp(2.05rem, 4.1vw, 3.5rem);
+    font-size: clamp(2.25rem, 4.55vw, 3.9rem);
     line-height: 1.06; letter-spacing: -0.03em;
     color: var(--color-brand-text);
-    max-width: 20ch; margin: 1.2rem 0 0; text-wrap: balance;
+    max-width: 22ch; margin: 1.2rem 0 0; text-wrap: balance;
   }
   .tb-hero-title em { font-style: italic; color: var(--brass); }
   .tb-nowrap { white-space: nowrap; }

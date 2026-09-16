@@ -9,32 +9,32 @@ const RS = `${R2}/reusable-shopping-bags`;
 /* The nine shells. Every card carries a spec the factory actually holds and one
    consequence the buyer's customer feels — no two cards make the same claim. */
 const types = [
-  { n: '01', key: 'type-nonwoven', name: 'Non-Woven Reusable Bags', spec: '80–120 gsm PP',
-    alt: 'Three green nonwoven shopping bags in graduated sizes with cross-stitched handle anchors',
+  { n: '01', key: 'type-nonwoven-v2', name: 'Non-Woven Reusable Bags', spec: '80–120 gsm PP',
+    alt: 'Orange, maroon and light blue nonwoven shopping bags printed with a fruit mark and a logo',
     d: 'Cheap enough to hand out by the thousand at a checkout and still take a full shop home.' },
-  { n: '02', key: 'type-rpet', name: 'Recycled PET Bags', spec: 'GRS certified',
-    alt: 'A white laminated shopping bag printed with a full-color fruit and flower design',
+  { n: '02', key: 'type-rpet-v2', name: 'Recycled PET Bags', spec: 'GRS certified',
+    alt: 'Black, blue and natural recycled PET shopping bags printed with recycle-message artwork',
     d: 'Ten to eighteen collected bottles go into each shell, and the paperwork to prove it travels with the lot.' },
-  { n: '03', key: 'type-jute', name: 'Jute and Burlap Bags', spec: '280–340 gsm',
-    alt: 'A woman carrying a large natural jute tote with cotton rope handles and a coffee cup',
+  { n: '03', key: 'type-jute-v2', name: 'Jute and Burlap Bags', spec: '280–340 gsm',
+    alt: 'Three natural jute gift bags with cotton rope handles and cream satin bows',
     d: 'Stands up on its own, holding a logo square on a shelf instead of slumping into the corner.' },
-  { n: '04', key: 'type-canvas', name: 'Custom Canvas Bags', spec: '10–16 oz cotton',
-    alt: 'A cream canvas tote bag with navy webbing handles and a printed logo panel',
+  { n: '04', key: 'type-canvas-v2', name: 'Custom Canvas Bags', spec: '10–16 oz cotton',
+    alt: 'A black, a cream and a navy-handled cotton canvas tote, one printed with a line-drawn flower',
     d: 'The bag a shopper keeps after the promotion, because the base never gave out.' },
-  { n: '05', key: 'type-foldable', name: 'Foldable Nylon Bags', spec: 'Packs into its own pouch',
-    alt: 'A lime green and a pink foldable nylon shopping bag, each folded into its own small pouch',
+  { n: '05', key: 'type-foldable-v2', name: 'Foldable Nylon Bags', spec: 'Packs into its own pouch',
+    alt: 'Six foldable nylon bags in black, red, orange, yellow, green and blue, each in its own pouch',
     d: 'Goes into a coat pocket, then comes out again at the till — which is why giveaways in this shell get used.' },
-  { n: '06', key: 'type-cooler', name: 'Insulated Cooler Bags', spec: 'Foil-lined interior',
-    alt: 'A man at a ballpark holding an insulated cooler bag with a mesh pocket and shoulder strap',
+  { n: '06', key: 'type-cooler-v2', name: 'Insulated Cooler Bags', spec: 'Foil-lined interior',
+    alt: 'Red, maroon and navy insulated lunch bags with cross-stitched webbing handles',
     d: 'Holds a delivery at temperature from the counter to the door, then wipes out with a cloth.' },
-  { n: '07', key: 'type-drawstring', name: 'Drawstring Backpacks', spec: '210D–420D nylon',
-    alt: 'A man wearing a teal drawstring backpack with natural cotton cord straps',
+  { n: '07', key: 'type-drawstring-v2', name: 'Drawstring Backpacks', spec: '210D–420D nylon',
+    alt: 'Black, lime, red and royal blue drawstring backpacks with black cord straps',
     d: 'A conference giveaway that turns up at the gym months later, still carrying the brand.' },
-  { n: '08', key: 'type-gift', name: 'Luxury Reusable Gift Bags', spec: 'Rope handle, ribbon',
-    alt: 'A pale gray gift bag with a satin bow, woven rope handles and a printed hang tag',
+  { n: '08', key: 'type-gift-v2', name: 'Luxury Reusable Gift Bags', spec: 'Rope handle, ribbon',
+    alt: 'Cream, blush and pale blue gift bags with woven rope handles and printed branding',
     d: 'Leaves the boutique as part of the present rather than as something to throw away.' },
-  { n: '09', key: 'type-laminated', name: 'Laminated Reusable Bags', spec: 'Gloss or matte',
-    alt: 'A black glossy quilted laminated shopping bag standing upright beside a small vase',
+  { n: '09', key: 'type-laminated-v2', name: 'Laminated Reusable Bags', spec: 'Gloss or matte',
+    alt: 'Red, black and blue laminated shopping bags with zip tops and webbing handles',
     d: 'Takes a wet shop and a full-color print without either spoiling the other.' },
 ];
 
@@ -44,19 +44,21 @@ const types = [
 const certs = [
   { code: 'GOTS', full: 'Global Organic Textile Standard',
     key: 'cert-gots', w: 260, h: 260, mark: 'GOTS organic textile certification mark',
-    d: 'Covers the organic cotton in the canvas and blend shells, with chain-of-custody papers per lot.' },
+    d: 'The organic cotton in the canvas and blend shells.' },
   { code: 'GRS', full: 'Global Recycled Standard',
     key: 'cert-grs', w: 149, h: 68, mark: 'Global Recycled Standard certification mark',
-    d: 'Covers the recycled PET, with a TC transaction certificate issued against each lot.' },
+    d: 'The recycled PET, with a TC certificate per lot.' },
   { code: 'FSC', full: 'Forest Stewardship Council',
     key: 'cert-fsc', w: 214, h: 260, mark: 'FSC Forest Stewardship Council certification mark',
-    d: 'Covers the board in hang tags, inserts and shipper cartons.' },
+    d: 'The board in hang tags and shipper cartons.' },
   { code: 'ISO 9001', full: 'Quality management system',
     key: 'cert-iso-9001', w: 255, h: 260, mark: 'ISO 9001:2015 certification mark',
-    d: 'Covers the process: AQL 2.5 inspection on each lot, recorded against the order number.' },
+    d: 'The process: AQL 2.5 inspection per lot.' },
 ];
 
-/* The six fibers, photographed from the same distance under the same light. */
+/* The six fibers, photographed from the same distance under the same light. The
+   recycled and laminated shells now show the client's own mill photography; the
+   other four keep the sourced swatches until theirs arrive. */
 const fabrics = [
   { key: 'fabric-organic-cotton', name: 'GOTS Organic Cotton', spec: 'Certified organic',
     alt: 'Rolled bolts of organic cotton jersey in cream, sage and natural brown',
@@ -64,8 +66,8 @@ const fabrics = [
   { key: 'fabric-canvas', name: 'Heavy-Duty Canvas', spec: '10–16 oz',
     alt: 'Folded natural cotton canvas showing a dense woven surface',
     d: 'The grocery and market weight. Built for a full trolley on repeat rather than a single season.' },
-  { key: 'fabric-rpet', name: 'RPET (Recycled PET)', spec: '10–18 bottles per bag',
-    alt: 'A blue-teal recycled-material bag worn over a shoulder, printed with a recycling message',
+  { key: 'fabric-rpet-v2', name: 'RPET (Recycled PET)', spec: '10–18 bottles per bag',
+    alt: 'Teal, purple, yellow, maroon and red recycled PET fabric swatches with pinked edges',
     d: 'Waterproof and light, spun from bottles that were already in circulation — the strongest story per dollar.' },
   { key: 'fabric-nonwoven', name: 'Non-Woven PP', spec: '80–120 gsm',
     alt: 'Bolts of lime green and blue nonwoven polypropylene fabric, close up',
@@ -73,52 +75,32 @@ const fabrics = [
   { key: 'fabric-jute', name: 'Natural Jute', spec: '280–340 gsm',
     alt: 'Folded natural jute burlap showing a coarse woven plant fiber',
     d: 'A plant fiber with a surface that suits organic and artisanal brands, and composts when it is done.' },
-  { key: 'fabric-laminated', name: 'Laminated Woven PP', spec: '100–140 gsm, filmed',
-    alt: 'Black quilted laminated woven polypropylene showing an embossed diamond pattern',
+  { key: 'fabric-laminated-v2', name: 'Laminated Woven PP', spec: '100–140 gsm, filmed',
+    alt: 'Blue laminated woven polypropylene folded back to show the gloss film over the weave',
     d: 'A woven shell under a gloss or matte film, which is what carries full-color artwork and a wet shop.' },
 ];
 
-/* The signature module. Six closures, each stated with the one thing it decides. */
+/* The signature module. Name and spec live in the rail; the single line that
+   decides the choice lives on the stage, so nothing is written twice. */
 const closures = [
-  { id: 'tape', name: 'Peel-and-Seal Tape Tab', key: 'close-tape', spec: 'Adhesive, resealable',
-    alt: 'A hand peeling back the resealable tape strip on a printed stand-up pouch',
-    d: 'A covered adhesive strip that opens the bag and shuts it again, trip after trip.',
-    use: 'Drawn for bags that come back with returns or make the same delivery run twice a day.' },
-  { id: 'anchor', name: 'Cross-Stitched Handle Anchor', key: 'close-anchor', spec: 'Box-X stitch',
-    alt: 'Close-up of a red nonwoven bag handle anchored to the body with a box-X cross stitch',
-    d: 'The box-X spreads the pull of a loaded handle across the panel instead of tearing at two points.',
-    use: 'Fitted as standard to each shell that leaves the plant carrying a weighted load.' },
-  { id: 'hook', name: 'Hook-and-Loop Closure', key: 'close-hook-loop', spec: 'Hook-and-loop strip',
+  { id: 'tape', name: 'Peel-and-Seal Tape Tab', key: 'close-tape-v2', spec: 'Adhesive, resealable',
+    alt: 'A hand peeling back the resealable tape strip along the lip of a clear bag',
+    line: 'Seals flat and reseals, with no zip to catch or stud to lose.' },
+  { id: 'anchor', name: 'Cross-Stitched Handle Anchor', key: 'close-anchor-v2', spec: 'Box-X stitch',
+    alt: 'Close-up of a box-X cross stitch anchoring a canvas handle to a natural bag body',
+    line: 'Fitted as standard to every shell that leaves carrying a load.' },
+  { id: 'hook', name: 'Hook-and-Loop Closure', key: 'close-hook-loop-v2', spec: 'Hook-and-loop strip',
     alt: 'Fingers pulling apart a strip of black hook-and-loop fastener',
-    d: 'Opens with a single pull and closes flat without a stud, a zip or a magnet in the way.',
-    use: 'Cooler and insulated shells that get opened at the counter and closed again in a hurry.' },
-  { id: 'snap', name: 'Concealed Magnetic Snap', key: 'close-snap', spec: 'Recessed, self-closing',
-    alt: 'The two halves of a silver magnetic snap closure on gingham fabric and a leather panel',
-    d: 'Shuts itself as the bag is lifted, and hides inside the panel, leaving the printed face clean.',
-    use: 'Gift and boutique shells where a visible press stud would break the artwork.' },
-  { id: 'stitch', name: 'Contrast Stitch Detail', key: 'close-stitch', spec: 'Any thread color',
-    alt: 'Close-up of blue nonwoven fabric showing seam stitching and a reinforced stitched edge',
-    d: 'The thread is a design decision rather than a default: a light stitch on a dark shell draws the seam as a line.',
-    use: 'Shells where the logo sits close to a join and the seam has to look deliberate.' },
-  { id: 'cord', name: 'Drawstring', key: 'close-drawstring', spec: 'Cinched cotton cord',
-    alt: 'A bee-printed drawstring pouch cinched shut with long mustard cotton cords',
-    d: 'Cinching the mouth shut means nothing shifts in a car boot or a locker on the way home.',
-    use: 'Produce bags, gift pouches and promotional shells that need to close without hardware.' },
-];
-
-/* Where the print goes, kept as advice inside the printing section rather than
-   as a section of its own. Ordered, because that is the recommendation. */
-const zones = [
-  { n: '01', name: 'Front Panel',
-    d: 'The panel that earns the money: it reads over a shoulder and ends up in customer photographs.' },
-  { n: '02', name: 'Gusset and Side',
-    d: 'A second read of the logo for anyone standing behind you in the queue.' },
-  { n: '03', name: 'Handles',
-    d: 'Puts the mark at eye level for the person actually carrying the bag.' },
-  { n: '04', name: 'Base',
-    d: 'Worth it when the bag gets set down in public — it keeps the branding visible.' },
-  { n: '05', name: 'Interior',
-    d: 'The last thing a customer sees, and the moment the shell stops being disposable.' },
+    line: 'For cooler and insulated shells opened and shut at the counter.' },
+  { id: 'snap', name: 'Concealed Magnetic Snap', key: 'close-snap-v2', spec: 'Recessed, self-closing',
+    alt: 'The two halves of a silver magnetic snap on the lining of a floral printed bag',
+    line: 'For gift and boutique shells that need the printed face left clean.' },
+  { id: 'stitch', name: 'Contrast Stitch Detail', key: 'close-stitch-v2', spec: 'Any thread color',
+    alt: 'Cream contrast thread box-X stitching standing out against dark charcoal canvas',
+    line: 'For shells where the logo sits close to a join and the seam shows.' },
+  { id: 'cord', name: 'Drawstring', key: 'close-drawstring-v2', spec: 'Cinched cotton cord',
+    alt: 'Two printed cotton drawstring pouches, one cinched shut, on a pale wood table',
+    line: 'For produce bags and hardware-free promotional shells.' },
 ];
 
 /* The checklist the finished bag is measured against. Only the title and the
@@ -140,21 +122,26 @@ const checks = [
 ];
 
 /* Six print routes. One line each: the route and what we do about it, in a
-   single sentence rather than a description followed by a repeat of it. The
-   card shows a placeholder band today; `icon` is the filename to drop in per
-   card the moment the real route photographs exist. */
+   single sentence rather than a description followed by a repeat of it. `key`
+   is the photograph of that route on the line. */
 const print = [
-  { icon: 'screen', name: 'Screen Printing',
+  { key: 'route-screen-v2', name: 'Screen Printing',
+    alt: 'A squeegee pulling green ink through a screen onto a cotton tote on a press bed',
     d: 'Lowest cost per bag on a long run. Artwork is separated for the shell it will print on, and the strike-off is approved on that fabric before the screens are committed.' },
-  { icon: 'embroidery', name: 'Embroidery',
+  { key: 'route-embroidery-v2', name: 'Embroidery',
+    alt: 'A ten-needle embroidery machine stitching a multicolor swirl onto white fabric',
     d: 'A raised stitched badge. The logo is digitized for the needle rather than auto-converted, so thin strokes do not close up in thread.' },
-  { icon: 'digital', name: 'Digital Printing',
+  { key: 'route-digital-v2', name: 'Digital Printing',
+    alt: 'A direct-to-garment printer laying a full-color illustration onto a cotton tote bag',
     d: 'Photographic artwork with no screen or plate charge, which is what makes a 500-unit first run viable.' },
-  { icon: 'sublimation', name: 'Sublimation',
+  { key: 'route-sublimation-v2', name: 'Sublimation',
+    alt: 'A wide-format roll printer running printed polyester fabric under the print head',
     d: 'Edge-to-edge color on light polyester and nylon. The shell is checked for fiber first, because the dye will not take on cotton.' },
-  { icon: 'transfer', name: 'Thermal Transfer',
+  { key: 'route-transfer-v2', name: 'Thermal Transfer',
+    alt: 'Hands aligning a floral transfer film on a cotton tote under a heat press arm',
     d: 'Fine detail, gradients and thin type. A strike-off is pressed on the actual shell to check the smallest type before the run.' },
-  { icon: 'laminate', name: 'Laminated and Foil',
+  { key: 'route-laminate-v2', name: 'Laminated and Foil',
+    alt: 'A roll laminating line running printed film onto woven fabric in the factory',
     d: 'Full-color film or metallic foil for retail and gift shells, matched so a matte laminate does not flatten a foil printed beside it.' },
 ];
 
@@ -169,34 +156,26 @@ const stages = [
   { when: 'Day 33–38', name: 'Inspect and Pack', d: 'AQL 2.5 across the lot, folded, wrapped against moisture, pallet strapped.' },
 ];
 
-/* Four commercial constraints rather than four product pitches — the shells
-   are already covered above, so each of these is settled by a number. */
-const briefs = [
-  { chip: 'Setup, not material', b: 'A few hundred bags should be enough to test the market.',
-    d: 'A first run in a new shell starts at 500 units. Spread the dieline, the screens and the sampling over fewer bags than that and the setup is carrying more of the price than the material is.' },
-  { chip: '2 routes', b: 'The artwork has a photograph and a flat logo on the same panel.',
-    d: 'Those two rarely travel the same print route. The quote lists each route on its own line with its own setup, instead of averaging them into a figure that hides which half is expensive.' },
-  { chip: 'Screens on file', b: 'The design reprints each season in a fresh colorway.',
-    d: 'The dieline and the screens stay on file between runs. A seasonal version pays for the new ink and the machine time rather than paying the whole setup again.' },
-  { chip: 'Folded and counted', b: 'There is nowhere to store ten thousand open bags.',
-    d: 'Shells ship folded and counted inside cartons on a pallet pattern drawn around the container. Freight is charged on the folded size, not on the bag standing open.' },
-];
-
-/* Six places the finished bags end up. Panels are placeholders until the
-   client's photographs land in
-   images/Six Places These Bags End Up/  (one file per card). */
+/* Six places the finished bags end up. Each panel is the client's own
+   photograph of that setting. */
 const scenes = [
-  { n: '01', cap: 'Grocery and Supermarket Checkout',
+  { key: 'scene-1-v2', cap: 'Grocery and Supermarket Checkout',
+    alt: 'Shoppers at a collection counter holding printed reusable bags in green, orange and blue',
     d: 'Bought at the till, then brought back for the following week of shopping.' },
-  { n: '02', cap: 'Boutique and High-Street Retail',
+  { key: 'scene-3-v2', cap: 'Boutique and High-Street Retail',
+    alt: 'A shopper crossing a sunlit street carrying a printed boutique shopping bag',
     d: 'Handed over with the purchase, so the packaging leaves with the customer.' },
-  { n: '03', cap: 'Farmers Markets and Produce',
+  { key: 'scene-2-v2', cap: 'Farmers Markets and Produce',
+    alt: 'A shopper filling a cotton tote and a mesh produce bag at a vegetable display',
     d: 'Filled, wiped down and reused across a full market day.' },
-  { n: '04', cap: 'Food Delivery and Takeaway',
+  { key: 'scene-4-v2', cap: 'Food Delivery and Takeaway',
+    alt: 'A person carrying several loaded green reusable bags through a doorway',
     d: 'Carried from the counter to the door, then loaded again on the next shift.' },
-  { n: '05', cap: 'Expos and Promotional Giveaways',
+  { key: 'scene-5-v2', cap: 'Expos and Promotional Giveaways',
+    alt: 'A rack of printed giveaway bags in green, red, blue and yellow in a shop',
     d: 'Picked up at a stand and still in use months later.' },
-  { n: '06', cap: 'Gym, School and Campus',
+  { key: 'scene-6-v2', cap: 'Gym, School and Campus',
+    alt: 'Two drawstring bags being packed by a couple sitting on a living-room floor',
     d: 'The second life a giveaway earns once it leaves the event.' },
 ];
 
@@ -353,7 +332,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
         </ul>
 
         <div class="section-cta">
-          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
             Send Your Bag Spec
             <Fragment set:html={arrow} />
           </a>
@@ -361,10 +340,10 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
       </div>
     </section>
 
-    <!-- ============ 3. MID CTA — type only, clay band ============ -->
+    <!-- ============ 3. MID CTA — type over the client's own studio shot ============ -->
     <section class="rs-mid" id="rs-mid">
       <div class="wrap rs-mid-inner" data-reveal="up">
-        <span class="eyebrow"><Fragment set:html={leaf} />Next step</span>
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Next step</span>
         <h2 class="rs-mid-title">One Sample Bag Answers Most of It</h2>
         <p class="rs-mid-sub">Send artwork, a size and a quantity. A white dummy and a printed shell come back with the price written against them, and the recycled content already documented for your compliance file.</p>
         <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
@@ -429,26 +408,53 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
           <p class="section-sub rs-sub">The closure is the first part of the bag a customer touches and the first part that fails if it was chosen by habit. Pick a closure to see what it decides.</p>
         </div>
 
-        <!-- Two columns of wide cards: the closure on the left, what it decides
-             and where it belongs on the right. No interaction — the whole point
-             is that a buyer can compare all six at a glance. -->
-        <ul class="rs-close-grid">
-          {closures.map((c, i) => (
-            <li class="rs-close-card" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
-              <img src={`${RS}/${c.key}.webp`} alt={c.alt} width={400} height={350} loading="lazy" decoding="async" />
-              <div class="rs-close-body">
-                <span class="rs-close-top"><b>{String(i + 1).padStart(2, '0')}</b><i>{c.spec}</i></span>
-                <h3>{c.name}</h3>
-                <p>{c.d}</p>
-                <p class="rs-close-use"><span>Where it belongs</span>{c.use}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <!-- A stage and a numbered rail. The rail names the six; the stage shows
+             the one line that decides it. The stage stretches to the rail's height,
+             so the image can never be a different size from the list beside it. -->
+        <div class="rs-close-mod">
+          <figure class="rs-close-stage" id="rs-close-stage" role="tabpanel"
+                  aria-labelledby="rs-close-tab-0" data-reveal="up">
+            <span class="rs-close-count"><b id="rs-close-num">01</b> / 06</span>
+            <button type="button" class="rs-close-nav rs-close-prev" data-step="-1" aria-label="Previous closure">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button type="button" class="rs-close-nav rs-close-next" data-step="1" aria-label="Next closure">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <img id="rs-close-img" src={`${RS}/${closures[0].key}.webp`} alt={closures[0].alt}
+                 width={1024} height={1024} loading="lazy" decoding="async" />
+            <figcaption class="rs-close-cap"><p id="rs-close-line">{closures[0].line}</p></figcaption>
+          </figure>
+
+          <div class="rs-close-col">
+            <div class="rs-close-head">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Select a closure
+            </div>
+            <ul class="rs-close-idx" id="rs-close-idx" role="tablist" aria-label="Closures">
+              {closures.map((c, i) => (
+                <li>
+                  <button type="button" role="tab" id={`rs-close-tab-${i}`} data-i={i}
+                          data-src={`${RS}/${c.key}.webp`} data-line={c.line} data-alt={c.alt}
+                          aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                    <span class="rs-close-ring">{String(i + 1).padStart(2, '0')}</span>
+                    <span class="rs-close-txt">
+                      <span class="rs-close-name">{c.name}</span>
+                      <span class="rs-close-spec">{c.spec}</span>
+                    </span>
+                    <span class="rs-close-chev">
+                      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
         <div class="section-cta">
-          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener">
-            Spec My Closure
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Pick My Closure Hardware
             <Fragment set:html={arrow} />
           </a>
         </div>
@@ -493,27 +499,19 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
         <ul class="rs-route-grid">
           {print.map((p, i) => (
             <li class="rs-route" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
-              <div class="rs-route-ph" aria-hidden="true"><span>{String(i + 1).padStart(2, '0')}</span></div>
+              <img class="rs-route-img" src={`${RS}/${p.key}.webp`} alt={p.alt}
+                   width={1000} height={562} loading="lazy" decoding="async" />
               <h3>{p.name}</h3>
               <p class="rs-route-d">{p.d}</p>
             </li>
           ))}
         </ul>
 
-        <div class="rs-place" data-reveal="up">
-          <div class="rs-place-head">
-            <h3>Where we would put the print</h3>
-            <p>Five panels take artwork. This is the order they earn their money in on a shopping bag, and what each one does.</p>
-          </div>
-          <ol class="rs-place-list">
-            {zones.map((z) => (
-              <li>
-                <b>{z.n}</b>
-                <h4>{z.name}</h4>
-                <p>{z.d}</p>
-              </li>
-            ))}
-          </ol>
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Review My Artwork
+            <Fragment set:html={arrow} />
+          </a>
         </div>
       </div>
     </section>
@@ -549,8 +547,22 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
           <div>
             <span class="eyebrow"><Fragment set:html={leaf} />In use</span>
             <h2 class="section-title">Six Places These Bags End Up</h2>
-            <p class="section-sub rs-sub">Where the order actually lives after it ships. The panels are placeholders until the photographs land.</p>
+            <p class="section-sub rs-sub">Where the order actually lives after it ships — six settings, photographed on the job.</p>
           </div>
+        </div>
+
+        <div class="rs-scenes-viewport" data-reveal="up">
+          <ul class="rs-scenes-track" id="rs-scenes-track">
+            {scenes.map((sc) => (
+              <li class="rs-scene">
+                <img class="rs-scene-img" src={`${RS}/${sc.key}.webp`} alt={sc.alt}
+                     width={1200} height={670} loading="lazy" decoding="async" />
+                <h3>{sc.cap}</h3>
+                <p>{sc.d}</p>
+              </li>
+            ))}
+          </ul>
+
           <div class="rs-scenes-ctrl">
             <button type="button" class="rs-scenes-btn" data-step="-1" aria-label="Previous scene">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -559,18 +571,6 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
-        </div>
-
-        <div class="rs-scenes-viewport" data-reveal="up">
-          <ul class="rs-scenes-track" id="rs-scenes-track">
-            {scenes.map((sc) => (
-              <li class="rs-scene">
-                <div class="rs-scene-ph" aria-hidden="true"><span>{sc.n}</span></div>
-                <h3>{sc.cap}</h3>
-                <p>{sc.d}</p>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>
@@ -588,7 +588,9 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
             <figure class="rs-quote" data-reveal="up">
               <span class="rs-quote-mark" aria-hidden="true">&ldquo;</span>
               <blockquote>
-                {q.p.map((para) => (<p>{para}</p>))}
+                {q.p.map((para, pi) => (
+                  <p>{para}{pi === q.p.length - 1 && (<span class="rs-quote-close" aria-hidden="true">&rdquo;</span>)}</p>
+                ))}
               </blockquote>
               <figcaption>
                 <img src={q.img} alt={q.alt} width={160} height={160} loading="lazy" decoding="async" />
@@ -601,28 +603,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
       </div>
     </section>
 
-    <!-- ============ 12. BRIEFS — four cards, moved next to the FAQ so the two buying-decision sections sit together ============ -->
-    <section class="rs-briefs" id="rs-briefs">
-      <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Four briefs</span>
-          <h2 class="section-title">Four Constraints, and the Number That Settles Each</h2>
-          <p class="section-sub rs-sub">Most orders arrive as a limit rather than a design. Each of these is decided by a figure in the quote instead of by preference.</p>
-        </div>
-
-        <ul class="rs-brief-grid">
-          {briefs.map((b, i) => (
-            <li class="rs-brief" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
-              <span class="rs-chip">{b.chip}</span>
-              <p class="rs-brief-q">{b.b}</p>
-              <p class="rs-brief-a">{b.d}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ 13. FAQ — centred head, one column down the page ============ -->
+    <!-- ============ 12. FAQ — centred head, one column down the page ============ -->
     <section class="rs-faq" id="rs-faq">
       <div class="wrap">
         <div class="rs-faq-head" data-reveal="up">
@@ -641,9 +622,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
       </div>
     </section>
 
-    <!-- ============ 14. FINAL CTA — centred, waiting on a background image.
-         Drop the client's file in by setting --rs-final-img below (or adding an
-         <img> in .rs-final-bg) — the copy and scrim are already in place. ============ -->
+    <!-- ============ 13. FINAL CTA — centred over the client's own photograph ============ -->
     <section class="rs-final" id="rs-final">
       <div class="rs-final-bg" aria-hidden="true"></div>
       <div class="rs-final-scrim" aria-hidden="true"></div>
@@ -736,9 +715,10 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   .rs-stats li {
     padding: 1.25rem 1.1rem 0;
     border-left: 1px solid rgba(31, 59, 44, 0.12);
+    text-align: center;
     font-size: 0.9rem; line-height: 1.5; color: var(--color-brand-muted);
   }
-  .rs-stats li:first-child { border-left: 0; padding-left: 0; }
+  .rs-stats li:first-child { border-left: 0; }
   .rs-stats strong {
     display: block; margin-bottom: 0.15rem;
     font-family: var(--font-heading); font-weight: 700;
@@ -754,13 +734,25 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     gap: clamp(1.1rem, 2.2vw, 1.7rem);
   }
   .rs-type {
-    background: var(--color-clay);
+    /* Lighter than the old clay so the photographs do not read dark, but paired
+       with a hairline edge and a soft lift so the card still reads as a card
+       against the ivory band behind it. */
+    background: color-mix(in srgb, var(--color-clay) 45%, var(--ivory));
+    border: 1px solid rgba(31, 59, 44, 0.1);
     border-radius: 1.3rem; overflow: hidden;
     display: flex; flex-direction: column;
+    box-shadow: 0 18px 40px -36px rgba(31, 59, 44, 0.45);
     transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
   }
   .rs-type:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -42px rgba(31, 59, 44, 0.5); }
-  .rs-type img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  /* The nine photographs arrive as studio shots on white. Multiply drops that
+     white into the card's own tone, so the picture sits on the page's colour
+     instead of in a white box, and a small lift keeps the bags from going dull. */
+  .rs-type img {
+    width: 100%; aspect-ratio: 1 / 1; object-fit: cover;
+    mix-blend-mode: multiply;
+    filter: brightness(1.07) saturate(1.03);
+  }
   .rs-type-body { padding: 1.15rem 1.25rem 1.35rem; }
   .rs-type-top { display: flex; align-items: baseline; justify-content: space-between; gap: 0.7rem; }
   .rs-type-top b {
@@ -836,45 +828,119 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   .rs-fab .rs-chip { margin-top: 0.6rem; }
   .rs-fab p { margin: 0.7rem 0 0; font-size: 0.9rem; line-height: 1.62; color: var(--color-brand-muted); }
 
-  /* ============ 6. CLOSURES — two columns of wide cards ============ */
+  /* ============ 6. CLOSURES — a stage and a numbered rail ============ */
   .rs-closures { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--ivory); }
-  .rs-close-grid {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.1rem, 2.2vw, 1.7rem);
+  .rs-close-mod {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(1.4rem, 3vw, 2.6rem); align-items: stretch;
   }
-  .rs-close-card {
-    display: grid; grid-template-columns: 0.8fr 1.2fr;
-    background: var(--color-clay); border-radius: 1.25rem; overflow: hidden;
-    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
-  }
-  .rs-close-card:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -44px rgba(31, 59, 44, 0.5); }
-  .rs-close-card > img { width: 100%; height: 100%; object-fit: cover; }
-  .rs-close-body { padding: clamp(1.1rem, 2vw, 1.5rem); display: flex; flex-direction: column; }
-  .rs-close-top { display: flex; align-items: baseline; gap: 0.7rem; }
-  .rs-close-top b { font-family: var(--font-heading); font-weight: 600; font-size: 0.96rem; color: var(--brass); }
-  .rs-close-top i {
-    font-style: normal; font-size: 0.65rem; font-weight: 600;
-    letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand-muted);
-  }
-  .rs-close-body h3 {
-    margin: 0.5rem 0 0; font-family: var(--font-heading); font-weight: 600;
-    font-size: 1.13rem; line-height: 1.28; letter-spacing: -0.01em; color: var(--color-brand-text);
-  }
-  .rs-close-body p { margin: 0.55rem 0 0; font-size: 0.9rem; line-height: 1.62; color: var(--color-brand-muted); }
-  .rs-close-body .rs-close-use {
-    margin-top: auto; padding-top: 0.95rem;
-    border-top: 1px solid rgba(31, 59, 44, 0.14);
-    font-size: 0.86rem; color: var(--color-brand-text);
-  }
-  .rs-close-use span {
-    display: block; margin-bottom: 0.25rem;
-    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+  .rs-close-col { display: flex; flex-direction: column; min-width: 0; }
+  .rs-close-head {
+    display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.9rem;
+    font-size: 0.66rem; font-weight: 600; letter-spacing: 0.17em; text-transform: uppercase;
     color: var(--brass);
   }
+  .rs-close-head svg { width: 0.95rem; height: 0.95rem; }
+  /* The rail defines the row height and the stage stretches to it, which is what
+     keeps the photograph and the list exactly level at every width. */
+  .rs-close-stage { position: relative; margin: 0; min-height: 300px; }
+  .rs-close-stage img {
+    display: block; width: 100%; height: 100%; object-fit: cover;
+    border-radius: 1.3rem; background: var(--color-clay);
+  }
+  .rs-close-stage::after {
+    content: ''; position: absolute; inset: 0; border-radius: 1.3rem; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.1) 0%, rgba(20, 38, 27, 0) 34%, rgba(20, 38, 27, 0.86) 100%);
+  }
+  .rs-close-count {
+    position: absolute; top: 0.95rem; left: 0.95rem; z-index: 2;
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.78rem; letter-spacing: 0.06em;
+    color: #fff; background: rgba(20, 38, 27, 0.5);
+    border: 1px solid rgba(245, 240, 229, 0.32); border-radius: 999px; padding: 0.3rem 0.68rem;
+  }
+  .rs-close-count b { color: #E3C29A; }
+  .rs-close-cap { position: absolute; left: 1.15rem; right: 1.15rem; bottom: 1.05rem; z-index: 2; }
+  .rs-close-cap p {
+    margin: 0; max-width: 42ch;
+    font-size: 0.92rem; line-height: 1.62; color: rgba(245, 240, 229, 0.94);
+  }
+  .rs-close-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; cursor: pointer;
+    width: 2.7rem; height: 2.7rem; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(245, 240, 229, 0.92); color: var(--color-brand-text);
+    border: 1px solid rgba(31, 59, 44, 0.18);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .rs-close-nav:hover { background: var(--forest-light); color: var(--ivory); border-color: var(--forest-light); }
+  .rs-close-nav:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+  .rs-close-nav svg { width: 1.05rem; height: 1.05rem; }
+  .rs-close-prev { left: 0.9rem; }
+  .rs-close-next { right: 0.9rem; }
+
+  .rs-close-idx { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; flex: 1; }
+  .rs-close-idx li { display: flex; flex: 1; }
+  .rs-close-idx button {
+    flex: 1; width: 100%; cursor: pointer; text-align: left; font-family: inherit;
+    display: grid; grid-template-columns: 2.5rem 1fr 1.15rem; gap: 1rem; align-items: center;
+    background: none; border: 0; border-top: 1px solid rgba(31, 59, 44, 0.16);
+    border-left: 3px solid transparent;
+    padding: 0.75rem 1rem 0.75rem 0.55rem;
+    transition: background 0.3s ease, border-color 0.3s ease, padding-left 0.3s ease;
+  }
+  .rs-close-idx li:last-child button { border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+  .rs-close-idx button:hover {
+    background: rgba(176, 141, 76, 0.09);
+    border-left-color: rgba(176, 141, 76, 0.45); padding-left: 0.8rem;
+  }
+  .rs-close-idx button:hover .rs-close-chev { transform: translateX(3px); color: var(--brass); }
+  /* the numeral sits in a ring: outlined at rest, filled when it is the one on stage */
+  .rs-close-ring {
+    width: 2.15rem; height: 2.15rem; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.8rem; color: var(--brass);
+    border: 1px solid rgba(176, 141, 76, 0.45);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .rs-close-idx button:hover .rs-close-ring { background: rgba(176, 141, 76, 0.16); }
+  .rs-close-idx button[aria-selected='true'] {
+    background: rgba(176, 141, 76, 0.13);
+    border-left-color: var(--brass); padding-left: 0.8rem;
+  }
+  .rs-close-idx button[aria-selected='true'] .rs-close-ring {
+    background: var(--brass); color: var(--ivory); border-color: var(--brass);
+  }
+  .rs-close-idx button:focus-visible { outline: 2px solid var(--brass); outline-offset: -2px; }
+  .rs-close-txt { display: flex; flex-direction: column; gap: 0.16rem; min-width: 0; }
+  .rs-close-name {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: 1.02rem; line-height: 1.26; letter-spacing: -0.01em; color: var(--color-brand-text);
+  }
+  .rs-close-idx button[aria-selected='true'] .rs-close-name { color: var(--brass); }
+  .rs-close-spec {
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  .rs-close-chev { color: rgba(31, 59, 44, 0.32); transition: transform 0.3s ease, color 0.3s ease; }
+  .rs-close-chev svg { width: 1.05rem; height: 1.05rem; display: block; }
+  .rs-close-idx button[aria-selected='true'] .rs-close-chev { color: var(--brass); }
 
   /* ============ 7. INSPECTION SHEET — a checklist, nothing more ============ */
-  .rs-survive { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  .rs-survive {
+    position: relative; isolation: isolate;
+    padding: clamp(4rem, 9vw, 8rem) 0;
+    background: var(--color-clay);
+  }
+  /* The client's sample wall sits behind the sheet under a clay veil, so the
+     checklist is still the thing you read first. */
+  .rs-survive::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background: url('https://img.leelinepackage.com/reusable-shopping-bags/inspect-bg.webp') center / cover no-repeat;
+  }
+  .rs-survive::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(180deg, rgba(237, 229, 212, 0.9) 0%, rgba(237, 229, 212, 0.8) 100%);
+  }
   .rs-sheet {
     background: var(--ivory); border-radius: 1.5rem;
     padding: clamp(1.7rem, 3.6vw, 3rem);
@@ -921,20 +987,11 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     padding: 0.9rem 0.95rem 1.3rem;
     display: flex; flex-direction: column;
   }
-  /* Placeholder band. Swapping in a photograph is a one-line change: replace
-     this div with <img src=... /> and nothing else moves. */
-  .rs-route-ph {
-    aspect-ratio: 7 / 2;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 0.65rem;
-    border: 1px dashed rgba(176, 141, 76, 0.45);
-    background:
-      repeating-linear-gradient(135deg, rgba(176, 141, 76, 0.06) 0 7px, rgba(176, 141, 76, 0) 7px 14px),
-      var(--ivory);
-  }
-  .rs-route-ph span {
-    font-family: var(--font-heading); font-weight: 500; font-size: 1rem;
-    letter-spacing: 0.05em; color: rgba(176, 141, 76, 0.72);
+  /* 16/9 across the row: the six route photographs arrive in mixed shapes, so the
+     row is unified on one ratio with object-fit rather than going ragged. */
+  .rs-route-img {
+    width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 0.65rem; background: var(--ivory);
   }
   .rs-route h3 {
     margin: 0.95rem 0 0; font-family: var(--font-heading); font-weight: 600;
@@ -980,13 +1037,24 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   }
 
   /* ============ 10. SCENES — three-up looping carousel ============ */
-  .rs-scenes { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-brand-surface); }
-  .rs-scenes-head {
-    display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
-    gap: 1.6rem; margin-bottom: clamp(2rem, 4vw, 3rem);
+  /* --ph is the panel height; the arrows are banded to it so they always sit
+     level with the pictures and never drift down into the captions. The value
+     tracks the height a 16/9 photo takes at each slide width (3-up, 2-up, 1-up),
+     so the band matches the panels instead of floating above them. */
+  .rs-scenes {
+    --ph: clamp(160px, calc(18vw - 18px), 215px);
+    padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-brand-surface);
   }
+  .rs-scenes-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
   .rs-scenes-head .section-title { font-size: clamp(1.85rem, 3.4vw, 2.85rem); }
-  .rs-scenes-ctrl { display: flex; gap: 0.6rem; }
+  .rs-scenes-ctrl {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 3;
+    height: var(--ph);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 0.9rem;
+    pointer-events: none;          /* the band must not eat the cards' clicks */
+  }
+  .rs-scenes-btn { pointer-events: auto; }
   .rs-scenes-btn {
     appearance: none; cursor: pointer;
     width: 2.9rem; height: 2.9rem; border-radius: 50%;
@@ -1000,24 +1068,18 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   .rs-scenes-btn svg { width: 1.15rem; height: 1.15rem; }
   /* the viewport clips; the track holds six slides plus three clone slides that
      the script appends, which is what makes the wrap seamless instead of a jump */
-  .rs-scenes-viewport { overflow: hidden; }
+  .rs-scenes-viewport { position: relative; overflow: hidden; }
   .rs-scenes-track {
     list-style: none; margin: 0; padding: 0;
     display: flex; gap: clamp(1rem, 2vw, 1.6rem);
     transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .rs-scene { flex: 0 0 calc((100% - 2 * clamp(1rem, 2vw, 1.6rem)) / 3); min-width: 0; }
-  .rs-scene-ph {
-    aspect-ratio: 4 / 3; border-radius: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    border: 1px dashed rgba(176, 141, 76, 0.45);
-    background:
-      repeating-linear-gradient(135deg, rgba(176, 141, 76, 0.07) 0 8px, rgba(176, 141, 76, 0) 8px 16px),
-      var(--ivory);
-  }
-  .rs-scene-ph span {
-    font-family: var(--font-heading); font-weight: 500; font-size: 1.5rem;
-    color: rgba(176, 141, 76, 0.62);
+  /* The six scene photographs arrive at slightly different wide shapes, so the
+     row is unified on 16/9 rather than going ragged. */
+  .rs-scene-img {
+    display: block; width: 100%; aspect-ratio: 16 / 9;
+    object-fit: cover; border-radius: 1rem; background: var(--color-clay);
   }
   .rs-scene h3 {
     margin: 1rem 0 0; font-family: var(--font-heading); font-weight: 600;
@@ -1025,38 +1087,31 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   }
   .rs-scene p { margin: 0.4rem 0 0; font-size: 0.88rem; line-height: 1.6; color: var(--color-brand-muted); }
 
-  /* ============ 12. BRIEFS — four cards, sat next to the FAQ ============ */
-  .rs-briefs { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-brand-surface); }
-  .rs-brief-grid {
-    list-style: none; margin: 0; padding: 0;
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1.1rem, 2.4vw, 1.8rem);
+  /* ============ 3. MID CTA — the client's line-up shot behind the type ============ */
+  .rs-mid {
+    position: relative; isolation: isolate;
+    padding: clamp(3.6rem, 8vw, 6.4rem) 0;
+    background: var(--forest-deep);
   }
-  .rs-brief {
-    display: flex; flex-direction: column;
-    background: var(--ivory); border-radius: 1.3rem;
-    padding: clamp(1.4rem, 2.6vw, 1.8rem);
-    box-shadow: 0 26px 54px -48px rgba(31, 59, 44, 0.5);
+  /* Full-bleed photograph under a dark veil: dense enough for the white type and
+     the gold button, light enough that the bags still read behind them. */
+  .rs-mid::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background: url('https://img.leelinepackage.com/reusable-shopping-bags/mid-cta-bg.webp') center / cover no-repeat;
   }
-  .rs-brief-q {
-    margin: 1rem 0 0; max-width: 36ch;
-    font-family: var(--font-heading); font-style: normal; font-weight: 600;
-    font-size: 1.14rem; line-height: 1.45; letter-spacing: -0.01em;
-    color: var(--color-brand-text);
+  .rs-mid::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(165deg, rgba(20, 38, 27, 0.62) 0%, rgba(20, 38, 27, 0.78) 100%);
   }
-  .rs-brief-a { margin: 0.75rem 0 0; max-width: 54ch; font-size: 0.92rem; line-height: 1.68; color: var(--color-brand-muted); }
-
-  /* ============ 3. MID CTA — type only ============ */
-  .rs-mid { padding: clamp(3.6rem, 8vw, 6.4rem) 0; background: var(--color-clay); }
-  .rs-mid-inner { max-width: 62rem; text-align: center; }
+  .rs-mid-inner { position: relative; max-width: 62rem; text-align: center; }
   .rs-mid-title {
     margin: 1.1rem 0 0; font-family: var(--font-heading); font-weight: 700;
     font-size: clamp(1.85rem, 4.4vw, 3.1rem); line-height: 1.06; letter-spacing: -0.025em;
-    color: var(--color-brand-text); text-wrap: balance;
+    color: #fff; text-wrap: balance;
   }
   .rs-mid-sub {
     margin: 1.25rem auto 1.9rem; max-width: 72ch;
-    font-size: 1.02rem; line-height: 1.72; color: var(--color-brand-muted); text-wrap: balance;
+    font-size: 1.02rem; line-height: 1.72; color: rgba(245, 240, 229, 0.82); text-wrap: balance;
   }
 
   /* ============ 11. TESTIMONIALS — quote-mark cards ============ */
@@ -1071,15 +1126,21 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     box-shadow: 0 26px 54px -46px rgba(31, 59, 44, 0.5);
   }
   .rs-quote-mark {
+    display: block;
     font-family: var(--font-heading); font-weight: 700;
-    font-size: 3.6rem; line-height: 0.62; letter-spacing: -0.02em;
-    color: var(--brass); opacity: 0.4;
+    font-size: 4.6rem; line-height: 0.5; letter-spacing: 0;
+    color: var(--brass);
   }
-  .rs-quote blockquote { margin: 1.1rem 0 1.5rem; }
+  .rs-quote-close {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: 1.5rem; line-height: 0; color: var(--brass);
+    margin-left: 0.12rem; vertical-align: -0.06em;
+  }
+  .rs-quote blockquote { margin: 1rem 0 1.6rem; }
   .rs-quote blockquote p {
-    margin: 0 0 0.85rem;
+    margin: 0 0 0.9rem;
     font-family: var(--font-body); font-style: normal;
-    font-size: 0.97rem; line-height: 1.76; color: var(--color-brand-text);
+    font-size: 1.06rem; line-height: 1.78; color: var(--color-brand-text);
   }
   .rs-quote blockquote p:last-child { margin-bottom: 0; }
   .rs-quote figcaption {
@@ -1087,17 +1148,17 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     margin-top: auto; padding-top: 1.25rem;
     border-top: 1px solid rgba(31, 59, 44, 0.14);
   }
-  .rs-quote figcaption img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+  .rs-quote figcaption img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
   .rs-quote figcaption > span:not(.rs-stars) { display: flex; flex-direction: column; gap: 0.12rem; }
-  .rs-quote figcaption strong { font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--color-brand-text); }
+  .rs-quote figcaption strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.08rem; color: var(--color-brand-text); }
   .rs-quote figcaption em {
-    font-style: normal; font-size: 0.72rem; letter-spacing: 0.07em; text-transform: uppercase;
+    font-style: normal; font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase;
     color: var(--color-brand-muted);
   }
   .rs-quote .rs-stars { display: inline-flex; gap: 3px; margin-left: auto; color: var(--brass); }
 
-  /* ============ 13. FAQ — centred head, numbered questions ============ */
-  .rs-faq { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--ivory); }
+  /* ============ 12. FAQ — centred head, numbered questions ============ */
+  .rs-faq { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-brand-surface); }
   .rs-faq-head { text-align: center; max-width: 54rem; margin: 0 auto clamp(2.2rem, 4.5vw, 3.4rem); }
   .rs-faq-head .section-title { font-size: clamp(1.85rem, 3.4vw, 2.85rem); }
   .rs-faq-head::after {
@@ -1108,8 +1169,8 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
   .rs-faq-list details { border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
   .rs-faq-list details:first-child { border-top: 1px solid rgba(31, 59, 44, 0.16); }
   .rs-faq-list summary {
-    list-style: none; cursor: pointer; text-align: center;
-    padding: 1.5rem clamp(1rem, 4vw, 3rem);
+    position: relative; list-style: none; cursor: pointer; text-align: left;
+    padding: 1.4rem 3.2rem 1.4rem 0;
     font-family: var(--font-heading); font-weight: 600;
     font-size: clamp(1.05rem, 1.6vw, 1.26rem); line-height: 1.42;
     color: var(--color-brand-text); transition: color 0.3s ease;
@@ -1121,27 +1182,33 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em; vertical-align: 0.22em;
     color: var(--brass);
   }
-  /* the chevron is an inline sibling rather than an absolute one, so it stays
-     centred with the question instead of pinning to the row's right edge */
+  /* left-aligned again, so the chevron goes back to the row's right edge */
   .rs-faq-list summary::after {
-    content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 0.85rem;
+    content: ''; position: absolute; right: 0.6rem; top: 1.7rem;
+    width: 8px; height: 8px;
     border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
-    transform: rotate(45deg) translateY(-2px);
+    transform: rotate(45deg);
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .rs-faq-list details[open] summary::after { transform: rotate(-135deg) translateY(1px); }
+  .rs-faq-list details[open] summary::after { transform: rotate(-135deg); }
   .rs-faq-list details p {
-    margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem) 1.75rem; max-width: 86ch;
+    margin: 0; padding: 0 3.2rem 1.6rem 0; max-width: 92ch;
     text-align: left; font-size: 0.96rem; line-height: 1.75; color: var(--color-brand-muted);
   }
 
-  /* ============ 14. FINAL CTA — centred, background image to come ============ */
-  .rs-final { position: relative; overflow: hidden; background: var(--forest-deep); }
-  /* When the background photograph lands, set it here — nothing else changes:
-     --rs-final-img: url('https://img.leelinepackage.com/reusable-shopping-bags/final-cta.webp'); */
+  /* ============ 13. FINAL CTA — centred, over the expo photograph ============ */
+  .rs-final {
+    position: relative; overflow: hidden; background: var(--forest-deep);
+    --rs-final-img: url('https://img.leelinepackage.com/reusable-shopping-bags/final-cta-bg.webp');
+  }
   .rs-final-bg { position: absolute; inset: 0; background: var(--rs-final-img, none) center / cover no-repeat; }
-  .rs-final-scrim { position: absolute; inset: 0; background: linear-gradient(165deg, rgba(20, 38, 27, 0.84) 0%, rgba(20, 38, 27, 0.93) 100%); }
-  .rs-final-inner { position: relative; z-index: 1; text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; }
+  /* Thin enough to see the stand behind the type, dense enough at the foot to
+     keep the white copy off the picture's busiest area. */
+  .rs-final-scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(165deg, rgba(20, 38, 27, 0.62) 0%, rgba(20, 38, 27, 0.78) 100%);
+  }
+  .rs-final-inner { position: relative; z-index: 1; text-align: center; padding: clamp(4.1rem, 9vw, 6.8rem) 0; }
   .rs-final-title {
     margin: 1.1rem auto 0; max-width: 26ch;
     font-family: var(--font-heading); font-weight: 700;
@@ -1169,40 +1236,42 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     .rs-card { margin-top: 1.4rem; max-width: none; box-shadow: none; padding: 0 0.2rem; border-radius: 0; }
 
     .rs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .rs-stats li:nth-child(3) { border-left: 0; padding-left: 0; }
+    .rs-stats li:nth-child(3) { border-left: 0; }
     .rs-stats li:nth-child(n + 3) { border-top: 1px solid rgba(31, 59, 44, 0.12); margin-top: 1.1rem; }
 
     .rs-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .rs-fab-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-    .rs-close-card { grid-template-columns: 1fr; }
-    .rs-close-card > img { height: clamp(180px, 34vw, 240px); }
+    /* stacked, the stage no longer has a rail to match, so it takes a ratio */
+    .rs-close-mod { grid-template-columns: 1fr; }
+    .rs-close-stage { min-height: 0; aspect-ratio: 4 / 3; }
+    .rs-close-idx button { grid-template-columns: 2.3rem 1fr 1.15rem; gap: 0.8rem; padding: 0.7rem 0.8rem 0.7rem 0.5rem; }
 
-    .rs-scenes-head { margin-bottom: clamp(1.6rem, 4vw, 2.4rem); }
-    .rs-scenes-ctrl { order: -1; }
-    .rs-scene { flex: 0 0 100%; }
+    .rs-scene { flex: 0 0 calc((100% - clamp(1rem, 2vw, 1.6rem)) / 2); }
+    .rs-scenes { --ph: clamp(150px, calc(22vw + 20px), 230px); }
+    .rs-scenes-ctrl { padding: 0 0.6rem; }
 
-    .rs-place-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
     .rs-check-how { margin-left: 0; }
 
-    .rs-brief-grid { grid-template-columns: 1fr; }
     .rs-quote-grid { grid-template-columns: 1fr; }
 
-    .rs-final-inner { padding: clamp(3.5rem, 9vw, 5.5rem) 0; }
+    .rs-final-inner { padding: clamp(2.3rem, 9vw, 4.3rem) 0; }
   }
   @media (max-width: 640px) {
     .rs-type-grid, .rs-fab-grid, .rs-route-grid { grid-template-columns: 1fr; }
     .rs-check-list { grid-template-columns: 1fr; }
-    .rs-place-list { grid-template-columns: 1fr; }
     .rs-cert-list { grid-template-columns: 1fr; }
     .rs-flow-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .rs-stats { grid-template-columns: 1fr; }
-    .rs-stats li { border-left: 0; padding-left: 0; }
+    .rs-stats li { border-left: 0; }
     .rs-stats li + li { border-top: 1px solid rgba(31, 59, 44, 0.12); margin-top: 1rem; }
     .rs-stats li:nth-child(3) { margin-top: 1rem; }
     .rs-faq-list summary { padding-right: 2.4rem; }
     .rs-faq-list details p { padding-right: 1.2rem; }
+    .rs-scenes { --ph: clamp(170px, calc(56.25vw - 18px), 340px); }
+    .rs-scene { flex: 0 0 100%; }
+    .rs-scenes-btn { width: 2.5rem; height: 2.5rem; }
   }
   @media (max-width: 480px) {
     .rs-flow-list { grid-template-columns: 1fr; }
@@ -1222,6 +1291,52 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     revealEls.forEach((el) => revealIO.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Closure module. The rail names the six, the stage shows the one line that
+  // decides it, and the arrows step through with a wrap so 06 -> 01 is a step
+  // rather than a jump.
+  const closeIdx = document.getElementById('rs-close-idx');
+  if (closeIdx) {
+    const tabs = Array.from(closeIdx.querySelectorAll('[role="tab"]'));
+    const img = document.getElementById('rs-close-img');
+    const line = document.getElementById('rs-close-line');
+    const num = document.getElementById('rs-close-num');
+    const stage = document.getElementById('rs-close-stage');
+    let at = 0;
+
+    const paint = (i) => {
+      at = (i + tabs.length) % tabs.length;
+      const t = tabs[at];
+      img.src = t.dataset.src;
+      img.alt = t.dataset.alt;
+      line.textContent = t.dataset.line;
+      num.textContent = String(at + 1).padStart(2, '0');
+      stage.setAttribute('aria-labelledby', t.id);
+      tabs.forEach((b, k) => {
+        b.setAttribute('aria-selected', String(k === at));
+        b.tabIndex = k === at ? 0 : -1;
+      });
+    };
+
+    tabs.forEach((b) => {
+      b.addEventListener('click', () => paint(Number(b.dataset.i)));
+      b.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = at + 1;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = at - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        paint(next);
+        tabs[at].focus();
+      });
+    });
+
+    document.querySelectorAll('.rs-close-nav').forEach((b) => {
+      b.addEventListener('click', () => paint(at + Number(b.dataset.step)));
+    });
   }
 
   // Scenes carousel. Three slides per view on desktop, one on mobile. The track

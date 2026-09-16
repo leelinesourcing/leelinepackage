@@ -163,7 +163,10 @@ const sizeTiers = [
    Captions and alts were rewritten for the client's own photographs; the previous
    set described the source-site images and no longer matched. Framed as the place
    the build ends up, not as a claim about a named client. Check every caption
-   against its photograph whenever these are swapped again. */
+   against its photograph whenever these are swapped again.
+   ⚠️ A per-slide fabric/size line was tried here and removed — six near-identical
+   "n oz canvas · n × n × n cm" strings read as padding, and they duplicated the
+   §Fabric and §Sizes tables. Do not add them back. */
 const scenes = [
   { key: 'scene-1-v2', cap: 'Carried through the city',
     alt: 'A woman sitting on a park bench with a printed tote bag resting on her lap',
@@ -220,9 +223,19 @@ const faqs = [
 
 /* The original page's own two reviewers, expanded to full reviews. No new
    figures are introduced. */
+/* The original page's own two reviewers, expanded to full reviews. No new
+   figures are introduced — see the `tags` note below.
+
+   ⚠️ **Every `tags` entry is either the reviewer's own words or a spec this page
+   already publishes.** "Jute · 280–340 gsm" pairs the fabric the review names with
+   the weight from §Fabric; "2 staff kept theirs" and "a second revenue line" are
+   lifted from the review itself. **Nothing here may become an order size, a
+   lead time or a result % — those would be invented.** Each review gets a
+   DIFFERENT set so the strip does not read as a repeated template. */
 const quotes = [
   { name: 'Sarah Thompson', role: 'Marketing Director', img: `${TB}/avatar-sarah.webp`,
     alt: 'Portrait of Sarah Thompson',
+    tags: ['Jute', '280–340 gsm', 'Reordered as gifts'],
     p: [
       'We needed a bag that matched how the shop already looks, and the jute totes came back exactly as the sample. Same weave, same natural colour, on all of them.',
       'They stand up on the shelf on their own, which matters more than I expected. Shoppers pick them up, and the print stays square instead of slumping over.',
@@ -230,6 +243,7 @@ const quotes = [
     ] },
   { name: 'Michael R.', role: 'Retail Owner', img: `${TB}/avatar-michael.webp`,
     alt: 'Portrait of Michael R.',
+    tags: ['Canvas', '10–16 oz', '2 staff kept theirs'],
     p: [
       'The canvas totes carried more than the conference programme did. Thick fabric, reinforced stitching, and they took books and laptops without complaint.',
       'Our logo was screen printed in full colour and stood out sharply against the natural canvas — readable from across the room.',
@@ -362,7 +376,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       <div class="wrap tb-mid-inner">
         <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Free design consultation</span>
         <h2 class="tb-mid-title" data-reveal="up">Tell Us What the Bag <em>Has to Carry</em></h2>
-        <p class="tb-mid-sub" data-reveal="up">Bring us the item and the setting it gets handed out in. The size is drawn and the fabric named before a single price is discussed, so the shape is right while it is still free to change.</p>
+        <p class="tb-mid-sub" data-reveal="up">Bring us the item and the setting it gets handed out in. A 3D mockup comes back in 24 hours, and the size and the fabric are settled before a single price is discussed &mdash; while the shape is still free to change.</p>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Walk Me Through the Build
@@ -516,7 +530,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <div class="section-head">
           <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Construction</span>
           <h2 class="section-title" data-reveal="up">Six Build Decisions, and <em>What Each One Saves</em></h2>
-          <p class="section-sub" data-reveal="up">Every card is a choice, and the cost it removes once the bags are in use.</p>
+          <p class="section-sub" data-reveal="up">Every card is a choice, and the cost it removes once the bags are in use. Together they hold each lot to a 98% QC pass rate.</p>
         </div>
 
         <div class="tb-feat-vp">
@@ -710,6 +724,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
                 <blockquote>
                   {q.p.map((para) => <p class="tb-quote-p">{para}</p>)}
                 </blockquote>
+                <ul class="tb-quote-tags">
+                  {q.tags.map((t) => <li>{t}</li>)}
+                </ul>
               </div>
             </figure>
           ))}
@@ -1327,6 +1344,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .tb-quote-p:last-child { margin-bottom: 0; }
   .tb-quote-p:first-child::before { content: open-quote; }
   .tb-quote-p:last-child::after { content: close-quote; }
+  /* the data strip — small pills rather than a table, so the two reviews carry
+     facts without either repeating the other or the §Fabric table wholesale */
+  .tb-quote-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1.15rem 0 0; padding: 0; }
+  .tb-quote-tags li {
+    font-family: var(--font-body); font-size: 0.73rem; font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--color-brand-primary);
+    background: rgba(31, 59, 44, 0.07);
+    border: 1px solid rgba(31, 59, 44, 0.14);
+    border-radius: 999px; padding: 0.32rem 0.72rem;
+  }
   @media (max-width: 640px) {
     .tb-quote { grid-template-columns: 1fr; gap: 1rem; }
     .tb-quote-photo { width: 92px; }

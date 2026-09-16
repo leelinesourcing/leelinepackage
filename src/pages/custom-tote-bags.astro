@@ -242,7 +242,7 @@ const seo = {
   description: 'Custom printed tote bags in six fabrics from 10 oz canvas to 300 gsm jute. Bar-tacked handles, Pantone-matched print, 500-unit MOQ and 4-6 week production runs.',
   keywords: 'custom tote bags manufacturer, custom canvas tote bags, custom printed tote bags, wholesale tote bags, cotton tote bag manufacturer, custom shopping bags, promotional tote bags, organic cotton tote bags, custom tote bags wholesale, custom jute tote bags, reusable tote bag supplier China',
   canonical: 'https://www.leelinepackage.com/custom-tote-bags/',
-  ogImage: `${TB}/hero-v3.webp`,
+  ogImage: `${TB}/hero-v4.webp`,
 };
 
 const jsonLd = {
@@ -286,7 +286,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${TB}/hero-v3.webp`}
+  preloadImage={`${TB}/hero-v4.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -315,7 +315,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         </div>
 
         <figure class="tb-hero-fig" data-reveal="right">
-          <img src={`${TB}/hero-v3.webp`} alt="Five canvas tote bags with contrast-colour trim and ribbon bows, monogrammed and arranged on garden steps"
+          <img src={`${TB}/hero-v4.webp`} alt="Five canvas tote bags with contrast-colour trim and ribbon bows, monogrammed and arranged on garden steps"
                width={896} height={1200} loading="eager" fetchpriority="high" decoding="sync" />
           <figcaption>Contrast trim, monogrammed, ribbon-tied — printed and sewn to order</figcaption>
         </figure>
@@ -792,15 +792,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .tb-hero-copy { min-width: 0; }
   /* H1 is BOLD (700) — the one heading on the site that is; section H2s stay at
-     500. Bold is wider, so the size and the measure are tuned together: the size
-     went up ~11% and the max-width from 20ch to 22ch so the extra weight does not
-     buy an extra line. Re-check the wrap after any change here. */
+     500. Bold is wider, so the size and the measure are tuned together below. */
   .tb-hero-title {
     font-family: var(--font-heading); font-weight: 700;
-    font-size: clamp(2.25rem, 4.55vw, 3.9rem);
+    font-size: clamp(2.05rem, 4.1vw, 3.5rem);
     line-height: 1.06; letter-spacing: -0.03em;
     color: var(--color-brand-text);
-    max-width: 22ch; margin: 1.2rem 0 0; text-wrap: balance;
+    max-width: 20ch; margin: 1.2rem 0 0; text-wrap: balance;
   }
   .tb-hero-title em { font-style: italic; color: var(--brass); }
   .tb-nowrap { white-space: nowrap; }

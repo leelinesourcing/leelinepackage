@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview — Six Closures, refined</title>
+<style>
+  :root{
+    --ivory:#F5F0E5; --clay:#EDE5D4; --forest:#1F3B2C; --forest-light:#2E4F3D;
+    --forest-deep:#14261B; --brass:#B08D4C; --kraft:#C9A87C; --moss:#8C8676; --charcoal:#21241C;
+    --hair:rgba(31,59,44,.16);
+    --serif:"Newsreader Variable",Georgia,"Times New Roman",serif;
+    --sans:"Instrument Sans Variable",system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ivory);color:var(--charcoal);font-family:var(--sans);line-height:1.6}
+  .wrap{width:min(1160px,100% - 48px);margin-inline:auto}
+  .pnote{background:var(--forest-deep);color:var(--ivory);padding:26px 0}
+  .pnote h1{margin:0;font-family:var(--serif);font-weight:700;font-size:1.55rem;letter-spacing:-.02em}
+  .pnote p{margin:.5rem 0 0;font-size:.9rem;color:rgba(245,240,229,.72);max-width:82ch}
+  .opt{padding:clamp(2.5rem,5vw,4rem) 0}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.7rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brass)}
+  h2.sec{margin:1rem 0 0;font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,3.2vw,2.6rem);letter-spacing:-.02em;line-height:1.06}
+  .sub{margin:.9rem 0 0;max-width:74ch;font-size:.96rem;color:var(--moss)}
+
+  /* ── the module ─────────────────────────────────────────────── */
+  .mod{margin-top:clamp(1.8rem,3.6vw,2.8rem);display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.4rem,3vw,2.6rem);align-items:stretch}
+  .idxcol{display:flex;flex-direction:column;min-width:0}
+
+  .idx-head{
+    display:flex;align-items:center;gap:.55rem;margin-bottom:.9rem;
+    font-size:.66rem;font-weight:600;letter-spacing:.17em;text-transform:uppercase;color:var(--brass);
+  }
+  .idx-head svg{width:.95rem;height:.95rem}
+
+  /* the stage: fills the column so its height is always the rail's height */
+  .stage{position:relative;margin:0;min-height:300px}
+  .stage img{width:100%;height:100%;object-fit:cover;border-radius:1.3rem;display:block;background:var(--clay)}
+  .stage::after{
+    content:"";position:absolute;inset:0;border-radius:1.3rem;pointer-events:none;
+    background:linear-gradient(180deg,rgba(20,38,27,.10) 0%,rgba(20,38,27,0) 34%,rgba(20,38,27,.86) 100%);
+  }
+  .count{
+    position:absolute;top:.95rem;left:.95rem;z-index:2;
+    font-family:var(--serif);font-weight:600;font-size:.78rem;letter-spacing:.06em;
+    color:#fff;background:rgba(20,38,27,.5);border:1px solid rgba(245,240,229,.32);
+    border-radius:99px;padding:.3rem .68rem;
+  }
+  .count b{color:#E3C29A}
+  .stage .cap{position:absolute;left:1.15rem;right:1.15rem;bottom:1.05rem;z-index:2}
+  .stage .cap p{margin:0;font-size:.92rem;line-height:1.62;color:rgba(245,240,229,.94);max-width:42ch}
+
+  .nav{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:3;cursor:pointer;
+    width:2.7rem;height:2.7rem;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    background:rgba(245,240,229,.92);color:var(--charcoal);
+    border:1px solid rgba(31,59,44,.18);
+    transition:background .3s ease,color .3s ease,border-color .3s ease,transform .3s ease;
+  }
+  .nav:hover{background:var(--forest-light);color:var(--ivory);border-color:var(--forest-light)}
+  .nav svg{width:1.05rem;height:1.05rem}
+  .nav-prev{left:.9rem} .nav-next{right:.9rem}
+
+  /* ── the rail: text only, so the numeral carries the design ─── */
+  .idx{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;flex:1}
+  .idx li{display:flex;flex:1}
+  .idx button{
+    flex:1;width:100%;cursor:pointer;text-align:left;font-family:inherit;
+    display:grid;grid-template-columns:2.5rem 1fr 1.15rem;gap:1rem;align-items:center;
+    background:none;border:0;border-top:1px solid var(--hair);border-left:3px solid transparent;
+    padding:.75rem 1rem .75rem .55rem;
+    transition:background .3s ease,border-color .3s ease,padding-left .3s ease;
+  }
+  .idx li:last-child button{border-bottom:1px solid var(--hair)}
+  .idx button:hover{background:rgba(176,141,76,.09);border-left-color:rgba(176,141,76,.45);padding-left:.8rem}
+  .idx button:hover .chev{transform:translateX(3px);color:var(--brass)}
+
+  /* the numeral sits in a ring — outline when idle, filled when selected */
+  .idx .n{
+    width:2.15rem;height:2.15rem;border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-weight:600;font-size:.8rem;color:var(--brass);
+    border:1px solid rgba(176,141,76,.45);
+    transition:background .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .idx button:hover .n{background:rgba(176,141,76,.16)}
+  .idx button[aria-selected="true"]{background:rgba(176,141,76,.13);border-left-color:var(--brass);padding-left:.8rem}
+  .idx button[aria-selected="true"] .n{background:var(--brass);color:var(--ivory);border-color:var(--brass)}
+  .idx button:focus-visible{outline:2px solid var(--brass);outline-offset:-2px}
+
+  .idx .txt{display:flex;flex-direction:column;gap:.16rem;min-width:0}
+  .idx .name{font-family:var(--serif);font-weight:600;font-size:1.02rem;line-height:1.26;letter-spacing:-.01em;color:var(--charcoal)}
+  .idx button[aria-selected="true"] .name{color:var(--brass)}
+  .idx .spec{font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--moss)}
+  .idx .chev{color:rgba(31,59,44,.32);transition:transform .3s ease,color .3s ease}
+  .idx .chev svg{width:1.05rem;height:1.05rem;display:block}
+  .idx button[aria-selected="true"] .chev{color:var(--brass)}
+
+  @media (max-width:860px){
+    .mod{grid-template-columns:1fr}
+    .stage{min-height:0;aspect-ratio:4/3}
+    .idx button{grid-template-columns:2.3rem 1fr 1.15rem;gap:.8rem;padding:.7rem .8rem .7rem .5rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="pnote">
+  <div class="wrap">
+    <h1>六种闭合方式 · 定稿版预览</h1>
+    <p>已按你的要求改：去掉右侧缩略图；左图与右侧整列<b>等高</b>（图片高度由右侧六行撑出来，不写死比例）；横条重新设计。悬停和点击都试试。</p>
+  </div>
+</div>
+
+<section class="opt">
+  <div class="wrap">
+    <span class="eyebrow">The signature module</span>
+    <h2 class="sec">Six Closures, and Where Each Belongs</h2>
+    <p class="sub">The closure is the first part of the bag a customer touches and the first part that fails if it was chosen by habit. Pick a closure to see what it decides.</p>
+
+    <div class="mod">
+      <figure class="stage">
+        <span class="count"><b id="cn">01</b> / 06</span>
+        <button class="nav nav-prev" data-step="-1" aria-label="Previous closure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+        </button>
+        <button class="nav nav-next" data-step="1" aria-label="Next closure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <img id="simg" src="https://img.leelinepackage.com/reusable-shopping-bags/close-tape.webp" alt="">
+        <figcaption class="cap"><p id="sline">Reseals trip after trip, for bags that come back with returns.</p></figcaption>
+      </figure>
+
+      <div class="idxcol">
+        <div class="idx-head">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16M4 16h9"/></svg>
+          Select a closure
+        </div>
+        <ul class="idx" role="tablist" aria-label="Closures">
+          <li><button role="tab" aria-selected="true" data-i="0">
+            <span class="n">01</span>
+            <span class="txt"><span class="name">Peel-and-Seal Tape Tab</span><span class="spec">Adhesive, resealable</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+          <li><button role="tab" aria-selected="false" data-i="1">
+            <span class="n">02</span>
+            <span class="txt"><span class="name">Cross-Stitched Handle Anchor</span><span class="spec">Box-X stitch</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+          <li><button role="tab" aria-selected="false" data-i="2">
+            <span class="n">03</span>
+            <span class="txt"><span class="name">Hook-and-Loop Closure</span><span class="spec">Hook-and-loop strip</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+          <li><button role="tab" aria-selected="false" data-i="3">
+            <span class="n">04</span>
+            <span class="txt"><span class="name">Concealed Magnetic Snap</span><span class="spec">Recessed, self-closing</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+          <li><button role="tab" aria-selected="false" data-i="4">
+            <span class="n">05</span>
+            <span class="txt"><span class="name">Contrast Stitch Detail</span><span class="spec">Any thread color</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+          <li><button role="tab" aria-selected="false" data-i="5">
+            <span class="n">06</span>
+            <span class="txt"><span class="name">Drawstring</span><span class="spec">Cinched cotton cord</span></span>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></span>
+          </button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const data = [
+    { src:'close-tape.webp',       line:'Reseals trip after trip, for bags that come back with returns.' },
+    { src:'close-anchor.webp',     line:'Fitted as standard to every shell that leaves carrying a load.' },
+    { src:'close-hook-loop.webp',  line:'For cooler and insulated shells opened and shut at the counter.' },
+    { src:'close-snap.webp',       line:'For gift and boutique shells that need the printed face left clean.' },
+    { src:'close-stitch.webp',     line:'For shells where the logo sits close to a join and the seam shows.' },
+    { src:'close-drawstring.webp', line:'For produce bags and hardware-free promotional shells.' },
+  ];
+  const BASE = 'https://img.leelinepackage.com/reusable-shopping-bags/';
+  const tabs = [...document.querySelectorAll('.idx button')];
+  let i = 0;
+
+  function paint() {
+    document.getElementById('simg').src = BASE + data[i].src;
+    document.getElementById('sline').textContent = data[i].line;
+    document.getElementById('cn').textContent = String(i + 1).padStart(2, '0');
+    tabs.forEach((b, k) => b.setAttribute('aria-selected', String(k === i)));
+  }
+
+  tabs.forEach((b) => b.addEventListener('click', () => { i = Number(b.dataset.i); paint(); }));
+  document.querySelectorAll('[data-step]').forEach((b) => {
+    b.addEventListener('click', () => { i = (i + Number(b.dataset.step) + data.length) % data.length; paint(); });
+  });
+  paint();
+</script>
+</body>
+</html>

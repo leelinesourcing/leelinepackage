@@ -1,0 +1,1929 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const DB = `${R2}/display-boxes`;
+
+/* The nine constructions. `spec` is a stock or structural fact the plant holds,
+   and `d` is the consequence the buyer's customer feels — no two cards repeat
+   another card's claim, and none of them restate a section intro. */
+const types = [
+  { n: 'CD-01', key: 'type-counter-v2', name: 'Counter Display Boxes', spec: '300–400 mm tall',
+    alt: 'A printed pale green counter tray holding two honey jars, standing on a shop counter',
+    d: 'Sits at the till and takes the pick-up that a shelf two aisles away never gets.' },
+  { n: 'CT-02', key: 'type-countertop-v2', name: 'Countertop Display Boxes', spec: '1–3 tiers',
+    alt: 'A printed countertop display unit with a header panel and two tiers of cosmetic packs, on a store counter',
+    d: 'Three tiers inside a single footprint turn a small range into a range rather than a row.' },
+  { n: 'PDQ-03', key: 'type-pdq-v2', name: 'Shelf-Ready PDQ Trays', spec: 'Case pack = 1 shelf',
+    alt: 'A pink multi-shelf display stand holding packaged products in a supermarket aisle',
+    d: 'Arrives as the shipper and becomes the display. Nobody at the store handles the stock twice.' },
+  { n: 'FD-04', key: 'type-floor', name: 'Floor Display Boxes', spec: 'to 1,650 mm',
+    alt: 'A tall black floor-standing display unit stocked with boxed goods in a supermarket aisle',
+    d: 'Claims floor space a competitor on a shelf cannot, and holds a pallet of stock on a single base.' },
+  { n: 'CV-05', key: 'type-corrugated', name: 'Corrugated Display Boxes', spec: '32–44 ECT',
+    alt: 'Four cold brew coffee bottles standing in a printed corrugated display carrier',
+    d: 'Built for weight. A corrugated shell carries what a folded board tray cannot and still ships flat.' },
+  { n: 'POP-06', key: 'type-pop-v2', name: 'Retail POP Displays', spec: '4 colors plus spot UV',
+    alt: 'A red retail display unit stocked with packaged goods in a supermarket aisle, under a stationery banner',
+    d: 'The backdrop panel does the selling before anyone picks a product up.' },
+  { n: 'PR-07', key: 'type-printed', name: 'Custom Printed Display Boxes', spec: 'Pantone matched',
+    alt: 'A printed confectionery counter display tray with a seasonal illustration across the front and sides',
+    d: 'Seasonal artwork printed on a structure already paid for. A holiday run reprints instead of re-tooling.' },
+  { n: 'WD-08', key: 'type-window-v2', name: 'Window Display Boxes', spec: 'PET or PVC window',
+    alt: 'A kraft box with a window cut in its lid, showing four decorated donuts inside',
+    d: 'Shows the goods without opening anything, which is the shortest route past a customer\u2019s doubt.' },
+  { n: 'AC-09', key: 'type-acrylic', name: 'Acrylic Display Boxes', spec: '3–5 mm cast acrylic',
+    alt: 'A clear acrylic display case containing small figurines, photographed on a wooden table top',
+    d: 'For the counter where the product has to be seen from every side and handled without a mark.' },
+];
+
+/* The retailer checklist. Framed as what a buyer at the retailer will ask for,
+   not as a capability list — every line is a thing the unit has to pass. */
+const checks = [
+  { t: 'Shelf envelope', how: 'Width, depth and clear height are matched to the fixture plan you send, and the loaded unit is gauged against those figures before the run is signed off.' },
+  { t: 'Tear-away front', how: 'A perforated front panel on shelf-ready trays, scored to release in a single pull and leave no board edge standing in the shelf.' },
+  { t: 'Barcode and label zone', how: 'A clear panel reserved on the outer face for the GTIN and price label, positioned to leave the artwork readable once the case becomes the tray.' },
+  { t: 'Case pack equals one shelf', how: 'The carton count is matched to the facings in the planogram. A case then fills a shelf with nothing left over to store out back.' },
+  { t: 'No-tool assembly', how: 'Slots and tabs are cut to dry-fit. A store associate builds the unit without a knife, a tape gun or a second pair of hands.' },
+  { t: 'Printed assembly sheet', how: 'A diagram is printed inside the lid of the carton, and the floor unit is built once at the plant and the sequence photographed rather than described.' },
+];
+
+/* One row per stock, with a swatch. `cap` is the unit top-load for a standard
+   construction in that stock — the flute grade and the tier count move it. */
+const stocks = [
+  { key: 'mat-cardboard', name: 'Cardboard', swatch: 'Printing and coated board swatches',
+    grade: '300–400 gsm coated board', print: 'Offset, to 4 colors',
+    cap: 'to 5 kg', kg: 5, ships: 'Flat, 12 mm', back: 'Kerbside recyclable' },
+  { key: 'mat-corrugated', name: 'Corrugated', swatch: 'Edges of stacked corrugated board showing the flutes',
+    grade: 'E-flute and B-flute, 32–44 ECT', print: 'Flexo or litho-laminate',
+    cap: 'to 15 kg', kg: 15, ships: 'Flat, 25 mm', back: 'Kerbside recyclable', tag: 'Most specified' },
+  { key: 'mat-acrylic', name: 'Acrylic', swatch: 'Stacked sheets of cast acrylic in red, green, white and pink',
+    grade: 'Cast sheet, 3–5 mm', print: 'Laser etch or screen print',
+    cap: 'to 3 kg', kg: 3, ships: 'Assembled', back: 'Recyclable off-site' },
+  { key: 'mat-wood', name: 'Wood', swatch: 'A close view of pale wood veneer grain',
+    grade: '12–18 mm MDF or plywood', print: 'Paint, screen print or veneer',
+    cap: 'to 18 kg', kg: 18, ships: 'Part assembled', back: 'Reusable' },
+];
+
+/* The signature module. Each variant is drawn as a measured elevation — the
+   geometry below is what the SVG is generated from, so the drawing and the
+   numbers beside it can never disagree. */
+const units = [
+  { id: 'counter', tab: 'Counter Unit', code: 'CD-01',
+    label: 'Measured elevation of a two-tier counter display unit, showing a 5 kg top-load rating, a 28 ECT base and a 380 mm overall height',
+    body: { w: 200, h: 150, tiers: 2, x: 118, base: 500 },
+    load: '5 kg', grade: '28 ECT', depth: '250 mm',
+    specs: [['Height', '380 mm'], ['Footprint', '300 × 250 mm'], ['Top-load', '5 kg'],
+            ['Board', '28 ECT'], ['Tiers', '2'], ['Assembly', '90 s']] },
+  { id: 'pdq', tab: 'Shelf-Ready Tray', code: 'PDQ-03',
+    label: 'Measured elevation of a single-tier shelf-ready display tray, showing a 3 kg top-load rating, a 32 ECT base and a 180 mm overall height',
+    body: { w: 230, h: 90, tiers: 1, x: 103, base: 500 },
+    load: '3 kg', grade: '32 ECT', depth: '300 mm',
+    specs: [['Height', '180 mm'], ['Footprint', '400 × 300 mm'], ['Top-load', '3 kg'],
+            ['Board', '32 ECT'], ['Facings', '6'], ['Setup', '15 s']] },
+  { id: 'floor', tab: 'Floor Stand', code: 'FD-04',
+    label: 'Measured elevation of a four-tier floor-standing display unit, showing a 15 kg top-load rating, a 44 ECT base and a 1,650 mm overall height',
+    body: { w: 170, h: 380, tiers: 4, x: 133, base: 500 },
+    load: '15 kg', grade: '44 ECT', depth: '450 mm',
+    specs: [['Height', '1,650 mm'], ['Footprint', '600 × 450 mm'], ['Top-load', '15 kg'],
+            ['Board', '44 ECT'], ['Tiers', '4'], ['Assembly', '8 min']] },
+];
+
+/* The four coatings. The choice follows where the unit stands, which is why
+   each line names the setting rather than describing the finish twice. */
+const coatings = [
+  { id: 'aq', sheen: 2, name: 'Aqueous (AQ)', spec: 'Water-based, food-safe',
+    img: 'coat-aqueous-v2', alt: 'A coating line in a print plant, a worker loading printed sheets beside pallets of stock',
+    d: 'Cures fast and recycles with the board. The default on food and beverage units, because it clears food-contact review without a film going onto the print.' },
+  { id: 'lam', sheen: 3, name: 'Lamination', spec: 'Gloss, silk or matte film',
+    img: 'coat-lamination-v2', alt: 'A printed sheet running through the rollers of a lamination machine',
+    d: 'Takes the scuffing a counter unit collects and holds color on a display that stands under store lighting for a season. Applied spot over a logo when the budget will not carry the whole panel.' },
+  { id: 'soft', sheen: 1, name: 'Soft-Touch', spec: 'Velvety, fingerprint-resistant',
+    img: 'coat-soft-touch-v2', alt: 'An open jewellery display case on a wooden counter, holding watch and ring boxes',
+    d: 'For beauty and fragrance, where the first thing a customer does is put a hand on the unit. It also hides the handling marks that show up quickly on a plain matte finish.' },
+  { id: 'uv', sheen: 5, name: 'UV Coating', spec: 'Glass-like gloss, instant cure',
+    img: 'coat-uv-v2', alt: 'A gloved hand holding a printed sample with a gloss spot varnish, above a UV curing machine',
+    d: 'The hardest surface of the four and the brightest color underneath it. Spot UV over a matte base is the usual build when a single part of the artwork has to carry the message.' },
+];
+
+/* Six changes that live on the dieline rather than on a machine. Each one is
+   a variation of a structure the plant already runs. */
+/* Six adjustments that can be made to any of the nine constructions. None of these
+   is a separate product, so each row reads: what the buyer needs, what it earns
+   them, then how the cut works. ⚠️ `gets` is the buyer's payoff and carries the
+   most weight on screen — keep it a plain outcome a skimming buyer gets on one
+   pass. The first draft was written in a literary register ("the shelf tells a
+   shopper what is in it") and the client could not tell what it was selling. */
+const options = [
+  { key: 'opt-windows-v2', fix: 'Raked and Stepped Fronts', need: 'Front Row at Eye Level',
+    alt: 'A printed gift box in pink and sage with its lid lifted off, showing a wrapped bar inside',
+    gets: 'Nothing hides behind the front wall of the tray. Staff see a low row without pulling it out.',
+    d: 'The front is cut on a rake or a step instead of square, so the row sits lower and stays in view.' },
+  { key: 'opt-tiers-v2', fix: 'Tiered and Stepped Bodies', need: 'More Rows in Less Space',
+    alt: 'A kraft board display unit with a grid of diamond compartments above stepped shelves holding bottles and bars',
+    gets: 'More rows of product in the floor space of one, and nothing extra to assemble, pack or freight.',
+    d: 'The steps and shelves fold out of the same board as the body, so there is no separate insert to fit.' },
+  { key: 'opt-closures-v2', fix: 'Magnetic and Lid-and-Base', need: 'Kept, Not Binned',
+    alt: 'An open black display box on a wooden table, its lid folded back over a small item in a white case',
+    gets: 'The store keeps the display and puts it back out next season, instead of clearing it into a bin on day one.',
+    d: 'A magnetic catch, a lid and base, or a plain tuck flap, chosen to match how long the display has to last.' },
+  { key: 'opt-inserts', fix: 'Cut Dividers and Cells', need: 'Arrive in Order',
+    alt: 'An open corrugated display box with board dividers forming compartments inside the base',
+    gets: 'Stock stands up in transit and arrives in the order it was packed. Nothing to reset at the store.',
+    d: 'Dividers are cut to fit the product rather than a standard cell size, in board, foam or molded pulp.' },
+  { key: 'opt-handles-v2', fix: 'Die-Cut and Ribbon Carries', need: 'Carried Out of the Store',
+    alt: 'Three kraft hexagonal gift boxes in nested sizes, closed with ribbon bows, the smallest one open',
+    gets: 'The customer carries the display out of the shop with the product still in it.',
+    d: 'A handle cut from the board itself, or ribbon threaded through punched holes.' },
+  { key: 'opt-finishes-v2', fix: 'Printed Header Panels', need: 'Read From Across the Aisle',
+    alt: 'Three printed display trays in pink, yellow and green, fanned out with patterned side panels',
+    gets: 'A shopper sees what you sell before they reach the shelf, and a counter printed on both faces reads from either side.',
+    d: 'The printed panel that stands above the product, printed on either face or both.' },
+];
+
+/* The six adjustments, drawn instead of listed. One tray blank, one callout per
+   piece the adjustment actually changes — so the title is literal: one structure,
+   six changes to the cut. `o` indexes `options`; `rect` is the piece in the SVG's
+   own coordinates. Keeping the two in one object is what stops a pin from ever
+   pointing at a piece a later copy edit did not move with it. */
+const adjs = [
+  { o: 5, pin: [520, 59],  rect: [366, 20, 308, 78],   piece: 'Header panel' },
+  { o: 1, pin: [336, 297], rect: [258, 208, 116, 178], piece: 'Side panel' },
+  { o: 0, pin: [520, 300], rect: [366, 208, 308, 178], piece: 'Front panel' },
+  { o: 2, pin: [620, 112], rect: [366, 90, 308, 126],  piece: 'Lid' },
+  { o: 4, pin: [560, 155], rect: [456, 134, 128, 42],  piece: 'Handle die-cut' },
+  { o: 3, pin: [620, 566], rect: [366, 524, 308, 92],  piece: 'Divider' },
+];
+const ADJ_NUM = (i) => String(i + 1).padStart(2, '0');
+
+/* The blank. One closed cut profile: panel-to-panel edges are deliberately left
+   out of it because those are folds, and a fold drawn under a solid cut edge
+   simply disappears. Folds go in `FOLDS`, as dashed lines. */
+const BLANK_OUTLINE =
+  'M370 24H670V106L702 128V180L670 200V212H778V382H670V512H370V382H262V212H370V200L338 180V128L370 106V24Z';
+const BLANK_FOLDS = [
+  [370, 94, 670, 94], [370, 212, 670, 212], [370, 382, 670, 382],
+  [370, 212, 370, 382], [670, 212, 670, 382],
+];
+const BLANK_SLOTS = [445, 520, 595];
+/* Piece name inside each panel — the thing that makes the drawing read as a
+   blank rather than as a stack of boxes. */
+const BLANK_PIECES = [
+  { x: 384, y: 81,  t: 'Header' },  { x: 384, y: 199, t: 'Lid' },
+  { x: 384, y: 369, t: 'Front' },   { x: 276, y: 369, t: 'Side' },
+  { x: 684, y: 369, t: 'Side' },    { x: 384, y: 499, t: 'Base' },
+  { x: 384, y: 599, t: 'Divider' },
+];
+
+/* What the order carries regardless of construction. Buyer-framed: each line
+   says what lands on their desk, not what the plant owns. */
+const included = [
+  { key: 'inc-qc', name: 'Checked Three Times, Not Once', spec: 'Mill certificate, mid-run, strike-off',
+    alt: 'Hands inspecting an open board box on a workbench beside printed specification sheets and a laptop',
+    d: 'Board grade and flute are read against the mill certificate on arrival, the unit is checked against the shelf envelope mid-run, and the finish is checked against the signed strike-off before the lot is packed.' },
+  { key: 'inc-pricing', name: 'The Rate Drops Before You Scale', spec: 'Breaks at 1,000 / 5,000 / 10,000',
+    alt: 'A magnifying glass held over a dollar sign above cost spreadsheets on a desk',
+    d: 'Die and print setup are listed separately in the quote, and the unit rate steps down at 1,000, 5,000 and 10,000. A reorder skips those setup lines, which is where the second run gets cheaper.' },
+  { key: 'inc-design', name: 'One Floor, No Handoffs', spec: 'Sheet, press, die-cutter, gluer',
+    alt: 'A packaging factory floor with folder-gluers and die-cutters running beside pallets of stacked board',
+    d: 'Sheet stock, the press, the die-cutter and the folder-gluer stand on the same floor, so a unit is printed, cut and glued without being palletized between suppliers. A fault is found where it happened, not at the end of a chain.' },
+];
+
+/* Five stages across 38 days, each carrying the days it occupies so the
+   schedule can be drawn to scale. Material booking is a separate lane because
+   it runs alongside the sample rounds rather than after them. */
+const stages = [
+  { n: '01', from: 0, to: 2, narrow: true, name: 'Shelf Measured, Dieline Drawn',
+    d: 'Fixture width, depth and height from your retailer\u2019s plan, then the dieline is drawn to the same figures and a 3D mockup returns inside 24 hours.' },
+  { n: '02', from: 2, to: 8, name: 'White Dummy',
+    d: 'A plain unit to your dimensions in 3\u20135 working days, stood up and loaded to find a structure that racks before any ink is mixed.' },
+  { n: '03', from: 8, to: 18, name: 'Printed Sample',
+    d: 'A single unit in the final board and coating, 7\u201310 days, with the color read against the Pantone chip and signed.' },
+  { n: '04', from: 18, to: 33, name: 'Print and Die-Cut',
+    d: 'The run printed, coated, die-cut and glued, then hand-assembled wherever the structure will not run on the folder-gluer.' },
+  { n: '05', from: 33, to: 38, name: 'Inspect and Dispatch',
+    d: 'The lot is inspected against the sampling plan, flat-packed with the assembly sheet in the lid, pallet strapped and documented.' },
+];
+const TOTAL_DAYS = 38;
+
+/* Six retail settings. Photography is pending, so each panel carries the shot
+   it needs instead of an image — drop the files in and swap the placeholder for
+   an <img> with the same 4:3 box. */
+const scenes = [
+  { n: '01', cap: 'Supermarket and Value Aisles', img: 'scene-1-v2',
+    alt: 'A red metal display rack stocked with packaged products in a store aisle',
+    hint: 'Shelf run with a free-standing unit in the aisle' },
+  { n: '02', cap: 'Checkout and Impulse Counters', img: 'scene-2-v2',
+    alt: 'A shop floor with shelving and a low display stand holding boxed gifts',
+    hint: 'Till counter with a tray of impulse stock' },
+  { n: '03', cap: 'Department-Store Beauty Halls', img: 'scene-3-v2',
+    alt: 'A store aisle with a tall colourful product display standing against the shelving',
+    hint: 'Beauty counter, tiered unit, product lit' },
+  { n: '04', cap: 'Electronics and Appliance Stores', img: 'scene-4-v2',
+    alt: 'A wooden counter display case holding boxed watches in a shop',
+    hint: 'Appliance aisle with boxed product on a display' },
+  { n: '05', cap: 'Pharmacy and Health Counters', img: 'scene-5-v2',
+    alt: 'Gift boxes in pink, teal and kraft, stacked and tied with ribbon',
+    hint: 'Pharmacy counter with a label-zoned tray' },
+  { n: '06', cap: 'Convenience Store Counters', img: 'scene-6-v2',
+    alt: 'A supermarket aisle with a red branded display unit and a shopper passing it',
+    hint: 'Convenience counter with a shelf-ready tray' },
+];
+
+/* The reviewers are the source page's own two, expanded to three short
+   paragraphs each. No figure has been added that they did not state. */
+const quotes = [
+  { name: 'Sarah Patel', role: 'Marketing Director · EcoGems Jewelry', img: `${DB}/avatar-sarah.webp`,
+    alt: 'Portrait of Sarah Patel',
+    specs: ['Acrylic', 'Velvet-lined', 'Laser-etched logo', 'Trade shows'],
+    p: [
+      'We needed display units that could be crated, shipped and set up by whoever was running the booth that morning, and still look like the jewellery standing in them. Acrylic was the only stock that gave us both at once.',
+      'The velvet lining and the laser-etched logo were the details I cared about most, and both came back as drawn. By the third day of a trade show the units were still clean and still standing square, which is more than I can say for what we used before.',
+      'They are light enough for one person to move and solid enough that I stopped worrying about them between shows.',
+    ] },
+  { name: 'David Kim', role: 'Operations Manager · TechNova Gadgets', img: `${DB}/avatar-david.webp`,
+    alt: 'Portrait of David Kim',
+    specs: ['Magnetic closure', 'Foam insert', 'Bamboo accent', 'Tablets'],
+    p: [
+      'Our tablets had to sit in something that protected them and still read as a premium product rather than a security case. Foam inserts with a magnetic closure were the answer, and the bamboo accents kept it in line with the wider range.',
+      'The quote came back quickly and the revisions came back without an argument, which mattered because we were still moving the insert around when the first drawings landed.',
+      'The print on the finished units is what convinced the rest of the team. That, and the displays coming back out of the first store without a mark on them.',
+    ] },
+];
+
+/* Everything the body does not already answer: shelf fit, top-load, who
+   assembles the unit, seasonal artwork, what a quote needs, and freight. */
+/* ⚠️ These answers must ADD to the page, not restate it. The first draft
+   re-explained mechanisms the sections above already carry — the corner posts and
+   base pads (§Load's rail note), width/depth/clear height (§Retail-Ready, check
+   01), the assembly sheet inside the lid (§Retail-Ready + §Process), "before any
+   ink is mixed" (§Process, stage 02). A 3-gram sweep against the built page is
+   the check; rerun it after any edit here. */
+const faqs = [
+  { q: 'Will the unit fit the shelf my retailer specifies?',
+    a: 'Not without the retailer’s fixture numbers. Those settle the dieline, and a stock tray size is the one thing that reliably fails a planogram check. Where the plan is not available yet, we build to a common grocery, convenience or club envelope and mark every assumption on the drawing, so you have something concrete to take back to the buyer.' },
+  { q: 'What does a floor stand actually hold?',
+    a: 'Its rating, and nothing past it. The rating is not a default — a heavier product is quoted against a stronger board or an added base pad, so the figure you are given is the figure that unit holds, and it is printed on the elevation that comes with the quote.' },
+  { q: 'Who assembles the display — the plant or the store?',
+    a: 'Both, and the split is fixed at the quote stage rather than left to the store. Shelf-ready trays leave filled and sealed, so nothing gets built on site at all. Floor stands and counter units are the only ones anyone assembles.' },
+  { q: 'What changes for me on a second run?',
+    a: 'Your artwork, and only if the artwork moved. Nothing else is set up twice, and there is no sample round to sign off again. Where a color did change, the new ink is read beside a unit held back from the original run, so the second printing matches the first on the shelf.' },
+  { q: 'What do you need from me to price a display?',
+    a: 'Four things: a size, the product going into it, the quantity, and the date it has to be in store. Product weight and a photo settle the insert and the board grade. Everything else in the quote follows from those four.' },
+  { q: 'How do the units ship, and what does freight cost?',
+    a: 'Freight is charged on a pallet of collapsed board, not on assembled display volume, and that is usually the difference between a landed cost that works and one that does not. Multi-destination orders ship as separate consignments drawn from a single production lot, so a split delivery does not become a second order.' },
+];
+
+const seo = {
+  title: 'Custom Display Boxes Manufacturer: Shelf-Ready in 90 Seconds',
+  description: 'Custom display boxes in nine constructions from 500 pieces: counter trays, shelf-ready PDQ units and floor displays on FSC board, ISTA 2A tested, 4-6 week runs.',
+  keywords: 'custom display boxes manufacturer, custom cardboard display boxes, custom counter display boxes, countertop display boxes, wholesale custom display boxes, custom printed display boxes, corrugated display boxes manufacturer, retail POP display boxes, custom floor display boxes, floor standing display boxes, shelf ready display boxes, PDQ display boxes, point of purchase display manufacturer, retail display packaging, custom POP display China, display boxes wholesale',
+  canonical: 'https://www.leelinepackage.com/custom-display-box/',
+  ogImage: `${DB}/hero-counter-v2.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Display Box Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom counter, shelf-ready, POP and floor-standing display box design, printing and manufacture in cardboard, corrugated, acrylic and wood',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Display Box' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+/* The measured elevation for each unit. Generated from the same geometry the
+   spec list beside it is generated from, so the drawing and the numbers cannot
+   drift apart. Every paint value is an attribute or a :global() rule — a scoped
+   selector cannot reach inside a set:html string. */
+const BASELINE = 512;
+const elevation = (u) => {
+  const { w, h, tiers, x, base } = u.body;
+  const top = base - h;
+  const r = x + w;                 // right edge of the body
+  const mid = x + w / 2;           // centre line, where the load path runs
+  const tick = (ax, ay, bx, by) => `<path class="el-dim" d="M${ax} ${ay}L${bx} ${by}"/>`;
+  let s = '';
+
+  // the datum every unit stands on
+  s += `<path class="el-ground" d="M54 ${base + 0.5}H366"/>`;
+  // dimension ticks along the datum
+  s += `<path class="el-scales" d="M70 ${base}V${base + 7}M110 ${base}V${base + 7}M150 ${base}V${base + 7}M190 ${base}V${base + 7}M230 ${base}V${base + 7}M270 ${base}V${base + 7}M310 ${base}V${base + 7}M350 ${base}V${base + 7}"/>`;
+
+  // the body, the base pad and the intermediate shelves with their front lips
+  s += `<rect class="el-body" x="${x}" y="${top}" width="${w}" height="${h}" rx="3"/>`;
+  s += `<rect class="el-pad" x="${x - 7}" y="${base - 15}" width="${w + 14}" height="15" rx="2"/>`;
+  for (let i = 1; i < tiers; i++) {
+    const y = top + (h / tiers) * i;
+    s += `<path class="el-shelf" d="M${x} ${y.toFixed(1)}H${r}"/>`;
+    if (i < tiers) s += `<path class="el-lip" d="M${r} ${y.toFixed(1)}v9"/>`;
+  }
+  // a header panel above the tiers on the floor stand and the counter unit
+  if (tiers > 1) s += `<path class="el-head" d="M${x} ${(top + 34).toFixed(1)}H${r}"/>`;
+
+  // the load path: from the top face down the centre to the base pads
+  s += `<path class="el-load" d="M${mid} ${top - 30}V${base - 15}"/>`;
+  s += `<path class="el-load" d="M${mid - 6} ${base - 23}L${mid} ${base - 15}L${mid + 6} ${base - 23}"/>`;
+
+  // height dimension, left of the body
+  s += tick(x - 30, top, x - 30, base);
+  s += tick(x - 36, top, x - 24, top) + tick(x - 36, base, x - 24, base);
+  s += `<text x="${x - 40}" y="${(top + base) / 2}" text-anchor="end" dominant-baseline="middle" fill="currentColor" stroke="none">${u.specs[0][1]}</text>`;
+
+  // width dimension, under the datum
+  s += tick(x, base + 34, r, base + 34);
+  s += tick(x, base + 28, x, base + 40) + tick(r, base + 28, r, base + 40);
+  s += `<text x="${mid}" y="${base + 52}" text-anchor="middle" fill="currentColor" stroke="none">${u.specs[1][1].split(' × ')[0]} W</text>`;
+
+  // top-load callout above the unit
+  s += `<path class="el-call" d="M${mid} ${top - 46}H${r + 34}"/>`;
+  s += `<text x="${r + 38}" y="${top - 43}" fill="currentColor" stroke="none">Top load ${u.load}</text>`;
+
+  // base grade callout, off the base pad
+  s += `<path class="el-call" d="M${r + 7} ${base - 8}H${r + 52}" transform="translate(0,0)"/>`;
+  s += `<text x="${r + 56}" y="${base - 5}" fill="currentColor" stroke="none">Base ${u.grade}</text>`;
+
+  // depth callout, off the body
+  s += `<path class="el-call" d="M${r} ${(top + 20).toFixed(1)}h44"/>`;
+  s += `<text x="${r + 48}" y="${(top + 23).toFixed(1)}" fill="currentColor" stroke="none">Depth ${u.depth}</text>`;
+
+  // The frame is shared, which is what makes the three units comparable. A short
+  // unit would therefore hang at the bottom of it, so each drawing is shifted to
+  // the vertical centre of its own content box.
+  const FY = 58, FH = 512;
+  const contentTop = top - 56;
+  const contentH = base + 62 - contentTop;
+  const ty = (FY + (FH - contentH) / 2 - contentTop).toFixed(1);
+
+  return `<svg viewBox="20 58 452 512" width="452" height="512" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="${u.label}"><g transform="translate(0 ${ty})">${s}</g></svg>`;
+};
+
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+/* width/height must be attributes, not CSS: this string is injected with
+   set:html, so a scoped rule never matches it and the SVG collapses to zero
+   width inside the inline-flex wrapper. */
+const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false"><path d="M12 2.5l2.9 6.1 6.6.9-4.8 4.6 1.2 6.6L12 17.6 6.1 20.7l1.2-6.6-4.8-4.6 6.6-.9z" fill="currentColor"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${DB}/hero-counter-v2.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1. HERO — datum line, three units on one baseline ============ -->
+    <section class="db-hero" id="db-hero">
+      <div class="wrap db-hero-grid">
+        <div class="db-hero-copy" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Counter, shelf and floor displays</span>
+          <h1 class="db-title">Custom Display Boxes Manufacturer — On the Shelf in <em>Under 90 Seconds</em></h1>
+          <p class="db-lede">From counter trays to aisle floor stands, engineered to your shelf plan in FSC®-certified 32 ECT corrugated board. Ship flat, fill from a single case, and stand rock-solid on the retail floor.</p>
+          <div class="db-actions">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+              Get My Display Quote
+              <Fragment set:html={arrow} />
+            </a>
+          </div>
+        </div>
+
+        <!-- Three units on one brass datum. The plates share a column width and
+             differ only in aspect, so their bases meet the line and their tops
+             do not — the same way the units would sit on a real shelf run. -->
+        <div class="db-datum" data-reveal="left">
+          <div class="db-plates">
+            <figure class="db-plate" style="--ar:4 / 5">
+              <img src={`${DB}/hero-counter-v2.webp`} alt="A purple two-tier CHOCO-TWIST counter display tray filled with wrapped cookies"
+                   width={480} height={600} loading="eager" fetchpriority="high" decoding="sync" />
+            </figure>
+            <figure class="db-plate" style="--ar:3 / 4">
+              <img src={`${DB}/hero-shelf-v2.webp`} alt="A printed shelf-ready tray with a graphic header panel holding four foil sachet boxes"
+                   width={480} height={640} loading="eager" fetchpriority="high" decoding="sync" />
+            </figure>
+            <figure class="db-plate" style="--ar:2 / 3">
+              <img src={`${DB}/hero-case-v2.webp`} alt="A printed window box in cream botanical artwork with a candle jar visible through the window"
+                   width={466} height={700} loading="eager" fetchpriority="high" decoding="sync" />
+            </figure>
+          </div>
+          <ul class="db-labels">
+            <li><span>Counter</span><em>CD-01</em></li>
+            <li><span>Shelf-Ready</span><em>PDQ-03</em></li>
+            <li><span>Window</span><em>WD-08</em></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <ul class="db-stats" data-reveal="up">
+          <li><strong>500</strong> units in a first run</li>
+          <li><strong>4&ndash;6 weeks</strong> from artwork to dispatch</li>
+          <li><strong>AQL 2.5</strong> inspection on every lot</li>
+          <li><strong>44 ECT</strong> under the floor units</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 2. NINE CONSTRUCTIONS — three per row ============ -->
+    <section class="db-types" id="db-types">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />The range</span>
+          <h2 class="section-title">Nine Display Constructions, One Set of Terms</h2>
+          <p class="section-sub db-sub">Board grade, print route and inspection are the same on every unit below. What changes is where the display has to work — a till counter, a shelf run, or the middle of an aisle.</p>
+        </div>
+
+        <ul class="db-type-grid">
+          {types.map((t, i) => (
+            <li class="db-type" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <div class="db-type-shot">
+                <img src={`${DB}/${t.key}.webp`} alt={t.alt} width={550} height={412} loading="lazy" decoding="async" />
+                <span class="db-type-code">{t.n}</span>
+              </div>
+              <div class="db-type-body">
+                <h3>{t.name}</h3>
+                <span class="db-chip">{t.spec}</span>
+                <p>{t.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send Your Display Spec
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ 3. RETAIL-READY LEDGER — what the unit must pass ============ -->
+    <section class="db-ready" id="db-ready">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Shelf-ready, not shelf-adjacent</span>
+          <h2 class="section-title">What a Retailer Checks Before a Display Goes In</h2>
+          <p class="section-sub db-sub">Every line here is settled on the drawing, before the die is cut. A unit that clears all six goes onto the shelf; a unit that misses two arrives as a case nobody opens.</p>
+        </div>
+
+        <div class="db-ledger" data-reveal="up">
+          <div class="db-ledger-head" aria-hidden="true">
+            <span>Check</span><span>What Passes</span><span>Status</span>
+          </div>
+          <ol class="db-ledger-rows">
+            {checks.map((c, i) => (
+              <li>
+                <span class="db-ledger-n">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{c.t}</h3>
+                <p>{c.how}</p>
+                <span class="db-ledger-pass">Pass</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. WHAT THE ORDER CARRIES — three wide cards ============ -->
+    <section class="db-included" id="db-included">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Maker, not trader</span>
+          <h2 class="section-title">Three Things You Get From a Maker, Not a Trader</h2>
+          <p class="section-sub db-sub">A trading company quotes the work and then looks for a plant to run it. We are the plant. These three are what that changes for you, whatever the volume.</p>
+        </div>
+
+        <ul class="db-inc-list">
+          {included.map((it) => (
+            <li class="db-inc" data-reveal="up">
+              <img src={`${DB}/${it.key}.webp`} alt={it.alt} width={450} height={338} loading="lazy" decoding="async" />
+              <div>
+                <h3>{it.name}</h3>
+                <span class="db-chip">{it.spec}</span>
+                <p>{it.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 5. MID CTA — type only, clay band ============ -->
+    <section class="db-mid" id="db-mid">
+      <div class="wrap db-mid-inner" data-reveal="up">
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Next step</span>
+        <h2 class="db-mid-title">Measure the Shelf Before the Display</h2>
+        <p class="db-mid-sub">Send the shelf width, its depth and the clear height your retailer works to, plus the unit count and what goes in it. A dieline drawn to those numbers and a solid model come back inside 24 hours.</p>
+        <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+          Check My Shelf Fit
+          <Fragment set:html={arrow} />
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ 6. STOCKS — comparator table with swatches ============ -->
+    <section class="db-stock" id="db-stock">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Stock</span>
+          <h2 class="section-title">The Stock Decides the Top-Load and the Print Route</h2>
+          <p class="section-sub db-sub">The stock settles the top-load, the print route and how the order moves. The sample pack carries all four as swatches you can stand on a shelf next to the product.</p>
+        </div>
+
+        <div class="db-table-wrap" data-reveal="up">
+          <table class="db-table">
+            <thead>
+              <tr>
+                <th scope="col">Stock</th>
+                <th scope="col">Sheet or grade</th>
+                <th scope="col">Print</th>
+                <th scope="col">Unit top-load</th>
+                <th scope="col">Ships</th>
+                <th scope="col">End of life</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stocks.map((s) => (
+                <tr class={s.tag ? 'db-row-key' : ''}>
+                  <th scope="row">
+                    <img src={`${DB}/${s.key}.webp`} alt={s.swatch} width={320} height={320} loading="lazy" decoding="async" />
+                    <span>{s.name}{s.tag && <em class="db-tag">{s.tag}</em>}</span>
+                  </th>
+                  <td data-label="Sheet or grade">{s.grade}</td>
+                  <td data-label="Print">{s.print}</td>
+                  <td data-label="Unit top-load">
+                    <span class="db-cap"><b>{s.cap}</b>
+                      <span class="db-cap-bar" style={`--w:${Math.round((s.kg / 18) * 100)}%`} aria-hidden="true"></span>
+                    </span>
+                  </td>
+                  <td data-label="Ships">{s.ships}</td>
+                  <td data-label="End of life">{s.back}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="db-caption">Top-load is the rating of the unit built from that stock, not of the raw sheet — the flute grade and the tier count move the figure either way.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7. COATINGS — one board, four sheens ============ -->
+    <section class="db-coat" id="db-coat">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Print and coating</span>
+          <h2 class="section-title">Four Coatings, Chosen by Where the Unit Stands</h2>
+          <p class="section-sub db-sub">A counter tray is handled by hundreds of people a week and a floor stand is not. That difference settles the coating far more often than the artwork does. Each panel below is the same board under a different finish.</p>
+        </div>
+
+        <ul class="db-fin-grid">
+          {coatings.map((c, i) => (
+            <li class={`db-fin db-fin--${c.id}`} data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <img class="db-fin-img" src={`${DB}/${c.img}.webp`} alt={c.alt}
+                   width={640} height={480} loading="lazy" decoding="async" />
+              <h3>{c.name}</h3>
+              <span class="db-chip">{c.spec}</span>
+              <p>{c.d}</p>
+              <span class="db-fin-sheen">
+                <em>Sheen</em>
+                <span class="db-fin-scale" role="img" aria-label={`Sheen level ${c.sheen} of 5`}>
+                  {[1, 2, 3, 4, 5].map((k) => (<i class={k <= c.sheen ? 'on' : ''}></i>))}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8. THE SIGNATURE — a load and stability sheet ============ -->
+    <section class="db-load" id="db-load">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The signature sheet</span>
+          <h2 class="section-title">What the Unit Carries, and What It Is Tested To</h2>
+          <p class="section-sub db-sub db-sub--light">Pick the construction you are buying and read what it is rated to carry, where the weight goes, and which board grade holds it. Nothing on this sheet is a marketing figure — it is the drawing the quote is written against, so what you see is what you can load.</p>
+        </div>
+
+        <div class="db-load-mod" data-reveal="up">
+          <div class="db-load-rail" role="tablist" aria-label="Display constructions">
+            {units.map((u, i) => (
+              <button type="button" role="tab" id={`db-load-tab-${i}`} data-i={i}
+                      aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+                <span class="db-load-num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="db-load-name">{u.tab}</span>
+                <span class="db-load-code">{u.code}</span>
+              </button>
+            ))}
+            <p class="db-load-note">Load travels down the corner posts to the base pads, which is why a taller unit is no weaker than a short one.</p>
+          </div>
+
+          {units.map((u, i) => (
+            <figure class="db-load-plate" id={`db-load-panel-${i}`} role="tabpanel"
+                    aria-labelledby={`db-load-tab-${i}`} hidden={i !== 0}>
+              <div class="db-load-draw"><Fragment set:html={elevation(u)} /></div>
+              <ul class="db-load-specs">
+                {u.specs.map(([k, v]) => (
+                  <li><span>{k}</span><b>{v}</b></li>
+                ))}
+              </ul>
+            </figure>
+          ))}
+        </div>
+
+        <ul class="db-pass" data-reveal="up">
+          <li><span>ISTA 1A</span>Non-simulation integrity, unboxed unit</li>
+          <li><span>ISTA 2A</span>Partial simulation, paced and packed</li>
+          <li><span>10 drops</span>760 mm, corners and edges first</li>
+          <li><span>24 h crush</span>Static load at 1.4&times; the rated top-load</li>
+          <li><span>48 h humidity</span>90% RH, board still square at the corners</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 9. ADJUSTMENTS — one blank, six callouts ============ -->
+    <section class="db-adjust" id="db-options">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Adjustments</span>
+          <h2 class="section-title">One Structure, Six Adjustments</h2>
+          <p class="section-sub db-sub">Whichever of the nine you start from, these are the six adjustments that make it fit a given shelf. Each is a change to the cut rather than to the machine, so none of them starts a new tooling charge.</p>
+        </div>
+
+        <!-- The title taken literally: one blank, with each adjustment pinned to
+             the piece of it that actually changes. Pins are written into the
+             template rather than injected, so the scoped styles reach them. -->
+        <div class="db-adj-split" data-reveal="up">
+          <div class="db-adj-plate">
+            <svg viewBox="238 0 564 636" role="img"
+                 aria-label="A flat tray blank, with the six pieces the adjustments change marked">
+              <path class="bl-cut" d={BLANK_OUTLINE} />
+              <rect class="bl-cut" x="370" y="528" width="300" height="84" />
+              <rect class="bl-cut" x="460" y="138" width="120" height="34" rx="17" />
+              <rect class="bl-soft" x="470" y="145" width="100" height="20" rx="10" />
+              <path class="bl-fold" d={BLANK_FOLDS.map(([a, b, c, d]) => `M${a} ${b}L${c} ${d}`).join(' ')} />
+              <path class="bl-cut" d={BLANK_SLOTS.map((x) => `M${x} 528V578`).join(' ')} />
+              {BLANK_PIECES.map((p) => (
+                <text class="bl-name" x={p.x} y={p.y}>{p.t.toUpperCase()}</text>
+              ))}
+              {adjs.map((a, i) => (
+                <rect class={`db-zone${i === 0 ? ' on' : ''}`} data-zone={i} x={a.rect[0]} y={a.rect[1]}
+                      width={a.rect[2]} height={a.rect[3]} rx="3" />
+              ))}
+              {adjs.map((a, i) => (
+                <g class={`db-pin${i === 0 ? ' on' : ''}`} data-pin={i} role="button"
+                   tabindex={i === 0 ? 0 : -1}
+                   aria-label={`${ADJ_NUM(i)} ${options[a.o].fix}`}>
+                  <circle cx={a.pin[0]} cy={a.pin[1]} r="16" />
+                  <text x={a.pin[0]} y={a.pin[1] + 4.6}>{ADJ_NUM(i)}</text>
+                </g>
+              ))}
+            </svg>
+
+            <div class="db-blank-foot">
+              <div class="db-legend">
+                <i>Cut</i><i class="dash">Fold</i><i class="tint">Adjustable piece</i>
+              </div>
+              <span>Drawn on a representative tray blank &middot; pieces, not a to-scale dieline</span>
+            </div>
+          </div>
+
+          <div class="db-adj-panel">
+            <div class="db-adj-reads" aria-live="polite">
+              {adjs.map((a, i) => (
+                <div class="db-adj-read" hidden={i !== 0}>
+                  <img src={`${DB}/${options[a.o].key}.webp`} alt={options[a.o].alt}
+                       width={533} height={400} loading="lazy" decoding="async" />
+                  <span class="db-adj-kicker">{options[a.o].fix}</span>
+                  <h3>{options[a.o].need}</h3>
+                  <div class="db-adj-benefit">
+                    <span class="db-adj-sign">What you get</span>
+                    <p class="db-adj-lead">{options[a.o].gets}</p>
+                  </div>
+                  <p class="db-adj-how">{options[a.o].d}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="db-adj-nav">
+              <button type="button" data-step="-1" aria-label="Previous adjustment">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <span class="db-adj-count"><b>01</b> / 06</span>
+              <button type="button" data-step="1" aria-label="Next adjustment">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Request a Printed Sample
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10. PROCESS — the schedule drawn to scale ============ -->
+    <section class="db-flow" id="db-flow">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The run</span>
+          <h2 class="section-title">From Shelf Measurements to Pallet in 4&ndash;6 Weeks</h2>
+          <p class="section-sub db-sub db-sub--light">Five stages, {TOTAL_DAYS} days door to door. Board and flute are booked while the dummy is being cut, which is why the material lead time and the sample rounds are not added together.</p>
+        </div>
+
+        <div class="db-gantt" data-reveal="up">
+          <div class="db-gantt-top">
+            <span>Stage, drawn to scale</span>
+            <span>{TOTAL_DAYS} days &middot; 5.4 weeks</span>
+          </div>
+
+          <ol class="db-gantt-track">
+            {stages.map((st) => (
+              <li class="db-gantt-seg" style={`--flex:${st.to - st.from}`}>
+                <b>{st.n}</b>
+                {!st.narrow && <i>{st.from}&ndash;{st.to} days</i>}
+              </li>
+            ))}
+          </ol>
+
+          <ol class="db-gantt-legend">
+            {stages.map((st) => (
+              <li>
+                <span class="db-gantt-n">{st.n}</span>
+                <div>
+                  <h3>{st.name}</h3>
+                  <p>{st.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <p class="db-flow-foot" data-reveal="up">Die and sample charges are credited against the production invoice. The board is FSC-certified and the plant runs to ISO 9001, which is what makes the inspection result repeat on a reorder.</p>
+      </div>
+    </section>
+
+
+    <!-- ============ 11. SCENES — where a unit has to work, ahead of the buyers -->
+    <section class="db-scenes" id="db-scenes">
+      <div class="wrap">
+        <div class="db-scenes-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Where the unit has to work</span>
+          <h2 class="section-title">Six Retail Settings a Display Has to Survive</h2>
+          <p class="section-sub db-sub">A single unit behaves differently in each of these six settings, and the settings are not ranked. These are the six the plant is asked to hit most often.</p>
+        </div>
+
+        <div class="db-scenes-viewport" data-reveal="up">
+          <button type="button" class="db-scenes-btn db-scenes-prev" data-step="-1" aria-label="Previous setting">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button type="button" class="db-scenes-btn db-scenes-next" data-step="1" aria-label="Next setting">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <ul class="db-scenes-track" id="db-scenes-track">
+            {scenes.map((sc) => (
+              <li class="db-scene">
+                <div class="db-scene-ph">
+                  <img src={`${DB}/${sc.img}.webp`} alt={sc.alt}
+                       width={720} height={480} loading="lazy" decoding="async" />
+                  <span class="db-scene-n" aria-hidden="true">{sc.n}</span>
+                </div>
+                <span class="db-scene-hint">{sc.hint}</span>
+                <h3>{sc.cap}</h3>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 12. TESTIMONIALS ============ -->
+    <section class="db-quotes" id="db-quotes">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />In their words</span>
+          <h2 class="section-title">What Two Buyers Said After the First Run</h2>
+        </div>
+        <div class="db-quote-grid">
+          {quotes.map((q) => (
+            <figure class="db-quote" data-reveal="up">
+              <span class="db-stars" role="img" aria-label="Rated 5 out of 5"><Fragment set:html={star.repeat(5)} /></span>
+              <span class="db-quote-mark" aria-hidden="true">&ldquo;</span>
+              <blockquote>
+                {q.p.map((para) => (<p>{para}</p>))}
+              </blockquote>
+              <span class="db-quote-mark db-quote-mark--close" aria-hidden="true">&rdquo;</span>
+              <ul class="db-quote-specs">
+                {q.specs.map((sp) => (<li>{sp}</li>))}
+              </ul>
+              <figcaption>
+                <img src={q.img} alt={q.alt} width={160} height={160} loading="lazy" decoding="async" />
+                <span><strong>{q.name}</strong><em>{q.role}</em></span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13. FAQ ============ -->
+    <section class="db-faq" id="db-faq">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Questions</span>
+          <h2 class="section-title">What Buyers Ask Before a Display Order</h2>
+        </div>
+        <div class="db-faq-list">
+          {faqs.map((f, i) => (
+            <details class="db-faq-item" data-reveal="up" style={`--d:${(i % 4) * 0.05}s`}>
+              <summary><span class="db-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="db-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 14. FINAL CTA — split panel and photograph ============ -->
+    <section class="db-final" id="db-final">
+      <div class="wrap">
+        <div class="db-final-panel" data-reveal="up">
+          <div class="db-final-copy">
+            <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Start here</span>
+            <h2 class="db-final-title">A Display That Fills the Shelf It Was Measured For</h2>
+            <p class="db-final-sub">Send the shelf envelope, the product and the quantity. A dieline, a unit price and a sample plan come back against them, with the board certificate attached.</p>
+            <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+              Start My Display Run
+              <Fragment set:html={arrow} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ local atoms ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='left'] { transform: translateX(-44px); }
+  [data-reveal='right'] { transform: translateX(44px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+
+  :global(body) { background: var(--color-brand-bg); }
+
+  /* The shared .section-sub caps at 46ch, which turns a full sentence head
+     into three centred lines. Widen the measure on this page instead of
+     cutting the copy. */
+  .db-sub { max-width: 76ch; }
+  .section-head--center .db-sub { max-width: 80ch; }
+  .db-sub--light { color: rgba(245, 240, 229, 0.72); }
+
+  .db-chip {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brass);
+    background: rgba(176, 141, 76, 0.1);
+    border: 1px solid rgba(176, 141, 76, 0.26);
+    border-radius: 999px;
+    padding: 0.34rem 0.72rem;
+  }
+
+  /* ============ 1. HERO ============ */
+  .db-hero {
+    background: var(--ivory);
+    /* the nav is fixed at 74 px, so the eyebrow was sitting 6 px under it — the
+       extra 4.725rem is 2 cm of clearance below the bar */
+    padding: calc(clamp(2.6rem, 6vw, 5rem) + 4.725rem) 0 clamp(3rem, 7vw, 5.5rem);
+    /* a reveal travels 44px sideways, which would otherwise scroll the page */
+    overflow-x: clip;
+  }
+  .db-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+    gap: clamp(2.2rem, 5vw, 4.6rem);
+    align-items: center;
+  }
+  .db-title {
+    margin: 1.15rem 0 0;
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.07; letter-spacing: -0.028em;
+    color: var(--color-brand-text);
+    max-width: 30ch; text-wrap: balance;
+  }
+  .db-title em { font-style: italic; color: var(--brass); }
+  .db-nb { white-space: nowrap; }
+  .db-lede {
+    margin: 1.25rem 0 0; max-width: 56ch;
+    font-size: clamp(1.02rem, 1.4vw, 1.14rem); line-height: 1.74;
+    color: var(--color-brand-muted);
+  }
+  .db-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.9rem; }
+
+  /* The datum. Plates share a column width and differ only in aspect ratio, so
+     their bases meet the brass rule and their tops do not. */
+  .db-datum { position: relative; }
+  .db-plates {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(0.7rem, 1.6vw, 1.1rem);
+    padding-bottom: 0;
+  }
+  /* The client's shots are studio-white; multiply drops that white onto the
+     plate's own ivory, so the three read as part of the page instead of as three
+     white rectangles. The frame moves to the wrapper so it stays crisp rather
+     than being multiplied along with the photograph. */
+  .db-plate {
+    margin: 0; position: relative;
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.16);
+    border-radius: 0.7rem 0.7rem 0 0;
+    overflow: hidden; isolation: isolate;
+  }
+  .db-plate img {
+    display: block;
+    width: 100%; height: auto; aspect-ratio: var(--ar, 1 / 1);
+    object-fit: cover; mix-blend-mode: multiply;
+  }
+  .db-plates::after {
+    content: ''; display: block; grid-column: 1 / -1;
+    height: 2px; background: var(--brass);
+  }
+  .db-labels {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.7rem, 1.6vw, 1.1rem);
+    margin-top: 0.55rem;
+  }
+  .db-labels li { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; text-align: center; }
+  .db-labels li::before { content: ''; width: 1px; height: 0.7rem; background: rgba(176, 141, 76, 0.6); margin-bottom: 0.35rem; }
+  .db-labels span {
+    font-family: var(--font-body); font-size: 0.76rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand-text);
+  }
+  .db-labels em {
+    font-family: var(--font-body); font-style: normal; font-size: 0.68rem;
+    letter-spacing: 0.1em; color: var(--color-brand-muted);
+  }
+
+  .db-stats {
+    list-style: none; margin: clamp(2.4rem, 5vw, 3.6rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid rgba(31, 59, 44, 0.16);
+  }
+  .db-stats li {
+    padding: 1.25rem 1.1rem 0;
+    border-left: 1px solid rgba(31, 59, 44, 0.12);
+    text-align: center;
+    font-size: 0.9rem; line-height: 1.5; color: var(--color-brand-muted);
+  }
+  .db-stats li:first-child { border-left: 0; }
+  .db-stats strong {
+    display: block; font-family: var(--font-heading); font-weight: 600;
+    font-size: 1.32rem; letter-spacing: -0.015em; color: var(--color-brand-primary);
+  }
+
+  /* ============ 2. NINE CONSTRUCTIONS ============ */
+  .db-types { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-type-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.5vw, 1.7rem);
+  }
+  .db-type {
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.09);
+    border-radius: 1.15rem;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .db-type:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(31, 59, 44, 0.5); }
+  .db-type-shot { position: relative; }
+  .db-type-shot img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+  .db-type-code {
+    position: absolute; top: 0.8rem; left: 0.8rem;
+    font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.16em; color: var(--ivory);
+    background: rgba(20, 38, 27, 0.66);
+    border: 1px solid rgba(245, 240, 229, 0.34);
+    border-radius: 999px;
+    padding: 0.28rem 0.6rem;
+    backdrop-filter: blur(6px);
+  }
+  .db-type-body { padding: 1.15rem 1.25rem 1.35rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .db-type-body h3 { margin: 0; font-size: 1.24rem; font-weight: 600; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  .db-type-body .db-chip { align-self: flex-start; }
+  .db-type-body p { margin: 0; font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); }
+
+  /* ============ 3. MID CTA ============ */
+  /* the client's lineup shot, behind a forest scrim so the ivory type holds up */
+  .db-mid {
+    background-image:
+      linear-gradient(rgba(20, 38, 27, 0.62), rgba(20, 38, 27, 0.62)),
+      url('https://img.leelinepackage.com/display-boxes/mid-cta-v2.webp');
+    background-size: cover; background-position: center;
+    padding: clamp(3.8rem, 8vw, 6.5rem) 0;
+  }
+  .db-mid-inner { text-align: center; }
+  .db-mid-title {
+    margin: 1.1rem 0 0; font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.7rem, 3.6vw, 2.6rem); line-height: 1.08; letter-spacing: -0.02em;
+    color: var(--ivory); text-wrap: balance;
+  }
+  /* near-opaque and shadowed: the band now sits on a photograph, not on flat forest */
+  .db-mid-sub {
+    margin: 1.05rem auto 0; max-width: 74ch; font-size: 1.04rem; line-height: 1.72;
+    color: rgba(250, 246, 236, 0.97);
+    text-shadow: 0 1px 12px rgba(12, 24, 17, 0.72);
+  }
+  .db-mid-inner .btn { margin-top: 1.8rem; }
+
+  /* ============ 4. RETAIL-READY LEDGER ============ */
+  .db-ready { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-ledger { border-top: 1px solid rgba(31, 59, 44, 0.2); }
+  .db-ledger-head,
+  .db-ledger-rows li {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 15rem) minmax(0, 1fr) 4.6rem;
+    gap: clamp(0.8rem, 2vw, 2rem);
+  }
+  .db-ledger-head { padding: 0.85rem 0 0.75rem; border-bottom: 1px solid rgba(31, 59, 44, 0.14); }
+  .db-ledger-head span {
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass);
+  }
+  .db-ledger-head span:nth-child(1) { grid-column: 1 / 3; }
+  .db-ledger-head span:nth-child(2) { grid-column: 3 / 4; }
+  .db-ledger-head span:nth-child(3) { grid-column: 4 / 5; text-align: right; }
+
+  .db-ledger-rows { list-style: none; margin: 0; padding: 0; }
+  .db-ledger-rows li {
+    align-items: baseline;
+    padding: 1.35rem 0;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.12);
+    transition: background-color 0.35s ease;
+  }
+  .db-ledger-rows li:hover { background: rgba(237, 229, 212, 0.6); }
+  .db-ledger-n {
+    font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.16em; color: var(--brass);
+  }
+  .db-ledger-rows h3 {
+    margin: 0; font-family: var(--font-heading); font-size: 1.16rem;
+    font-weight: 600; letter-spacing: -0.012em; color: var(--color-brand-text);
+  }
+  .db-ledger-rows p { margin: 0; font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); }
+  .db-ledger-pass {
+    justify-self: end; align-self: center;
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ivory);
+    background: var(--color-sage);
+    border-radius: 999px; padding: 0.36rem 0.78rem;
+  }
+
+  /* ============ 5. STOCK COMPARATOR ============ */
+  .db-stock { background: var(--color-clay); padding: clamp(4rem, 9vw, 7rem) 0 clamp(2.5rem, 5vw, 4rem); }
+  .db-caption {
+    margin: 1.35rem 0 0; max-width: 90ch;
+    font-size: 0.93rem; line-height: 1.62; color: var(--color-brand-muted);
+  }
+  .db-table { width: 100%; border-collapse: collapse; font-family: var(--font-body); }
+  .db-table thead th {
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brass); text-align: left; padding: 0 1rem 1rem;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.2);
+  }
+  .db-table tbody tr { border-bottom: 1px solid rgba(31, 59, 44, 0.11); }
+  .db-table tbody th {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1.3rem 1rem 1.3rem 0;
+    font-family: var(--font-heading); font-size: 1.36rem; font-weight: 600;
+    letter-spacing: -0.015em; color: var(--color-brand-text); text-align: left;
+  }
+  .db-table tbody th img { width: 72px; height: 72px; border-radius: 0.75rem; flex: 0 0 auto; }
+  .db-table td {
+    padding: 1.3rem 1rem; font-size: 1.01rem; line-height: 1.55;
+    color: var(--color-brand-muted); vertical-align: middle;
+  }
+  .db-table td b { font-weight: 600; color: var(--color-brand-primary); font-size: 1.08rem; }
+
+  /* the display workhorse is called out rather than left as one row of four */
+  .db-table tbody tr.db-row-key { background: rgba(237, 229, 212, 0.6); }
+  .db-table tbody tr.db-row-key th { box-shadow: inset 3px 0 0 var(--brass); }
+  .db-tag {
+    display: inline-block; margin-left: 0.55rem;
+    font-family: var(--font-body); font-style: normal; font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass);
+    border: 1px solid rgba(176, 141, 76, 0.42); border-radius: 999px; padding: 0.2rem 0.52rem;
+    vertical-align: middle;
+  }
+  /* the rating is the one number buyers compare across the four, so it is drawn */
+  .db-cap { display: flex; flex-direction: column; gap: 0.5rem; min-width: 112px; }
+  .db-cap-bar {
+    display: block; height: 4px; border-radius: 999px;
+    background: rgba(31, 59, 44, 0.13); position: relative;
+  }
+  .db-cap-bar::after {
+    content: ''; position: absolute; inset: 0 auto 0 0;
+    width: var(--w, 0%); background: var(--brass); border-radius: 999px;
+  }
+
+  /* ============ 6. THE SIGNATURE — load and stability ============ */
+  /* 4.3rem off each side of the house band — the sheet module carries the
+     section, and the old padding was just empty dark above and below it.
+     The extra 0.5cm margin drops the band's top edge; the same 0.5cm comes back
+     off the top padding, so the sheet and the bottom edge do not move. */
+  .db-load {
+    background-image:
+      linear-gradient(rgba(20, 38, 27, 0.84), rgba(20, 38, 27, 0.84)),
+      url('https://img.leelinepackage.com/display-boxes/load-bg-v2.webp');
+    background-size: cover; background-position: center;
+    margin-top: 0.5cm;
+    /* house band, less 4.3rem of trimming, less the 0.5cm that came off the top
+       edge, less another 1.1rem a side of air the client read as empty */
+    padding: max(2rem, calc(clamp(4.5rem, 10vw, 8.5rem) - 4.3rem - 0.5cm - 1.1rem)) 0;
+  }
+  /* this band's head sat on the shared 88px gap, which is a lot when the sheet
+     underneath is already 590px tall */
+  .db-load .section-head { margin-bottom: clamp(2.2rem, 5vw, 4.25rem); }
+  .db-load .section-title { color: var(--ivory); }
+  .db-load-mod {
+    display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+    gap: clamp(1.2rem, 2.6vw, 2.2rem);
+    /* sage rather than the faint ivory it used to be, so the sheet reads as a
+       green panel set into the band instead of a grey wash */
+    background: rgba(74, 107, 82, 0.4);
+    border: 1px solid rgba(146, 186, 154, 0.32);
+    border-radius: 1.5rem;
+    padding: clamp(0.85rem, 1.7vw, 1.15rem);
+  }
+  .db-load-rail { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; }
+  .db-load-rail button {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center; gap: 0.8rem;
+    width: 100%; text-align: left; cursor: pointer;
+    font-family: var(--font-body);
+    background: transparent;
+    border: 1px solid rgba(245, 240, 229, 0.16);
+    border-radius: 0.9rem;
+    padding: 0.85rem 0.95rem;
+    color: var(--ivory);
+    transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+  }
+  .db-load-rail button:hover { background: rgba(245, 240, 229, 0.07); }
+  /* the selected construction fills the brand gold; everything on it flips to
+     dark, or the ivory label would sit on yellow at almost no contrast */
+  .db-load-rail button[aria-selected='true'] {
+    background: var(--brass-bright);
+    border-color: var(--brass-bright);
+    transform: translateX(4px);
+  }
+  .db-load-rail button[aria-selected='true'] .db-load-name { color: var(--forest-deep); }
+  .db-load-rail button[aria-selected='true'] .db-load-num { color: rgba(20, 38, 27, 0.78); }
+  .db-load-rail button[aria-selected='true'] .db-load-code { color: rgba(20, 38, 27, 0.68); }
+  .db-load-num { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; color: var(--brass-soft); }
+  .db-load-name { font-size: 0.98rem; font-weight: 600; }
+  .db-load-code { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; color: rgba(245, 240, 229, 0.5); }
+  .db-load-note {
+    margin: 0.6rem 0 0; font-size: 0.86rem; line-height: 1.65;
+    color: rgba(245, 240, 229, 0.62);
+  }
+
+  .db-load-plate {
+    margin: 0; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.68fr);
+    gap: clamp(1rem, 2.4vw, 2rem); align-items: center;
+    background: rgba(20, 38, 27, 0.42);
+    border-radius: 1.1rem;
+    padding: clamp(1rem, 2.4vw, 1.8rem);
+  }
+  .db-load-plate[hidden] { display: none; }
+  .db-load-draw { color: rgba(245, 240, 229, 0.86); }
+  /* :global() is required — the SVG arrives through set:html and never carries
+     this component's scope attribute. */
+  .db-load-draw :global(svg) { width: 100%; height: auto; display: block; overflow: visible; }
+  .db-load-draw :global(.el-body) { stroke: rgba(245, 240, 229, 0.9); stroke-width: 1.8; }
+  .db-load-draw :global(.el-pad) { stroke: var(--brass-soft); stroke-width: 1.6; }
+  .db-load-draw :global(.el-shelf) { stroke: rgba(245, 240, 229, 0.5); }
+  .db-load-draw :global(.el-lip) { stroke: rgba(245, 240, 229, 0.5); }
+  .db-load-draw :global(.el-head) { stroke: rgba(245, 240, 229, 0.34); stroke-dasharray: 4 4; }
+  .db-load-draw :global(.el-ground) { stroke: var(--brass-soft); stroke-width: 2; }
+  .db-load-draw :global(.el-scales) { stroke: rgba(201, 168, 124, 0.5); stroke-width: 1; }
+  .db-load-draw :global(.el-dim) { stroke: rgba(245, 240, 229, 0.4); stroke-width: 1; }
+  .db-load-draw :global(.el-call) { stroke: var(--brass-soft); stroke-width: 1; }
+  .db-load-draw :global(.el-load) { stroke: var(--brass-bright); stroke-width: 1.6; stroke-dasharray: 6 5; }
+  /* the callout labels sit on hairline leaders — bold made them muddy at this size */
+  /* the labels are set in the body face at normal weight and no stroke — a
+     stroked glyph reads as bold at this size and turns muddy over a hairline */
+  .db-load-draw :global(svg text) {
+    font-family: var(--font-body); font-size: 13px; font-weight: 400;
+    letter-spacing: 0.02em; stroke: none;
+  }
+
+  .db-load-specs { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .db-load-specs li {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    padding: 0.68rem 0; border-bottom: 1px solid rgba(245, 240, 229, 0.13);
+  }
+  .db-load-specs li:last-child { border-bottom: 0; }
+  .db-load-specs span {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(245, 240, 229, 0.56);
+  }
+  .db-load-specs b { font-family: var(--font-heading); font-size: 1.06rem; font-weight: 600; color: var(--ivory); }
+
+  .db-pass {
+    list-style: none; margin: clamp(1.4rem, 2.4vw, 1.9rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1px;
+    background: rgba(245, 240, 229, 0.14);
+    border: 1px solid rgba(245, 240, 229, 0.14);
+    border-radius: 1.1rem; overflow: hidden;
+  }
+  .db-pass li {
+    background: var(--color-forest);
+    padding: 1.05rem 1rem 1.2rem;
+    font-size: 0.84rem; line-height: 1.5; color: rgba(245, 240, 229, 0.66);
+  }
+  .db-pass span {
+    display: block; margin-bottom: 0.4rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--brass-soft);
+  }
+
+  /* ============ 6. COATINGS — one board, four sheens ============ */
+  .db-coat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-fin-grid {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+  .db-fin {
+    background: var(--color-clay);
+    border-radius: 1.15rem;
+    padding: clamp(0.85rem, 1.7vw, 1.05rem);
+    display: flex; flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .db-fin:hover { transform: translateY(-5px); box-shadow: 0 22px 46px -32px rgba(31, 59, 44, 0.45); }
+
+  /* each swatch is the same kraft board; only the highlight changes, which is
+     the whole difference between the four finishes */
+  /* the client's own mill photographs stand in for the drawn swatch */
+  .db-fin-img {
+    display: block; width: 100%; height: auto;
+    aspect-ratio: 4 / 3; object-fit: cover;
+    border-radius: 0.85rem; background: var(--color-clay);
+  }
+
+  .db-fin h3 { margin: 1.05rem 0 0; font-size: 1.16rem; font-weight: 600; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .db-fin .db-chip { align-self: flex-start; margin-top: 0.5rem; }
+  .db-fin p { margin: 0.6rem 0 0; font-size: 0.89rem; line-height: 1.62; color: var(--color-brand-muted); }
+  .db-fin-sheen { margin-top: auto; padding-top: 1.15rem; display: flex; align-items: center; gap: 0.6rem; }
+  .db-fin-sheen em {
+    font-family: var(--font-body); font-style: normal;
+    font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--brass);
+  }
+  .db-fin-scale { display: inline-flex; gap: 3px; }
+  .db-fin-scale i { width: 15px; height: 4px; border-radius: 999px; background: rgba(31, 59, 44, 0.16); }
+  .db-fin-scale i.on { background: var(--brass); }
+
+  /* ============ 8. ADJUSTMENTS — one blank, six callouts ============ */
+  .db-adjust { background: var(--color-clay); padding: clamp(4rem, 9vw, 7rem) 0; }
+
+  /* Drawing left, the note it drives right, both on one ivory card so the section
+     reads as a single object rather than two stacked blocks.
+     Named `db-adj-*`: the hero's three datum figures already own `.db-plate`. */
+  .db-adj-split {
+    /* 0.98fr / 1fr splits 1081px of track into 535 / 546 at 1440 — the note column
+       ends up 1cm narrower than it was, and the blank beside it takes the rest. */
+    display: grid; grid-template-columns: minmax(0, 0.98fr) minmax(0, 1fr);
+    gap: clamp(1.6rem, 4vw, 3.4rem); align-items: center;
+    background: var(--ivory); border-radius: 1.5rem;
+    padding: clamp(1.2rem, 2.6vw, 2rem);
+  }
+  .db-adj-plate { width: 100%; }
+  .db-adj-plate svg { display: block; width: 100%; height: auto; color: var(--color-forest); }
+  /* Symbols. Named `bl-*` so nothing here can collide with the load sheet's
+     `el-*` set further up the same page. */
+  .db-adj-plate .bl-cut { stroke: currentColor; stroke-width: 1.5; fill: none; }
+  .db-adj-plate .bl-soft { stroke: rgba(31, 59, 44, 0.5); stroke-width: 1.1; fill: none; }
+  .db-adj-plate .bl-fold { stroke: rgba(31, 59, 44, 0.5); stroke-width: 1.15; stroke-dasharray: 6 5; fill: none; }
+  .db-adj-plate .bl-name {
+    fill: rgba(31, 59, 44, 0.42); stroke: none;
+    font-family: var(--font-body); font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+  }
+
+  /* A piece is a click target in its own right, and says so under the cursor —
+     otherwise the only thing that looks pressable is the number pin. */
+  .db-zone {
+    cursor: pointer; fill: rgba(176, 141, 76, 0.16);
+    stroke: var(--brass); stroke-width: 1.4; opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .db-zone:hover:not(.on) { opacity: 0.42; }
+  .db-zone.on { opacity: 1; }
+
+  .db-pin { cursor: pointer; transform-box: fill-box; transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+  .db-pin circle { fill: var(--ivory); stroke: currentColor; stroke-width: 1.5;
+    transition: fill 0.35s ease, stroke 0.35s ease; }
+  .db-pin:hover, .db-pin.on { transform: scale(1.14); }
+  .db-pin:hover:not(.on) circle { fill: rgba(176, 141, 76, 0.32); stroke: var(--brass); }
+  .db-pin.on circle { fill: var(--brass); stroke: var(--brass); }
+  .db-pin text { fill: currentColor; stroke: none; font-family: var(--font-body);
+    font-size: 13px; font-weight: 700; text-anchor: middle; transition: fill 0.35s ease; }
+  .db-pin.on text { fill: var(--ivory); }
+  .db-pin:focus-visible { outline: none; }
+  .db-pin:focus-visible circle { stroke: var(--brass); stroke-width: 3; }
+
+  .db-blank-foot {
+    display: flex; flex-wrap: wrap; gap: 0.7rem 1.6rem; align-items: center;
+    margin-top: clamp(0.8rem, 2vw, 1.2rem); padding-top: 0.9rem;
+    border-top: 1px solid var(--hair);
+    font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--color-moss);
+  }
+  .db-legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; }
+  .db-legend i { display: inline-flex; align-items: center; gap: 0.5rem; font-style: normal; }
+  .db-legend i::before { content: ""; width: 30px; height: 0; border-top: 1.5px solid var(--color-forest); }
+  .db-legend i.dash::before { border-top: 1.5px dashed rgba(31, 59, 44, 0.5); }
+  .db-legend i.tint::before { height: 12px; background: rgba(176, 141, 76, 0.3); border: 1.4px solid var(--brass); }
+
+  /* The right-hand note. All six are rendered, so switching is a hidden toggle. */
+  .db-adj-panel { min-width: 0; }
+  .db-adj-read[hidden] { display: none; }
+  .db-adj-read img {
+    /* 4:3, not 16:9 — the client's six photographs are all square, and 16:9
+       would have taken 44% off the height of every one of them */
+    width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+    border-radius: 0.85rem; margin-bottom: 1.2rem;
+  }
+  .db-adj-kicker {
+    display: block; font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass);
+  }
+  .db-adj-read h3 {
+    margin: 0.45rem 0 0; font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.4rem, 2.7vw, 1.9rem); line-height: 1.14; letter-spacing: -0.02em;
+    color: var(--color-brand-text); text-wrap: balance;
+  }
+  /* The payoff, boxed and labelled — this is the line a buyer is meant to take
+     away, so it gets the most weight in the column. */
+  .db-adj-benefit {
+    margin-top: 1.15rem; padding: 0.95rem 1.15rem 1.05rem;
+    background: rgba(176, 141, 76, 0.14);
+    border-left: 3px solid var(--brass);
+    border-radius: 0 0.7rem 0.7rem 0;
+  }
+  .db-adj-sign {
+    display: block; font-family: var(--font-body);
+    font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--brass);
+  }
+  .db-adj-lead {
+    margin: 0.55rem 0 0;
+    font-family: var(--font-heading); font-size: clamp(1.14rem, 1.6vw, 1.32rem);
+    font-weight: 500; line-height: 1.44; letter-spacing: -0.01em;
+    color: var(--color-brand-primary);
+  }
+  .db-adj-how {
+    margin: 1.05rem 0 0;
+    font-size: 0.98rem; line-height: 1.68; color: var(--color-brand-muted);
+  }
+  /* The bar under the note — the two ends of it step through the six, which is
+     the same thing as clicking a pin on the blank to the left. */
+  .db-adj-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; margin-top: clamp(1.2rem, 2.6vw, 1.8rem); padding-top: 1rem;
+    border-top: 1px solid var(--hair);
+  }
+  .db-adj-nav button {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; border-radius: 999px;
+    border: 1px solid rgba(31, 59, 44, 0.26); background: none;
+    color: var(--color-brand-primary); cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  .db-adj-nav button svg { width: 20px; height: 20px; }
+  .db-adj-nav button:hover {
+    background: var(--color-brand-primary); border-color: var(--color-brand-primary); color: var(--ivory);
+  }
+  .db-adj-count {
+    font-family: var(--font-heading); font-size: 0.98rem; letter-spacing: 0.08em;
+    color: var(--color-brand-muted);
+  }
+  .db-adj-count b { font-weight: 600; color: var(--color-brand-primary); }
+
+  /* ============ 9. WHAT THE ORDER CARRIES ============ */
+  .db-included { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-inc-list {
+    list-style: none; margin: 0 auto; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.1rem, 2.4vw, 1.6rem);
+    max-width: 64rem;
+  }
+  .db-inc {
+    display: flex; flex-direction: column;
+    background: var(--ivory);
+    border-radius: 1.15rem;
+    padding: clamp(0.85rem, 1.7vw, 1.1rem);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  }
+  .db-inc:hover { transform: translateY(-5px); box-shadow: 0 20px 44px -30px rgba(31, 59, 44, 0.45); }
+  .db-inc img {
+    width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+    border-radius: 0.8rem; margin-bottom: 1.05rem;
+  }
+  .db-inc .db-chip { margin: 0.1rem 0 0.65rem; }
+  .db-inc h3 { margin: 0 0 0.5rem; font-size: 1.12rem; font-weight: 600; letter-spacing: -0.012em; color: var(--color-brand-text); }
+  .db-inc p { margin: 0; font-size: 0.9rem; line-height: 1.64; color: var(--color-brand-muted); }
+
+  /* ============ 10. PROCESS — a proportional schedule ============ */
+  .db-flow {
+    background-image:
+      linear-gradient(rgba(20, 38, 27, 0.82), rgba(20, 38, 27, 0.82)),
+      url('https://img.leelinepackage.com/display-boxes/flow-bg-v2.webp');
+    background-size: cover; background-position: center;
+    /* tighter than the house band, and the type below is lifted to near-opaque
+       ivory — it now sits on a photograph rather than on flat forest.
+       Top edge down 0.5cm, content and bottom edge unmoved, same as the sheet. */
+    margin-top: 0.5cm;
+    padding: max(1.75rem, calc(clamp(2.8rem, 6.4vw, 5.4rem) - 0.5cm)) 0;
+  }
+  .db-flow .section-title { color: var(--ivory); }
+
+  .db-gantt { margin-top: clamp(0.5rem, 2vw, 1.5rem); }
+  .db-gantt-top {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+    margin-bottom: 0.8rem;
+  }
+  .db-gantt-top span {
+    font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass-soft);
+  }
+
+  /* the flex weights are the stage durations, so the bar is to scale */
+  .db-gantt-track { list-style: none; margin: 0; padding: 0; display: flex; gap: 3px; }
+  .db-gantt-seg {
+    flex: var(--flex) 1 0; min-width: 0; min-height: 66px;
+    background: rgba(74, 107, 82, 0.66);
+    border-top: 2px solid var(--brass-soft);
+    padding: 0.7rem 0.75rem 0.85rem;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 0.3rem;
+  }
+  .db-gantt-seg:first-child { border-radius: 0.45rem 0 0 0; }
+  .db-gantt-seg:last-child { border-radius: 0 0.45rem 0 0; }
+  .db-gantt-seg b { font-family: var(--font-heading); font-size: 1.12rem; font-weight: 600; color: var(--ivory); }
+  .db-gantt-seg i {
+    font-family: var(--font-body); font-style: normal; font-size: 0.68rem;
+    letter-spacing: 0.06em; color: rgba(245, 240, 229, 0.8); white-space: nowrap;
+  }
+
+
+  .db-gantt-legend {
+    list-style: none; margin: clamp(1.4rem, 3vw, 2.2rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.4vw, 1.7rem) clamp(1.6rem, 4vw, 3.2rem);
+  }
+  .db-gantt-legend li {
+    display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 0.75rem;
+    padding-top: 1rem; border-top: 1px solid rgba(245, 240, 229, 0.16);
+  }
+  .db-gantt-n {
+    font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; color: var(--brass-soft);
+  }
+  .db-gantt-legend h3 { margin: 0 0 0.35rem; font-size: 1.06rem; font-weight: 600; color: var(--ivory); }
+  .db-gantt-legend p { margin: 0; font-size: 0.9rem; line-height: 1.64; color: rgba(245, 240, 229, 0.88); }
+
+  .db-flow-foot {
+    margin: clamp(2rem, 4vw, 3rem) 0 0; padding-top: 1.4rem;
+    border-top: 1px solid rgba(245, 240, 229, 0.16);
+    font-size: 0.96rem; line-height: 1.7; color: rgba(246, 241, 231, 0.92);
+  }
+
+  /* ============ 11. SCENES — a three-up carousel that loops ============ */
+  .db-scenes { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-scenes-head { margin-bottom: clamp(1.8rem, 4vw, 2.8rem); }
+  .db-scenes-head .section-title { max-width: 26ch; }
+
+  /* the arrows ride the left and right edges of the images rather than sitting
+     in the head, so the eye stays on the panel it is stepping through */
+  .db-scenes-viewport { overflow: hidden; position: relative; }
+  .db-scenes-btn {
+    position: absolute; top: 36%; transform: translateY(-50%); z-index: 2;
+    width: 52px; height: 52px; border-radius: 50%; cursor: pointer;
+    display: grid; place-items: center;
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.22);
+    color: var(--color-brand-primary);
+    box-shadow: 0 14px 32px -16px rgba(31, 59, 44, 0.55);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+  .db-scenes-btn:hover { background: var(--color-forest); border-color: var(--color-forest); color: var(--ivory); }
+  .db-scenes-btn svg { width: 22px; height: 22px; }
+  .db-scenes-prev { left: 14px; }
+  .db-scenes-next { right: 14px; }
+  .db-scenes-track {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; gap: clamp(1rem, 2.2vw, 1.5rem);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .db-scene { flex: 0 0 calc((100% - clamp(2rem, 4.4vw, 3rem)) / 3); min-width: 0; }
+  /* the client's own retail photographs, in one box — the six sources run from
+     1:1 to 2.6:1, so 3:2 is the ratio that crops all six the least */
+  .db-scene-ph {
+    position: relative; overflow: hidden;
+    aspect-ratio: 3 / 2; border-radius: 1.1rem;
+    background: rgba(245, 240, 229, 0.55);
+  }
+  .db-scene-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .db-scene-n {
+    position: absolute; left: 0.8rem; top: 0.8rem;
+    width: 2.1rem; height: 2.1rem; border-radius: 999px;
+    background: rgba(20, 38, 27, 0.66); color: var(--ivory);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
+  }
+  .db-scene-hint {
+    display: block; margin: 1rem 0 0.4rem;
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass);
+  }
+  .db-scene h3 { margin: 0 0 0.45rem; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.01em; color: var(--color-brand-text); }
+  /* ============ 13. TESTIMONIALS ============ */
+  .db-quotes { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-quote-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); }
+  /* the section is ivory now, so the cards need an edge of their own or they
+     dissolve into the background */
+  .db-quote {
+    margin: 0; background: var(--ivory); border-radius: 1.35rem;
+    border: 1px solid rgba(31, 59, 44, 0.14);
+    box-shadow: 0 22px 48px -38px rgba(31, 59, 44, 0.6);
+    padding: clamp(1.3rem, 2.6vw, 1.85rem);
+    display: flex; flex-direction: column;
+  }
+  .db-quote-mark {
+    font-family: var(--font-heading); font-size: 4.4rem; line-height: 0.62;
+    color: rgba(176, 141, 76, 0.4);
+  }
+  .db-quote-mark--close {
+    display: block; text-align: right;
+    margin: -0.4rem 0 0.2rem;
+  }
+  .db-quote blockquote { margin: 0.3rem 0 0; }
+  .db-quote blockquote p {
+    margin: 0 0 0.75rem; font-family: var(--font-heading);
+    font-size: clamp(1.02rem, 1.35vw, 1.16rem); line-height: 1.6; color: var(--color-brand-text);
+  }
+  .db-quote blockquote p:last-child { margin-bottom: 0; }
+  .db-quote-specs {
+    list-style: none; margin: 1.1rem 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .db-quote-specs li {
+    font-family: var(--font-body); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass);
+    background: rgba(176, 141, 76, 0.1);
+    border: 1px solid rgba(176, 141, 76, 0.24);
+    border-radius: 999px; padding: 0.3rem 0.62rem;
+  }
+  .db-quote figcaption {
+    margin-top: auto; padding-top: 1.1rem; border-top: 1px solid rgba(31, 59, 44, 0.12);
+    display: flex; align-items: center; gap: 0.9rem;
+  }
+  .db-quote figcaption img {
+    width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: 0 0 auto;
+  }
+  .db-quote figcaption span { display: flex; flex-direction: column; line-height: 1.4; gap: 0.15rem; }
+  .db-quote figcaption strong { font-family: var(--font-heading); font-size: 1.12rem; font-weight: 600; color: var(--color-brand-text); }
+  .db-quote figcaption em { font-family: var(--font-body); font-style: normal; font-size: 0.82rem; color: var(--color-brand-muted); }
+  /* the rating sits in the card's own top-left corner, above the opening quote —
+     it opens the card instead of trailing the byline. `align-self` stops the
+     column-flex parent stretching the row to the card's full width. */
+  .db-stars { align-self: flex-start; display: inline-flex; gap: 2px; color: var(--brass); margin-bottom: 0.7rem; }
+
+  /* ============ 14. FAQ ============ */
+  /* Laid out to match the homepage FAQ so the two read as one site: 820px
+     measure, a flex summary, and a + that rotates into an x when open. */
+  .db-faq { background: var(--color-clay); padding: clamp(4rem, 9vw, 8rem) 0; }
+  .db-faq-list { max-width: 820px; margin-inline: auto; text-align: left; }
+  .db-faq-item { border-top: 1px solid rgba(31, 59, 44, 0.14); }
+  .db-faq-item:last-child { border-bottom: 1px solid rgba(31, 59, 44, 0.14); }
+  .db-faq-n { font-family: var(--font-heading); font-weight: 600; color: var(--brass); margin-right: 0.9rem; }
+  .db-faq-item summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 1.4rem 0.2rem;
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    letter-spacing: -0.008em; color: var(--color-brand-text);
+  }
+  .db-faq-item summary::-webkit-details-marker { display: none; }
+  .db-faq-item summary::after {
+    content: '+'; flex: 0 0 auto; line-height: 1;
+    font-family: var(--font-body); font-weight: 400; font-size: 1.6rem; color: var(--brass);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .db-faq-item[open] summary::after { transform: rotate(45deg); }
+  .db-faq-item summary:hover { color: var(--color-brand-primary); }
+  .db-faq-a { padding: 0 0.2rem 1.4rem; }
+  .db-faq-a p {
+    margin: 0; max-width: 68ch;
+    font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted);
+  }
+
+  /* ============ 15. FINAL CTA ============ */
+  .db-final {
+    background-image:
+      linear-gradient(rgba(20, 38, 27, 0.66), rgba(20, 38, 27, 0.78)),
+      url('https://img.leelinepackage.com/display-boxes/final-cta-bg-v2.webp');
+    background-size: cover; background-position: center;
+    padding: clamp(3.5rem, 8vw, 6rem) 0;
+  }
+  .db-final-panel { max-width: 56rem; margin-inline: auto; text-align: center; }
+  .db-final-copy { color: var(--ivory); display: flex; flex-direction: column; align-items: center; }
+  .db-final-title {
+    margin: 1.1rem 0 0; font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.8rem, 3.8vw, 2.9rem); line-height: 1.06; letter-spacing: -0.022em;
+    color: var(--ivory); max-width: 28ch; margin-inline: auto; text-wrap: balance;
+  }
+  .db-final-sub { margin: 1.1rem auto 1.7rem; max-width: 66ch; font-size: 1.02rem; line-height: 1.72; color: rgba(245, 240, 229, 0.78); }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1100px) {
+    .db-pass { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 900px) {
+    .db-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+    .db-title { max-width: 34ch; }
+    .db-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .db-load-mod { grid-template-columns: minmax(0, 1fr); }
+    .db-load-plate { grid-template-columns: minmax(0, 1fr); }
+    .db-load-rail button[aria-selected='true'] { transform: none; }
+    .db-fin-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .db-inc-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .db-quote-grid { grid-template-columns: minmax(0, 1fr); }
+    .db-scene { flex: 0 0 100%; }
+    .db-scenes-btn { width: 44px; height: 44px; }
+    .db-scenes-prev { left: 8px; }
+    .db-scenes-next { right: 8px; }
+
+    /* the comparator restacks into labelled rows rather than scrolling sideways */
+    /* the header row is kept for assistive tech but taken out of layout
+       entirely — its cells must not lay out, or they trail past the clip */
+    .db-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .db-table thead tr { display: block; width: 1px; height: 1px; }
+    .db-table thead th { display: block; width: 1px; height: 1px; overflow: hidden; padding: 0; white-space: nowrap; }
+    .db-table, .db-table tbody, .db-table tbody tr { display: block; width: 100%; }
+    .db-table tbody tr {
+      border-bottom: 0; padding: 1.2rem 0;
+      border-top: 1px solid rgba(31, 59, 44, 0.14);
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem 1.4rem;
+    }
+    .db-table tbody th { grid-column: 1 / -1; padding: 0 0 0.7rem; }
+    .db-table tbody th img { width: 46px; height: 46px; }
+    .db-table td { padding: 0; }
+    .db-table td::before {
+      content: attr(data-label); display: block; margin-bottom: 0.2rem;
+      font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--brass);
+    }
+  }
+  @media (max-width: 900px) {
+    .db-gantt-legend { grid-template-columns: minmax(0, 1fr); }
+    .db-gantt-seg { padding: 0.6rem 0.5rem 0.7rem; min-height: 58px; }
+    .db-gantt-seg i { display: none; }
+    /* drawing over note — side by side they both get too narrow to read */
+    .db-adj-split { grid-template-columns: minmax(0, 1fr); }
+    /* and stacked, the blank would be 800px tall if it took the full width */
+    .db-adj-plate { max-width: 30rem; margin-inline: auto; }
+  }
+  @media (max-width: 760px) {
+    .db-blank-foot { gap: 0.6rem 1rem; }
+  }
+  @media (max-width: 640px) {
+    .db-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 1.4rem; }
+    .db-stats li:nth-child(3) { border-left: 0; }
+    .db-type-grid, .db-inc-list, .db-fin-grid { grid-template-columns: minmax(0, 1fr); }
+    .db-ledger-head { display: none; }
+    .db-ledger-rows li { grid-template-columns: 2.6rem minmax(0, 1fr) auto; gap: 0.5rem 1rem; padding: 1.2rem 0; }
+    .db-ledger-n { grid-row: 1; }
+    .db-ledger-rows h3 { grid-column: 2; }
+    .db-ledger-pass { grid-column: 3; grid-row: 1; }
+    .db-ledger-rows p { grid-column: 2 / -1; }
+    .db-pass { grid-template-columns: minmax(0, 1fr); }
+    .db-quote figcaption { flex-wrap: wrap; }
+    .db-plates { gap: 0.5rem; }
+    .db-labels { gap: 0.5rem; }
+    .db-labels span { font-size: 0.66rem; letter-spacing: 0.08em; }
+    .db-labels em { font-size: 0.6rem; }
+  }
+</style>
+
+<script>
+  // Reveal on scroll.
+  const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if ('IntersectionObserver' in window && !reduce) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // Load and stability sheet. The rail names the three constructions and the
+  // plate beside it is the measured elevation for the selected one. Panels are
+  // rendered already, so switching is a hidden toggle rather than a redraw.
+  const rail = document.querySelector('.db-load-rail');
+  if (rail) {
+    const tabs = Array.from(rail.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('.db-load-plate'));
+    const show = (i) => {
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      tabs.forEach((b, k) => {
+        b.setAttribute('aria-selected', String(k === i));
+        b.tabIndex = k === i ? 0 : -1;
+      });
+    };
+    tabs.forEach((b, i) => {
+      b.addEventListener('click', () => show(i));
+      b.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = i + 1;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = i - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        const at = (next + tabs.length) % tabs.length;
+        show(at);
+        tabs[at].focus();
+      });
+    });
+  }
+
+  // Adjustments. A pin on the blank, the piece of the blank it sits on, and the
+  // two ends of the bar under the note are all handles on the same adjustment, so
+  // they share one `show`. The six notes are rendered already, so switching is a
+  // hidden toggle rather than a redraw — same as the load sheet above.
+  const adjSplit = document.querySelector('.db-adj-split');
+  if (adjSplit) {
+    const pins = Array.from(adjSplit.querySelectorAll('.db-pin'));
+    const zones = Array.from(adjSplit.querySelectorAll('.db-zone'));
+    const reads = Array.from(adjSplit.querySelectorAll('.db-adj-read'));
+    const count = adjSplit.querySelector('.db-adj-count b');
+    let at = 0;
+
+    const show = (i) => {
+      at = (i + pins.length) % pins.length;
+      pins.forEach((p, k) => {
+        p.classList.toggle('on', k === at);
+        p.setAttribute('tabindex', k === at ? 0 : -1);
+      });
+      zones.forEach((z, k) => z.classList.toggle('on', k === at));
+      reads.forEach((r, k) => { r.hidden = k !== at; });
+      if (count) count.textContent = String(at + 1).padStart(2, '0');
+    };
+
+    pins.forEach((p, i) => {
+      p.addEventListener('click', () => show(i));
+      p.addEventListener('keydown', (e) => {
+        let next = null;
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = i + 1;
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next = i - 1;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = pins.length - 1;
+        if (next === null) return;
+        e.preventDefault();
+        const to = (next + pins.length) % pins.length;
+        show(to);
+        pins[to].focus();
+      });
+    });
+
+    zones.forEach((z, i) => z.addEventListener('click', () => show(i)));
+    adjSplit.querySelectorAll('.db-adj-nav [data-step]').forEach((b) =>
+      b.addEventListener('click', () => show(at + Number(b.dataset.step))));
+  }
+
+  // Scenes carousel. Three slides per view, one below 900px. The track holds the
+  // six real slides plus CLONES copies of the first three, so stepping past the
+  // last real slide lands on an identical-looking clone; once the transition
+  // finishes the track is snapped back with no transition, which is what makes
+  // the wrap read as a loop instead of a jump.
+  const track = document.getElementById('db-scenes-track');
+  const viewport = track && track.parentElement;
+  if (track && viewport) {
+    const realSlides = Array.from(track.children);
+    const CLONES = 3;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for (let i = 0; i < CLONES; i++) {
+      const clone = realSlides[i].cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    }
+
+    const slides = Array.from(track.children);
+    const total = realSlides.length;
+    let index = 0;
+    let step = 0;
+
+    const measure = () => {
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      step = slides[0].getBoundingClientRect().width + gap;
+    };
+
+    const paint = (animate) => {
+      track.style.transition = animate && !reduce ? '' : 'none';
+      track.style.transform = `translate3d(${-index * step}px, 0, 0)`;
+    };
+
+    const advance = (dir) => {
+      // stepping backwards off the front: hop to the clone block first, unseen
+      if (dir < 0 && index === 0) {
+        index = total;
+        paint(false);
+        void track.offsetWidth;
+      }
+      index += dir;
+      paint(true);
+    };
+
+    track.addEventListener('transitionend', (e) => {
+      if (e.propertyName !== 'transform') return;
+      if (index >= total) { index -= total; paint(false); }
+    });
+
+    Array.from(viewport.parentElement.querySelectorAll('.db-scenes-btn')).forEach((btn) => {
+      btn.addEventListener('click', () => advance(Number(btn.dataset.step)));
+    });
+
+    let rt;
+    window.addEventListener('resize', () => {
+      clearTimeout(rt);
+      rt = setTimeout(() => { measure(); paint(false); }, 140);
+    });
+
+    measure();
+    paint(false);
+  }
+
+  // One FAQ open at a time — two open answers push the section instead of
+  // reading as a set.
+  const faqItems = Array.from(document.querySelectorAll('.db-faq-item'));
+  faqItems.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      faqItems.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+</script>

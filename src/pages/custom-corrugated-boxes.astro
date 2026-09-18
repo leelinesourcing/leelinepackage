@@ -203,9 +203,14 @@ const quotes = [
 /* What the body does NOT already answer. Every answer below was checked against the
    sections above: wall choice now lives in the flute table's safe top load + best-for
    line, the flexo-on-kraft result lives in §Four Presses, the pallet/freight
-   arithmetic lives in §Cost, and the 24-hour turnaround lives in §Process Day 0 and
-   the final CTA. Restating any of those here is the duplication the client flagged. */
+   arithmetic lives in §Cost, and the 24-hour turnaround lives in the hero stat bar,
+   §Process Day 0 and the final CTA. MOQ is here because the hero stat bar no longer
+   carries it — that figure moves to the one place it is needed rather than sitting
+   where the page before this one has already published it. Restating any of those
+   here is the duplication the client flagged. */
 const faqs = [
+  { q: 'What is the minimum order for a custom corrugated box?',
+    a: '500 cartons, and the wholesale band runs from there to 500,000 units. Tooling sets the floor — the cutting die and the print plate are made once and kept for the reorder — and under 500 units they cannot be spread far enough for the unit rate to be worth quoting.' },
   { q: 'Single wall or double wall — how do I decide?',
     a: 'By what sits on top of the carton, not by what goes inside it. The flute table above carries a safe top load and a line on the run it suits for each grade; send the pallet pattern and the packed weight, and the choice follows from those two figures rather than from preference.' },  { q: 'ECT or Mullen — which number should my specification carry?',
     a: 'ECT, unless a customer of yours has specified otherwise. Edge crush test measures the board\u2019s resistance to crushing on edge, which is the load a stacked carton actually sees, and it is the number that survives a change of liner without the spec having to be rewritten. Mullen burst measures puncture resistance, and it still belongs on a spec for a heavy, sharp-edged part. Both figures come off the mill certificate for the lot, and either can be carried on the packing list for the run.' },
@@ -338,10 +343,10 @@ const heroCut = (() => {
             </a>
           </div>
           <ul class="cc-stats" data-reveal="up" style="--d:0.32s">
-            <li><strong>500</strong><span>unit minimum order</span></li>
             <li><strong>32–48</strong><span>ECT board range</span></li>
-            <li><strong>4–6</strong><span>week production</span></li>
             <li><strong>&lt;0.2%</strong><span>transit damage</span></li>
+            <li><strong>30–55%</strong><span>less billed volume</span></li>
+            <li><strong>24 hours</strong><span>to a dieline and mockup</span></li>
           </ul>
         </div>
         <svg class="cc-flute-cut" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -780,13 +785,19 @@ const heroCut = (() => {
     background-image: url('https://img.leelinepackage.com/corrugated-boxes/hero-shot.webp');
     background-size: cover;
     background-position: center 42%;
-    filter: brightness(0.94) saturate(0.92);
+    filter: brightness(1.06) saturate(1.06) contrast(1.04);
   }
+  /* The mask is two bands, not one wash. The copy column — the eyebrow, the
+     headline, the lede and the button — all end before 65% of the width, so the
+     scrim is spent by then and the photograph's own subject (the lifted stack of
+     board) is left close to its own tone. The second band only closes the top
+     behind the fixed nav and the bottom where the stat row and the flute cut
+     sit, which is what keeps the small stat labels legible at the far right. */
   .cc-hero-bg::after {
     content: ''; position: absolute; inset: 0;
     background:
-      linear-gradient(180deg, rgba(20, 38, 27, 0.55) 0%, rgba(20, 38, 27, 0.24) 38%, rgba(20, 38, 27, 0.72) 100%),
-      linear-gradient(102deg, rgba(20, 38, 27, 0.92) 0%, rgba(20, 38, 27, 0.68) 54%, rgba(20, 38, 27, 0.34) 100%);
+      linear-gradient(94deg, rgba(20, 38, 27, 0.94) 0%, rgba(20, 38, 27, 0.88) 30%, rgba(20, 38, 27, 0.72) 48%, rgba(20, 38, 27, 0.40) 63%, rgba(20, 38, 27, 0.16) 80%, rgba(20, 38, 27, 0.06) 100%),
+      linear-gradient(180deg, rgba(20, 38, 27, 0.46) 0%, rgba(20, 38, 27, 0.03) 22%, rgba(20, 38, 27, 0.02) 50%, rgba(20, 38, 27, 0.30) 72%, rgba(20, 38, 27, 0.62) 86%, rgba(20, 38, 27, 0.78) 100%);
   }
   .cc-hero-grain {
     position: absolute; inset: 0; opacity: 0.05; mix-blend-mode: multiply; pointer-events: none;
@@ -828,7 +839,7 @@ const heroCut = (() => {
     font-family: var(--font-heading); font-size: clamp(1.3rem, 2.1vw, 1.6rem); font-weight: 500;
     color: var(--ivory); letter-spacing: -0.01em;
   }
-  .cc-stats span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.72); }
+  .cc-stats span { font-size: 0.95rem; color: rgba(245, 240, 229, 0.86); }
 
   /* The die-cut edge. The clay fill is the next band, so the dark hero reads as
      cut along the corrugation rather than ending on a straight rule. The SVG is
@@ -1177,26 +1188,43 @@ const heroCut = (() => {
 
   /* ============ 9. TESTING ============ */
   .cc-test { position: relative; overflow: hidden; background: var(--color-forest); padding: clamp(4rem, 9vw, 8rem) 0; }
-  /* Client background. Forest veil, dense enough that the ivory heading and the
-     four card headlines stay legible over a photo with white machinery in it. */
+  /* Client background. The veil is biased rather than flat: the head sits in the
+     top-left corner over the brightest part of the frame (the white shop wall and
+     window), and the four cards carry their own panel, so only that corner needs a
+     heavy wash. The drop rig and the operator are left close to their own tone. */
   .cc-test-bg {
     position: absolute; inset: 0;
     background-image: url('https://img.leelinepackage.com/corrugated-boxes/test-bg.webp');
     background-size: cover; background-position: center;
+    filter: brightness(1.04) saturate(1.04);
   }
   .cc-test-bg::after {
     content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(20, 38, 27, 0.88), rgba(20, 38, 27, 0.93));
+    background:
+      /* The head band. The heading and the full-measure sub sit over the white shop
+         wall, and the sub is body-size, so this is the one place the veil stays
+         heavy — it is spent before the cards, which carry their own panel. */
+      linear-gradient(180deg, rgba(20, 38, 27, 0.68) 0%, rgba(20, 38, 27, 0.62) 18%, rgba(20, 38, 27, 0.36) 36%, rgba(20, 38, 27, 0) 52%),
+      /* Left to right: the copy column, spent before the operator. */
+      linear-gradient(96deg, rgba(20, 38, 27, 0.60) 0%, rgba(20, 38, 27, 0.38) 44%, rgba(20, 38, 27, 0.16) 72%, rgba(20, 38, 27, 0.06) 100%),
+      /* A light floor, so the section still reads as one dark band. */
+      linear-gradient(180deg, rgba(20, 38, 27, 0.26) 0%, rgba(20, 38, 27, 0.20) 60%, rgba(20, 38, 27, 0.24) 100%);
   }
   .cc-test > .wrap { position: relative; z-index: 1; }
   .cc-test-title { color: var(--ivory); }
+  /* The sub is over a washed corner rather than a flat band, so it carries more
+     of its own weight here than `.cc-sub--light` allows. */
+  .cc-test .section-sub { color: rgba(245, 240, 229, 0.92); }
   .cc-test-grid {
     list-style: none; margin: 0; padding: 0;
     display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: clamp(1.1rem, 2.2vw, 1.6rem);
   }
+  /* A panel, not a light pane. At 5.5% the card was legible only because the veil
+     above it was near-opaque; with the photograph showing through it has to hold
+     its own text. */
   .cc-test-card {
-    background: rgba(245, 240, 229, 0.055);
+    background: rgba(20, 38, 27, 0.74);
     border-top: 2px solid var(--brass);
     border-radius: 0 0 1rem 1rem;
     padding: clamp(1.3rem, 2.6vw, 1.8rem);
@@ -1210,7 +1238,7 @@ const heroCut = (() => {
     margin: 0; font-family: var(--font-heading); font-weight: 600;
     font-size: 1.1rem; line-height: 1.28; color: var(--ivory); letter-spacing: -0.01em;
   }
-  .cc-test-card p { margin: 0; font-size: 0.92rem; line-height: 1.68; color: rgba(245, 240, 229, 0.72); }
+  .cc-test-card p { margin: 0; font-size: 0.92rem; line-height: 1.68; color: rgba(245, 240, 229, 0.80); }
 
   /* ============ 10. PROCESS ============ */
   .cc-flow { background: var(--color-brand-bg); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -1395,6 +1423,16 @@ const heroCut = (() => {
   }
 
   @media (max-width: 900px) {
+    /* The copy runs to nearly the full measure at this width, so the left-hand
+       scrim that clears it on a desktop no longer covers the last word of every
+       line. The wash goes back across the whole frame — down here the photograph
+       is a texture behind the copy rather than the subject beside it. */
+    .cc-hero-bg { filter: brightness(1.0) saturate(1.02); }
+    .cc-hero-bg::after {
+      background:
+        linear-gradient(180deg, rgba(20, 38, 27, 0.60) 0%, rgba(20, 38, 27, 0.54) 42%, rgba(20, 38, 27, 0.70) 100%),
+        linear-gradient(96deg, rgba(20, 38, 27, 0.70) 0%, rgba(20, 38, 27, 0.30) 100%);
+    }
     /* Three columns is the smallest this reads at, so below that each row becomes
        its own block and the two cells carry their headers via `data-label`. Every
        selector is scoped to `.cc-board-table` — a bare `tr`/`td` restack reaches

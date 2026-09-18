@@ -1,0 +1,1806 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const AC = `${R2}/acrylic-box`;
+
+/* The nine families that carry the searches a buyer types. Each `d` line is a
+   consequence the buyer's own customer feels, and no card restates the section
+   intro or the card above it. */
+const types = [
+  { n: 'AD-01', key: 'type-display', name: 'Custom Acrylic Display Boxes', spec: 'Counter and shelf',
+    alt: 'A clear acrylic display box with a slim black base and a printed ribbon, standing on a pale table',
+    d: 'The product is the display. Branding goes on the base and the product sits behind nothing at all, which is what a printed carton cannot do.' },
+  { n: 'WG-02', key: 'type-gift', name: 'Wholesale Acrylic Gift Boxes', spec: 'Long programs',
+    alt: 'A row of clear acrylic gift boxes on colored bases, each tied with a ribbon, against a two-tone backdrop',
+    d: 'A single specification held across a long program, with the unit rate stepping down at the volume tier a reorder actually reaches.' },
+  { n: 'CL-03', key: 'type-lid', name: 'Clear Acrylic Boxes With Lids', spec: 'Lift-off, hinged or clasped',
+    alt: 'A clear acrylic box closed by a small metal clasp, photographed against a pale blue sweep',
+    d: 'A lid is where a box is judged. The lid here seats the same way on the thousandth unit as on the first, which is a jig, not a technique.' },
+  { n: 'OE-04', key: 'type-oem', name: 'OEM Acrylic Boxes', spec: 'Drawn to your size',
+    alt: 'An unbranded stepped clear acrylic organizer holding cosmetic bottles and tubes',
+    d: 'Any footprint inside the sheet, cut to your drawing. There is no nearest stock size to compromise a product against.' },
+  { n: 'PR-05', key: 'type-printed', name: 'Custom Printed Acrylic Boxes', spec: 'Four print routes',
+    alt: 'Two small clear acrylic cubes, each carrying a printed round insert under its lid, on a white plate',
+    d: 'Artwork goes on the box rather than on a label, either cured under the surface or cut into it. Nothing to peel, nothing to sit crooked.' },
+  { n: 'JW-06', key: 'type-jewelry', name: 'Acrylic Jewelry Boxes', spec: 'Divided compartments',
+    alt: 'A stacked clear acrylic box with narrow divided compartments, holding slim cosmetic tubes',
+    d: 'Compartments and a tray built to the piece rather than a stock tray, so a chain arrives unknotted.' },
+  { n: 'ST-07', key: 'type-storage', name: 'Acrylic Storage Boxes', spec: 'Stackable, load-rated',
+    alt: 'A clear acrylic drawer tower with a hand pulling one drawer open, holding small cosmetic pots',
+    d: 'Walls sized to the weight above rather than to a default, which is the difference between a stack of four that stays square and a stack that leans.' },
+  { n: 'PX-08', key: 'type-plexiglass', name: 'Custom Plexiglass Packaging', spec: 'Cast PMMA sheet',
+    alt: 'A stack of clear cast acrylic sheet offcuts photographed edge-on, showing the thickness of each wall',
+    d: 'The same material under its trade name, sheet and fabrication in the same building, which is what holds the wall to the grade that was quoted.' },
+  { n: 'LK-09', key: 'type-lockable', name: 'Lockable Collection Boxes', spec: 'Cam lock and a slot',
+    alt: 'A clear acrylic collection box with a cam lock, a chalkboard sign reading TIPS and banknotes inside',
+    d: 'For donations, ballots and anything emptied by a single person and counted by another, with the lock and the slot set into the panels themselves.' },
+];
+
+/* Four pairs. The left column is what a bonded box does; the right is what a
+   sawn-and-glued one does. Every pair is anchored in the drawing beside it, and
+   none of them is repeated in §Where an Acrylic Order Goes Wrong — that section
+   owns the faults this one does not. */
+const pairs = [
+  { good: 'Polished edge', bad: 'Sawn edge',
+    d: 'A cut edge is milled or flame-polished until it transmits light like the face. A sawn edge stays whitish and reads as a sheet someone cut.' },
+  { good: 'Solvent bond', bad: 'Glue line and trapped air',
+    d: 'Solvent softens both faces until they fuse, leaving a faint continuous line. Adhesive sits between them as a cloudy seam with bubbles in it.' },
+  { good: 'Lid set on a jig', bad: 'Lid fitted by eye',
+    d: 'The gap is a dimension held on a jig and gauged on the first box off it. Fitted by hand the gap drifts, and a drifting gap rocks.' },
+  { good: 'Wall from the span', bad: 'Wall from the price',
+    d: 'Thickness follows the footprint and the weight above it. Chosen from the price list instead, a long shelf shows a bow inside a month.' },
+];
+
+/* Four closures, four photographs of the closure itself. */
+const mechs = [
+  { key: 'mech-lid', name: 'Lift-off lid', tag: 'No hinge to fail',
+    alt: 'Two stacked clear acrylic boxes with lift-off lids, gold lettering bonded to the front face',
+    d: 'A straight lift with a rebated lip. Nothing to wear out, and the whole top face stays clear for print.' },
+  { key: 'mech-hinge', name: 'Hinged lid', tag: 'Jig-set barrels',
+    alt: 'Two clear acrylic handbag-style boxes with hinged lids and pearl handles, holding gift bottles',
+    d: 'Barrels are jig-drilled rather than eyed in, and the lid still seats square a thousand openings later.' },
+  { key: 'mech-drawer', name: 'Sliding tray', tag: 'Runner or friction',
+    alt: 'A clear acrylic drawer unit with a hand pulling the lower drawer out, holding cosmetic bottles',
+    d: 'A tray that pulls out under the product, for anything that gets handled rather than looked at.' },
+  { key: 'mech-step', name: 'Stepped shelf', tag: 'Nothing hidden',
+    alt: 'A rose-tinted stepped acrylic desk organizer with three tiers and a pen resting on it',
+    d: 'Tiers cut from the same sheet and bonded at the same rake: a whole range reads from the door.' },
+];
+
+/* Each card runs problem → control → what the control is worth. The third line
+   is the point of the section: a fault list on its own tells a buyer what can go
+   wrong and gives them nothing. Scoped to what the buyer RECEIVES — the edge,
+   the joint and the lid gap belong to §How the Box Is Built. */
+const faults = [
+  { n: '01', s: 'The face arrives hazed, with every mark the bench made on it',
+    d: 'Both faces are masked through cutting and fabrication, and the film comes off at packing rather than on the bench.',
+    win: 'What is unwrapped has not been touched by anything but a glove.' },
+  { n: '02', s: 'The second order is a different color of clear',
+    d: 'Sheet grade is recorded against the SKU, so a reorder runs to the same standard as the first run rather than from memory.',
+    win: 'Order twelve looks like order one, and a shelf does not drift over a season.' },
+  { n: '03', s: 'The print lifts along an edge',
+    d: 'Ink is cured into the face instead of laid on top of it, and the print route is chosen while the artwork is still being drawn.',
+    win: 'A mark that survives a wipe-down, with no label edge to catch.' },
+  { n: '04', s: 'A hinge seizes, or a lock corrodes, in a humid shop',
+    d: 'Hardware is specified for the room the box lives in: stainless or solid brass, and a barrel rated for the opening count the piece will see.',
+    win: 'It opens as smoothly in year three as it did on day one.' },
+  { n: '05', s: 'One unit cracks in transit and there is no spare to send',
+    d: 'Corner blocks are written into the pack and a spare into the run, so a replacement comes out of the same batch.',
+    win: 'One damaged box costs a courier label, not a remake and a wait.' },
+];
+
+/* Six installations, walked through by the carousel. Captions name the setting;
+   the alt text describes the photograph. Three are the frames the old grid used,
+   plus three more cut from sources the page carries elsewhere but framed here on
+   the SETTING rather than on the product — which is what makes them scenes. */
+/* Six positions, each cropped 3:2 from the source's own 4:5 frame — the tiles
+   used to run portrait and stood half again as tall as the row needed, which
+   made the section about the photographs rather than about the positions. The
+   `-v2` suffix is not cosmetic: re-uploading an existing R2 key does NOT change
+   what the CDN serves, so a re-crop always lands on a new key. */
+const scenes = [
+  { key: 'scen-vitrine-v2', cap: 'A gallery',
+    alt: 'A dark museum room with lit acrylic vitrines on plinths, holding sculpture and glassware' },
+  { key: 'scen-retail-v2', cap: 'A shop window',
+    alt: 'Three translucent acrylic boxes in deep green, red and amber, with pencils resting inside them' },
+  { key: 'scen-vanity-v2', cap: 'A counter',
+    alt: 'A tiered clear acrylic cosmetic organizer holding lipsticks, tubes and compacts in a bright room' },
+  { key: 'use-event-v2', cap: 'A launch',
+    alt: 'Two stacked clear acrylic boxes carrying gold lettering, standing on white fur with planting behind' },
+  { key: 'use-gifting-v2', cap: 'A gifting suite',
+    alt: 'Clear acrylic handbag-style boxes with pearl handles, held up outdoors, holding perfumes and gifts' },
+  { key: 'use-favour-v2', cap: 'A celebration',
+    alt: 'Two small clear acrylic cubes carrying printed round labels, on a white plate beside two rings' },
+];
+
+/* §What the Sheet Can Be, in two blocks: the four sheet GRADES lead, the six
+   FINISHES follow.
+   The order is deliberate. The H1 promises 92% light transmittance and three
+   years without yellowing, and both of those are properties of the grade
+   (Cast PMMA, UV-stabilized) — not of the finish. The grade is therefore the
+   block that has to answer the headline, and the finish is the separate
+   question of what the shelf sees.
+   The finishes get the SHORT treatment — one lookup table, no photographs.
+   They were briefly built as six photo plates; the client cut them back
+   (*"你不是说这个不重要吗，那么不需要这么详细的都放图片吧，直接表格列举一下"*), which is
+   the right call: a secondary block that carries six large plates competes with
+   the block that is meant to lead. THIS IS THE PAGE'S ONE TABLE — everything
+   else is separated by gap, type scale or colour. Do not add a second. */
+/* Two rows carry a badge, because they are the only two that change what a
+   buyer does. `Clear` is the default — the old section intro said so and the
+   line was lost when the intro was rewritten for the grade-first order.
+   `Amber tint` reads like a single colour, and it is not: it is the row for ANY
+   colour ("Any Pantone in any transparency"), so the badge stops the name
+   understating it. Nothing else here is marked. */
+const finishes = [
+  { name: 'Clear', badge: 'The default',
+    use: 'A product that is the display',
+    d: 'The hardest of the six to get right. Cast rather than extruded, which keeps the machined edge clear.' },
+  { name: 'Frosted',
+    use: 'A piece that gets handled',
+    d: 'A diffuse surface that scatters a spotlight and forgives fingerprints in a way a polished face never does.' },
+  { name: 'Smoke',
+    use: 'Reading solid from the door',
+    d: 'A gray tint deep enough to read as a solid from across a room and still let the product be seen up close.' },
+  { name: 'Amber tint', badge: 'Any Pantone',
+    use: 'Matching a brand palette',
+    d: 'Any Pantone in any transparency. The tint runs through the sheet, which means a scratch cannot cut down to clear.' },
+  { name: 'Mirror gold',
+    use: 'A shelf moment that has to carry',
+    d: 'A metallised face that throws the shelf light back out. The loudest of the six, and it wants a quiet product.' },
+  { name: 'Neon edge',
+    use: 'An edge that carries the light',
+    d: 'A fluorescing edge that lights along the wall thickness. The face stays clear and the edge does the work.' },
+];
+
+/* The four grades, as cards, each with its own mark. The icons are literal SVG
+   strings carrying `stroke="currentColor"` and their own width/height — the
+   colour is inherited from the scoped `.ac-grade-ico` wrapper, which is safe,
+   but SIZE must live inside the string or a scoped rule cannot reach it. The
+   `tone` picks the badge from the palette: brass → bright → sage → forest, a
+   gold-to-green run rather than four arbitrary hues. Icon colour flips with the
+   badge so every pair clears 3:1 (brass and brass-bright both need the dark
+   forest mark; sage and forest take ivory). */
+const grades = [
+  { t: 'Cast PMMA', tag: '92% light transmission', tone: 'brass',
+    ico: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="12" rx="1.6"/><path d="M8 3h11a2 2 0 0 1 2 2v11"/></svg>',
+    d: 'The baseline sheet, and the grade that machines and polishes without clouding. Extruded sheet is cheaper and is the reason a cut edge sometimes looks milky.' },
+  { t: 'UV-stabilized', tag: 'Stabilized through the sheet', tone: 'bright',
+    ico: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.6"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4 17 7M7 17l-1.6 1.6"/></svg>',
+    d: 'For a box that stands in daylight. The inhibitor runs through the thickness rather than sitting in a coating, which is why it cannot be washed off a front face.' },
+  { t: 'Impact-modified', tag: 'To seventeen times glass', tone: 'sage',
+    ico: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8 5 5.6v5.3c0 4 2.8 7.2 7 8.9 4.2-1.7 7-4.9 7-8.9V5.6z"/></svg>',
+    d: 'Tougher than standard PMMA at the same wall. The grade for a counter with children at it, and for anything that has to travel.' },
+  { t: 'Structural wall', tag: 'Sized to the span', tone: 'forest',
+    ico: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M6 6v12M18 6v12"/><path d="M12 9.5v5M9.6 12.2 12 14.6l2.4-2.4"/></svg>',
+    d: 'For a plinth or a shelf carrying weight rather than showing product. The wall is derived from the span and the load, then quoted on its own line.' },
+];
+
+/* Four routes. Three carry a photograph; UV digital does NOT, and that is
+   deliberate. The source page has no frame of full-colour print lying on an
+   acrylic face — the only full-colour candidate is a clear holder with printed
+   MAGAZINES standing inside it, which is not print on the sheet at all, and
+   every other printed frame in the set is a card insert or carries a
+   third-party wordmark. A card whose copy says "printed straight to the face"
+   cannot sit under a picture of something else, so it ships with no figure
+   until a real print sample is photographed. `key: null` renders text-only. */
+const prints = [
+  { key: 'print-silk', t: 'Silkscreen', tag: 'Exact Pantone',
+    alt: 'A red cast acrylic box carrying a solid white script printed across its lid',
+    d: 'A solid color laid through a screen. The route for a logo in a spot color or two that has to match a brand book under a shop light.' },
+  { key: null, t: 'UV digital', tag: 'No plate, full color',
+    alt: '',
+    d: 'Artwork printed straight to the face and cured under a lamp. No plate, which is what makes a short run carrying a photograph worth quoting.' },
+  { key: 'print-marks', t: 'Laser engraving', tag: 'Cut into the sheet',
+    alt: 'A close crop of a script wordmark engraved into the underside of a clear acrylic lid, catching the light',
+    d: 'A frosted mark taken below the surface. It cannot rub away, it reads best where a light can catch it, and it survives cleaning.' },
+  { key: 'print-foil', t: 'Hot foil', tag: 'Real metal',
+    alt: 'Gold metal lettering standing proud of the front face of two stacked clear acrylic boxes',
+    d: 'Gold, silver or rose gold laid as foil rather than as ink. The only route that produces a genuinely metallic face rather than a suggestion of it.' },
+];
+
+/* The four lines a quote is actually built from. Three of them are settled on
+   the drawing, before a sheet is cut. */
+const cost = [
+  { n: '01', t: 'The sheet and the wall',
+    d: 'The sheet is the largest line in the box. A wall matched to the load carries it for less material than a thickness picked off a price list, and that gap is the first place to look.' },
+  { n: '02', t: 'How the parts nest',
+    d: 'Each panel comes out of a standard sheet. A footprint drawn to tile with little waste costs materially less than the same box at a size that throws half a sheet away.' },
+  { n: '03', t: 'The polish',
+    d: 'A polished edge is bench time per part, and it is the first line cut when a price has to come down. It is also the difference a buyer sees across a counter.' },
+  { n: '04', t: 'The print route',
+    d: 'A screen carries a setup and digital carries none, so on a short run the screen setup can be the biggest line on the quote. Above that they cross over.' },
+];
+
+const fit = [
+  { name: 'Acrylic', tag: 'Shaped, then bonded', lead: true,
+    d: 'Ten to seventeen times the impact resistance of glass at half the weight, and it can be cut, polished and bonded into shapes glass cannot be made in at all. The face is softer than glass, where a scratch shows rather than disappears.',
+    facts: ['92% light transmission', 'Half the weight of glass', 'Bonded, not framed'] },
+  { name: 'Glass', tag: 'Resists scratching',
+    d: 'A harder face than any plastic and no yellowing at any age. It is heavy, it breaks into whatever is inside it, and anything other than flat panels has to be bought rather than made.',
+    facts: ['Hardest face', 'Breaks into the product', 'Flat panels only'] },
+  { name: 'PET-G or polycarbonate', tag: 'Where it gets knocked',
+    d: 'The toughest of the three, and the grade to specify where a box gets knocked rather than admired. It is less clear than PMMA of equal thickness and it drifts faster under daylight.',
+    facts: ['Highest impact', 'Less clear than PMMA', 'Drifts under daylight'] },
+];
+
+/* The only place the two timings are stated. */
+const stops = [
+  { when: 'Day 0', name: 'Drawing and mockup',
+    d: 'A dimensioned drawing of each panel with the sheet nesting shown on it, plus a 3D mockup of the closed box. The wall and the lid are settled here rather than at the saw.' },
+  { when: 'Day 1\u20134', name: 'Sheet and white sample',
+    d: 'The sheet grade is confirmed against the drawing and an unprinted box is made at the finished size, held against the product and opened and closed by hand.' },
+  { when: 'Day 5\u20137', name: 'Printed sample',
+    d: 'The same box carrying the final artwork, with the color read against the signed chip. Nothing goes to the bench until this is signed off.' },
+  { when: 'Day 8\u201335', name: 'Cut, polish, bond, assemble',
+    d: 'Panels are cut from the sheet booked at the first stop, edged, bonded and fitted with hardware down the bench in sequence rather than in batches.' },
+  { when: 'Day 36\u201342', name: 'Inspection and pallet',
+    d: 'Every unit is checked for haze and for lid seating, the lot is masked, corner-blocked and palleted, and the packing sheet travels with the shipping papers.' },
+];
+
+/* The source page's own two reviewers. No figure appears here that either of
+   them did not state. */
+const quotes = [
+  { name: 'Rachel Brooks', role: 'Brand Merchandising Lead \u00b7 United States', img: `${AC}/avatar-rachel.webp`,
+    alt: 'Portrait of Rachel Brooks',
+    p: [
+      'We ordered 500 display boxes with the logo engraved for a necklace line, and the brief was mostly a warning: the box had to disappear. What arrived was clearer than the samples we had been sent by two other suppliers, and the engraving read without a label anywhere on it.',
+      'The turnaround was twelve days including the crossing to California, which put the boxes on the counter for the launch instead of after it.',
+      'The unboxing is the part customers keep mentioning. We have already placed a reorder for a thousand more.',
+    ] },
+  { name: 'Priya Sharma', role: 'Owner and Creative Director \u00b7 United Kingdom', img: `${AC}/avatar-priya.webp`,
+    alt: 'Portrait of Priya Sharma',
+    p: [
+      'We bought 150 heart-shaped boxes for a preserved rose line, which is a product where the box is most of the gift. The laser-cut edges came out mirror-smooth and the shape held on all hundred and fifty.',
+      'The courier held the pallet for three days, which is the only reason this is not a five. What mattered was being told: the tracking was checked daily and pushed to us rather than us going looking for it.',
+      'The boxes are the part we would buy again. The delay cost three days and no customers.',
+    ] },
+];
+
+/* Answers only what the body does not already cover — that is a hard rule here,
+   because a FAQ that re-asks a question a section has answered reads as filler.
+   Checked 2026-09-18: no 5-gram of any answer appears in the body above.
+   Wall thickness and how the box is built are §How the Box Is Built, the timings
+   are §Five Stops, the materials are §Against the Alternatives, the grades and
+   finishes are §The Sheet Can Be, the print routes are §What Can Be Put On It,
+   and the price levers are §Four Things Move the Unit Price.
+   ⚠️ Three answers were REWRITTEN that day because they restated a section even
+   though no wording was shared: the yellowing answer was re-explaining the
+   UV-stabilized grade card, the damage answer was re-listing the packing that
+   §Where an Acrylic Order Goes Wrong already covers, and the inside-face answer
+   was repeating the laser-engraving card. Each now answers the DECISION the
+   body does not: when you do NOT need the stabilized grade, what a claim runs
+   on, and where a mark should sit. **Overlap here is topical, not lexical — a
+   shared-ngram check will not catch it.** */
+const faqs = [
+  { q: 'What is the minimum order for a custom acrylic box?',
+    a: '500 units, which is roughly where the sheet cost and the bench time stop dominating the unit rate. A size already in production reordered in new artwork carries no new setup at all, and a market test can go below that on a shape we have run before. Send the size and the quantity and the tier comes back as its own line rather than as a surprise on the invoice.' },
+  { q: 'Will the acrylic yellow or cloud in a shop window?',
+    a: 'Only where the box actually faces daylight. A box on an interior aisle, or on a counter away from a window, does not need the stabilized grade at all, and specifying it there buys nothing. A position in direct sun does, and the position is what decides — say which way the box faces when the drawing goes out.' },
+  { q: 'Can the inside face be printed or engraved?',
+    a: 'Yes, and it is worth doing wherever the lid comes off and the interior ends up on show. A mark on the inside face reads from the front while the surface the customer actually touches stays unbroken. Either comes back quoted separately.' },
+  { q: 'What happens if a box arrives damaged?',
+    a: 'Send a photograph of the damage. The pallet was photographed before it left and the packing record travels inside the carton, so the claim is settled against a record instead of a description, and the replacement is raised against the batch record.' },
+  { q: 'Can one order carry several sizes and several print methods?',
+    a: 'Yes, and most ranges do. A shelf set with three tiers, or a range in four sizes, is a single order with several drawings, each size carrying its own rate. Print routes can be mixed inside the order, which is what lets a logo be screened while a photograph beside it goes down digitally.' },
+  { q: 'What do you need to quote a run?',
+    a: 'The product\u2019s own dimensions, the quantity, where the box will stand, and whether the artwork covers the lid or the whole outer face. Size and quantity settle the sheet grade and the tier, the position settles the grade, and the print area settles which route is quoted. All of it comes off our own bench in Wuhan, China, with nobody in between the drawing and the saw. A ruler laid against the product closes the last gap.' },
+];
+
+const seo = {
+  title: 'Custom Acrylic Box Manufacturers: 6 Finishes, 4 Sheet Grades',
+  description: 'Crystal-clear custom acrylic boxes with polished edges and solvent-bonded seams. Half the weight of glass, 92% light transmission. MOQ 500, samples in 5–7 days.',
+  keywords: 'custom acrylic box manufacturers, custom acrylic display boxes, wholesale acrylic gift boxes, clear acrylic box with lid manufacturer, OEM acrylic box manufacturer China, custom printed acrylic boxes, acrylic jewelry box manufacturer, acrylic storage box manufacturer, custom plexiglass packaging manufacturer, cast PMMA acrylic box supplier, acrylic box manufacturer China, custom acrylic boxes wholesale, plexiglass display box maker',
+  canonical: 'https://www.leelinepackage.com/custom-acrylic-box/',
+  ogImage: `${AC}/hero-case.webp`,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Acrylic Box Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom acrylic box design and fabrication — cast PMMA sheet selection, panel nesting, edge polishing, solvent bonding, hardware fitting and screen, digital, laser or foil decoration',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Acrylic Box' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+/* The hero's one specification element: the wall range, drawn as a scale. The
+   ticks are positioned from the same numbers the labels read, so the two cannot
+   drift apart. */
+const walls = [3, 4, 5, 8, 10];
+
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${AC}/hero-case.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1. HERO ============ -->
+    <section class="ac-hero" id="ac-hero">
+      <div class="wrap ac-hero-grid">
+        <div class="ac-hero-copy">
+          <span class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Cast sheet, polished and bonded</span>
+          <h1 class="ac-title" data-reveal="up" style="--d:0.08s">Custom Acrylic Box Manufacturers: <em>92% Light Transmittance</em> &amp; 3-Year Anti-Yellowing</h1>
+          <p class="ac-lede" data-reveal="up" style="--d:0.16s">Command up to 25% higher retail shelf margins with optical-grade cast boxes from a certified manufacturer. Bonded joints survive shipping, and the display looks new next season.</p>
+          <div class="ac-wall" data-reveal="up" style="--d:0.24s">
+            <span class="ac-wall-cap">Wall thickness</span>
+            <ul class="ac-wall-scale">
+              {walls.map((w) => (
+                <li><i aria-hidden="true"></i><span>{w} mm</span></li>
+              ))}
+            </ul>
+          </div>
+          <div class="ac-actions" data-reveal="up" style="--d:0.3s">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+              Get My Acrylic Quote
+              <Fragment set:html={arrow} />
+            </a>
+          </div>
+        </div>
+        <figure class="ac-hero-fig" data-reveal="up" style="--d:0.2s">
+          <img src={`${AC}/hero-case.webp`} alt="A hand lifting the clear acrylic lid from a display case, revealing a felt-lined tray of small objects below"
+               width="750" height="820" loading="eager" fetchpriority="high" decoding="sync" />
+          <figcaption>A lid lifted on a bonded hinge, over a tray cut to the piece</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 2. NINE FAMILIES ============ -->
+    <section class="ac-types" id="ac-types">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Nine families to start from</span>
+          <h2 class="section-title">Nine Acrylic Boxes Most Buyers Order First</h2>
+          <p class="section-sub ac-sub">Each answers the same question a different way: what has to be seen, and what has to be kept off it.</p>
+        </div>
+        <ul class="ac-type-grid">
+          {types.map((t, i) => (
+            <li class="ac-type" data-reveal="up" style={`--d:${(i % 3) * 0.06}s`}>
+              <figure class="ac-type-fig">
+                <img src={`${AC}/${t.key}.webp`} alt={t.alt} width="620" height="620" loading="lazy" decoding="async" />
+                <span class="ac-type-code">{t.n}</span>
+              </figure>
+              <div class="ac-type-body">
+                <h3>{t.name}</h3>
+                <span class="ac-tag">{t.spec}</span>
+                <p>{t.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send My Acrylic Spec
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3. HOW THE BOX IS BUILT (signature) ============ -->
+    <section class="ac-built" id="ac-built">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The edge and the joint</span>
+          <h2 class="section-title ac-title-light">How the Box Is Built, and the Four Ways It Opens</h2>
+          <p class="section-sub ac-sub-light">Almost everything that separates a good acrylic box from a cheap box happens at two places nobody photographs. Both are set at the bench, and both are visible on the first sample if you know where to look.</p>
+          <div class="ac-head-cta" data-reveal="up" style="--d:0.1s">
+            <a class="btn btn-light" href="/contact/" target="_blank" rel="noopener">
+              Specify My Build
+              <Fragment set:html={arrow} />
+            </a>
+          </div>
+        </div>
+
+        <div class="ac-built-grid">
+          <figure class="ac-joint" data-reveal="up">
+            <svg class="ac-joint-draw" viewBox="0 0 640 440" role="img" aria-label="Cross-section through a bonded acrylic box, showing the polished top edge, the solvent bond at the internal corner, the cast sheet thickness and the lid gap">
+              <rect class="ac-jd-panel" x="130" y="56" width="380" height="60" rx="3" />
+              <rect class="ac-jd-panel" x="130" y="130" width="60" height="230" rx="3" />
+              <rect class="ac-jd-panel" x="450" y="130" width="60" height="230" rx="3" />
+              <rect class="ac-jd-panel" x="190" y="300" width="260" height="60" rx="3" />
+
+              <line class="ac-jd-polish" x1="130" y1="130" x2="190" y2="130" />
+              <line class="ac-jd-polish" x1="450" y1="130" x2="510" y2="130" />
+              <line class="ac-jd-bond" x1="190" y1="300" x2="190" y2="360" />
+              <line class="ac-jd-bond" x1="450" y1="300" x2="450" y2="360" />
+
+              <path class="ac-jd-lead" d="M96 104 L128 126 L160 130" />
+              <text class="ac-jd-lab" x="18" y="98">Polished edge</text>
+
+              <path class="ac-jd-lead" d="M556 62 L516 112 L455 123" />
+              <text class="ac-jd-lab" x="622" y="56" text-anchor="end">Lid gap 0.5 mm</text>
+
+              <path class="ac-jd-lead" d="M232 262 L204 300 L192 336" />
+              <text class="ac-jd-lab" x="240" y="256">Solvent bond, no glue line</text>
+
+              <path class="ac-jd-dim" d="M130 382 L190 382" />
+              <path class="ac-jd-dim" d="M130 375 L130 389" />
+              <path class="ac-jd-dim" d="M190 375 L190 389" />
+              <text class="ac-jd-lab" x="204" y="387">3 mm cast sheet</text>
+            </svg>
+            <figcaption>A cross-section through a corner. The interior is the empty middle; each mark on it is a decision.</figcaption>
+          </figure>
+
+          <ul class="ac-pairs">
+            {pairs.map((p, i) => (
+              <li data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
+                <p class="ac-pair-row">
+                  <span class="ac-pair-yes"><i aria-hidden="true">✓</i>{p.good}</span>
+                  <span class="ac-pair-no"><i aria-hidden="true">✗</i>{p.bad}</span>
+                </p>
+                <p class="ac-pair-d">{p.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <ul class="ac-mech-grid">
+          {mechs.map((m, i) => (
+            <li class="ac-mech" data-reveal="up" style={`--d:${(i % 4) * 0.05}s`}>
+              <img src={`${AC}/${m.key}.webp`} alt={m.alt} width="500" height="500" loading="lazy" decoding="async" />
+              <h3>{m.name}</h3>
+              <span class="ac-tag ac-tag--light">{m.tag}</span>
+              <p>{m.d}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-light" href="/contact/" target="_blank" rel="noopener">
+            See a Bonded Sample
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4. WHAT GOES WRONG ============ -->
+    <section class="ac-faults" id="ac-faults">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Five faults, what stops each, and what that is worth</span>
+          <h2 class="section-title">Where an Acrylic Order Goes Wrong</h2>
+          <p class="section-sub ac-sub">None of these shows up in a photograph of a first unit. Each is something a buyer unwraps, set against the control that keeps it off the order — and against what that control is worth once the box is on a shelf.</p>
+        </div>
+        <ul class="ac-fault-grid">
+          {faults.map((f, i) => (
+            <li class="ac-fault" data-reveal="up" style={`--d:${(i % 3) * 0.06}s`}>
+              <span class="ac-fault-n" aria-hidden="true">{f.n}</span>
+              <h3>{f.s}</h3>
+              <p>{f.d}</p>
+              <p class="ac-fault-win">{f.win}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 5. AGAINST THE ALTERNATIVES ============
+         Moved ahead of §What the Sheet Can Be on 2026-09-18. "Why acrylic at
+         all" is a CATEGORY question and was sitting at position 8, after the
+         material, the print, the price and the process had all been explained —
+         the reader learned what grade to pick before being told why the material
+         was right. It now answers that question before the grades. -->
+    <section class="ac-fit" id="ac-fit">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Three clear materials, three jobs</span>
+          <h2 class="section-title">Acrylic Against the Alternatives</h2>
+          <p class="section-sub ac-sub">The wrong material here is usually chosen for the price of the sheet rather than for what the box has to survive.</p>
+        </div>
+        <ul class="ac-fit-grid">
+          {fit.map((f, i) => (
+            <li class={`ac-fit-panel${f.lead ? ' ac-fit-panel--lead' : ''}`} data-reveal="up" style={`--d:${(i % 3) * 0.06}s`}>
+              <h3>{f.name}</h3>
+              <p class="ac-fit-tag">{f.tag}</p>
+              <p class="ac-fit-d">{f.d}</p>
+              <ul class="ac-fit-facts">
+                {f.facts.map((x) => <li class={f.lead ? 'ac-tag ac-tag--light' : 'ac-tag'}>{x}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 6. WHAT THE SHEET CAN BE ============ -->
+    <section class="ac-sheet" id="ac-sheet">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Four grades, six finishes</span>
+          <h2 class="section-title">What the Sheet Can Be</h2>
+          <p class="section-sub ac-sub">Cast sheet is the baseline. The other three grades each answer a way a display fails — daylight, impact, load. The finish is a separate decision, and a buyer makes it at a glance.</p>
+        </div>
+
+        <p class="ac-sheet-kick" data-reveal="up">The grade <span>what the box survives</span></p>
+        <ul class="ac-grade-grid">
+          {grades.map((g, i) => (
+            <li class={`ac-grade ac-grade--${g.tone}`} data-reveal="up" style={`--d:${(i % 4) * 0.05}s`}>
+              <span class="ac-grade-ico" aria-hidden="true" set:html={g.ico} />
+              <h3>{g.t}</h3>
+              <span class="ac-tag">{g.tag}</span>
+              <p>{g.d}</p>
+            </li>
+          ))}
+        </ul>
+
+        <p class="ac-sheet-kick" id="ac-finish-label" data-reveal="up">The finish <span>what the shelf sees first</span></p>
+        <table class="ac-fin-table" aria-labelledby="ac-finish-label">
+          <caption class="ac-vh">The six acrylic finishes: what each is, and what it is chosen for</caption>
+          <thead>
+            <tr>
+              <th scope="col">Finish</th>
+              <th scope="col">What it is</th>
+              <th scope="col">Chosen for</th>
+            </tr>
+          </thead>
+          <tbody>
+            {finishes.map((f) => (
+              <tr class={f.badge ? 'ac-fin-row--on' : undefined}>
+                <th scope="row" class="ac-fin-name">
+                  <span class="ac-fin-name-t">{f.name}</span>
+                  {f.badge ? <span class="ac-tag ac-fin-badge">{f.badge}</span> : null}
+                </th>
+                <td>{f.d}</td>
+                <td class="ac-fin-use">{f.use}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ 7. WHAT CAN BE PUT ON IT ============ -->
+    <section class="ac-print" id="ac-print">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Four routes, and the artwork picks</span>
+          <h2 class="section-title ac-title-light">What Can Be Put On It</h2>
+          <p class="section-sub ac-sub-light">A fine gradient and a solid logo do not want the same process. Send the artwork and the route comes back with the quote rather than with the sample.</p>
+        </div>
+        <ul class="ac-route-grid">
+          {prints.map((p, i) => (
+            <li class="ac-route" data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
+              {p.key
+                ? (<figure class="ac-route-fig">
+                    <img src={`${AC}/${p.key}.webp`} alt={p.alt} width="520" height="390" loading="lazy" decoding="async" />
+                  </figure>)
+                : (<span class="ac-route-swatch" aria-hidden="true"></span>)}
+              <div class="ac-route-body">
+                <h3>{p.t}</h3>
+                <span class="ac-tag ac-tag--light">{p.tag}</span>
+                <p>{p.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-light" href="/contact/" target="_blank" rel="noopener">
+            See My Artwork on Acrylic
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8. WHAT MOVES THE PRICE ============ -->
+    <section class="ac-cost" id="ac-cost">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Four lines on the quote</span>
+          <h2 class="section-title">Four Things Move the Unit Price</h2>
+          <p class="section-sub ac-sub">Three of them are settled on the drawing, before a sheet is cut. That is the point at which a price is still cheap to change.</p>
+        </div>
+        <ul class="ac-cost-list">
+          {cost.map((c, i) => (
+            <li data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
+              <span class="ac-cost-n" aria-hidden="true">{c.n}</span>
+              <div>
+                <h3>{c.t}</h3>
+                <p>{c.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 9. FIVE STOPS ============ -->
+    <section class="ac-flow" id="ac-flow">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Five stops, one bench</span>
+          <h2 class="section-title">From Drawing to Pallet, in Five Stops</h2>
+          <p class="section-sub ac-sub">The sample and the sheet booking run at the same time. Overlapping them is what holds a run to four to six weeks instead of adding to it.</p>
+        </div>
+        <ol class="ac-flow-list">
+          {stops.map((s, i) => (
+            <li data-reveal="up" style={`--d:${(i % 5) * 0.05}s`}>
+              <span class="ac-flow-when">{s.when}</span>
+              <h3>{s.name}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ol>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Start My Sample Run
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10. THE FIELD (carousel) ============ -->
+    <section class="ac-uses" id="ac-uses">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Six installations</span>
+          <h2 class="section-title">Where These Boxes End Up</h2>
+          <p class="section-sub ac-sub">A fabricated box is bought for a position rather than for a product. Six of them, three at a time.</p>
+        </div>
+      </div>
+      <div class="ac-car-wrap">
+        <div class="wrap ac-car">
+          <ul class="ac-car-track">
+            {scenes.map((s) => (
+              <li class="ac-car-slide">
+                <img src={`${AC}/${s.key}.webp`} alt={s.alt} width="420" height="280" loading="lazy" decoding="async" />
+                <span class="ac-car-cap">{s.cap}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="ac-car-ctl">
+          <button class="ac-car-btn ac-car-btn--prev" type="button" aria-label="Previous installation">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="ac-car-btn ac-car-btn--next" type="button" aria-label="Next installation">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11. REVIEWS ============ -->
+    <section class="ac-quotes" id="ac-quotes">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Two buyers, in full</span>
+          <h2 class="section-title">What the People Who Ordered Say</h2>
+        </div>
+        <ul class="ac-quote-list">
+          {quotes.map((q, i) => (
+            <li class="ac-quote" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="ac-quote-mark" aria-hidden="true">&ldquo;</span>
+              {q.p.map((para) => <p>{para}</p>)}
+              <footer>
+                <img src={q.img} alt={q.alt} width="56" height="56" loading="lazy" decoding="async" />
+                <span><b>{q.name}</b>{q.role}</span>
+              </footer>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 12. FAQ ============ -->
+    <section class="ac-faq" id="ac-faq">
+      <div class="wrap">
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />The last six</span>
+          <h2 class="section-title">Questions an Acrylic Order Hangs On</h2>
+          <p class="section-sub ac-sub">The six things a first-time buyer asks before committing to a run.</p>        </div>
+        <div class="ac-faq-grid">
+          {faqs.map((f, i) => (
+            <details data-reveal="up" style={`--d:${(i % 3) * 0.05}s`} open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13. FINAL CTA ============ -->
+    <section class="ac-final" id="ac-final">
+      <div class="wrap ac-final-inner">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Send a drawing, not a brief</span>
+        <h2 class="section-title ac-title-light" data-reveal="up" style="--d:0.06s">Send a Drawing and Get a Box Priced Against It</h2>
+        <p class="ac-sub-light" data-reveal="up" style="--d:0.12s">A phone shot of the product beside a ruler is enough to start. What comes back is a dimensioned drawing, a nesting layout, a print route and a unit rate at your quantity.</p>
+        <div class="ac-actions" data-reveal="up" style="--d:0.18s">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Send My Drawing
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ THE PAGE'S THREE DEVICES ============
+     An acrylic box is judged on what can be seen through it, so the page keeps
+     its surfaces open and lets type, colour and composition carry the character:
+       — `.ac-tag`  one number in a pill, sitting beside the copy it decides
+       — the brass-hairline frame on every large photograph
+       — a display-serif + italic-brass numeral pairing, always on real sequence
+     Nothing here is delimited by a horizontal rule. Blocks are separated by
+     gap. A row with a rule over it is a table, whatever it is called. */
+
+  .ac-tag {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    color: var(--color-brand-primary);
+    background: rgba(176, 141, 76, 0.15);
+    border-radius: 999px;
+    padding: 0.32rem 0.8rem;
+  }
+  .ac-tag--light { background: rgba(201, 168, 124, 0.18); color: var(--brass-soft); }
+  .ac-sub { max-width: 82ch; }
+  .ac-sub-light { color: rgba(245, 240, 229, 0.8); max-width: 62ch; }
+
+  .ac-hero-fig {
+    margin: 0;
+    padding: 0.55rem;
+    border: 1px solid rgba(176, 141, 76, 0.42);
+    border-radius: 1.5rem;
+    background: rgba(245, 240, 229, 0.5);
+  }
+  .ac-hero-fig img {
+    width: 100%;
+    border-radius: 1.05rem;
+    display: block;
+  }
+  .ac-hero-fig figcaption, .ac-joint figcaption {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--color-brand-muted);
+    padding: 0.85rem 0.6rem 0.25rem;
+  }
+
+  /* ======================== 1. HERO ========================
+     The Specimen: copy in a column, one tall portrait photograph running the
+     full height of the section beside it, and a single scale for the wall
+     range underneath. Six elements, no more.
+     ⚠️ The nav is `position: fixed` — 74 px at 1440 and 76 px at 390 — so the
+     hero's own top padding is added to 4.75rem rather than trusted alone. */
+  .ac-hero {
+    padding: calc(clamp(2.8rem, 6vw, 4.6rem) + 4.75rem) 0 clamp(3.4rem, 7vw, 5.4rem);
+    background: var(--color-ivory);
+  }
+  .ac-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(2rem, 5vw, 4.4rem);
+    align-items: start;
+  }
+  .ac-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 3.9vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    color: var(--color-brand-text);
+    text-wrap: balance;
+    margin: 1.1rem 0 0;
+  }
+  .ac-title em { font-style: italic; color: var(--brass); }
+  .ac-lede {
+    font-size: clamp(1rem, 1.3vw, 1.07rem);
+    line-height: 1.74;
+    color: var(--color-brand-muted);
+    max-width: 56ch;
+    margin-top: 1.3rem;
+  }
+  .ac-actions { margin-top: 1.9rem; }
+  .ac-hero-fig img { aspect-ratio: 750 / 820; object-fit: cover; }
+
+  /* the hero's one specification element — a scale, not a pill row */
+  .ac-wall { margin-top: 2rem; }
+  .ac-wall-cap {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  .ac-wall-scale {
+    list-style: none;
+    display: flex;
+    margin-top: 0.7rem;
+    border-top: 1px solid rgba(31, 59, 44, 0.2);
+  }
+  .ac-wall-scale li {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-top: 0;
+  }
+  .ac-wall-scale i {
+    display: block;
+    width: 2px;
+    height: 0.78rem;
+    background: var(--brass);
+    margin-left: 0;
+  }
+  .ac-wall-scale span {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-brand-text);
+  }
+
+  /* ======================== 2. NINE FAMILIES ======================== */
+  .ac-types { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .ac-type-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.4vw, 1.7rem);
+  }
+  .ac-type {
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.09);
+    border-radius: 1.15rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.5s ease;
+  }
+  .ac-type:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(31, 59, 44, 0.5); }
+  .ac-type-fig { position: relative; margin: 0; }
+  .ac-type-fig img {
+    width: 100%;
+    /* ~0.3cm shorter than square at 3-up, which is where the row read too tall */
+    aspect-ratio: 1 / 0.97;
+    object-fit: cover;
+    border-radius: 0.7rem;
+  }
+  .ac-type-code {
+    position: absolute;
+    left: 0.6rem;
+    top: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ivory);
+    background: rgba(20, 38, 27, 0.72);
+    border-radius: 999px;
+    padding: 0.22rem 0.55rem;
+  }
+  .ac-type-body { padding: 1.05rem 0.5rem 0.5rem; display: flex; flex-direction: column; gap: 0.55rem; }
+  .ac-type-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.22rem;
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .ac-type-body p { font-size: 0.93rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0; }
+  .ac-type-body .ac-tag { align-self: flex-start; }
+
+  /* ======================== 3. HOW THE BOX IS BUILT ========================
+     The page's one drawn module, chosen because a buyer acts differently for
+     having read it: they stop asking for "clear acrylic" and start asking for a
+     polished edge and a solvent bond. */
+  .ac-built {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
+    color: var(--ivory);
+  }
+  .ac-title-light { color: var(--ivory); }
+  /* A second entry point in the head of the section. The bottom CTA sits after
+     four mechanism cards, which is a long scroll for the page's signature block.
+     It promises something DIFFERENT from the foot — "Specify My Build" asks for
+     the drawing-level conversation, the foot asks to see a bonded sample — so
+     two buttons in one section do not make the same offer. */
+  .ac-head-cta { margin-top: clamp(1.5rem, 3vw, 2rem); }
+  .ac-built-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    gap: clamp(2rem, 4.5vw, 3.6rem);
+    align-items: center;
+  }
+  .ac-joint {
+    margin: 0;
+    padding: 0.55rem;
+    border: 1px solid rgba(176, 141, 76, 0.42);
+    border-radius: 1.5rem;
+  }
+  .ac-joint-draw { display: block; width: 100%; height: auto; }
+  .ac-joint figcaption { color: rgba(245, 240, 229, 0.62); }
+
+  /* The box is drawn the way acrylic behaves: almost nothing in the middle,
+     everything in the edges. */
+  .ac-jd-panel { fill: rgba(245, 240, 229, 0.07); stroke: rgba(245, 240, 229, 0.42); stroke-width: 1; }
+  .ac-jd-polish { stroke: var(--brass-soft); stroke-width: 3; stroke-linecap: round; }
+  .ac-jd-bond { stroke: rgba(201, 168, 124, 0.95); stroke-width: 2.2; stroke-linecap: round; }
+  .ac-jd-lead, .ac-jd-dim { fill: none; stroke: rgba(245, 240, 229, 0.36); stroke-width: 1; }
+  .ac-jd-lead { stroke-dasharray: 3 4; }
+  .ac-jd-lab {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    fill: rgba(245, 240, 229, 0.72);
+  }
+
+  .ac-pairs { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+  .ac-pair-row { display: flex; flex-wrap: wrap; gap: 0.5rem 0.7rem; margin: 0; }
+  .ac-pair-yes, .ac-pair-no {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-radius: 999px;
+    padding: 0.32rem 0.85rem 0.36rem;
+  }
+  .ac-pair-yes { color: var(--ivory); background: rgba(201, 168, 124, 0.2); }
+  .ac-pair-no { color: rgba(245, 240, 229, 0.5); background: rgba(245, 240, 229, 0.06); }
+  .ac-pair-yes i { font-style: normal; color: var(--brass-soft); }
+  .ac-pair-no i { font-style: normal; color: rgba(245, 240, 229, 0.38); }
+  .ac-pair-d { font-size: 0.93rem; line-height: 1.65; color: rgba(245, 240, 229, 0.72); margin: 0.5rem 0 0; }
+
+  .ac-mech-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+    margin-top: clamp(3rem, 6vw, 4.6rem);
+  }
+  .ac-mech { display: flex; flex-direction: column; gap: 0.6rem; }
+  .ac-mech img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 1.05rem;
+    border: 1px solid rgba(176, 141, 76, 0.34);
+  }
+  .ac-mech h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.08rem;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    margin: 0.35rem 0 0;
+  }
+  .ac-mech .ac-tag { align-self: flex-start; }
+  .ac-mech p { font-size: 0.9rem; line-height: 1.62; color: rgba(245, 240, 229, 0.7); margin: 0; }
+
+  /* ======================== 4. WHAT GOES WRONG ========================
+     Five cards on a SIX-column track, each spanning two. A plain 3-column grid
+     leaves the odd two ragged against the left edge on the second row; forcing
+     them to columns 2-3 and 4-5 of six centres that row with a half-column of
+     air at each end, which is what makes five read as deliberate. */
+  .ac-faults { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .ac-fault-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.4vw, 1.7rem);
+  }
+  .ac-fault { grid-column: span 2; }
+  .ac-fault:nth-child(4) { grid-column: 2 / span 2; }
+  .ac-fault:nth-child(5) { grid-column: 4 / span 2; }
+  .ac-fault {
+    position: relative;
+    background: var(--color-forest);
+    border-radius: 1.15rem;
+    padding: 2rem 1.4rem 1.5rem;
+    overflow: hidden;
+  }
+  /* The numeral sits WHOLLY inside the card. It used to hang above the top edge
+     at `top: -0.9rem`, which the card's own `overflow: hidden` then guillotined
+     — the digits lost their tops. It is a watermark, not a bleed, so it belongs
+     inside the frame. */
+  .ac-fault-n {
+    position: absolute;
+    top: 0.85rem;
+    right: 1rem;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 4.6rem;
+    line-height: 1;
+    color: rgba(201, 168, 124, 0.2);
+    pointer-events: none;
+  }
+  .ac-fault h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.2rem;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    margin: 0 0 0.7rem;
+    position: relative;
+  }
+  .ac-fault p { font-size: 0.92rem; line-height: 1.64; color: rgba(245, 240, 229, 0.72); margin: 0; position: relative; }
+  /* The payoff line. A brass arrow in front of it marks the outcome rather than
+     the explanation, so the three parts of a card stay distinguishable at a
+     glance: fault, control, worth. */
+  .ac-fault p.ac-fault-win {
+    margin-top: 0.95rem;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--brass-soft);
+  }
+  .ac-fault p.ac-fault-win::before {
+    content: '→';
+    font-family: var(--font-body);
+    font-style: normal;
+    margin-right: 0.45rem;
+    color: var(--brass);
+  }
+
+  /* ======================== 11. THE FIELD (carousel) ========================
+     Six installations, three visible at a time, looping in both directions.
+     Three slides are cloned to EACH end of the track, so advancing past the last
+     real slide lands on a clone; the track is then reset to the real one with no
+     transition, and the wrap reads as continuous.
+     ⚠️ The clone count MUST be at least the slides-per-view or a gap opens at the
+     seam. Three clones covers 3-up, 2-up and 1-up, so the media queries below are
+     free to change the visible count without touching the script. */
+  .ac-uses { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-ivory); }
+  .ac-car-wrap { position: relative; }
+  .ac-car { overflow: hidden; }
+  .ac-car-track {
+    --ac-car-gap: clamp(1rem, 2vw, 1.5rem);
+    list-style: none;
+    display: flex;
+    gap: var(--ac-car-gap);
+  }
+  .ac-car-slide {
+    position: relative;
+    flex: 0 0 calc((100% - 2 * var(--ac-car-gap)) / 3);
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+  /* 3:2, not the source's own 4:5. Portrait tiles stood half again as tall as
+     the row needed and made the section about the photographs instead of the
+     positions; the images are cropped, not stretched, so nothing is distorted. */
+  .ac-car-slide img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+  .ac-car-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2.6rem 1.1rem 0.9rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.12rem;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    background: linear-gradient(180deg, transparent 26%, rgba(20, 38, 27, 0.52) 60%, rgba(20, 38, 27, 0.86));
+  }
+  /* The arrows sit ON the row rather than in a line under it: the control then
+     belongs to the picture it moves, and the section loses a whole row of
+     height. The padding mirrors `.wrap`'s gutter so they land on the outer
+     tiles' own edges at every width — `max()` covers the viewport wider than
+     1200 px, where the gutter stops growing. */
+  .ac-car-ctl {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: max(clamp(1rem, 3vw, 3rem), calc((100% - 1200px) / 2));
+    pointer-events: none;
+  }
+  .ac-car-ctl .ac-car-btn { pointer-events: auto; }
+  .ac-car-btn {
+    width: 2.9rem;
+    height: 2.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(31, 59, 44, 0.12);
+    /* Opaque, because these now sit on a photograph rather than on the page. */
+    background: rgba(245, 240, 229, 0.94);
+    color: var(--color-brand-text);
+    box-shadow: 0 12px 24px -14px rgba(20, 38, 27, 0.75);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  .ac-car-btn svg { width: 1.15rem; height: 1.15rem; }
+  .ac-car-btn:hover { background: var(--color-forest); border-color: var(--color-forest); color: var(--ivory); transform: translateY(-2px); }
+
+  /* ======================== 6. WHAT THE SHEET CAN BE ========================
+     Two blocks, GRADE first. The H1 promises 92% light transmittance and three
+     years without yellowing, and both of those are properties of the grade
+     (Cast PMMA, UV-stabilized) rather than of the finish — so the grade is the
+     block that has to answer the headline, and it leads. The finish is the
+     separate question of what the shelf sees, and it follows.
+     ⚠️ **THE FINISH BLOCK IS A SHORT TABLE ON PURPOSE, and it is the page's
+     only one.** It was built three ways: CSS swatch chips (rejected — at chip
+     size clear, frosted and smoke are three pale rectangles), six photo plates
+     (rejected — a secondary block carrying six large plates competes with the
+     block meant to lead), and finally this. The client's words: *"你不是说这个
+     不重要吗，那么不需要这么详细的都放图片吧，直接表格列举一下"*. A finish → what it
+     is lookup is the one kind of content the house rule allows a real `<table>`
+     for, so it is a `<table>`, not a hairline grid. **Do not add a second table
+     to this page and do not put the plates back.**
+     The two blocks are separated by SIZE: grade names at
+     `clamp(1.3rem,1.7vw,1.6rem)` as cards, finish names at 1.14rem as rows. */
+  .ac-sheet { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-ivory); }
+
+  /* Standard visually-hidden. The table's accessible name comes from the kicker
+     via aria-labelledby; this carries the longer description for screen readers. */
+  .ac-vh {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A label and its value on one line, so the reader knows which axis the block
+     below is answering. Same tracking as `.ac-wall-cap`. */
+  .ac-sheet-kick {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0 0 clamp(1.2rem, 2.4vw, 1.7rem);
+  }
+  .ac-sheet-kick span {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.02rem;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--color-brand-muted);
+  }
+
+  .ac-grade-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.4rem);
+    margin-bottom: clamp(3.2rem, 6vw, 4.6rem);
+  }
+  /* Real cards, not free-floating copy: the block LEADS the section now, so it
+     gets the frame the client asked for (*"变成卡片，加一点标志，有颜色的"*). */
+  .ac-grade {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.15rem, 2.2vw, 1.5rem);
+    border-radius: 1.2rem;
+    border: 1px solid rgba(31, 59, 44, 0.12);
+    background: var(--color-brand-surface);
+  }
+  /* One mark per grade, in its own colour. The run is brass → bright → sage →
+     forest rather than four arbitrary hues, and the mark flips to the dark
+     forest ink on the two golds so every badge clears 3:1. */
+  .ac-grade-ico {
+    display: grid;
+    place-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    border-radius: 50%;
+    margin-bottom: 0.9rem;
+    background: var(--brass);
+    color: var(--forest-deep);
+  }
+  .ac-grade--bright .ac-grade-ico { background: var(--brass-bright); }
+  .ac-grade--sage .ac-grade-ico { background: var(--color-sage); color: var(--ivory); }
+  .ac-grade--forest .ac-grade-ico { background: var(--color-forest); color: var(--ivory); }
+  .ac-grade h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.3rem, 1.7vw, 1.6rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-text);
+    margin: 0 0 0.45rem;
+  }
+  .ac-grade .ac-tag { align-self: flex-start; margin-bottom: 0.7rem; }
+  .ac-grade p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0; }
+
+  .ac-fin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    /* Fixed layout, because the three columns have to hold their share as the
+       measure shrinks. Auto layout sized column 2 by its longest sentence and
+       pushed the other two around. */
+    table-layout: fixed;
+    /* A frame, not just rules. The client asked twice — *"边框留下，不然很奇怪"*
+       then *"边框要明显一点，现在还是隐藏"* — so the table reads as a bounded thing
+       and not as text with lines through it. */
+    border: 1px solid rgba(31, 59, 44, 0.26);
+  }
+  .ac-fin-table thead th:nth-child(1) { width: 16%; }
+  .ac-fin-table thead th:nth-child(2) { width: 58%; }
+  /* The header carries the SAME indent as its column or the label and the
+     values below it sit 40 px apart — the boxes line up, the text does not. */
+  .ac-fin-table thead th:nth-child(3) { width: 26%; padding-left: clamp(1rem, 3vw, 2.5rem); }
+  /* Padding lives on the OUTER CELLS, never on the table, so the row rules still
+     run the full width and meet the frame. */
+  .ac-fin-table tbody th:first-child,
+  .ac-fin-table thead th:nth-child(1) { padding-left: 1.15rem; }
+  .ac-fin-table tbody td:last-child,
+  .ac-fin-table thead th:nth-child(3) { padding-right: 1.15rem; }
+  .ac-fin-table thead th {
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+    padding: 0.95rem 0 0.7rem;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.3);
+  }
+  .ac-fin-table td,
+  .ac-fin-table tbody th {
+    padding: 1rem 0;
+    vertical-align: baseline;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.16);
+  }
+  .ac-fin-table tbody tr:last-child th,
+  .ac-fin-table tbody tr:last-child td { border-bottom: 0; }
+  .ac-fin-name {
+    padding-right: clamp(1rem, 3vw, 2rem) !important;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.14rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  /* Two rows carry a pill — the default, and the row that is not one colour.
+     The pill alone was not enough (client: *"不够突出，底色可以直接绿色"*), so the two
+     rows take the brand green itself. Everything inside flips to ivory, and the
+     pill flips to the warm brass so it still reads as a badge on a dark band. */
+  .ac-fin-name-t { display: block; }
+  .ac-fin-badge {
+    margin-top: 0.45rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.06em;
+    padding: 0.24rem 0.62rem;
+  }
+  .ac-fin-table tbody tr.ac-fin-row--on > th,
+  .ac-fin-table tbody tr.ac-fin-row--on > td {
+    background: var(--color-forest);
+    /* The row rule STAYS — a highlighted row with its border deleted reads as a
+       broken table (client: *"边框留下，不然很奇怪"*). On the dark band it has to be
+       the light hairline, because the ivory-ground rule vanishes into forest. */
+    border-bottom-color: rgba(245, 240, 229, 0.42);
+  }
+  .ac-fin-table tbody tr.ac-fin-row--on .ac-fin-name,
+  .ac-fin-table tbody tr.ac-fin-row--on td.ac-fin-use { color: var(--color-ivory); }
+  .ac-fin-table tbody tr.ac-fin-row--on td { color: rgba(245, 240, 229, 0.84); }
+  .ac-fin-table tbody tr.ac-fin-row--on .ac-fin-badge {
+    background: var(--brass-soft);
+    color: var(--forest-deep);
+  }
+  /* A dark band butts straight against the row above it otherwise, and the two
+     greens would read as one block. */
+  .ac-fin-table tbody tr.ac-fin-row--on > * { padding-top: 1.15rem; padding-bottom: 1.15rem; }
+  .ac-fin-table tbody td { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); }
+  /* The answer, not the description — serif italic, in the text colour, so the
+     row reads "what it is" → "when you would pick it". */
+  .ac-fin-table tbody td.ac-fin-use {
+    padding-left: clamp(1rem, 3vw, 2.5rem);
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.98rem;
+    line-height: 1.5;
+    color: var(--color-brand-text);
+  }
+
+  /* ======================== 7. WHAT CAN BE PUT ON IT ========================
+     Four routes, one photograph each, laid as a 2x2. A 4-up rail here would
+     repeat §How the Box Is Built's row of four mechanism cards. The photograph
+     used to run the full width of its cell and stood taller than the copy it
+     was meant to illustrate; it is now a narrow plate beside the text, so the
+     route itself — not the picture of it — is what a buyer reads. */
+  .ac-print {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
+    color: var(--ivory);
+  }
+  .ac-route-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.8rem, 3.4vw, 2.6rem) clamp(1.8rem, 3.4vw, 2.8rem);
+  }
+  .ac-route {
+    display: grid;
+    grid-template-columns: minmax(0, 0.66fr) minmax(0, 1fr);
+    gap: clamp(1.1rem, 2.2vw, 1.6rem);
+    align-items: start;
+  }
+  .ac-route-body { display: flex; flex-direction: column; align-items: flex-start; }
+  /* The frame owns the shape, so the plate and the swatch that stands in for the
+     missing photograph are the same box to the pixel. */
+  .ac-route-fig {
+    margin: 0;
+    padding: 0.5rem;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgba(201, 168, 124, 0.34);
+    border-radius: 1.25rem;
+    background: rgba(245, 240, 229, 0.04);
+  }
+  .ac-route-fig img { width: 100%; height: 100%; object-fit: cover; border-radius: 0.9rem; display: block; }
+  /* UV digital stands in for a photograph it does not have, with a swatch rather
+     than a borrowed picture. It is a gradient in the page's own hues — which is
+     the one thing the route is actually for — and it is deliberately not shaped
+     or framed like a photograph. Swap it for a real print sample when one exists. */
+  .ac-route-swatch {
+    display: block;
+    aspect-ratio: 4 / 3;
+    padding: 0.5rem;
+    border: 1px solid rgba(201, 168, 124, 0.34);
+    border-radius: 1.25rem;
+    background: linear-gradient(122deg, var(--brass-bright) 0%, var(--kraft) 28%, var(--color-forest) 62%, var(--brass-soft) 100%) content-box;
+  }
+  .ac-route h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    margin: 0 0 0.5rem;
+  }
+  .ac-route .ac-tag { align-self: flex-start; margin-bottom: 0.6rem; }
+  .ac-route p { font-size: 0.93rem; line-height: 1.66; color: rgba(245, 240, 229, 0.72); margin: 0; }
+
+  /* ======================== 8. WHAT MOVES THE PRICE ========================
+     Two columns, not a single stack. As one column each row left ~40% of the
+     measure empty beside it and the section ran twice as tall as its content
+     needed — the numeral hung in a 4.4rem gutter built for a paragraph that
+     never reached it. */
+  .ac-cost { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .ac-cost-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.8rem, 3.4vw, 2.8rem) clamp(2rem, 4vw, 3.4rem);
+  }
+  .ac-cost-list li { display: grid; grid-template-columns: 3.2rem minmax(0, 1fr); gap: 1rem; align-items: start; }
+  .ac-cost-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    color: var(--brass);
+  }
+  .ac-cost-list h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.22rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0 0 0.5rem;
+  }
+  .ac-cost-list p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0; }
+
+  /* ======================== 5. AGAINST THE ALTERNATIVES ======================== */
+  .ac-fit { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-ivory); }
+  .ac-fit-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.4vw, 1.7rem);
+    align-items: stretch;
+  }
+  .ac-fit-panel {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.2rem;
+    padding: 1.8rem 1.5rem 1.5rem;
+    background: var(--color-clay);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+  }
+  .ac-fit-panel--lead {
+    background: linear-gradient(160deg, var(--color-forest), var(--forest-deep));
+    border-color: rgba(201, 168, 124, 0.34);
+  }
+  .ac-fit-panel h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.42rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0 0 0.35rem;
+  }
+  .ac-fit-panel--lead h3 { color: var(--ivory); }
+  .ac-fit-tag {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--brass);
+    margin: 0 0 1rem;
+  }
+  .ac-fit-panel--lead .ac-fit-tag { color: var(--brass-soft); }
+  .ac-fit-d { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0 0 1.4rem; }
+  .ac-fit-panel--lead .ac-fit-d { color: rgba(245, 240, 229, 0.78); }
+  .ac-fit-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: auto 0 0; }
+
+  /* ======================== 10. FIVE STOPS ========================
+     The rule is the timeline. This is the one place on the page where a
+     horizontal line means something rather than delimiting a row. */
+  .ac-flow { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .ac-flow-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .ac-flow-list li {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(31, 59, 44, 0.22);
+    position: relative;
+  }
+  .ac-flow-list li::before {
+    content: '';
+    position: absolute;
+    top: -3.5px;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brass);
+  }
+  .ac-flow-when {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 0.6rem;
+  }
+  .ac-flow-list h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.08rem;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0 0 0.5rem;
+  }
+  .ac-flow-list p { font-size: 0.9rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0; }
+
+  /* ======================== 11. REVIEWS ========================
+     Two panels side by side rather than two quotes stacked down the page. As a
+     stack each one ran its full three paragraphs down a 62rem column with the
+     rest of the band empty beside it, which is what made it read as a wall of
+     italic. Side by side the pair fills the measure and halves the height.
+     Both footers are pushed to the bottom so the two panels end level. */
+  .ac-quotes {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: var(--color-ivory);
+    color: var(--color-brand-text);
+  }
+  .ac-quote-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.6rem, 3.4vw, 2.8rem);
+    align-items: stretch;
+  }
+  .ac-quote {
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.5rem, 2.6vw, 2.2rem);
+    border: 1px solid rgba(176, 141, 76, 0.32);
+    border-radius: 1.2rem;
+    background: var(--color-clay);
+  }
+  .ac-quote-mark {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 3.4rem;
+    line-height: 0.6;
+    color: var(--brass);
+    margin-bottom: 0.5rem;
+  }
+  .ac-quote p {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1rem, 1.25vw, 1.12rem);
+    line-height: 1.7;
+    color: var(--color-brand-text);
+    margin: 0 0 0.9rem;
+  }
+  .ac-quote footer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(31, 59, 44, 0.16);
+    margin-top: auto;
+  }
+  .ac-quote footer img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .ac-quote footer span { display: flex; flex-direction: column; gap: 0.15rem; font-family: var(--font-body); font-size: 0.88rem; color: var(--color-brand-muted); }
+  .ac-quote footer b { font-size: 1.06rem; font-weight: 600; color: var(--color-brand-text); }
+
+  /* ======================== 12. FAQ ========================
+     One column. As a 2-up the open item made its row twice the height of the
+     closed item beside it, which left a hole in the grid and read as broken
+     rather than as open. */
+  .ac-faq { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .ac-faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.7rem, 1.4vw, 1rem);
+    max-width: 58rem;
+    margin-inline: auto;
+  }
+  .ac-faq-grid details {
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-radius: 1.1rem;
+    padding: 1.25rem 1.4rem;
+    height: fit-content;
+  }
+  .ac-faq-grid summary {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.08rem, 1.4vw, 1.26rem);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .ac-faq-grid summary::-webkit-details-marker { display: none; }
+  .ac-faq-grid summary::after {
+    content: '+';
+    font-family: var(--font-body);
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--brass);
+    flex: 0 0 auto;
+    transition: transform 0.3s ease;
+  }
+  .ac-faq-grid details[open] summary::after { transform: rotate(45deg); }
+  .ac-faq-grid details p { font-size: 0.95rem; line-height: 1.72; color: var(--color-brand-muted); margin: 0.9rem 0 0; }
+
+  /* ======================== 13. FINAL CTA ========================
+     No photograph behind this band. Every candidate on the source page carries
+     either a third-party product name or a watermarked stock frame, and at a
+     veil heavy enough to hide those the image stops contributing anything. The
+     band is a pure typographic close on the page's own forest, with a brass
+     bloom off the right shoulder so it is not flat. */
+  .ac-final {
+    position: relative;
+    padding: clamp(4.5rem, 9vw, 8rem) 0;
+    background:
+      radial-gradient(120% 96% at 84% 10%, rgba(176, 141, 76, 0.17) 0%, rgba(176, 141, 76, 0) 58%),
+      linear-gradient(165deg, var(--color-forest) 0%, var(--forest-deep) 70%);
+    color: var(--ivory);
+    overflow: hidden;
+  }
+  .ac-final-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 54rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .ac-final-inner .section-title { margin-bottom: 0; }
+  .ac-final-inner .ac-sub-light { margin-top: 1.2rem; margin-inline: auto; max-width: 48ch; }
+  .ac-final-inner .ac-actions { margin-top: 2rem; }
+
+  /* ======================== REVEAL ======================== */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ======================== RESPONSIVE ======================== */
+  @media (max-width: 1024px) {
+    .ac-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* four tracks, so the fault cards pair up and the odd fifth centres alone */
+    .ac-fault-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .ac-fault:nth-child(4) { grid-column: span 2; }
+    .ac-fault:nth-child(5) { grid-column: 2 / span 2; }
+    .ac-mech-grid, .ac-grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ac-car-slide { flex: 0 0 calc((100% - var(--ac-car-gap)) / 2); }
+    .ac-flow-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.2rem; }
+  }
+  @media (max-width: 900px) {
+    .ac-hero-grid, .ac-built-grid { grid-template-columns: minmax(0, 1fr); }
+    .ac-hero-grid { gap: 2.4rem; }
+    .ac-built-grid { gap: 2.4rem; }
+    .ac-route-grid { grid-template-columns: minmax(0, 1fr); }
+    .ac-fit-grid { grid-template-columns: minmax(0, 1fr); }
+    .ac-quote-list { grid-template-columns: minmax(0, 1fr); }
+    .ac-cost-list li { grid-template-columns: 3rem minmax(0, 1fr); gap: 1rem; }
+  }
+  @media (max-width: 640px) {
+    .ac-type-grid, .ac-fault-grid, .ac-mech-grid, .ac-grade-grid, .ac-flow-list { grid-template-columns: minmax(0, 1fr); }
+    /* Below this width the finish table has no room for two columns, so each
+       row becomes its own block. The row rule moves from the cells to the row. */
+    .ac-fin-table thead { display: none; }
+    .ac-fin-table, .ac-fin-table tbody, .ac-fin-table tr, .ac-fin-table th, .ac-fin-table td { display: block; width: auto; }
+    .ac-fin-table tbody tr { padding: 0.95rem 1.15rem; border-bottom: 1px solid rgba(31, 59, 44, 0.16); }
+    .ac-fin-table tbody tr:last-child { border-bottom: 0; }
+    .ac-fin-table td, .ac-fin-table tbody th { padding: 0; border-bottom: 0; }
+    .ac-fin-name { padding-right: 0 !important; }
+    .ac-fin-table tbody td { margin-top: 0.3rem; }
+    /* the third column's indent only means something beside the copy */
+    .ac-fin-table tbody td.ac-fin-use { padding-left: 0; }
+    /* Stacked, the row owns the padding, so the marked rows have to paint the
+       ROW — painting only the cells leaves ivory gutters through the band — and
+       the rule moves to the row too. */
+    .ac-fin-table tbody tr.ac-fin-row--on { background: var(--color-forest); border-bottom-color: rgba(245, 240, 229, 0.42); }
+    .ac-fin-table tbody tr.ac-fin-row--on > * { padding-top: 0; padding-bottom: 0; }
+    /* Below this width the plate beside the copy leaves too thin a measure, so
+       the route stacks again — the one place the photograph goes full width. */
+    .ac-route { grid-template-columns: minmax(0, 1fr); }
+    .ac-car-slide { flex: 0 0 100%; }
+    .ac-fault:nth-child(4), .ac-fault:nth-child(5) { grid-column: auto; }
+    .ac-type-fig img { aspect-ratio: 4 / 3; }
+    .ac-mech img { aspect-ratio: 4 / 3; }
+    /* The drawing scales to ~0.55x at this width, so the label size has to go UP
+       to stay legible rather than inherited from the desktop value. */
+    .ac-jd-lab { font-size: 20px; letter-spacing: 0.04em; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+
+  if ('IntersectionObserver' in window && !reduce) {
+    const revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); revealIO.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    revealEls.forEach((el) => revealIO.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // One answer open at a time.
+  const faqItems = Array.from(document.querySelectorAll('.ac-faq-grid details'));
+  faqItems.forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Seamless 3-up carousel: six installations, looping in both directions.
+  // CLONES slides are copied to BOTH ends of the track. Advancing onto a clone
+  // and then resetting the track to the matching real slide with no transition
+  // is what makes the wrap continuous — there is no visible jump because the two
+  // frames are identical. CLONES must be >= the slides on screen at any width
+  // (3 / 2 / 1), so three covers every breakpoint below.
+  // ---------------------------------------------------------------------------
+  const carTrack = document.querySelector('.ac-car-track');
+  if (carTrack) {
+    const CLONES = 3;
+    const slides = Array.from(carTrack.children);
+    const N = slides.length;
+    if (N > 0) {
+      const n = Math.min(CLONES, N);
+      for (let k = 0; k < n; k++) {
+        carTrack.insertBefore(slides[(N - n + k) % N].cloneNode(true), slides[0]);
+      }
+      for (let k = 0; k < n; k++) {
+        carTrack.appendChild(slides[k % N].cloneNode(true));
+      }
+      const start = n;
+      let i = start;
+      let busy = false;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(carTrack).gap) || 0;
+        return carTrack.children[start].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        carTrack.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        carTrack.style.transform = `translateX(${-i * step()}px)`;
+      };
+      const go = (dir) => {
+        if (busy) return;
+        busy = true;
+        i += dir;
+        move(true);
+        window.setTimeout(() => {
+          if (i < start) i += N;
+          else if (i > start + N - 1) i -= N;
+          move(false);
+          busy = false;
+        }, 570);
+      };
+
+      const prev = document.querySelector('.ac-car-btn--prev');
+      const next = document.querySelector('.ac-car-btn--next');
+      if (prev) prev.addEventListener('click', () => go(-1));
+      if (next) next.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!busy) move(false); });
+
+      // Keyboard, so the control is not mouse-only.
+      const ctl = document.querySelector('.ac-car-ctl');
+      if (ctl) {
+        ctl.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') go(-1);
+          if (e.key === 'ArrowRight') go(1);
+        });
+      }
+    }
+  }
+</script>

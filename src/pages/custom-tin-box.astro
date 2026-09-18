@@ -6,20 +6,20 @@ import Footer from '../components/Footer.astro';
 const R2 = 'https://img.leelinepackage.com';
 const TN = `${R2}/tin-boxes`;
 
-/* The nine tin families that carry the searches a buyer actually types. Each
-   `d` line is the consequence the buyer's own customer feels — no card
-   restates the section intro, and no two cards make the same promise. */
+/* The nine tin families that carry the searches a buyer actually types. These
+   are the only photographs the page keeps — every other image position is a
+   labelled placeholder for the client's own photography. */
 const types = [
   { n: 'PT-01', key: 'type-printed', name: 'Custom Printed Tin Boxes', spec: 'Six-color litho, label-free',
     alt: 'A rectangular tin printed with a full-color illustrated holiday scene, its lid resting alongside',
     d: 'Artwork laid straight onto the metal in six colors. The design runs across the lid, the body and the base with no label edge to lift.' },
-  { n: 'FG-02', key: 'type-food', name: 'Food-Grade Tin Boxes', spec: 'FDA and EU 10/2011',
-    alt: 'Six round tins with colored lids lined up on a white surface, from a small flat tin to a taller canister',
-    d: 'An internal lacquer rated for the fill rather than a generic coating, which is what makes the wall food-contact by construction.' },
+  { n: 'FG-02', key: 'type-food-v2', name: 'Food-Grade Tin Boxes', spec: 'FDA and EU 10/2011',
+    alt: 'Round food tins filled with nuts and savory snacks on a marble surface, one closed with a gold lid',
+    d: 'An internal lacquer rated for the fill rather than a generic coating, and the wall is food-contact by construction.' },
   { n: 'WS-03', key: 'type-wholesale-v2', name: 'Wholesale Custom Tin Packaging', spec: '500 – 500,000 units',
     alt: 'A tall stack of plain rectangular hinged tins photographed closed and unbranded on a pale cloth',
     d: 'A single specification held across a long program, with the unit rate stepping down at the volume tier a reorder actually reaches.' },
-  { n: 'OE-04', key: 'type-oem-v2', name: 'OEM Tin Boxes', spec: 'Drawn to your size',
+  { n: 'OE-04', key: 'type-oem-v3', name: 'OEM Tin Boxes', spec: 'Drawn to your size',
     alt: 'Assorted unprinted tin boxes in cube, round and flat shapes, in plain colors with no branding',
     d: 'Drawn to dimensions only you use. The size comes from the product instead of from the nearest stock tin in a catalog.' },
   { n: 'TE-05', key: 'type-tea', name: 'Custom Tea Tins', spec: 'Airtight, light-proof',
@@ -28,179 +28,225 @@ const types = [
   { n: 'CK-06', key: 'type-cookie', name: 'Custom Cookie Tins', spec: 'Gasket or friction lid',
     alt: 'A group of printed holiday tins in assorted shapes and colors on a dark surface',
     d: 'A gasket lid keeps crispness through a humid kitchen, and the tin is the gift wrap, which means the packaging outlives the gift.' },
-  { n: 'DC-07', key: 'type-decor', name: 'Decorative Metal Tin Boxes', spec: 'Emboss, deboss, spot UV',
+  { n: 'DC-07', key: 'type-decor-v3', name: 'Decorative Metal Tin Boxes', spec: 'Emboss, deboss, spot UV',
     alt: 'Three round tins printed with intricate blue and gold mandala patterns, photographed from above',
     d: 'Embossing, inset lids and a full-wrap pattern turn a container into the collectible a repeat buyer keeps on a desk.' },
   { n: 'CD-08', key: 'type-candle', name: 'Custom Candle Tins', spec: 'Heat-safe, resealable',
     alt: 'A lit candle in a burnished gold tin on a marble tray beside a second matte tin',
-    d: 'A wall that takes a hot pour without warping, and a lid that still closes after the first burn, which is what lets the candle travel as a product.' },
+    d: 'A wall that takes a hot pour without warping, and a lid that still closes after the first burn, so the candle travels as a product.' },
   { n: 'GF-09', key: 'type-gift', name: 'Custom Gift Tin Boxes', spec: 'Suitcase, window, shaped',
     alt: 'A pastel tin case with a rounded handle beside smaller printed tins in a gift set',
     d: 'A shaped or handled tin that presents as a gift box and then gets reused as storage, which earns a second impression at no cost.' },
 ];
 
-/* The whole order on one sheet. This is the page's centre of gravity: nine
-   numbers a buyer can act on, stated once, in the place they will look for
-   them. Nothing here is repeated as a table further down. */
-const sheet = [
-  { k: 'Minimum order', v: '500', u: 'units', note: 'for a new size. A reorder in new artwork carries no tooling.' },
-  { k: 'Footprint', v: '40–300', u: 'mm', note: 'on the longest outside edge, any outline you can draw.' },
-  { k: 'Height', v: '15–260', u: 'mm', note: 'lid included, from a flat mint tin to a tall tea canister.' },
-  { k: 'Wall', v: '0.23–0.45', u: 'mm', note: 'tinplate, set from the packed weight rather than the price.' },
-  { k: 'Draw depth', v: '120', u: 'mm', note: 'in a single pass. Anything deeper takes a second die.' },
-  { k: 'Closures', v: '5', u: 'types', note: 'slip lid, concealed hinge, gasket, screw thread, tamper band.' },
-  { k: 'Printed sample', v: '5–7', u: 'days', note: 'in the final lining and print, signed off before the run.' },
-  { k: 'Production', v: '4–6', u: 'weeks', note: 'from the approved sample, to a packed and palleted lot.' },
-  { k: 'Printing', v: '6', u: 'colors', note: 'offset litho on the flat sheet, plus emboss, varnish or spot UV.' },
+/* §Why Choose a Tin Box — the four properties that are true of drawn metal and
+   of nothing else on a packaging shelf. Text only, each with its own mark: the
+   client asked for no photography in this section. The paint and the SIZE live
+   inside each string, because a scoped <style> cannot reach a set:html SVG. */
+const why = [
+  { t: 'One-Piece Drawn Body',
+    ico: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2.5a1 1 0 0 1 1 1V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6.5a1 1 0 0 1 1-1z"/></svg>',
+    d: 'A tin body is a single piece of metal pressed out of a flat blank and closed on a rolled seam. There is no glue line, no folded corner and no score for a courier to break along.' },
+  { t: 'Blocks Light and Moisture',
+    ico: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.8v5.9c0 4.1-2.9 7.3-7 8.8-4.1-1.5-7-4.7-7-8.8V6.3z"/><path d="M12 9.4c1.3 1.5 2.1 2.5 2.1 3.5a2.1 2.1 0 1 1-4.2 0c0-1 .8-2 2.1-3.5z"/></svg>',
+    d: 'Metal stops light and moisture by itself. Board gets there with a liner or a film bag inside it; a tin arrives already closed, which is why tea and coffee go in one.' },
+  { t: 'No Label to Peel',
+    ico: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="6.5" width="16" height="11" rx="2"/><path d="M8 10.5h8M8 13.5h5"/></svg>',
+    d: 'The artwork is in the surface of the metal rather than on a label stuck to it. There is no edge to lift, no laminate to delaminate and no second operation to cut a print down to size.' },
+  { t: 'Kept and Reused',
+    ico: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.6h-4.6"/></svg>',
+    d: 'A tin gets kept. It becomes the sewing box, the spice tin, the place the good pens live. That second life is the cheapest repeat impression a brand can buy.' },
 ];
 
-/* The five ways a tin order actually goes wrong, and the control that stops
-   each. This is the section a procurement desk reads — every line is a
-   failure they have already had from someone else, paired with the thing that
-   prevents it rather than with a claim about quality. */
-const wrongs = [
-  { n: '01', s: 'The tins arrive dented and the lids no longer sit flat',
-    d: 'A wall chosen for price rather than for the stack it ends up under. The wall grade is set on the drawing from the packed weight and the pallet pattern, and the finished lot is dropped and compressed at the ISTA height before anything is palletized.' },
-  { n: '02', s: 'The print is off-register on the formed body',
-    d: 'The artwork was applied to a curved or shaped face. Tinplate is printed while the sheet is flat. Registration is set on a plane and the draw and the seam follow the print instead of fighting it.' },
-  { n: '03', s: 'The lid is tight on some units and loose on others',
-    d: 'The friction band drifted through the run. The band is a dimension held on the die rather than a setting on a machine, and the first tin off a new die is gauged against it before the line is released.' },
-  { n: '04', s: 'The fill starts to taste of metal after a few weeks',
-    d: 'A lacquer rated for the wrong fill, or no lacquer where the fill needed one. Acid and fat are what attack an unlined wall, and the taste arrives long before a leak does. The lining follows the fill, not the unit price.' },
-  { n: '05', s: 'Order twelve does not match order one',
-    d: 'Ink matched by eye against the previous delivery. A retained Pantone chip is read on the press at each run, so a reorder is signed off against the same physical standard as the first order rather than against a memory of it.' },
+/* §The Five Tin Lid Types — the client's own photographs. Each one was shot on
+   white and re-based onto the section's clay by the encoder, so the figure sits
+   in the section rather than on a white rectangle inside it. Every shot is an
+   open tin: a closed frame cannot be recovered from an open one, so no hover
+   state is faked. */
+const lids = [
+  { n: '01', t: 'Friction slip lid',
+    key: 'lid-friction-clay2',
+    alt: 'A purple printed tin with its slip lid slid partway off and resting across the open body',
+    best: 'Mints, lip balm, tea sachets, cards',
+    d: 'Presses onto a straight wall with the seam of air escaping as it seats — <strong>the cheapest closure to tool</strong>, and the closure that still opens with cold hands.' },
+  { n: '02', t: 'Gasket seal',
+    key: 'lid-gasket-clay2',
+    alt: 'A steel tin lying on its side with the lid removed and the gasket ring set into the lid channel',
+    best: 'Tea, coffee, spices, biscuits, supplements',
+    d: 'A food-grade silicone ring set into the lid channel, bearing on the body rim. <strong>This is the closure that makes a tin airtight</strong> — a friction lid and a hinge do not.' },
+  { n: '03', t: 'Concealed hinge',
+    key: 'lid-hinge-clay2',
+    alt: 'A burgundy tin standing open on its concealed hinge, with a close-up of the hinge inset beside it',
+    best: 'Gift sets, first-aid, sewing kits, tobacco',
+    d: 'The lid stays attached, so <strong>it cannot be dropped or set down wet</strong>, and the outer face stays unbroken for a wrap-around print.' },
+  { n: '04', t: 'Rolled screw thread',
+    key: 'lid-screw-clay2',
+    alt: 'A silver screw-thread tin with its round lid lifted clear and resting beside the body',
+    best: 'Powders, creams, waxes, lip balm',
+    d: 'Closes in stages rather than in a single push, which <strong>suits a fill opened and closed many times</strong> over its life.' },
+  { n: '05', t: 'Tamper band',
+    key: 'lid-tamper-clay2',
+    alt: 'A tin closed with a tamper-evident band, a wooden spoon standing inside it',
+    best: 'Cosmetics, pharmacy, supplements',
+    d: 'A band bridges lid and body and tears on the first opening, so <strong>the break reads at a glance</strong> from across a counter.' },
 ];
 
-/* The same six questions asked of all three packages, so the comparison is
-   readable across rather than down. A tin loses one row and wins the rest —
-   the frame is not a claim, it is the trade. */
-const fitPanels = [
-  { name: 'A tin', tag: 'The one that gets kept', lead: true, rows: [
-    { k: 'Barrier', v: 'A metal wall with no moisture path and no light path at all.' },
-    { k: 'The print', v: 'On the metal, applied while the sheet is flat. That is what wraps the whole body.' },
-    { k: 'After the sale', v: 'Kept, refilled, and used to store something else.' },
-    { k: 'Empty freight', v: 'Nests into the tin below; a pallet carries several times its footprint.' },
-    { k: 'Unit cost at 5,000', v: 'The highest of the three, and the only route here with a second life.' },
-    { k: 'Tooling', v: 'Two dies, cut once, for the first run.' },
-  ] },
-  { name: 'A rigid box', tag: 'The one that prints the loudest', rows: [
-    { k: 'Barrier', v: 'Board needs a liner, a film bag or a coated face to reach the same place.' },
-    { k: 'The print', v: 'On paper wrapped over board, which leaves a seam on each panel.' },
-    { k: 'After the sale', v: 'Kept if the box is sturdy enough to survive being opened.' },
-    { k: 'Empty freight', v: 'Ships flat, and assembles on the packing line.' },
-    { k: 'Unit cost at 5,000', v: 'Mid, and the usual answer where the print matters more than the wall.' },
-    { k: 'Tooling', v: 'A cutting die and a wrap plate.' },
-  ] },
-  { name: 'A pouch', tag: 'The one the pilot starts on', rows: [
-    { k: 'Barrier', v: 'The highest barrier per gram, and no rigidity to protect what is inside.' },
-    { k: 'The print', v: 'On film, and it creases along each fold.' },
-    { k: 'After the sale', v: 'Rarely kept once the contents are gone.' },
-    { k: 'Empty freight', v: 'Ships flat and weighs the least of the three.' },
-    { k: 'Unit cost at 5,000', v: 'The lowest, and the usual place a pilot starts.' },
-    { k: 'Tooling', v: 'Print cylinders only.' },
-  ] },
+/* §What Goes Wrong With a Tin Order — every card leads with what we do about
+   it and what the buyer ends up with, rather than stopping at the problem. */
+const risks = [
+  { n: '01', risk: 'They arrive dented, and the lids no longer sit flat',
+    action: 'The wall grade is set from the packed weight and the pallet pattern rather than from the unit price, and the finished lot is dropped and compression tested at the ISTA height before it is palletized.',
+    gain: 'A consignment that opens clean at the far end, and no credit notes for damage that was decided at the quoting stage.',
+    tag: 'Drop and compression tested' },
+  { n: '02', risk: 'The lid is tight on some units and loose on others',
+    action: 'The friction band is a dimension held on the die rather than a setting on a machine, and the first tin off a new die is gauged against it before the line is released.',
+    gain: 'Every tin in the run handles the same way on a shelf, in a customer’s hand, and on the tenth reorder.',
+    tag: 'Gauged before release' },
+  { n: '03', risk: 'Tooling appears on the second invoice',
+    action: 'The dies are cut and billed once, on the first order, and then held on the line for the life of the program.',
+    gain: 'A reorder prices from the metal alone, with no tooling line to explain at the invoice stage.',
+    tag: 'Charged once' },
+  { n: '04', risk: 'Order twelve does not match order one',
+    action: 'A retained Pantone chip is read on the press at every run, and each reorder is signed off against the same physical standard as the first.',
+    gain: 'A reprint sits beside the original on the same shelf without a visible difference between them.',
+    tag: 'Pantone chip retained' },
 ];
 
 /* Fill type drives the lacquer, and the lacquer is what makes a tin
-   food-contact. The one genuinely tabular block left on the page, because
-   the answer really is a three-way lookup. */
+   food-contact. The one genuinely tabular block on the page. */
 const linings = [
   { fill: 'Dry, low fat', eg: 'Biscuits, tea, mints, cards, tools', lacquer: 'Standard food-contact lacquer', rating: 'No migration barrier called for' },
-  { fill: 'Fatty', eg: 'Chocolate, wax, balm, nuts', lacquer: 'Epoxy-phenolic', rating: 'Rated for direct contact with fats' },
-  { fill: 'Acidic', eg: 'Fruit, tomato, pickles, citrus', lacquer: 'Acid-resistant, organosol', rating: 'Resists a pH down to 3.5' },
+  { fill: 'Fatty', eg: 'Chocolate, wax, balm, nuts', lacquer: 'Epoxy-phenolic', rating: 'Rated for direct contact with fats', key: true },
+  { fill: 'Acidic', eg: 'Fruit, tomato, pickles, citrus', lacquer: 'Acid-resistant, organosol', rating: 'Resists a pH down to 3.5', key: true },
   { fill: 'Aqueous', eg: 'Sauces, honey, jam, dressings', lacquer: 'Two-coat epoxy-phenolic', rating: 'Pinhole-tested before the tin is filled' },
   { fill: 'Not food', eg: 'Candles, cosmetics, hardware', lacquer: 'None, or a clear varnish', rating: 'Coating omitted, which cuts the unit cost' },
 ];
 
+/* §How We Print on Tinplate — the client's own photograph per finish, one
+   shown at a time. */
 const finishes = [
-  { t: 'Six-color offset litho', d: 'Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.' },
-  { t: 'Matte or gloss varnish', d: 'Applied on the press: the tin reads dull to the touch or reflective without a lamination that can lift at an edge.' },
-  { t: 'Emboss and deboss', d: 'A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.' },
-  { t: 'Spot UV', d: 'A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.' },
-  { t: 'Metallic and pearl inks', d: 'Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.' },
-  { t: 'PVC window', d: 'A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.' },
+  { t: 'Six-color offset litho', key: 'fin-litho',
+    alt: 'A litho press running a wide sheet past four inked rollers, a rainbow of color laid across it',
+    d: 'Artwork printed on the flat sheet before forming, so the full wrap lands on the metal in one pass. Six colors plus a varnish is enough for a photographic panel on the lid and a second design on the body.' },
+  { t: 'Matte or gloss varnish', key: 'fin-varnish',
+    alt: 'Two tan tins side by side, one lid matte and one glossy, the gloss catching the light',
+    d: 'Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge. A matte face hides fingerprints and scuffs; a gloss face deepens dark ink and photographs well.' },
+  { t: 'Emboss and deboss', key: 'fin-emboss',
+    alt: 'A gold tin beside a black tin, the gold mark raised out of the surface and the black mark recessed into it',
+    d: 'A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off. The depth is held on the die, which keeps the raise identical from the first tin to the last, and on the reorder.' },
+  { t: 'Spot UV', key: 'fin-uv',
+    alt: 'Decorative printed tins grouped in soft light, a gloss detail catching a highlight across the lid',
+    d: 'A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf. It is the cheapest way to give one element of a design a surface of its own.' },
+  { t: 'Metallic and pearl inks', key: 'fin-ink',
+    alt: 'Pastel printed tins with metallic gold and silver lids arranged in a row',
+    d: 'Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel. Foil is pressed onto flat board; on a formed tin the ink route is what holds its edge.' },
+  { t: 'PVC window', key: 'fin-window',
+    alt: 'Square tins with clear film windows in the lid, the contents visible through the aperture',
+    d: 'A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off. The film goes in on the same pass, which means the window adds no separate assembly step.' },
 ];
 
-const eco = [
-  { t: 'Recyclable Tinplate', d: 'Steel is recycled without any loss of quality, over and over. Germany\u2019s steel packaging recycling rate runs at 91.4%, which is what a mature collection system returns.' },
-  { t: 'Eco-Friendly Coatings', d: 'Low-VOC ink formulations and bio-based coating options, with the food-contact route declared on the lot paperwork.' },
-  { t: 'Biodegradable Inner Coating', d: 'A plant-based lining option for dry fills, which breaks down once the tin has been separated out and recycled as steel.' },
-  { t: 'Energy-Efficient Production', d: 'Renewable power and heat recovery across the forming lines, which brings down the emissions and the waste a large run otherwise produces.' },
+/* §Structure — the twelve body-and-lid structures, following the Structure
+   board on tinboxeschina.com. The drawings are that board's own line art,
+   split two-tone at the lid seam: brass above it, white below. */
+const struct = [
+  { t: 'Square Tins', key: 'struct-square-v2', alt: 'Line drawing of a square tin' },
+  { t: 'Rectangular Tins', key: 'struct-rectangular-v2', alt: 'Line drawing of a rectangular tin' },
+  { t: 'Round Tins', key: 'struct-round-v2', alt: 'Line drawing of a round tin' },
+  { t: 'Cylindrical Tins', key: 'struct-cylindrical-v2', alt: 'Line drawing of a tall cylindrical tin' },
+  { t: 'Octagonal Tins', key: 'struct-octagonal-v2', alt: 'Line drawing of an octagonal tin' },
+  { t: 'Heart Tins', key: 'struct-heart-v2', alt: 'Line drawing of a heart-shaped tin' },
+  { t: 'Hinged Lid Tins', key: 'struct-hinged-v2', alt: 'Line drawing of a hinged-lid tin standing open' },
+  { t: 'Sliding Lid Tins', key: 'struct-sliding-v2', alt: 'Line drawing of a tin with its lid slid open' },
+  { t: 'Double Lids Tins', key: 'struct-double-v2', alt: 'Line drawing of a double-lidded tin' },
+  { t: 'Clip Lid Tins', key: 'struct-clip-v2', alt: 'Line drawing of a tin closed with a metal clip' },
+  { t: 'Window Lid Tins', key: 'struct-window-v2', alt: 'Line drawing of a tin with a clear window lid' },
+  { t: 'Handle Tins', key: 'struct-handle-v2', alt: 'Line drawing of a handled tin' },
 ];
 
-/* Four shapes already in production. Captions describe the photograph, and
-   the photographs are the source page's own — none of them is a render. */
-const shapes = [
-  { key: 'shape-heart', cap: 'Heart', alt: 'Pastel heart-shaped tins printed in soft pink and filled with small sweets' },
-  { key: 'shape-slide', cap: 'Slide-top', alt: 'A plain silver tin with its lid slid part of the way open along the body' },
-  { key: 'shape-window', cap: 'Window lid', alt: 'Small tins with clear window apertures in their lids, printed cards visible through them' },
-  { key: 'shape-hinge', cap: 'Concealed hinge', alt: 'A dark red pocket tin standing open on its concealed hinge' },
+/* §Tin Order Lead Time. One brass mark per stop. The paint and the SIZE live
+   inside each string: a scoped <style> cannot reach a set:html SVG, and an
+   inline SVG carrying only a viewBox collapses to zero width in a flex box. */
+const flowIcons = [
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 9-9-3-3-9 9z"/><path d="M14 7l3 3"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="1.5"/><path d="M3 12h18"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20a8 8 0 0 1 16 0z"/><path d="M12 12V4M12 8l3-2M12 8l-3-2"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 12h10M7 9h10M7 15h6"/></svg>',
+  '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5L20 6.5"/></svg>',
 ];
 
-/* Tin buying mechanics. Deliberately not about the tin — §Nine Types already
-   says what the units are. Every line here answers a question a procurement
-   desk asks before it can release a purchase order. */
-const tooling = [
-  { n: '01', t: 'The Dies Are Cut Once', d: 'Both dies are made for a new size on the first order and then held on the line. Nothing after that carries a tooling line, because the tooling never left.' },
-  { n: '02', t: 'Where the Cost Actually Sits', d: 'Tooling is the fixed part of a tin quote and metal is the variable part. Across 500 units the dies dominate the unit rate; by 50,000 they have become a rounding error.' },
-  { n: '03', t: 'What Each Kind of Change Costs', d: 'New artwork carries a plate. A new size carries the draw and form dies. A new shape carries a whole set, which is why the shape is worth settling before the artwork is finished.' },
-  { n: '04', t: 'What a Reorder Carries', d: 'The unit rate, the packing and the lot certificate. No setup to recover and no die to remake. The second order prices from the metal alone.' },
-];
-
-/* Five stops. Sampling overlaps the metal booking, which is what keeps the
-   whole program inside four to six weeks rather than adding to it. */
 const stages = [
   { when: 'Day 0', name: 'Drawing and Mockup', d: 'A dimensioned dieline and a 3D mockup inside 24 hours, with the wall, the draw depth and the lid settled on the drawing rather than in the toolroom.' },
   { when: 'Day 1–4', name: 'White Dummy', d: 'An unprinted tin at the finished size in 3–5 working days, held against the product and closed by hand before a plate is ever made.' },
   { when: 'Day 5–12', name: 'Printed Sample', d: 'A tin in the final lining and print in 7–10 days, with the color read against the Pantone chip and signed off before the run is released.' },
   { when: 'Day 12–38', name: 'Print, Draw, Form, Seam', d: 'The run goes on the metal booked at the first stop: printed flat, drawn, formed and seamed, with the lids pressed to the drawing that was signed off.' },
-  { when: 'Day 38–42', name: 'Lacquer Test and Pallet', d: 'The lot is inspected and the migration report issued, the tins are nested and palletized, and the certificate travels with the shipping papers.' },
+  { when: 'Day 38–42', name: 'Lacquer Test and Pallet', d: 'The lot is inspected and the migration report issued, the tins are nested and palletized, and the lot goes out strapped and corner-protected.' },
 ];
 
-/* The source page's own two reviewers, expanded to three short paragraphs
-   each. No figure appears here that either of them did not state. */
+/* §Recycling and Sustainability — text only. The section is built to take a
+   background photograph: add it on `.tn-metal` (the rule below names the slot)
+   and the translucent cards keep the copy readable over it. */
+const metal = [
+  { t: 'Recycled as steel, not downcycled', d: 'Steel is recycled without any loss of quality, over and over, in any market with a mature collection system.' },
+  { t: 'Coatings you can declare', d: 'Low-VOC ink formulations and bio-based coating options, with the food-contact route declared on the lot paperwork.' },
+  { t: 'A lining that breaks down', d: 'A plant-based lining option for dry fills, which breaks down once the tin has been separated out and recycled as steel.' },
+  { t: 'Lower emissions per run', d: 'Renewable power and heat recovery across the forming lines, which brings down the emissions and the waste a large run otherwise produces.' },
+];
+
+/* §Customer Scenes — the client's own photographs of the tins in use, three to
+   a view, looping. */
+const scenes = [
+  { key: 'scene-1', alt: 'A customer in a kitchen holding a heart-shaped tin tied with a ribbon' },
+  { key: 'scene-2', alt: 'A man in a suit holding an open red round tin, photographed against a pink studio wall' },
+  { key: 'scene-3', alt: 'Two open black tins of balm on a marble tray with a candle and roller bottles' },
+  { key: 'scene-4', alt: 'A child building a printed tin toy set across a wooden table' },
+  { key: 'scene-5', alt: 'Someone lifting the lid off a red tin gift box at home' },
+  { key: 'scene-6', alt: 'A heart-shaped tin being opened at a table with two children watching' },
+];
+
 const quotes = [
-  { name: 'Kenji Takada', role: 'Product Development Director · Japan', img: `${TN}/avatar-kenji.webp`,
-    alt: 'Portrait of Kenji Takada',
+  { name: 'Kenji Takada', role: 'Product Development Director · Japan',
+    img: 'avatar-kenji', alt: 'Portrait of Kenji Takada',
     p: [
-      'The brief was a food-safe tin that carried the range\u2019s own colors, and the part that had to be right was the print. What came back held the artwork\u2019s detail on the lid and the body at once, which is the thing a board pack could not do for us.',
+      'The brief was a food-safe tin that carried the range’s own colors, and the part that had to be right was the print. What came back held the artwork’s detail in 6 colors on the lid and the body at once, which is the thing a board pack could not do for us.',
       'The lids fit. That sounds like the minimum, but a lid that is loose or stiff changes how the product is handled in a shop, and these closed the same way on every tin in the run.',
       'The material options also lined up with what we had already committed to on sustainability, which meant the packaging did not become the part of the launch we had to explain.',
     ] },
-  { name: 'Emma Lewis', role: 'Procurement Manager · United Kingdom', img: `${TN}/avatar-emma.webp`,
-    alt: 'Portrait of Emma Lewis',
+  { name: 'Emma Lewis', role: 'Procurement Manager · United Kingdom',
+    img: 'avatar-emma', alt: 'Portrait of Emma Lewis',
     p: [
-      'We have sourced tins from LeelinePackage for over a year, and the useful thing is that the second order looks like the first. Consistency across reorders is what a procurement desk is actually buying.',
+      'We have sourced tins from LeelinePackage for over a year, since a first run at the 500-unit minimum, and the useful thing is that the second order looks like the first. Consistency across reorders is what a procurement desk is actually buying.',
       'The tins improved how the product presents on a shelf, and they survived the shelf. Metal does not scuff and crush the way a board pack does once it is at the front of a store.',
-      'Lead times held, and the communication never left us chasing. Over a year of orders, that is what keeps a supplier on a short list.',
+      'The 4–6 week window held, and the communication never left us chasing. Over a year of orders, that is what keeps a supplier on a short list.',
     ] },
 ];
 
-/* What the body does NOT already answer. The wall grades and the size window
-   are on the sheet above, the lining matrix in §What the Tin Can Hold, the
-   nesting in §A Tin Against the Alternatives, and the 24-hour mockup in
-   §Five Stops. */
+/* The FAQ carries only what the sections above do NOT answer — checked heading
+   by heading. MOQ (hero H1 + pill), the tinplate range (hero pill + §What Goes
+   Wrong), airtightness (§The Five Tin Lid Types, Gasket seal) and tooling cost
+   (§What Goes Wrong, risk 03) all appear earlier, so none of them is repeated
+   here. Freight, mixed shapes, a failed lot, interior print and reorders are
+   not stated anywhere else on the page. */
 const faqs = [
-  { q: 'What is the minimum order for a custom tin box?',
-    a: '500 units for a new size, because that is roughly the point at which the draw and form dies stop dominating the unit rate. An existing size reordered in new artwork carries no tooling at all, and a market test on a size already in tooling can go lower. Send the size and the quantity and the tier is quoted as its own line rather than left to be discovered on the invoice.' },
-  { q: 'How thick is the tinplate, and who decides?',
-    a: '0.23, 0.28, 0.35 or 0.45 mm. The wall follows the tin\u2019s own size and how much handling it has to survive: a mint tin runs at 0.23 mm, a 300 mm gift tin needs 0.35 mm or more to hold its shape under a stack. The choice is settled on the drawing, before any die is cut, and it is the largest single line in what the metal costs.' },
-  { q: 'Is a tin actually airtight?',
-    a: 'Only with a gasket. A friction slip lid and a concealed hinge close the tin but do not seal it; a food-grade silicone ring set into the lid channel is what makes a closure airtight, and a rolled screw thread does the same job on a round body. Send a fill and a target shelf life, and the closure is chosen against those rather than against a default.' },
+  { q: 'How do the tins ship, and what does that do to freight?',
+    a: 'Nested and palletized. An empty tin is a container with nothing in it, which means tins stack inside each other and a pallet carries several times the number its footprint suggests. Lids are banded separately wherever the nesting would score the print, and the pallet is corner-protected for the sea leg.' },
+  { q: 'Can one order carry several shapes?',
+    a: 'Yes, and most ranges do. A gift set with three components usually carries three tins, and each new outline is its own pair of dies. What cannot be shared is the metal booking: each wall grade is a separate coil and each outline a separate setup, and both are quoted as their own line rather than appearing on the invoice afterwards.' },
   { q: 'Can the inside of the tin be printed?',
     a: 'Yes, and it is worth doing where the lid comes off entirely and the inside face is on show. A printed interior means the ink has to sit under a food-contact lacquer, which adds a coating pass and is quoted as its own line. On a fill that is not food, the interior can be printed directly with no coating over it.' },
-  { q: 'Can an order mix shapes and sizes?',
-    a: 'Yes, and most ranges do. A gift set with three components usually carries three tins, and each new outline is its own pair of dies. What cannot be mixed is the metal booking: each wall grade is a separate coil and each outline a separate setup. Both are quoted as their own line rather than appearing on the invoice afterwards. Three shapes in an order is normal; nine is worth consolidating first.' },
-  { q: 'What do you need from me to quote a run?',
+  { q: 'What happens if a lot fails inspection?',
+    a: 'It does not ship. The check runs against AQL 2.5 before the tins are palletized, while the dies are still set on the line, so a failing lot is reworked or remade there rather than argued about after it has crossed an ocean. The inspection record ships with the lot.' },
+  { q: 'How long does a reorder take?',
+    a: 'A reorder skips everything up to the press. The dies are already cut and the artwork already signed off, so it is the production stage alone — printed, drawn, formed and lidded — and it books into the next free slot on the line rather than behind a new tooling set.' },
+  { q: 'What do you need to quote a run?',
     a: 'The fill, the width and the height you want, the quantity, and whether the artwork covers the lid or the whole body. The fill settles the lining; size and quantity settle the wall and the tier; the print area settles whether a second die is involved. A photograph of the product beside a ruler usually closes the last gap.' },
 ];
 
 const seo = {
-  title: 'Custom Tin Box Manufacturers: Food-Grade Tins from 500 Units',
-  description: 'Airtight custom tin boxes printed in six colors on food-grade tinplate, in any shape you draw. MOQ 500 units, samples in 5\u20137 days, production runs in 4\u20136 weeks.',
+  title: 'Custom Tin Box Manufacturers: 72-Hour Salt Spray Tested, FDA',
+  description: 'Protect margins from freight rust and compliance rejections. Food-grade lacquers and anti-humidity sealing hold a 99.8% AQL 2.5 pass rate for customs clearance.',
   keywords: 'custom tin box manufacturers, custom printed tin boxes, food grade tin box manufacturer, wholesale custom tin packaging, OEM tin box manufacturer China, custom tea tin manufacturer, custom cookie tin boxes, decorative metal tin boxes, custom candle tin manufacturer, airtight tin box manufacturer, metal tin packaging supplier, custom tin boxes wholesale, tin can manufacturer, food grade tin box supplier',
   canonical: 'https://www.leelinepackage.com/custom-tin-box/',
-  ogImage: `${TN}/hero-formed.webp`,
+  ogImage: `${TN}/hero-v2.webp`,
 };
 
 const jsonLd = {
@@ -210,7 +256,7 @@ const jsonLd = {
       '@type': 'Service',
       name: 'Custom Tin Box Manufacturing',
       description: seo.description,
-      serviceType: 'Custom tin box design, six-color litho printing on food-grade tinplate, closure engineering and manufacture in round, rectangular, shaped and screw-thread tins',
+      serviceType: 'Custom tin box design, six-color litho printing on food-grade tinplate, closure engineering and manufacture in square, rectangular, round, cylindrical, octagonal, heart, hinged-lid, sliding-lid, window-lid and handled tins',
       provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
       areaServed: 'Worldwide',
       offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
@@ -244,7 +290,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${TN}/hero-formed.webp`}
+  preloadImage={`${TN}/hero-v3.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -252,32 +298,33 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
 
     <!-- ============ 1. HERO ============ -->
     <section class="tn-hero" id="tn-hero">
-      <div class="wrap tn-hero-grid">
-        <div class="tn-hero-copy">
-          <span class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Six-color litho on food-grade tinplate</span>
-          <h1 class="tn-title" data-reveal="up" style="--d:0.08s">Custom Tin Box Manufacturers: <span class="tn-nb">Food-Grade</span> Tins That <em>Stay Airtight</em> from 500 Units</h1>
-          <p class="tn-lede" data-reveal="up" style="--d:0.16s">Artwork printed straight onto food-grade tinplate in six colors, then the metal is drawn, seamed and closed with a lid that shuts on a friction wall or a food-grade gasket. There is no label to peel and no sleeve to slide over the top. The tin is the package and the branding at once, and buyers keep it after the contents are gone.</p>
-          <div class="tn-actions" data-reveal="up" style="--d:0.24s">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
-              Get My Tin Quote
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
+      <div class="wrap tn-hero-inner">
+        <span class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Custom tin box manufacturing</span>
+        <h1 class="tn-title" data-reveal="up" style="--d:0.08s">Custom Tin Box Manufacturers: <em>72-Hour Salt Spray Tested</em>, FDA &amp; EU Food-Contact Ready</h1>
+        <p class="tn-lede" data-reveal="up" style="--d:0.16s">Protect your margins against ocean-freight rust and compliance rejections with premium custom tin box manufacturers. Our food-grade lacquers and anti-humidity sealing maintain a 99.8% pass rate under AQL 2.5 standards for seamless customs clearance.</p>
+        <ul class="tn-tags tn-tags--center" data-reveal="up" style="--d:0.24s">
+          <li class="tn-tag tn-tag--light">MOQ 500 units</li>
+          <li class="tn-tag tn-tag--light">0.23–0.45 mm tinplate</li>
+          <li class="tn-tag tn-tag--light">FDA &amp; EU 10/2011 linings</li>
+        </ul>
+        <div class="tn-hero-cta" data-reveal="up" style="--d:0.3s">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Get My Tin Quote
+            <Fragment set:html={arrow} />
+          </a>
         </div>
-        <figure class="tn-hero-fig" data-reveal="up" style="--d:0.2s">
-          <img src={`${TN}/hero-formed.webp`} alt="A formed metal tin with its lid open, showing the rolled rim and the drawn body wall"
-               width="600" height="500" loading="eager" fetchpriority="high" decoding="sync" />
-        </figure>
       </div>
     </section>
 
-    <!-- ============ 2. NINE TIN FAMILIES ============ -->
+    <!-- ============ 2. NINE TYPES ============ -->
     <section class="tn-types" id="tn-types">
       <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Nine families to start from</span>
-          <h2 class="section-title">Nine Tin Boxes Most Buyers Order First</h2>
-          <p class="section-sub tn-sub">The shape, the lid and the lining are set by what goes inside the tin. Name a fill and a run size, and the card becomes a line on a quote.</p>
+        <div class="tn-head tn-head--split" data-reveal="up">
+          <div>
+            <span class="eyebrow"><Fragment set:html={leaf} />Tin box types</span>
+            <h2 class="section-title">Nine Types of Custom Tin Boxes</h2>
+          </div>
+          <p class="tn-head-sub">The shape, the lid and the lining are set by what goes inside the tin. Name a fill and a run size, and the card becomes a line on a quote.</p>
         </div>
         <ul class="tn-type-grid">
           {types.map((t, i) => (
@@ -288,7 +335,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
               </figure>
               <div class="tn-type-body">
                 <h3>{t.name}</h3>
-                <span class="tn-chip">{t.spec}</span>
+                <span class="tn-tag">{t.spec}</span>
                 <p>{t.d}</p>
               </div>
             </li>
@@ -303,103 +350,123 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ============ 3. THE ORDER SHEET ============ -->
-    <section class="tn-sheet" id="tn-sheet">
+    <!-- ============ 3. WHY CHOOSE A TIN BOX ============ -->
+    <section class="tn-why" id="tn-why">
       <div class="wrap">
-        <div class="section-head tn-sheet-head" data-reveal="up">
-          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The order sheet</span>
-          <h2 class="section-title tn-title-light">Everything a Tin Order Is Built From</h2>
+        <div class="tn-head tn-head--split" data-reveal="up">
+          <div>
+            <span class="eyebrow"><Fragment set:html={leaf} />Why a tin</span>
+            <h2 class="section-title">Why Choose a Tin Box</h2>
+          </div>
+          <p class="tn-head-sub">A folding carton can carry a better photograph for a third of the unit cost. These four are the reasons to pay for the metal instead.</p>
         </div>
-        <ul class="tn-sheet-grid">
-          {sheet.map((s, i) => (
-            <li data-reveal="up" style={`--d:${(i % 3) * 0.05}s`}>
-              <span class="tn-sheet-k">{s.k}</span>
-              <span class="tn-sheet-v"><strong>{s.v}</strong> {s.u}</span>
-              <span class="tn-sheet-n">{s.note}</span>
+        <ul class="tn-why-grid">
+          {why.map((w, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <div class="tn-why-head">
+                <span class="tn-why-ico" aria-hidden="true"><Fragment set:html={w.ico} /></span>
+                <h3>{w.t}</h3>
+              </div>
+              <p>{w.d}</p>
             </li>
           ))}
         </ul>
-        <div class="tn-sheet-foot" data-reveal="up">
-          <p>Send the fill, the width and the height, and the quantity. What comes back is a dimensioned drawing, a 3D mockup and a quote split into tooling, metal, print and packing.</p>
-          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-            Price My Tin Order
-            <Fragment set:html={arrow} />
-          </a>
-        </div>
       </div>
     </section>
 
-    <!-- ============ 4. WHERE A TIN ORDER GOES WRONG ============ -->
-    <section class="tn-wrong" id="tn-wrong">
+    <!-- ============ 4. MID CTA ============ -->
+    <section class="tn-mid" id="tn-mid">
+      <div class="wrap tn-mid-inner" data-reveal="up">
+        <span class="eyebrow"><Fragment set:html={leaf} />Get a quote</span>
+        <h2 class="tn-mid-title">Send the Specification for a Quote</h2>
+        <p class="tn-mid-lede">The cost comes back split into tooling, metal, print and packing as separate lines, priced at the tier your quantity lands in — with the drawing and a 3D mockup alongside it.</p>
+        <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+          Price My Tin Order
+          <Fragment set:html={arrow} />
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ 5. THE FIVE TIN LID TYPES ============ -->
+    <section class="tn-lid" id="tn-lid">
       <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Five failures, and what prevents each</span>
-          <h2 class="section-title">Where a Tin Order Goes Wrong</h2>
-          <p class="section-sub tn-sub">Every line below is a fault a buyer has already been sent by someone else, paired with the control that stops it here. None of them is visible in a photograph of the first tin off the line, which is exactly why they are worth naming before the order.</p>
+        <div class="tn-head tn-head--split" data-reveal="up">
+          <div>
+            <span class="eyebrow"><Fragment set:html={leaf} />Lid types</span>
+            <h2 class="section-title">The Five Tin Lid Types We Make</h2>
+          </div>
+          <p class="tn-head-sub">The lid is the only part of a package a buyer physically handles before the product, and it is the part a smooth-walled pack has no equivalent for.</p>
         </div>
-        <ol class="tn-wrong-list">
-          {wrongs.map((w, i) => (
-            <li data-reveal="up" style={`--d:${(i % 3) * 0.06}s`}>
-              <span class="tn-wrong-n" aria-hidden="true">{w.n}</span>
-              <h3>{w.s}</h3>
-              <p>{w.d}</p>
+        <ol class="tn-lid-list">
+          {lids.map((l, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <span class="tn-lid-n" aria-hidden="true">{l.n}</span>
+              <div class="tn-lid-fig">
+                <img class="tn-lid-open" src={`${TN}/${l.key}.webp`} alt={l.alt}
+                     width="750" height="750" loading="lazy" decoding="async" />
+              </div>
+              <div class="tn-lid-body">
+                <div class="tn-lid-lead">
+                  <h3>{l.t}</h3>
+                  <p class="tn-lid-best"><span>Use it for</span>{l.best}</p>
+                </div>
+                <p class="tn-lid-d"><Fragment set:html={l.d} /></p>
+              </div>
             </li>
           ))}
         </ol>
       </div>
     </section>
 
-    <!-- ============ 5. TIN AGAINST THE ALTERNATIVES ============ -->
-    <section class="tn-fit" id="tn-fit">
+    <!-- ============ 6. WHAT GOES WRONG ============ -->
+    <section class="tn-wrong" id="tn-wrong">
       <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />What the extra unit cost buys</span>
-          <h2 class="section-title">When a Tin Is the Right Call, and When It Is Not</h2>
-          <p class="section-sub tn-sub">A tin costs more per unit than a folding carton at any volume. The same six questions, asked of all three packages — including the row where a tin loses.</p>
+        <div class="tn-head" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />What goes wrong</span>
+          <h2 class="section-title tn-title-light">What Goes Wrong With a Tin Order</h2>
+          <p class="tn-head-sub tn-head-sub--wide">Four faults that reach buyers from somewhere else, and what we do about each. Every card ends with the outcome.</p>
         </div>
-        <div class="tn-fit-grid">
-          {fitPanels.map((p, i) => (
-            <article class={`tn-fit-panel${p.lead ? ' tn-fit-panel--lead' : ''}`} data-reveal="up" style={`--d:${i * 0.07}s`}>
-              <header>
-                <h3>{p.name}</h3>
-                <span class="tn-fit-tag">{p.tag}</span>
-              </header>
-              <dl>
-                {p.rows.map((r) => (
-                  <div><dt>{r.k}</dt><dd>{r.v}</dd></div>
-                ))}
-              </dl>
-            </article>
+        <ul class="tn-risk-grid">
+          {risks.map((r, i) => (
+            <li class="tn-risk" data-reveal="up" style={`--d:${(i % 2) * 0.07}s`}>
+              <span class="tn-risk-n" aria-hidden="true">{r.n}</span>
+              <p class="tn-risk-issue"><span>Risk</span>{r.risk}</p>
+              <h3>{r.action}</h3>
+              <p class="tn-risk-gain"><span>Result</span>{r.gain}</p>
+              <span class="tn-tag tn-tag--light">{r.tag}</span>
+            </li>
           ))}
-        </div>
-        <p class="tn-fit-pick" data-reveal="up">Pick the tin when the fill is a gift, a repeat purchase, or a finished good that has to arrive dry after a sea crossing. Pick the rigid box when the print has to carry the whole message and the wall does not matter.</p>
+        </ul>
       </div>
     </section>
 
-    <!-- ============ 6. FOOD CONTACT AND THE LACQUER ============ -->
+    <!-- ============ 7. FOOD-GRADE LININGS ============ -->
     <section class="tn-food" id="tn-food">
       <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Food contact</span>
-          <h2 class="section-title">What the Tin Can Hold, and the Lining That Holds It</h2>
-          <p class="section-sub tn-sub">A tin becomes food-contact when the internal lacquer suits the fill. An acidic or fatty fill will attack an unlined wall, and the fault shows up as a taste rather than as a leak. That matrix is what a quote is built from.</p>
+        <div class="tn-head tn-head--split" data-reveal="up">
+          <div>
+            <span class="eyebrow"><Fragment set:html={leaf} />Food safety</span>
+            <h2 class="section-title">Food-Grade Linings for Every Fill Type</h2>
+          </div>
+          <p class="tn-head-sub">An acidic or fatty fill will attack an unlined wall, and the fault shows up as a taste rather than as a leak. The lacquer follows the fill rather than the budget.</p>
         </div>
-
-        <ul class="tn-food-checks" data-reveal="up">
-          <li><strong>FDA 21 CFR 175.300</strong><span>The US route for resinous and polymeric coatings on food-contact metal.</span></li>
-          <li><strong>EU 10/2011</strong><span>The European route, with a migration test run on the finished tin rather than on the print alone.</span></li>
-          <li><strong>Lot certificate</strong><span>The coating batch and the migration report travel with the shipping papers. A retailer auditing the claim has the document in the box.</span></li>
+        <ul class="tn-food-notes" data-reveal="up">
+          <li><span class="tn-tag">FDA 21 CFR 175.300</span><p>The US route for resinous and polymeric coatings on food-contact metal.</p></li>
+          <li><span class="tn-tag">EU 10/2011</span><p>The European route, with a migration test run on the finished tin rather than on the print alone.</p></li>
+          <li><span class="tn-tag">Lot certificate</span><p>The coating batch and the migration report travel with the shipping papers, so a retailer auditing the claim has the document in the box.</p></li>
         </ul>
-
-        <div class="tn-liners" data-reveal="up">
+        <div class="tn-liner-panel" data-reveal="up">
+          <div class="tn-liner-head">
+            <h3>Your fill decides the lacquer</h3>
+            <p>Only <strong>fatty</strong> and <strong>acidic</strong> fills change the answer — both attack an unlined wall. Everything else ships on the standard food-contact lacquer.</p>
+          </div>
           <table class="tn-liner-table">
-            <caption class="tn-liner-cap">Fill type drives the lacquer, and the lacquer drives the rating</caption>
             <thead>
               <tr><th scope="col">Fill type</th><th scope="col">What goes in</th><th scope="col">Lacquer</th><th scope="col">Rating</th></tr>
             </thead>
             <tbody>
               {linings.map((l) => (
-                <tr>
+                <tr class={l.key ? 'tn-liner-key' : undefined}>
                   <th scope="row">{l.fill}</th>
                   <td data-l="What goes in">{l.eg}</td>
                   <td data-l="Lacquer">{l.lacquer}</td>
@@ -412,27 +479,66 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ============ 7. PRINT AND FINISHING ============ -->
+    <!-- ============ 8. STRUCTURE ============ -->
+    <section class="tn-struct" id="tn-struct">
+      <div class="wrap">
+        <div class="tn-struct-head" data-reveal="up">
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Twelve shapes we tool</span>
+          <h2 class="tn-struct-title">Structure</h2>
+          <p class="tn-struct-sub">Twelve outlines, so the tin is drawn around the product instead of the product being fitted to a stock size. The shape decides the dies, the seam and the lid — which is why it is settled before the artwork.</p>
+        </div>
+        <ul class="tn-struct-grid">
+          {struct.map((st, i) => (
+            <li data-reveal="up" style={`--d:${(i % 6) * 0.04}s`}>
+              <img class="tn-struct-icon" src={`${TN}/${st.key}.webp`} alt={st.alt}
+                   width="120" height="100" loading="lazy" decoding="async" />
+              <span class="tn-struct-name">{st.t}</span>
+            </li>
+          ))}
+        </ul>
+        <ul class="tn-tags tn-tags--center tn-struct-specs" data-reveal="up">
+          <li class="tn-tag tn-tag--light">Footprint 40–300 mm</li>
+          <li class="tn-tag tn-tag--light">Height 15–260 mm</li>
+          <li class="tn-tag tn-tag--light">One draw to 120 mm</li>
+        </ul>
+      </div>
+    </section>
+    <!-- ============ 9. HOW WE PRINT ON TINPLATE ============ -->
     <section class="tn-print" id="tn-print">
       <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Printed before the metal moves</span>
-          <h2 class="section-title">Print Straight Onto the Metal, Before It Is Formed</h2>
-          <p class="section-sub tn-sub">The artwork goes on before the metal moves at all. That is what lets a tin carry a full wrap where a board carton only gets a panel. The sheet does not move in the press, which is what lets a hairline rule and 6 pt type resolve after the metal has been drawn into shape.</p>
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Printing and finishing</span>
+          <h2 class="section-title">How We Print on Tinplate</h2>
+          <p class="section-sub tn-sub">The artwork goes on before the metal moves at all, which lets a tin carry a full wrap where a board carton only gets a panel. Pick a finish to see what it is.</p>
         </div>
-        <div class="tn-print-grid">
-          <figure class="tn-print-fig" data-reveal="up">
-            <img src={`${TN}/hero-flat.webp`} alt="A brand mark embossed into a flat sheet of tinplate, photographed before the metal is formed"
-                 width="600" height="500" loading="lazy" decoding="async" />
-          </figure>
-          <ol class="tn-print-list">
-            {finishes.map((f, i) => (
-              <li data-reveal="up" style={`--d:${(i % 3) * 0.05}s`}>
-                <span class="tn-print-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <div><h3>{f.t}</h3><p>{f.d}</p></div>
-              </li>
-            ))}
-          </ol>
+        <div class="tn-fin" data-reveal="up">
+          <div class="tn-fin-car">
+            <div class="tn-fin-clip">
+            <ul class="tn-fin-track">
+              {finishes.map((f) => (
+                <li class="tn-fin-slide">
+                  <div class="tn-fin-panel">
+                    <figure class="tn-fin-fig">
+                      <img src={`${TN}/${f.key}.webp`} alt={f.alt} width="800" height="640"
+                           loading="lazy" decoding="async" />
+                    </figure>
+                    <div class="tn-fin-body">
+                      <h3>{f.t}</h3>
+                      <p>{f.d}</p>
+
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            </div>
+            <button class="tn-fin-btn tn-fin-btn--prev" type="button" aria-label="Previous finish">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="tn-fin-btn tn-fin-btn--next" type="button" aria-label="Next finish">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
         </div>
         <div class="section-cta" data-reveal="up">
           <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
@@ -443,99 +549,21 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ============ 8. SHAPE AND SIZE ============ -->
-    <section class="tn-size" id="tn-size">
-      <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Shape and size</span>
-          <h2 class="section-title">Any Shape You Can Draw Becomes a Die</h2>
-          <p class="section-sub tn-sub">The outline is the one decision that cannot be changed for free later. Four of the shapes already running are below.</p>
-        </div>
-        <ul class="tn-size-strip">
-          {shapes.map((s, i) => (
-            <li data-reveal="up" style={`--d:${i * 0.05}s`}>
-              <figure>
-                <img src={`${TN}/${s.key}.webp`} alt={s.alt} width="550" height="412" loading="lazy" decoding="async" />
-                <figcaption>{s.cap}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
 
-    <!-- ============ 9. THE METAL, END TO END ============ -->
-    <section class="tn-eco" id="tn-eco">
-      <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />End of life</span>
-          <h2 class="section-title tn-title-light">The Metal, From Coil to Re-Melt</h2>
-          <p class="section-sub tn-sub-light">Tinplate is the rare packaging material that gets recycled again and again without losing quality, which is what makes a tin a lower-impact answer than the film or the foam it replaces.</p>
-        </div>
-        <div class="tn-eco-figs">
-          <figure data-reveal="up">
-            <img src={`${TN}/eco-tins.webp`} alt="Small round tins with wooden lids arranged beside glass jars on a pale cloth"
-                 width="600" height="400" loading="lazy" decoding="async" />
-            <figcaption>Metal, wood and glass together: all three re-melt or re-form</figcaption>
-          </figure>
-          <figure data-reveal="up" style="--d:0.08s">
-            <img src={`${TN}/eco-lining.webp`} alt="A metal tin with its lid lifted clear, showing the body wall and the divided interior"
-                 width="600" height="450" loading="lazy" decoding="async" />
-            <figcaption>The body is the same metal, dividers included: everything inside re-melts with the tin</figcaption>
-          </figure>
-        </div>
-        <ul class="tn-eco-grid">
-          {eco.map((e, i) => (
-            <li data-reveal="up" style={`--d:${(i % 4) * 0.05}s`}>
-              <h3>{e.t}</h3>
-              <p>{e.d}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ 10. TOOLING AND REORDERS ============ -->
-    <section class="tn-tooling" id="tn-tooling">
-      <div class="wrap">
-        <div class="section-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Buying mechanics</span>
-          <h2 class="section-title">What the Tooling Costs, and What It Lasts</h2>
-          <p class="section-sub tn-sub">A tin needs a draw die and a form die before a single unit exists. Both are cut once and then stay with the program — which is the part of a tin quote worth understanding before the first purchase order.</p>
-        </div>
-        <div class="tn-tool-grid">
-          <ol class="tn-tool-list">
-            {tooling.map((t, i) => (
-              <li data-reveal="up" style={`--d:${i * 0.05}s`}>
-                <span class="tn-tool-n" aria-hidden="true">{t.n}</span>
-                <h3>{t.t}</h3>
-                <p>{t.d}</p>
-              </li>
-            ))}
-          </ol>
-          <figure class="tn-tool-fig" data-reveal="up">
-            <img src={`${TN}/plant.webp`} alt="A composite view of the tin forming and seaming lines, the finished-goods racks and container loading"
-                 width="600" height="400" loading="lazy" decoding="async" />
-            <figcaption>Printing, drawing and seaming in-house in Wuhan</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 11. FIVE STOPS ============ -->
+    <!-- ============ 10. TIN ORDER LEAD TIME ============ -->
     <section class="tn-flow" id="tn-flow">
       <div class="wrap">
         <div class="section-head section-head--center" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />First drawing to packed pallet</span>
-          <h2 class="section-title">Five Stops From Drawing to Pallet</h2>
-          <p class="section-sub tn-sub">Sampling runs while the metal is being booked rather than after it, which is what keeps a program inside four to six weeks instead of adding four weeks to it. Each stop states what lands in your hands.</p>
+          <span class="eyebrow"><Fragment set:html={leaf} />Lead time</span>
+          <h2 class="section-title">Tin Order Lead Time</h2>
+          <p class="section-sub tn-sub">Sampling runs while the metal is being booked rather than after it, and that overlap is what holds a program to four to six weeks. Each stop states what lands in the buyer's hands.</p>
         </div>
         <ol class="tn-flow-list">
           {stages.map((s, i) => (
             <li data-reveal="up" style={`--d:${i * 0.06}s`}>
               <span class="tn-flow-dot" aria-hidden="true"></span>
               <span class="tn-flow-when">{s.when}</span>
-              <h3>{s.name}</h3>
+              <h3><span class="tn-flow-ico" aria-hidden="true"><Fragment set:html={flowIcons[i]} /></span>{s.name}</h3>
               <p>{s.d}</p>
             </li>
           ))}
@@ -549,23 +577,77 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ============ 12. REVIEWS ============ -->
+    <!-- ============ 11. RECYCLING AND SUSTAINABILITY ============ -->
+    <section class="tn-metal" id="tn-metal">
+      <div class="wrap">
+        <div class="tn-head tn-head--split" data-reveal="up">
+          <div>
+            <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Recycling</span>
+            <h2 class="section-title tn-title-light">Recycling and Sustainability</h2>
+          </div>
+          <p class="tn-head-sub tn-head-sub--light">Tinplate is the rare packaging material that gets recycled again and again without losing quality, and a tin is a lower-impact answer than the film or the foam it replaces.</p>
+        </div>
+        <ul class="tn-tags tn-tags--center" data-reveal="up">
+          <li class="tn-tag tn-tag--light">91.4% recycled in Germany</li>
+          <li class="tn-tag tn-tag--light">No liner to strip</li>
+        </ul>
+        <ul class="tn-metal-grid">
+          {metal.map((m, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <span class="tn-metal-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{m.t}</h3>
+              <p>{m.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 12. CUSTOMER SCENES — 6 slides, 3 to a view, looping ============ -->
+    <section class="tn-scenes" id="tn-scenes">
+      <div class="wrap">
+        <div class="section-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Where the tins end up</span>
+          <h2 class="section-title">Customer Scenes</h2>
+        </div>
+      </div>
+      <div class="wrap"><div class="tn-car" data-reveal="up">
+        <ul class="tn-car-track">
+          {scenes.map((s) => (
+            <li class="tn-car-slide">
+              <figure class="tn-car-fig">
+                <img src={`${TN}/${s.key}.webp`} alt={s.alt} width="800" height="600"
+                     loading="lazy" decoding="async" />
+              </figure>
+            </li>
+          ))}
+        </ul>
+        <button class="tn-car-btn tn-car-btn--prev" type="button" aria-label="Previous scenes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="tn-car-btn tn-car-btn--next" type="button" aria-label="Next scenes">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div></div>
+    </section>
+
+    <!-- ============ 13. CUSTOMER REVIEWS ============ -->
     <section class="tn-quotes" id="tn-quotes">
       <div class="wrap">
-        <div class="section-head tn-sheet-head" data-reveal="up">
-          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />From the buyers</span>
-          <h2 class="section-title tn-title-light">What the People Who Ordered Say</h2>
+        <div class="section-head section-head--center" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />Reviews</span>
+          <h2 class="section-title">Customer Reviews</h2>
         </div>
-        <div class="tn-quote-list">
-          {quotes.map((q) => (
-            <article class="tn-quote" data-reveal="up">
+        <div class="tn-quote-grid">
+          {quotes.map((q, i) => (
+            <article class="tn-quote" data-reveal="up" style={`--d:${i * 0.08}s`}>
               <span class="tn-quote-mark" aria-hidden="true">&ldquo;</span>
-              <div class="tn-quote-body">
-                {q.p.map((para) => <p>{para}</p>)}
-              </div>
+              {q.p.map((para) => <p>{para}</p>)}
+              <span class="tn-quote-mark tn-quote-mark--end" aria-hidden="true">&rdquo;</span>
               <footer>
-                <img src={q.img} alt={q.alt} width="200" height="200" loading="lazy" decoding="async" />
-                <span><strong>{q.name}</strong>{q.role}</span>
+                <img class="tn-quote-ava" src={`${TN}/${q.img}.webp`} alt={q.alt}
+                     width="200" height="200" loading="lazy" decoding="async" />
+                <span class="tn-quote-who"><strong>{q.name}</strong>{q.role}</span>
               </footer>
             </article>
           ))}
@@ -573,42 +655,42 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ============ 13. FAQ ============ -->
+    <!-- ============ 14. FAQ ============ -->
     <section class="tn-faq" id="tn-faq">
       <div class="wrap">
         <div class="section-head section-head--center" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />Before the purchase order</span>
-          <h2 class="section-title">Six Questions a Tin Order Hangs On</h2>
+          <span class="eyebrow"><Fragment set:html={leaf} />FAQ</span>
+          <h2 class="section-title">Custom Tin Box FAQ</h2>
         </div>
         <div class="tn-faq-list">
           {faqs.map((f, i) => (
             <details data-reveal="up" style={`--d:${(i % 3) * 0.05}s`} open={i === 0}>
-              <summary>{f.q}</summary>
-              <p>{f.a}</p>
+              <summary>
+                <span class="tn-faq-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span class="tn-faq-q">{f.q}</span>
+                <span class="tn-faq-ico" aria-hidden="true"></span>
+              </summary>
+              <div class="tn-faq-a"><p>{f.a}</p></div>
             </details>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- ============ 14. FINAL CTA ============ -->
+    <!-- ============ 15. FINAL CTA ============ -->
     <section class="tn-final" id="tn-final">
-      <div class="wrap">
-        <div class="tn-final-grid">
-          <div class="tn-final-copy" data-reveal="up">
-            <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Start here</span>
-            <h2 class="tn-final-title">Send the Fill and the Size, Get a Costed Tin</h2>
-            <p class="tn-final-lede">What comes back is a dimensioned drawing, a 3D mockup and a quote split into tooling, metal, print and packing. If the tier your quantity lands in does not work, the drawing is still yours to take elsewhere.</p>
-            <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-              Start My Tin Run
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
-          <figure class="tn-final-fig" data-reveal="up" style="--d:0.08s">
-            <img src={`${TN}/type-decor.webp`} alt="Three round tins printed with detailed blue and gold mandala patterns"
-                 width="620" height="620" loading="lazy" decoding="async" />
-          </figure>
-        </div>
+      <div class="wrap tn-final-inner" data-reveal="up">
+        <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Get started</span>
+        <h2 class="tn-final-title">Start a Custom Tin Order</h2>
+        <p class="tn-final-lede">What comes back is a dimensioned drawing, a 3D mockup and a quote split into tooling, metal, print and packing. If the tier that quantity lands in does not work, the drawing is still yours to take elsewhere.</p>
+        <ul class="tn-tags tn-tags--center">
+          <li class="tn-tag tn-tag--light">Samples in 5–7 days</li>
+          <li class="tn-tag tn-tag--light">Runs in 4–6 weeks</li>
+        </ul>
+        <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+          Start My Tin Run
+          <Fragment set:html={arrow} />
+        </a>
       </div>
     </section>
 
@@ -617,63 +699,127 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
 </Layout>
 
 <style>
-  /* ============================ 1. HERO ============================
-     The nav is 74 px fixed at 1440 and 76 px at 390, so the hero's own top
-     padding is added to 4.75rem rather than trusted on its own. */
-  .tn-hero {
-    padding: calc(clamp(2.6rem, 6vw, 4.4rem) + 4.75rem) 0 clamp(3rem, 6vw, 4.6rem);
-    background: var(--ivory);
-    overflow-x: clip;
-  }
-  .tn-hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: clamp(2rem, 5vw, 4.5rem);
+  /* ======================= THE DEVICES =======================
+     — `.tn-tag`   a pill for one number, beside the copy it decides
+     Row separators are absent by design: `border-top`/`border-bottom` survive
+     only inside the lacquer table, the review cards, and the FAQ list. */
+
+  main { overflow-x: clip; }
+  :global(:root) { --tn-per: 3; }
+
+  .tn-tag {
+    display: inline-flex;
     align-items: center;
+    font-family: var(--font-body);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+    color: var(--color-brand-primary);
+    background: rgba(176, 141, 76, 0.15);
+    border-radius: 999px;
+    padding: 0.32rem 0.8rem;
   }
-  .tn-hero-copy { min-width: 0; }
-  .tn-hero-copy .eyebrow { margin-bottom: 1.1rem; }
-  /* The H1 sets its own size rather than the shared clamp: it sits in a
-     narrower column here, and at the site-wide 3.75rem bold the line broke
-     mid-word. 3.25rem is what keeps it to three clean lines. */
+  .tn-tag--light { background: rgba(201, 168, 124, 0.2); color: var(--brass-soft); }
+  /* On the five photographic grounds the scrim is only a tint, which is too
+     thin to carry brass text at pill size. These pills stop depending on what
+     is behind them: the backing goes dark enough to be its own contrast floor,
+     and the text moves up to the brightest brass. */
+  .tn-hero .tn-tag--light,
+  .tn-mid .tn-tag--light,
+  .tn-wrong .tn-tag--light,
+  .tn-metal .tn-tag--light,
+  .tn-final .tn-tag--light {
+    background: rgba(20, 38, 27, 0.58);
+    color: var(--brass-bright);
+    text-shadow: 0 1px 8px rgba(20, 38, 27, 0.75);
+  }
+  .tn-tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tn-tags--center { justify-content: center; }
+
+  /* ---- The section heads -------------------------------------------------- */
+  .tn-head { margin-bottom: clamp(2.2rem, 5vw, 3.6rem); }
+  .tn-head--split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(1.4rem, 4vw, 3.5rem);
+    align-items: end;
+  }
+  .tn-head--split .section-title { margin-top: 1rem; }
+  .tn-head-sub { font-size: 1.04rem; line-height: 1.72; color: var(--color-brand-muted); }
+  .tn-head-sub--wide { max-width: 74ch; margin-top: 1.2rem; }
+  .tn-head-sub--light { color: rgba(245, 240, 229, 0.78); }
+  /* Requested as pure white. There is no white in the token block, so it is
+     written literally here rather than adding a site-wide token for one line. */
+  .tn-wrong .tn-head-sub { color: #fff; }
+  .tn-title-light { color: var(--ivory); }
+
+  /* ============================ 1. HERO ============================
+     The composed 2x2 plate runs the full width of the viewport as the
+     section's own ground and the copy is centred over a flat scrim. The copy
+     is three tones, not one: the eyebrow brass, the headline ivory with the
+     claim in kraft, the lede a dimmer ivory, the pills kraft. */
+  .tn-hero {
+    position: relative;
+    isolation: isolate;
+    padding: calc(clamp(3.4rem, 7vw, 5.2rem) + 4.75rem) 0 clamp(4rem, 8vw, 6.2rem);
+    background-color: var(--forest-deep);
+    background-image: url('https://img.leelinepackage.com/tin-boxes/hero-v3.webp');
+    background-size: cover;
+    background-position: center 58%;
+    color: var(--ivory);
+    overflow: hidden;
+  }
+  /* The photograph is pre-darkened in the file, so the veil here is only a
+     forest tint rather than a mask. That matters: a heavy flat scrim lifts
+     every black toward the scrim colour and flattens the picture, whereas
+     darkening the file moves the same range down with its contrast intact —
+     20% more visible detail at the same average luminance. The radial keeps the
+     tint densest behind the copy and almost absent at the outer thirds. */
+  .tn-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(102% 100% at 50% 50%,
+      rgba(20, 38, 27, 0.46) 0%,
+      rgba(20, 38, 27, 0.4) 38%,
+      rgba(20, 38, 27, 0.18) 72%,
+      rgba(20, 38, 27, 0.1) 100%);
+  }
+  .tn-hero-inner { position: relative; text-align: center; }
+  .tn-hero .eyebrow { color: var(--brass-bright); font-size: 0.78rem; }
   .tn-title {
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: clamp(2.1rem, 3.9vw, 3.25rem);
+    /* Sized larger than before; `max-width` is in ch, so the line count is
+       unchanged and only the type grows. */
+    font-size: clamp(2.2rem, 4.8vw, 3.9rem);
     line-height: 1.04;
     letter-spacing: -0.03em;
-    color: var(--color-brand-text);
+    color: var(--ivory);
     text-wrap: balance;
-    margin: 1.1rem 0 0;
+    max-width: 24ch;
+    margin: 0.9rem auto 0;
+    /* The scrim is deliberately lighter than a flat wash, so the type carries
+       its own protection against the mid-tones of the photograph behind it. */
+    text-shadow: 0 2px 18px rgba(20, 38, 27, 0.7);
   }
-  .tn-title em { font-style: italic; color: var(--brass); }
-  .tn-nb { white-space: nowrap; }
+  .tn-title em { font-style: italic; color: var(--brass-soft); }
   .tn-lede {
-    font-size: clamp(1rem, 1.3vw, 1.08rem);
-    line-height: 1.72;
-    color: var(--color-brand-muted);
-    max-width: 62ch;
-    margin-top: 1.3rem;
+    font-size: clamp(1.06rem, 1.4vw, 1.16rem);
+    line-height: 1.68;
+    color: rgba(245, 240, 229, 0.78);
+    max-width: 64ch;
+    margin: 1.1rem auto 0;
+    text-shadow: 0 1px 12px rgba(20, 38, 27, 0.72);
   }
-  .tn-actions { margin-top: 1.9rem; }
+  .tn-hero-inner .tn-tags { margin: 1.4rem auto 0; }
+  .tn-hero-inner .tn-tag { font-size: 0.8rem; padding: 0.36rem 0.86rem; }
+  .tn-hero-cta { margin-top: 1.6rem; }
+  .tn-hero-cta .btn { font-size: 1rem; padding: 1rem 1.85rem; }
 
-  /* The photograph is framed the same way on every panel in the page — a
-     hairline inset in brass, so the imagery reads as a set rather than as a
-     series of unrelated stock shots. */
-  .tn-hero-fig { margin: 0; padding: 0.55rem; border: 1px solid rgba(176, 141, 76, 0.42); border-radius: 1.5rem; }
-  .tn-hero-fig img {
-    width: 100%;
-    aspect-ratio: 6 / 5;
-    object-fit: cover;
-    border-radius: 1.05rem;
-    display: block;
-  }
-
-  /* ======================= 2. NINE TIN FAMILIES ======================= */
-  .tn-types {
-    padding: clamp(4rem, 8vw, 7rem) 0;
-    background: var(--color-clay);
-  }
+  /* ======================= 2. NINE TYPES ======================= */
+  .tn-types { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
   .tn-sub { max-width: 74ch; }
   .tn-type-grid {
     list-style: none;
@@ -692,7 +838,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .tn-type:hover { transform: translateY(-6px); box-shadow: 0 24px 50px -30px rgba(31, 59, 44, 0.5); }
   .tn-type-fig { position: relative; margin: 0; }
-  .tn-type-fig img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0.7rem; }
+  /* slightly wider than tall: the square was reading too long. 0.968 of the
+     width works out at roughly the 0.3 cm the client asked off the height at
+     this card's width, and it holds the same proportion as the grid reflows. */
+  .tn-type-fig img { width: 100%; aspect-ratio: 100 / 96.8; object-fit: cover; border-radius: 0.7rem; }
   .tn-type-code {
     position: absolute;
     top: 0.7rem;
@@ -705,7 +854,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     border-radius: 999px;
     padding: 0.24rem 0.6rem;
   }
-  .tn-type-body { padding: 1.15rem 0.55rem 0.7rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+  .tn-type-body { padding: 1.15rem 0.55rem 0.7rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; flex: 1; }
   .tn-type-body h3 {
     font-family: var(--font-heading);
     font-weight: 600;
@@ -713,349 +862,446 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     letter-spacing: -0.01em;
     color: var(--color-brand-text);
   }
-  .tn-chip {
-    align-self: flex-start;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    color: var(--color-brand-primary);
-    background: rgba(176, 141, 76, 0.14);
-    border-radius: 999px;
-    padding: 0.26rem 0.7rem;
-  }
   .tn-type-body p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); }
 
-  /* ====================== 3. THE ORDER SHEET ======================
-     Nine figures on one dark sheet, set at display scale. This is the page's
-     centre of gravity and the only place the numbers are stated. */
-  .tn-sheet {
-    padding: clamp(4.5rem, 9vw, 8rem) 0;
-    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
-    color: var(--ivory);
-  }
-  .tn-title-light { color: var(--ivory); }
-  .tn-sheet-head { margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
-  .tn-sheet-grid {
+  /* ======================= 3. WHY CHOOSE A TIN BOX ======================= */
+  .tn-why { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
+  .tn-why-grid {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.1rem, 2.2vw, 1.6rem);
   }
-  .tn-sheet-grid li {
-    display: flex;
-    flex-direction: column;
-    gap: 0.55rem;
-    padding: 1.7rem 1.8rem 1.7rem 0;
-    border-top: 1px solid rgba(245, 240, 229, 0.18);
-    border-left: 1px solid rgba(245, 240, 229, 0.18);
-    padding-left: 1.8rem;
+  .tn-why-grid li { display: flex; flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .tn-why-head { display: flex; align-items: center; gap: 0.8rem; }
+  /* A solid brass disc, the same treatment the carousel arrows use, so the mark
+     carries colour rather than sitting as a faint tint. */
+  .tn-why-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--brass-bright);
+    color: var(--forest-deep);
+    box-shadow: 0 8px 18px -10px rgba(31, 59, 44, 0.55);
   }
-  .tn-sheet-grid li:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
-  .tn-sheet-k {
-    font-size: 0.72rem;
+  .tn-why-grid h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  .tn-why-grid p { font-size: 0.93rem; line-height: 1.68; color: var(--color-brand-muted); }
+
+  /* ======================= 5. THE FIVE TIN LID TYPES =======================
+     Five stacked rows, not five columns: at 1200 px a column of this much copy
+     is about 200 px wide and reads cramped. A row gives each lid the whole
+     measure and lets the slot, the name and the paragraph sit side by side. */
+  .tn-lid { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .tn-lid-list { list-style: none; display: flex; flex-direction: column; }
+  .tn-lid-list li {
+    display: grid;
+    grid-template-columns: 3rem 13rem minmax(0, 1fr);
+    gap: clamp(1.2rem, 3vw, 2.4rem);
+    align-items: center;
+    padding: clamp(1.2rem, 2.4vw, 1.8rem) 0;
+    border-top: 1px solid rgba(31, 59, 44, 0.14);
+  }
+  .tn-lid-list li:first-child { border-top-color: rgba(176, 141, 76, 0.6); }
+  .tn-lid-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--brass);
+  }
+  /* The photograph only. The shots are all open tins, so there is no closing
+     frame to animate between — see the note on `lids` above. The frame is 6:5,
+     which is the ratio the encoder cuts them to, so nothing is cropped here. */
+  .tn-lid-fig { aspect-ratio: 6 / 5; }
+  .tn-lid-open {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tn-lid-body {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+  .tn-lid-lead { display: flex; flex-direction: column; gap: 0.45rem; }
+  .tn-lid-list h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--color-brand-text);
+  }
+  .tn-lid-best {
+    font-family: var(--font-heading);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--brass);
+  }
+  .tn-lid-best span {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.66rem;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--kraft);
+    color: var(--color-brand-muted);
+    margin-bottom: 0.25rem;
   }
-  .tn-sheet-v {
-    font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 2.4vw, 2rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: rgba(245, 240, 229, 0.6);
-  }
-  .tn-sheet-v strong { font-weight: 600; color: var(--ivory); }
-  .tn-sheet-n { font-size: 0.88rem; line-height: 1.6; color: rgba(245, 240, 229, 0.62); max-width: 34ch; }
-  .tn-sheet-foot {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.6rem;
-    margin-top: clamp(2.2rem, 4.5vw, 3.2rem);
-    padding-top: clamp(1.6rem, 3vw, 2.2rem);
-    border-top: 1px solid rgba(201, 168, 124, 0.55);
-  }
-  .tn-sheet-foot p { font-size: 1rem; line-height: 1.7; color: rgba(245, 240, 229, 0.76); max-width: 52ch; }
+  .tn-lid-d { font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
+  /* the injected <strong> has to be reached through :global() */
+  .tn-lid-d :global(strong) { font-weight: 600; color: var(--color-brand-text); }
 
-  /* ================== 4. WHERE A TIN ORDER GOES WRONG ================== */
-  .tn-wrong { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
-  .tn-wrong-list { list-style: none; display: flex; flex-direction: column; }
-  .tn-wrong-list li {
-    display: grid;
-    grid-template-columns: 4.5rem minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: clamp(1rem, 3vw, 2.6rem);
-    align-items: start;
-    padding: clamp(1.4rem, 2.6vw, 2rem) 0;
-    border-top: 1px solid rgba(31, 59, 44, 0.16);
-  }
-  .tn-wrong-list li:first-child { border-top-color: rgba(176, 141, 76, 0.6); }
-  .tn-wrong-n {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.3rem;
-    line-height: 1;
-    color: var(--brass);
-    padding-top: 0.45rem;
-  }
-  /* The failure is the headline, so it is set as one — the control beside it
-     stays at body size and reads as the answer to a large question. */
-  .tn-wrong-list h3 {
-    font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: clamp(1.3rem, 2.1vw, 1.75rem);
-    line-height: 1.22;
-    letter-spacing: -0.02em;
-    color: var(--color-brand-text);
-    text-wrap: balance;
-  }
-  .tn-wrong-list p { font-size: 0.96rem; line-height: 1.72; color: var(--color-brand-muted); }
-
-  /* ================= 5. TIN AGAINST THE ALTERNATIVES =================
-     Three panels rather than a grid of rules — the comparison is read as
-     three positions, not as a lookup. */
-  .tn-fit { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
-  .tn-fit-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 2vw, 1.5rem);
-  }
-  .tn-fit-panel {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(31, 59, 44, 0.12);
-    border-radius: 1.2rem;
-    padding: clamp(1.4rem, 2.4vw, 1.9rem);
-    background: var(--ivory);
-  }
-  .tn-fit-panel--lead {
-    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
-    border-color: transparent;
+  /* ===================== 4. MID CTA =====================
+     Same construction as the hero: the file is pre-darkened, so the scrim is a
+     forest tint that fades to almost nothing at the corners and the photograph
+     keeps its own contrast underneath the copy. */
+  .tn-mid {
+    position: relative;
+    background-color: var(--forest-deep);
+    background-image:
+      radial-gradient(98% 106% at 50% 50%,
+        rgba(20, 38, 27, 0.46) 0%,
+        rgba(20, 38, 27, 0.4) 40%,
+        rgba(20, 38, 27, 0.16) 74%,
+        rgba(20, 38, 27, 0.08) 100%),
+      url('https://img.leelinepackage.com/tin-boxes/mid-cta-bg-v2.webp');
+    background-size: cover, cover;
+    background-position: center, center;
+    padding: clamp(3rem, 6vw, 4.2rem) 0;
     color: var(--ivory);
   }
-  .tn-fit-panel header { border-bottom: 2px solid rgba(176, 141, 76, 0.5); padding-bottom: 1rem; margin-bottom: 0.4rem; }
-  .tn-fit-panel h3 {
+  .tn-mid::before, .tn-mid::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass), transparent);
+  }
+  .tn-mid::before { top: 0; }
+  .tn-mid::after { bottom: 0; }
+  .tn-mid-inner { text-align: center; }
+  .tn-mid .eyebrow { color: var(--brass-bright); }
+  .tn-mid-title {
     font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.06;
     letter-spacing: -0.02em;
-    color: var(--color-brand-text);
+    color: var(--ivory);
+    text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(20, 38, 27, 0.72);
+    max-width: 24ch;
+    margin: 1rem auto 0;
   }
-  .tn-fit-panel--lead h3 { color: var(--ivory); }
-  .tn-fit-tag {
-    display: block;
-    font-size: 0.82rem;
-    color: var(--color-brand-muted);
-    margin-top: 0.35rem;
-  }
-  .tn-fit-panel--lead .tn-fit-tag { color: rgba(245, 240, 229, 0.68); }
-  .tn-fit-panel dl { margin: 0; }
-  .tn-fit-panel dl > div { padding: 0.95rem 0; border-bottom: 1px solid rgba(31, 59, 44, 0.1); }
-  .tn-fit-panel dl > div:last-child { border-bottom: 0; padding-bottom: 0; }
-  .tn-fit-panel--lead dl > div { border-bottom-color: rgba(245, 240, 229, 0.16); }
-  .tn-fit-panel dt {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--brass);
-    margin-bottom: 0.35rem;
-  }
-  .tn-fit-panel--lead dt { color: var(--kraft); }
-  .tn-fit-panel dd { margin: 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
-  .tn-fit-panel--lead dd { color: rgba(245, 240, 229, 0.78); }
-  .tn-fit-pick {
-    font-family: var(--font-heading);
-    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-    line-height: 1.6;
-    color: var(--color-brand-text);
-    border-left: 3px solid var(--brass);
-    padding-left: 1.3rem;
-    margin-top: clamp(2rem, 4vw, 2.8rem);
-    max-width: 76ch;
+  .tn-mid-lede {
+    font-size: 1.04rem;
+    line-height: 1.72;
+    color: rgba(245, 240, 229, 0.8);
+    text-shadow: 0 1px 12px rgba(20, 38, 27, 0.75);
+    max-width: 62ch;
+    margin: 1.2rem auto 1.9rem;
   }
 
-  /* ===================== 6. FOOD CONTACT / LINING ===================== */
+  /* ============ 6. WHAT GOES WRONG — risk, action, gain ============
+     The inspection-line photograph is pre-darkened in the file, so this is a
+     forest tint over it rather than a mask: the conveyor, the pink tins and the
+     operator all stay readable. The cards are dark solids, so they never
+     depended on the scrim, and the section head carries its own text shadow. */
+  .tn-wrong {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background-color: var(--forest-deep);
+    background-image:
+      linear-gradient(180deg,
+        rgba(20, 38, 27, 0.46) 0%,
+        rgba(20, 38, 27, 0.34) 46%,
+        rgba(20, 38, 27, 0.48) 100%),
+      url('https://img.leelinepackage.com/tin-boxes/wrong-bg-v2.webp');
+    background-size: cover, cover;
+    background-position: center, center 40%;
+    color: var(--ivory);
+  }
+  .tn-wrong .tn-head { text-shadow: 0 1px 14px rgba(20, 38, 27, 0.8); }
+  .tn-risk-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.2vw, 1.6rem);
+  }
+  .tn-risk {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.78rem;
+    background: rgba(20, 38, 27, 0.72);
+    border: 1px solid rgba(245, 240, 229, 0.16);
+    border-radius: 1.2rem;
+    padding: clamp(1.35rem, 2.5vw, 1.85rem);
+    overflow: hidden;
+  }
+  .tn-risk-n {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.95rem;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 4.4rem;
+    line-height: 1;
+    color: rgba(201, 168, 124, 0.16);
+    pointer-events: none;
+  }
+  .tn-risk-issue,
+  .tn-risk-gain { position: relative; font-size: 0.93rem; line-height: 1.7; }
+  .tn-risk-issue { color: rgba(245, 240, 229, 0.6); }
+  .tn-risk-gain { color: var(--brass-soft); }
+  .tn-risk-issue span,
+  .tn-risk-gain span {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .tn-risk-issue span { color: rgba(245, 240, 229, 0.42); }
+  .tn-risk-gain span { color: var(--brass-bright); }
+  .tn-risk h3 {
+    position: relative;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.02rem, 1.35vw, 1.2rem);
+    line-height: 1.32;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+    text-wrap: balance;
+  }
+  .tn-risk .tn-tag { margin-top: auto; }
+
+  /* ===================== 7. FOOD-GRADE LININGS =====================
+     The table sits in a panel at the head's own measure, so it is centred with
+     the section rather than floating wide, and the header row is tinted. */
   .tn-food { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
-  .tn-food-checks {
+  .tn-food-notes {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(1.2rem, 2.5vw, 2rem);
+    margin-bottom: clamp(2.6rem, 5vw, 4rem);
   }
-  .tn-food-checks li {
+  .tn-food-notes li {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    padding-top: 1.15rem;
-    border-top: 1px solid rgba(176, 141, 76, 0.55);
+    align-items: flex-start;
+    gap: 0.7rem;
+    height: 100%;
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-top: 2px solid var(--brass);
+    border-radius: 0 0 1rem 1rem;
+    padding: clamp(1.1rem, 2vw, 1.5rem);
   }
-  .tn-food-checks strong {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--brass);
-  }
-  .tn-food-checks span { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); }
-
-  .tn-liners { margin-top: clamp(2.6rem, 5vw, 4rem); overflow-x: auto; }
-  .tn-liner-table { width: 100%; border-collapse: collapse; }
-  .tn-liner-cap {
-    text-align: left;
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-moss);
-    padding-bottom: 1rem;
-  }
-  .tn-liner-table thead th {
-    text-align: left;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--color-brand-primary);
-    padding: 0 1.4rem 0.85rem 0;
-    border-bottom: 2px solid rgba(31, 59, 44, 0.22);
-  }
-  .tn-liner-table tbody th {
-    text-align: left;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--color-brand-text);
-    padding: 1.05rem 1.4rem 1.05rem 0;
-    vertical-align: top;
-    border-bottom: 1px solid rgba(31, 59, 44, 0.1);
-  }
-  .tn-liner-table tbody td {
-    font-size: 0.93rem;
-    line-height: 1.6;
-    color: var(--color-brand-muted);
-    padding: 1.05rem 1.4rem 1.05rem 0;
-    vertical-align: top;
-    border-bottom: 1px solid rgba(31, 59, 44, 0.1);
-  }
-  .tn-liner-table tbody td:last-child, .tn-liner-table thead th:last-child { padding-right: 0; }
-
-  /* ======================= 7. PRINT AND FINISHING ======================= */
-  .tn-print { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
-  .tn-print-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: start;
-  }
-  .tn-print-fig { margin: 0; padding: 0.55rem; border: 1px solid rgba(176, 141, 76, 0.42); border-radius: 1.5rem; }
-  .tn-print-fig img { width: 100%; aspect-ratio: 5 / 4; object-fit: cover; border-radius: 1.05rem; display: block; }
-  .tn-print-list { list-style: none; display: flex; flex-direction: column; }
-  .tn-print-list li {
-    display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
-    gap: 1rem;
-    padding: 1.05rem 0;
-    border-top: 1px solid rgba(31, 59, 44, 0.14);
-  }
-  .tn-print-list li:first-child { border-top-color: rgba(176, 141, 76, 0.6); }
-  .tn-print-n {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    color: var(--brass);
-  }
-  .tn-print-list h3 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.12rem;
-    color: var(--color-brand-text);
-    margin-bottom: 0.35rem;
-  }
-  .tn-print-list p { font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); }
-
-  /* ======================= 8. SHAPE AND SIZE ======================= */
-  .tn-size { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
-  .tn-size-strip {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1rem, 2vw, 1.4rem);
-  }
-  .tn-size-strip figure { margin: 0; }
-  .tn-size-strip img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 1rem; }
-  .tn-size-strip figcaption {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    color: var(--color-brand-text);
-    margin-top: 0.7rem;
-  }
-
-  /* ========================= 9. END OF LIFE ========================= */
-  .tn-eco { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-forest); color: var(--ivory); }
-  .tn-eco .section-sub { color: rgba(245, 240, 229, 0.74); }
-  .tn-eco .eyebrow { color: var(--kraft); }
-  .tn-eco-figs {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-    gap: clamp(1.2rem, 2.5vw, 1.8rem);
-  }
-  .tn-eco-figs figure { margin: 0; }
-  .tn-eco-figs img { width: 100%; border-radius: 1.1rem; }
-  .tn-eco-figs figcaption { font-size: 0.84rem; line-height: 1.55; color: rgba(245, 240, 229, 0.66); margin-top: 0.7rem; }
-  .tn-eco-grid {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1.2rem, 2.4vw, 1.8rem);
-    margin-top: clamp(2.4rem, 5vw, 3.4rem);
-  }
-  .tn-eco-grid li { border-top: 1px solid rgba(201, 168, 124, 0.5); padding-top: 1.15rem; }
-  .tn-eco-grid h3 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.08rem;
+  .tn-food-notes p { font-size: 0.95rem; line-height: 1.65; color: var(--color-brand-muted); }
+  /* the key points are FILLED with the brand green, not tinted */
+  .tn-food-notes .tn-tag {
+    background: var(--color-forest);
     color: var(--ivory);
-    margin-bottom: 0.55rem;
+    padding: 0.42rem 0.95rem;
   }
-  .tn-eco-grid p { font-size: 0.92rem; line-height: 1.68; color: rgba(245, 240, 229, 0.72); }
 
-  /* ==================== 10. TOOLING AND REORDERS ==================== */
-  .tn-tooling { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
-  .tn-tool-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: clamp(2rem, 4vw, 3.6rem);
-    align-items: start;
+  .tn-liner-panel {
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-radius: 1.3rem;
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+    box-shadow: 0 26px 60px -42px rgba(31, 59, 44, 0.55);
   }
-  .tn-tool-list { list-style: none; display: flex; flex-direction: column; }
-  .tn-tool-list li {
-    display: grid;
-    grid-template-columns: 3rem minmax(0, 1fr);
-    column-gap: 1rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid rgba(31, 59, 44, 0.16);
-  }
-  .tn-tool-list li:first-child { border-top-color: rgba(176, 141, 76, 0.6); padding-top: 0.4rem; }
-  .tn-tool-n {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--brass);
-    grid-row: span 2;
-  }
-  .tn-tool-list h3 {
+  .tn-liner-head { margin-bottom: 1.4rem; }
+  .tn-liner-head h3 {
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--color-brand-text);
+    font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    letter-spacing: -0.01em;
+    color: var(--color-brand-primary);
     margin-bottom: 0.5rem;
   }
-  .tn-tool-list p { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); }
-  .tn-tool-fig { margin: 0; padding: 0.55rem; border: 1px solid rgba(176, 141, 76, 0.42); border-radius: 1.5rem; background: var(--ivory); }
-  .tn-tool-fig img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 1.05rem; display: block; }
-  .tn-tool-fig figcaption { font-size: 0.86rem; color: var(--color-brand-muted); margin: 0.8rem 0.4rem 0.25rem; }
+  .tn-liner-head p { font-size: 0.98rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 74ch; }
+  .tn-liner-head strong { font-weight: 600; color: var(--color-forest); }
+  /* the two rows that actually change the answer carry the green */
+  .tn-liner-table tbody tr.tn-liner-key th { color: var(--color-forest); }
+  .tn-liner-table tbody tr.tn-liner-key th::before {
+    content: '';
+    display: inline-block;
+    width: 0.42rem;
+    height: 0.42rem;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+    background: var(--brass-bright);
+    vertical-align: middle;
+  }
+  .tn-liner-table { width: 100%; border-collapse: collapse; }
+  .tn-liner-table thead th {
+    text-align: left;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ivory);
+    padding: 0.9rem 1.4rem;
+    background: var(--color-forest);
+  }
+  .tn-liner-table thead th:first-child { padding-left: 1rem; border-radius: 0.5rem 0 0 0.5rem; }
+  .tn-liner-table thead th:last-child { border-radius: 0 0.5rem 0.5rem 0; padding-right: 0.9rem; }
+  .tn-liner-table tbody th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.06rem;
+    color: var(--color-brand-primary);
+    padding: 1.15rem 1.4rem 1.15rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.12);
+    white-space: nowrap;
+  }
+  .tn-liner-table tbody tr:nth-child(even) th,
+  .tn-liner-table tbody tr:nth-child(even) td { background: rgba(31, 59, 44, 0.05); }
+  .tn-liner-table tbody td {
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--color-brand-muted);
+    padding: 1.1rem 1.4rem 1.1rem 0;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(31, 59, 44, 0.1);
+  }
+  .tn-liner-table tbody tr:last-child th, .tn-liner-table tbody tr:last-child td { border-bottom: 0; }
+  .tn-liner-table tbody td:last-child, .tn-liner-table thead th:last-child { padding-right: 0; }
 
-  /* ========================= 11. FIVE STOPS ========================= */
+  /* ======================= 9. HOW WE PRINT ON TINPLATE ======================= */
+  .tn-print { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
+  /* The arrows sit in a gutter either side; the strip itself clips at the
+     content edge, or the next slide bleeds into the gutter as a cut-off sliver. */
+  .tn-fin-car { position: relative; padding: 0 clamp(3.4rem, 6vw, 5rem); }
+  .tn-fin-clip { overflow: hidden; }
+  .tn-fin-track {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .tn-fin-slide { flex: 0 0 100%; }
+  .tn-fin-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.6rem, 4vw, 3.4rem);
+    align-items: center;
+    max-width: 68rem;
+    margin-inline: auto;
+  }
+  .tn-fin-body h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    letter-spacing: -0.02em;
+    color: var(--color-brand-text);
+    margin-bottom: 0.7rem;
+  }
+  .tn-fin-body p { font-size: 1rem; line-height: 1.72; color: var(--color-brand-muted); margin-bottom: 1.1rem; }
+  .tn-fin-fig {
+    margin: 0;
+    aspect-ratio: 5 / 4;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(176, 141, 76, 0.34);
+  }
+  .tn-fin-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ======================= 8. STRUCTURE ======================= */
+  .tn-struct {
+    position: relative;
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
+    color: var(--ivory);
+  }
+  .tn-struct::before, .tn-struct::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--brass), transparent);
+  }
+  .tn-struct::before { top: 0; }
+  .tn-struct::after { bottom: 0; }
+  .tn-struct-head { text-align: center; max-width: 62rem; margin: 0 auto clamp(2.6rem, 5vw, 3.8rem); }
+  .tn-struct-head .eyebrow { color: var(--brass-soft); }
+  .tn-struct-title {
+    position: relative;
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+    margin: 1rem 0 0;
+    padding-bottom: 1.1rem;
+  }
+  .tn-struct-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 3.6rem;
+    height: 2px;
+    background: var(--brass-bright);
+  }
+  .tn-struct-sub {
+    font-size: 1.02rem;
+    line-height: 1.72;
+    color: rgba(245, 240, 229, 0.74);
+    max-width: 62ch;
+    margin: 1.2rem auto 0;
+  }
+  .tn-struct-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(1.2rem, 3vw, 2.4rem);
+  }
+  .tn-struct-grid li { display: flex; flex-direction: column; align-items: center; gap: 0.85rem; }
+  .tn-struct-icon { width: 5rem; height: auto; transition: filter 0.35s ease; }
+  .tn-struct-grid li:hover .tn-struct-icon {
+    filter: drop-shadow(0 0 7px rgba(228, 181, 77, 0.6)) brightness(1.12);
+  }
+  .tn-struct-specs { margin-top: clamp(2rem, 4vw, 2.8rem); }
+  .tn-struct-name {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.25;
+    text-align: center;
+    color: var(--ivory);
+  }
+
+  /* ===================== 10. TIN ORDER LEAD TIME =====================
+     The one place a rule is the content: it is the timeline itself. Each stop
+     now carries a brass mark beside its name. */
   .tn-flow { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
   .tn-flow-list {
     list-style: none;
@@ -1091,9 +1337,12 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--brass);
-    margin-bottom: 0.55rem;
+    margin-bottom: 0.7rem;
   }
   .tn-flow-list h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
     font-family: var(--font-heading);
     font-weight: 600;
     font-size: 1.1rem;
@@ -1101,107 +1350,267 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     color: var(--color-brand-text);
     margin-bottom: 0.55rem;
   }
+  .tn-flow-ico {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: rgba(176, 141, 76, 0.16);
+    color: var(--brass);
+  }
   .tn-flow-list p { font-size: 0.92rem; line-height: 1.66; color: var(--color-brand-muted); }
 
-  /* =========================== 12. REVIEWS ===========================
-     The reviews are the page's one pure typographic moment: full paragraphs
-     of italic serif at reading size on the dark ground, with the attribution
-     underneath, rather than two rows of small quote cards. */
-  .tn-quotes {
-    padding: clamp(4.5rem, 9vw, 8rem) 0;
-    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
+  /* ============ 11. RECYCLING AND SUSTAINABILITY ============
+     Pre-darkened in the file, tinted here. Their card copy is ivory, so the
+     cards are dark solids rather than light-translucent, and the section head
+     carries a text shadow — which is what lets the tint stay this thin. */
+  .tn-metal {
+    padding: clamp(4rem, 8vw, 7rem) 0;
+    background-color: var(--forest-deep);
+    background-image:
+      linear-gradient(180deg,
+        rgba(20, 38, 27, 0.46) 0%,
+        rgba(20, 38, 27, 0.36) 48%,
+        rgba(20, 38, 27, 0.48) 100%),
+      url('https://img.leelinepackage.com/tin-boxes/recyc-bg-v2.webp');
+    background-size: cover, cover;
+    background-position: center, center;
     color: var(--ivory);
   }
-  .tn-quotes .eyebrow { color: var(--kraft); }
-  .tn-quote-list { display: flex; flex-direction: column; gap: clamp(2.6rem, 5vw, 4rem); }
-  .tn-quote { max-width: 62rem; margin-inline: auto; position: relative; }
+  .tn-metal .tn-head { text-shadow: 0 1px 14px rgba(20, 38, 27, 0.8); }
+  .tn-metal .eyebrow { color: var(--brass-soft); }
+  .tn-metal .tn-tags { margin: 0 0 clamp(1.8rem, 3.5vw, 2.6rem); }
+  .tn-metal-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.2vw, 1.5rem);
+  }
+  .tn-metal-grid li {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    column-gap: 1.2rem;
+    padding: clamp(1.3rem, 2.4vw, 1.8rem);
+    background: rgba(20, 38, 27, 0.62);
+    border: 1px solid rgba(245, 240, 229, 0.17);
+    border-radius: 1.15rem;
+  }
+  .tn-metal-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.1;
+    color: var(--brass-bright);
+    grid-row: span 2;
+  }
+  .tn-metal-grid h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.12rem;
+    color: var(--ivory);
+    margin-bottom: 0.4rem;
+  }
+  .tn-metal-grid p { font-size: 0.93rem; line-height: 1.7; color: rgba(245, 240, 229, 0.76); }
+
+  /* ============ 12. CUSTOMER SCENES — 6 slides, 3 to a view ============
+     The loop needs clones on both ends, and the clone count has to equal the
+     slides-per-view or the wrap shows a gap — `--tn-per` is read by the script
+     and re-defined at each breakpoint. */
+  .tn-scenes { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
+  .tn-scenes .section-head { margin-bottom: clamp(1.8rem, 3.5vw, 2.6rem); }
+  /* The strip is clipped to the wrap, and the two arrows sit ON the outermost
+     images rather than in a gutter beside them. */
+  .tn-car { position: relative; overflow: hidden; }
+  .tn-car-track {
+    list-style: none;
+    display: flex;
+    gap: clamp(0.9rem, 2vw, 1.4rem);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .tn-car-slide { flex: 0 0 calc((100% - (var(--tn-per) - 1) * clamp(0.9rem, 2vw, 1.4rem)) / var(--tn-per)); }
+  .tn-car-fig {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(176, 141, 76, 0.34);
+  }
+  .tn-car-fig img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tn-car-btn,
+  .tn-fin-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    border: 2px solid rgba(245, 240, 229, 0.85);
+    background: var(--brass-bright);
+    color: var(--forest-deep);
+    cursor: pointer;
+    box-shadow: 0 12px 30px -12px rgba(20, 38, 27, 0.6);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+  }
+  .tn-car-btn svg,
+  .tn-fin-btn svg { width: 1.5rem; height: 1.5rem; }
+  .tn-car-btn:hover,
+  .tn-fin-btn:hover { background: #EFC45A; }
+  .tn-car-btn--prev,
+  .tn-fin-btn--prev { left: 1rem; }
+  .tn-fin-car .tn-fin-btn--prev { left: 0; }
+  .tn-fin-car .tn-fin-btn--next { right: 0; }
+  .tn-car-btn--next,
+  .tn-fin-btn--next { right: 1rem; }
+  .tn-car-btn--prev:hover,
+  .tn-fin-btn--prev:hover { transform: translateY(-50%) translateX(-3px); }
+  .tn-car-btn--next:hover,
+  .tn-fin-btn--next:hover { transform: translateY(-50%) translateX(3px); }
+  .tn-car-btn:focus-visible,
+  .tn-fin-btn:focus-visible { outline: 3px solid var(--ivory); outline-offset: 3px; }
+
+  /* ============ 13. CUSTOMER REVIEWS — two cards, side by side ============ */
+  .tn-quotes { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-clay); }
+  .tn-quote-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2.2vw, 1.6rem);
+  }
+  .tn-quote {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    background: var(--ivory);
+    border: 1px solid rgba(31, 59, 44, 0.1);
+    border-radius: 1.25rem;
+    padding: clamp(1.5rem, 2.8vw, 2.2rem);
+  }
   .tn-quote-mark {
     display: block;
     font-family: var(--font-heading);
-    font-size: 5rem;
-    line-height: 0.6;
-    color: rgba(201, 168, 124, 0.55);
-    margin-bottom: 0.9rem;
+    font-size: 3.4rem;
+    line-height: 0.5;
+    color: rgba(176, 141, 76, 0.6);
   }
-  .tn-quote-body p {
+  .tn-quote-mark--end { text-align: right; margin-top: -0.4rem; }
+  .tn-quote p {
     font-family: var(--font-heading);
     font-style: italic;
     font-weight: 500;
-    font-size: clamp(1.08rem, 1.7vw, 1.3rem);
-    line-height: 1.78;
-    color: rgba(245, 240, 229, 0.92);
-    margin-bottom: 1rem;
+    font-size: 1.06rem;
+    line-height: 1.76;
+    color: var(--color-brand-text);
   }
   .tn-quote footer {
     display: flex;
     align-items: center;
-    gap: 0.95rem;
-    margin-top: 1.7rem;
+    gap: 1.1rem;
+    margin-top: auto;
     padding-top: 1.4rem;
-    border-top: 1px solid rgba(245, 240, 229, 0.18);
+    border-top: 1px solid rgba(31, 59, 44, 0.14);
   }
-  .tn-quote footer img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
-  .tn-quote footer span { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.86rem; color: rgba(245, 240, 229, 0.6); }
-  .tn-quote footer strong {
+  .tn-quote-ava {
+    width: 5.2rem;
+    height: 5.2rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--brass-soft);
+  }
+  .tn-quote-who { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.88rem; color: var(--color-brand-muted); }
+  .tn-quote-who strong {
     font-family: var(--font-body);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.06rem;
     letter-spacing: 0.01em;
-    color: var(--ivory);
+    color: var(--color-brand-text);
   }
 
-  /* ============================= 13. FAQ ============================= */
+  /* ============ 14. FAQ — one column of plain cards ============ */
   .tn-faq { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--ivory); }
-  .tn-faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem 1.4rem; }
+  .tn-faq-list { display: flex; flex-direction: column; gap: 0.9rem; max-width: 60rem; margin-inline: auto; }
   .tn-faq-list details {
     background: var(--color-clay);
-    border: 1px solid rgba(31, 59, 44, 0.09);
+    border: 1px solid rgba(31, 59, 44, 0.1);
     border-radius: 1.1rem;
-    padding: 1.3rem 1.5rem;
-    align-self: start;
+    padding: 1.35rem 1.6rem;
   }
+  /* The number and the question read left to right inside the card; the card
+     itself stays on the centred column, so the block is centred and the text
+     in it is not. */
   .tn-faq-list summary {
     cursor: pointer;
     list-style: none;
+    display: grid;
+    grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.1rem;
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: clamp(1.08rem, 1.4vw, 1.26rem);
+    font-size: clamp(1.1rem, 1.7vw, 1.35rem);
     line-height: 1.35;
     color: var(--color-brand-text);
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
   }
   .tn-faq-list summary::-webkit-details-marker { display: none; }
-  .tn-faq-list summary::after {
-    content: '+';
-    flex: 0 0 auto;
-    font-family: var(--font-body);
-    font-size: 1.25rem;
+  .tn-faq-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.2rem;
     line-height: 1;
     color: var(--brass);
-    transition: transform 0.3s ease;
   }
-  .tn-faq-list details[open] summary::after { transform: rotate(45deg); }
-  .tn-faq-list details p {
-    font-size: 0.94rem;
-    line-height: 1.72;
+  .tn-faq-ico { position: relative; flex: 0 0 auto; width: 1rem; height: 1rem; }
+  .tn-faq-ico::before, .tn-faq-ico::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: var(--brass);
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.25s ease;
+  }
+  .tn-faq-ico::before { width: 1rem; height: 2px; }
+  .tn-faq-ico::after { width: 2px; height: 1rem; }
+  .tn-faq-list details[open] .tn-faq-ico::after { opacity: 0; }
+  /* Indented to the question's own text edge (2.2rem column + 1.1rem gap), so
+     the answer blocks under the line it answers rather than under the number. */
+  .tn-faq-a { padding-left: 3.3rem; }
+  .tn-faq-a p {
+    font-size: 0.97rem;
+    line-height: 1.75;
     color: var(--color-brand-muted);
-    margin-top: 0.9rem;
+    margin-top: 0.95rem;
+    max-width: 82ch;
   }
 
-  /* =========================== 14. FINAL CTA =========================== */
+  /* =========================== 15. FINAL CTA ===========================
+     Pre-darkened in the file and tinted here, so the line-up of printed tins
+     stays readable behind the copy. The radial keeps the tint off the outer
+     thirds, and the title carries a shadow of its own. */
   .tn-final {
-    padding: clamp(4rem, 9vw, 7rem) 0;
-    background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
+    /* 0.5cm off each side = the 1cm shorter band the client asked for. */
+    padding: calc(clamp(4rem, 9vw, 7rem) - 0.5cm) 0;
+    background-color: var(--forest-deep);
+    background-image:
+      radial-gradient(96% 106% at 50% 52%,
+        rgba(20, 38, 27, 0.48) 0%,
+        rgba(20, 38, 27, 0.4) 40%,
+        rgba(20, 38, 27, 0.2) 74%,
+        rgba(20, 38, 27, 0.1) 100%),
+      url('https://img.leelinepackage.com/tin-boxes/final-cta-bg-v2.webp');
+    background-size: cover, cover;
+    background-position: center, center 62%;
     color: var(--ivory);
   }
-  .tn-final-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-  }
+  .tn-final-inner { text-align: center; }
+  .tn-final .eyebrow { color: var(--brass-soft); }
   .tn-final-title {
     font-family: var(--font-heading);
     font-weight: 500;
@@ -1210,17 +1619,18 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     letter-spacing: -0.02em;
     color: var(--ivory);
     text-wrap: balance;
-    margin-top: 1rem;
+    text-shadow: 0 2px 18px rgba(20, 38, 27, 0.7);
+    max-width: 24ch;
+    margin: 1rem auto 0;
   }
   .tn-final-lede {
-    font-size: 1.02rem;
+    font-size: 1.04rem;
     line-height: 1.75;
-    color: rgba(245, 240, 229, 0.76);
-    max-width: 58ch;
-    margin: 1.2rem 0 1.9rem;
+    color: rgba(245, 240, 229, 0.78);
+    max-width: 64ch;
+    margin: 1.2rem auto 1.5rem;
   }
-  .tn-final-fig { margin: 0; padding: 0.55rem; border: 1px solid rgba(201, 168, 124, 0.5); border-radius: 1.5rem; }
-  .tn-final-fig img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 1.05rem; display: block; }
+  .tn-final .tn-tags { margin-bottom: 1.9rem; }
 
   /* ============================ REVEAL ============================ */
   [data-reveal] {
@@ -1232,63 +1642,65 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   [data-reveal].in { opacity: 1; transform: none; }
 
   /* =========================== RESPONSIVE =========================== */
+  @media (max-width: 1100px) {
+    .tn-why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tn-metal-grid { grid-template-columns: minmax(0, 1fr); }
+    .tn-struct-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .tn-lid-list li { grid-template-columns: 3rem 11rem minmax(0, 1fr); }
+    .tn-lid-body { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  }
   @media (max-width: 1024px) {
     .tn-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .tn-flow-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .tn-flow-list::before { display: none; }
-    .tn-eco-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tn-size-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    :global(:root) { --tn-per: 2; }
   }
-
   @media (max-width: 900px) {
-    .tn-hero-grid, .tn-print-grid, .tn-tool-grid, .tn-final-grid { grid-template-columns: minmax(0, 1fr); }
-    .tn-hero-grid { gap: 2.2rem; }
-    .tn-eco-figs { grid-template-columns: minmax(0, 1fr); }
-    .tn-food-checks { grid-template-columns: minmax(0, 1fr); }
-    .tn-fit-grid { grid-template-columns: minmax(0, 1fr); }
-    .tn-quote footer { flex-direction: row; }
-    .tn-wrong-list li { grid-template-columns: 3.4rem minmax(0, 1fr); }
-    .tn-wrong-list li h3, .tn-wrong-list li p { grid-column: 2; }
-    .tn-wrong-list li p { margin-top: 0.6rem; }
-    /* The sheet drops to two columns, so the rule that removed every third
-       left border has to be re-pointed at every second cell. */
-    .tn-sheet-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tn-sheet-grid li:nth-child(3n + 1) { border-left: 1px solid rgba(245, 240, 229, 0.18); padding-left: 1.8rem; }
-    .tn-sheet-grid li:nth-child(2n + 1) { border-left: 0; padding-left: 0; }
+    .tn-head--split { grid-template-columns: minmax(0, 1fr); gap: 1.1rem; align-items: start; }
+    .tn-food-notes { grid-template-columns: minmax(0, 1fr); }
+    .tn-risk-grid { grid-template-columns: minmax(0, 1fr); }
+    .tn-quote-grid { grid-template-columns: minmax(0, 1fr); }
+    .tn-fin-panel { grid-template-columns: minmax(0, 1fr); }
+    .tn-struct-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-
   @media (max-width: 640px) {
     .tn-type-grid { grid-template-columns: minmax(0, 1fr); }
     .tn-flow-list { grid-template-columns: minmax(0, 1fr); }
-    .tn-eco-grid { grid-template-columns: minmax(0, 1fr); }
-    .tn-size-strip { grid-template-columns: minmax(0, 1fr); }
-    .tn-faq-list { grid-template-columns: minmax(0, 1fr); }
-    .tn-sheet-grid { grid-template-columns: minmax(0, 1fr); }
-    .tn-sheet-grid li,
-    .tn-sheet-grid li:nth-child(2n + 1),
-    .tn-sheet-grid li:nth-child(3n + 1) { border-left: 0; padding-left: 0; }
-    .tn-sheet-foot { flex-direction: column; align-items: flex-start; }
-    .tn-wrong-list li { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
-    .tn-wrong-list li h3, .tn-wrong-list li p { grid-column: 1; }
+    .tn-why-grid { grid-template-columns: minmax(0, 1fr); }
+    .tn-struct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tn-struct-icon { width: 4rem; }
+    .tn-title { max-width: none; }
+    :global(:root) { --tn-per: 1; }
+    .tn-car-btn { width: 2.6rem; height: 2.6rem; }
+    .tn-car-btn--prev { left: 0.5rem; }
+    .tn-car-btn--next { right: 0.5rem; }
+    .tn-fin-car { padding: 0 2.9rem; }
+    .tn-fin-btn { width: 2.6rem; height: 2.6rem; }
+    .tn-fin-btn svg { width: 1.2rem; height: 1.2rem; }
+    .tn-car-btn svg { width: 1.2rem; height: 1.2rem; }
+    .tn-lid-list li { grid-template-columns: 2.6rem minmax(0, 1fr); }
+    .tn-lid-fig { max-width: 13rem; }
+    /* The answer's indent is tied to the number column, so both shrink
+       together or the answer stops lining up under the question. */
+    .tn-faq-list summary { grid-template-columns: 1.8rem minmax(0, 1fr) auto; gap: 0.7rem; }
+    .tn-faq-a { padding-left: 2.5rem; }
 
-    /* The one table left on the page restacks into labelled rows rather than
-       scrolling sideways. The cells need an explicit `display: block` — a
-       `td` left at its default `table-cell` inside a `display:block` row gets
-       wrapped in an ANONYMOUS table and the cells line up side by side again,
-       which is exactly the layout the restack was meant to remove. */
+    /* The one table restacks into labelled rows rather than scrolling
+       sideways. The cells need an explicit `display: block` — a `td` left at
+       its default `table-cell` inside a `display:block` row is wrapped in an
+       ANONYMOUS table and the cells line up side by side again, which is
+       exactly the layout the restack was meant to remove. */
+    .tn-liner-panel { padding: 1.2rem; }
     .tn-liner-table thead { display: none; }
     .tn-liner-table, .tn-liner-table tbody, .tn-liner-table tbody tr { display: block; }
-    .tn-liner-table tbody tr {
-      border-top: 1px solid rgba(31, 59, 44, 0.16);
-      padding: 1.1rem 0;
-    }
-    .tn-liner-table tbody tr:first-child { border-top-color: rgba(176, 141, 76, 0.6); }
+    .tn-liner-table tbody tr { border-top: 1px solid rgba(31, 59, 44, 0.16); padding: 1.1rem 0; }
+    .tn-liner-table tbody tr:first-child { border-top: 0; padding-top: 0; }
     .tn-liner-table tbody th, .tn-liner-table tbody td { display: block; }
     .tn-liner-table tbody th {
       padding: 0 0 0.6rem;
       border-bottom: 0;
       font-family: var(--font-heading);
-      font-size: 1.06rem;
+      font-size: 1.08rem;
     }
     .tn-liner-table tbody td { padding: 0.35rem 0 0; border-bottom: 0; }
     .tn-liner-table tbody td::before {
@@ -1301,11 +1713,11 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       color: var(--brass);
       margin-bottom: 0.2rem;
     }
-    .tn-liner-table caption { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .tn-car-track { transition: none; }
   }
 </style>
 
@@ -1322,8 +1734,79 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     revealEls.forEach((el) => el.classList.add('in'));
   }
 
-  // One answer open at a time — two open answers push the section instead of
-  // reading as a set.
+  // Two looping strips: §How We Print on Tinplate (one panel to a view) and
+  // §Customer Scenes (three to a view). A copy of the last N slides sits before
+  // slide one and a copy of the first N after the last, so stepping past either
+  // end animates onto a clone and is then snapped — with no transition — onto
+  // the matching real slide. N must equal the slides-per-view, or the wrap shows
+  // a gap; `--tn-per` carries that number and is re-defined at each breakpoint.
+  function loopStrip(trackSel, prevSel, nextSel, perVar) {
+    const track = document.querySelector(trackSel);
+    if (!track) return;
+    const real = Array.from(track.children);
+    const total = real.length;
+    const per = perVar
+      ? (Number(getComputedStyle(document.documentElement).getPropertyValue(perVar)) || 1)
+      : 1;
+    if (total <= per) return;
+
+    for (let k = 0; k < per; k++) {
+      const a = real[total - per + k].cloneNode(true);
+      a.setAttribute('aria-hidden', 'true');
+      track.insertBefore(a, track.firstChild);
+      const b = real[k].cloneNode(true);
+      b.setAttribute('aria-hidden', 'true');
+      track.appendChild(b);
+    }
+
+    let idx = per;
+    let busy = false;
+    let timer = null;
+    const step = () => {
+      const first = track.children[0];
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return first.getBoundingClientRect().width + gap;
+    };
+    const place = (animate) => {
+      track.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+      track.style.transform = `translateX(${-idx * step()}px)`;
+    };
+    // `transitionend` is the signal for the snap, but a timer backs it up: if the
+    // event is ever missed the strip wedges with `busy` stuck on and every later
+    // click is ignored.
+    const settle = () => {
+      clearTimeout(timer);
+      timer = null;
+      if (!busy) return;
+      busy = false;
+      if (idx >= total + per) { idx -= total; place(false); }
+      if (idx < per) { idx += total; place(false); }
+    };
+    const go = (dir) => {
+      if (busy) return;
+      busy = true;
+      idx += dir;
+      place(true);
+      clearTimeout(timer);
+      timer = setTimeout(settle, 750);
+    };
+    track.addEventListener('transitionend', (e) => {
+      if (e.target === track && e.propertyName === 'transform') settle();
+    });
+    const prevBtn = document.querySelector(prevSel);
+    const nextBtn = document.querySelector(nextSel);
+    if (prevBtn) prevBtn.addEventListener('click', () => go(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => go(1));
+    window.addEventListener('resize', () => place(false));
+    place(false);
+  }
+
+  if (!reduce) {
+    loopStrip('.tn-car-track', '.tn-car-btn--prev', '.tn-car-btn--next', '--tn-per');
+    loopStrip('.tn-fin-track', '.tn-fin-btn--prev', '.tn-fin-btn--next', null);
+  }
+
+  // One answer open at a time.
   const faqItems = Array.from(document.querySelectorAll('.tn-faq-list details'));
   faqItems.forEach((d) => {
     d.addEventListener('toggle', () => {

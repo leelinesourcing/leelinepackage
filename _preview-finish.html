@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview — How We Print on Tinplate: three switcher layouts</title>
+<style>
+  @font-face {
+    font-family: 'Newsreader Variable';
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'Instrument Sans Variable';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+  }
+  :root {
+    --forest: #1F3B2C;
+    --forest-deep: #14261B;
+    --forest-light: #2E4F3D;
+    --kraft: #EDE5D4;
+    --ivory: #F5F0E5;
+    --brass: #B08D4C;
+    --brass-bright: #E4B54D;
+    --brass-soft: #C9A87C;
+    --charcoal: #21241C;
+    --moss: #8C8676;
+    --font-heading: 'Newsreader Variable', Georgia, serif;
+    --font-body: 'Instrument Sans Variable', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { width: min(1200px, 100% - 3rem); margin-inline: auto; }
+
+  .page-head { padding: 3rem 0 1rem; }
+  .page-head h1 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 2.1rem;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.6rem;
+  }
+  .page-head p { margin: 0; color: var(--moss); line-height: 1.65; max-width: 70ch; }
+
+  .variant { padding: 3.5rem 0; border-top: 1px solid rgba(31,59,44,.14); margin-top: 2rem; }
+  .variant:nth-of-type(even) { background: var(--kraft); }
+  .v-tag {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--brass); margin-bottom: .8rem;
+  }
+  .v-title {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.7rem;
+    letter-spacing: -0.02em; margin: 0 0 .6rem;
+  }
+  .v-note { color: var(--moss); line-height: 1.7; margin: 0 0 2rem; max-width: 78ch; font-size: .98rem; }
+
+  /* shared bits */
+  .slot {
+    display: grid; place-items: center; text-align: center; padding: .9rem;
+    border: 1px dashed rgba(176,141,76,.6); border-radius: 1rem;
+    background: repeating-linear-gradient(135deg, rgba(31,59,44,.035) 0 9px, rgba(31,59,44,.075) 9px 18px);
+    color: var(--moss); font-size: .74rem; font-weight: 600; line-height: 1.45; letter-spacing: .02em;
+  }
+  .slot span { max-width: 24ch; }
+  .slot--5x4 { aspect-ratio: 5/4; }
+  .slot--4x3 { aspect-ratio: 4/3; }
+  .slot--1x1 { aspect-ratio: 1/1; }
+  .pill {
+    display: inline-flex; align-items: center; font-size: .72rem; font-weight: 600;
+    letter-spacing: .05em; color: var(--forest); background: rgba(176,141,76,.16);
+    border-radius: 999px; padding: .3rem .75rem;
+  }
+  .finish-title {
+    font-family: var(--font-heading); font-weight: 600; letter-spacing: -0.01em; color: var(--charcoal);
+  }
+  .finish-copy { color: var(--moss); line-height: 1.7; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--brass); display: inline-block; }
+
+  /* ---------- 1. INDEX RAIL — pick from a list, stage on the right ---------- */
+  .v1 { display: grid; grid-template-columns: 19rem minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+  .v1-rail { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(31,59,44,.16); }
+  .v1-rail button {
+    display: grid; grid-template-columns: 1.6rem minmax(0,1fr); gap: .7rem; align-items: center;
+    width: 100%; text-align: left; background: none; border: 0; cursor: pointer;
+    font: inherit; color: var(--moss); padding: .95rem .9rem .95rem 0;
+    border-bottom: 1px solid rgba(31,59,44,.14); border-radius: .5rem;
+    transition: background-color .3s ease, color .3s ease;
+  }
+  .v1-rail button .n { font-family: var(--font-heading); font-style: italic; color: var(--brass); }
+  .v1-rail button:hover { background: rgba(176,141,76,.1); }
+  .v1-rail button[aria-selected="true"] {
+    background: var(--forest); color: var(--ivory); padding-left: .9rem;
+  }
+  .v1-rail button[aria-selected="true"] .n { color: var(--brass-bright); }
+  .v1-stage { min-height: 22rem; }
+  .v1-panel { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 2rem; align-items: center; }
+  .v1-panel[hidden] { display: none; }
+  .v1-panel .finish-title { font-size: 1.5rem; margin: 0 0 .7rem; }
+  .v1-panel .finish-copy { margin: 0 0 1rem; }
+
+  /* ---------- 2. THUMBNAIL FILMSTRIP — six frames, stage underneath ---------- */
+  .v2-thumbs {
+    list-style: none; margin: 0 0 2rem; padding: 0;
+    display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: .7rem;
+  }
+  .v2-thumbs button {
+    width: 100%; background: none; border: 0; padding: 0; cursor: pointer;
+    display: grid; gap: .55rem; text-align: left; font: inherit;
+  }
+  .v2-thumbs .thumb { border-radius: .7rem; overflow: hidden; border: 2px solid transparent; transition: border-color .3s ease; }
+  .v2-thumbs button:hover .thumb { border-color: rgba(176,141,76,.5); }
+  .v2-thumbs button[aria-selected="true"] .thumb { border-color: var(--brass-bright); }
+  .v2-thumbs button[aria-selected="true"] { color: var(--charcoal); }
+  .v2-thumbs .cap { font-size: .8rem; font-weight: 600; color: var(--moss); line-height: 1.3; }
+  .v2-thumbs button[aria-selected="true"] .cap { color: var(--forest); }
+  .v2-panel { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); gap: 2.5rem; align-items: center; }
+  .v2-panel[hidden] { display: none; }
+  .v2-panel .finish-title { font-size: 1.6rem; margin: 0 0 .7rem; }
+  .v2-panel .finish-copy { margin: 0 0 1rem; font-size: 1.02rem; }
+
+  /* ---------- 3. ACCORDION ROWS — one row per finish, the open one shows art ---------- */
+  .v3 { border-top: 1px solid rgba(31,59,44,.18); }
+  .v3 details { border-bottom: 1px solid rgba(31,59,44,.16); }
+  .v3 summary {
+    list-style: none; cursor: pointer; display: grid;
+    grid-template-columns: 3rem minmax(0,1fr) auto; gap: 1.2rem; align-items: center;
+    padding: 1.5rem 0; font-family: var(--font-heading); font-weight: 600;
+    font-size: 1.35rem; letter-spacing: -0.01em; color: var(--charcoal);
+  }
+  .v3 summary::-webkit-details-marker { display: none; }
+  .v3 summary .n { font-style: italic; color: var(--brass); font-size: 1.5rem; }
+  .v3 summary .plus { position: relative; width: 1.1rem; height: 1.1rem; flex: 0 0 auto; }
+  .v3 summary .plus::before, .v3 summary .plus::after {
+    content: ''; position: absolute; left: 50%; top: 50%; background: var(--brass); border-radius: 2px;
+    transform: translate(-50%,-50%); transition: opacity .25s ease;
+  }
+  .v3 summary .plus::before { width: 1.1rem; height: 2px; }
+  .v3 summary .plus::after { width: 2px; height: 1.1rem; }
+  .v3 details[open] summary .plus::after { opacity: 0; }
+  .v3-body { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: 2.5rem; align-items: center; padding: 0 0 2rem 4.2rem; }
+  .v3-body .finish-copy { font-size: 1rem; margin: 0 0 1rem; }
+  /* ---------- 4. OVERLAY STAGE — the copy sits on the picture ---------- */
+  .v4-stage { border-radius: 1.2rem; overflow: hidden; }
+  .v4-panel[hidden] { display: none; }
+  .v4-panel { position: relative; }
+  .v4-panel .slot { border: 0; border-radius: 0; aspect-ratio: 16/9; }
+  .v4-overlay {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 2.4rem 2.2rem 2rem;
+    background: linear-gradient(180deg, transparent, rgba(20,38,27,.88));
+  }
+  .v4-overlay .finish-title { color: var(--ivory); font-size: 1.75rem; margin: 0 0 .55rem; }
+  .v4-overlay .finish-copy { color: rgba(245,240,229,.82); margin: 0; max-width: 66ch; }
+  .v4-tabs {
+    display: flex; flex-wrap: wrap; margin-top: 1.6rem;
+    border-top: 1px solid rgba(31,59,44,.16);
+  }
+  .v4-tabs button {
+    position: relative; background: none; border: 0; cursor: pointer; font: inherit;
+    font-size: .92rem; font-weight: 600; color: var(--moss); padding: 1rem 1.15rem;
+    transition: color .3s ease;
+  }
+  .v4-tabs button::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+    background: var(--brass-bright); transform: scaleX(0); transform-origin: left;
+    transition: transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .v4-tabs button:hover { color: var(--forest); }
+  .v4-tabs button[aria-selected="true"] { color: var(--forest); }
+  .v4-tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+
+  /* ---------- 5. SCROLL RAIL — no tabs at all ---------- */
+  .v5-hint {
+    display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1rem;
+    font-size: .76rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--brass);
+  }
+  .v5-hint svg { width: 1.1rem; height: 1.1rem; }
+  .v5-rail {
+    list-style: none; margin: 0; padding: 0 0 1.3rem;
+    display: flex; gap: 1.2rem;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+  }
+  .v5-rail::-webkit-scrollbar { height: 6px; }
+  .v5-rail::-webkit-scrollbar-thumb { background: var(--brass-soft); border-radius: 999px; }
+  .v5-rail::-webkit-scrollbar-track { background: rgba(31,59,44,.1); border-radius: 999px; }
+  .v5-card {
+    flex: 0 0 min(80%, 30rem); scroll-snap-align: start;
+    background: var(--ivory); border: 1px solid rgba(31,59,44,.1);
+    border-radius: 1.2rem; padding: .8rem;
+    display: flex; flex-direction: column; gap: .9rem;
+  }
+  .v5-card .slot { aspect-ratio: 4/3; }
+  .v5-card .finish-title { font-size: 1.28rem; margin: 0; }
+  .v5-card .finish-copy { font-size: .95rem; margin: 0; }
+  .v5-card .pill { align-self: flex-start; margin-top: auto; }
+
+  @media (max-width: 900px) {
+    .v1, .v1-panel, .v2-panel, .v3-body { grid-template-columns: minmax(0,1fr); }
+    .v2-thumbs { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .v3-body { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-head"><div class="wrap">
+  <h1>How We Print on Tinplate — five switcher layouts</h1>
+  <p>Five structurally different ways to present the six finishes, each with its own image. All are live on this page. The dashed boxes are the image slots — the dashed shape says what the photograph is. Layouts 1, 2 and 4 are tab patterns; 3 is native <code>&lt;details&gt;</code> and 5 has no controls at all. All of them work without a mouse.</p>
+</div></header>
+
+<!-- ============ 1. INDEX RAIL ============ -->
+<section class="variant"><div class="wrap">
+  <span class="v-tag"><span class="dot"></span>Layout 1</span>
+  <h2 class="v-title">Index rail — a list you pick from, one stage on the right</h2>
+  <p class="v-note">Six finishes stacked as a numbered index. The chosen one turns forest green and its image and copy appear beside it. Compact, reads like a contents page, and it stays on one screen — nothing below the fold moves.</p>
+  <div class="v1">
+    <ul class="v1-rail" role="tablist" aria-label="Print finishes">
+      <li><button role="tab" aria-selected="true" aria-controls="v1p0" id="v1t0"><span class="n">01</span><span>Six-color offset litho</span></button></li>
+      <li><button role="tab" aria-selected="false" aria-controls="v1p1" id="v1t1"><span class="n">02</span><span>Matte or gloss varnish</span></button></li>
+      <li><button role="tab" aria-selected="false" aria-controls="v1p2" id="v1t2"><span class="n">03</span><span>Emboss and deboss</span></button></li>
+      <li><button role="tab" aria-selected="false" aria-controls="v1p3" id="v1t3"><span class="n">04</span><span>Spot UV</span></button></li>
+      <li><button role="tab" aria-selected="false" aria-controls="v1p4" id="v1t4"><span class="n">05</span><span>Metallic and pearl inks</span></button></li>
+      <li><button role="tab" aria-selected="false" aria-controls="v1p5" id="v1t5"><span class="n">06</span><span>PVC window</span></button></li>
+    </ul>
+    <div class="v1-stage">
+      <div class="v1-panel" role="tabpanel" id="v1p0" aria-labelledby="v1t0">
+        <div class="slot slot--5x4"><span>A printed tinplate sheet coming off the litho press</span></div>
+        <div>
+          <h3 class="finish-title">Six-color offset litho</h3>
+          <p class="finish-copy">Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+      <div class="v1-panel" role="tabpanel" id="v1p1" aria-labelledby="v1t1" hidden>
+        <div class="slot slot--5x4"><span>A matte tin and a gloss tin side by side</span></div>
+        <div>
+          <h3 class="finish-title">Matte or gloss varnish</h3>
+          <p class="finish-copy">Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+      <div class="v1-panel" role="tabpanel" id="v1p2" aria-labelledby="v1t2" hidden>
+        <div class="slot slot--5x4"><span>A close-up of a logo raised out of the tin surface</span></div>
+        <div>
+          <h3 class="finish-title">Emboss and deboss</h3>
+          <p class="finish-copy">A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+      <div class="v1-panel" role="tabpanel" id="v1p3" aria-labelledby="v1t3" hidden>
+        <div class="slot slot--5x4"><span>A tin photographed with the spot UV mark catching the light</span></div>
+        <div>
+          <h3 class="finish-title">Spot UV</h3>
+          <p class="finish-copy">A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+      <div class="v1-panel" role="tabpanel" id="v1p4" aria-labelledby="v1t4" hidden>
+        <div class="slot slot--5x4"><span>Tins printed in gold and pearl inks</span></div>
+        <div>
+          <h3 class="finish-title">Metallic and pearl inks</h3>
+          <p class="finish-copy">Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+      <div class="v1-panel" role="tabpanel" id="v1p5" aria-labelledby="v1t5" hidden>
+        <div class="slot slot--5x4"><span>A tin with a clear window in the lid, the fill visible through it</span></div>
+        <div>
+          <h3 class="finish-title">PVC window</h3>
+          <p class="finish-copy">A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 2. THUMBNAIL FILMSTRIP ============ -->
+<section class="variant"><div class="wrap">
+  <span class="v-tag"><span class="dot"></span>Layout 2</span>
+  <h2 class="v-title">Filmstrip — six image frames in a row, one stage beneath</h2>
+  <p class="v-note">Every finish shows its own picture at once, so the range is visible before anyone clicks. The selected frame gets a brass rule and the full-size shot appears below with the copy. Best if the photographs are the selling point.</p>
+  <ul class="v2-thumbs" role="tablist" aria-label="Print finishes">
+    <li><button role="tab" aria-selected="true" aria-controls="v2p0" id="v2t0"><span class="thumb slot slot--1x1"><span>Litho sheet</span></span><span class="cap">Six-color litho</span></button></li>
+    <li><button role="tab" aria-selected="false" aria-controls="v2p1" id="v2t1"><span class="thumb slot slot--1x1"><span>Matte vs gloss</span></span><span class="cap">Matte / gloss varnish</span></button></li>
+    <li><button role="tab" aria-selected="false" aria-controls="v2p2" id="v2t2"><span class="thumb slot slot--1x1"><span>Raised logo</span></span><span class="cap">Emboss and deboss</span></button></li>
+    <li><button role="tab" aria-selected="false" aria-controls="v2p3" id="v2t3"><span class="thumb slot slot--1x1"><span>Spot UV</span></span><span class="cap">Spot UV</span></button></li>
+    <li><button role="tab" aria-selected="false" aria-controls="v2p4" id="v2t4"><span class="thumb slot slot--1x1"><span>Metal inks</span></span><span class="cap">Metallic and pearl</span></button></li>
+    <li><button role="tab" aria-selected="false" aria-controls="v2p5" id="v2t5"><span class="thumb slot slot--1x1"><span>Window lid</span></span><span class="cap">PVC window</span></button></li>
+  </ul>
+  <div class="v2-panel" role="tabpanel" id="v2p0" aria-labelledby="v2t0">
+    <div class="slot slot--4x3"><span>A printed tinplate sheet coming off the litho press</span></div>
+    <div>
+      <h3 class="finish-title">Six-color offset litho</h3>
+      <p class="finish-copy">Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+  <div class="v2-panel" role="tabpanel" id="v2p1" aria-labelledby="v2t1" hidden>
+    <div class="slot slot--4x3"><span>A matte tin and a gloss tin side by side</span></div>
+    <div>
+      <h3 class="finish-title">Matte or gloss varnish</h3>
+      <p class="finish-copy">Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+  <div class="v2-panel" role="tabpanel" id="v2p2" aria-labelledby="v2t2" hidden>
+    <div class="slot slot--4x3"><span>A close-up of a logo raised out of the tin surface</span></div>
+    <div>
+      <h3 class="finish-title">Emboss and deboss</h3>
+      <p class="finish-copy">A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+  <div class="v2-panel" role="tabpanel" id="v2p3" aria-labelledby="v2t3" hidden>
+    <div class="slot slot--4x3"><span>A tin photographed with the spot UV mark catching the light</span></div>
+    <div>
+      <h3 class="finish-title">Spot UV</h3>
+      <p class="finish-copy">A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+  <div class="v2-panel" role="tabpanel" id="v2p4" aria-labelledby="v2t4" hidden>
+    <div class="slot slot--4x3"><span>Tins printed in gold and pearl inks</span></div>
+    <div>
+      <h3 class="finish-title">Metallic and pearl inks</h3>
+      <p class="finish-copy">Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+  <div class="v2-panel" role="tabpanel" id="v2p5" aria-labelledby="v2t5" hidden>
+    <div class="slot slot--4x3"><span>A tin with a clear window in the lid, the fill visible through it</span></div>
+    <div>
+      <h3 class="finish-title">PVC window</h3>
+      <p class="finish-copy">A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.</p>
+      <span class="pill">Applied on the flat sheet, before forming</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 3. ACCORDION ROWS ============ -->
+<section class="variant"><div class="wrap">
+  <span class="v-tag"><span class="dot"></span>Layout 3</span>
+  <h2 class="v-title">Accordion — six full-width rows, the open one shows its picture</h2>
+  <p class="v-note">Each finish is a row with a number and a +. Opening one drops its photograph and copy in beneath, at full width, so the image is large. Nothing is hidden behind a tab, and it needs no JavaScript. Tallest of the three.</p>
+  <div class="v3">
+    <details open>
+      <summary><span class="n">01</span><span>Six-color offset litho</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>A printed tinplate sheet coming off the litho press</span></div>
+        <div>
+          <p class="finish-copy">Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="n">02</span><span>Matte or gloss varnish</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>A matte tin and a gloss tin side by side</span></div>
+        <div>
+          <p class="finish-copy">Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="n">03</span><span>Emboss and deboss</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>A close-up of a logo raised out of the tin surface</span></div>
+        <div>
+          <p class="finish-copy">A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="n">04</span><span>Spot UV</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>A tin photographed with the spot UV mark catching the light</span></div>
+        <div>
+          <p class="finish-copy">A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="n">05</span><span>Metallic and pearl inks</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>Tins printed in gold and pearl inks</span></div>
+        <div>
+          <p class="finish-copy">Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary><span class="n">06</span><span>PVC window</span><span class="plus"></span></summary>
+      <div class="v3-body">
+        <div class="slot slot--4x3"><span>A tin with a clear window in the lid, the fill visible through it</span></div>
+        <div>
+          <p class="finish-copy">A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.</p>
+          <span class="pill">Applied on the flat sheet, before forming</span>
+        </div>
+      </div>
+    </details>
+  </div>
+</div></section>
+
+<!-- ============ 4. OVERLAY STAGE ============ -->
+<section class="variant"><div class="wrap">
+  <span class="v-tag"><span class="dot"></span>Layout 4</span>
+  <h2 class="v-title">Overlay — copy on the picture, tabs under it</h2>
+  <p class="v-note">One wide frame carries the image and the finish name and copy sit on the photograph itself, over a scrim along the bottom. The six names run as a tab strip directly beneath, the active one underlined in brass. The controls and the picture read as a single object, and the section keeps a fixed height.</p>
+  <div class="v4">
+    <div class="v4-stage">
+      <div class="v4-panel" role="tabpanel" id="v4p0" aria-labelledby="v4t0">
+        <div class="slot"><span>A printed tinplate sheet coming off the litho press</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">Six-color offset litho</h3>
+          <p class="finish-copy">Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.</p>
+        </div>
+      </div>
+      <div class="v4-panel" role="tabpanel" id="v4p1" aria-labelledby="v4t1" hidden>
+        <div class="slot"><span>A matte tin and a gloss tin side by side</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">Matte or gloss varnish</h3>
+          <p class="finish-copy">Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge.</p>
+        </div>
+      </div>
+      <div class="v4-panel" role="tabpanel" id="v4p2" aria-labelledby="v4t2" hidden>
+        <div class="slot"><span>A close-up of a logo raised out of the tin surface</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">Emboss and deboss</h3>
+          <p class="finish-copy">A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.</p>
+        </div>
+      </div>
+      <div class="v4-panel" role="tabpanel" id="v4p3" aria-labelledby="v4t3" hidden>
+        <div class="slot"><span>A tin photographed with the spot UV mark catching the light</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">Spot UV</h3>
+          <p class="finish-copy">A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.</p>
+        </div>
+      </div>
+      <div class="v4-panel" role="tabpanel" id="v4p4" aria-labelledby="v4t4" hidden>
+        <div class="slot"><span>Tins printed in gold and pearl inks</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">Metallic and pearl inks</h3>
+          <p class="finish-copy">Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.</p>
+        </div>
+      </div>
+      <div class="v4-panel" role="tabpanel" id="v4p5" aria-labelledby="v4t5" hidden>
+        <div class="slot"><span>A tin with a clear window in the lid, the fill visible through it</span></div>
+        <div class="v4-overlay">
+          <h3 class="finish-title">PVC window</h3>
+          <p class="finish-copy">A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.</p>
+        </div>
+      </div>
+    </div>
+    <div class="v4-tabs" role="tablist" aria-label="Print finishes">
+      <button role="tab" aria-selected="true" aria-controls="v4p0" id="v4t0">Six-color offset litho</button>
+      <button role="tab" aria-selected="false" aria-controls="v4p1" id="v4t1">Matte or gloss varnish</button>
+      <button role="tab" aria-selected="false" aria-controls="v4p2" id="v4t2">Emboss and deboss</button>
+      <button role="tab" aria-selected="false" aria-controls="v4p3" id="v4t3">Spot UV</button>
+      <button role="tab" aria-selected="false" aria-controls="v4p4" id="v4t4">Metallic and pearl inks</button>
+      <button role="tab" aria-selected="false" aria-controls="v4p5" id="v4t5">PVC window</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ 5. SCROLL RAIL ============ -->
+<section class="variant"><div class="wrap">
+  <span class="v-tag"><span class="dot"></span>Layout 5</span>
+  <h2 class="v-title">Scroll rail — six complete cards, no tabs to click</h2>
+  <p class="v-note">Nothing to switch: the six finishes sit side by side as complete cards — picture, name and copy together — in a rail you scroll sideways, each one snapping into place. It shows everything at once in a single strip and needs no JavaScript. The trade is that a reader who never scrolls sideways only ever sees the first card.</p>
+  <span class="v5-hint">Scroll
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </span>
+  <div class="v5">
+    <ul class="v5-rail">
+      <li class="v5-card">
+        <span class="slot"><span>A printed tinplate sheet coming off the litho press</span></span>
+        <h3 class="finish-title">Six-color offset litho</h3>
+        <p class="finish-copy">Artwork printed on the flat sheet before forming, with a Pantone chip signed off against the first sheet off the press.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+      <li class="v5-card">
+        <span class="slot"><span>A matte tin and a gloss tin side by side</span></span>
+        <h3 class="finish-title">Matte or gloss varnish</h3>
+        <p class="finish-copy">Applied on the press: the tin reads dull to the touch or reflective, with no lamination to lift at an edge.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+      <li class="v5-card">
+        <span class="slot"><span>A close-up of a logo raised out of the tin surface</span></span>
+        <h3 class="finish-title">Emboss and deboss</h3>
+        <p class="finish-copy">A logo raised or recessed into the metal on the same pass as the print. Tactile, and impossible to peel off.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+      <li class="v5-card">
+        <span class="slot"><span>A tin photographed with the spot UV mark catching the light</span></span>
+        <h3 class="finish-title">Spot UV</h3>
+        <p class="finish-copy">A raised gloss mark over a matte base, for the detail that has to catch a light on a shelf.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+      <li class="v5-card">
+        <span class="slot"><span>Tins printed in gold and pearl inks</span></span>
+        <h3 class="finish-title">Metallic and pearl inks</h3>
+        <p class="finish-copy">Gold, silver and pearl laid as ink rather than as a foil, which keeps the tin recyclable as steel.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+      <li class="v5-card">
+        <span class="slot"><span>A tin with a clear window in the lid, the fill visible through it</span></span>
+        <h3 class="finish-title">PVC window</h3>
+        <p class="finish-copy">A cut aperture closed with clear film, for a fill that has to be seen before the lid comes off.</p>
+        <span class="pill">Applied on the flat sheet, before forming</span>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<script>
+  // Layouts 1 and 2 differ only in where the controls sit; both are the same
+  // tab pattern. Layout 3 is native <details> and needs none of this.
+  function tabs(railSel, panelSel) {
+    const rail = document.querySelector(railSel);
+    if (!rail) return;
+    const btns = Array.from(rail.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll(panelSel));
+    const show = (i) => {
+      panels.forEach((p, k) => { p.hidden = k !== i; });
+      btns.forEach((b, k) => {
+        b.setAttribute('aria-selected', String(k === i));
+        b.tabIndex = k === i ? 0 : -1;
+      });
+    };
+    btns.forEach((b, i) => {
+      b.addEventListener('click', () => show(i));
+      b.addEventListener('keydown', (e) => {
+        let n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = i + 1;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = i - 1;
+        else if (e.key === 'Home') n = 0;
+        else if (e.key === 'End') n = btns.length - 1;
+        if (n === null) return;
+        e.preventDefault();
+        const at = (n + btns.length) % btns.length;
+        show(at); btns[at].focus();
+      });
+    });
+  }
+  tabs('.v1-rail', '.v1-panel');
+  tabs('.v2-thumbs', '.v2-panel');
+  tabs('.v4-tabs', '.v4-panel');
+
+  // The accordion keeps one row open, like the FAQ on the page.
+  const rows = Array.from(document.querySelectorAll('.v3 details'));
+  rows.forEach((d) => d.addEventListener('toggle', () => {
+    if (!d.open) return;
+    rows.forEach((o) => { if (o !== d) o.open = false; });
+  }));
+</script>
+</body>
+</html>

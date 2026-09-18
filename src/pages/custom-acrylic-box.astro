@@ -31,8 +31,8 @@ const types = [
   { n: 'ST-07', key: 'type-storage', name: 'Acrylic Storage Boxes', spec: 'Stackable, load-rated',
     alt: 'A clear acrylic drawer tower with a hand pulling one drawer open, holding small cosmetic pots',
     d: 'Walls sized to the weight above rather than to a default, which is the difference between a stack of four that stays square and a stack that leans.' },
-  { n: 'PX-08', key: 'type-plexiglass', name: 'Custom Plexiglass Packaging', spec: 'Cast PMMA sheet',
-    alt: 'A stack of clear cast acrylic sheet offcuts photographed edge-on, showing the thickness of each wall',
+  { n: 'PX-08', key: 'type-plexiglass-v2', name: 'Custom Plexiglass Packaging', spec: 'Cast PMMA sheet',
+    alt: 'A clear acrylic box with its lid tilted open on a black background, light running along the polished edges and through the wall',
     d: 'The same material under its trade name, sheet and fabrication in the same building, which is what holds the wall to the grade that was quoted.' },
   { n: 'LK-09', key: 'type-lockable', name: 'Lockable Collection Boxes', spec: 'Cam lock and a slot',
     alt: 'A clear acrylic collection box with a cam lock, a chalkboard sign reading TIPS and banknotes inside',
@@ -56,8 +56,8 @@ const pairs = [
 
 /* Four closures, four photographs of the closure itself. */
 const mechs = [
-  { key: 'mech-lid', name: 'Lift-off lid', tag: 'No hinge to fail',
-    alt: 'Two stacked clear acrylic boxes with lift-off lids, gold lettering bonded to the front face',
+  { key: 'mech-lid-v2', name: 'Lift-off lid', tag: 'No hinge to fail',
+    alt: 'A set of clear acrylic lidded trays holding colored pencils and pens, photographed on a lilac background',
     d: 'A straight lift with a rebated lip. Nothing to wear out, and the whole top face stays clear for print.' },
   { key: 'mech-hinge', name: 'Hinged lid', tag: 'Jig-set barrels',
     alt: 'Two clear acrylic handbag-style boxes with hinged lids and pearl handles, holding gift bottles',
@@ -65,8 +65,8 @@ const mechs = [
   { key: 'mech-drawer', name: 'Sliding tray', tag: 'Runner or friction',
     alt: 'A clear acrylic drawer unit with a hand pulling the lower drawer out, holding cosmetic bottles',
     d: 'A tray that pulls out under the product, for anything that gets handled rather than looked at.' },
-  { key: 'mech-step', name: 'Stepped shelf', tag: 'Nothing hidden',
-    alt: 'A rose-tinted stepped acrylic desk organizer with three tiers and a pen resting on it',
+  { key: 'mech-step-v2', name: 'Stepped shelf', tag: 'Nothing hidden',
+    alt: 'A stepped clear acrylic shelving unit holding rows of cosmetic bottles in a shop',
     d: 'Tiers cut from the same sheet and bonded at the same rake: a whole range reads from the door.' },
 ];
 
@@ -96,24 +96,25 @@ const faults = [
    the alt text describes the photograph. Three are the frames the old grid used,
    plus three more cut from sources the page carries elsewhere but framed here on
    the SETTING rather than on the product — which is what makes them scenes. */
-/* Six positions, each cropped 3:2 from the source's own 4:5 frame — the tiles
-   used to run portrait and stood half again as tall as the row needed, which
-   made the section about the photographs rather than about the positions. The
-   `-v2` suffix is not cosmetic: re-uploading an existing R2 key does NOT change
-   what the CDN serves, so a re-crop always lands on a new key. */
+/* Six positions, each cropped 3:2. The client's own photographs, supplied as
+   `person 1..6` in order, so the ORDER is theirs and the captions were rewritten
+   to describe the frame that actually sits under each one — the previous set
+   ("A gallery", "A launch"…) belonged to the old source photographs and no
+   longer matched. `-v2` keys because re-uploading an existing R2 key does not
+   change what the CDN serves. */
 const scenes = [
-  { key: 'scen-vitrine-v2', cap: 'A gallery',
-    alt: 'A dark museum room with lit acrylic vitrines on plinths, holding sculpture and glassware' },
-  { key: 'scen-retail-v2', cap: 'A shop window',
-    alt: 'Three translucent acrylic boxes in deep green, red and amber, with pencils resting inside them' },
-  { key: 'scen-vanity-v2', cap: 'A counter',
-    alt: 'A tiered clear acrylic cosmetic organizer holding lipsticks, tubes and compacts in a bright room' },
-  { key: 'use-event-v2', cap: 'A launch',
-    alt: 'Two stacked clear acrylic boxes carrying gold lettering, standing on white fur with planting behind' },
-  { key: 'use-gifting-v2', cap: 'A gifting suite',
-    alt: 'Clear acrylic handbag-style boxes with pearl handles, held up outdoors, holding perfumes and gifts' },
-  { key: 'use-favour-v2', cap: 'A celebration',
-    alt: 'Two small clear acrylic cubes carrying printed round labels, on a white plate beside two rings' },
+  { key: 'scene-1-v2', w: 840, h: 560, cap: 'A studio desk',
+    alt: 'Clear acrylic organizer trays holding colored pencils and markers on a light wooden desk' },
+  { key: 'scene-2-v2', w: 840, h: 560, cap: 'A sweet shop',
+    alt: 'A wall of clear acrylic trays in a grid, each holding a different colored candy' },
+  { key: 'scene-3-v2', w: 800, h: 533, cap: 'A dessert table',
+    alt: 'Clear acrylic boxes holding pastries and small cakes on a white table' },
+  { key: 'scene-4-v2', w: 840, h: 560, cap: 'A beauty counter',
+    alt: 'Clear acrylic organizers holding cosmetics and boxed beauty products on a display table' },
+  { key: 'scene-5-v2', w: 840, h: 560, cap: 'A gifting suite',
+    alt: 'A clear acrylic gift box tied with a white ribbon, holding folded textiles and small gifts' },
+  { key: 'scene-6-v2', w: 840, h: 560, cap: "A collector's shelf",
+    alt: 'A white shelf of clear acrylic cases holding figurines, beside a teddy bear and a handbag' },
 ];
 
 /* §What the Sheet Can Be, in two blocks: the four sheet GRADES lead, the six
@@ -179,20 +180,17 @@ const grades = [
     d: 'For a plinth or a shelf carrying weight rather than showing product. The wall is derived from the span and the load, then quoted on its own line.' },
 ];
 
-/* Four routes. Three carry a photograph; UV digital does NOT, and that is
-   deliberate. The source page has no frame of full-colour print lying on an
-   acrylic face — the only full-colour candidate is a clear holder with printed
-   MAGAZINES standing inside it, which is not print on the sheet at all, and
-   every other printed frame in the set is a card insert or carries a
-   third-party wordmark. A card whose copy says "printed straight to the face"
-   cannot sit under a picture of something else, so it ships with no figure
-   until a real print sample is photographed. `key: null` renders text-only. */
+/* Four routes. All four now carry a photograph: `UV digital` used to ship with no
+   figure because the source page had no frame of full-colour print on an acrylic
+   face — the client supplied one (printed blocks, `print-uv`), so the swatch that
+   stood in for it is gone. `key: null` still renders text-only if a slot loses
+   its image again. */
 const prints = [
   { key: 'print-silk', t: 'Silkscreen', tag: 'Exact Pantone',
     alt: 'A red cast acrylic box carrying a solid white script printed across its lid',
     d: 'A solid color laid through a screen. The route for a logo in a spot color or two that has to match a brand book under a shop light.' },
-  { key: null, t: 'UV digital', tag: 'No plate, full color',
-    alt: '',
+  { key: 'print-uv', t: 'UV digital', tag: 'No plate, full color',
+    alt: 'Three clear acrylic blocks printed with full-color artwork and covers, standing on a pale surface',
     d: 'Artwork printed straight to the face and cured under a lamp. No plate, which is what makes a short run carrying a photograph worth quoting.' },
   { key: 'print-marks', t: 'Laser engraving', tag: 'Cut into the sheet',
     alt: 'A close crop of a script wordmark engraved into the underside of a clear acrylic lid, catching the light',
@@ -295,7 +293,7 @@ const seo = {
   description: 'Crystal-clear custom acrylic boxes with polished edges and solvent-bonded seams. Half the weight of glass, 92% light transmission. MOQ 500, samples in 5–7 days.',
   keywords: 'custom acrylic box manufacturers, custom acrylic display boxes, wholesale acrylic gift boxes, clear acrylic box with lid manufacturer, OEM acrylic box manufacturer China, custom printed acrylic boxes, acrylic jewelry box manufacturer, acrylic storage box manufacturer, custom plexiglass packaging manufacturer, cast PMMA acrylic box supplier, acrylic box manufacturer China, custom acrylic boxes wholesale, plexiglass display box maker',
   canonical: 'https://www.leelinepackage.com/custom-acrylic-box/',
-  ogImage: `${AC}/hero-case.webp`,
+  ogImage: `${AC}/hero-v2.webp`,
 };
 
 const jsonLd = {
@@ -344,7 +342,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${AC}/hero-case.webp`}
+  preloadImage={`${AC}/hero-v2.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -373,9 +371,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           </div>
         </div>
         <figure class="ac-hero-fig" data-reveal="up" style="--d:0.2s">
-          <img src={`${AC}/hero-case.webp`} alt="A hand lifting the clear acrylic lid from a display case, revealing a felt-lined tray of small objects below"
-               width="750" height="820" loading="eager" fetchpriority="high" decoding="sync" />
-          <figcaption>A lid lifted on a bonded hinge, over a tray cut to the piece</figcaption>
+          <img src={`${AC}/hero-v2.webp`} alt="A stack of translucent cast acrylic cubes in green, orange, blue, red and yellow, with pencils resting against it"
+               width="504" height="504" loading="eager" fetchpriority="high" decoding="sync" />
+          <figcaption>Cast cubes, polished edge to polished edge, no frame around any of them</figcaption>
         </figure>
       </div>
     </section>
@@ -403,8 +401,21 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
-        <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+      </div>
+    </section>
+
+    <!-- ============ 2b. MID-PAGE CTA BAND ============
+         Sits directly above §How the Box Is Built. The client supplied a
+         background plate for a middle CTA, so the section CTA that used to close
+         §Nine Families moved here and became a full-bleed band — that keeps ONE
+         call to action in this stretch of the page instead of stacking a new one
+         against the old one. No headline copy: the only thing on the band is the
+         button, so nothing is written for the client and nothing has to sit
+         against the photograph as text. -->
+    <section class="ac-midcta" id="ac-midcta">
+      <div class="wrap ac-midcta-inner">
+        <div class="ac-actions" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Send My Acrylic Spec
             <Fragment set:html={arrow} />
           </a>
@@ -680,7 +691,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <ul class="ac-car-track">
             {scenes.map((s) => (
               <li class="ac-car-slide">
-                <img src={`${AC}/${s.key}.webp`} alt={s.alt} width="420" height="280" loading="lazy" decoding="async" />
+                <img src={`${AC}/${s.key}.webp`} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" />
                 <span class="ac-car-cap">{s.cap}</span>
               </li>
             ))}
@@ -789,6 +800,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     border: 1px solid rgba(176, 141, 76, 0.42);
     border-radius: 1.5rem;
     background: rgba(245, 240, 229, 0.5);
+    /* The client's hero is 504 px square. The figure is capped at that width so
+       the photograph is never upscaled, and centred in its wider column. */
+    max-width: 504px;
+    margin-inline: auto;
   }
   .ac-hero-fig img {
     width: 100%;
@@ -839,7 +854,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     margin-top: 1.3rem;
   }
   .ac-actions { margin-top: 1.9rem; }
-  .ac-hero-fig img { aspect-ratio: 750 / 820; object-fit: cover; }
+  .ac-hero-fig img { aspect-ratio: 1 / 1; object-fit: cover; }
 
   /* the hero's one specification element — a scale, not a pill row */
   .ac-wall { margin-top: 2rem; }
@@ -930,6 +945,23 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .ac-type-body p { font-size: 0.93rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0; }
   .ac-type-body .ac-tag { align-self: flex-start; }
+
+  /* ======================== 2b. MID-PAGE CTA BAND ========================
+     Full-bleed, one button, deliberately NO headline — nothing is written for
+     the client here, and nothing has to sit on the photograph as text, so there
+     is no contrast budget to spend. The plate is bright, so the scrim only has
+     to stop it fighting the gold button. */
+  .ac-midcta {
+    position: relative;
+    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    background:
+      radial-gradient(52% 130% at 50% 50%, rgba(20, 38, 27, 0.34) 0%, rgba(20, 38, 27, 0) 100%),
+      linear-gradient(rgba(20, 38, 27, 0.42), rgba(20, 38, 27, 0.5)),
+      url('https://img.leelinepackage.com/acrylic-box/mid-cta.webp') center / cover no-repeat,
+      linear-gradient(165deg, var(--color-forest) 0%, var(--forest-deep) 70%);
+    color: var(--ivory);
+    overflow: hidden;
+  }
 
   /* ======================== 3. HOW THE BOX IS BUILT ========================
      The page's one drawn module, chosen because a buyer acts differently for
@@ -1635,16 +1667,31 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .ac-faq-grid details p { font-size: 0.95rem; line-height: 1.72; color: var(--color-brand-muted); margin: 0.9rem 0 0; }
 
   /* ======================== 13. FINAL CTA ========================
-     No photograph behind this band. Every candidate on the source page carries
-     either a third-party product name or a watermarked stock frame, and at a
-     veil heavy enough to hide those the image stops contributing anything. The
-     band is a pure typographic close on the page's own forest, with a brass
-     bloom off the right shoulder so it is not flat. */
+     The band used to be a typographic close on plain forest, because every
+     candidate on the source page carried a third-party product name and no veil
+     light enough to leave the picture readable would also hide those. The client
+     supplied a brand-free plate, so the photograph is back.
+     ⚠️ **The plate is bright (near-white ground), so one flat veil that keeps
+     ivory text legible kills the image.** Two layers instead: a base scrim over
+     the whole band, plus a centred radial scrim behind the 54rem copy column.
+     Worst-case arithmetic — ivory is L 0.874 and needs 4.5:1, so the band may not
+     exceed L 0.155; the plate's white ground is L 0.90 and forest-deep is L 0.014:
+       · behind the copy: 1-(1-.62)(1-.60) = .848 → L .147 → **5.0:1** ✓
+       · at the edges:    .62                    → L .351 → photo reads at 38 %
+     The image is therefore clear at the shoulders and the text is clear in the
+     middle. Retune the two alphas TOGETHER — raising the base to make the text
+     safer flattens the picture. */
   .ac-final {
     position: relative;
-    padding: clamp(4.5rem, 9vw, 8rem) 0;
+    /* Vertical padding cut from the 8rem cap to 6.8rem on the client's ask
+       (*"final CTA纵向缩短1cm"*): 1.2rem off each side is 2.4rem = 38.4 px, i.e.
+       just over 1 cm at 96 dpi. Only binds above ~1210 px, where the vw term
+       stops winning — narrower viewports are unchanged. */
+    padding: clamp(4.5rem, 9vw, 6.8rem) 0;
     background:
-      radial-gradient(120% 96% at 84% 10%, rgba(176, 141, 76, 0.17) 0%, rgba(176, 141, 76, 0) 58%),
+      radial-gradient(58% 78% at 50% 50%, rgba(20, 38, 27, 0.6) 0%, rgba(20, 38, 27, 0.28) 62%, rgba(20, 38, 27, 0) 100%),
+      linear-gradient(rgba(20, 38, 27, 0.62), rgba(20, 38, 27, 0.7)),
+      url('https://img.leelinepackage.com/acrylic-box/final-cta-v3.webp') center / cover no-repeat,
       linear-gradient(165deg, var(--color-forest) 0%, var(--forest-deep) 70%);
     color: var(--ivory);
     overflow: hidden;

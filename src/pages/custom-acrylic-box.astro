@@ -414,7 +414,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
          against the photograph as text. -->
     <section class="ac-midcta" id="ac-midcta">
       <div class="wrap ac-midcta-inner">
-        <div class="ac-actions" data-reveal="up">
+        <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Nine families, one product</span>
+        <h2 class="section-title ac-title-light" data-reveal="up" style="--d:0.06s">The Product Picks the Family</h2>
+        <p class="ac-sub-light" data-reveal="up" style="--d:0.12s">You do not have to pick a family before you write. Send the size you have in mind and how many you need, and the answer says which of the nine fits and what it costs at that quantity.</p>
+        <div class="ac-actions" data-reveal="up" style="--d:0.18s">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
             Send My Acrylic Spec
             <Fragment set:html={arrow} />
@@ -947,21 +950,37 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .ac-type-body .ac-tag { align-self: flex-start; }
 
   /* ======================== 2b. MID-PAGE CTA BAND ========================
-     Full-bleed, one button, deliberately NO headline — nothing is written for
-     the client here, and nothing has to sit on the photograph as text, so there
-     is no contrast budget to spend. The plate is bright, so the scrim only has
-     to stop it fighting the gold button. */
+     Full-bleed, one button, and now copy — so, as on the final CTA, one flat
+     veil that keeps ivory text legible would kill the photograph. Same two-layer
+     treatment: a base scrim over the band plus a centred radial behind the copy
+     column, so the image reads at the shoulders and the text reads in the middle.
+     Worst case (ivory L 0.874 needs 4.5:1 → band ≤ L 0.155; plate ground L 0.90,
+     forest-deep L 0.014): behind the copy 1-(1-.62)(1-.60) = .848 → L .147 →
+     **5.0:1**; at the edges .62 → L .351, photo at 38 %. Retune the two alphas
+     TOGETHER. */
   .ac-midcta {
     position: relative;
-    padding: clamp(3.5rem, 7vw, 5.5rem) 0;
+    /* Same 1 cm trim as the final CTA (*"中部CTA纵向缩短1cm"*): 1.2rem off each
+       side = 2.4rem = 38.4 px, just over 1 cm at 96 dpi. */
+    padding: clamp(4rem, 8vw, 5.3rem) 0;
     background:
-      radial-gradient(52% 130% at 50% 50%, rgba(20, 38, 27, 0.34) 0%, rgba(20, 38, 27, 0) 100%),
-      linear-gradient(rgba(20, 38, 27, 0.42), rgba(20, 38, 27, 0.5)),
+      radial-gradient(56% 86% at 50% 50%, rgba(20, 38, 27, 0.6) 0%, rgba(20, 38, 27, 0.28) 62%, rgba(20, 38, 27, 0) 100%),
+      linear-gradient(rgba(20, 38, 27, 0.62), rgba(20, 38, 27, 0.7)),
       url('https://img.leelinepackage.com/acrylic-box/mid-cta.webp') center / cover no-repeat,
       linear-gradient(165deg, var(--color-forest) 0%, var(--forest-deep) 70%);
     color: var(--ivory);
     overflow: hidden;
   }
+  .ac-midcta-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .ac-midcta-inner .section-title { margin-bottom: 0; }
+  .ac-midcta-inner .ac-sub-light { margin-top: 1.2rem; margin-inline: auto; max-width: 52ch; }
+  .ac-midcta-inner .ac-actions { margin-top: 2rem; }
 
   /* ======================== 3. HOW THE BOX IS BUILT ========================
      The page's one drawn module, chosen because a buyer acts differently for

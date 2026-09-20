@@ -245,16 +245,16 @@ const quotes = [
   { name: 'Rachel Brooks', role: 'Brand Merchandising Lead \u00b7 United States', img: `${AC}/avatar-rachel.webp`,
     alt: 'Portrait of Rachel Brooks',
     p: [
-      'We ordered 500 display boxes with the logo engraved for a necklace line, and the brief was mostly a warning: the box had to disappear. What arrived was clearer than the samples we had been sent by two other suppliers, and the engraving read without a label anywhere on it.',
-      'The turnaround was twelve days including the crossing to California, which put the boxes on the counter for the launch instead of after it.',
-      'The unboxing is the part customers keep mentioning. We have already placed a reorder for a thousand more.',
+      'The brief was mostly a warning: 500 display boxes headed out with a necklace line, the logo engraved, and the box itself had to disappear. What arrived was clearer than the samples we had been sent by two other suppliers, and the engraving read without a label anywhere on it.',
+      'Twelve days, the crossing to California included, and the boxes were on the counter for the launch instead of after it.',
+      'The unboxing is the part customers keep mentioning. A reorder for a thousand more is already placed.',
     ] },
   { name: 'Priya Sharma', role: 'Owner and Creative Director \u00b7 United Kingdom', img: `${AC}/avatar-priya.webp`,
     alt: 'Portrait of Priya Sharma',
     p: [
       'We bought 150 heart-shaped boxes for a preserved rose line, which is a product where the box is most of the gift. The laser-cut edges came out mirror-smooth and the shape held on all hundred and fifty.',
-      'The courier held the pallet for three days, which is the only reason this is not a five. What mattered was being told: the tracking was checked daily and pushed to us rather than us going looking for it.',
-      'The boxes are the part we would buy again. The delay cost three days and no customers.',
+      'The courier held the pallet three days, and that is the only reason this is not a five. What mattered was being told: the tracking was checked daily and passed to us before we could ask.',
+      'Three days late and no customers lost. We would buy them again.',
     ] },
 ];
 
@@ -433,12 +433,6 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The edge and the joint</span>
           <h2 class="section-title ac-title-light">How the Box Is Built, and the Four Ways It Opens</h2>
           <p class="section-sub ac-sub-light">Almost everything that separates a good acrylic box from a cheap box happens at two places nobody photographs. Both are set at the bench, and both are visible on the first sample if you know where to look.</p>
-          <div class="ac-head-cta" data-reveal="up" style="--d:0.1s">
-            <a class="btn btn-light" href="/contact/" target="_blank" rel="noopener">
-              Specify My Build
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
         </div>
 
         <div class="ac-built-grid">
@@ -725,7 +719,8 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
               {q.p.map((para) => <p>{para}</p>)}
               <footer>
                 <img src={q.img} alt={q.alt} width="56" height="56" loading="lazy" decoding="async" />
-                <span><b>{q.name}</b>{q.role}</span>
+                <span class="ac-quote-who"><b>{q.name}</b>{q.role}</span>
+                <span class="ac-quote-mark ac-quote-mark--end" aria-hidden="true">&rdquo;</span>
               </footer>
             </li>
           ))}
@@ -992,12 +987,6 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     color: var(--ivory);
   }
   .ac-title-light { color: var(--ivory); }
-  /* A second entry point in the head of the section. The bottom CTA sits after
-     four mechanism cards, which is a long scroll for the page's signature block.
-     It promises something DIFFERENT from the foot — "Specify My Build" asks for
-     the drawing-level conversation, the foot asks to see a bonded sample — so
-     two buttons in one section do not make the same offer. */
-  .ac-head-cta { margin-top: clamp(1.5rem, 3vw, 2rem); }
   .ac-built-grid {
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
@@ -1618,6 +1607,15 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     color: var(--brass);
     margin-bottom: 0.5rem;
   }
+  /* The closing mark mirrors the opening one into the card's bottom-right corner.
+     It rides at the right end of the attribution row and is pushed there with
+     margin-left:auto, so it can never collide with the role line however narrow
+     the card gets — which is what an absolutely-positioned corner mark would do. */
+  .ac-quote-mark--end {
+    margin: 0 0 0 auto;
+    align-self: flex-end;
+    line-height: 0.5;
+  }
   .ac-quote p {
     font-family: var(--font-heading);
     font-style: italic;
@@ -1636,7 +1634,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     margin-top: auto;
   }
   .ac-quote footer img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
-  .ac-quote footer span { display: flex; flex-direction: column; gap: 0.15rem; font-family: var(--font-body); font-size: 0.88rem; color: var(--color-brand-muted); }
+  /* Named, NOT `.ac-quote footer span` — a bare `span` selector also caught the
+     closing quote mark below and forced it to 0.88rem, which is the bug that made
+     the right-hand mark invisible-ish on the first try. */
+  .ac-quote footer .ac-quote-who { display: flex; flex-direction: column; gap: 0.15rem; font-family: var(--font-body); font-size: 0.88rem; color: var(--color-brand-muted); }
   .ac-quote footer b { font-size: 1.06rem; font-weight: 600; color: var(--color-brand-text); }
 
   /* ======================== 12. FAQ ========================

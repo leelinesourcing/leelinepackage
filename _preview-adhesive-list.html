@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preview — §The Surface Decides the Adhesive · five layouts</title>
+<style>
+/* ── the site's fonts, resolved from the repo root ───────────────────────── */
+@font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');font-weight:200 800;font-style:italic;font-display:swap}
+@font-face{font-family:'Instrument Sans Variable';src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');font-weight:400 700;font-style:normal;font-display:swap}
+@font-face{font-family:'Instrument Sans Variable';src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-italic.woff2') format('woff2-variations');font-weight:400 700;font-style:italic;font-display:swap}
+
+/* ── the site's real tokens ─────────────────────────────────────────────── */
+:root{
+  --forest:#1F3B2C; --forest-deep:#14261B; --forest-light:#2E4F3D;
+  --brass:#B08D4C; --brass-bright:#E4B54D; --brass-soft:#C9A87C;
+  --ivory:#F5F0E5; --clay:#EDE5D4;
+  --head:'Newsreader Variable',Georgia,serif;
+  --body:'Instrument Sans Variable',system-ui,-apple-system,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--forest);color:var(--ivory);font-family:var(--body);
+     -webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin-inline:auto;padding-inline:1.5rem}
+
+/* ── preview chrome (not part of any variant) ───────────────────────────── */
+.pv{background:var(--clay);color:var(--forest-deep);padding:1.6rem 0}
+.pv h1{font-family:var(--head);font-weight:600;font-size:1.5rem;margin:0 0 .5rem;letter-spacing:-.01em}
+.pv p{margin:0 0 .4rem;font-size:.9rem;line-height:1.6;max-width:78ch}
+.pv b{font-weight:600}
+
+.flag{background:var(--clay);color:var(--forest-deep);padding:1.1rem 0;margin-top:3.5rem}
+.flag .wrap{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.flag i{font-family:var(--head);font-style:italic;font-size:2rem;line-height:1;color:var(--brass);min-width:1.6rem}
+.flag h2{font-family:var(--head);font-weight:600;font-size:1.15rem;margin:0;letter-spacing:-.01em}
+.flag p{margin:0;font-size:.86rem;line-height:1.5;color:rgba(20,38,27,.72)}
+
+/* ── the section head, identical in all five ────────────────────────────── */
+.sec{padding:clamp(3rem,6vw,4.5rem) 0 0}
+.eb{display:inline-flex;align-items:center;gap:.5rem;font-size:.66rem;font-weight:600;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--brass-soft)}
+.eb svg{width:1.1em;height:1.1em;color:var(--brass)}
+h2.title{font-family:var(--head);font-weight:500;font-size:clamp(2rem,5vw,3.6rem);line-height:1.04;
+         letter-spacing:-.02em;color:var(--ivory);margin:1.1rem 0 0;max-width:20ch}
+.lede{font-size:.98rem;line-height:1.66;color:rgba(245,240,229,.74);max-width:46ch;margin:1.2rem 0 0}
+.legend{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem .7rem;margin:2.6rem 0 0;
+        font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-soft)}
+.legend i{font-style:normal;color:var(--brass)}
+.cta{display:inline-flex;align-items:center;gap:.6rem;margin-top:2.4rem;padding:.95rem 1.6rem;
+     border-radius:999px;background:var(--brass-bright);color:var(--forest-deep);
+     font-weight:600;font-size:.95rem;text-decoration:none}
+.cta svg{width:1.15em;height:1.15em}
+.ico{display:flex;width:clamp(26px,2.4vw,32px);aspect-ratio:1/1;color:var(--brass-soft);flex:none}
+.ico svg{width:100%;height:100%;display:block}
+ul.pairs{list-style:none;margin:2rem 0 0;padding:0}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   A · 跨栏长箭头 — the pair joined by an arrow DRAWN ACROSS the whole gutter
+   Two columns, one long brass arrow between them on the row's first baseline.
+   ═════════════════════════════════════════════════════════════════════════ */
+.vA li{display:grid;grid-template-columns:auto minmax(0,.84fr) 5rem minmax(0,1.16fr);
+       column-gap:1rem;align-items:baseline;padding:1.5rem 0}
+.vA li + li{border-top:1px solid rgba(245,240,229,.1)}
+.vA h3{font-family:var(--head);font-weight:600;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em;margin:0;color:var(--ivory)}
+.vA .cond{font-size:.87rem;line-height:1.6;color:rgba(245,240,229,.6);margin:.45rem 0 0;max-width:40ch;text-wrap:pretty}
+.vA .bow{display:block;width:100%;height:11px;color:var(--brass-soft);margin-bottom:.3rem}
+.vA .bow svg{width:100%;height:11px;display:block}
+.vA b{display:block;font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.14;letter-spacing:-.02em;color:var(--ivory)}
+.vA .ans{font-size:.9rem;line-height:1.62;color:rgba(245,240,229,.72);margin:.5rem 0 0;max-width:46ch;text-wrap:pretty}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   B · 双半条 — the pair shares ONE FRAME, split into two halves
+   Ownership comes from the border: two halves inside one enclosed bar.
+   ═════════════════════════════════════════════════════════════════════════ */
+.vB ul.pairs{display:flex;flex-direction:column;gap:1rem}
+.vB li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+       border:1px solid rgba(201,168,124,.3);border-radius:1rem;overflow:hidden}
+.vB .half{padding:1.15rem 1.4rem 1.3rem}
+.vB .half + .half{background:rgba(245,240,229,.05);border-left:1px solid rgba(201,168,124,.3)}
+.vB .role{display:block;font-size:.63rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+          color:var(--brass-soft);margin-bottom:.55rem}
+.vB .role i{font-style:normal;color:var(--brass);margin-right:.35rem}
+.vB .role em{font-style:normal;color:rgba(245,240,229,.4)}
+.vB h3{font-family:var(--head);font-weight:600;font-size:1.25rem;line-height:1.2;letter-spacing:-.01em;margin:0}
+.vB b{display:block;font-family:var(--head);font-weight:600;font-size:1.6rem;line-height:1.14;letter-spacing:-.02em;margin:0}
+.vB p{font-size:.87rem;line-height:1.6;margin:.5rem 0 0;max-width:44ch;text-wrap:pretty}
+.vB .half + .half p{color:rgba(245,240,229,.72)}
+.vB .half p{color:rgba(245,240,229,.6)}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   C · 三栏配对卡 — the pair is a CARD; six cards, 3 × 2
+   The frame makes the unit, and inside the card the chain runs downward.
+   ═════════════════════════════════════════════════════════════════════════ */
+.vC ul.pairs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+             gap:clamp(1rem,2vw,1.5rem);margin-top:2.4rem}
+.vC li{display:flex;flex-direction:column;padding:1.4rem 1.4rem 1.5rem;
+       border:1px solid rgba(201,168,124,.28);border-radius:1.1rem;background:rgba(245,240,229,.03)}
+.vC .ico{margin-bottom:.9rem}
+.vC h3{font-family:var(--head);font-weight:600;font-size:1.2rem;line-height:1.2;letter-spacing:-.01em;margin:0}
+.vC .cond{font-size:.85rem;line-height:1.6;color:rgba(245,240,229,.6);margin:.45rem 0 0;text-wrap:pretty}
+.vC .down{display:block;color:var(--brass);font-size:1.1rem;line-height:1;margin:1.1rem 0 .85rem}
+.vC b{display:block;font-family:var(--head);font-weight:600;font-size:1.5rem;line-height:1.14;
+      letter-spacing:-.02em;color:var(--ivory);margin-top:auto}
+.vC .ans{font-size:.87rem;line-height:1.6;color:rgba(245,240,229,.72);margin:.5rem 0 0;text-wrap:pretty}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   D · 悬挂编号账本 — the pair is ONE HEADLINE LINE, explanations below it
+   Hanging brass numerals, then `Surface ——→ Adhesive` across the full width,
+   then the two explanations in two columns under it.
+   ═════════════════════════════════════════════════════════════════════════ */
+.vD ul.pairs{margin-top:2.4rem}
+.vD li{display:grid;grid-template-columns:4.4rem minmax(0,1fr);column-gap:clamp(.8rem,2vw,1.6rem);
+       padding:1.5rem 0}
+.vD li + li{border-top:1px solid rgba(245,240,229,.1)}
+.vD .num{font-family:var(--head);font-style:italic;font-size:1.7rem;line-height:1;color:var(--brass)}
+.vD .line{display:flex;align-items:baseline;gap:clamp(.7rem,1.6vw,1.3rem);flex-wrap:wrap}
+.vD h3{font-family:var(--head);font-weight:600;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em;margin:0}
+.vD .long{flex:1;min-width:2.5rem;height:11px;color:var(--brass-soft);margin-bottom:.28rem}
+.vD .long svg{width:100%;height:11px;display:block}
+.vD b{font-family:var(--head);font-weight:600;font-size:1.7rem;line-height:1.14;letter-spacing:-.02em;color:var(--ivory)}
+.vD .two{grid-column:2;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+         gap:clamp(1rem,2.4vw,2rem);margin-top:.9rem}
+.vD .two p{font-size:.88rem;line-height:1.6;margin:0;text-wrap:pretty}
+.vD .two p:first-child{color:rgba(245,240,229,.6)}
+.vD .two p:last-child{color:rgba(245,240,229,.72)}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   E · 纵向链 — the pair is STACKED: surface above, arrow down, adhesive below
+   Two columns of three. Vertical adjacency is the strongest grouping there is.
+   ═════════════════════════════════════════════════════════════════════════ */
+.vE ul.pairs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+             gap:clamp(1.6rem,3.4vw,2.8rem) clamp(1.6rem,4vw,3rem);margin-top:2.4rem}
+.vE li{display:flex;flex-direction:column}
+.vE h3{font-family:var(--head);font-weight:600;font-size:1.25rem;line-height:1.2;letter-spacing:-.01em;margin:0}
+.vE .cond{font-size:.86rem;line-height:1.6;color:rgba(245,240,229,.58);margin:.4rem 0 0;max-width:38ch;text-wrap:pretty}
+.vE .down{display:flex;align-items:center;gap:.6rem;margin:.9rem 0;color:var(--brass-soft)}
+.vE .down svg{width:14px;height:20px}
+.vE .rule{flex:1;height:1px;background:rgba(201,168,124,.34)}
+.vE b{display:block;font-family:var(--head);font-weight:600;font-size:1.6rem;line-height:1.14;letter-spacing:-.02em;color:var(--ivory)}
+.vE .ans{font-size:.88rem;line-height:1.62;color:rgba(245,240,229,.72);margin:.5rem 0 0;max-width:42ch;text-wrap:pretty}
+
+@media (max-width:860px){
+  .vA li{grid-template-columns:auto minmax(0,1fr);row-gap:.5rem}
+  .vA .bow{display:none}
+  .vA .bond{grid-column:2}
+  .vB li{grid-template-columns:minmax(0,1fr)}
+  .vB .half + .half{border-left:0;border-top:1px solid rgba(201,168,124,.3)}
+  .vC ul.pairs{grid-template-columns:minmax(0,1fr)}
+  .vD .two{grid-template-columns:minmax(0,1fr)}
+  .vE ul.pairs{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="p-leaf" d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z"/>
+    <path id="p-arrow" d="M5 12h14M13 6l6 6-6 6"/>
+    <g id="i-flat"><path d="M9 27L20 12h15L24 27z"/><path d="M9 27v4h15v-4"/></g>
+    <g id="i-bottle"><path d="M19 6h6v7l4 5v17a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2V18l4-5z"/><path d="M15 27h14"/></g>
+    <g id="i-jar"><rect x="7" y="17" width="20" height="19" rx="3"/><path d="M5 17h24"/><path d="M34 8c1.8 2.2 2.9 3.8 2.9 5.2a2.9 2.9 0 0 1-5.8 0c0-1.4 1.1-3 2.9-5.2z"/></g>
+    <g id="i-wet"><path d="M4 19q5.5-5.5 11 0t11 0 11 0"/><path d="M4 28q5.5-5.5 11 0t11 0 11 0"/></g>
+    <g id="i-frozen"><path d="M22 7v30M9.2 14.5l25.6 15M9.2 29.5l25.6-15"/><path d="M22 12l-4-4M22 12l4-4M22 32l-4 4M22 32l4 4"/></g>
+    <g id="i-kraft"><rect x="7" y="12" width="30" height="20" rx="2"/><circle cx="15" cy="19" r="1.5"/><circle cx="24" cy="25" r="1.5"/><circle cx="31" cy="18" r="1.5"/><circle cx="19" cy="27" r="1.5"/></g>
+  </defs>
+</svg>
+
+<div class="pv"><div class="wrap">
+  <h1>§The Surface Decides the Adhesive — 五个排版</h1>
+  <p>同一段文案、同一个深色底、同一套字体，<b>只有结构不同</b>。每条都是「被贴面 → 胶」的六组配对，差别在于<b>「这个左项属于那个右项」是用什么方式说出来的</b>。</p>
+  <p><b>A</b> 跨栏长箭头 · <b>B</b> 双半条 · <b>C</b> 三栏配对卡 · <b>D</b> 悬挂编号账本 · <b>E</b> 纵向链</p>
+  <p>三条读数（−18/60 °C · 1,000 h · 24 h）已按你说的从页面删除，这里也不再出现。</p>
+</div></div>
+
+<!-- ═══════════════════════════════ A ═══════════════════════════════ -->
+<div class="flag"><div class="wrap">
+  <i>A</i>
+  <h2>跨栏长箭头 — the connector is DRAWN across the gutter</h2>
+  <p>现在线上就是两栏，但箭头是个小字符；这里把它画成一条横跨整条缝隙的铜色长箭头，落在行的第一条基线上。</p>
+</div></div>
+<section class="sec vA"><div class="wrap">
+  <span class="eb"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-leaf" fill="currentColor"/></svg>The bond, not the print</span>
+  <h2 class="title">The Surface Decides the Adhesive</h2>
+  <p class="lede">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
+  <p class="legend"><span>What you're labelling</span><i>→</i><span>The adhesive it takes</span></p>
+  <ul class="pairs">
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-flat"/></svg></span>
+      <div><h3>Flat board</h3><p class="cond">Dry, flat and sealed, with no radius and no oil to work around.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Permanent acrylic</b><p class="ans">Aggressive and immediate, which is why nothing lifts over time.</p></div></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-bottle"/></svg></span>
+      <div><h3>Curved bottle</h3><p class="cond">A face that has to follow the radius of the bottle.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Conformable, with an overlap</b><p class="ans">Soft enough to bend with the curve instead of bridging across it.</p></div></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-jar"/></svg></span>
+      <div><h3>Oily jar</h3><p class="cond">Oil at the shoulder of a jar crawls under an acrylic and lifts it.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Rubber-based, high tack</b><p class="ans">Enough tack to grip through the film of oil.</p></div></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wet"/></svg></span>
+      <div><h3>Chilled and wet</h3><p class="cond">Milk tanks and cold rooms, where water sits between the label and the glass.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Wet-surface acrylic</b><p class="ans">Pushes the water aside rather than sitting on top of it.</p></div></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-frozen"/></svg></span>
+      <div><h3>Frozen, −18 °C</h3><p class="cond">A standard adhesive goes hard below freezing and pops off.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Freezer-grade</b><p class="ans">Stays soft enough to hold through the freeze.</p></div></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-kraft"/></svg></span>
+      <div><h3>Recycled kraft</h3><p class="cond">Dusty, porous board that drinks adhesive.</p></div>
+      <span class="bow" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span>
+      <div class="bond"><b>Extra-coverage coat</b><p class="ans">A heavier coat, which is what keeps the corners down on day three.</p></div></li>
+  </ul>
+  <a class="cta" href="#">Test It on My Surface <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-arrow" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></section>
+
+<!-- ═══════════════════════════════ B ═══════════════════════════════ -->
+<div class="flag"><div class="wrap">
+  <i>B</i>
+  <h2>双半条 — the pair shares ONE FRAME</h2>
+  <p>每行是一个封闭的圆角条，里面左右两半：左半是「被贴面」，右半略亮、起点带一个铜色箭头。框把两半锁成一件东西，配错在视觉上不可能发生。</p>
+</div></div>
+<section class="sec vB"><div class="wrap">
+  <span class="eb"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-leaf" fill="currentColor"/></svg>The bond, not the print</span>
+  <h2 class="title">The Surface Decides the Adhesive</h2>
+  <p class="lede">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
+  <ul class="pairs">
+    <li><div class="half"><span class="role">On the surface</span><h3>Flat board</h3><p>Dry, flat and sealed, with no radius and no oil to work around.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Permanent acrylic</b><p>Aggressive and immediate, which is why nothing lifts over time.</p></div></li>
+    <li><div class="half"><span class="role">On the surface</span><h3>Curved bottle</h3><p>A face that has to follow the radius of the bottle.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Conformable, with an overlap</b><p>Soft enough to bend with the curve instead of bridging across it.</p></div></li>
+    <li><div class="half"><span class="role">On the surface</span><h3>Oily jar</h3><p>Oil at the shoulder of a jar crawls under an acrylic and lifts it.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Rubber-based, high tack</b><p>Enough tack to grip through the film of oil.</p></div></li>
+    <li><div class="half"><span class="role">On the surface</span><h3>Chilled and wet</h3><p>Milk tanks and cold rooms, where water sits between the label and the glass.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Wet-surface acrylic</b><p>Pushes the water aside rather than sitting on top of it.</p></div></li>
+    <li><div class="half"><span class="role">On the surface</span><h3>Frozen, −18 °C</h3><p>A standard adhesive goes hard below freezing and pops off.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Freezer-grade</b><p>Stays soft enough to hold through the freeze.</p></div></li>
+    <li><div class="half"><span class="role">On the surface</span><h3>Recycled kraft</h3><p>Dusty, porous board that drinks adhesive.</p></div>
+      <div class="half"><span class="role"><i>→</i>Takes <em>the adhesive</em></span><b>Extra-coverage coat</b><p>A heavier coat, which is what keeps the corners down on day three.</p></div></li>
+  </ul>
+  <a class="cta" href="#">Test It on My Surface <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-arrow" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></section>
+
+<!-- ═══════════════════════════════ C ═══════════════════════════════ -->
+<div class="flag"><div class="wrap">
+  <i>C</i>
+  <h2>三栏配对卡 — the pair is a CARD, six of them 3 × 2</h2>
+  <p>卡框把一组锁住，卡内从上往下走：被贴面 → 铜色向下箭头 → 胶。三栏两排，页面宽度用满，跟页面上其他卡片网格同一套语言。</p>
+</div></div>
+<section class="sec vC"><div class="wrap">
+  <span class="eb"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-leaf" fill="currentColor"/></svg>The bond, not the print</span>
+  <h2 class="title">The Surface Decides the Adhesive</h2>
+  <p class="lede">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
+  <ul class="pairs">
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-flat"/></svg></span>
+      <h3>Flat board</h3><p class="cond">Dry, flat and sealed, with no radius and no oil to work around.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Permanent acrylic</b><p class="ans">Aggressive and immediate, which is why nothing lifts over time.</p></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-bottle"/></svg></span>
+      <h3>Curved bottle</h3><p class="cond">A face that has to follow the radius of the bottle.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Conformable, with an overlap</b><p class="ans">Soft enough to bend with the curve instead of bridging across it.</p></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-jar"/></svg></span>
+      <h3>Oily jar</h3><p class="cond">Oil at the shoulder of a jar crawls under an acrylic and lifts it.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Rubber-based, high tack</b><p class="ans">Enough tack to grip through the film of oil.</p></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wet"/></svg></span>
+      <h3>Chilled and wet</h3><p class="cond">Milk tanks and cold rooms, where water sits between the label and the glass.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Wet-surface acrylic</b><p class="ans">Pushes the water aside rather than sitting on top of it.</p></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-frozen"/></svg></span>
+      <h3>Frozen, −18 °C</h3><p class="cond">A standard adhesive goes hard below freezing and pops off.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Freezer-grade</b><p class="ans">Stays soft enough to hold through the freeze.</p></li>
+    <li><span class="ico"><svg viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><use href="#i-kraft"/></svg></span>
+      <h3>Recycled kraft</h3><p class="cond">Dusty, porous board that drinks adhesive.</p>
+      <span class="down" aria-hidden="true">↓</span><b>Extra-coverage coat</b><p class="ans">A heavier coat, which is what keeps the corners down on day three.</p></li>
+  </ul>
+  <a class="cta" href="#">Test It on My Surface <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-arrow" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></section>
+
+<!-- ═══════════════════════════════ D ═══════════════════════════════ -->
+<div class="flag"><div class="wrap">
+  <i>D</i>
+  <h2>悬挂编号账本 — the pair is ONE HEADLINE LINE</h2>
+  <p>左侧挂一个铜色斜体编号，右边一行读完「被贴面 ——→ 胶」，箭头横贯整条；两段解释另起一行、分两栏对齐在下面。行是最短的一种。</p>
+</div></div>
+<section class="sec vD"><div class="wrap">
+  <span class="eb"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-leaf" fill="currentColor"/></svg>The bond, not the print</span>
+  <h2 class="title">The Surface Decides the Adhesive</h2>
+  <p class="lede">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
+  <ul class="pairs">
+    <li><span class="num">01</span>
+      <div><div class="line"><h3>Flat board</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Permanent acrylic</b></div>
+      <div class="two"><p>Dry, flat and sealed, with no radius and no oil to work around.</p><p>Aggressive and immediate, which is why nothing lifts over time.</p></div></div></li>
+    <li><span class="num">02</span>
+      <div><div class="line"><h3>Curved bottle</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Conformable, with an overlap</b></div>
+      <div class="two"><p>A face that has to follow the radius of the bottle.</p><p>Soft enough to bend with the curve instead of bridging across it.</p></div></div></li>
+    <li><span class="num">03</span>
+      <div><div class="line"><h3>Oily jar</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Rubber-based, high tack</b></div>
+      <div class="two"><p>Oil at the shoulder of a jar crawls under an acrylic and lifts it.</p><p>Enough tack to grip through the film of oil.</p></div></div></li>
+    <li><span class="num">04</span>
+      <div><div class="line"><h3>Chilled and wet</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Wet-surface acrylic</b></div>
+      <div class="two"><p>Milk tanks and cold rooms, where water sits between the label and the glass.</p><p>Pushes the water aside rather than sitting on top of it.</p></div></div></li>
+    <li><span class="num">05</span>
+      <div><div class="line"><h3>Frozen, −18 °C</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Freezer-grade</b></div>
+      <div class="two"><p>A standard adhesive goes hard below freezing and pops off.</p><p>Stays soft enough to hold through the freeze.</p></div></div></li>
+    <li><span class="num">06</span>
+      <div><div class="line"><h3>Recycled kraft</h3><span class="long" aria-hidden="true"><svg viewBox="0 0 120 11" preserveAspectRatio="none"><path d="M0 5.5h108M100 1.5l8 4-8 4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></span><b>Extra-coverage coat</b></div>
+      <div class="two"><p>Dusty, porous board that drinks adhesive.</p><p>A heavier coat, which is what keeps the corners down on day three.</p></div></div></li>
+  </ul>
+  <a class="cta" href="#">Test It on My Surface <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-arrow" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></section>
+
+<!-- ═══════════════════════════════ E ═══════════════════════════════ -->
+<div class="flag"><div class="wrap">
+  <i>E</i>
+  <h2>纵向链 — the pair is STACKED, arrow points down</h2>
+  <p>被贴面在上、铜色箭头居中、胶在下，两栏各三组。上下相邻是最强的分组关系，配对永远不会有歧义。</p>
+</div></div>
+<section class="sec vE"><div class="wrap">
+  <span class="eb"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-leaf" fill="currentColor"/></svg>The bond, not the print</span>
+  <h2 class="title">The Surface Decides the Adhesive</h2>
+  <p class="lede">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
+  <ul class="pairs">
+    <li><h3>Flat board</h3><p class="cond">Dry, flat and sealed, with no radius and no oil to work around.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Permanent acrylic</b><p class="ans">Aggressive and immediate, which is why nothing lifts over time.</p></li>
+    <li><h3>Curved bottle</h3><p class="cond">A face that has to follow the radius of the bottle.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Conformable, with an overlap</b><p class="ans">Soft enough to bend with the curve instead of bridging across it.</p></li>
+    <li><h3>Oily jar</h3><p class="cond">Oil at the shoulder of a jar crawls under an acrylic and lifts it.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Rubber-based, high tack</b><p class="ans">Enough tack to grip through the film of oil.</p></li>
+    <li><h3>Chilled and wet</h3><p class="cond">Milk tanks and cold rooms, where water sits between the label and the glass.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Wet-surface acrylic</b><p class="ans">Pushes the water aside rather than sitting on top of it.</p></li>
+    <li><h3>Frozen, −18 °C</h3><p class="cond">A standard adhesive goes hard below freezing and pops off.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Freezer-grade</b><p class="ans">Stays soft enough to hold through the freeze.</p></li>
+    <li><h3>Recycled kraft</h3><p class="cond">Dusty, porous board that drinks adhesive.</p>
+      <span class="down" aria-hidden="true"><i class="rule"></i><svg viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 1v17M1 12l6 6 6-6"/></svg><i class="rule"></i></span>
+      <b>Extra-coverage coat</b><p class="ans">A heavier coat, which is what keeps the corners down on day three.</p></li>
+  </ul>
+  <a class="cta" href="#">Test It on My Surface <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#p-arrow" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+</div></section>
+
+<div class="pv" style="margin-top:3.5rem"><div class="wrap">
+  <p><b>怎么选：</b>要「最不容易看错」选 <b>B</b>；要「最像页面现有语言、能用满宽度」选 <b>C</b> 或 <b>E</b>；要「最短、最像一览表」选 <b>D</b>；要保留现在两栏的架构、只把箭头做明显，选 <b>A</b>。</p>
+</div></div>
+
+</body>
+</html>

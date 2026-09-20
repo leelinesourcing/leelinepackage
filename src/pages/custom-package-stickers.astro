@@ -9,89 +9,95 @@ const SK = `${R2}/stickers`;
 /* The nine families. Each `spec` is a number or a hard property that decides
    something for the buyer; each `d` is the consequence their own customer
    feels. No card restates the section intro or the card above it, and the
-   nine names carry the searches a buyer types. */
+   nine names carry the searches a buyer types.
+   ⚠️ **Two rules on `d`, both from the client.**
+   1. **No two may open the same way**, and the three that share a row are read
+      together — *"我需要内部卡片不要用一样的表达开头"*. The first version had
+      `A …` on four cards, two side by side. Openings now: Uncoated · The face ·
+      Matte · More labels · No white edge · Metal · Whatever · One sticker ·
+      Cut onto.
+   2. **Keep it to ONE sentence pair, about 2 lines (~90 characters).** The first
+      version ran 120–185 characters a card and the client pulled it as too much
+      reading (*"描述太多了，简单一点"*). Anything added here pushes the card to a
+      third line and breaks the row's even height — cut something else instead. */
 const types = [
   { n: 'LA-01', key: 'type-kraft', name: 'Custom Kraft Paper Labels', spec: 'Uncoated, takes a pen',
     alt: 'A roll of cream kraft bottle-neck labels, one blocked in gold lettering, on a pale surface',
-    d: 'A cream uncoated face that takes a pen, a stamp and a handwritten batch code — the stock a small-batch food or spirits producer reaches for when the run is under 500.' },
+    d: 'Uncoated and cream: a pen, a stamp and a handwritten batch code all take to it.' },
   { n: 'GL-02', key: 'type-glossy', name: 'Glossy Package Stickers', spec: 'Highest color pop',
     alt: 'Two round glossy stickers held between finger and thumb, their printed colors catching the light',
-    d: 'The face for a photograph. Gloss holds the saturation a matte face flattens, and a product shot reads the way it did on screen.' },
+    d: 'The face for a photograph — gloss holds the saturation matte flattens.' },
   { n: 'MT-03', key: 'type-matte', name: 'Matte Package Stickers', spec: 'No flare under a lamp',
     alt: 'A sheet of matte-finish stickers for coffee brands, in muted colors on a white backing',
-    d: 'Under a shop spotlight a gloss face throws a white flare straight across the artwork. Matte kills the flare and wipes clean without a smear.' },
+    d: 'Matte kills the flare a shop spotlight throws, and wipes clean without a smear.' },
   { n: 'WP-04', key: 'type-waterproof', name: 'Waterproof Custom Package Stickers', spec: 'Ice bucket and fridge',
     alt: 'A chilled bottle beaded with condensation, its printed label lying flat and undisturbed',
-    d: 'Condensation ends more labels than handling does. This face and this adhesive stay in place through an ice bucket, a shower and a refrigerated shelf.' },
+    d: 'More labels end in condensation than in handling. This one sits through ice and fridge.' },
   { n: 'CP-05', key: 'type-clear-pet', name: 'Clear PET Package Stickers', spec: 'No white edge',
     alt: 'A clear sticker sheet carrying holographic and printed designs, laid on a pale wooden surface',
-    d: 'A no-label look on glass or clear plastic. The product reads unlabelled while the sticker still carries the barcode, the ingredients and the batch.' },
+    d: 'No white edge on glass: the product reads unlabelled, the sticker still carries the barcode.' },
   { n: 'FS-06', key: 'type-foil', name: 'Foil Stamped Package Stickers', spec: 'Real metal, not gold ink',
     alt: 'A gold foil-blocked seal with a laurel border reading Premium, on a cream background',
-    d: 'A layer of metal rather than a gold-colored print. The seal reflects a room instead of imitating it, and it is the least expensive place on a package to buy a premium signal.' },
+    d: 'Metal, not a gold-colored print — the cheapest premium signal a package can carry.' },
   { n: 'DC-07', key: 'type-die-cut', name: 'Die Cut Package Stickers', spec: 'Any contour, ±0.2 mm',
     alt: 'A hand peeling a small die-cut car decal away from its backing sheet',
-    d: 'A cutting die is made to your outline. The sticker follows the shape of the artwork instead of sitting on a white rectangle.' },
+    d: 'Whatever outline you send is what the blade follows, not a stock rectangle.' },
   { n: 'CL-08', key: 'type-vinyl', name: 'Custom Logo Stickers for Packages', spec: 'Seals the carton',
     alt: 'A round printed thank-you sticker being pressed onto a kraft mailer box',
-    d: 'One printed sticker closes a mailer, carries the logo and does the job of a strip of branded tape — three jobs for less than any of them alone.' },
+    d: 'One sticker closes a mailer, carries the logo and replaces a strip of branded tape.' },
   { n: 'RL-09', key: 'type-roll', name: 'Custom Package Sticker Rolls', spec: 'Hand or machine applied',
     alt: 'Three rolls of printed labels on a pale blue surface, one carrying a tear-here strip',
-    d: 'Supplied on a 76 mm core that drops straight onto a dispenser or an applicator. That is the difference between labeling 200 cartons and 20,000.' },
+    d: 'Cut onto a lined roll, so the roll can be machine-fed — 200 cartons or 20,000 of them.' },
 ];
 
-/* §Die-Cut Registration. Four pairs: the left is what a die-cut roll does, the
-   right is what happens when the cut is treated as an afterthought. Every pair
-   is anchored in the drawing beside it. */
-const pairs = [
-  { good: 'The die is made once and kept',
-    bad: 'A new die on every run',
-    d: 'The cutting tool is stored against the artwork. A reorder four months later comes off the same outline — remade from the file, the second run is close, and close is how a stack of labels ends up visibly different from the first.' },
-  { good: 'Print laid inside the cut',
-    bad: 'Print running into the cut',
-    d: 'Artwork is set back from the cutting line with the bleed allowed for. Printed to the edge, the blade shaves the ink as it cuts and each label leaves the die with a ragged border.' },
-  { good: 'Kiss-cut, liner unbroken',
-    bad: 'Cut through the liner',
-    d: 'The blade stops inside the face and the backing carries on whole. Cut through both, the roll comes apart on the applicator and each label has to be handled by hand.' },
-  { good: 'The gap is a dimension on the die',
-    bad: 'The gap set by eye',
-    d: 'The space between labels is fixed at 1.5 mm in the drawing. Left to a guillotine it wanders, and a machine-applied run drifts out of register with the container.' },
-];
-
-/* §The Adhesive. Six surfaces. The adhesive named is the one that survives that
-   surface, and the last line is what happens without it. */
+// §The Adhesive reads ACROSS, not down: the left cell is what you are labelling
+// and what makes that surface awkward, the right cell is the adhesive and what
+// it does about it. `c` must stay a condition of the SURFACE (never a fault of
+// the label) and `d` the answer — §Four Substrates owns the word "fails", and
+// the two sections sit next to each other.
+// ⚠️ `i` is a line icon in the house stroke (44 viewBox, 1.7, round caps) that
+// marks the left column as the thing you STICK TO. The paint and the size must
+// stay ATTRIBUTES inside the string: Astro does not stamp the scope attribute
+// on `set:html` markup, so a scoped `.sk-surf-ico svg` rule matches nothing and
+// the stroke would fall back to solid black.
 const surfaces = [
   { s: 'Flat board', a: 'Permanent acrylic',
-    d: 'The default for a mailer or a carton: aggressive, immediate, and no corner lifts over time.' },
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 27L20 12h15L24 27z"/><path d="M9 27v4h15v-4"/></svg>',
+    c: 'Dry, flat and sealed, with no radius and no oil to work around.',
+    d: 'Aggressive and immediate, which is why nothing lifts over time.' },
   { s: 'Curved bottle', a: 'Conformable, with an overlap',
-    d: 'A face that bends around the radius of a bottle without tenting across the middle.' },
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 6h6v7l4 5v17a2 2 0 0 1-2 2H17a2 2 0 0 1-2-2V18l4-5z"/><path d="M15 27h14"/></svg>',
+    c: 'A face that has to follow the radius of the bottle.',
+    d: 'Soft enough to bend with the curve instead of bridging across it.' },
   { s: 'Oily jar', a: 'Rubber-based, high tack',
-    d: 'Oil at the shoulder of a jar crawls under an acrylic and lifts it. Rubber has enough tack to grip anyway.' },
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="17" width="20" height="19" rx="3"/><path d="M5 17h24"/><path d="M34 8c1.8 2.2 2.9 3.8 2.9 5.2a2.9 2.9 0 0 1-5.8 0c0-1.4 1.1-3 2.9-5.2z"/></svg>',
+    c: 'Oil at the shoulder of a jar crawls under an acrylic and lifts it.',
+    d: 'Enough tack to grip through the film of oil.' },
   { s: 'Chilled and wet', a: 'Wet-surface acrylic',
-    d: 'Milk tanks and cold rooms. The adhesive pushes the water aside rather than sitting on it.' },
-  { s: 'Frozen, −40 °C', a: 'Freezer-grade',
-    d: 'A standard adhesive goes hard below freezing and pops off. The freezer grade stays soft enough to hold.' },
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19q5.5-5.5 11 0t11 0 11 0"/><path d="M4 28q5.5-5.5 11 0t11 0 11 0"/></svg>',
+    c: 'Milk tanks and cold rooms, where water sits between the label and the glass.',
+    d: 'Pushes the water aside rather than sitting on top of it.' },
+  { s: 'Frozen, −18 °C', a: 'Freezer-grade',
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7v30M9.2 14.5l25.6 15M9.2 29.5l25.6-15"/><path d="M22 12l-4-4M22 12l4-4M22 32l-4 4M22 32l4 4"/></svg>',
+    c: 'A standard adhesive goes hard below freezing and pops off.',
+    d: 'Stays soft enough to hold through the freeze.' },
   { s: 'Recycled kraft', a: 'Extra-coverage coat',
-    d: 'Recycled board is dusty and porous and drinks adhesive. A heavier coat stops the corners lifting on day three.' },
-];
-
-/* The three readings the dark band carries at display size. Each `t` names the
-   consequence for the pack, not the property — the third is the one buyers
-   never hear: an adhesive is not at full grip when the carton is sealed. */
-const readings = [
-  { n: '−40 to 80', u: '°C', t: 'the range one freezer-grade build holds across, so the same label suits a chiller cabinet and a delivery van' },
-  { n: '1,000', u: 'hours', t: 'at 95% humidity with no edge lifting — a month in a cold room, not a day' },
-  { n: '24', u: 'hours', t: 'before a fresh label reaches full grip. Pack the next morning, not the same afternoon' },
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="12" width="30" height="20" rx="2"/><circle cx="15" cy="19" r="1.5"/><circle cx="24" cy="25" r="1.5"/><circle cx="31" cy="18" r="1.5"/><circle cx="19" cy="27" r="1.5"/></svg>',
+    c: 'Dusty, porous board that drinks adhesive.',
+    d: 'A heavier coat, which is what keeps the corners down on day three.' },
 ];
 
 /* §Four Substrates. `fails` is what that stock is chosen to prevent, which is
    the honest way to describe a material: each one buys one thing at the cost
-   of another. */
+   of another.
+   ⚠️ Openings must differ — the first version began three of four panels with
+   `A …`, and in a 2×2 the bottom pair sat side by side. Now: Clear or white ·
+   Water resistant · Refuses · Paper-look. */
 const substrates = [
   { key: 'mat-bopp', name: 'BOPP film', tag: 'Sharpest print of the four',
     alt: 'Rolls of clear BOPP film and printed tape standing on a wooden table',
     fails: 'Goes brittle in sunlight',
-    d: 'A clear or white film with a glossy face, which is why it prints the sharpest of the four. Left on a sunlit shelf it hardens. It belongs indoors on a jar, not outdoors on a crate.' },
+    d: 'Clear or white film with a glossy face, which is why it prints the sharpest of the four. Left on a sunlit shelf it hardens. It belongs indoors on a jar, not outdoors on a crate.' },
   { key: 'mat-vinyl', name: 'Vinyl (PVC)', tag: 'Outdoors and in water',
     alt: 'Rolls of colored vinyl film in pink, yellow and blue, fanned out on a white surface',
     fails: 'Costs the most',
@@ -99,11 +105,11 @@ const substrates = [
   { key: 'mat-foil', name: 'Metallic foil', tag: 'Returns the room light',
     alt: 'A roll of gold metallic foil paper unwinding across a pale surface',
     fails: 'Will not read as a barcode',
-    d: 'A real metal layer that turns as the angle changes. It also refuses a laser scanner. A foil panel and a barcode belong on two different labels.' },
+    d: 'Refuses a laser scanner, and turns as the angle changes. It reads as the room rather than as a print, which is why a foil panel and a barcode belong on two different labels.' },
   { key: 'mat-synthetic', name: 'Textured synthetic', tag: 'Tactile, and crack-free',
     alt: 'A roll of cream textured synthetic paper unwinding on a wooden surface',
     fails: 'Nothing writes on it',
-    d: 'A paper-look face that shrugs off water and bends around a tight radius without splitting, printed with a texture you can feel under a thumb. No pen marks it.' },
+    d: 'Paper-look, and it shrugs off water and bends around a tight radius without splitting, printed with a texture you can feel under a thumb. No pen marks it.' },
 ];
 
 /* §Five Finishes. THE PAGE'S ONE TABLE.
@@ -116,9 +122,9 @@ const finishes = [
   { name: 'Matte', cells: [0, 1, 1, 1], cost: '$',
     note: 'Glare goes, fingerprints stay' },
   { name: 'Gloss', cells: [1, 1, 1, 1], cost: '$', badge: 'The default under a camera',
-    note: 'Holds the most color for the least money' },
+    note: 'Bright, and it wipes clean' },
   { name: 'Holographic', cells: [1, 1, 0, 1], cost: '$$$',
-    note: 'Doubles as anti-copy — keep barcodes off it' },
+    note: 'Doubles as anti-copy' },
   { name: 'Soft-touch', cells: [0, 0, 1, 1], cost: '$$$',
     note: 'Best under a dry hand, worst under a greasy one' },
   { name: 'Spot UV + emboss', cells: [1, 0, 1, 1], cost: '$$',
@@ -133,108 +139,200 @@ const FIN_COLS_SHORT = ['Scuff', 'Moist', 'Sun', 'Cold'];
 
 /* §What Each Vertical Demands. Four verticals, four different standards. The
    chips are the requirements that differ between them; each `d` states what the
-   buyer's own customer ends up seeing, not what we are capable of. */
+   buyer's own customer ends up seeing, not what we are capable of.
+   ⚠️ Openings must differ — two panels used to begin with `It`, and in a 4-up
+   row that is two neighbours reading identically. Now: Your · On · Courier ·
+   Five hundred. §The Adhesive's six rows and §Five Stops' five also have their
+   own opening rule; see their comments. */
 const verticals = [
-  { key: 'ind-food', name: 'Food and drink', chips: ['FDA 21 CFR Part 701', 'Migration-safe adhesive', '−40 °C cold chain'],
+  { key: 'ind-food', name: 'Food and drink', chips: ['FDA 21 CFR Part 701', 'Migration-safe adhesive', 'Freezer-grade adhesive'],
     alt: 'Two printed food cans with tomato labels on a pale pink background',
     d: 'Your label goes freezer, chilled aisle, shelf without a wrinkle, and the barcode still scans at the till.' },
   { key: 'ind-beauty', name: 'Beauty and cosmetics', chips: ['Conforms to a radius', 'Solvent resistant', 'Foil and spot UV'],
     alt: 'A die-cut sheet of cosmetics stickers — lipstick, perfume and nail polish in pink and red',
-    d: 'It lies flat on a curved bottle and holds its color under a spotlight all day, so the shelf premium survives the shop floor.' },
+    d: 'On a curved bottle it lies flat and holds its color under a spotlight all day, so the shelf premium survives the shop floor.' },
   { key: 'ind-shipping', name: 'Shipping and fulfilment', chips: ['Thermal printer ready', 'Tear resistant', 'Roll-fed'],
     alt: 'A kraft parcel closed with printed tape and carrying a printed shipping label',
-    d: 'It survives the courier network, which means fewer parcels arriving to be rescanned and re-sorted by hand.' },
-  { key: 'ind-handmade', name: 'Handmade and small batch', chips: ['From 100 units', 'Kraft and textured paper', 'Digital, no plate'],
+    d: 'Courier networks are where a label is tested hardest, and a label that gives there is a parcel pulled out for manual re-sorting.' },
+  { key: 'ind-handmade', name: 'Handmade and small batch', chips: ['From 500 units', 'Kraft and textured paper', 'Digital, no plate'],
     alt: 'A kraft stand-up pouch stamped with a round Organic seal, filled with dried goods',
-    d: 'A hundred units still buy a premium look, on the stock that suits a hand-stamped product.' },
+    d: 'Five hundred units still buy a premium look, on the stock that suits a hand-stamped product.' },
 ];
 
-/* §Four Lines on the Quote. The four lines are the buyer's own price questions;
-   `win` is the page's verdict device — what WE do about that line, and what it
-   is worth to the reader. Every entry has one. This is the section that has to
-   argue, not explain. */
-const costs = [
-  { n: '01', t: 'The cutting die',
-    d: 'A one-off tool, quoted once. Ours is kept on file against the artwork, so a reorder carries no tooling and the second run lines up with the first.',
-    win: 'Quoted once, ever. Run two matches run one.' },
-  { n: '02', t: 'The face stock',
-    d: 'Film, foil and synthetic all cost more per square meter than paper, and the face is the largest area on the label. The stock is picked for the surface it has to survive, not from the most expensive line on the list.',
-    win: 'The quote carries the material the job needs, and nothing above it.' },
-  { n: '03', t: 'The finish',
-    d: 'A laminate is an extra pass down the line; holographic or soft-touch adds another. Spread across a few square centimeters it is cents per label, which is why the treatment a carton cannot afford is affordable here.',
-    win: 'The costly treatment lands on the smallest area of the pack.' },
-  { n: '04', t: 'The quantity',
-    d: 'Digital printing carries no plate and no setup, so a hundred units is a real order. Past a few thousand the press changes and the unit rate drops. Both routes are priced at the real quantity.',
-    win: 'The crossover point is on the quote, not hidden behind a single route.' },
+/* §Precision Printing for Bulk Labels. COPIED from the client's reference
+   (labelprintingchina.com) at their explicit request — "文字和图片直接照搬 …
+   其他直接照抄". Only the ground, the type and the accents are ours.
+   ⚠️ The three figures are the REFERENCE'S, not ours, and none of them has been
+   rated by the plant. See the section's CSS comment for the full warning —
+   in short: `ΔE < 1.5` has no source, `1,000,000+` a day contradicts the site's
+   audited 500–500,000 unit set, and the reference's third figure was written
+   ±0.3 mm, which fights this page's own ±0.2 mm claim everywhere else, so it is
+   stated here as ±0.2 mm. */
+const printStats = [
+  { n: 'ΔE < 1.5', t: 'Color drift control' },
+  { n: '1,000,000+', t: 'Daily capacity (Pcs)' },
+  { n: '±0.2 mm', t: 'Die-cutting precision' },
+];
+
+/* ⚠️ The photographs are the reference's own files, re-encoded to 1200 px and
+   uploaded to our R2 under new keys (the old ones were theirs). Two of the three
+   carry third-party marks — a machine builder's nameplate in the flexo shot and
+   a wine brand across the foil shot. `alt` describes the machine, never the
+   brands, because the brands are not ours to name. */
+const printPlates = [
+  { key: 'high-speed-rotary-flexo-printing', cap: 'High-Speed Rotary Flexo Printing', w: 1200, h: 900,
+    alt: 'A multi-station flexographic press with a web of printed cosmetic labels running through it' },
+  { key: 'premium-foil-and-spot-uv-finishes', cap: 'Premium Foil & Spot UV Finishes', w: 1200, h: 800,
+    alt: 'A press station with a polished brass roller, its web of gold-blocked labels re-winding onto a large roll' },
+  { key: 'automated-optical-inspection', cap: '100% Automated Optical Inspection', w: 1200, h: 900,
+    alt: 'A camera inspection head over a running web of printed labels, re-winding onto a finished roll' },
 ];
 
 /* §Five Stops. The rule is the sequence here, which is the one place a rule
-   still means something. Same verdict device as the quote section: each stop
-   ends in what the buyer walks away with. */
+   still means something. Each stop ends in what the buyer walks away with.
+   ⚠️ Openings must differ. The first version ran `A · The · A · The · Each`, an
+   A-B-A-B alternation that reads as a template down a five-item list. Now:
+   The file · Your outline · A short run · Press time · Each roll.
+   ⚠️⚠️ **No stop carries pills, credentials or a badge of its own.** ISO 9001
+   and `5-point inspection` were put on the last stop for an hour on 2026-09-20
+   and pulled — the client's *"其他都没有，就这个有很奇怪的，不能加就不加"*. One
+   decorated stop in a list of five plain ones reads as a defect, not as
+   emphasis. If those two credentials ever go on the page, they belong in
+   §Not Just a Pretty Packaging, whose four tiles are that exact kind of claim
+   (FSC® already lives there) — NOT here. */
 const stops = [
   { when: 'Day 0–1', name: 'Artwork check',
-    d: 'A preflight at final size: resolution, the cut line on its own layer, and the barcode inside the trim.',
-    win: 'Nothing is charged to test whether the file prints.' },
+    d: 'The file is read before a die is quoted, and what comes back is a short list of anything that would have stopped the run. No charge for the check, and no die is drawn until the list is clear.' },
   { when: 'Day 1–3', name: 'Die and press proof',
-    d: 'The die is drawn to your outline and a proof is printed on the stock you chose rather than on a generic sheet.',
-    win: 'Sign-off is a physical proof, not a screen.' },
+    d: 'Your outline is cut into the die, and the proof is printed on the stock you chose rather than on a generic sheet. Nothing goes on the press until that proof is signed.' },
   { when: 'Day 3–7', name: 'Sample roll',
-    d: 'A short run off the real die, with the cut, the peel and the color all tested by hand. 5–7 days from proof approval, and the sample is credited against the production order.',
-    win: 'The test happens on the real container, before a run is committed.' },
+    d: 'A short run off the real die, with the cut, the peel and the color all tested by hand. Five to seven days from proof approval, and the sample is credited against the production order.' },
   { when: 'Week 2–5', name: 'The run',
-    d: 'The job goes on the press booked at the proof, on the stock booked with it, at the gap and the register the drawing specifies. 4–6 weeks door to door on a sea shipment.',
-    win: 'What arrives is what was tested, at the quantity that was ordered.' },
+    d: 'Press time is booked at the proof, on the stock booked with it, at the gap and the register the drawing specifies. Four to six weeks door to door on a sea shipment, on a slot that was locked the day the proof was signed.' },
   { when: 'On dispatch', name: 'Inspection and pallet',
-    d: 'Each roll is checked for register and for cut depth before it is wound onto the core, shrink-wrapped and palleted with a packing sheet.',
-    win: 'Under 0.2% of what ships arrives unusable, and a remake reuses the tool.' },
+    d: 'Each roll is checked for register and for cut depth before it is wound onto the core, shrink-wrapped and palleted with a packing sheet. Under 0.2% of what ships arrives unusable.' },
+];
+
+/* The four tiles of the "Not Just a Pretty Packaging" strip. Drawn in our own
+   stroke style, not copied from the reference site — the reference's icons are
+   its brand assets. Each string carries `width/height="100%"` and lets the
+   WRAPPER set the box, because a scoped rule cannot reach inside `set:html`. */
+const plainIcons = [
+  { t: 'Permanent',
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M27 6h9a2 2 0 0 1 2 2v26a2 2 0 0 1-2 2h-9"/><rect x="6" y="12" width="21" height="26" rx="2.5"/><path d="M11 20h11M11 26h11"/></svg>' },
+  { t: 'Recyclable face material',
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="32" height="32" rx="3"/><path d="M22 15l6.5 11h-13z"/><path d="M17 30h10"/></svg>' },
+  { t: 'FSC\u00ae Certified',
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h18a2 2 0 0 1 2 2v24H9z"/><path d="M14 13h11M14 19h11"/><circle cx="30" cy="28" r="5"/><path d="M27 32l-1.6 7L30 36.4 34.6 39 33 32"/></svg>' },
+  { t: 'Soy-based inks',
+    i: '<svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 5c5.5 6.6 9 11.7 9 15.6A9 9 0 0 1 13 20.6C13 16.7 16.5 11.6 22 5z"/><path d="M14 33h16"/></svg>' },
+];
+
+/* §How Buyers Use Them. The client's own photographs, dropped in 2026-09-20 — the
+   six dashed slots and their shot briefs are gone, so the `aria-label` briefs that
+   used to stand in for the frames went with them.
+   ⚠️ A carousel slide must keep ONE shape or the arrows ride at different heights
+   as the track moves, so the slot stays 4:3 and `object-fit: cover` trims: the
+   client's files run 1:1 (1 and 3), 1.79:1 (2 and 5), 1.81:1 (4) and 1.44:1 (6),
+   and the widest loses 25 % of its height to the 4:3 window. That is the client's
+   own fix for a ragged row (*"图片持平，不要高低"*) — never letterbox bars.
+   `w`/`h` are the encoded files' real pixels and only reserve the box.
+   ⚠️ **The captions carry no articles.** When the photographs arrived the six
+   were named `A …` — a jewelry box, a coffee carton, and so on — which gave all
+   six slides the same opening (*"我需要内部卡片不要用一样的表达开头"*). As bare
+   noun phrases the register stays uniform and no two share an opening word. */
+const scenes = [
+  { key: 'scene-1', name: 'Jewelry box', w: 900, h: 900,
+    alt: 'Two hands pressing a round printed sticker onto a dark jewelry box, with rings and earrings laid out on stone trays behind' },
+  { key: 'scene-2', name: 'Coffee carton', w: 1200, h: 670,
+    alt: 'A kraft carton sealed with a printed coffee-roaster sticker band, standing on a slate floor' },
+  { key: 'scene-3', name: 'Skincare shelf', w: 900, h: 900,
+    alt: 'Bottles and jars of skincare carrying round printed labels on a dark shelf, raking sunlight across them' },
+  { key: 'scene-4', name: 'Packing bench', w: 601, h: 332,
+    alt: 'Two rolls of printed stickers on a bench, a hand peeling one away to seal a kraft carton' },
+  { key: 'scene-5', name: 'Jar under the tap', w: 1200, h: 670,
+    alt: 'A glass jar of preserves held under a running tap, its printed label wet and still lying flat' },
+  { key: 'scene-6', name: 'Thank-you parcel', w: 1600, h: 1112,
+    alt: 'Kraft gift boxes tied with twine and closed with round printed thank-you stickers' },
 ];
 
 /* The source page's own two reviewers, expanded to three paragraphs each with
    the figures they give. No number appears here that the original review did
-   not state or imply. */
+   not state or imply.
+   ⚠️ **Never open two paragraphs with the same word, and keep "The" off every
+   opening** — the two cards sit side by side, so row 1, row 2 and row 3 are read
+   across, and a shared opener reads as a template (the client pulled the first
+   draft for exactly that). Current openers: We · Nothing · Two thousand / I ·
+   Kraft · Wound.
+   ⚠️ **The numbers must not all be order quantities.** The first draft leaned on
+   `in the thousands` / `Six hundred` / `two thousand stickers`, i.e. a review
+   section that only ever talked about run size — the client's *"不要总是说MOQ"*.
+   The set now spans a lead time, a turnaround, a reprint number and a
+   resolution, with the run sizes carrying only one paragraph each. */
 const quotes = [
   { name: 'Emily Rodriguez', role: 'Marketing Director · United States', img: `${SK}/avatar-emily.webp`,
     alt: 'Portrait of Emily Rodriguez',
     p: [
-      'We seal every order with a printed thank-you sticker, a small thing to get wrong and a very visible thing when it is. The matte face came back flat and consistent across three SKUs, and the colors were read against the chip we signed rather than against a screen.',
-      'The die was drawn from an outline we had drawn badly. Someone on their side redrew it to clear the print and sent it back the same day, which is the reason the first run left on time.',
-      'Two thousand stickers arrived a week before the date on the order confirmation. Reordering is a matter of quoting the same file, and the third run matches the first.',
+      'We seal every order with a printed thank-you sticker, a small thing to get wrong and a very visible thing when it is. Matte came back flat and consistent across three SKUs, and the colors were read against the chip we signed rather than against a screen.',
+      'Nothing about our outline was print-ready. Someone on their side redrew it to clear the print and had it back the same day, which is why the first run left on the promised date.',
+      'Two thousand stickers landed a week ahead of the date on the order confirmation, and the third run matches the first — a reorder is a matter of quoting the same file.',
     ] },
   { name: 'Lisa Thompson', role: 'Online Seller · United Kingdom', img: `${SK}/avatar-lisa.webp`,
     alt: 'Portrait of Lisa Thompson',
     p: [
-      'I sell from a spare room and order in the thousands, which is a size most printers do not want to talk to you about. My first file had the artwork at roughly half the resolution it needed to be at final size; they caught it, told me the number it had to be, and charged nothing for the check.',
-      'The labels go on kraft mailers, which are dusty and unforgiving. Six hundred went out over a fortnight and no corner lifted, including the cartons that sat in a cold van overnight.',
-      'The roll arrived shrink-wrapped on a core with the liner unbroken and went straight into the dispenser. I have reordered twice and the cut has matched every time.',
+      'I sell from a spare room, which is a size most printers do not want to talk to you about. My first file had the artwork at roughly half the resolution it needed at final size; they caught it, told me the number it had to be, and charged nothing for the check.',
+      'Kraft mailers are dusty and unforgiving. Six hundred went out over a fortnight and no corner lifted, including the cartons left in a cold van overnight.',
+      'Wound on the core with the liner unbroken, the roll went straight into the dispenser, and the cut has matched on the two reorders since.',
     ] },
 ];
 
-/* Answers only what the body does not already cover. Checked against every
-   section above: the die and the cut are §Registration, the surfaces are
-   §The Adhesive, the stocks are §Four Substrates, the finishes are §Five
-   Finishes, the timings are §Five Stops and the price levers are §Four Lines.
-   None of the six re-asks any of them. */
+/* Answers only what the body does not already cover — and the test is strict,
+   because the client restated it 2026-09-20: **no question may be answered by a
+   section above it**, and one that is has to be swapped, not reworded.
+   Audited question by question against the twelve sections that precede this
+   one:
+     — acceptable artwork inputs (a phone photo of a sketch is enough) → stated
+       in §Final CTA … the old Q1 was REPLACED;
+     — what a sample costs and whether it is credited → §Five Stops stage 03 …
+       the old Q2 was REPLACED;
+     — who applies the label, and the roll/loose fork → §Registration stage 03 …
+       the old Q4 was REPLACED;
+     — surfaces are §The Adhesive, stocks §Four Substrates, finishes §Five
+       Finishes, timings §Five Stops, the free preflight §Five Stops stage 01,
+       the die held for a reorder §Registration stage 02, the barcode-versus-foil
+       limit §Four Substrates and §Five Finishes, the outdoor/UV limits §Four
+       Substrates.
+   The six that stand each carry a payload stated nowhere else: what to send when
+   replacing another printer's label · the physical chip as the color reference ·
+   several designs on one order · what an outline change does to a die · the
+   remade-at-our-cost remedy · the silicone liner as the real limit on a
+   recyclability claim.
+   ⚠️ Do not re-add a question about artwork inputs, sample cost or who applies
+   the label. Those three are the ones the body already answers.
+   ⚠️ **The six questions must not share an opening either**, and two pairs did:
+   `Can` ×2 and, worse, `What` ×2 on two ADJACENT rows. Now: Can · How · What ·
+   Several · If · Is. Reword a stem if a new question lands on one of those. */
 const faqs = [
-  { q: 'Can I use a photograph or a hand-drawn shape as the artwork?',
-    a: 'For the outline, yes — a sketch photographed on a phone is enough to draw a die from, because the shape is redrawn as a vector before anything is cut. What cannot be rescued is a logo supplied only as a small JPG at final size; that has to go back to whoever drew it, or be redrawn here.' },
-  { q: 'What does a sample cost, and is it credited to the order?',
-    a: 'The die proof is free. A short sample roll is quoted at a production rate and credited back in full once the run is placed, which leaves the week it takes as the only real cost. Nothing is payable to find out whether the label holds on your surface.' },
+  { q: 'Can you match the label we already buy from another printer?',
+    a: 'Send a sample of the label being replaced, unstuck from the bottle or the carton. A physical piece carries the face, the cut depth and the adhesive in a way no file describes, and it settles what the replacement has to equal before anything is quoted. Where the current label has lifted is the part of the brief worth telling us about.' },
   { q: 'How close will the color be to the brand palette?',
-    a: 'A spot color goes on press as a mixed ink and is matched to a physical chip, not to a screen — which is the part buyers find hardest to accept, because each screen renders the same hex differently. The signed chip is kept with the die, and the reorder is matched to the same reference.' },
-  { q: 'Do you apply the labels, or do we?',
-    a: 'Printing and cutting are ours; application is yours. Labels ship either on a lined roll for a dispenser or applicator, or as loose cut pieces for hand application, and which of the two suits your packing line is settled before the artwork is drawn rather than after.' },
-  { q: 'What if the cut or the color is off when the roll arrives?',
-    a: 'The signed proof and the stored die are the reference, so there is nothing to argue about. A roll that matches neither is remade at our cost on the same tool, and the remake is scheduled ahead of new work rather than behind it.' },
+    a: 'A spot color goes on press as a mixed ink and is matched to a physical chip, not to a screen — which is the part buyers find hardest to accept, because each screen renders the same hex differently. A chip is signed before the run, so the color is argued about once and not at every reprint.' },
+  { q: 'What happens if the outline changes after the die is cut?',
+    a: 'A change inside the outline — a legal line, an ingredient list, a price — is a change to the artwork alone and leaves the die untouched. Moving the outline itself needs a new blade, because the blade is cut to that line and cannot be edited.' },
+  { q: 'Several different labels on a single order — is that possible?',
+    a: 'Yes. Each design is cut on its own die and wound onto its own roll, which means a mixed pallet arrives already sorted and nothing on the packing line has to be separated by hand.' },
+  { q: 'If the cut or the color is off when the roll arrives, what happens?',
+    a: 'The signed proof is the reference, and a roll that does not match it is remade at our cost on the same tool — scheduled ahead of new work rather than behind it.' },
   { q: 'Is the label recyclable, and what happens to the backing paper?',
     a: 'A paper face from FSC-certified stock with soy-based ink is recyclable in most streams. The release liner is silicone-coated and generally is not, which is a real limit on a sticker and worth knowing before a sustainability claim goes on the pack.' },
 ];
 
 const seo = {
-  title: 'Custom Package Stickers Manufacturer: 9 Types, 100-Unit Runs',
-  description: 'Waterproof custom package stickers on BOPP, vinyl or kraft, tested from −40 °C to 80 °C. Free artwork check and a proof before the run, and samples in 5–7 days.',
+  title: 'Custom Package Stickers Manufacturer — ±0.2 mm Cuts, MOQ 500',
+  description: 'Custom package stickers die-cut to ±0.2 mm on BOPP, vinyl or kraft, from 500 units. Waterproof and freezer-grade stock, free artwork check, samples in 5–7 days.',
   keywords: 'custom package stickers manufacturer, custom package labels manufacturer, custom package sticker factory, wholesale custom package stickers, OEM custom package stickers manufacturer, custom box package stickers manufacturer, die cut package stickers manufacturer, waterproof custom package stickers, custom logo stickers for packages, custom sticker rolls manufacturer China, custom printed labels wholesale, self adhesive label manufacturer',
   canonical: 'https://www.leelinepackage.com/custom-package-stickers/',
-  ogImage: `${SK}/hero-sheet.webp`,
+  ogImage: `${SK}/label-artwork.webp`,
 };
 
 const jsonLd = {
@@ -278,7 +376,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${SK}/hero-sheet.webp`}
+  preloadImage={`${SK}/label-artwork.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -289,16 +387,16 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       <div class="wrap sk-hero-grid">
         <div class="sk-hero-copy">
           <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Cut to a die, not to a stock size</span>
-          <h1 class="sk-title" data-reveal="up" style="--d:0.08s">Custom Package Stickers Manufacturer: <em>±0.2 mm Die Cut</em>, Printed in 8 Colors</h1>
-          <p class="sk-lede" data-reveal="up" style="--d:0.16s">A label that curls at a corner or slides off a chilled bottle wastes the carton underneath it. Two decisions keep it in place: the face stock, and the adhesive matched to the surface it has to sit on.</p>
+          <h1 class="sk-title" data-reveal="up" style="--d:0.08s">Custom Package Stickers Manufacturer: <em>±0.2 mm Die-Cut Labels</em> Built to Reduce Line Rejections</h1>
+          <p class="sk-lede" data-reveal="up" style="--d:0.16s">Give the pack more shelf presence with high-saturation print that stays flat—no curling or edge peel. Cold-resistant adhesive and waterproof face stock keep automatic application smooth on glass, plastic, and corrugated packaging.</p>
           <ul class="sk-specs" data-reveal="up" style="--d:0.24s">
-            <li><i>01</i><b>Cut</b><span>±0.2 mm to the trim</span></li>
-            <li><i>02</i><b>Hold</b><span>−40 °C to 80 °C</span></li>
-            <li><i>03</i><b>Minimum</b><span>100 units, digital</span></li>
+            <li><i>01</i><b>Run</b><span>500–500,000 units</span></li>
+            <li><i>02</i><b>Hold</b><span>−18 °C to 70 °C</span></li>
+            <li><i>03</i><b>Samples</b><span>5–7 days from proof</span></li>
           </ul>
           <div class="sk-actions" data-reveal="up" style="--d:0.3s">
             <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-              Get My Sticker Quote
+              Price My Sticker Order
               <Fragment set:html={arrow} />
             </a>
           </div>
@@ -310,18 +408,35 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
              never crops, which is what lets the overlay sit exactly on the
              frame. The SVG carries no text — a stretched viewBox would distort
              type — so the two callouts are HTML placed over the plate. -->
-        <figure class="sk-hero-fig" data-reveal="up" style="--d:0.2s">
-          <img src={`${SK}/hero-sheet.webp`} alt="A cut sheet of printed security labels with one corner lifted off its backing, beside three rolls of printed labels"
-               width="800" height="700" loading="eager" fetchpriority="high" decoding="sync" />
-          <svg class="sk-hero-path" viewBox="0 0 800 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <rect class="sk-hp-cut" x="46" y="46" width="708" height="608" rx="20" />
-            <rect class="sk-hp-art" x="112" y="112" width="576" height="476" rx="8" />
-            <path class="sk-hp-mark" d="M30 74V30h44M726 30h44v44M770 626v44h-44M74 670H30v-44" />
-            <path class="sk-hp-tick" d="M754 46v608M746 180h16M746 520h16" />
-            <path class="sk-hp-leaf" d="M112 588h120" />
-          </svg>
-          <span class="sk-hero-tag sk-hero-tag--cut">Cut path ±0.2 mm</span>
-          <span class="sk-hero-tag sk-hero-tag--gap">1.5 mm gap · 76 mm core</span>
+        <!-- THE LABEL PANEL — hero option 10, the layout the client picked off
+             the preview page. The whole right column is one label: a dashed die
+             outline, four corner registration crosses, an artwork window on top
+             and the mandatory small print underneath it. The window is the slot
+             — 4:3, swap the file and nothing else in the panel moves.
+             The ground is forest, not the ivory the preview used: the panel is a
+             self-contained ivory card, so it reads as a label lying on a dark
+             bench, and keeping the hero dark holds the page's light/dark rhythm
+             without retoning four other sections. -->
+        <figure class="sk-label" data-reveal="up" style="--d:0.2s">
+          <i class="sk-label-reg" aria-hidden="true"></i><i class="sk-label-reg" aria-hidden="true"></i>
+          <i class="sk-label-reg" aria-hidden="true"></i><i class="sk-label-reg" aria-hidden="true"></i>
+
+          <div class="sk-label-art">
+            <img src={`${SK}/label-artwork.webp`} alt="A pile of printed die-cut stickers in assorted shapes and colors, one blank-cut sheet reading your logo or text"
+                 width="1024" height="1024" loading="eager" fetchpriority="high" decoding="sync" />
+            <span>Artwork</span>
+          </div>
+
+          <div class="sk-label-print">
+            <div class="sk-label-bar" aria-hidden="true"></div>
+            <p class="sk-label-num">6 900000 000000</p>
+            <p class="sk-label-line sk-label-line--a">Product name · Net weight 000 g</p>
+            <p class="sk-label-line sk-label-line--b">Lot 000000 · Best before 00 / 0000</p>
+            <div class="sk-label-foot">
+              <b>Recycle</b>
+              <div class="sk-label-marks" aria-hidden="true"><span>♻</span><span>⌂</span><span>⚠</span></div>
+            </div>
+          </div>
         </figure>
       </div>
     </section>
@@ -333,12 +448,6 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <span class="eyebrow"><Fragment set:html={leaf} />Nine families to start from</span>
           <h2 class="section-title">Nine Label Types, and the Job Each One Does</h2>
           <p class="section-sub sk-sub">Each card carries the stock that ships and a property that decides something. By the fourth card the choice is usually obvious.</p>
-          <div class="sk-head-cta" data-reveal="up" style="--d:0.1s">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
-              Send My Label Spec
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
         </div>
         <ul class="sk-type-grid">
           {types.map((t, i) => (
@@ -355,127 +464,196 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <div class="sk-types-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Send My Label Spec
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- ============ 3. THE SIGNATURE — DIE-CUT REGISTRATION ============ -->
+    <!-- ============ 3. THE ARTWORK AND THE DIE ============
+         Rebuilt 2026-09-20 at the client's request: the old layout (drawing in a
+         left column, tick/cross list in a right column) was the same structure
+         the acrylic page uses for its §Edge & Joint section, and the client could
+         not tell what it was introducing. It is now a three-stage sequence —
+         artwork, die, format — so the section states its own point: two
+         separate tools have to agree on one file. No CTA, no checkmark pairs.
+         ⚠️ **All three figures are the client's own photographs (2026-09-20)** —
+         the printed sheet, their actual plywood die, and the finished roll. Stage
+         02 used to be a DRAWN SVG of the die (a dashed artwork contour inside a
+         solid cut contour, `.sk-dg-*`); the client sent a photograph of the real
+         die for that card, so the drawing and its four CSS rules are gone and the
+         page no longer runs a drawn module at all. Do not reinstate it — the
+         hero's cut-path overlay already carries the drawn vocabulary, and this
+         section now proves the two-tool argument with objects instead of a
+         diagram.
+         ⚠️ Stage 03 is the ONLY place on the page where the roll/loose format
+         decision and the 76 mm core are stated. It used to be said four times —
+         the `type-roll` type card, this stage, FAQ 4, and the dead `pairs`
+         array — at the same depth every time, which is the same "roundup"
+         problem that got §Four Lines on the Quote deleted. If you add a fifth
+         mention, delete one instead.
+         ⚠️ Still missing, and it cannot be invented: the machine-fit specs a
+         roll buyer actually asks about — core diameters offered (76 mm is the
+         only one we claim), unwind direction, unwind position, maximum roll
+         diameter, and how many labels run across the web. The reference site
+         for this page makes "machine-ready rolls" its second selling point for
+         exactly that reason. Also missing: a photograph of LOOSE cut pieces,
+         which the two-line fork below now promises. -->
     <section class="sk-registration" id="sk-registration">
       <div class="wrap">
         <div class="section-head sk-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />The die, not the print</span>
-          <h2 class="section-title">How a Label Is Cut, and Where the Cut Stops</h2>
-          <p class="section-sub sk-sub">Two things are true of a sticker and of nothing else on a package: the artwork and the cut are separate tools, and the cut passes through the face without touching the backing. A design that ignores either prints perfectly and will not run.</p>
-          <div class="sk-head-cta" data-reveal="up" style="--d:0.1s">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
-              See a Cut Sample
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
+          <span class="eyebrow"><Fragment set:html={leaf} />Two tools, one label</span>
+          <h2 class="section-title">The Artwork and the Die Are Two Different Tools</h2>
+          <p class="section-sub sk-sub">A designer draws the label. A diemaker draws the outline that cuts it. The two agree on one file before anything is printed — which is why the artwork sits back from the cut, and why the blade stops short of the backing.</p>
         </div>
 
-        <div class="sk-reg-grid">
-          <div class="sk-reg-main">
-            <!-- The plan view. Every annotation is drawn here rather than
-                 positioned in HTML, because the figure is a fixed 640×480
-                 viewBox scaled uniformly — there is nothing to distort. Text
-                 sizes step UP below 900 px, where the panel goes full width and
-                 the whole drawing scales to about 0.55×. -->
-            <figure class="sk-reg-draw" data-reveal="up">
-              <svg viewBox="0 0 640 480" role="img" aria-label="Plan view of two labels on the backing web: the cut line runs through the face only, the artwork is held back inside it, a 1.5 mm gap separates the labels, and registration is held to 0.2 mm">
-                <rect class="sk-rd-liner" x="30" y="140" width="580" height="200" rx="6" />
-
-                <rect class="sk-rd-cut" x="64" y="164" width="180" height="152" rx="16" />
-                <rect class="sk-rd-art" x="88" y="188" width="132" height="104" rx="8" />
-                <rect class="sk-rd-cut" x="396" y="164" width="180" height="152" rx="16" />
-                <rect class="sk-rd-art" x="420" y="188" width="132" height="104" rx="8" />
-
-                <path class="sk-rd-dim" d="M244 240h152M244 228v24M396 228v24" />
-                <text class="sk-rd-num" x="320" y="222" text-anchor="middle">1.5 mm</text>
-
-                <path class="sk-rd-lead" d="M70 78v86M402 78v110" />
-                <text class="sk-rd-lab" x="64" y="46">Cut line</text>
-                <text class="sk-rd-sub" x="64" y="70">through the face only</text>
-                <text class="sk-rd-lab" x="396" y="46">Artwork</text>
-                <text class="sk-rd-sub" x="396" y="70">inside the cut</text>
-
-                <path class="sk-rd-reg" d="M320 380v40M300 400h40" />
-                <circle class="sk-rd-reg" cx="320" cy="400" r="10" />
-                <text class="sk-rd-sub" x="350" y="406">registration ±0.2 mm</text>
-
-                <path class="sk-rd-dim" d="M64 452h206M270 445l14 7-14 7" />
-                <text class="sk-rd-sub" x="300" y="458">roll direction</text>
-              </svg>
-              <figcaption>The solid line is the tool that cuts. The dashed line is the artwork, held back so ink never meets the blade.</figcaption>
+        <ol class="sk-stage">
+          <li data-reveal="up">
+            <span class="sk-stage-n">01</span>
+            <figure class="sk-stage-fig">
+              <img src={`${SK}/reg-artwork.webp`} alt="A printed label sheet with crop marks and a logo mark repeated across it, laid on a wood bench with a steel rule and a pencil"
+                   width="1300" height="726" loading="lazy" decoding="async" />
             </figure>
+            <h3>The artwork</h3>
+            <p>Drawn at the finished size, with the cut line on its own layer.</p>
+            <p class="sk-gain">The barcode survives the blade.</p>
+          </li>
 
-            <ul class="sk-cut-grid">
-              <li class="sk-cut" data-reveal="up">
-                <span class="sk-cut-kick">Kiss cut</span>
-                <h3>Through the face, not the backing</h3>
-                <p>The blade stops a fraction below the ink. The liner carries on unbroken, which is what makes a roll peelable by hand or by an applicator, and it is how nearly every order ships.</p>
-                <p class="sk-win">The default, and the only option that runs on an applicator.</p>
-              </li>
-              <li class="sk-cut" data-reveal="up" style="--d:0.08s">
-                <span class="sk-cut-kick">Die cut</span>
-                <h3>All the way through, piece by piece</h3>
-                <p>Face and backing are both cut. The sticker arrives loose, with the liner peeled away by hand — the route for a single large seal or a shape too big to wind onto a roll.</p>
-                <p class="sk-win">Pick this when the sticker ships loose rather than on a web.</p>
-              </li>
-            </ul>
-          </div>
-
-          <div class="sk-reg-side">
-            <figure class="sk-reg-fig" data-reveal="up" style="--d:0.06s">
-              <img src={`${SK}/registration.webp`} alt="Die-cut stickers in circles, triangles, shields and leaves scattered on a pink surface, each cut to its own outline"
-                   width="800" height="800" loading="lazy" decoding="async" />
+          <li data-reveal="up" style="--d:0.07s">
+            <span class="sk-stage-n">02</span>
+            <figure class="sk-stage-fig">
+              <img src={`${SK}/reg-die.webp`} alt="A plywood cutting die with a logo and a parcel mark cut through it, the red backing board showing in the grooves"
+                   width="1300" height="726" loading="lazy" decoding="async" />
             </figure>
-            <ul class="sk-pairs">
-              {pairs.map((p, i) => (
-                <li class="sk-pair" data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
-                  <span class="sk-pair-yes"><i aria-hidden="true">✓</i>{p.good}</span>
-                  <span class="sk-pair-no"><i aria-hidden="true">✕</i>{p.bad}</span>
-                  <p>{p.d}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <h3>The die</h3>
+            <p>Registered to the print: the trim, the 1.5 mm gap and the cut depth.</p>
+            <p class="sk-gain">A reorder needs no new tooling.</p>
+          </li>
+
+          <li data-reveal="up" style="--d:0.14s">
+            <span class="sk-stage-n">03</span>
+            <figure class="sk-stage-fig">
+              <img src={`${SK}/reg-roll.webp`} alt="A roll of printed labels wound on a core, one label lifted away at its peel corner"
+                   width="1300" height="726" loading="lazy" decoding="async" />
+            </figure>
+            <h3>The format</h3>
+            <p>In a roll, kiss-cut on a 76 mm core; or loose cut through the backing.</p>
+            <p class="sk-gain">Chosen to match how it is applied.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ MID-PAGE CTA ============
+         Moved 2026-09-20 at the client's request: it used to sit after the stops
+         and now opens the dark chapter instead, so "start from the surface"
+         leads straight into §The Adhesive.
+         ⚠️ **The band carries the client's photograph under a DARK scrim, fixed
+         to the viewport (2026-09-20).** It was `forest-deep → forest` at 180deg so
+         that it landed on exactly the flat `--color-forest` of §The Adhesive below
+         and the pair read as ONE dark chapter with no edge. The photograph now
+         breaks that pair up: the ground is the image, the scrim is dark but
+         gradient-thinned so the packaging stays legible, and `background-attachment:
+         fixed` (desktop only) makes the image follow the scroll. The join with
+         §The Adhesive is therefore a plain edge, and that is intended — do not
+         re-derive the old gradient, the photograph is what separates the bands.
+         ⚠️ It is a CENTRED stack now, not the row it was built as; the client
+         asked for centred copy and a shorter band, and the "two CTAs never look
+         alike" rule is carried by the grounds and the copy instead. See the CSS.
+         ⚠️ The photograph is 2:1 and the band is nearer 4:1, so `cover` keeps the
+         middle band of the frame — the row of labelled packs — and trims the
+         lilac floor and the pouch tops. `center 58%` is what holds the labels in
+         view; a `center` crop lands above them. -->
+    <section class="sk-midcta" id="sk-midcta">
+      <div class="wrap sk-midcta-inner">
+        <div>
+          <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />A quote in one exchange</span>
+          <h2 class="section-title sk-title-light sk-midcta-title" data-reveal="up" style="--d:0.06s">Start From the Surface, Not the Spec Sheet</h2>
+          <p class="sk-sub-light sk-midcta-sub" data-reveal="up" style="--d:0.12s">Say what the label goes on and how many you need. The stock, the adhesive and the print route follow from those two answers, and the quote says why each was chosen.</p>
+        </div>
+        <div class="sk-midcta-act" data-reveal="up" style="--d:0.18s">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Tell Me What It Goes On
+            <Fragment set:html={arrow} />
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- ============ 4. THE ADHESIVE — dark centre of gravity ============ -->
+    <!-- ============ 4. THE ADHESIVE ============
+         Rebuilt twice. The first version put a two-column grid of six surfaces
+         beside a column of 3.7rem figures, which the client read as two
+         competing scales. The second listed the six as one full-width
+         specification list and that drew "排版丑出天际了，你在讲什么，我看一下重点":
+         six identical rows of equal weight, the answer (the adhesive) set
+         SMALLER than the question, and 500 px of empty container to the right of
+         every row — nothing on the band was big enough to be the point.
+         It is now ONE ENCLOSED BAR PER PAIR — the variant the client picked from
+         five layouts shown side by side in `_preview-adhesive-list.html`. Each bar
+         is framed and split into two toned halves: the surface on `--forest-deep`,
+         the adhesive on `--color-sage`, with a filled brass dot on the division.
+         The pairing is carried by the FRAME. Two earlier attempts failed — a
+         list-height vertical rule read as a column divider, and a small bare `→`
+         glyph drew "指向箭头不明显". Full reasoning in the CSS block.
+         The small-caps legend above the list is a legend, NOT a table header —
+         there is no rule under it, so the block is not delimited horizontally and
+         §Five Finishes keeps its place as the page's one table.
+         ⚠️ The three display-size readings (−18/70 °C · 1,000 h at 95% RH · 24 h to
+         full grip) were REMOVED 2026-09-20 at the client's call. Reinstating one
+         needs both conditions met: it must be plant-confirmed (1,000 h and 24 h
+         were interview drafts, never rated by the plant — the temperature band was
+         already walked back from −40/80 for exactly that reason), and it must not
+         repeat the hero rail, which already carries `02 Hold −18 °C to 70 °C`.
+         ⚠️ The client could not tell whether this section was about MATERIAL and
+         asked. It is about the ADHESIVE; §Four Substrates below is the material.
+         That is why `c` describes the surface (never the label) and why the word
+         "fails" was given up to §Four Substrates, whose panels carry "Fails at".
+         ⚠️ The temperature band has moved twice: −40/80 (a real freezer-grade
+         figure, but one the plant does not rate) → −18/60 → **−18/70**, the last
+         one after a check of what the market publishes. See the hero rail's CSS
+         comment for the competitor figures and why the top end sits one step
+         below the market's +80. Anything colder than −18 has to move the
+         `Frozen, −18 °C` surface row below with it. -->
     <section class="sk-adhesive" id="sk-adhesive">
       <div class="wrap">
         <div class="section-head sk-head" data-reveal="up">
-          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />Where a label fails</span>
-          <h2 class="section-title sk-title-light">The Adhesive Fails Before the Print Does</h2>
-          <p class="section-sub sk-sub-light">Ink outlasts glue. A label that has gone cloudy, curled or slid off its bottle was almost never a printing problem — it was the wrong adhesive on the wrong surface. Two questions settle it: what the surface is, and what the pack does afterwards.</p>
+          <span class="eyebrow eyebrow--light"><Fragment set:html={leaf} />The bond, not the print</span>
+          <h2 class="section-title sk-title-light">The Surface Decides the Adhesive</h2>
+          <p class="section-sub sk-sub-light">Nearly every label we print sticks to one of six surfaces. Get the pairing wrong and it curls, clouds or slides off, which reads as a printing fault when it never was one.</p>
         </div>
 
-        <div class="sk-adh-grid">
-          <ul class="sk-surface">
-            {surfaces.map((s, i) => (
-              <li data-reveal="up" style={`--d:${(i % 3) * 0.05}s`}>
-                <span class="sk-surface-pair"><b>{s.s}</b><i>→</i><em>{s.a}</em></span>
-                <p>{s.d}</p>
-              </li>
-            ))}
-          </ul>
+        <p class="sk-legend" data-reveal="up">
+          <span>What you're labelling</span>
+          <i aria-hidden="true">→</i>
+          <span>The adhesive it takes</span>
+        </p>
 
-          <div class="sk-readings">
-            {readings.map((r, i) => (
-              <div class="sk-reading" data-reveal="up" style={`--d:${i * 0.08}s`}>
-                <b>{r.n}<small>{r.u}</small></b>
-                <p>{r.t}</p>
+        <ul class="sk-surface">
+          {surfaces.map((s, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.05}s`}>
+              <div class="sk-surf">
+                <span class="sk-surf-role">On the surface</span>
+                <span class="sk-surf-ico" aria-hidden="true"><Fragment set:html={s.i} /></span>
+                <h3>{s.s}</h3>
+                <p>{s.c}</p>
               </div>
-            ))}
-            <div class="sk-actions" data-reveal="up" style="--d:0.24s">
-              <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-                Test It on My Surface
-                <Fragment set:html={arrow} />
-              </a>
-            </div>
-          </div>
+              <div class="sk-bond">
+                <span class="sk-bond-role"><i aria-hidden="true">→</i>Takes <em>the adhesive</em></span>
+                <b>{s.a}</b>
+                <p>{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <div class="sk-actions sk-actions--center" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Test It on My Surface
+            <Fragment set:html={arrow} />
+          </a>
         </div>
       </div>
     </section>
@@ -512,7 +690,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <div class="section-head sk-head" data-reveal="up">
           <span class="eyebrow"><Fragment set:html={leaf} />What the surface does</span>
           <h2 class="section-title">Five Finishes, Scored Against Four Failures</h2>
-          <p class="section-sub sk-sub">Four things end a label's life early: a scuff, water, sunlight and cold. The grid says which finish holds against which, and what it adds to the unit rate. Say where the pack lives and the choice narrows to two.</p>
+          <p class="section-sub sk-sub">Four things end a label's life early: a scuff, water, sunlight and cold. The grid scores each finish against them and against its unit cost, because the print is the cheapest part of a label and the area is what you pay for. Say where the pack lives and the choice narrows to two.</p>
         </div>
 
         <!-- ⚠️ THE PAGE'S ONE TABLE. Every other block is separated by gap,
@@ -553,7 +731,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             <span class="sk-dot sk-dot--weak" aria-hidden="true" /> weakens
             <span class="sk-fin-legend-sp">$</span> relative unit cost, from lowest to highest
           </p>
-          <p class="sk-win sk-win--loose">Gloss is the safe answer and the cheapest. Matte is the finish most buyers move to after a first reprint.</p>
+          <p class="sk-win sk-win--loose">Matte is the finish most buyers move to after a first reprint.</p>
         </div>
       </div>
     </section>
@@ -580,60 +758,149 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <div class="sk-actions sk-actions--center" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+            Match My Category to a Stock
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- ============ 8. FOUR LINES ON A QUOTE ============ -->
-    <section class="sk-cost" id="sk-cost">
+    <!-- ============ PRECISION PRINTING — COPIED FROM THE CLIENT'S REFERENCE ============
+         The section, its copy, its three figures and its three photographs are
+         taken from labelprintingchina.com at the client's explicit request
+         ("文字和图片直接照搬 … 其他直接照抄"). Only the ground, type and accents
+         were adapted. The reference's ruled stat bar was NOT copied — a
+         rule-delimited block is banned by this page's own rule — and neither was
+         its green left rule. Read the CSS comment before touching either.
+         ⚠️ The three figures are unconfirmed. Do not let this section go live
+         until the plant has rated them. -->
+    <section class="sk-print" id="sk-print">
       <div class="wrap">
         <div class="section-head sk-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />What we do to the price</span>
-          <h2 class="section-title">Four Lines on the Quote, and How We Hold Them Down</h2>
-          <p class="section-sub sk-sub">None of the four is the printing. Printing is what buyers ask about first and what moves the number least. This is the part of a quote worth arguing over. Here is our side of each line.</p>
-          <div class="sk-head-cta" data-reveal="up" style="--d:0.1s">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
-              Ask for the Cost Breakdown
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
+          <span class="eyebrow"><Fragment set:html={leaf} />Presses and inspection</span>
+          <h2 class="section-title">Precision Printing for Bulk Labels</h2>
+          <p class="section-sub sk-sub">Our advanced rotary presses control color drift and die-cutting tolerances to microscopic levels. The result is a bulk roll that feeds a high-speed applicator without a stop.</p>
         </div>
-        <ul class="sk-cost-list">
-          {costs.map((c, i) => (
-            <li data-reveal="up" style={`--d:${i * 0.05}s`}>
-              <i>{c.n}</i>
-              <h3>{c.t}</h3>
-              <p>{c.d}</p>
-              <p class="sk-win">{c.win}</p>
+
+        <ul class="sk-pr-stats">
+          {printStats.map((s, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <b>{s.n}</b>
+              <span>{s.t}</span>
+            </li>
+          ))}
+        </ul>
+
+        <ul class="sk-pr-grid">
+          {printPlates.map((p, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure>
+                <img src={`${SK}/${p.key}.webp`} alt={p.alt} width={p.w} height={p.h}
+                     loading="lazy" decoding="async" />
+                <figcaption>{p.cap}</figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+
+        <p class="sk-pr-note" data-reveal="up"><b>Engineering Assurance:</b> Every production run undergoes inline electronic color monitoring and full-process matrix tracking. By utilizing <b>servo-driven die-cutting and high-tensile glassine liners</b>, we maintain identical physical tolerances and roll tension profiles across million-piece batches, ensuring your labels deploy flawlessly on high-speed automated applicators.</p>
+      </div>
+    </section>
+
+    <!-- ============ 8. FIVE STOPS ============ -->
+    <section class="sk-stops" id="sk-stops">
+      <div class="wrap">
+        <div class="section-head sk-head" data-reveal="up">
+          <span class="eyebrow"><Fragment set:html={leaf} />From file to roll</span>
+          <h2 class="section-title">Five Stops, From Press File to Shipped Roll</h2>
+          <p class="section-sub sk-sub">Two of the five happen before a single label is printed, and both are the ones that decide whether the run is right.</p>
+        </div>
+        <ol class="sk-stop-list">
+          {stops.map((s, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.04}s`}>
+              <span class="sk-stop-n">{String(i + 1).padStart(2, '0')}</span>
+              <div class="sk-stop-body">
+                <span class="sk-stop-when">{s.when}</span>
+                <h3>{s.name}</h3>
+                <p>{s.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="sk-actions sk-actions--center" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
+            Start My Sample Run
+            <Fragment set:html={arrow} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NOT JUST A PRETTY PACKAGING ============
+         Copied from gleepackaging.com/labels-stickers/ at the client's request
+         ("照抄内容和排版"): a left-aligned heading over a row of four line-art
+         icon tiles with short labels and no descriptions. The content is the
+         reference's four tiles verbatim. Only the ground changed — ivory, to hold
+         the light/dark rhythm — and the icons are drawn in our own stroke style
+         rather than copied from the reference's brand assets.
+         ⚠️ The fourth tile is NOT the reference's "Carbon Balanced": that is a
+         real third-party programme (World Land Trust) and the plant has not been
+         confirmed as enrolled, so the strip carries "Soy-based inks" instead —
+         a material fact this page already claims in its last FAQ answer. -->
+    <section class="sk-plain" id="sk-plain">
+      <div class="wrap">
+        <h2 class="sk-plain-title" data-reveal="up">Not Just a Pretty Packaging</h2>
+        <ul class="sk-plain-row">
+          {plainIcons.map((it, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="sk-plain-ico" aria-hidden="true"><Fragment set:html={it.i} /></span>
+              <b>{it.t}</b>
             </li>
           ))}
         </ul>
       </div>
     </section>
 
-    <!-- ============ 9. FIVE STOPS ============ -->
-    <section class="sk-stops" id="sk-stops">
+    <!-- ============ 9. HOW BUYERS USE THEM ============
+         Real usage scenarios above the reviews. Built 2026-09-20 with dashed
+         placeholder slots carrying a shot brief in the aria-label; the client's
+         own six photographs landed the same day, so the slots are now images and
+         the briefs are gone. Clay, so the run into the dark review band below
+         stays at two. -->
+    <section class="sk-scenes" id="sk-scenes">
       <div class="wrap">
         <div class="section-head sk-head" data-reveal="up">
-          <span class="eyebrow"><Fragment set:html={leaf} />From file to roll</span>
-          <h2 class="section-title">Five Stops, From Press File to Shipped Roll</h2>
-          <p class="section-sub sk-sub">Two of the five happen before anything is printed, and both are the ones that decide whether the run is right.</p>
-          <div class="sk-head-cta" data-reveal="up" style="--d:0.1s">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">
-              Start My Sample Run
-              <Fragment set:html={arrow} />
-            </a>
-          </div>
+          <span class="eyebrow"><Fragment set:html={leaf} />Customer scenarios</span>
+          <h2 class="section-title">How Buyers Use Them</h2>
+          <p class="section-sub sk-sub">Six orders, six surfaces, three at a time. Each frame is a label doing the job it was chosen for.</p>
         </div>
-        <ol class="sk-stop-list">
-          {stops.map((s, i) => (
-            <li data-reveal="up" style={`--d:${i * 0.04}s`}>
-              <span class="sk-stop-when">{s.when}</span>
-              <h3>{s.name}</h3>
-              <p>{s.d}</p>
-              <p class="sk-win sk-win--tight">{s.win}</p>
-            </li>
-          ))}
-        </ol>
+      </div>
+      <div class="sk-car-wrap">
+        <div class="wrap sk-car">
+          <ul class="sk-car-track">
+            {scenes.map((sc) => (
+              <li class="sk-car-slide">
+                <figure class="sk-car-slot">
+                  <img src={`${SK}/${sc.key}.webp`} alt={sc.alt} width={sc.w} height={sc.h}
+                       loading="lazy" decoding="async" />
+                </figure>
+                <div class="sk-car-cap">
+                  <h3>{sc.name}</h3>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="sk-car-ctl">
+          <button class="sk-car-btn sk-car-btn--prev" type="button" aria-label="Previous scenario">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="sk-car-btn sk-car-btn--next" type="button" aria-label="Next scenario">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -649,6 +916,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             <li class="sk-quote" data-reveal="up" style={`--d:${i * 0.08}s`}>
               <span class="sk-quote-mark" aria-hidden="true">“</span>
               {q.p.map((para) => <p>{para}</p>)}
+              <span class="sk-quote-mark sk-quote-mark--close" aria-hidden="true">”</span>
               <div class="sk-quote-who">
                 <img src={q.img} alt={q.alt} width="240" height="240" loading="lazy" decoding="async" />
                 <span><b>{q.name}</b><i>{q.role}</i></span>
@@ -670,7 +938,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <div class="sk-faq-grid">
           {faqs.map((f, i) => (
             <details data-reveal="up" style={`--d:${(i % 3) * 0.05}s`} open={i === 0}>
-              <summary>{f.q}</summary>
+              <summary><span class="sk-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
               <p>{f.a}</p>
             </details>
           ))}
@@ -680,31 +948,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
 
     <!-- ============ 12. FINAL CTA ============ -->
     <section class="sk-final" id="sk-final">
-      <!-- The die-cut outlines the page has been describing, drawn at
-           background scale. Deliberately SMALL and faint: at hero scale these
-           read as five random shapes competing with the headline. Absolutely
-           positioned and behind the copy, so it paints UNDER the type. -->
-      <svg class="sk-final-art" viewBox="0 0 1440 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-        <path d="M60 158a30 30 0 1 1 60 0 30 30 0 1 1-60 0" />
-        <path d="M168 104c16-20 44-15 52 6 8 21-11 43-26 41-15-1-36-27-26-47z" />
-        <path d="M290 96l22 24 30-32 23 28-22 37h-30l-24-30z" />
-        <rect x="392" y="108" width="66" height="66" rx="13" />
-        <path d="M500 118c11-16 34-17 45-2 11 15 2 42-22 58-25-16-34-40-23-56z" />
-        <path d="M640 132a24 24 0 1 1 48 0 24 24 0 1 1-48 0" />
-        <rect x="742" y="112" width="58" height="58" rx="12" />
-        <path d="M860 100l20 22 28-30 21 26-20 34h-28l-22-28z" />
-        <path d="M966 128c14-19 42-14 50 5 8 20-10 41-25 39-14-1-34-25-25-44z" />
-        <path d="M1106 150a28 28 0 1 1 56 0 28 28 0 1 1-56 0" />
-        <rect x="1212" y="114" width="62" height="62" rx="12" />
-        <path d="M1330 108c12-17 36-18 47-2 12 16 2 44-23 61-26-17-36-42-24-59z" />
-      </svg>
       <div class="wrap sk-final-inner">
         <span class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Artwork in, labels out</span>
         <h2 class="section-title sk-title-light" data-reveal="up" style="--d:0.06s">Send Artwork, Get a Die and a Price</h2>
-        <p class="sk-sub-light" data-reveal="up" style="--d:0.12s">A vector file, a phone photo of a sketch, or a shape drawn on paper — any of the three is enough to cut a die from. What comes back names the face, the adhesive for your surface, the print route, the die, and a unit rate at the quantity in question.</p>
+        <p class="sk-sub-light sk-final-sub" data-reveal="up" style="--d:0.12s">A vector file, a phone photo of a sketch, or a shape drawn on paper — any of the three is enough to cut a die from. What comes back names the face, the adhesive for your surface, the print route, the die, and a unit rate at the quantity in question.</p>
         <div class="sk-actions" data-reveal="up" style="--d:0.18s">
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
-            Send My Artwork
+            Turn My Artwork Into a Die
             <Fragment set:html={arrow} />
           </a>
         </div>
@@ -744,7 +994,8 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .sk-sub { max-width: 78ch; }
   .sk-sub-light { color: rgba(245, 240, 229, 0.8); max-width: 62ch; }
-  .sk-head-cta { margin-top: 1.7rem; }
+  /* §Nine Label Types closes with its CTA under the grid, not in the head */
+  .sk-types-cta { display: flex; justify-content: center; margin-top: clamp(2.2rem, 4.4vw, 3.2rem); }
   .sk-title-light { color: var(--ivory); }
   /* ⚠️ `top`/`left` are NOT optional here. A visually-hidden element is
      `position: absolute`, so with no positioned ancestor its containing block is
@@ -788,7 +1039,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
      cutting path drawn across it. Six elements, no more — eyebrow, H1, lede,
      the three-line spec rail, one CTA, one photograph.
      ⚠️ The nav is `position: fixed` — 74 px at 1440 and 76 px at 390 — so the
-     hero's own top padding is added to 4.75rem rather than trusted alone. */
+     hero's own top padding is added to 4.75rem rather than trusted alone.
+     ⚠️ The ground stays the house `forest → forest-deep` gradient. A photograph
+     was put here on 2026-09-20 and pulled the same day: the band's right half is
+     the label panel, so a full-bleed image has nowhere to show, and this frame is
+     a bright flat-lay that a light scrim over an already-pale page erases
+     entirely. The client's hero photograph went to the panel's Artwork window
+     instead — which is what "the hero image" meant. */
   .sk-hero {
     padding: calc(clamp(2.6rem, 5.4vw, 4.2rem) + 4.75rem) 0 clamp(3rem, 6vw, 4.6rem);
     background: linear-gradient(160deg, var(--color-forest) 0%, var(--forest-deep) 78%);
@@ -818,12 +1075,62 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     font-size: clamp(1rem, 1.3vw, 1.06rem);
     line-height: 1.74;
     color: rgba(245, 240, 229, 0.8);
-    max-width: 56ch;
+    /* 64ch, not 56 — the client's subtitle is 239 characters and a narrower
+       measure sets it to five lines. Widen the measure, never cut the copy. */
+    max-width: 64ch;
     margin-top: 1.3rem;
   }
   .sk-actions { margin-top: 1.9rem; }
+  /* Centred action row — for a CTA that closes a block, rather than one sitting
+     inside a copy column. */
+  .sk-actions--center {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(2.2rem, 4.4vw, 3.2rem);
+  }
 
-  /* the hero's one specification element — a numbered rail, not a pill row */
+  /* the hero's one specification element — a numbered rail, not a pill row
+     ⚠️⚠️ **Two bans on this rail, both from the client, both still live.**
+     1. **No figure the page cannot stand behind.** `0.06 mm` kiss-cut depth and
+        `8 spot colors + white` were in here for an hour on 2026-09-20 and were
+        pulled (*"你的数据不要是不存在的"*) — neither is stated anywhere on the
+        site, both came off the raw interview sheet, and the plant has never rated
+        either. The `1,000 h @ 95% RH` and `24 h to full grip` drafts are under the
+        same ban; see §The Adhesive's comment.
+     2. **Nothing already in the H1.** The H1 is `±0.2 mm Die-Cut Labels … Reduce
+        Line Rejections`, so `±0.2 mm` cannot be a rail figure — the client
+        restated this as *"不要和标题有重复"*.
+     The rail therefore answers "what am I ordering" rather than "how well is it
+     cut" — the cut argument already belongs to the headline:
+       `500–500,000 units` — the site's AUDITED order range, and the one figure
+         here that appears in no other copy on this page (only in the comments).
+       `−18 °C to 70 °C` — the client's call, see the temperature note below.
+       `5–7 days from proof` — §Five Stops stage 03 and the SEO description.
+     ⚠️ **THE TEMPERATURE — researched 2026-09-20, settled by the client.** They
+     challenged `−18 °C to 60 °C` (*"关于温度，你看过竞争对手怎么说吗，我觉得你说的很
+     夸张"*), so the market was checked:
+       — Fastlabels rates its custom waterproof **BOPP** labels `−18 °C to +80 °C`
+         (freezer-safe to −30 °C) — the same face stock and permanent acrylic
+         adhesive this page sells;
+       — Avery rates its waterproof plastic labels `−40 °C to +150 °C` (a
+         different material: Teslin / PE);
+       — general permanent acrylics are applied above +10 °C and served to
+         about +80 °C;
+       — the reference site this page was built from publishes **no number at
+         all**, and proves cold performance with a 72-hour condensation test
+         (2–4 °C) plus an ice bucket instead.
+     So `−18 to 60` was NARROWER than the market, not exaggerated — the market's
+     top end is +80, not +60. The client's instruction was *"按照市面上的去写，但是
+     不要写的很满，不要过度的去夸张"*: write to the market, one notch back from
+     full. The rail therefore carries `−18 °C to 70 °C` — the **+70** takes one
+     step off the market's +80 so nothing is maxed out, and the **−18** stays
+     because it is not an optional figure: §The Adhesive names `Frozen, −18 °C` as
+     a surface and the food vertical claims a `Freezer-grade adhesive`, so a
+     shallower cold end would contradict the page's own body.
+     ⚠️ **This is still a market-derived claim, not a plant rating.** It is the
+     one number on the page that the client authorised on that basis. If the plant
+     ever rates the build, use the plant's figure — and if it rates BELOW −18,
+     §The Adhesive's freezer row and the food chip have to move with it. */
   .sk-specs {
     list-style: none;
     margin: 2rem 0 0;
@@ -854,51 +1161,88 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     color: var(--ivory);
   }
 
-  /* The plate bleeds to the viewport edge. `--sk-bleed` mirrors `.wrap`'s own
-     gutter — the same `max(clamp(...), calc((100vw - 1200px)/2))` idiom the
-     carousel controls use — so the photograph lands exactly on the edge at
-     every width instead of leaving a strip of background beside it. The
-     section's `overflow: hidden` is what keeps the negative margin from
-     producing a horizontal scrollbar. */
-  .sk-hero-fig {
-    --sk-bleed: max(clamp(1rem, 3vw, 3rem), calc((100vw - 1200px) / 2));
+  /* THE LABEL PANEL. Every dimension here is in service of one idea: this is a
+     real label, so it carries the die line on its outside and the compliance
+     text inside it, in the sizes a label actually uses. */
+  .sk-label {
     position: relative;
-    margin: 0 calc(-1 * var(--sk-bleed)) 0 0;
-    aspect-ratio: 8 / 7;
-    border-radius: 1.4rem 0 0 1.4rem;
-    overflow: hidden;
-    background: var(--forest-deep);
+    margin: 0;
+    background: var(--ivory);
+    border-radius: 1.1rem;
+    padding: clamp(0.7rem, 1.4vw, 1rem);
+    /* The panel is an ivory card on the dark hero gradient, so the shadow is the
+       large soft one the dark ground wants. */
+    box-shadow: 0 48px 80px -48px rgba(0, 0, 0, 0.72), 0 1px 0 rgba(255, 255, 255, 0.05);
+    outline: 2px dashed rgba(201, 168, 124, 0.6);
+    outline-offset: 9px;
   }
-  .sk-hero-fig img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.78;
-  }
-  .sk-hero-path { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .sk-hp-cut { fill: none; stroke: rgba(245, 240, 229, 0.92); stroke-width: 3; stroke-dasharray: 18 12; }
-  .sk-hp-art { fill: none; stroke: rgba(201, 168, 124, 0.92); stroke-width: 2.4; stroke-dasharray: 10 9; }
-  .sk-hp-mark { fill: none; stroke: rgba(245, 240, 229, 0.55); stroke-width: 2.5; }
-  .sk-hp-tick { fill: none; stroke: rgba(245, 240, 229, 0.5); stroke-width: 2; }
-  .sk-hp-leaf { fill: none; stroke: rgba(201, 168, 124, 0.9); stroke-width: 2; }
-
-  .sk-hero-tag {
+  .sk-label-reg {
     position: absolute;
+    width: 15px;
+    height: 15px;
+    color: var(--brass-soft);
+    background:
+      linear-gradient(currentColor, currentColor) center/100% 1px no-repeat,
+      linear-gradient(currentColor, currentColor) center/1px 100% no-repeat;
+  }
+  .sk-label-reg:nth-of-type(1) { top: -26px; left: -26px; }
+  .sk-label-reg:nth-of-type(2) { top: -26px; right: -26px; }
+  .sk-label-reg:nth-of-type(3) { bottom: -26px; left: -26px; }
+  .sk-label-reg:nth-of-type(4) { bottom: -26px; right: -26px; }
+
+  .sk-label-art { position: relative; aspect-ratio: 4 / 3; border-radius: 0.7rem; overflow: hidden; background: var(--color-clay); }
+  .sk-label-art img { width: 100%; height: 100%; object-fit: cover; }
+  .sk-label-art span {
+    position: absolute;
+    left: 0.7rem;
+    bottom: 0.7rem;
     font-family: var(--font-body);
-    font-size: 0.66rem;
+    font-size: 0.58rem;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ivory);
-    background: rgba(20, 38, 27, 0.72);
-    border: 1px solid rgba(201, 168, 124, 0.5);
+    background: rgba(20, 38, 27, 0.62);
+    border: 1px solid rgba(201, 168, 124, 0.45);
     border-radius: 999px;
-    padding: 0.34rem 0.78rem;
-    backdrop-filter: blur(6px);
-    white-space: nowrap;
+    padding: 0.34rem 0.68rem;
   }
-  .sk-hero-tag--cut { top: 7%; left: 6%; }
-  .sk-hero-tag--gap { bottom: 9%; right: 8%; }
+  .sk-label-print { padding: clamp(0.9rem, 1.8vw, 1.3rem) clamp(0.4rem, 1vw, 0.8rem) clamp(0.3rem, 0.7vw, 0.5rem); }
+  /* three repeating gradients at different periods — a barcode is exactly this
+     kind of irregular pattern, and it costs one declaration */
+  .sk-label-bar {
+    height: clamp(44px, 5vw, 62px);
+    color: var(--color-brand-text);
+    background:
+      repeating-linear-gradient(90deg, currentColor 0 3px, transparent 3px 11px),
+      repeating-linear-gradient(90deg, currentColor 0 5px, transparent 5px 19px),
+      repeating-linear-gradient(90deg, currentColor 0 2px, transparent 2px 27px);
+  }
+  .sk-label-num { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.34em; color: var(--color-brand-muted); margin: 0.5rem 0 0; word-break: break-all; }
+  .sk-label-line { font-family: var(--font-heading); line-height: 1.2; letter-spacing: -0.015em; color: var(--color-brand-text); margin: clamp(0.5rem, 1vw, 0.8rem) 0 0; }
+  .sk-label-line--a { font-size: clamp(0.9rem, 1.3vw, 1.05rem); }
+  .sk-label-line--b { font-size: clamp(0.98rem, 1.5vw, 1.18rem); }
+  .sk-label-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(0.6rem, 1.2vw, 0.9rem);
+    padding-top: clamp(0.55rem, 1.1vw, 0.85rem);
+    border-top: 1px solid rgba(31, 59, 44, 0.22);
+  }
+  .sk-label-foot b { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.35rem, 2.2vw, 1.9rem); line-height: 1; letter-spacing: -0.025em; color: var(--color-brand-text); }
+  .sk-label-marks { display: flex; gap: 0.45rem; }
+  .sk-label-marks span {
+    display: inline-grid;
+    place-items: center;
+    width: clamp(28px, 2.8vw, 36px);
+    aspect-ratio: 1 / 1;
+    border: 1.5px solid var(--color-forest);
+    border-radius: 5px;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    color: var(--color-forest);
+  }
 
   /* ======================== 2. NINE FAMILIES ======================== */
   .sk-types { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-ivory); }
@@ -921,7 +1265,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .sk-type:hover { transform: translateY(-5px); box-shadow: 0 24px 50px -30px rgba(31, 59, 44, 0.5); }
   .sk-type-fig { position: relative; margin: 0; }
-  .sk-type-fig img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  /* 100/97, not 1/1 — the client asked for the image 0.3 cm shorter. At the
+     3-up desktop column (~378 px) that is 11.3 px off the height, i.e. exactly
+     0.3 cm. Slightly landscape, still no crop worth noticing. */
+  .sk-type-fig img { width: 100%; aspect-ratio: 100 / 97; object-fit: cover; }
   .sk-type-code {
     position: absolute;
     top: 0.75rem;
@@ -948,145 +1295,246 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .sk-type-body p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0; }
 
-  /* ======================== 3. DIE-CUT REGISTRATION ======================== */
+  /* ======================== 3. THE ARTWORK AND THE DIE ========================
+     Three stages across, a brass arrow in each gap. The middle stage is drawn
+     rather than photographed, because the die is the one part of the process
+     nobody can photograph: it is a line. */
   .sk-registration { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
-  .sk-reg-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
-    gap: clamp(1.6rem, 3.4vw, 3rem);
-    align-items: start;
-  }
-  .sk-reg-main { display: flex; flex-direction: column; gap: clamp(1.2rem, 2.4vw, 1.8rem); }
-  .sk-reg-draw {
-    margin: 0;
-    background: var(--color-forest);
-    border-radius: 1.4rem;
-    padding: clamp(1rem, 2vw, 1.6rem);
-    /* the drawing is the section's lead, so it keeps its own dark ground and
-       the plan view reads as ink on a slate rather than as a diagram in a card */
-  }
-  .sk-reg-draw svg { width: 100%; height: auto; display: block; }
-  .sk-rd-liner { fill: rgba(245, 240, 229, 0.07); stroke: rgba(245, 240, 229, 0.22); stroke-width: 1.5; stroke-dasharray: 4 7; }
-  .sk-rd-cut { fill: rgba(201, 168, 124, 0.12); stroke: var(--brass-soft); stroke-width: 2.6; }
-  .sk-rd-art { fill: rgba(245, 240, 229, 0.1); stroke: rgba(245, 240, 229, 0.72); stroke-width: 2; stroke-dasharray: 7 7; }
-  .sk-rd-reg { fill: none; stroke: var(--brass-bright); stroke-width: 2.4; }
-  .sk-rd-dim { fill: none; stroke: rgba(245, 240, 229, 0.8); stroke-width: 1.6; }
-  .sk-rd-lead { fill: none; stroke: rgba(245, 240, 229, 0.4); stroke-width: 1.6; stroke-dasharray: 3 6; }
-  .sk-rd-lab {
-    font-family: var(--font-heading);
-    font-size: 19px;
-    fill: var(--brass-soft);
-  }
-  .sk-rd-sub {
-    font-family: var(--font-body);
-    font-size: 15px;
-    fill: rgba(245, 240, 229, 0.66);
-  }
-  .sk-rd-num { font-family: var(--font-heading); font-size: 16px; fill: var(--ivory); }
-  .sk-reg-draw figcaption {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 0.92rem;
-    line-height: 1.5;
-    color: rgba(245, 240, 229, 0.72);
-    padding: 0.9rem 0.3rem 0.1rem;
-  }
-  .sk-reg-side { display: flex; flex-direction: column; gap: clamp(1.2rem, 2.4vw, 1.8rem); }
-  .sk-reg-fig { margin: 0; border-radius: 1.3rem; overflow: hidden; border: 1px solid rgba(176, 141, 76, 0.42); }
-  .sk-reg-fig img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .sk-pairs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.15rem; }
-  .sk-pair p { font-size: 0.92rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
-  .sk-pair-yes, .sk-pair-no { display: block; font-family: var(--font-body); font-size: 0.92rem; font-weight: 600; line-height: 1.4; }
-  .sk-pair-yes { color: var(--color-brand-primary); }
-  .sk-pair-no { color: var(--color-brand-muted); }
-  .sk-pair-yes i, .sk-pair-no i { font-style: normal; margin-right: 0.5rem; font-weight: 700; }
-  .sk-pair-yes i { color: var(--brass); }
-  .sk-cut-grid {
+  .sk-stage {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(0.9rem, 1.8vw, 1.3rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.2rem, 2.6vw, 2rem);
   }
-  .sk-cut {
-    background: var(--color-brand-surface);
-    border: 1px solid rgba(31, 59, 44, 0.12);
-    border-radius: 1.3rem;
-    padding: clamp(1.4rem, 2.4vw, 1.9rem);
-  }
-  .sk-cut-kick {
-    font-family: var(--font-body);
-    font-size: 0.66rem;
-    font-weight: 600;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
+  .sk-stage > li { position: relative; }
+  /* the connector lives in the gutter, so it disappears the moment the grid
+     stacks and there is no gutter left to sit in */
+  .sk-stage > li + li::before {
+    content: '→';
+    position: absolute;
+    left: calc(-1 * (clamp(1.2rem, 2.6vw, 2rem) / 2) - 0.55rem);
+    top: 34%;
+    transform: translateX(-50%);
+    font-size: 1.15rem;
     color: var(--brass);
+    line-height: 1;
   }
-  .sk-cut h3 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.34rem;
-    line-height: 1.25;
-    color: var(--color-brand-text);
-    margin: 0.7rem 0 0;
-  }
-  .sk-cut p { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.75rem 0 0; }
-  /* specificity note: `.sk-cut p` is 0-1-1, so the verdict needs its own scope
-     or the paragraph's margin wins */
-  .sk-cut .sk-win { margin: 0.85rem 0 0; max-width: none; }
-
-  /* ======================== 4. THE ADHESIVE ======================== */
-  .sk-adhesive {
-    padding: clamp(4rem, 9vw, 8rem) 0;
-    background: var(--color-forest);
-    position: relative;
-  }
-  .sk-adh-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.16fr) minmax(0, 0.84fr);
-    gap: clamp(2rem, 4.4vw, 3.6rem);
-    align-items: start;
-  }
-  .sk-surface { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1.6rem; }
-  .sk-surface-pair { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem; }
-  .sk-surface-pair b {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1.08rem;
-    color: var(--ivory);
-  }
-  .sk-surface-pair i { font-style: normal; color: rgba(245, 240, 229, 0.45); font-size: 0.9rem; }
-  .sk-surface-pair em {
-    font-family: var(--font-body);
-    font-style: normal;
-    font-weight: 600;
-    font-size: 0.74rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--brass-soft);
-    background: rgba(201, 168, 124, 0.16);
-    border-radius: 999px;
-    padding: 0.3rem 0.7rem;
-  }
-  .sk-surface p { font-size: 0.9rem; line-height: 1.62; color: rgba(245, 240, 229, 0.72); margin: 0.6rem 0 0; }
-  .sk-readings { display: flex; flex-direction: column; gap: clamp(1.4rem, 3vw, 2.1rem); }
-  .sk-reading b {
+  .sk-stage-n {
     display: block;
     font-family: var(--font-heading);
-    font-weight: 500;
-    font-size: clamp(2.5rem, 4.6vw, 3.7rem);
-    line-height: 1;
-    letter-spacing: -0.03em;
-    color: var(--ivory);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--brass);
+    margin-bottom: 0.7rem;
   }
-  .sk-reading b small {
-    font-size: 0.34em;
-    letter-spacing: 0.02em;
+  .sk-stage-fig {
+    margin: 0 0 1.15rem;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    border: 1px solid rgba(176, 141, 76, 0.42);
+    /* the client's three photographs are all 16:9, so the window matches them and
+       nothing is trimmed; on a clay section the panel behind a slow-loading image
+       is clay too, not the forest the drawn die used to need */
+    background: var(--color-brand-surface);
+  }
+  .sk-stage-fig img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .sk-stage h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .sk-stage p { font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.65rem 0 0; }
+  /* ⚠️ **THE CARD SHAPE — read before editing any of the three stages.**
+     Every stage is ONE two-line description plus ONE PILL, so:
+       — the three cards are the SAME height (the client's *"高度不一"*);
+       — the colour and the shape appear in the SAME place on all three. It used
+         to sit only on stage 03, as `In a roll.` / `Loose cut.` lead-ins on a
+         `<b>` — the client's *"为什么只有最后一个是有不同颜色的字体呢"*. A single
+         coloured card in a row of three reads as an inconsistency, not emphasis;
+       — and each card answers "what does this buy the buyer", not "what do we
+         do" (*"你可以写这样做的好处，我们这么做给客户带来什么好处"*).
+     ⚠️ The benefit is a PILL, at 1rem against the 0.93rem body and on a brass
+     wash, because the client asked for it to read as a distinct element and be
+     *"稍微大一点点，区分一下"*. It is a paragraph set to `inline-block`, not a
+     badge inside the body copy, so it can never wrap mid-pill at these widths.
+     **Keep every description ≤ 2 lines and every pill ≤ 1 line at the section's
+     column width (~41 characters).** The longest pill is 34 characters, which
+     with its padding still clears the column. Do not re-split the fork into two
+     paragraphs, and do not add a fourth line to any card. */
+  .sk-stage .sk-gain {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+    color: var(--color-forest);
+    background: rgba(201, 168, 124, 0.3);
+    border-radius: 999px;
+    padding: 0.42rem 0.95rem;
+  }
+  /* ⚠️ A closing pull-line used to sit under the three cards — italic display
+     serif, `max-width: 84ch`, no rule above it: *"A die drawn without the
+     artwork, or artwork drawn without the die, is the most common reason a label
+     run comes back wrong."* It was deleted 2026-09-20: the client could not tell
+     what it was (*"这是什么，如果不需要就删掉，需要就冒号标明一下"*), and they were
+     right that it was doing nothing — the section sub already states the
+     requirement (*"The two agree on one file before anything is printed"*), so the
+     line was the third statement of the same point, and the three cards now close
+     on their own benefit pills. **Do not re-add a closing sentence here.** If a
+     fact ever needs to close a section, it needs a labelled lead-in and a reason
+     to exist, not a floating italic paragraph. */
+
+  /* ======================== 4. THE ADHESIVE ========================
+     Read ACROSS, not down. Six stacked rows of equal weight gave the eye no
+     landing point: the answer was set smaller than the question and half the
+     container sat empty to the right of every row.
+     ⚠️⚠️ **A vertical rule does NOT work here and was removed on the client's
+     report — "无法知道左边对应的是右边的胶".** A rule running the full height of
+     the list reads as a COLUMN DIVIDER, which is the exact opposite of the
+     intent: it says "these are two columns", not "each left item owns the right
+     item beside it". At 1200 px wide the two names are ~500 px apart, so
+     proximity can never group a pair either.
+     **The pairing is carried by three things, and all three are load-bearing:**
+     1. a brass `→` per row, sitting in its own grid column ON the row's
+        baseline — the explicit connector the eye can follow across the gap;
+     2. `align-items: baseline` on the row, so the surface name, that arrow and
+        the adhesive name sit on ONE line;
+     3. a row `gap` (~3.6rem) that is visibly larger than the inline gutter, so
+        the rows separate while each pair stays together.
+     ⚠️ `align-items: baseline` only works while `.sk-surf-ico` is a SIBLING of
+     the two cells, with `align-self: start` to keep it out of the alignment.
+     Move the icon back inside `.sk-surf` and that cell's baseline becomes the
+     icon's bottom edge, which throws the row's line out.
+     ⚠️ The two small-caps labels above the list are a legend, NOT a table
+     header — there is deliberately no rule under them, because a horizontally
+     delimited block is a table and this page's one table is §Five Finishes. */
+  .sk-adhesive { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-forest); }
+  .sk-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem 0.7rem;
+    margin: clamp(2.6rem, 5vw, 3.6rem) 0 0;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: var(--brass-soft);
-    margin-left: 0.35rem;
   }
-  .sk-reading p { font-size: 0.9rem; line-height: 1.6; color: rgba(245, 240, 229, 0.7); margin: 0.6rem 0 0; max-width: 34ch; }
+  .sk-legend i { font-style: normal; color: var(--brass); }
+  .sk-surface {
+    list-style: none;
+    margin: clamp(2rem, 3.6vw, 2.8rem) 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  /* ⚠️ ONE FRAME PER PAIR. The pairing is carried by the BORDER: two halves inside
+     a single enclosed bar cannot be read apart.
+     ⚠️⚠️ THIS IS THE EXACT LAYOUT THE CLIENT PICKED from the five side-by-side
+     options in the repo-root `_preview-adhesive-list.html`. It has now been
+     rebuilt twice for deviating from that preview — first by dropping the two
+     role labels and the inline arrow in favour of a brass dot, then by replacing
+     the answer half's `rgba(245,240,229,.05)` wash with `--color-sage`, which
+     drew "你的区分颜色太丑了". **Do not re-tone these halves and do not remove the
+     role labels: the labels and their `→` ARE the pairing device in this variant,
+     and the wash is deliberately faint.** The two earlier pairing attempts — a
+     list-height vertical rule (read as a column divider) and a small bare `→`
+     glyph ("指向箭头不明显") — are both dead ends.
+     ⚠️ The role labels carry the arrow, so there is no separate connector
+     element. If you find yourself adding one, you are rebuilding the version the
+     client rejected. */
+  .sk-surface li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border: 1px solid rgba(201, 168, 124, 0.3);
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  /* Explicit placement: the role label spans the top, then the icon holds column
+     one across the name and the description. */
+  .sk-surf {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: clamp(0.7rem, 1.3vw, 1rem);
+    padding: 1.15rem 1.4rem 1.3rem;
+  }
+  .sk-surf-role,
+  .sk-bond-role {
+    display: block;
+    grid-column: 1 / -1;
+    font-size: 0.63rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass-soft);
+    margin-bottom: 0.55rem;
+  }
+  .sk-bond-role i { font-style: normal; color: var(--brass); margin-right: 0.35rem; }
+  .sk-bond-role em { font-style: normal; color: rgba(245, 240, 229, 0.4); }
+  /* ⚠️ The icon's paint and size stay ATTRIBUTES inside the `set:html` string.
+     Astro does not stamp the scope attribute on set:html markup, so a rule like
+     `.sk-surf-ico svg` matches nothing and the stroke falls back to solid black.
+     Only `color` is set here — `currentColor` resolves by inheritance and does
+     not need the scope attribute. `display: flex` blockifies the inline `<svg>`
+     so it fills the square with no baseline gap; do not switch it to `block`. */
+  .sk-surf-ico {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    align-self: start;
+    display: flex;
+    width: clamp(24px, 2.2vw, 30px);
+    aspect-ratio: 1 / 1;
+    color: var(--brass-soft);
+  }
+  .sk-surf h3 {
+    grid-column: 2;
+    grid-row: 2;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--ivory);
+    margin: 0;
+  }
+  .sk-surf p {
+    grid-column: 2;
+    grid-row: 3;
+    font-size: 0.87rem;
+    line-height: 1.6;
+    color: rgba(245, 240, 229, 0.6);
+    margin: 0.5rem 0 0;
+    max-width: 44ch;
+    text-wrap: pretty;
+  }
+  /* The answer half. The wash is deliberately faint — see the warning above. */
+  .sk-bond {
+    padding: 1.15rem 1.4rem 1.3rem;
+    background: rgba(245, 240, 229, 0.05);
+    border-left: 1px solid rgba(201, 168, 124, 0.3);
+  }
+  .sk-bond b {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1.14;
+    letter-spacing: -0.02em;
+    color: var(--ivory);
+    margin: 0;
+  }
+  .sk-bond p { font-size: 0.87rem; line-height: 1.6; color: rgba(245, 240, 229, 0.72); margin: 0.5rem 0 0; max-width: 44ch; text-wrap: pretty; }
 
   /* ======================== 5. FOUR SUBSTRATES ======================== */
   .sk-substrate { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-ivory); }
@@ -1283,43 +1731,122 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     padding: 0.3rem 0.62rem;
   }
 
-  /* ======================== 8. FOUR LINES ON A QUOTE ======================== */
-  .sk-cost { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-ivory); }
-  .sk-cost-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(1.8rem, 3.6vw, 2.8rem); }
-  .sk-cost-list li { display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); column-gap: clamp(0.8rem, 2vw, 1.6rem); }
-  .sk-cost-list i {
+  /* ======================== PRECISION PRINTING (COPIED CONTENT) ========================
+     The copy and the photographs are the client's reference site's, reproduced at
+     their request. Only this page's ground, type scale and accents were applied:
+     the reference runs white with a #0085ad blue and a #27ae60 green rule; here
+     it is ivory, forest and brass.
+     ⚠️⚠️ THREE FIGURES IN THIS SECTION ARE NOT OURS AND HAVE NO SOURCE IN THE
+     PROJECT. Confirm with the plant before this goes live:
+       1. `ΔE < 1.5` — a colour-drift tolerance nothing in the project has ever
+          stated.
+       2. `1,000,000+` pieces a day — the site's audited figure set is
+          500–500,000 units; nothing on this page supports a million.
+       3. The reference writes its die-cutting figure as **±0.3 mm**. That fights
+          this page's own headline claim of **±0.2 mm** (the H1, the hero rail's
+          `01 Cut`, and the SEO title all say 0.2), so it is stated here as
+          ±0.2 mm. If the plant really rates 0.3 mm, the H1 is what is wrong.
+     ⚠️ The reference's stat bar is a 3px top rule with a rule between every cell.
+     **That is a rule-delimited block, which this page's own rule bans** (the test
+     is not "is it a `<table>`" but "is this block delimited by a horizontal
+     rule"), and §Five Finishes holds the page's one table. Same figures,
+     separated by GAP. Do not "restore" the rules.
+     ⚠️ The green left rule on the note panel became `--color-brass`: the palette
+     has no green accent, and `--color-sage` is already carrying §The Adhesive. */
+  .sk-print { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-ivory); }
+  .sk-pr-stats {
+    list-style: none;
+    margin: clamp(2.4rem, 4.6vw, 3.2rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.4rem, 3vw, 2.6rem);
+  }
+  .sk-pr-stats b {
+    display: block;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-forest);
+    white-space: nowrap;
+  }
+  .sk-pr-stats span {
+    display: block;
+    margin-top: 0.55rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+  }
+  .sk-pr-grid {
+    list-style: none;
+    margin: clamp(2.4rem, 4.6vw, 3.2rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  /* The caption is a bar across the foot of the frame, as in the reference. It is
+     also the photograph's ROLE — these are machines, and a machine with no name
+     is decoration that drifted. */
+  .sk-pr-grid figure {
+    position: relative;
+    margin: 0;
+    border-radius: 0.9rem;
+    overflow: hidden;
+    background: var(--color-clay);
+  }
+  .sk-pr-grid img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .sk-pr-grid figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.8rem 0.9rem;
+    background: rgba(20, 38, 27, 0.84);
+    color: var(--ivory);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .sk-pr-note {
+    margin: clamp(2.4rem, 4.6vw, 3.2rem) 0 0;
+    padding: clamp(1.2rem, 2.4vw, 1.7rem) clamp(1.3rem, 2.6vw, 1.9rem);
+    border-left: 4px solid var(--color-brass);
+    background: var(--color-clay);
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    max-width: 100ch;
+  }
+  .sk-pr-note b { font-weight: 600; color: var(--color-forest); }
+
+  /* ======================== 8. FIVE STOPS ========================
+     The one place on the page where a rule carries information: the sequence. */
+  .sk-stops { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  /* Vertical ledger, not a five-column timeline. Sequence is carried by the
+     numeral now, so no rule is needed anywhere in this section. */
+  .sk-stop-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 3vw, 2.2rem);
+  }
+  .sk-stop-list li { display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); column-gap: clamp(0.8rem, 2vw, 1.6rem); }
+  .sk-stop-n {
     font-family: var(--font-heading);
     font-style: italic;
-    font-size: 1.7rem;
+    font-size: 1.55rem;
     line-height: 1;
     color: var(--brass);
   }
-  .sk-cost-list h3 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: clamp(1.3rem, 1.9vw, 1.6rem);
-    line-height: 1.22;
-    color: var(--color-brand-text);
-    margin: 0;
-  }
-  .sk-cost-list p { grid-column: 2; font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.7rem 0 0; max-width: 82ch; }
-  .sk-cost-list .sk-win { grid-column: 2; margin: 0.75rem 0 0; font-size: 0.94rem; max-width: 70ch; }
-
-  /* ======================== 9. FIVE STOPS ========================
-     The one place on the page where a rule carries information: the sequence. */
-  .sk-stops { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
-  .sk-stop-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
-  .sk-stop-list li { border-top: 1px solid rgba(31, 59, 44, 0.28); padding-top: 1.1rem; position: relative; }
-  .sk-stop-list li::before {
-    content: '';
-    position: absolute;
-    top: -0.3rem;
-    left: 0;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 50%;
-    background: var(--brass);
-  }
+  .sk-stop-body { max-width: 88ch; }
   .sk-stop-when {
     display: block;
     font-family: var(--font-body);
@@ -1332,52 +1859,271 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .sk-stop-list h3 {
     font-family: var(--font-heading);
     font-weight: 600;
-    font-size: 1.12rem;
-    line-height: 1.26;
+    font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+    line-height: 1.24;
+    letter-spacing: -0.01em;
     color: var(--color-brand-text);
-    margin: 0.6rem 0 0;
+    margin: 0.45rem 0 0;
   }
-  .sk-stop-list p { font-size: 0.88rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
-  .sk-stop-list .sk-win { font-size: 0.84rem; line-height: 1.5; margin: 0.7rem 0 0; max-width: none; }
+  .sk-stop-list p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
 
-  /* ======================== 10. REVIEWS ======================== */
+  /* ======================== NOT JUST A PRETTY PACKAGING ========================
+     A credentials strip, not a section: the heading sits deliberately below the
+     page's section-title scale so it reads as a strip interrupting the flow
+     rather than as another full section. */
+  .sk-plain { background: var(--color-ivory); padding: clamp(3rem, 6vw, 4.6rem) 0; }
+  .sk-plain-title {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 2.1vw, 1.85rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-brand-text);
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+  }
+  .sk-plain-row {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1.2rem, 3vw, 2.4rem);
+  }
+  .sk-plain-row li { display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+  .sk-plain-ico { display: block; width: clamp(34px, 3.4vw, 44px); aspect-ratio: 1 / 1; color: var(--color-forest); }
+  .sk-plain-ico svg { display: block; }
+  .sk-plain-row b {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--color-brand-text);
+  }
+
+  /* ======================== MID-PAGE CTA ========================
+     A centred stack, like the final CTA below.
+     ⚠️ **Dark scrim + a fixed (parallax) background, 2026-09-20.** The client's
+     own photograph paints the band: the scrim is DARK so the ivory type keeps its
+     contrast, but it is a gradient rather than a flat wash — heavier over the
+     copy, thinning to the right — because they asked for the packaging to stay
+     legible (*"图片要清晰一点"*). A flat dark heavy enough for the H2 would lose
+     the photograph.
+     ⚠️ `background-attachment: fixed` is the "滑动上下跟随" the client asked for:
+     the photograph is pinned to the VIEWPORT, so the band reads through a moving
+     window of it as the page scrolls. It is set for pointer/desktop only —
+     iOS Safari ignores it and would jank, so below 1025 px the background scrolls
+     with the band like any other.
+     ⚠️ The band is brighter than the flat `--color-forest` of §The Adhesive
+     directly below, so that join is a plain chapter edge now. Do not re-derive a
+     gradient to hide it: the photograph is what breaks the two apart, and
+     matching the next section's ground would mean losing the picture. */
+  .sk-midcta {
+    position: relative;
+    overflow: hidden;
+    /* ⚠️ The client has sized this band by hand twice: pulled down from a `6rem`
+       cap (*"纵向高度不要太高"*) and then +0.5 cm back (≈38 px per cm → ~19 px per
+       side). At 1440 `4.4vw` is 63 px, just inside the `4rem` cap, which is the
+       ~9 px per side the last change asked for. */
+    padding: clamp(2.4rem, 4.4vw, 4rem) 0;
+    background: var(--forest-deep) url('https://img.leelinepackage.com/stickers/mid-cta-bg.webp') center 58% / cover no-repeat;
+  }
+  .sk-midcta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      100deg,
+      rgba(20, 38, 27, 0.82) 0%,
+      rgba(20, 38, 27, 0.72) 42%,
+      rgba(20, 38, 27, 0.44) 74%,
+      rgba(20, 38, 27, 0.14) 100%);
+  }
+  /* ⚠️ **Centred, and short (2026-09-20).** It was a two-column row — copy left,
+     button right in its own 0.65fr track — which is also what kept it from
+     reading as the same block as the final CTA. The client asked for centred
+     text (*"文字还是居中吧"*) and less height (*"纵向高度不要太高"*), so it is now
+     the same centred stack as the final CTA, with the padding roughly halved.
+     ⚠️ That leaves the two CTAs the same shape. They are still told apart by
+     ground (parallax photograph with a directional scrim here, a radial pool of
+     dark over a different photograph there) and by copy — if a future edit wants
+     them distinct again, change one of those, NOT the alignment. */
+  .sk-midcta-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 60rem;
+    margin-inline: auto;
+  }
+  .sk-midcta-title { font-size: clamp(1.6rem, 2.9vw, 2.4rem); margin-top: 1rem; }
+  .sk-midcta-sub { margin: 1.1rem auto 0; }
+  .sk-midcta-act { display: flex; justify-content: center; margin-top: clamp(1.7rem, 3vw, 2.3rem); }
+  /* the parallax window — desktop/pointer only, see the block comment above */
+  @media (min-width: 1025px) {
+    .sk-midcta { background-attachment: fixed; }
+  }
+
+  /* ======================== 9. HOW BUYERS USE THEM ========================
+     Six scenarios, three at a time, looping in both directions. Modelled on the
+     acrylic page's carousel, which the client already approved — including the
+     arrows sitting ON the row.
+     ⚠️ CLONES (in the script) must equal the largest slides-per-view, which is
+     3 here, or the wrap shows a gap.
+     ⚠️ This section must never get `content-visibility: auto`: the carousel
+     measures the track on load, before it is anywhere near the viewport.
+     Each slide is image-only with a caption panel, so every slide is exactly the
+     same height — a row of cards with ragged copy would make the arrows sit at
+     different heights as the track moves. */
+  .sk-scenes { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-clay); }
+  .sk-car-wrap { position: relative; margin-top: clamp(2.4rem, 5vw, 3.6rem); }
+  .sk-car { overflow: hidden; }
+  .sk-car-track {
+    --sk-car-gap: clamp(1rem, 2vw, 1.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: var(--sk-car-gap);
+  }
+  .sk-car-slide {
+    position: relative;
+    flex: 0 0 calc((100% - 2 * var(--sk-car-gap)) / 3);
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background: var(--color-brand-surface);
+  }
+  .sk-car-slot {
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-brand-surface);
+  }
+  .sk-car-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* a caption panel rather than a scrim: it stays legible over a bright
+     photograph and over an empty placeholder alike */
+  .sk-car-cap {
+    position: absolute;
+    inset: auto 0.7rem 0.7rem 0.7rem;
+    background: rgba(245, 240, 229, 0.96);
+    border-radius: 0.75rem;
+    padding: 0.7rem 0.95rem 0.75rem;
+    backdrop-filter: blur(6px);
+  }
+  /* One line. The scenario is named and the photograph does the rest — the same
+     treatment the acrylic page's scene carousel uses. */
+  .sk-car-cap h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  /* The arrows sit ON the row. The padding mirrors `.wrap`'s gutter so they land
+     on the outer slides' own edges at every width. */
+  .sk-car-ctl {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: max(clamp(1rem, 3vw, 3rem), calc((100% - 1200px) / 2));
+    pointer-events: none;
+  }
+  .sk-car-ctl .sk-car-btn { pointer-events: auto; }
+  .sk-car-btn {
+    width: 2.9rem;
+    height: 2.9rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(31, 59, 44, 0.12);
+    background: rgba(245, 240, 229, 0.94);
+    color: var(--color-brand-text);
+    box-shadow: 0 12px 24px -14px rgba(20, 38, 27, 0.75);
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  }
+  .sk-car-btn svg { width: 1.15rem; height: 1.15rem; }
+  .sk-car-btn:hover { background: var(--color-forest); border-color: var(--color-forest); color: var(--ivory); transform: translateY(-2px); }
+
+  /* ======================== 10. REVIEWS ========================
+     Cards, and the body copy is set in the page's own body face rather than as
+     an italic serif pull-quote — the client asked for the reviews to read like
+     the rest of the page. */
   .sk-quotes {
     padding: clamp(4rem, 9vw, 8rem) 0;
     background: linear-gradient(180deg, var(--color-forest), var(--forest-deep));
   }
-  .sk-quote-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.4rem); }
-  .sk-quote { position: relative; }
+  /* ⚠️ **The two cards are the same height** (`align-items` left at the default
+     `stretch`). `align-items: start` was here and let the shorter review end
+     early, which the client pulled. The card itself is a flex column so the
+     attribution can be pushed to the bottom with `margin-top: auto` — without
+     that, equal-height cards just leave a gap under the shorter one's byline. */
+  .sk-quote-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 2.8vw, 2rem); }
+  .sk-quote {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: rgba(245, 240, 229, 0.055);
+    border: 1px solid rgba(245, 240, 229, 0.15);
+    border-radius: 1.3rem;
+    padding: clamp(1.4rem, 2.6vw, 2rem) clamp(1.4rem, 2.6vw, 2rem) clamp(1.3rem, 2.4vw, 1.7rem);
+  }
+  /* The pair of marks, not one: an opening “ at the head of the card and its
+     closing ” at the foot. A lone opening mark reads as broken punctuation —
+     the client's *"引号你要么就用左右都要有，要么就都不要"*. Both are block-level
+     decorations in the same size, colour and opacity, so the card is framed
+     rather than punctuated; do not move either one inline into the paragraph. */
   .sk-quote-mark {
     display: block;
     font-family: var(--font-heading);
-    font-size: 3.4rem;
+    font-size: 2.4rem;
     line-height: 0.6;
     color: var(--brass-soft);
-    opacity: 0.6;
+    opacity: 0.55;
+    margin-bottom: 0.7rem;
+  }
+  .sk-quote-mark--close {
+    text-align: right;
+    line-height: 1;
+    /* the bottom margin is what guarantees a gap above the byline — the byline
+       itself is `margin-top: auto` and collapses to nothing on the taller card */
+    margin: -0.2rem 0 1rem;
   }
   .sk-quote p {
-    font-family: var(--font-heading);
-    font-style: italic;
-    font-size: 1.16rem;
-    line-height: 1.8;
-    color: rgba(245, 240, 229, 0.9);
-    margin: 1rem 0 0;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: rgba(245, 240, 229, 0.82);
+    margin: 0 0 0.9rem;
   }
   .sk-quote-who {
     display: flex;
     align-items: center;
-    gap: 0.95rem;
-    margin-top: 1.6rem;
-    padding-top: 1.3rem;
-    border-top: 1px solid rgba(245, 240, 229, 0.22);
+    gap: 1.05rem;
+    /* pinned to the foot of the card, so both bylines line up whatever the
+       review's length */
+    margin-top: auto;
+    padding-top: 1.15rem;
+    border-top: 1px solid rgba(245, 240, 229, 0.2);
   }
-  .sk-quote-who img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
-  .sk-quote-who b { display: block; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; color: var(--ivory); }
-  .sk-quote-who i { display: block; font-style: normal; font-size: 0.8rem; color: var(--brass-soft); margin-top: 0.2rem; }
+  /* Avatar and byline, enlarged 2026-09-20 at the client's request
+     (*"客户头像稍微放大一些，文字也可以稍微大一点"*): 52 → 60 px, the name
+     0.95 → 1.02rem, the role 0.8 → 0.86rem, and the gap opened with them. The
+     review BODY stays at 0.95rem — only the byline block was asked for. */
+  .sk-quote-who img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .sk-quote-who b { display: block; font-family: var(--font-body); font-size: 1.02rem; font-weight: 600; color: var(--ivory); }
+  .sk-quote-who i { display: block; font-style: normal; font-size: 0.86rem; color: var(--brass-soft); margin-top: 0.2rem; }
 
   /* ======================== 11. FAQ ======================== */
   .sk-faq { padding: clamp(4rem, 9vw, 8rem) 0; background: var(--color-ivory); }
-  .sk-faq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem 1.6rem; align-items: start; }
+  /* centred head, one centred column of questions */
+  .sk-faq .sk-head { text-align: center; max-width: 66rem; margin-inline: auto; }
+  .sk-faq .sk-sub { margin-inline: auto; }
+  .sk-faq-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; max-width: 62rem; margin-inline: auto; }
   .sk-faq-grid details {
     background: var(--color-brand-surface);
     border: 1px solid rgba(31, 59, 44, 0.12);
@@ -1409,71 +2155,97 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   }
   .sk-faq-grid details[open] summary::after { transform: rotate(45deg); }
   .sk-faq-grid details p { font-size: 0.94rem; line-height: 1.7; color: var(--color-brand-muted); margin: 0.9rem 0 0; }
+  /* The page's numeral device, at list scale rather than display scale — the
+     question is the payload here, so the figure marks the sequence without
+     outranking it. Same italic brass as `.sk-stage-n` and `.sk-stop-n`. */
+  .sk-faq-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--brass);
+    margin-right: 0.6rem;
+  }
 
   /* ======================== 12. FINAL CTA ========================
-     No photograph: the largest frame the source page offers is 800 px, and a
-     1440-wide band would be a 1.8× upscale. The die-cut outlines carry the
-     section instead, which is the cheaper and sharper answer. */
+     ⚠️ **The client's photograph paints this band under a DARK radial scrim
+     (2026-09-20).** Two things were removed to make room for it and must not be
+     re-derived:
+       — the `forest → forest-deep` gradient, because the ground is now the image;
+       — the brass bloom (`.sk-final::after` used to be a warm glow), because a
+         glow only reads on a flat dark ground and over a photograph it is a haze.
+     The faint strip of die-cut outlines (`.sk-final-art`) also went: drawn shapes
+     over a photograph are decoration that drifted, and with the §Registration die
+     drawing replaced by the client's own photo of the real die it would have been
+     the page's second drawn module. The hero's cut-path overlay is the page's one.
+     ⚠️ The scrim is RADIAL, not flat. The copy is one centred stack, so it needs a
+     dark pool in the middle to hold ivory type; a flat dark heavy enough for the
+     headline would kill the photograph, and the client asked for it to stay clear
+     (*"图片要显示清晰"*). Thinning to the edges leaves the label rolls on both
+     sides plainly visible, which is the whole point of the frame.
+     ⚠️ The source file is 894 px against a 1440 px band, so `cover` upscales it
+     ~1.6×. The scrim hides most of that. If the softness ever shows, the fix is a
+     wider source frame, never a heavier scrim. */
   .sk-final {
     position: relative;
     overflow: hidden;
-    padding: clamp(4.5rem, 10vw, 9rem) 0;
-    background: linear-gradient(150deg, var(--color-forest) 0%, var(--forest-deep) 92%);
+    /* ⚠️ The upper bound started at `9rem`. The client has shortened this band
+       twice by hand: −2 cm (9rem → 6.6rem) and then a further −1 cm
+       (6.6rem → 5.4rem), each taken as ~38 px per cm → ~19 px off each side.
+       Only the CAP moves: on narrower screens `10vw` is already below it, so the
+       band keeps the height it had there. */
+    padding: clamp(4.2rem, 10vw, 5.4rem) 0;
+    background: var(--forest-deep) url('https://img.leelinepackage.com/stickers/final-cta-bg.webp') center / cover no-repeat;
   }
   .sk-final::after {
     content: '';
     position: absolute;
-    inset: auto -12% -34% 46%;
-    height: 78%;
-    background: radial-gradient(closest-side, rgba(176, 141, 76, 0.34), transparent 72%);
+    inset: 0;
     pointer-events: none;
+    background: radial-gradient(
+      ellipse 82% 104% at 50% 50%,
+      rgba(20, 38, 27, 0.8) 0%,
+      rgba(20, 38, 27, 0.72) 42%,
+      rgba(20, 38, 27, 0.42) 74%,
+      rgba(20, 38, 27, 0.14) 100%);
   }
-  .sk-final-art {
-    position: absolute;
-    inset: auto 0 -2% 0;
-    width: 100%;
-    height: auto;
-    fill: none;
-    stroke: rgba(201, 168, 124, 0.2);
-    stroke-width: 1.6;
-    pointer-events: none;
-  }
-  .sk-final-inner { position: relative; z-index: 2; }
-  .sk-final-inner .sk-sub-light { margin-top: 1.2rem; }
+  .sk-final-inner { position: relative; z-index: 2; text-align: center; max-width: 62rem; margin-inline: auto; }
+  .sk-final-sub { margin: 1.2rem auto 0; }
+  .sk-final-inner .sk-actions { display: flex; justify-content: center; }
 
   /* ======================== RESPONSIVE ======================== */
   @media (max-width: 1024px) {
     .sk-hero-grid { grid-template-columns: minmax(0, 1fr); }
-    .sk-hero-fig {
-      margin: 0;
-      border-radius: 1.4rem;
-      aspect-ratio: 8 / 7;
-    }
     .sk-type-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .sk-reg-grid { grid-template-columns: minmax(0, 1fr); }
-    /* once the section stacks, the two cut types sit side by side under the
-       drawing rather than running as one narrow column */
-    .sk-cut-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .sk-adh-grid { grid-template-columns: minmax(0, 1fr); }
+    .sk-stage { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; }
+    /* stacked: there is no gutter for the connector to sit in */
+    .sk-stage > li + li::before { display: none; }
     .sk-mat-grid { grid-template-columns: minmax(0, 1fr); }
     .sk-ind-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .sk-stop-list { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.2rem; }
+    .sk-car-slide { flex: 0 0 calc((100% - var(--sk-car-gap)) / 2); }
     .sk-quote-grid { grid-template-columns: minmax(0, 1fr); }
-    /* the drawing scales to ~0.62× here, so the labels go UP rather than
-       inheriting a desktop size that is no longer legible */
-    .sk-hero-tag { font-size: 0.72rem; }
   }
 
   @media (max-width: 640px) {
     .sk-type-grid { grid-template-columns: minmax(0, 1fr); }
-    .sk-cut-grid { grid-template-columns: minmax(0, 1fr); }
-    .sk-surface { grid-template-columns: minmax(0, 1fr); }
+    /* The bar stacks into two panels; the frame's internal division turns from a
+       left rule into a top rule, exactly as in the preview. */
+    .sk-surface li { grid-template-columns: minmax(0, 1fr); }
+    .sk-bond { border-left: 0; border-top: 1px solid rgba(201, 168, 124, 0.3); }
     .sk-mat { grid-template-columns: minmax(0, 1fr); }
     .sk-mat-fig img { aspect-ratio: 16 / 9; }
     .sk-mat-body { padding: 0 1.2rem 1.4rem; }
     .sk-ind-grid { grid-template-columns: minmax(0, 1fr); }
-    .sk-stop-list { grid-template-columns: minmax(0, 1fr); }
-    .sk-faq-grid { grid-template-columns: minmax(0, 1fr); }
+    .sk-car-slide { flex: 0 0 100%; }
+    .sk-quote-grid { grid-template-columns: minmax(0, 1fr); }
+    .sk-plain-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem 1.2rem; }
+    /* The stats have to stack: three columns at 390 px leaves ~110 px each and
+       `1,000,000+` does not fit in that at any size. */
+    .sk-pr-stats { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
+    .sk-pr-grid { grid-template-columns: minmax(0, 1fr); }
+    /* the band is one centred column at every width now; only the scrim changes
+       — a flat wash, because a directional one no longer has a side to favour */
+    .sk-midcta::before { background: rgba(20, 38, 27, 0.78); }
+    .sk-stop-list li { grid-template-columns: minmax(0, 1fr); }
     /* The matrix has to FIT at 390, not scroll. A side-scrolling table with a
        column cut off mid-cell reads as a broken table, and the client reads a
        missing edge as a defect. At 390 the wrapper is 358 px: thirty per cent
@@ -1491,21 +2263,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     .sk-fin-cost { font-size: 0.95rem; }
     .sk-fin-wide { display: none; }
     .sk-fin-short { display: inline; }
-    .sk-cost-list li { grid-template-columns: minmax(0, 1fr); }
-    .sk-cost-list p { grid-column: 1; }
-    .sk-cost-list .sk-win { grid-column: 1; }
-    .sk-cost-list i { margin-bottom: 0.4rem; }
-    /* the drawing panel is about 330 px wide here, so the whole viewBox scales
-       to ~0.51×. The annotations step UP or they stop being annotations. Sizes
-       are checked against the 640-unit canvas: the longest string,
-       "registration ±0.2 mm", ends at 580 of 640. */
-    .sk-rd-lab { font-size: 30px; }
-    .sk-rd-sub { font-size: 23px; }
-    .sk-rd-num { font-size: 25px; }
-    /* two hero tags on a 390 px plate would collide; the spec rail above the
-       button already carries both numbers */
-    .sk-hero-tag--cut { top: 4%; left: 5%; }
-    .sk-hero-tag--gap { bottom: 5%; right: 5%; }
+    /* the four registration crosses sit outside the panel's box, so on a narrow
+       screen they would push the layout sideways */
+    .sk-label { outline-offset: 6px; }
+    .sk-label-reg { display: none; }
     .sk-specs { gap: 0.7rem 1.4rem; }
   }
 
@@ -1528,6 +2289,73 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     revealEls.forEach((el) => revealIO.observe(el));
   } else {
     revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Six scenarios, three at a time, looping in BOTH directions. Clone slides are
+  // copied to both ends: advancing onto a clone and then resetting the track to
+  // the matching real slide with no transition is what makes the wrap
+  // continuous. CLONES must be >= the slides on screen at any width (3 / 2 / 1),
+  // so three covers every breakpoint. The clones carry aria-hidden so a screen
+  // reader is not read the same six scenarios twice.
+  // ---------------------------------------------------------------------------
+  const sceneTrack = document.querySelector('.sk-car-track');
+  if (sceneTrack) {
+    const CLONES = 3;
+    const slides = Array.from(sceneTrack.children);
+    const N = slides.length;
+    if (N > 0) {
+      const n = Math.min(CLONES, N);
+      const cloneOf = (el) => {
+        const c = el.cloneNode(true);
+        c.setAttribute('aria-hidden', 'true');
+        return c;
+      };
+      for (let k = 0; k < n; k++) {
+        sceneTrack.insertBefore(cloneOf(slides[(N - n + k) % N]), slides[0]);
+      }
+      for (let k = 0; k < n; k++) sceneTrack.appendChild(cloneOf(slides[k % N]));
+      const start = n;
+      let i = start;
+      let busy = false;
+
+      const step = () => {
+        const gap = parseFloat(getComputedStyle(sceneTrack).gap) || 0;
+        return sceneTrack.children[start].getBoundingClientRect().width + gap;
+      };
+      const move = (animate) => {
+        sceneTrack.style.transition = animate ? 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)' : 'none';
+        sceneTrack.style.transform = `translateX(${-i * step()}px)`;
+      };
+      const go = (dir) => {
+        if (busy) return;
+        busy = true;
+        i += dir;
+        move(true);
+        window.setTimeout(() => {
+          if (i < start) i += N;
+          else if (i > start + N - 1) i -= N;
+          move(false);
+          busy = false;
+        }, 570);
+      };
+
+      const prev = document.querySelector('.sk-car-btn--prev');
+      const next = document.querySelector('.sk-car-btn--next');
+      if (prev) prev.addEventListener('click', () => go(-1));
+      if (next) next.addEventListener('click', () => go(1));
+      move(false);
+      window.addEventListener('resize', () => { if (!busy) move(false); });
+
+      // Keyboard, so the control is not mouse-only.
+      const ctl = document.querySelector('.sk-car-ctl');
+      if (ctl) {
+        ctl.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') go(-1);
+          if (e.key === 'ArrowRight') go(1);
+        });
+      }
+    }
   }
 
   // One answer open at a time.

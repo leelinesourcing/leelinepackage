@@ -11,32 +11,32 @@ const VB = `${R2}/velvet-bags`;
    restates the section sub or the card above it, and four of the nine names
    carry a search a buyer actually types. */
 const types = [
-  { n: 'VB-01', key: 'type-drawstring', name: 'Custom Velvet Drawstring Bags', spec: 'Ribbon or twist cord',
-    alt: 'A chocolate velvet drawstring pouch with gold cords tied at the neck and a gold monogram, resting on a pale surface',
+  { n: 'VB-01', key: 'type-drawstring-v2', name: 'Custom Velvet Drawstring Bags', spec: 'Ribbon or twist cord',
+    alt: 'A forest green velvet drawstring pouch foil-stamped Your Logo or Text in gold, standing on pale sand',
     d: 'A measured 12 mm casing, bar-tacked at both openings, so the cord cannot pull out of the bag.' },
-  { n: 'VB-02', key: 'type-gift', name: 'Custom Velvet Gift Bags', spec: 'Takes a foil block',
-    alt: 'A white velvet gift sack with a red band and a printed seasonal message, held in one hand beside a decorated tree',
+  { n: 'VB-02', key: 'type-gift-v2', name: 'Custom Velvet Gift Bags', spec: 'Takes a foil block',
+    alt: 'A pale grey and a burgundy velvet drawstring pouch, the red one finished with a gold bead and ribbon, on a round woven tray',
     d: 'A gift bag is read before the gift is; velvet takes a foil that catches a room light.' },
-  { n: 'VB-03', key: 'type-embroidered', name: 'Embroidered Velvet Bags', spec: 'Thread, not ink',
-    alt: 'A teal velvet clutch carrying a densely embroidered bird in coral and gold thread, laid on eucalyptus leaves',
+  { n: 'VB-03', key: 'type-embroidered-v3', name: 'Embroidered Velvet Bags', spec: 'Thread, not ink',
+    alt: 'A black velvet shoulder bag standing upright on a stone ground, embroidered in blue, teal and rose florals and stars',
     d: 'Thread laid into the pile — the one mark here that survives a wash.' },
-  { n: 'VB-04', key: 'type-zipper', name: 'Velvet Zipper Pouches', spec: 'Metal zip, fabric pull',
-    alt: 'A yellow and a black velvet zip pouch with gold tassel pulls, lying on a pale marble surface',
+  { n: 'VB-04', key: 'type-zipper-v2', name: 'Velvet Zipper Pouches', spec: 'Metal zip, fabric pull',
+    alt: 'Velvet zip pouches in blue, golden yellow, pink and cream stacked on a pale surface, one open with its tassel pull hanging out',
     d: 'A zip turns a pouch into a case, and a case lives in a handbag rather than a drawer.' },
-  { n: 'VB-05', key: 'type-wine', name: 'Velvet Wine Bags', spec: 'One or two bottles',
-    alt: 'A burgundy velvet wine bag printed with a seasonal message and tied at the neck, standing among Christmas decorations',
+  { n: 'VB-05', key: 'type-wine-v2', name: 'Velvet Wine Bags', spec: 'One or two bottles',
+    alt: 'A wine bottle in a red velvet drawstring bag appliqued with a cream figure and the words Merry Christmas, beside a wooden XMAS sign and a lit tree',
     d: 'Bottle-shaped and carried by the cord, so the bottle arrives dressed.' },
-  { n: 'VB-06', key: 'type-beaded', name: 'Beaded Velvet Clutch Bags', spec: 'Hand-set by the piece',
-    alt: 'A navy velvet clasp clutch held in one hand, its front worked in a beaded and sequinned crest',
+  { n: 'VB-06', key: 'type-beaded-v2', name: 'Beaded Velvet Clutch Bags', spec: 'Hand-set by the piece',
+    alt: 'A navy velvet clutch laid flat on a bed of pearls, its face worked edge to edge in teal, red and gold bead embroidery',
     d: 'The dressiest build on the page: beads and a clasp, both set by hand.' },
-  { n: 'VB-07', key: 'type-printed', name: 'Printed Velvet Drawstring Bags', spec: 'Print laid in the pile',
-    alt: 'A navy drawstring pouch printed all over with a large blue and pink foliage and paisley design',
+  { n: 'VB-07', key: 'type-printed-v2', name: 'Printed Velvet Drawstring Bags', spec: 'Print laid in the pile',
+    alt: 'Five small velvet drawstring pouches printed with the names Oliver, Noah, Henry and Kate, arranged on a white plate',
     d: 'The whole face becomes the artwork instead of a mark on a coloured bag.' },
-  { n: 'VB-08', key: 'type-jewelry', name: 'Custom Velvet Jewelry Pouches', spec: '3 × 4 to 8 × 10 in',
-    alt: 'Blush pink velvet jewelry pouches resting in and beside an open presentation box on a pale surface',
+  { n: 'VB-08', key: 'type-jewelry-v2', name: 'Custom Velvet Jewelry Pouches', spec: '3 × 4 to 8 × 10 in',
+    alt: 'Velvet jewelry pouches in grey, ivory and black foil-stamped with a gold mark, laid out in a row on a tan ground',
     d: 'Padded, lined against tarnish, and measured to the piece — the build most clients reorder.' },
-  { n: 'VB-09', key: 'type-tote', name: 'Large Velvet Tote Bags', spec: 'Embroidered panel',
-    alt: 'A navy velvet tote worked with an embroidered bird panel, carried by one hand against dark velvet trousers',
+  { n: 'VB-09', key: 'type-tote-v3', name: 'Large Velvet Tote Bags', spec: 'Embroidered panel',
+    alt: 'A large black velvet tote with brown webbing handles, its front covered in dense floral thread and bead embroidery',
     d: 'Velvet has the weight to hold a shopper’s shape and a face wide enough to carry a mark.' },
 ];
 
@@ -67,23 +67,29 @@ const fabrics = [
 /* §Five Ways to Put a Mark on Velvet. `min` is the run each route becomes
    sensible at; each `d` says what that route is good at and what it costs in
    return, because on a pile every route trades something. */
-/* `brief` is the shot note for the four routes whose photograph has not arrived. §Mark shows one
-   real sample (embroidery) and four dashed slots carrying these briefs in their aria-label. */
+/* Every route carries its own photograph. The one card that used to hold the only real sample
+   is now a client shot of five pouches carrying one printed mark. */
 const routes = [
   { name: 'Embroidery', min: 'From 500',
-    d: 'Thread laid into the pile. The only route that still reads after a wash, and the route that holds a crest or a monogram at a size the others lose.' },
+    d: 'Thread laid into the pile. The only route that still reads after a wash, and the route that holds a crest or a monogram at a size the others lose.',
+    img: 'mark-embroidery-v2', w: 387, h: 516,
+    alt: 'A black velvet panel stretched in an embroidery hoop, worked in silk thread with red, pink and green flowers and leaves' },
   { name: 'Foil stamping', min: 'From 500',
     d: 'A metal layer pressed into the pile under heat. On a flat crushed velvet it lands sharp and mirror-bright; on a deep pile it sinks and softens instead of flattening.',
-    brief: 'A gold foil block lifting off a deep pile, the metal catching a light' },
+    img: 'mark-foil-v2', w: 554, h: 554,
+    alt: 'A charcoal velvet drawstring pouch stamped in gold foil with a large script mark, laid on a painted ground' },
   { name: 'Screen print', min: 'From 1,000',
     d: 'Ink pushed through a mesh onto the face. Bold shapes only, and it sits on top of the cloth: a print on a pouch that gets handled will wear before the cloth does.',
-    brief: 'A screen-printed flat graphic on a satin face, squeegee and screen in frame' },
+    img: 'mark-screen-v2', w: 1024, h: 1024,
+    alt: 'Five velvet drawstring pouches in silver, white, charcoal, cream and black, each screened with the same gold mark across the face, laid out on a beige ground' },
   { name: 'Deboss', min: 'From 500',
     d: 'The pile pressed down with no ink and no foil. A mark that cannot be read from a distance and cannot be missed in the hand, which suits a house that does not shout.',
-    brief: 'A debossed mark pressed into velvet with no ink, shot across the pile so the depth reads' },
+    img: 'mark-deboss-v2', w: 960, h: 960,
+    alt: 'Four velvet pouches in pale yellow, sage, cream and lilac, each carrying a blind-debossed mark with no ink and no foil' },
   { name: 'Woven or leather label', min: 'From 500',
     d: 'A separate label stitched at the seam. Fine type and two colors both survive here, at the price of another component to make and another thing to sew on.',
-    brief: 'A woven label stitched into the seam of a pouch, bent over to show both faces' },
+    img: 'mark-label-v2', w: 984, h: 984,
+    alt: 'A camel velvet drawstring pouch with cream cords and a woven white label stitched across the front, resting on kraft paper' },
 ];
 
 /* §Four Tests. What the cloth must not do to whatever it is wrapped around.
@@ -117,18 +123,18 @@ const tests = [
 /* §Four Buyers. Four columns, the copy set over a gradient on the plate — the
    one place on this page where a photograph carries type. */
 const buyers = [
-  { key: 'vert-jewelry', name: 'Jewelry and watches', chips: ['Tarnish cloth', 'Padded', '3 × 4 to 8 × 10 in'],
-    alt: 'Blush velvet jewelry pouches in and beside an open presentation box on a pale surface',
-    d: 'Silver and gold stay bright through a season on a counter, and the pouch is cut to the piece it carries, which stops anything shifting between the box and the customer.' },
+  { key: 'vert-jewelry-v2', name: 'Jewelry and watches', chips: ['Tarnish cloth', 'Padded', '3 × 4 to 8 × 10 in'],
+    alt: 'Velvet pouches in lilac, red and teal on a wooden tray with a rose-gold chain, a hand lifting a ring from one of them',
+    d: 'Silver and gold stay bright through a season on a counter.' },
   { key: 'vert-gift', name: 'Gifting and events', chips: ['Foil stamp', 'Ribbon', 'Dates and initials'],
     alt: 'Red and green velvet drawstring bags with gold cords and bead detail arranged on a festive tray',
-    d: 'The same run covers a launch, a wedding or a client dinner, stamped with the date if that helps, and it lands before the event rather than after it.' },
+    d: 'One run covers a launch, a wedding or a client dinner, stamped with the date.' },
   { key: 'vert-cosmetics', name: 'Cosmetics and travel', chips: ['Zip', 'Lined', 'Wipes clean'],
     alt: 'Two quilted velvet zip cases, one in dusty blue and one in rose, on a pale pink background',
-    d: 'A case rather than a bag, with a lining chosen to survive a spill. It goes into a handbag and comes out daily.' },
+    d: 'A case rather than a bag, lined to survive a spill.' },
   { key: 'vert-care', name: 'Retail and care kits', chips: ['Drawstring', 'Embossed', 'Ships with the product'],
     alt: 'A flat lay of pale velvet pouches, drawstring bags, a wallet and a presentation box laid out on a white surface',
-    d: 'The pouch a product leaves the plant in and stays in on the shelf — and then travels home with the customer.' },
+    d: 'The pouch a product ships in and stays in on the shelf.' },
 ];
 
 /* §How an Order Moves. `when` is the clock; `win` is what the buyer holds at
@@ -154,40 +160,56 @@ const buyers = [
    an error. Every card also carries one <b> highlight, so the paragraph has a point rather than
    being a block of even text. All three service pages stay linked: prototyping on 01, structural
    engineering on 02, artwork design in §Getting a Logo onto Pile. */
+/* §Customisation Services. `d` is the body of the card and `win` is the point of it, held on its
+   own line pinned to the bottom of the card (`.card` is a flex column, so `margin-top:auto` on the
+   last child lines all six up across the row). Links are inline inside the prose — two cards used
+   to end with a separate "… →" row and four did not, which read as an error. All three service
+   pages stay linked: prototyping on 01, structural engineering on 02, artwork in §Getting a Logo
+   onto Pile. */
 const services = [
   { n: '01', name: 'OEM — a build already selling',
-    d: 'An existing build, or one being bought elsewhere, is copied to the millimetre and matched against a swatch mailed in. It starts with a <a class="inline-link" href="/packaging-sample-prototyping/">sample and prototype</a> of the build you already sell.',
+    d: 'An existing build, or one being bought elsewhere, is copied to the millimetre and matched against a swatch mailed in.',
+    win: 'Starts with a <a class="inline-link" href="/packaging-sample-prototyping/">sample and prototype</a> of the build you already sell.',
     icon: '<rect x="4" y="4" width="12" height="12" rx="2"/><path d="M8 20h10a2 2 0 0 0 2-2V8"/>' },
   { n: '02', name: 'ODM — drawn from a photograph',
-    d: 'A photo with a ruler sets the dimensions, and the pattern, the drawstring channel and the lining are drawn here in <a class="inline-link" href="/structural-engineering-and-design/">structural engineering and design</a>. A <b>sewn sample comes back before a run is committed</b>.',
+    d: 'A photo with a ruler sets the dimensions, and the pattern, the drawstring channel and the lining are drawn here in <a class="inline-link" href="/structural-engineering-and-design/">structural engineering and design</a>.',
+    win: 'A sewn sample comes back before a run is committed.',
     icon: '<path d="M4 15l11-11 5 5-11 11z"/><path d="M8 11l2 2M11 8l2 2"/>' },
   { n: '03', name: 'Private label',
-    d: 'Our patterns and our plant, with the client’s own name on the carton. <b>Nothing on the pouch carries our mark unless that has been asked for</b>, and a repeat order needs no drawing done again.',
+    d: 'Our patterns and our plant, with the client’s own name on the carton, and a repeat order that needs no drawing done again.',
+    win: 'Nothing on the pouch carries our mark unless that has been asked for.',
     icon: '<path d="M4 12l8-8h8v8l-8 8z"/><path d="M15.5 8.5h.01"/>' },
   { n: '04', name: 'Colour, stocked or dyed',
-    d: 'Pick from the shades on the card, or have the yarn dyed to your Pantone from 2,000 units. <b>Dyeing to a number instead of to a screen</b> is what lets a third order match a first.',
+    d: 'Pick from the shades on the card, or have the yarn dyed to your Pantone from 2,000 units.',
+    win: 'Dyeing to a number instead of to a screen is what lets a third order match a first.',
     icon: '<path d="M12 3c3.5 4 6 7 6 9.5a6 6 0 0 1-12 0C6 10 8.5 7 12 3z"/>' },
   { n: '05', name: 'Any size, cut to order',
-    d: 'Nothing is picked off a list. The jewelry range covers 3 × 4 in to 8 × 10 in, and the plant cuts anywhere from about 5 cm to 70 cm on the long edge. <b>Measure the outside of the pouch being replaced</b> — that single number prevents most remakes.',
+    d: 'Nothing is picked off a list. The jewelry range covers 3 × 4 in to 8 × 10 in, and the plant cuts anywhere from about 5 cm to 70 cm on the long edge.',
+    win: 'Measure the outside of the pouch being replaced — that single number prevents most remakes.',
     icon: '<path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/>' },
   { n: '06', name: 'A kit, not four suppliers',
-    d: 'The pouch, the box, the tissue, the ribbon and the hangtag made here and packed as a set. <b>A single carton reaches the 3PL</b>, not four arriving from four places.',
+    d: 'The pouch, the box, the tissue, the ribbon and the hangtag made here and packed as a set.',
+    win: 'A single carton reaches the 3PL, not four arriving from four places.',
     icon: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/>' },
 ];
 
 /* The site's own five compliance marks, re-cut so the white is off them (the originals on
    `custom-bag/compliance/*` are pure white and read as white boxes on the page). Uploaded under
    `velvet-bags/compliance/*`; that page is untouched. Name and intrinsic size travel with each. */
-/* §Six Places a Velvet Pouch Gets Kept. `cap` is the label the reader sees; `brief` is the shot
-   note carried in the placeholder's aria-label, because none of these six photographs exist yet.
+/* §Five Places a Velvet Pouch Gets Kept. `cap` is the label the reader sees. Each `cap` names the
+   place in the frame that arrived, so the row reads as five locations rather than five pictures.
    The folder is NOT the brief. */
 const scenes = [
-  { cap: 'The dressing table', brief: 'A velvet pouch open on a dressing table, a chain pulled half out and a ring beside it' },
-  { cap: 'The handbag', brief: 'A pouch sitting inside a handbag under keys, a lipstick and a phone' },
-  { cap: 'The counter', brief: 'A pouch being handed across a shop counter, ribbon still tied, a hand taking it' },
-  { cap: 'The coat hook', brief: 'A pouch hung by its cord from a coat hook in a hallway' },
-  { cap: 'The suitcase', brief: 'A pouch wedged in a suitcase beside folded knitwear, half packed' },
-  { cap: 'The shelf', brief: 'A pouch kept on a shelf holding a watch and a spare strap' },
+  { cap: 'Out on the street', img: 'scene-1-v2', w: 1376, h: 768,
+    alt: 'A woman in a denim jacket carrying a small patterned crossbody bag down a stone city street' },
+  { cap: 'Lunch in the garden', img: 'scene-2-v2', w: 1376, h: 768,
+    alt: 'A woman holding a glass on a garden terrace beside a stone fountain in the evening' },
+  { cap: 'Under the tree', img: 'scene-3-v2', w: 1376, h: 768,
+    alt: 'Father Christmas carrying a red velvet drawstring sack in front of a lit tree and wrapped presents' },
+  { cap: 'At the wedding', img: 'scene-4-v2', w: 1376, h: 768,
+    alt: 'A hand holding a small black velvet pouch in a bright venue set out with white chairs' },
+  { cap: 'On the bar shelf', img: 'scene-5-v2', w: 1376, h: 768,
+    alt: 'Two dark velvet wine bags stamped in gold standing on a bar shelf against a night-city painting' },
 ];
 
 const certs = [
@@ -226,38 +248,37 @@ const quotes = [
     alt: 'Portrait of David Brooks',
     p: [
       'Our watches leave the service bench in these pouches as well as leaving the shop in them, which means the bag has to look right in a hand at a counter and survive a courier on the same day. What settled it was the stitching. The channel is straight and the seam does not pull, which I could not say about the samples we were sent before this.',
-      'The sizing conversation was short because it was specific. We gave the case dimensions and the worst bracelet we make, and the pouch that came back fits without the watch moving inside it.',
-      'The sheen held across the reorder. Same depth of pile, same color, no drift into a duller batch — the argument I had expected to have, and did not.',
+      'Sizing was a short conversation because it was specific. We gave the case dimensions and the worst bracelet we make, and the pouch that came back fits without the watch moving inside it.',
+      'Sheen held across the reorder. Same depth of pile, same color, no drift into a duller batch — the argument I had expected to have, and did not.',
     ] },
   { name: 'Emma Rodriguez', role: 'Event Planner · United States', img: `${VB}/avatar-emma.webp`,
     alt: 'Portrait of Emma Rodriguez',
     p: [
       'Five hundred pouches for a client’s anniversary dinner, stamped in gold with the date. The bag was the wrapping and the keepsake at once, and it had to pass as both.',
       'I had one afternoon to choose a size, which is no way to buy packaging. Swatches arrived, and a straight answer came with them about which of the three sizes the giveaway belonged in — the part a catalogue cannot tell you.',
-      'The order landed before the date on it and the foil was sharp on all five hundred. Two more events have gone out on the same build since, in a different color each time, and the pouch has not been the thing that held anything up.',
+      'It landed ahead of the date printed on it, and the foil was sharp on all five hundred. Two more events have gone out on the same build since, in a different color each time, and the pouch has not been the thing that held anything up.',
     ] },
 ];
 
-/* Answers only what the body does not already cover. Checked against every
-   section above: the channel is §The Drawstring Channel, the layers and the
-   tarnish claim are §Four Layers, the cloths and the marks are §Four Fabrics
-   and §Five Ways, the safety grades are §Four Tests, the reuse case is §The
-   Pouch Outlives the Sale, the weights are §What a Run Weighs, the shade
-   tolerance is §Why the Second Run, and the clock is §How an Order Moves.
-   None of the six re-asks any of them. */
+/* Six decisions §the sections above do not make for the buyer. Each was checked against the band
+   nearest to it: the Pantone minimum is already under the fabric table and in service 04, the
+   fine-line answer is already the woven-label card in §Five Ways, and the child-safe answer is
+   already the azo line in §Four Tests, so all three were replaced rather than rephrased. What is
+   left — lining, artwork to send, closure, the size of a set, what one run may mix, and the four
+   lines behind the unit price — is answered on this page once, here. */
 const faqs = [
-  { q: 'What size pouch does a necklace and a pair of earrings need?',
-    a: 'Measure the longest dimension of the piece and allow 15 mm of clearance on all sides. A 45 cm chain doubled over sits in a 4 × 6 in pouch; studs disappear in anything above 3 × 4 in. Post the piece to us if it is awkward to measure — a pouch built around the real object beats a pouch built from a drawing, and posting a piece in costs nothing.' },
-  { q: 'Can you dye a velvet to my Pantone instead of a stocked shade?',
-    a: 'From 2,000 units, because the yarn is dyed before it is woven rather than printed afterwards, and that adds three to four weeks. Stocked shades come off a printed card; below 2,000 units the nearest stocked color is usually the better buy. Either way the approved chip is the reference a reorder is matched against.' },
-  { q: 'Is there a build for a product a child will handle?',
-    a: 'A dye declaration free of restricted amines and OEKO-TEX Standard 100 cloth are both available on request, and both are worth naming in the order rather than assuming, because the restriction sits on the dye rather than on the pile. Beads and metal clasps are applied by hand and are a hazard under three years old, so a plain drawstring in satin is the build for that market.' },
-  { q: 'My logo has a fine line and small type. Which mark holds it?',
-    a: 'Below roughly 2 mm a stroke closes up in embroidery, and below 0.5 mm a foil stamp loses its edge, so fine detail belongs on a woven label stitched into the seam, which holds type at sizes the other routes cannot. The same artwork also gets a different answer on crushed velvet than on satin, because a flat weave holds a screen-printed line and a deep pile blurs it.' },
-  { q: 'Can a run mix sizes and colors?',
-    a: 'Yes, and the minimum applies to the whole order rather than to each variant: 500 units can be three sizes in two colors. What a run cannot mix is the cloth, because the pile is cut in a set direction per bolt and a mixed-fabric order has to be laid out twice. Mixed sizes share a pattern and a setup.' },
-  { q: 'How is the price built, and what does a sample cost?',
-    a: 'Four lines: the cloth, the sewing and the closure, the mark, and the packing. Cloth and sewing are per unit and fall with quantity. The mark carries a one-off — an embroidery card, a screen or a stamping die — quoted once and filed against your pattern, and a reorder repeats none of it. The sewn sample is quoted at a production rate and credited back in full once the run is placed.' },
+  { q: 'What size pouch holds a necklace and its matching earrings?',
+    a: 'Measure the longest dimension of the piece and allow 15 mm of clearance on every side. A 45 cm chain doubled over sits in a 4 × 6 in pouch, and studs disappear in anything above 3 × 4 in, so a set usually reads as one 4 × 6 and two 3 × 4 rather than one bag for the lot. Inches are enough to quote from.' },
+  { q: 'Which lining belongs inside a silver pouch, and which inside a gift pouch?',
+    a: 'Tarnish cloth where the piece is going to be stored, because silver and gold dull on the inside of the cloth rather than on the outside air. Satin where the pouch is presentation and the piece moves to a box the same evening. A lining is a second component sewn into the same seam, so it moves the sewing line of the quote rather than the cloth line.' },
+  { q: 'What do I send so the artwork can be used as it is?',
+    a: 'A vector outline rather than a picture, with the strokes already at the width the route needs: 0.5 mm for a foil stamp or a deboss, 2 mm for embroidery. A raster file is redrawn here first, and the redraw comes back as a line drawing to approve before anything is priced. Pantone references rather than screen colors for anything printed.' },
+  { q: 'How do I choose between a cord, a zip and a frame clasp?',
+    a: 'A cord or a ribbon where the pouch is opened often and closed with one pull, and where nothing inside is small enough to fall out. A zip where the pouch becomes a case and travels in a handbag, because the contents are held even upside down. A frame clasp where the bag is carried by the hand instead of kept in a drawer — on that build the closure is the point rather than an addition.' },
+  { q: 'Can one run carry more than one size or color?',
+    a: 'Yes, and the 500-unit minimum applies to the order rather than to each variant, so a first run can be three sizes in two colors. Weight and packing follow the total count rather than the number of variants. A second mark is the one change that arrives with its own setup.' },
+  { q: 'How is the price built?',
+    a: 'Four lines: the cloth, the sewing and the closure, the mark, and the packing. Cloth and sewing are per unit and fall as the quantity rises. The mark is the line a first order carries and a reorder does not, because an embroidery card, a screen or a stamping die is made once and filed against your pattern. Packing follows how the pouches leave — loose, or folded into a kit.' },
 ];
 
 const seo = {
@@ -265,7 +286,7 @@ const seo = {
   description: 'Velvet pouches lined with tarnish cloth that holds silver bright for 18 months. Four velvets, cut in one direction and sewn from 500 units. Samples in 5–7 days.',
   keywords: 'custom velvet bags manufacturer, custom velvet pouches manufacturer, custom velvet drawstring bags manufacturer, wholesale custom velvet bags, OEM velvet bags manufacturer, custom velvet jewelry bags manufacturer, custom velvet gift bags manufacturer, custom velvet dust bags manufacturer, custom logo velvet bags factory, velvet pouch manufacturer China, custom velvet bags wholesale, luxury velvet packaging manufacturer',
   canonical: 'https://www.leelinepackage.com/custom-velvet-bags/',
-  ogImage: `${VB}/hero-plate.webp`,
+  ogImage: `${VB}/hero-plate-v2.webp`,
 };
 
 const jsonLd = {
@@ -309,7 +330,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${VB}/hero-plate.webp`}
+  preloadImage={`${VB}/hero-plate-v2.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -328,8 +349,8 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get My Velvet Quote<Fragment set:html={arrow} /></a>
         </div>
         <div class="cluster">
-          <figure class="plate"><img src={`${VB}/hero-plate.webp`} alt="Six velvet and satin drawstring pouches in cream, blush, cerise, magenta, royal blue and black, arranged on a marble plate" width="660" height="572" loading="eager" fetchpriority="high" decoding="sync" /></figure>
-          <figure class="plate cluster-sub"><img src={`${VB}/type-embroidered.webp`} alt="A teal velvet zip pouch worked with an embroidered beaded deer and wildflowers" width="520" height="520" loading="lazy" decoding="async" /></figure>
+          <figure class="plate"><img src={`${VB}/hero-plate-v2.webp`} alt="A mustard velvet drawstring pouch foil-stamped Milan and Co with a sage pouch and a black pouch monogrammed in white, nested in white sheepskin with eucalyptus and cotton bolls" width="1376" height="768" loading="eager" fetchpriority="high" decoding="sync" /></figure>
+          <figure class="plate cluster-sub"><img src={`${VB}/hero-sub.webp`} alt="Nine velvet drawstring pouches fanned out in blush, red, camel, black, blue and sage on a white ground, with a camel flat pouch in front" width="1332" height="1332" loading="lazy" decoding="async" /></figure>
         </div>
       </div>
     </section>
@@ -373,10 +394,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
               <span class="code">{sv.n}</span>
               <h3>{sv.name}</h3>
               <p set:html={sv.d}></p>
+              <p class="win" set:html={sv.win}></p>
             </li>
           ))}
         </ul>
-        <p class="close" data-reveal="up">A run is quoted on a falling scale from 500 units upward, and nothing is redrawn between a test order and a programme.</p>
         <div class="cta-center">
           <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Send the Piece Being Replaced<Fragment set:html={arrow} /></a>
         </div>
@@ -448,18 +469,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <h2>Five Ways to Put a Mark on Velvet</h2>
           <p class="sub">Velvet is the least cooperative surface in this workshop. The pile drinks ink, shrugs off adhesive and blurs a fine line, which puts thread at the top of the list rather than the bottom.</p>
         </div>
-        <!-- One real sample and four slots still to be photographed. The brief for each is in the
-             slot's aria-label; the folder is NOT the brief. -->
-        <ul class="cards3">
-          {routes.map((r, i) => (
+        <!-- All five route samples are photographs now, on one square frame so the row reads even. -->
+        <ul class="cards-center">
+          {routes.map((r) => (
             <li class="card" data-reveal="up">
-              {i === 0 ? (
-                <figure class="card-fig card-fig--wide"><img src={`${VB}/print-logo.webp`} alt="A red velvet drawstring pouch embroidered in rose-gold thread with the words Your Logo Or Text, laid on a pale pink ground" width="600" height="450" loading="lazy" decoding="async" /></figure>
-              ) : (
-                <div class="slot slot--wide" role="img" aria-label={`Shot to supply: ${r.brief}`}><span>Placeholder</span></div>
-              )}
+              <figure class="card-fig"><img src={`${VB}/${r.img}.webp`} alt={r.alt} width={r.w} height={r.h} loading="lazy" decoding="async" /></figure>
               <div class="card-body">
-                <h3>{r.name}<span class="pill">{r.min}</span></h3>
+                <h3>{r.name}</h3>
                 <p>{r.d}</p>
               </div>
             </li>
@@ -488,6 +504,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <div class="cta-center">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Request the Test Reports<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -508,14 +527,14 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             <p class="lab">What we do</p>
             <p>Build a pouch worth keeping: a tarnish-cloth lining so silver comes out the colour it went in, a seam that survives a wash, and a size that fits a handbag rather than a shelf.</p>
             <p class="lab">What that gets you</p>
-            <p set:html={'<b>The mark keeps working long after the sale</b> — out of a drawer, a suitcase and a gym bag for years, at no further cost per impression.'}></p>
+            <p class="win" set:html={'The mark keeps working long after the sale — out of a drawer, a suitcase and a gym bag for years, at no further cost per impression.'}></p>
           </li>
           <li class="card card--pad" data-reveal="up" style="--d:0.08s">
             <h3>Run two never matches run one</h3>
             <p class="lab">What we do</p>
             <p>Dye to the chip signed off on the first run rather than to a screen, hold the run to a tolerance of ΔE 1.5 against it, and dye a reorder placed inside six months in the same bath.</p>
             <p class="lab">What that gets you</p>
-            <p set:html={'<b>Two batches read as one colour on a shelf</b>, so a reorder never looks like a different product beside the stock already there.'}></p>
+            <p class="win" set:html={'Two batches read as one colour on a shelf, so a reorder never looks like a different product beside the stock already there.'}></p>
           </li>
         </ul>
       </div>
@@ -532,10 +551,12 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <ul class="cards4">
           {buyers.map((b) => (
             <li class="card" data-reveal="up">
-              <figure class="card-fig"><img src={`${VB}/${b.key}.webp`} alt={b.alt} width="600" height="450" loading="lazy" decoding="async" />
-                <figcaption><h3>{b.name}</h3><ul class="chips chips--light">{b.chips.map((c) => <li>{c}</li>)}</ul></figcaption>
-              </figure>
-              <div class="card-body"><p>{b.d}</p></div>
+              <figure class="buyer-fig"><img src={`${VB}/${b.key}.webp`} alt={b.alt} width="600" height="450" loading="lazy" decoding="async" /></figure>
+              <div class="card-body">
+                <h3>{b.name}</h3>
+                <ul class="chips">{b.chips.map((c) => <li>{c}</li>)}</ul>
+                <p>{b.d}</p>
+              </div>
             </li>
           ))}
         </ul>
@@ -543,21 +564,28 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- ========================================================== 10. STOPS -->
+    <!-- ============ 10. STOPS ============ -->
     <section class="sec sec--clay" id="vb-stops">
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow"><Fragment set:html={leaf} />What happens, and when</span>
           <h2>From Swatch to Carton, in Five Stops</h2>
-          <p class="sub">Each stop is one line, and each ends with what the buyer has when it closes.</p>
+          <p class="sub">Each stop is one line. Odd stops sit above the rule and even stops below it, and each
+            ends with what is in hand when it closes.</p>
         </div>
+        <!-- The rule IS the sequence, which is the one job a horizontal line still does here. Each
+             stop is a two-row grid and its body takes row 1 or row 2, so the rule always falls in
+             clear space — laying the stops out with flex instead puts every body on the same
+             baseline and the rule runs through the copy. -->
         <ol class="stops">
           {stops.map((s, i) => (
             <li data-reveal="up">
               <span class="dot" aria-hidden="true"></span>
-              <span class="when">{s.when}</span>
-              <h3>{s.name}</h3>
-              <p class="win">{s.win}</p>
+              <div class="stop-body">
+                <span class="when">{s.when}</span>
+                <h3>{s.name}</h3>
+                <p class="win">{s.win}</p>
+              </div>
             </li>
           ))}
         </ol>
@@ -567,7 +595,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       </div>
     </section>
 
-    <!-- =========================================================== 11. CERT -->
+
     <section class="sec" id="vb-cert">
       <div class="wrap">
         <div class="sec-head sec-head--center">
@@ -588,33 +616,34 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow"><Fragment set:html={leaf} />After the sale</span>
-          <h2>Six Places a Velvet Pouch Gets Kept</h2>
-          <p class="sub">Three on screen at a time, six in the set. The pouch leaves the box and keeps going — these are the places buyers tell us theirs end up.</p>
+          <h2>Five Places a Velvet Pouch Gets Kept</h2>
+          <p class="sub">Three on screen at a time, five in the set. The pouch leaves the box and keeps going — these are the places buyers tell us theirs end up.</p>
         </div>
-      </div>
-      <!-- ⚠️ NO links anywhere in this block: the arrows only move the track. The wrap is continuous
-           because CLONES slides are copied to BOTH ends and the track is reset onto the matching real
-           slide with no transition once a clone is reached — the two frames are identical, so the
-           reset is invisible. CLONES must be >= the slides on screen at any width (3 / 2 / 1), so
-           three covers every breakpoint. -->
-      <div class="car-wrap">
-        <ul class="car-track">
-          {scenes.map((sc) => (
-            <li class="car-slide">
-              <div class="slot slot--wide" role="img" aria-label={`Shot to supply: ${sc.brief}`}><span>Placeholder</span></div>
-              <span class="car-cap">{sc.cap}</span>
-            </li>
-          ))}
-        </ul>
-        <div class="car-ctl">
+        <!-- ⚠️ The row lives INSIDE the page width. It used to sit on a negative-margin row bled to the
+             viewport edges, which stretched three slides across the whole screen.
+             ⚠️ NO links anywhere: the arrows only move the track. The wrap is continuous because
+             CLONES slides are copied to BOTH ends and the track resets onto the matching real slide
+             with no transition once a clone is reached — identical frames, so the reset is invisible.
+             CLONES must be >= the slides on screen at any width (3 / 1), so three covers both. -->
+        <div class="car-shell">
           <button class="car-btn car-btn--prev" type="button" aria-label="Previous scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg></button>
+          <div class="car-wrap">
+            <ul class="car-track">
+              {scenes.map((sc) => (
+                <li class="car-slide">
+                  <figure class="car-fig"><img src={`${VB}/${sc.img}.webp`} alt={sc.alt} width={sc.w} height={sc.h} loading="lazy" decoding="async" /></figure>
+                  <span class="car-cap">{sc.cap}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
           <button class="car-btn car-btn--next" type="button" aria-label="Next scene"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg></button>
         </div>
       </div>
     </section>
 
-
-    <section class="sec" id="vb-quotes">
+    <!-- ============ 13. QUOTES ============ -->
+<section class="sec" id="vb-quotes">
       <div class="wrap">
         <div class="sec-head">
           <span class="eyebrow"><Fragment set:html={leaf} />From the last two runs</span>
@@ -642,9 +671,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
           <h2>What Buyers Ask Before the First Order</h2>
           <p class="sub">None of these six is answered anywhere above. If something here is holding an order up, ask it directly and it will be answered inside a day.</p>
         </div>
-        <div class="faq">
-          {faqs.map((f) => (<details data-reveal="up"><summary>{f.q}</summary><p>{f.a}</p></details>))}
-        </div>
+        <ol class="faq">
+          {faqs.map((f, i) => (
+            <li data-reveal="up">
+              <span class="faq-n">{String(i + 1).padStart(2, '0')}</span>
+              <details>
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
@@ -681,6 +718,10 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .sec--clay { --card: var(--ivory); background: var(--color-brand-surface); }
   .sec:not(.sec--clay):not(.sec--dark) { --card: var(--color-brand-surface); background: var(--ivory); }
   .sec--dark { --card: rgba(245, 240, 229, 0.07); background: linear-gradient(190deg, var(--forest-deep) 0%, var(--color-forest) 96%); }
+  /* 1.5 cm off this band's height: the closing block is an eyebrow, a heading, a line and a button,
+     and it was carrying the section padding meant for a band with a grid in it. */
+  #vb-final { padding-block: calc(clamp(4rem, 8vw, 7rem) - 3.55rem);
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.68) 0%, rgba(20, 38, 27, 0.84) 100%), url('https://img.leelinepackage.com/velvet-bags/cta-final.webp') center / cover no-repeat; }
   .hero { --card: var(--color-brand-surface); }
 
   /* ---------------------------------------------------------------- the shell */
@@ -695,27 +736,51 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .sec-head--center .sub.center { margin-inline: auto; }
   .kick { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); margin: clamp(2.2rem, 4.6vw, 3.4rem) 0 1.3rem; }
   .sec--dark .kick { color: var(--brass-soft); }
+  /* §Five Ways to Put a Mark on Velvet only: this one line is centred, so it loses the shared
+     left-hand rule (a rule at the left edge of a centred block reads as a stray mark) and takes a
+     narrower measure so the two ragged edges stay even. */
+  #vb-mark .close { max-width: 62ch; margin-inline: auto; padding-left: 0; border-left: 0; text-align: center; }
   .close { font-size: 0.95rem; line-height: 1.72; color: var(--color-brand-text); max-width: 78ch; margin: clamp(2rem, 4vw, 3rem) 0 0; padding-left: 1.2rem; border-left: 2px solid var(--brass); }
   .sec--dark .close { color: rgba(245, 240, 229, 0.86); }
   .cta-center { display: flex; justify-content: center; margin-top: clamp(2rem, 4vw, 3rem); }
   /* ⚠️ The mid CTA and the final CTA are the only two sections whose heading sits outside
      `.sec-head`, so neither got the heading family or size and both rendered as body copy. */
-  .midcta { text-align: center; }
+  .midcta { text-align: center; padding-block: clamp(2.6rem, 5.2vw, 3.6rem);
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0.7) 0%, rgba(20, 38, 27, 0.86) 100%), url('https://img.leelinepackage.com/velvet-bags/cta-mid.webp') center / cover no-repeat; }
+  .final-in { max-width: 46rem; margin-inline: auto; text-align: center; }
   .midcta h2, .final-in h2 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.06; letter-spacing: -0.022em; text-wrap: balance; margin: 1rem 0 0; }
   .midcta .sub, .final-in .sub { font-size: 1.02rem; line-height: 1.72; color: rgba(245, 240, 229, 0.76); max-width: 60ch; margin: 1.1rem auto 0; }
-  .midcta .eyebrow, .final-in .eyebrow { justify-content: center; }
+  .midcta .eyebrow, .final-in .eyebrow { justify-content: center; color: var(--brass-soft); }
+  .final-in .sub, .midcta .sub { color: rgba(245, 240, 229, 0.66); }
 
 
   /* ---------------------------------------------------------------- cards */
   .cards3, .cards2 { display: grid; gap: clamp(1.1rem, 2.3vw, 1.6rem); margin: 0; padding: 0; list-style: none; }
   .cards3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* five cards on a three-up row: flex + `justify-content:center` centres the two that
+     wrap, where a 3-column grid would leave them hanging under the first two columns */
+  .cards-center { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.1rem, 2.3vw, 1.6rem) clamp(1.4rem, 3vw, 2.4rem); margin: 0; padding: 0; list-style: none; }
+  .cards-center > li { flex: 0 0 calc((100% - 2 * clamp(1.4rem, 3vw, 2.4rem)) / 3); }
   .cards2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 1.5rem); margin: 0; padding: 0; list-style: none; }
   .card { display: flex; flex-direction: column; background: var(--card); border: 1px solid rgba(31, 59, 44, 0.14); border-radius: 1.2rem; overflow: hidden; }
   .sec--dark .card { border-color: rgba(245, 240, 229, 0.16); }
   .card--pad { padding: clamp(1.3rem, 2.4vw, 1.8rem); }
   .card-fig { margin: 0; position: relative; }
   .card-fig img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
   .card-fig--wide img { aspect-ratio: 16 / 10; }
+  /* §Nine Velvet Bags only: a 1:1 plate on a three-up row is 380 px tall and dominates the card,
+     so the nine type photographs are cut to 4:3. Scoped by section id — §Who Orders This keeps its
+     1:1 plate, which was asked for separately. */
+  #vb-types .card-fig img { aspect-ratio: 1.282 / 1; }
+  /* §Five Ways to Put a Mark on Velvet only: 0.3 cm wider and 0.6 cm shorter than the square the
+     row used to carry, so the five plates read as landscape cards. The width comes from the gaps
+     rather than from a bleed, because `.card` clips what leaves it. */
+  #vb-mark .cards-center { column-gap: calc(clamp(1.4rem, 3vw, 2.4rem) - 0.45cm); }
+  #vb-mark .cards-center > li { flex: 0 0 calc(33.3333% - (clamp(1.4rem, 3vw, 2.4rem) - 0.45cm) / 1.5); }
+  #vb-mark .cards-center > li:nth-child(4) { margin-inline-end: 0.25cm; }
+  #vb-mark .cards-center > li:nth-child(5) { margin-inline-start: 0.25cm; }
+  #vb-mark .card-fig img { aspect-ratio: 1.096 / 1; }
   .card-body { padding: 1.15rem 1.3rem 1.5rem; }
   .card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.28; color: var(--color-brand-text); margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem; }
   .sec--dark .card h3 { color: var(--ivory); }
@@ -727,12 +792,15 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .mark { display: inline-flex; align-items: center; justify-content: center; width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 1px solid rgba(176, 141, 76, 0.6); background: rgba(201, 168, 124, 0.16); color: var(--brass); margin-bottom: 1.1rem; }
   .mark svg { width: 1.6rem; height: 1.6rem; }
   .inline-link { color: var(--color-brand-primary); font-weight: 600; border-bottom: 1px solid rgba(176, 141, 76, 0.7); }
-  .card p b { color: var(--color-brand-text); font-weight: 600; }
+  /* the point of a service card, on its own line at the card's foot */
+  .card p.win { margin-top: 1.1rem; font-weight: 600; color: var(--color-brand-primary); }
+  .card p.win .inline-link { color: var(--color-brand-primary); }
   .card-fig figcaption { position: absolute; inset: auto 0 0 0; padding: 2.6rem clamp(1rem, 2.2vw, 1.6rem) clamp(0.9rem, 2vw, 1.3rem); background: linear-gradient(180deg, transparent 4%, rgba(20, 38, 27, 0.86) 62%); }
   .card-fig figcaption h3 { color: var(--ivory); margin: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.7rem 0 0; padding: 0; list-style: none; }
   .chips li { padding: 0.22rem 0.6rem; border: 1px solid rgba(176, 141, 76, 0.5); border-radius: 999px; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.06em; color: #8A6C34; }
-  .chips--light li { border-color: rgba(245, 240, 229, 0.45); color: rgba(245, 240, 229, 0.94); }
+  .chips--light li { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
+  .sec--dark .chips li { border-color: rgba(255, 255, 255, 0.5); color: #fff; }
 
   /* ---------------------------------------------------------------- plain columns */
   .cols4, .cols3 { display: grid; gap: clamp(1.2rem, 2.6vw, 2rem); margin: 0; padding: 0; list-style: none; }
@@ -741,8 +809,8 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .cols3--tight { gap: clamp(1rem, 2vw, 1.6rem); }
   .cols4 h3, .cols3 h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.08rem, 1.5vw, 1.22rem); color: var(--color-brand-text); margin: 0.55rem 0 0; }
   .cols4 p, .cols3 p { font-size: 0.89rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
-  /* a small label inside a card: the problem / what we do / what that gets you */
-  .lab { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass); margin: 1.2rem 0 0; }
+  /* a small pill inside a card: the problem / What we do / What that gets you */
+  .lab { display: inline-block; margin: 1.2rem 0 0; padding: 0.24rem 0.7rem; border: 1px solid rgba(176, 141, 76, 0.55); border-radius: 999px; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #8A6C34; background: rgba(201, 168, 124, 0.14); }
   .card p.lab + p { margin-top: 0.45rem; }
   .val { display: block; font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.1vw, 1.7rem); line-height: 1.1; color: var(--brass); }
   .sec--dark .cols4 h3, .sec--dark .cols3 h3 { color: var(--ivory); }
@@ -759,6 +827,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   /* ---------------------------------------------------------------- plates */
   .plate { margin: 0; border-radius: 1.2rem; overflow: hidden; }
   .plate img { width: 100%; height: auto; display: block; }
+  .hero .plate img { aspect-ratio: 4 / 3; object-fit: cover; }
   .split { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(1.8rem, 4vw, 3.2rem); align-items: start; }
   .split--narrow { grid-template-columns: 0.8fr 1.2fr; align-items: center; }
 
@@ -788,44 +857,75 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   /* ---------------------------------------------------------------- placeholders */
   .slot { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; border: 1.5px dashed rgba(176, 141, 76, 0.55); border-radius: 1rem; background: transparent; }
   .slot span { font-size: 0.64rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(138, 108, 52, 0.75); }
-  .slot--wide { aspect-ratio: 16 / 9; max-height: clamp(150px, 15vw, 210px); }
+  .cards-center .slot { aspect-ratio: 1 / 1; }
 
-  /* ---------------------------------------------------------------- stops strip */
-  .stops { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 1.8rem); margin: 0; padding: 0; list-style: none; }
-  .stops li { position: relative; padding-top: 1.6rem; border-top: 2px solid rgba(176, 141, 76, 0.45); }
-  .stops .dot { position: absolute; top: -6px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--brass); }
+  /* ---------------------------------------------------------------- stops timeline */
+  .stops { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.2rem; margin: clamp(2.6rem, 5vw, 3.6rem) 0 0; padding: 0; list-style: none; }
+  .stops::before { content: ''; position: absolute; left: 0; right: 0; top: calc(50% - 1px); height: 2px; background: linear-gradient(90deg, transparent, rgba(176, 141, 76, 0.55) 12%, rgba(176, 141, 76, 0.55) 88%, transparent); }
+  .stops li { position: relative; display: grid; grid-template-rows: 1fr 1fr; }
+  .stops li:nth-child(odd) .stop-body { grid-row: 1; align-self: end; padding: 0 1rem 2.2rem 0; }
+  .stops li:nth-child(even) .stop-body { grid-row: 2; align-self: start; padding: 2.2rem 1rem 0 0; }
+  .stops .dot { position: absolute; left: 0; top: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%; background: var(--brass); border: 3px solid var(--color-brand-surface); }
   .stops .when { display: block; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
-  .stops h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; color: var(--color-brand-text); margin: 0.5rem 0 0; }
-  .stops .win { font-size: 0.9rem; line-height: 1.62; font-weight: 600; color: var(--color-brand-primary); margin: 0.6rem 0 0; }
+  .stops h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; color: var(--color-brand-text); margin: 0.45rem 0 0; }
+  .stops .win { font-size: 0.9rem; line-height: 1.6; font-weight: 600; color: var(--color-brand-primary); margin: 0.55rem 0 0; }
 
   /* ---------------------------------------------------------------- cert marks */
-  .cert-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: clamp(1.4rem, 3vw, 2.6rem); margin: 0; padding: 0; list-style: none; }
+  /* the client asked for about 2 cm across the row between marks (≈ 56 px at 1x) */
+  .cert-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; column-gap: clamp(4.2rem, 6vw, 5.2rem); row-gap: 1.8rem; margin: 0; padding: 0; list-style: none; }
   .cert-row li { display: flex; flex-direction: column; align-items: center; gap: 0.55rem; }
   .cert-row img { height: clamp(48px, 5.4vw, 68px); width: auto; max-width: 190px; object-fit: contain; }
   .cert-row span { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-brand-muted); }
 
   /* ---------------------------------------------------------------- scenes grid */
-  /* ⚠️ `.car-ctl` must NOT carry `.wrap`: it is `position:absolute; inset:0`, and `.wrap`'s
-     width + `margin-inline:auto` would left-align the overlay instead of centring it. The control
-     strip reproduces the page gutter itself with the same --b idiom the row uses. */
-  .car-wrap { --b: max(clamp(1rem, 3vw, 3rem), calc((100vw - 1200px) / 2)); position: relative; margin-inline: calc(-1 * var(--b)); }
+  /* The two arrows are grid columns either side of the track, not an overlay across it: laid over
+     the row a 50 px disc covered the outer photograph and the caption under it, which reads as the
+     control hiding the thing it controls. Below 640 px they drop to a centred row under the track,
+     because two 50 px columns would leave a 375 px screen about 220 px of picture. */
+  /* ⚠️ `overflow: hidden` is load-bearing: the track is as wide as every slide plus its
+     clones, so without clipping the neighbours spill past the wrapper and the row reads as
+     more than three. */
+  .car-shell { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: clamp(0.6rem, 1.6vw, 1.1rem); }
+  .car-wrap { position: relative; overflow: hidden; }
   .car-track { --g: clamp(0.7rem, 1.5vw, 1.2rem); display: flex; gap: var(--g); margin: 0; padding: 0; list-style: none; will-change: transform; }
   .car-slide { flex: 0 0 calc((100% - 2 * var(--g)) / 3); margin: 0; }
-  .car-cap { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--color-brand-text); margin: 0.55rem 0 0 clamp(1rem, 3vw, 3rem); }
-  .car-ctl { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; padding-inline: max(clamp(1rem, 3vw, 3rem), calc((100vw - 1200px) / 2)); pointer-events: none; }
-  .car-ctl .car-btn { pointer-events: auto; }
-  .car-btn { display: inline-flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--color-forest); background: var(--color-forest); color: var(--ivory); cursor: pointer; box-shadow: 0 14px 30px -10px rgba(20, 38, 27, 0.6); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease; }
+  .car-fig { margin: 0; border-radius: 1rem; overflow: hidden; }
+  /* 0.5 cm taller than 16:9 at the row's own width, asked for separately from the grid it sits in. */
+  .car-fig img { width: 100%; height: auto; display: block; aspect-ratio: 1.62 / 1; object-fit: cover; }
+  .car-cap { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--color-brand-text); margin: 0.55rem 0 0; }
+  .car-btn { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--color-forest); background: var(--color-forest); color: var(--ivory); cursor: pointer; box-shadow: 0 14px 30px -10px rgba(20, 38, 27, 0.6); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease; }
   .car-btn svg { width: 1.3rem; height: 1.3rem; }
   .car-btn:hover { background: var(--brass); border-color: var(--brass); transform: scale(1.08); }
   .car-btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
 
+  /* §Who Orders This. A 1:1 plate ABOVE its copy, flush to the card on three sides like every
+     other card here — the first cut held the plate at 58 % of the card and left the rest of the card
+     empty beside it. The 2 x 2 grid is pulled in to 60 rem so the square lands smaller than a
+     full-width plate would. */
+  .buyers-grid { column-gap: clamp(1.1rem, 2.3vw, 1.6rem); }
+  .buyer-fig { margin: 0; }
+  .buyer-fig img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; }
+
   /* ---------------------------------------------------------------- quotes / faq */
-  .avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(176, 141, 76, 0.5); }
+  .avatar { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(176, 141, 76, 0.5); }
   .quote h3 { font-size: 1.18rem; margin: 0.9rem 0 0; display: block; }
   .role { display: block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin-top: 0.35rem; }
   .quote p { font-size: 0.93rem; line-height: 1.76; margin: 0.9rem 0 0; }
-  .faq { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem 1.6rem; align-items: start; }
-  .faq details { background: var(--card); border: 1px solid rgba(31, 59, 44, 0.14); border-radius: 1.1rem; padding: 1.05rem 1.3rem; }
+  /* One numbered column. Each row is a card, not a hairline-separated row — a numbered list of
+     rules is a table, and this page is allowed exactly one. */
+  .faq { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.85rem; margin: 0; padding: 0; list-style: none; }
+  .faq li {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    column-gap: 0.4rem;
+    align-items: start;
+    background: var(--card);
+    border: 1px solid rgba(31, 59, 44, 0.14);
+    border-radius: 1.1rem;
+    padding: 1.05rem 1.3rem;
+  }
+  .faq-n { font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 1.3rem; line-height: 1.15; color: var(--brass); }
+  .faq details { display: block; }
   .faq summary { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1rem, 1.5vw, 1.14rem); line-height: 1.4; color: var(--color-brand-text); cursor: pointer; list-style: none; position: relative; padding-right: 1.9rem; }
   .faq summary::-webkit-details-marker { display: none; }
   .faq summary::after { content: '+'; position: absolute; right: 0; top: -0.1rem; font-size: 1.3rem; color: var(--brass); transition: transform 0.3s ease; }
@@ -834,10 +934,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
 
   /* ---------------------------------------------------------------- 1. HERO */
   .hero { position: relative; overflow: hidden; background: linear-gradient(178deg, #FBF8F1 0%, var(--ivory) 58%, #EFE9DB 100%); }
-  .hero-in { padding: calc(clamp(2.6rem, 5vw, 4rem) + 4.75rem) 0 clamp(2.4rem, 4.6vw, 3.4rem); display: grid; grid-template-columns: minmax(0, 1fr) clamp(360px, 42%, 600px); gap: clamp(2rem, 4.6vw, 4rem); align-items: center; }
-  .hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.75rem, 3.3vw, 2.7rem); line-height: 1.06; letter-spacing: -0.028em; color: var(--color-brand-text); text-wrap: balance; margin: 1rem 0 0; }
+  .hero-in { padding: calc(clamp(2.6rem, 5vw, 4rem) + 4.75rem + 2rem) 0 calc(clamp(2.4rem, 4.6vw, 3.4rem) + 2.7rem); display: grid; grid-template-columns: minmax(0, 1fr) clamp(380px, 45%, 640px); gap: clamp(2rem, 4.6vw, 4rem); align-items: center; }
+  .hero .eyebrow { font-size: 0.78rem; }
+  .hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.92rem, 3.65vw, 2.98rem); line-height: 1.06; letter-spacing: -0.028em; color: var(--color-brand-text); text-wrap: balance; margin: 1rem 0 0; }
   .hero-title em { font-style: italic; color: var(--brass); }
-  .hero-lede { font-size: clamp(1rem, 1.4vw, 1.09rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 54ch; margin: 1.3rem 0 1.9rem; }
+  .hero-lede { font-size: clamp(1.01rem, 1.38vw, 1.1rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 56ch; margin: 1.35rem 0 1.95rem; }
+
+  /* The hero's single CTA is the loudest button on the page, so it runs taller than the shared
+     `.btn` default (0.95rem padding ≈ 50 px high). `min-height` rather than more padding alone, so
+     the height is the same whether the label wraps at a narrow width. Scoped to the hero — the
+     shared `.btn` in site.css is used by every other page and is not touched. */
+  .hero .btn { min-height: 3.78rem; padding: 1.1rem 2.55rem; font-size: 1.06rem; }
   .cluster { position: relative; padding: 0 0 40px; }
   .cluster .plate { box-shadow: 0 34px 60px -34px rgba(31, 59, 44, 0.52), 0 2px 6px -2px rgba(31, 59, 44, 0.16); }
   .cluster-sub { position: absolute; right: -26px; bottom: -4px; width: 36%; border-radius: 1rem; box-shadow: 0 30px 50px -26px rgba(31, 59, 44, 0.62), 0 2px 6px -2px rgba(31, 59, 44, 0.22); }
@@ -856,11 +963,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     .cols4 { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2.2rem; }
     .split, .split--narrow { grid-template-columns: minmax(0, 1fr); }
     .rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .car-slide { flex: 0 0 calc((100% - var(--g)) / 2); }
-    .stops { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 2rem; }
+    /* one column: the rule moves to the left edge and every stop sits below its own dot */
+    .stops { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; margin-top: 0; }
+    .stops::before { left: 6px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; background: linear-gradient(180deg, transparent, rgba(176, 141, 76, 0.55) 8%, rgba(176, 141, 76, 0.55) 92%, transparent); }
+    .stops li { display: block; }
+    .stops li:nth-child(odd) .stop-body, .stops li:nth-child(even) .stop-body { padding: 0 0 0 2.2rem; }
+    .stops .dot { left: 0; top: 0.3rem; }
   }
   @media (max-width: 640px) {
-    .cards3, .cards2, .cols4, .cols3, .cols3--tight, .faq, .figs, .rail, .scenes, .stops { grid-template-columns: minmax(0, 1fr); }
+    .cards3, .cards2, .cards4, .cols4, .cols3, .cols3--tight, .rail, .stops { grid-template-columns: minmax(0, 1fr); }
+    .faq li { grid-template-columns: 2.6rem minmax(0, 1fr); }
+    .cards-center > li { flex: 0 0 100%; }
     .tbl thead th { font-size: 0.56rem; letter-spacing: 0.06em; padding: 0.7rem 0.45rem; }
     .tbl tbody th, .tbl tbody td { font-size: 0.78rem; padding: 0.8rem 0.45rem; }
     .fab-name { font-size: 0.96rem; }
@@ -868,6 +981,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     .cost { font-size: 0.82rem; letter-spacing: 0.04em; }
     .wide { display: none; } .short { display: inline; }
     .cert-row { gap: 1rem; }
+    #vb-mark .cards-center > li { flex: 0 0 100%; }
+    #vb-mark .cards-center > li:nth-child(4), #vb-mark .cards-center > li:nth-child(5) { margin-inline: 0; }
+    .car-shell { grid-template-columns: repeat(2, auto); justify-content: center; row-gap: 0.9rem; }
+    .car-wrap { grid-column: 1 / -1; grid-row: 1; }
+    .car-btn--prev { grid-row: 2; grid-column: 1; }
+    .car-btn--next { grid-row: 2; grid-column: 2; }
+    .car-slide { flex: 0 0 100%; }
   }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
   [data-reveal] { opacity: 0; transform: translateY(32px); transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d, 0s); }
@@ -907,7 +1027,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
       if (cNext) cNext.addEventListener('click', () => go(1));
       move(false);
       window.addEventListener('resize', () => { if (!busy) move(false); });
-      const ctl = document.querySelector('.car-ctl');
+      const ctl = document.querySelector('.car-shell');
       if (ctl) ctl.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') go(-1); if (e.key === 'ArrowRight') go(1); });
     }
   }

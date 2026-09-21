@@ -9,15 +9,32 @@ const VB = `${R2}/velvet-bags`;
 /* The nine builds. `spec` is one hard property that decides something for the
    buyer; `d` is what their own customer ends up doing with the bag. No card
    restates the section sub or the card above it, and four of the nine names
-   carry a search a buyer actually types. */
+   carry a search a buyer actually types.
+   `pos` is an optional `object-position` for a card whose source is a tall
+   frame (1050×1400) cut to a 1.282:1 plate. ⚠️ object-position moves the
+   IMAGE against the window, so a POSITIVE length shifts the window UP the
+   source and the photograph reads lower in the card. VB-01 was nudged up
+   0.5 cm on the client's instruction, then a further 0.2 cm — net `+0.7cm`,
+   not `-0.7cm`.
+   ⚠️ VB-03's key is `-v4`, not `-v3`. The client asked for that plate "缩小10%" and no wider frame
+   of the shot exists anywhere in the repo, so `_images/velvet-bags/zoom_embroidered.py` composed a
+   644×580 canvas around the live asset — the photograph at 90 % of the width and the two 32 px
+   bands it exposes filled by mirroring the photograph's own edge columns. **`object-position`
+   cannot do this** — it only moves a crop that already exists, and the bag already touches both
+   side edges of the 580 px source.
+   `zoom` is the opposite lever. VB-09's 1400 × 1092 source matches the 1.282 plate ratio almost
+   exactly, so it is the one card where `object-position` has nothing to move and `cover` has no
+   crop left to give back — showing that bag LARGER therefore means `transform: scale()` and letting
+   the figure clip what the scale pushes past the plate. **`pos` moves a crop, `zoom` takes more of
+   one; neither can stand in for the other.** */
 const types = [
-  { n: 'VB-01', key: 'type-drawstring-v2', name: 'Custom Velvet Drawstring Bags', spec: 'Ribbon or twist cord',
+  { n: 'VB-01', key: 'type-drawstring-v2', pos: 'center calc(50% + 0.7cm)', name: 'Custom Velvet Drawstring Bags', spec: 'Ribbon or twist cord',
     alt: 'A forest green velvet drawstring pouch foil-stamped Your Logo or Text in gold, standing on pale sand',
     d: 'A measured 12 mm casing, bar-tacked at both openings, so the cord cannot pull out of the bag.' },
   { n: 'VB-02', key: 'type-gift-v2', name: 'Custom Velvet Gift Bags', spec: 'Takes a foil block',
     alt: 'A pale grey and a burgundy velvet drawstring pouch, the red one finished with a gold bead and ribbon, on a round woven tray',
     d: 'A gift bag is read before the gift is; velvet takes a foil that catches a room light.' },
-  { n: 'VB-03', key: 'type-embroidered-v3', name: 'Embroidered Velvet Bags', spec: 'Thread, not ink',
+  { n: 'VB-03', key: 'type-embroidered-v4', name: 'Embroidered Velvet Bags', spec: 'Thread, not ink',
     alt: 'A black velvet shoulder bag standing upright on a stone ground, embroidered in blue, teal and rose florals and stars',
     d: 'Thread laid into the pile — the one mark here that survives a wash.' },
   { n: 'VB-04', key: 'type-zipper-v2', name: 'Velvet Zipper Pouches', spec: 'Metal zip, fabric pull',
@@ -35,7 +52,7 @@ const types = [
   { n: 'VB-08', key: 'type-jewelry-v2', name: 'Custom Velvet Jewelry Pouches', spec: '3 × 4 to 8 × 10 in',
     alt: 'Velvet jewelry pouches in grey, ivory and black foil-stamped with a gold mark, laid out in a row on a tan ground',
     d: 'Padded, lined against tarnish, and measured to the piece — the build most clients reorder.' },
-  { n: 'VB-09', key: 'type-tote-v3', name: 'Large Velvet Tote Bags', spec: 'Embroidered panel',
+  { n: 'VB-09', key: 'type-tote-v3', zoom: 1.1, name: 'Large Velvet Tote Bags', spec: 'Embroidered panel',
     alt: 'A large black velvet tote with brown webbing handles, its front covered in dense floral thread and bead embroidery',
     d: 'Velvet has the weight to hold a shopper’s shape and a face wide enough to carry a mark.' },
 ];
@@ -66,7 +83,10 @@ const fabrics = [
 
 /* §Five Ways to Put a Mark on Velvet. `min` is the run each route becomes
    sensible at; each `d` says what that route is good at and what it costs in
-   return, because on a pile every route trades something. */
+   return, because on a pile every route trades something.
+   `pos` is an optional `object-position`, the same field the nine builds carry — only the foil plate
+   needs one. ⚠️ A POSITIVE length moves the crop window UP the source, so the photograph reads
+   lower; the plate is 1.637:1 against a square source, which leaves 149 px (3.9 cm) of travel. */
 /* Every route carries its own photograph. The one card that used to hold the only real sample
    is now a client shot of five pouches carrying one printed mark. */
 const routes = [
@@ -76,7 +96,7 @@ const routes = [
     alt: 'A black velvet panel stretched in an embroidery hoop, worked in silk thread with red, pink and green flowers and leaves' },
   { name: 'Foil stamping', min: 'From 500',
     d: 'A metal layer pressed into the pile under heat. On a flat crushed velvet it lands sharp and mirror-bright; on a deep pile it sinks and softens instead of flattening.',
-    img: 'mark-foil-v2', w: 554, h: 554,
+    img: 'mark-foil-v2', w: 554, h: 554, pos: 'center calc(50% + 1cm)',
     alt: 'A charcoal velvet drawstring pouch stamped in gold foil with a large script mark, laid on a painted ground' },
   { name: 'Screen print', min: 'From 1,000',
     d: 'Ink pushed through a mesh onto the face. Bold shapes only, and it sits on top of the cloth: a print on a pouch that gets handled will wear before the cloth does.',
@@ -365,8 +385,8 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         </div>
         <ul class="cards3">
           {types.map((t) => (
-            <li class="card" data-reveal="up">
-              <figure class="card-fig"><img src={`${VB}/${t.key}.webp`} alt={t.alt} width="520" height="520" loading="lazy" decoding="async" /></figure>
+            <li class={`card${t.zoom ? ' card--zoom' : ''}`} data-reveal="up" style={t.zoom ? `--zoom:${t.zoom}` : undefined}>
+              <figure class="card-fig"><img src={`${VB}/${t.key}.webp`} alt={t.alt} width="520" height="520" loading="lazy" decoding="async" style={t.pos ? `object-position: ${t.pos}` : undefined} /></figure>
               <div class="card-body">
                 <span class="code">{t.n}</span>
                 <h3>{t.name}</h3>
@@ -473,7 +493,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <ul class="cards-center">
           {routes.map((r) => (
             <li class="card" data-reveal="up">
-              <figure class="card-fig"><img src={`${VB}/${r.img}.webp`} alt={r.alt} width={r.w} height={r.h} loading="lazy" decoding="async" /></figure>
+              <figure class="card-fig"><img src={`${VB}/${r.img}.webp`} alt={r.alt} width={r.w} height={r.h} loading="lazy" decoding="async" style={r.pos ? `object-position: ${r.pos}` : undefined} /></figure>
               <div class="card-body">
                 <h3>{r.name}</h3>
                 <p>{r.d}</p>
@@ -773,14 +793,28 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
      so the nine type photographs are cut to 4:3. Scoped by section id — §Who Orders This keeps its
      1:1 plate, which was asked for separately. */
   #vb-types .card-fig img { aspect-ratio: 1.282 / 1; }
-  /* §Five Ways to Put a Mark on Velvet only: 0.3 cm wider and 0.6 cm shorter than the square the
-     row used to carry, so the five plates read as landscape cards. The width comes from the gaps
+  /* §Nine Velvet Bags only, VB-09: its 1400 × 1092 source matches the plate ratio, so the tote is
+     the one card with no crop to move and none to give back — a LARGER plate has to come from a
+     scale. The figure clips it: without `overflow: hidden` the extra 10 % runs down over the card
+     body. The value rides on the card as `--zoom` so it sits with the other card tweak in the data. */
+  #vb-types .card--zoom .card-fig { overflow: hidden; }
+  #vb-types .card--zoom .card-fig img { transform: scale(var(--zoom, 1)); }
+  /* §Five Ways to Put a Mark on Velvet only: the five plates run 16:9 — wider than the square the
+     row carried, so they read as landscape cards (client, 2026-09-21: "卡片尺寸换成16:9试一下"),
+     then 0.5 cm taller on top of that ("图片的纵向高度增加0.5cm"). ⚠️ `aspect-ratio` cannot express
+     "a ratio plus a length", so the height is written out instead: 16:9 is 56.25 % of the width,
+     taken off a container-query unit because the plate width is a `clamp()` that the element itself
+     cannot see, and the fixed 0.5 cm added to it. The figure is the query container.
+     ⚠️ Four of the five sources are SQUARE and `mark-embroidery-v2` is portrait (387×516), so a 16:9
+     plate keeps only the middle 56 % of a square's height and 42 % of the tall one — the crop, not
+     the layout, is what has to be checked on a change to this ratio. The width comes from the gaps
      rather than from a bleed, because `.card` clips what leaves it. */
   #vb-mark .cards-center { column-gap: calc(clamp(1.4rem, 3vw, 2.4rem) - 0.45cm); }
   #vb-mark .cards-center > li { flex: 0 0 calc(33.3333% - (clamp(1.4rem, 3vw, 2.4rem) - 0.45cm) / 1.5); }
   #vb-mark .cards-center > li:nth-child(4) { margin-inline-end: 0.25cm; }
   #vb-mark .cards-center > li:nth-child(5) { margin-inline-start: 0.25cm; }
-  #vb-mark .card-fig img { aspect-ratio: 1.096 / 1; }
+  #vb-mark .card-fig { container-type: inline-size; }
+  #vb-mark .card-fig img { aspect-ratio: auto; height: calc(56.25cqw + 0.5cm); }
   .card-body { padding: 1.15rem 1.3rem 1.5rem; }
   .card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.28; color: var(--color-brand-text); margin: 0.5rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem; }
   .sec--dark .card h3 { color: var(--ivory); }
@@ -890,8 +924,14 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .car-track { --g: clamp(0.7rem, 1.5vw, 1.2rem); display: flex; gap: var(--g); margin: 0; padding: 0; list-style: none; will-change: transform; }
   .car-slide { flex: 0 0 calc((100% - 2 * var(--g)) / 3); margin: 0; }
   .car-fig { margin: 0; border-radius: 1rem; overflow: hidden; }
-  /* 0.5 cm taller than 16:9 at the row's own width, asked for separately from the grid it sits in. */
-  .car-fig img { width: 100%; height: auto; display: block; aspect-ratio: 1.62 / 1; object-fit: cover; }
+  /* 0.5 cm taller than 16:9 at the row's own width, asked for separately from the grid it sits in,
+     and then made taller AGAIN to enlarge the photographs (client: "图片再放大一点，纵向高度可以
+     改变"). ⚠️ The 1376 × 768 source is wider than this plate, so `cover` is HEIGHT-bound: a taller
+     plate scales the picture up and crops the SIDES ONLY. Measured, the top and bottom of the frame
+     are never touched — which is what keeps the heads in, and why no `transform: scale()` is used
+     here (that would eat the top of the frame too; the client's own 44 px of headroom was the
+     ceiling). The crop stays horizontal-centred: the subject sits mid-frame in all five. */
+  .car-fig img { width: 100%; height: auto; display: block; aspect-ratio: 1.4 / 1; object-fit: cover; }
   .car-cap { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 0.98rem; color: var(--color-brand-text); margin: 0.55rem 0 0; }
   .car-btn { display: inline-flex; align-items: center; justify-content: center; width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--color-forest); background: var(--color-forest); color: var(--ivory); cursor: pointer; box-shadow: 0 14px 30px -10px rgba(20, 38, 27, 0.6); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease; }
   .car-btn svg { width: 1.3rem; height: 1.3rem; }

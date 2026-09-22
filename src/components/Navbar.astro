@@ -22,7 +22,11 @@ const nav = {
     { label: 'Custom Package Stickers', href: '/custom-package-stickers/' },
     { label: 'Custom Velvet Bags', href: '/custom-velvet-bags/' },
   ],
-  industries: ['Custom Jewelry Packaging', 'Custom Gift Box', 'Custom Shipping Box'],
+  industries: [
+    { label: 'Custom Jewelry Packaging', href: '/custom-jewelry-packaging/' },
+    { label: 'Custom Gift Box', href: '/custom-gift-box/' },
+    { label: 'Custom Shipping Box', href: '/#industries' },
+  ],
   about: '/about-us/',
   caseStudy: '/#work',
   services: [
@@ -63,7 +67,7 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.industries.map((p) => (
-            <a href="/#industries" target="_blank" rel="noopener">{p}</a>
+            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
           ))}
         </div>
       </div>
@@ -103,7 +107,7 @@ const nav = {
       </details>
       <details>
         <summary>Industries</summary>
-        <div class="sub">{nav.industries.map((p) => <a href="/#industries" target="_blank" rel="noopener">{p}</a>)}</div>
+        <div class="sub">{nav.industries.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
       </details>
       <a href="/about-us/" target="_blank" rel="noopener">About Us</a>
       <a href="/#work" target="_blank" rel="noopener">Case Study</a>

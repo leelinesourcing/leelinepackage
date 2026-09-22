@@ -1166,8 +1166,13 @@ const bow = '<svg class="gb-bow" viewBox="0 0 76 46" aria-hidden="true" fill="no
     /* 3 cm off the band's height in total — the client asked for 2 cm, then 1 cm more */
     padding: calc(clamp(4.5rem, 10vw, 8.5rem) - 1.5cm) 0;
   }
-  /* 0.5 cm off the gap between the subtitle and the button */
-  .gb-final .section-cta { margin-top: calc(clamp(2.4rem, 5vw, 3.5rem) - 0.5cm); }
+  /* 0.5 cm off the gap between the subtitle and the button.
+     ⚠️ It has to come off the HEAD's margin-bottom, not off `.section-cta`'s margin-top:
+     the two are adjacent siblings, so their margins COLLAPSE and the larger one wins — at
+     1440 the head's 5.5 rem beats the CTA's 3.5 rem, and trimming the smaller one changes
+     nothing at all. */
+  .gb-final .section-head { margin-bottom: calc(clamp(3rem, 7vw, 5.5rem) - 0.5cm); }
+  .gb-final .section-cta { margin-top: clamp(2.4rem, 5vw, 3.5rem); }
   /* ============ responsive ============ */
   @media (max-width: 1024px) {
     .gb-spec { grid-template-columns: repeat(3, minmax(0, 1fr)); justify-content: stretch; }

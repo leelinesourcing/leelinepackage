@@ -335,6 +335,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Match My Piece to a Box<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -394,6 +397,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             <p>The darkening happens in transit and in the stockroom, which is why it usually arrives as a customer complaint rather than a packing note.</p>
           </div>
         </div>
+        <div class="section-cta">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Ask for the Lining Specification<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -444,6 +450,9 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get the Board and Wrap Samples<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -1082,10 +1091,12 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     .hp-figs { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
     .hp-figs li:nth-child(odd) { border-left: 0; padding-left: 0; }
     .chk { grid-template-columns: repeat(2, 1fr); }
+    /* tablet: the hero is short and the copy fills it, so the veil only has to
+       carry the text — but it no longer has to soak the whole photograph. */
     .hp::after {
       background: linear-gradient(180deg,
-        rgba(245, 240, 229, 0.93) 0%, rgba(245, 240, 229, 0.82) 56%,
-        rgba(245, 240, 229, 0.95) 100%);
+        rgba(245, 240, 229, 0.92) 0%, rgba(245, 240, 229, 0.76) 58%,
+        rgba(245, 240, 229, 0.90) 100%);
     }
   }
   /* the one table stacks below tablet — five columns never fit a phone, and a
@@ -1121,6 +1132,17 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     .panel-row > li { border-bottom: 1px solid var(--hair); }
     .panel-row > li:last-child { border-bottom: 0; }
     .slot { aspect-ratio: 13 / 6; }
+    /* phone: the hero is tall and stacked, so the veil is banded to the type —
+       thin behind the headline and the CTA, full behind the lede, which is the
+       only block that cannot survive a clear photograph. */
+    .hp::after {
+      background: linear-gradient(180deg,
+        rgba(245, 240, 229, 0.92) 0%, rgba(245, 240, 229, 0.86) 15%,
+        rgba(245, 240, 229, 0.50) 24%, rgba(245, 240, 229, 0.46) 31%,
+        rgba(245, 240, 229, 0.70) 36%, rgba(245, 240, 229, 0.68) 57%,
+        rgba(245, 240, 229, 0.50) 64%, rgba(245, 240, 229, 0.40) 72%,
+        rgba(245, 240, 229, 0.88) 100%);
+    }
   }
   @media (max-width: 600px) {
     .t3 { grid-template-columns: 1fr; }

@@ -371,6 +371,9 @@ const carton = `
             </article>
           ))}
         </div>
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Size the Box to the Product<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -444,6 +447,9 @@ const carton = `
           ))}
         </ul>
         <p class="sb-grade-note" data-reveal="up">The same carton left four days at 85 % relative humidity gives up 45 % of its capacity, which is three high rather than four. Board is quoted wet here for that reason, and the allowance sits inside every figure above.</p>
+        <div class="section-cta">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get the Grade for My Stack Height<Fragment set:html={arrow} /></a>
+        </div>
       </div>
     </section>
 
@@ -518,6 +524,9 @@ const carton = `
               </dl>
             </article>
           ))}
+        </div>
+        <div class="section-cta">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Send the Order That Went Wrong<Fragment set:html={arrow} /></a>
         </div>
       </div>
     </section>
@@ -864,7 +873,10 @@ const carton = `
   .sb-quote figcaption b { font-size: 0.95rem; font-weight: 600; color: var(--color-brand-text); }
 
   /* ══ 13 · FAQ ═════════════════════════════════════════════════════════ */
-  .sb-faq { max-width: 62rem; margin-inline: auto; }
+  /* measured to .hd's own cap, not to a rem figure: the heading is centred
+     inside 82ch, so a wider list starts further left than the title above it
+     and the two read as unaligned. Same measure, same edges. */
+  .sb-faq { max-width: 82ch; margin-inline: auto; }
   .sb-faq details { border-bottom: 1px solid var(--hair); padding: 1.15rem 0; }
   .sb-faq summary {
     display: flex; gap: 1.1rem; cursor: pointer;

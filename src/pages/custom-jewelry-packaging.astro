@@ -6,132 +6,139 @@ import Footer from '../components/Footer.astro';
 const R2 = 'https://img.leelinepackage.com';
 const JK = `${R2}/jewelry`;
 
-/* Small marks for the finish steps — one idea each, coloured, set left of the label. */
-const fico = (d) => '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>';
-
-/* Header from direction 1, sections from direction 2. This pass carries ten adjustments:
-    1 hero image is the BACKGROUND (not a band below)
-    2 §Types — head moved LEFT, nine cards, warm ground
-    3 §Inserts — slots at 16:9, every plate a placeholder, and each item states WHY this shape,
-      WHEN it suits, WHAT the buyer gets
-    4 §Structure — a bigger plate and more copy, still image left / text right
-    5 §Linings — the copy moves INTO cards with a benefit line; the figures band is gone, because
-      it repeated the hero
-    6 §Finish — a five-step numbered run, so it can no longer look like the card grid above it
-    7 §Box or Gift Box — smaller plates, and When / How / What you get
-    8 §Case study — the link is a real button with a border and a fill
-    9 §Reviews — one mark only: the small pair. The big corner glyph is gone
-   10 §Final — less vertical padding
-*/
+/* ── The spine ────────────────────────────────────────────────────────────────
+   A piece reaches the customer wrong for one of three reasons: sulfur in the
+   air, an insert that sits too high, or a well that is too loose. Every section
+   below answers one of the three, or prices the failure. Competitor jewelry
+   pages lead with a type taxonomy and a cert wall; none of them specify the
+   lining or show the cavity. So this page carries the lining spec and the
+   insert geometry, and one photograph per failure.
+   ──────────────────────────────────────────────────────────────────────────── */
 
 const types = [
-  { n: 'JT-01', name: 'Custom Ring Boxes', spec: 'One or two wells', img: 'struct-book', w: 550, h: 525,
-    alt: 'Two white square ring boxes foil-stamped with an irregular gold mark, one open on a black ring slot',
-    d: 'The well is cut to the band, so the stone never touches anything solid.' },
-  { n: 'JT-02', name: 'Custom Necklace Boxes', spec: 'Card or tray', img: 'type-necklace', w: 550, h: 525,
-    alt: 'A white lid-and-base box with its lid set aside, a grey suede lining inside and a fine gold chain beside it',
-    d: 'A card carries the chain in one curve, so it arrives ready to hang.' },
-  { n: 'JT-03', name: 'Custom Earring Boxes', spec: 'Paired wells', img: 'type-earring', w: 550, h: 525,
-    alt: 'Pale lilac jewelry boxes stacked with a small open box holding a pair of earrings',
-    d: 'Two wells instead of one cavity, so the pair never meets in transit.' },
-  { n: 'JT-04', name: 'Custom Pendant Boxes', spec: 'Deep slot', img: 'type-pendant', w: 550, h: 525,
-    alt: 'Grey and black pendant boxes open on their inserts, a pendant and a chain set into each',
-    d: 'Depth holds a swinging drop still and keeps the bail off the chain.' },
-  { n: 'JT-05', name: 'Custom Jewelry Gift Boxes', spec: 'Ribbon or magnet', img: 'type-gift', w: 550, h: 525,
-    alt: 'A white paper bag and a black jewelry box grouped with a pale green box on an orange ground',
-    d: 'The lid is the first thing photographed — the opening is the product here.' },
-  { n: 'JT-06', name: 'Custom Jewelry Drawer Boxes', spec: 'Sliding tray', img: 'type-drawer', w: 550, h: 525,
-    alt: 'A hand sliding open a green jewelry drawer box printed with a gold script name and flowers',
-    d: 'A drawer shows the piece before it is lifted. Worth it at a counter, not at volume.' },
-  { n: 'JT-07', name: 'Custom Jewelry Travel Cases', spec: 'Cut compartments', img: 'type-travel', w: 430, h: 385,
-    alt: 'An open tan jewelry case with cut compartments holding rings, earrings and a chain',
-    d: 'Cut compartments let a mixed run travel as one case, apart.' },
-  { n: 'JT-08', name: 'Custom Jewelry Set Boxes', spec: 'Two levels', img: 'type-set', w: 550, h: 525,
-    alt: 'An open jewelry case with a pale lining holding a necklace, earrings, a ring tray and a bracelet',
-    d: 'One level for what is seen first, one for the papers that follow.' },
-  { n: 'JT-09', name: 'High-End Wooden Jewelry Chests', spec: 'Lid and base', img: 'chest', w: 550, h: 525,
-    alt: 'A wooden jewelry chest standing open, its tray lined and divided for rings and a bracelet',
-    d: 'The one build a customer keeps, refills and leaves on display.' },
+  { n: 'JT-01', name: 'Custom Ring Boxes', spec: 'One or two wells', img: 'type-ring-v2', w: 900, h: 900,
+    alt: 'Two pale blue ring boxes, the front one open on a ring sitting in its slot',
+    d: 'A well cut to the band itself — the stone finishes clear of the board underneath.' },
+  { n: 'JT-02', name: 'Custom Necklace Boxes', spec: 'Card or tray', img: 'type-necklace-v2', w: 900, h: 900,
+    alt: 'A burgundy necklace box open on a gold chain, a cream cloth laid beside it',
+    d: 'A card carries the chain along a single curve; it arrives ready to hang rather than knotted.' },
+  { n: 'JT-03', name: 'Custom Earring Boxes', spec: 'Paired wells', img: 'type-earring-v2', w: 900, h: 900, blend: true,
+    alt: 'Pink and grey earring boxes open on their inserts, each holding a pair of studs',
+    d: 'Two wells rather than a shared cavity, because a pair must not meet on the way.' },
+  { n: 'JT-04', name: 'Custom Pendant Boxes', spec: 'Deep slot', img: 'type-pendant-v2', w: 554, h: 554,
+    alt: 'A sage green pendant box open on a carded pendant, a second box standing behind it',
+    d: 'Depth holds a swinging drop still and keeps the bail from riding on the chain.' },
+  { n: 'JT-05', name: 'Custom Jewelry Gift Boxes', spec: 'Ribbon or magnet', img: 'type-gift-v2', w: 900, h: 900,
+    alt: 'A green gift box open on a necklace, with the matching paper bag behind it',
+    d: 'The opening gets photographed. The lid line belongs in the design brief.' },
+  { n: 'JT-06', name: 'Custom Jewelry Drawer Boxes', spec: 'Sliding tray', img: 'type-drawer-v2', w: 800, h: 800, blend: true,
+    alt: 'A white drawer box pulled open on a black velvet ring slot',
+    d: 'The tray travels toward the customer; the piece is seen before it is touched.' },
+  { n: 'JT-07', name: 'Custom Jewelry Travel Cases', spec: 'Cut compartments', img: 'type-travel-v2', w: 900, h: 900,
+    alt: 'A charcoal travel case open on its jewellery rolls and cut compartments',
+    d: 'One case carries a mixed range, with a compartment per piece.' },
+  { n: 'JT-08', name: 'Custom Jewelry Set Boxes', spec: 'Two levels', img: 'type-set-v2', w: 900, h: 900, blend: true,
+    alt: 'A white two-level case open on a ring tray above and a necklace section below',
+    d: 'Two levels: the necklace rides above, and the certificate travels flat underneath.' },
+  { n: 'JT-09', name: 'High-End Wooden Jewelry Chests', spec: 'Lid and base', img: 'type-chest-v2', w: 900, h: 900,
+    alt: 'Two wooden jewellery chests, the near one open on its divided drawers, the other closed',
+    d: 'The build a customer keeps, refills and leaves out on display.' },
 ];
 
-/* Every plate here is a SLOT — the source page's insert frames did not show the shape the caption
-   named, so a labelled slot is more honest than a photograph of something else.
-   why / when / get are the three things a buyer is actually deciding between. */
+/* All five now carry the client's own photographs. The branch for a missing
+   frame is kept: a labelled empty slot is honest, a stand-in photograph is not. */
 const inserts = [
-  { n: '01', name: 'Ring slot',
-    why: 'Two wells, measured from the band itself rather than from a standard ring size, and cut shallow enough that the piece finishes below the lid line.',
-    when: 'Rings and earrings — anything with a stone that must not come to rest on the board.',
-    get: 'Nothing leans on the stone.' },
-  { n: '02', name: 'Cut tray',
-    why: 'Laser-cut pockets, one cavity per SKU, drawn from measurements rather than from a product-page photograph.',
-    when: 'A mixed run that has to travel in a single outer box.',
-    get: 'Mixed SKUs ride without contact.' },
-  { n: '03', name: 'Necklace card',
-    why: 'Satin or velvet wrapped over board, with two notches cut at the top so the chain hangs in one curve and the clasp sits clear of the wrap.',
-    when: 'Necklaces and chains, where a tangle is what the customer complains about.',
-    get: 'The chain arrives ready to hang.' },
-  { n: '04', name: 'Pillow pad',
-    why: 'A shaped pad cut to the inside curve of the piece, so it holds a shape rather than a corner and the clasp carries no weight.',
-    when: 'Watches, bangles and cuffs — anything with no flat side to rest on.',
+  { n: '01', name: 'Ring slot', img: 'insert-ring-slot-v2', w: 900, h: 502, blend: true,
+    alt: 'A red velvet ring-slot tray holding gold rings, beside a cream tray laid flat',
+    why: 'Wells measured from the band rather than from a nominal ring size, and cut so the stone hangs free of the floor beneath it.',
+    get: 'Nothing comes to rest on the stone.' },
+  { n: '02', name: 'Cut tray', img: 'insert-cut-tray-v2', w: 450, h: 296, blend: true,
+    alt: 'A white cut tray of small pockets holding rings, earrings and dried flowers',
+    why: 'A pocket per SKU, cut from measurements of the actual piece, never guessed from a photograph.',
+    get: 'Every SKU rides in its own pocket.' },
+  { n: '03', name: 'Necklace card', img: 'insert-necklace-card-v2', w: 900, h: 502,
+    alt: 'Square necklace cards in brown and black, a gold chain laid across one of them',
+    why: 'Satin or velvet wrapped over board, notched at the top so the chain hangs in a single curve and the clasp stays clear of the wrap.',
+    get: 'A chain that keeps its line.' },
+  { n: '04', name: 'Pillow pad', img: 'insert-pillow-pad-v2', w: 900, h: 900, blend: true,
+    alt: 'Two pale grey suede pillow pads standing in front of an open black case',
+    why: 'A shaped pad cut to the inside curve of the piece — the clasp and the band carry no weight at all.',
     get: 'The shape survives the trip.' },
-  { n: '05', name: 'Two-level tray',
-    why: 'Two floors cut from the same measurements: the trays ride above, the chain card or the certificate sits in the level beneath, held flat rather than folded.',
-    when: 'Sets that ship with papers, a certificate or a second piece.',
+  { n: '05', name: 'Two-level tray', img: 'insert-two-level-v2', w: 900, h: 502, zoom: 1.1,
+    alt: 'A sage green box open on two levels, a ring tray above a compartment tray',
+    why: 'Two floors taken from the same measurements: the trays ride above, and the papers or the certificate lie in the shallower tray below.',
     get: 'A set travels as a set.' },
 ];
 
+const linings = [
+  { name: 'Velvet', img: 'velvet', alt: 'A deep red velvet ring box open on its hinge, a ring cushion inside',
+    use: 'Rings and branded retail boxes', get: 'A polished stone meets nothing abrasive.' },
+  { name: 'Suede or microfiber', img: 'suede', alt: 'A tan suede-textured pouch with a snap closure holding a pearl chain, resting on a tray',
+    use: 'Modern lines where shine is unwanted', get: 'The chain comes out unmarked, on a face with no shine to it.' },
+  { name: 'EVA or foam', img: 'insert-tray', alt: 'An orange cut tray and a black foam tray standing upright beside an open rigid box',
+    use: 'Transit and mixed-SKU trays', get: 'Freight cannot move the piece, because the cavity was cut around it.' },
+  { name: 'Satin over card', img: 'satin', alt: 'A blush box open on a satin-wrapped card holding a necklace, its ribbon laid beside it',
+    use: 'Necklaces and certificates', get: 'Under satin, a chain reads as deliberate.' },
+];
+
+/* The client's own material shots — the first three are the material itself
+   (board edge-on, kraft grain, leather grain) rather than a product box, which
+   is what the source page never had. */
+const materials = [
+  { name: 'Greyboard', spec: '1.5–3.0 mm', img: 'mat-greyboard-v2', w: 800, h: 800,
+    alt: 'A stack of greyboard sheets photographed edge-on, the cut edges showing',
+    d: 'Rigidity comes from the board, which is what keeps a full tray from bowing.' },
+  { name: 'Kraft and recycled stock', spec: 'FSC chain of custody', img: 'mat-kraft-v2', w: 800, h: 533,
+    alt: 'Kraft board sheets fanned to show the surface and the cut corners',
+    d: 'A recycled sheet that still takes foil cleanly, for a range sold on what it leaves behind.' },
+  { name: 'Leather and leatherette', spec: 'Grain to order', img: 'mat-leather-v2', w: 678, h: 452,
+    alt: 'Dark brown leather folded over, the grain catching the light',
+    d: 'A grain that hides handling marks — that is what survives a counter better than a flat wrap.' },
+  { name: 'Foil, deboss or print', spec: 'Matched to Pantone', img: 'mat-mark-v2', w: 800, h: 599,
+    alt: 'A pink box open on a white card foil-stamped in gold',
+    d: 'Settled with the wrap, because each method bites differently into a texture — and the one that flakes is the one that gets sent back.' },
+];
+
 const structures = [
-  { n: '01', name: 'Magnetic Book-Style', img: 'type-pendant', w: 550, h: 525,
-    alt: 'Grey and black pendant boxes open on their fitted inserts',
-    why: 'A hinged lid gives the piece a frame and shuts on a magnet, so the box opens one-handed and stays shut in a bag.',
-    best: 'Rings, earrings, small pendants', avoid: 'The box has to pack flat for freight' },
-  { n: '02', name: 'Lid and Base', img: 'type-set', w: 550, h: 525,
-    alt: 'An open jewelry case with a pale lining holding a necklace, earrings and a ring tray',
-    why: 'A separate lid lifts clear, so a wide or deep tray comes out in one movement instead of being angled past a hinge.',
+  { n: '01', name: 'Magnetic Book-Style',
+    why: 'A hinged lid frames the piece and shuts on a magnet; it opens one-handed and stays shut in a bag.',
+    best: 'Rings, earrings and small pendants', avoid: 'The box has to pack flat for freight' },
+  { n: '02', name: 'Lid and Base',
+    why: 'The lid lifts clear, and a wide or deep tray comes out in a single movement instead of being angled past a hinge.',
     best: 'A necklace with a tray, watches, multi-piece sets', avoid: 'You need a one-hand open on camera' },
-  { n: '03', name: 'Drawer With Ribbon', img: 'type-drawer', w: 550, h: 525,
-    alt: 'A hand sliding open a green jewelry drawer box with a gold script name',
-    why: 'The tray slides toward the customer, so the piece is seen before it is touched — a counter gesture rather than a packing one.',
+  { n: '03', name: 'Drawer With Ribbon',
+    why: 'The tray slides toward whoever is holding it: a counter gesture, not a packing step.',
     best: 'Retail counter, gift-with-purchase', avoid: 'High e-commerce volume, where it is slow to pack' },
-  { n: '04', name: 'Two-Piece With Neck', ph: true,
-    why: 'The shoulder holds a tall or standing piece upright, which is why a bottle or a display stand needs it and a ring does not.',
+  { n: '04', name: 'Two-Piece With Neck',
+    why: 'The shoulder holds a tall or standing piece upright, which is something a ring has never needed.',
     best: 'Tall bottles and standing display', avoid: 'Thin rings that need a deep slot' },
 ];
 
-/* `get` is the buyer's side of each cloth — the client asked for this on every tile. */
-const linings = [
-  { name: 'Velvet', img: 'velvet', w: 420, h: 400, alt: 'A deep red velvet ring box open on its hinge',
-    use: 'Rings and branded retail boxes', note: 'Soft contact, and the widest color range of the four',
-    get: 'A polished stone meets nothing abrasive.' },
-  { name: 'Suede or microfiber', img: 'suede', w: 420, h: 400, alt: 'A tan suede drawstring pouch with a gold script mark on a knitted throw',
-    use: 'Modern lines where shine is unwanted', note: 'Sits flatter than velvet and snags less on a chain',
-    get: 'A matte face, and a chain that comes out unmarked.' },
-  { name: 'EVA or foam', img: 'insert-tray', w: 700, h: 600, alt: 'An orange cut tray and a black foam tray with cut pockets',
-    use: 'Transit and mixed-SKU trays', note: 'Cut for fit, then covered wherever a customer will see it',
-    get: 'A cavity that fits, so freight cannot move the piece.' },
-  { name: 'Satin over card', img: 'satin', w: 420, h: 400, alt: 'A blush box open on a white satin-wrapped card holding a gold necklace',
-    use: 'Necklaces and certificates', note: 'A surface, not a slot — on its own it holds nothing in place',
-    get: 'A bright surface that makes a chain look deliberate.' },
-];
-
-/* §Finish — a five-step run. Each step carries a small coloured mark so the run scans.
-   Client: "加一点小标志在小标题的左侧，有颜色的". */
-const specs = [
-  { n: '01', label: 'Board thickness', tone: 'brass',
-    ico: fico('<rect x="3" y="8" width="18" height="11" rx="2"/><path d="M3 12h18"/>'),
-    d: 'Greyboard, 1.5–3.0 mm. Everything above it is measured from here, so it is the first line and not the last.' },
-  { n: '02', label: 'Wrap paper and color', tone: 'forest',
-    ico: fico('<path d="M5 19 19 5"/><path d="M6 4h6"/><path d="M13 20h5"/>'),
-    d: 'The wrap carries the texture, and the texture is what decides how the color reads in a hand rather than on a screen.' },
-  { n: '03', label: 'Logo method', tone: 'brass',
-    ico: fico('<path d="M12 3l2.4 5.7L20 11l-5.6 2.3L12 19l-2.4-5.7L4 11l5.6-2.3z"/>'),
-    d: 'Foil, deboss or print, settled with the wrap — each one bites differently into a texture, and foil is the one that flakes.' },
-  { n: '04', label: 'Magnet grade and lid gap', tone: 'forest',
-    ico: fico('<rect x="8" y="8" width="8" height="8" rx="1.4"/><path d="M4 4l3 3M20 4l-3 3M4 20l3-3M20 20l-3-3"/>'),
-    d: 'The magnet sets the pull; the gap sets how evenly the lid meets the base. Together they are what a hand feels before looking.' },
-  { n: '05', label: 'Insert and pouch', tone: 'brass',
-    ico: fico('<rect x="3" y="4" width="18" height="7" rx="1.6"/><rect x="7" y="14" width="10" height="6" rx="1.6"/>'),
-    d: 'Last, because both are cut from the piece rather than from the box.' },
+/* Each buyer gets one line of data the others do not, and no figure here is one
+   the page has already spent: 500 units is the run, ±0.5 mm the tolerance,
+   1 insert layout the mixed range, 4–6 weeks the crossing. No case-study figure
+   appears anywhere outside §9. */
+const buyers = [
+  { kicker: 'Sell online', name: 'DTC jewelry brands',
+    scene: 'Orders leave one at a time in a mailer, and the box inside is what the customer photographs.',
+    img: 'buyer-2', alt: 'Mint and cream jewelry boxes stacked with a black tray of earrings beside them',
+    stat: '500 units', statLabel: 'the first run, counted once',
+    get: 'A first run small enough to test, in a box that has to survive the courier.' },
+  { kicker: 'One piece at a time', name: 'Fine jewelry and ateliers',
+    scene: 'No two pieces match, and a stock tray leaves gaps that let a one-off slide around.',
+    img: 'buyer-4', alt: 'Two hands drawing a packaging dieline in a notebook beside brass tools on a desk',
+    stat: '±0.5 mm', statLabel: 'cutting and assembly',
+    get: 'The piece itself sets the cavity and the depth, not a chart.' },
+  { kicker: 'Opened at a counter', name: 'Wholesale and stockists',
+    scene: 'The box is opened in front of somebody who is still deciding whether to buy.',
+    img: 'buyer-atelier', alt: 'Green jewelry boxes grouped on a raffia mat with a printed card and a black paper bag',
+    stat: '1 insert layout', statLabel: 'across a mixed range, one run',
+    get: 'Every tray presents its piece the instant the lid clears.' },
+  { kicker: 'A date that cannot move', name: 'Corporate and gift sets',
+    scene: 'A set ships to a fixed date in packaging that has to match the brand on every surface.',
+    img: 'buyer-1', alt: 'White and gold jewelry boxes with a printed band, one open on a pendant and chain',
+    stat: '4–6 weeks', statLabel: 'the crossing, against a fixed date',
+    get: 'Nothing moves the date, because the wrap is settled before the container is booked.' },
 ];
 
 const numbers = [
@@ -141,57 +148,60 @@ const numbers = [
   { v: '$47,000', k: 'A month of shipping margin the old boxes were eating' },
 ];
 
+/* Verbatim from the source page, plus one further paragraph of the same
+   customer's words per review, supplied by the client. `what` is a one-line
+   digest of what that same review says it ordered. */
 const reviews = [
   { name: 'Lisa Harrington', role: 'Founder, Artisan Jewel Studio', img: 'avatar-lisa', w: 300, h: 300,
     alt: 'Lisa Harrington, founder of Artisan Jewel Studio',
+    what: 'Matching velvet pouches and boxes, colour-matched to the studio palette',
     paras: [
-      'We moved our handmade range onto velvet pouches with matching rigid boxes, and the interior color came back matched to our palette exactly.',
-      'Delicate pieces arrive the way they left the bench. Nothing shifts in the post, nothing scuffs against a wall, and the lid closes the same on the fiftieth box as on the first.',
-      'We opened at 500 units and have reordered three times since. Every run has landed on the same swatch.',
-      'The reorder is the real test. We send the same sizes and get the same box back, which is all we ever wanted from a packaging supplier.',
+      'The custom velvet pouches and matching boxes transformed our handmade jewelry packaging. Soft interiors protect delicate pieces perfectly, and the custom colors matched our brand palette exactly.',
+      'Excellent quality control and responsive support — thank you!',
+      'Most of our orders leave as single pieces, so the box is often the first thing a customer touches. Being able to send a picture and get the cavity drawn to it stopped us guessing between sizes, and the reorder came back identical to the first run — which is the part nobody warns a new brand about.',
     ] },
   { name: 'James Kowalski', role: 'Operations Manager', img: 'avatar-james', w: 300, h: 300,
     alt: 'James Kowalski, operations manager',
+    what: 'Ribbon-pull gift boxes on FSC-certified board',
     paras: [
-      'Rigid gift boxes with ribbon pulls, on FSC-certified board. They survive shipping, which the stock mailers we used before simply did not.',
-      'Sampling came back in 5–7 days, and the first production run was 12,000 units across two formats with nothing rejected at intake.',
-      'The unboxing is the marketing now. Customers photograph the box before they open it.',
-      'The die is on file, so the second run skipped the artwork stage entirely and went straight to press.',
+      'LeelinePackage nailed our custom jewelry gift boxes with ribbon pulls and FSC-certified materials. Sustainable, elegant, and durable for shipping.',
+      'Our customers love the premium feel, and we have seen great feedback on social media. Reliable box supplier with top-notch customization options.',
+      'What mattered on our side was consistency between runs: the second order matched the first, so our retail partners did not see a colour shift mid-season. Packing got quicker too, because the inserts arrived cut and ready instead of being done in-house.',
     ] },
 ];
 
-/* ⚠️ Every question below had to be one the page does NOT already answer. The first set
-   repeated three sections — the 500-unit minimum (stated at the end of §Structure), the
-   5–7 day sample (already a figure in the header) and the two-level tray (stated in §Inserts).
-   A FAQ that restates the body is dead copy. */
+/* None of these restates a band above. Re-cut against the whole page: Q01 was
+   restating §12's closing (send little, get a price), Q02 the third review's
+   reorder line, Q04 §4's "never guessed from a photograph", and Q06 was spending
+   §8's 500 units twice. */
 const faqs = [
   { n: '01', q: 'What do you need to start a quote?',
-    a: 'A SKU list with the dimensions of each piece and the quantity per size, plus the structure if one is already set. If the structure is still open, photographs of the piece are enough to recommend one.' },
+    a: 'Less than most buyers expect. No artwork and no dieline are needed — those come back from us. What does help is the logo in vector form and the colour reference you print to, so what comes back matches what you sell.' },
   { n: '02', q: 'Can you copy a box we already use?',
-    a: 'Send a physical sample, or photographs with the outside dimensions. The dieline and the insert are rebuilt to match, and both files are filed against your pattern so a reorder repeats it exactly.' },
+    a: 'Send a physical sample, or photographs with the outside dimensions. Both the pattern and its cavity are rebuilt to match, and the files are kept against your reference.' },
   { n: '03', q: 'How is the price built?',
-    a: 'Four lines: board and wrap, assembly, the mark, and the insert with its pouch. The mark is the line a reorder does not carry, because the die is made once and kept.' },
-  { n: '04', q: 'What artwork do you need?',
-    a: 'A vector file — AI, EPS or PDF — with the mark at the size it will print, or the mark as a high-resolution image and we set it. Artwork is checked against the dieline before a sheet is cut, not after.' },
+    a: 'Board and wrap, assembly, and the insert with its pouch. The mark sits outside those three as a separate line, because the die is cut once and kept — which is why a reorder reads lower than the first order.' },
+  { n: '04', q: 'Do you need the jewelry itself?',
+    a: 'It is the fastest route, and the piece comes back with the first sample. Where something cannot travel, the well depth is the measurement worth taking by hand.' },
   { n: '05', q: 'How do the boxes ship?',
-    a: 'Flat where the structure folds and assembled where it does not, on pallets or in cartons. The carton count and the weight come with the despatch papers, so the receiving end is not guessing.' },
-  { n: '06', q: 'Do you work with our own designer?',
-    a: 'Yes. The dieline is sent as a digital file, so a designer you already use can lay artwork against it and return it to size. Two revision rounds are included on each dieline.' },
+    a: 'Flat where the structure folds and assembled where it does not, on pallets or in cartons. The carton count and the weight travel with the despatch papers; the receiving end is not guessing.' },
+  { n: '06', q: 'How is the minimum counted?',
+    a: 'Once per structure, per size and per wrap — that is the unit it is counted in, not a monthly volume. It is also what makes the first order expensive and the tenth not.' },
 ];
 
 const seo = {
-  title: 'Custom Jewelry Boxes: 18-Month Tarnish Protection, 5 Inserts',
-  description: 'Jewelry boxes with a fitted insert cut to each SKU, so the piece stays put in transit. Sulfur-free lining holds silver bright 18 months. Samples go in 5-7 days.',
-  keywords: 'custom jewelry packaging manufacturer, custom jewelry boxes manufacturer, custom ring boxes manufacturer, custom necklace boxes manufacturer, anti-tarnish jewelry box lining, custom jewelry box inserts, velvet jewelry box manufacturer, jewelry box manufacturer China, wholesale custom jewelry packaging, custom jewelry pouches manufacturer, personalized jewelry gift boxes, low MOQ jewelry boxes',
+  title: 'Custom Jewelry Packaging: 18-Month Anti-Tarnish, 9 Box Types',
+  description: 'Jewelry boxes built around two decisions: the sulfur-free lining that keeps silver bright for 18 months, and the insert is cut to each SKU. Samples in 5-7 days.',
+  keywords: 'custom jewelry packaging, custom jewelry boxes, custom ring boxes, custom necklace boxes, anti-tarnish jewelry box lining, jewelry box inserts, custom jewelry pouch, velvet jewelry box manufacturer, custom jewelry packaging manufacturer, wholesale jewelry packaging China, low MOQ jewelry boxes, personalized jewelry gift boxes',
   canonical: 'https://www.leelinepackage.com/custom-jewelry-packaging/',
-  ogImage: `${JK}/hero-quad.webp`,
+  ogImage: `${JK}/hero-bg-v2.webp`,
 };
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     { '@type': 'Service', name: 'Custom Jewelry Packaging Manufacturing', description: seo.description,
-      serviceType: 'Custom jewelry packaging across nine builds with inserts cut to each piece from a physical sample, sulfur-free anti-tarnish linings, four box structures chosen before the wrap, wrap and lining chips filed for reorder, the five finish decisions in order, and sampling in 5–7 days from approval. Runs from 500 units per structure, size and wrap',
+      serviceType: 'Custom jewelry packaging across nine box builds — ring, necklace, earring, pendant, gift, drawer, travel case, set box and wooden chest — each with an insert cut from the physical piece, sulfur-free anti-tarnish linings chosen against the metal, four structures settled before the wrap, and sampling in 5 to 7 days. Runs from 500 units per structure, size and wrap',
       provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
       areaServed: 'Worldwide', offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' } },
     { '@type': 'BreadcrumbList', itemListElement: [
@@ -202,10 +212,13 @@ const jsonLd = {
   ],
 };
 
-
 const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
-const gem = '<svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.6 18.4 10 10 18.4 1.6 10z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M10 5.6 14.4 10 10 14.4 5.6 10z" fill="currentColor" opacity="0.45"/></svg>';
+
+/* The drawn cross-section that used to sit in section 2 was pulled at the
+   client's request — that band is now three image-and-text cards, one per
+   check, and the photographs are still to come. */
+
 ---
 
 <Layout
@@ -215,178 +228,303 @@ const gem = '<svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
-  preloadImage={`${JK}/hero-quad.webp`}
+  preloadImage={`${JK}/hero-bg-v2.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <Navbar />
   <main id="top" class="jk">
 
-    <!-- ═══ 1 · HEADER — the plate is the section's BACKGROUND, not a band under the copy ═══ -->
-    <section class="hero">
-      <div class="wrap hero-in">
-        <span class="eyebrow"><Fragment set:html={leaf} />Box, insert and pouch as one set</span>
-        <h1>Custom Jewelry Packaging: <em>18-Month Anti-Tarnish Protection</em> &amp; Premium Shelf Appeal</h1>
-        <p class="lede">Certified sulfur-free linings keep sterling silver and gold plating brilliant through long-term storage and ocean freight — slashing return rates and keeping inventory display-ready.</p>
+    <!-- ═══ 1 · HERO — the plate is the band's background; the figures are fused to its foot ═══ -->
+    <section class="hp">
+      <div class="wrap hp-in">
+        <span class="eyebrow"><Fragment set:html={leaf} />Lining, insert and box as one set</span>
+        <h1 class="hp-title">Custom Jewelry Packaging: <em>18-Month Anti-Tarnish Protection</em> &amp; Premium Shelf Appeal</h1>
+        <p class="hp-lede">Certified sulfur-free linings keep sterling silver and gold plating brilliant through long-term storage and ocean freight — slashing return rates and keeping inventory display-ready. Precision engineered with 99.8% Pantone color accuracy and flawless hot-stamping for uncompromised brand presentation.</p>
         <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get My Jewelry Quote<Fragment set:html={arrow} /></a>
-        <ul class="figs">
-          <li><b>9</b><span>Types of box, each with its own insert</span></li>
-          <li><b>500</b><span>Units per size and wrap</span></li>
-          <li><b>5–7 days</b><span>To a physical sample, after sign-off</span></li>
-          <li><b>4–6 weeks</b><span>A container crossing, door to door</span></li>
+      </div>
+      <div class="hp-bar">
+        {/* 18 months and 99.8% were both restatements — the H1 carries the first and
+            the locked lede carries the second. Nothing here comes from §9's case
+            study, and no figure is spent twice on the page. */}
+        <ul class="wrap hp-figs">
+          <li><b>5–7 days</b><span>To a printed sample, from approval</span></li>
+          <li><b>3–4 weeks</b><span>The same piece, left unlined</span></li>
+          <li><b>9 box types</b><span>Ring to chest, one insert each</span></li>
+          <li><b>4 structures</b><span>Settled before the drawing, not after</span></li>
         </ul>
       </div>
     </section>
 
-    <!-- ═══ 2 · TYPES — head LEFT, nine cards, warm ground ═══ -->
-    <section class="s s--warm">
+    <!-- ═══ 2 · THE PROBLEM — three failures, one plate each ═══ -->
+    <section class="band g-clay">
       <div class="wrap">
-        <header class="hd hd--left"><h2>Custom Jewelry Packaging <em>Types</em></h2><p>Nine builds. The type you pick changes the insert underneath it, the board that carries it and the wrap over the top.</p></header>
+        <header class="hd">
+          <h2>Three Ways a Piece Arrives Damaged</h2>
+          <p>Sulfur in the air, a lid that shuts too low, and a well cut to the wrong size — all three settle the outcome long before anybody opens the box.</p>
+        </header>
+        <ul class="chk">
+          <li data-reveal="up">
+            <div class="chk-b">
+              <span class="chk-n">01</span>
+              <div class="chk-h">
+                <span class="chk-ic" style="--ic:#B08D4C" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M8 2.6v6.6M5.4 7 8 9.6 10.6 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.8 12.8h10.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                <h3>The lid leaves a mark on the stone</h3>
+              </div>
+              <p>The insert holds the piece below the line where lid meets base, and the sample is closed and reopened on the bench before the run starts.</p>
+              <p class="get">The stone arrives exactly as it left the bench</p>
+            </div>
+          </li>
+          <li data-reveal="up" style="--d:.06s">
+            <div class="chk-b">
+              <span class="chk-n">02</span>
+              <div class="chk-h">
+                <span class="chk-ic" style="--ic:#4A6B52" aria-hidden="true"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M2.6 8a5.4 5.4 0 0 0 10.8 0Z" fill="currentColor" opacity=".8"/></svg></span>
+                <h3>Silver goes dark in the box</h3>
+              </div>
+              <p>A sulfur-free layer is laid against the metal itself rather than over the adhesive behind it, and it is the layer we name on the spec sheet.</p>
+              <p class="get">Stock that still reads as new after a season in the case</p>
+            </div>
+          </li>
+          <li data-reveal="up" style="--d:.12s">
+            <div class="chk-b">
+              <span class="chk-n">03</span>
+              <div class="chk-h">
+                <span class="chk-ic" style="--ic:#8C8676" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3 11.4 8.4 6M8 12.6 13.4 7.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+                <h3>The piece scuffs itself on the way</h3>
+              </div>
+              <p>Board is harder than metal, and a loose well is what lets the piece travel. Sized around the piece and the clasp, there is nothing for it to move against.</p>
+              <p class="get">A piece that comes out of the box unmarked, however far it travelled</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ 3 · TYPES — the only photo grid on the page ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap">
+        <header class="hd">
+          <h2>Custom Jewelry Packaging Types</h2>
+          <p>Every build takes its own insert, board and wrap. Change the type and all three change with it.</p>
+        </header>
         <ul class="t3">
-          {types.map((t) => (
-            <li data-reveal="up">
+          {types.map((t, i) => (
+            <li class={t.blend ? 'knock' : ''} data-reveal="up" style={`--d:${(i % 3) * 0.06}s`}>
               <figure><img src={`${JK}/${t.img}.webp`} alt={t.alt} width={t.w} height={t.h} loading="lazy" decoding="async" /></figure>
-              <div class="b"><span class="code">{t.n}</span><h3>{t.name}</h3><p>{t.d}</p></div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- ═══ 3 · INSERTS — 16:9 slots; why / when / what you get ═══ -->
-    <section class="s">
-      <div class="wrap">
-        <header class="hd hd--light"><span class="orn orn--light"><Fragment set:html={gem} /></span><h2>Custom Jewelry Box <em>Inserts</em></h2><p>The insert is what holds the piece still. Every shape is cut from a physical sample or from the exact measurements of each SKU.</p></header>
-        <ul class="ins">
-          {inserts.map((x) => (
-            <li data-reveal="up">
-              <figure class="slot slot--wide"><span>{x.n}</span><i>{x.name}</i></figure>
-              <h3>{x.name}</h3>
-              <p>{x.why}</p>
-              <p class="when">{x.when}</p>
-              <p class="get">{x.get}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
-    <!-- ═══ 4 · STRUCTURE — a bigger plate and more copy, still image left / text right ═══ -->
-    <section class="s s--light">
-      <div class="wrap">
-        <header class="hd"><span class="orn"><Fragment set:html={gem} /></span><h2>How to Choose the Box <em>Structure</em></h2><p>Structure is settled before the wrap paper, because changing it re-cuts the dieline and the insert together.</p></header>
-        <ul class="st">
-          {structures.map((x) => (
-            <li data-reveal="up">
-              <figure class="plate">
-                {x.ph ? <div class="slot">Photo to come</div> : <img src={`${JK}/${x.img}.webp`} alt={x.alt} width={x.w} height={x.h} loading="lazy" decoding="async" />}
-              </figure>
-              <div>
-                <span class="note">{x.n}</span><h3>{x.name}</h3><p class="why">{x.why}</p>
-                <dl><dt>Best for</dt><dd>{x.best}</dd><dt>Avoid when</dt><dd>{x.avoid}</dd></dl>
+              <div class="t3-b">
+                <span class="code">{t.n}</span>
+                <h3>{t.name}</h3>
+                <span class="spec">{t.spec}</span>
+                <p>{t.d}</p>
               </div>
             </li>
           ))}
         </ul>
-        <p class="close">One run at 500 units covers a mixed range, because mixed SKUs share an outer box when they share one insert layout.</p>
       </div>
     </section>
 
-    <!-- ═══ 5 · LININGS — cards carry the copy; the figures band is gone (it repeated the hero) ═══ -->
-    <section class="s s--deepest">
+    <!-- ═══ 4 · INSERTS — one framed panel of five cells, dividers inside ═══ -->
+    <section class="band g-clay">
       <div class="wrap">
-        <header class="hd hd--light"><span class="orn orn--light"><Fragment set:html={gem} /></span><h2>Linings and <em>Anti-Tarnish Protection</em></h2><p>Silver and gold plate darken in a container weeks before a shop sees them, so the cloth that touches the piece is the fix — and it holds silver bright for 18 months, against 3–4 weeks unlined.</p></header>
+        <header class="hd">
+          <h2>Custom Jewelry Box Inserts</h2>
+          <p>An insert is cut from the piece, not from a category. Send one sample or its three measurements, and the cavity is drawn to that and nothing else.</p>
+        </header>
+        <div class="panel">
+          <ul class="panel-row">
+            {inserts.map((x) => (
+              <li data-reveal="up">
+                <figure class={x.img ? (x.blend ? 'slot slot--knock' : 'slot') : 'slot slot--empty'}>
+                  {x.img
+                    ? <img src={`${JK}/${x.img}.webp`} alt={x.alt} width={x.w} height={x.h} style={x.zoom ? `transform:scale(${x.zoom})` : undefined} loading="lazy" decoding="async" />
+                    : <><span class="slot-n">{x.n}</span><span class="slot-t">Photo to come</span></>}
+                </figure>
+                <div class="panel-b">
+                  <span class="code">{x.n}</span>
+                  <h3>{x.name}</h3>
+                  <p>{x.why}</p>
+                  <p class="get">{x.get}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 5 · LININGS — the dark centre of gravity, and the page's key numbers ═══ -->
+    <section class="band band--dark g-dark">
+      <div class="wrap">
+        <header class="hd hd--c">
+          <h2>Linings and Anti-Tarnish Protection</h2>
+          <p>Silver dulls in a container weeks before a shop ever sees it, and it is the cloth in contact with the metal that decides the outcome. Four cloths, a single job each.</p>
+        </header>
         <ul class="ln">
           {linings.map((l) => (
             <li data-reveal="up">
-              <figure><img src={`${JK}/${l.img}.webp`} alt={l.alt} width={l.w} height={l.h} loading="lazy" decoding="async" /></figure>
-              <div class="b">
-                <h3>{l.name}</h3><p class="use">{l.use}</p><p>{l.note}</p><p class="get">{l.get}</p>
-              </div>
+              <figure><img src={`${JK}/${l.img}.webp`} alt={l.alt} width="560" height="440" loading="lazy" decoding="async" /></figure>
+              <h3>{l.name}</h3>
+              <span class="ln-use">{l.use}</span>
+              <p class="get">{l.get}</p>
+            </li>
+          ))}
+        </ul>
+        <div class="compare">
+          <div class="cmp" data-reveal="up">
+            <h3 class="cmp-k">In a sulfur-free lined box</h3>
+            <p>The metal stays display-ready, and stock does not have to be polished or discounted before it reaches a cabinet.</p>
+          </div>
+          <div class="cmp cmp--warn" data-reveal="up" style="--d:.08s">
+            <h3 class="cmp-k">In an unlined box</h3>
+            <p>The darkening happens in transit and in the stockroom, which is why it usually arrives as a customer complaint rather than a packing note.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 6 · BUYERS — four cards, each carrying a figure the others do not.
+         Moved up from the end of the run: §3–§7 were five consecutive "what we
+         make" bands and nothing addressed the buyer between them. ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap">
+        <header class="hd hd--c">
+          <h2>Jewelry Packaging for Four Kinds of Buyer</h2>
+          <p>The box is the same object and the problem is not. These are the four situations that arrive most often, and what changes for each.</p>
+        </header>
+        <ul class="buy">
+          {buyers.map((b, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure><img src={`${JK}/${b.img}.webp`} alt={b.alt} width="600" height="520" loading="lazy" decoding="async" /></figure>
+              <span class="kicker">{b.kicker}</span>
+              <h3>{b.name}</h3>
+              <div class="stat"><b>{b.stat}</b><span>{b.statLabel}</span></div>
+              <p class="scene">{b.scene}</p>
+              <p class="get">{b.get}</p>
             </li>
           ))}
         </ul>
       </div>
     </section>
 
-    <!-- ═══ 6 · FINISH — a five-step run, deliberately unlike the grids above ═══ -->
-    <section class="s s--light">
+    <!-- ═══ 7 · MATERIALS — four plates, each with a shelf of its own facts ═══ -->
+    <section class="band g-clay">
       <div class="wrap">
-        <header class="hd"><span class="orn"><Fragment set:html={gem} /></span><h2>Printing and Finishing a Jewelry <em>Box</em></h2><p>Five lines, settled in this order — a wrap chosen after the logo method is a wrap re-cut.</p></header>
-        <ol class="runs">
-          {specs.map((x) => (
-            <li data-reveal="up">
-              <span class="n">{x.n}</span>
-              <h3><span class={`runs-ico runs-ico--${x.tone}`}><Fragment set:html={x.ico} /></span>{x.label}</h3>
-              <p>{x.d}</p>
+        <header class="hd">
+          <h2>What the Outside Is Made Of</h2>
+          <p>The outside is where the brand is read and where most of the cost sits. Four decisions, and each one is settled against the other three.</p>
+        </header>
+        <ul class="mat">
+          {materials.map((m, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <figure class={m.img ? 'mat-fig' : 'mat-fig mat-fig--empty'}>
+                {m.img
+                  ? <img src={`${JK}/${m.img}.webp`} alt={m.alt} width={m.w} height={m.h} loading="lazy" decoding="async" />
+                  : <span class="slot-t">Photo to come</span>}
+                <figcaption class="mat-cap">
+                  <h3>{m.name}</h3>
+                  <span class="grade">{m.spec}</span>
+                </figcaption>
+              </figure>
+              <p>{m.d}</p>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
     </section>
 
-    <!-- ═══ 7 · BOX OR GIFT BOX — smaller plates, and when / how / what you get ═══ -->
-    <section class="s">
+    <!-- ═══ 8 · STRUCTURE — four rows read across, no rule between them ═══ -->
+    <section class="band g-ivory">
       <div class="wrap">
-        <header class="hd hd--light"><span class="orn orn--light"><Fragment set:html={gem} /></span><h2>Jewelry Box or <em>Gift Box</em></h2><p>Both are boxes. Only one is built to hold a piece in place, and ordering the wrong one is how a range ends up quoted twice.</p></header>
-        <div class="pair">
-          <article data-reveal="up">
-            <figure class="plate plate--sm"><img src={`${JK}/chest.webp`} alt="A wooden jewelry chest standing open, its tray lined and divided for rings and a bracelet" width="550" height="525" loading="lazy" decoding="async" /></figure>
-            <h3>A jewelry box is built around the insert</h3>
-            <p class="lead"><b>When</b> the piece has to arrive in one position and hold it — rings, chains, bangles and sets.</p>
-            <p><b>How</b> the lid, the board and the wrap are cut to the insert, and the insert is shaped to the piece.</p>
-            <p class="get"><b>You get</b> nothing left over, so nothing moves on the way to the customer.</p>
-          </article>
-          <article data-reveal="up">
-            <figure class="plate plate--sm"><img src={`${JK}/type-gift.webp`} alt="A white paper bag and a black jewelry box grouped with a pale green box on an orange ground" width="550" height="525" loading="lazy" decoding="async" /></figure>
-            <h3>A gift box presents an occasion</h3>
-            <p class="lead"><b>When</b> the moment matters more than the piece — a presentation, a launch, a gift-with-purchase.</p>
-            <p><b>How</b> it is sized to the occasion, with the cavity left for tissue and a ribbon.</p>
-            <p class="get"><b>You get</b> a box that can carry jewelry once a tray is added; without one, quote it as a gift box.</p>
-          </article>
+        <header class="hd">
+          <h2>How to Choose the Box Structure</h2>
+          <p>Structure is settled before the wrap, because changing it afterwards re-cuts the dieline and the insert together. These four cover nearly all jewelry ranges.</p>
+        </header>
+        <div class="st-wrap">
+          <table class="st">
+            <caption>Four box structures, what each one does, and when to rule it out</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="st-c1">#</th>
+                <th scope="col">Structure</th>
+                <th scope="col">What it does</th>
+                <th scope="col" class="st-hl">Best for</th>
+                <th scope="col">Avoid when</th>
+              </tr>
+            </thead>
+            <tbody>
+              {structures.map((s) => (
+                <tr>
+                  <td class="st-c1">{s.n}</td>
+                  <td class="st-name">{s.name}</td>
+                  <td class="st-why">{s.why}</td>
+                  <td class="st-hl">{s.best}</td>
+                  <td class="st-avoid">{s.avoid}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        <p class="tail">Share one cavity across every size in a range and a mixed order rides in a single run.</p>
       </div>
     </section>
 
-    <!-- ═══ 8 · CASE STUDY — the link is a real button, with a border and a fill ═══ -->
-    <section class="s s--tint">
+    <!-- ═══ 9 · CASE STUDY — the published program, with its own figures ═══ -->
+    <section class="band g-clay">
       <div class="wrap">
-        <header class="hd"><span class="orn"><Fragment set:html={gem} /></span><h2>Jewelry Packaging <em>Case Studies</em></h2><p>The figures come from a program we published in full — the problem, the rebuild and what it cost before and after.</p></header>
+        <header class="hd">
+          <h2>Jewelry Packaging Case Studies</h2>
+          <p>One program, published in full: the problem, the rebuild and what it cost before and after. The figures below are the client's own, not a brochure's.</p>
+        </header>
         <div class="feat">
-          <figure class="plate"><img src={`${JK}/cs-cover.webp`} alt="Pastel jewelry boxes and pouches lined up beside a printed sleeve" width="800" height="500" loading="lazy" decoding="async" /></figure>
-          <div>
-            <h3>Jewelry Packaging Case Study: 94% Damage Reduction</h3>
-            <p>The brand had pushed its average order past $300 and the packaging had not moved with it. Stock mailers crushed under courier handling, and the generic foam inside left an inch of air around each piece, so rings rattled their way to micro-scratches — enough to lift the return rate to 12%.</p>
+          <figure class="feat-shot">
+            <img src={`${JK}/cs-cover.webp`} alt="A lime-green jewelry box photographed with a kraft pouch, a printed card and a small tissue-wrapped box" width="800" height="500" loading="lazy" decoding="async" />
+          </figure>
+          <div class="feat-b">
+            <span class="kicker">Consumer jewelry, direct to customer</span>
+            <h3>The brand had outgrown a stock mailer</h3>
+            <p>Average order value had passed $300 while the packaging had not moved with it. Stock mailers crushed under courier handling, and the generic foam left an inch of air around each piece, and rings rattled their way to micro-scratches.</p>
             <p>The rebuild used a 1200 GSM magnetic rigid box, a 157 GSM soft-touch wrap, a molded EVA insert over black velvet and hidden N45 magnets.</p>
-            <a class="btn btn-gold" href="https://www.leelinepackage.com/jewelry-packaging-case-study/" target="_blank" rel="noopener">Read the Full Case Study<Fragment set:html={arrow} /></a>
+            <a class="btn btn-primary" href="https://www.leelinepackage.com/jewelry-packaging-case-study/" target="_blank" rel="noopener">Read the Full Case Study<Fragment set:html={arrow} /></a>
           </div>
         </div>
-        <ul class="nums">{numbers.map((x) => <li><b>{x.v}</b><span>{x.k}</span></li>)}</ul>
+        <ul class="nums">
+          {numbers.map((x) => <li><b>{x.v}</b><span>{x.k}</span></li>)}
+        </ul>
       </div>
     </section>
 
-    <!-- ═══ 9 · REVIEWS — one mark, the small pair ═══ -->
-    <section class="s s--light">
+    <!-- ═══ 10 · REVIEWS — the source page's own two, verbatim ═══ -->
+    <section class="band g-ivory">
       <div class="wrap">
-        <header class="hd"><span class="orn"><Fragment set:html={gem} /></span><h2>What Our Customers <em>Say</em></h2></header>
+        <header class="hd">
+          <h2>What Our Customers Say</h2>
+        </header>
         <ul class="quotes">
           {reviews.map((r) => (
             <li data-reveal="up">
-              {r.paras.map((x, i) => <p>{i === 0 ? <span class="qo" aria-hidden="true">“</span> : null}{x}{i === r.paras.length - 1 ? <span class="qc" aria-hidden="true">”</span> : null}</p>)}
-              <div class="who"><img src={`${JK}/${r.img}.webp`} alt={r.alt} width={r.w} height={r.h} loading="lazy" decoding="async" /><div><b>{r.name}</b><span>{r.role}</span></div></div>
+              <div class="who">
+                <img src={`${JK}/${r.img}.webp`} alt={r.alt} width={r.w} height={r.h} loading="lazy" decoding="async" />
+                <div><b>{r.name}</b><span>{r.role}</span></div>
+              </div>
+              <span class="q-what">{r.what}</span>
+              {r.paras.map((p) => <p>{p}</p>)}
             </li>
           ))}
         </ul>
       </div>
     </section>
 
-    <!-- ═══ 10 · FAQ ═══ -->
-    <section class="s s--tint">
+    <!-- ═══ 11 · FAQ ═══ -->
+    <section class="band g-clay">
       <div class="wrap">
-        <header class="hd"><span class="orn"><Fragment set:html={gem} /></span><h2>Frequently Asked <em>Questions</em></h2></header>
-        <div class="acc acc--center">
+        <header class="hd hd--c">
+          <h2>People Also Ask About Custom Jewelry Packaging</h2>
+          <p>Six questions that come up before a brief is settled.</p>
+        </header>
+        <div class="acc">
           {faqs.map((f) => (
             <details data-reveal="up">
-              <summary><span class="qa-n">{f.n}</span><span class="qa-q">{f.q}</span></summary>
+              <summary><span class="q-n">{f.n}</span><span class="q-t">{f.q}</span></summary>
               <p>{f.a}</p>
             </details>
           ))}
@@ -394,12 +532,12 @@ const gem = '<svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
       </div>
     </section>
 
-    <!-- ═══ 11 · CLOSING — shorter than it was ═══ -->
-    <section class="s s--deepest">
+    <!-- ═══ 12 · CLOSING ═══ -->
+    <section class="band band--dark g-forest">
       <div class="wrap">
-        <div class="final-block">
+        <div class="fin">
           <h2>Send Your Sizes, and the <em>Sample Comes Back</em></h2>
-          <p>Length, width and height for each piece, the quantity per size, and the ship-to country.</p>
+          <p>Length, width and height for each piece, how many of each size, and where the samples are going. One page is enough — the price and a proposed build come back from it.</p>
           <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send the Sizes<Fragment set:html={arrow} /></a>
         </div>
       </div>
@@ -411,235 +549,581 @@ const gem = '<svg width="14" height="14" viewBox="0 0 20 20" aria-hidden="true">
 
 <script>
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const els = Array.from(document.querySelectorAll('[data-reveal]'));
+  const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
   if ('IntersectionObserver' in window && !reduce) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    els.forEach((el) => io.observe(el));
-  } else { els.forEach((el) => el.classList.add('in')); }
-  const items = Array.from(document.querySelectorAll('.acc details'));
-  items.forEach((d) => d.addEventListener('toggle', () => { if (d.open) items.forEach((o) => { if (o !== d) o.open = false; }); }));
+    revealEls.forEach((el) => io.observe(el));
+  } else { revealEls.forEach((el) => el.classList.add('in')); }
+
+  const faqItems = Array.from(document.querySelectorAll('.acc details'));
+  faqItems.forEach((d) => d.addEventListener('toggle', () => { if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; }); }));
 </script>
 
 <style>
-  .jk { background: var(--ivory); }
-  .wrap { width: min(1180px, 100% - clamp(2rem, 6vw, 5rem)); margin-inline: auto; }
-
-  .s { background: linear-gradient(170deg, #1F3B2C 0%, #162C20 100%); padding: clamp(4rem, 8vw, 6.5rem) 0; }
-  .s--light { background: var(--ivory); }
-  .s--warm { background: #EFE8DA; }
-  .s--tint { background: #F5F0E5; }
-  .s--deepest { background: #14271B; }
-
-  .eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass); }
-  .hd { text-align: center; max-width: 58rem; margin: 0 auto clamp(2.4rem, 4.6vw, 3.6rem); }
-  .hd--left { text-align: left; margin-inline: 0; max-width: 46rem; }
-  .hd h2 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.022em; color: var(--color-brand-text); margin: 0; text-wrap: balance; }
-  .hd h2 em { font-style: italic; color: var(--brass); }
-  .hd p { margin: 1rem 0 0; font-size: 1.05rem; line-height: 1.72; color: var(--color-brand-muted); max-width: 62ch; }
-  .hd--light h2 { color: var(--ivory); }
-  .hd--light h2 em { color: var(--brass-soft); }
-  .hd--light p { color: rgba(245, 240, 229, 0.76); }
-  .orn { display: inline-flex; color: var(--brass); }
-  .orn--light { color: var(--brass-soft); }
-  .note { font-family: var(--font-heading); font-style: italic; font-weight: 600; color: var(--brass); font-size: 1.05rem; }
-  .code { font-family: var(--font-body); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em; color: var(--brass); }
-  .close { margin: 2.4rem 0 0; font-size: 1rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 76ch; }
-
-  .plate { position: relative; margin: 0; padding: 0.5rem; border: 1px solid rgba(201, 168, 124, 0.45); border-radius: 0.35rem; }
-  .plate::before { content: ''; position: absolute; inset: 0.24rem; border: 1px solid rgba(201, 168, 124, 0.2); pointer-events: none; }
-  .plate img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .slot { display: grid; place-items: center; gap: 0.2rem; width: 100%; aspect-ratio: 16 / 9; background: rgba(245, 240, 229, 0.05); border: 1px dashed rgba(245, 240, 229, 0.34); color: rgba(245, 240, 229, 0.6); font-family: var(--font-body); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; }
-  .slot span { font-family: var(--font-heading); font-style: italic; font-size: 1.15rem; letter-spacing: 0; }
-  .slot i { font-style: normal; font-size: 0.6rem; opacity: 0.8; }
-  .s--light .slot, .s--warm .slot { background: rgba(31, 59, 44, 0.04); border-color: rgba(31, 59, 44, 0.3); color: rgba(31, 59, 44, 0.5); }
-
-  /* ---- 1 header: the plate IS the background ---- */
-  .hero {
-    position: relative;
-    padding: clamp(4.5rem, 10vw, 8rem) 0 clamp(3rem, 6vw, 4.5rem);
-    background-image: url('https://img.leelinepackage.com/jewelry/hero-quad.webp');
-    background-size: cover;
-    background-position: center 44%;
-    background-repeat: no-repeat;
+  /* ══ 1 · grounds and band padding ═══════════════════════════════════════════
+     site.css carries no section padding, so every band sets its own or the
+     sections touch. Alternating ivory → clay with one dark centre of gravity. */
+  .jk { --hair: rgba(31, 59, 44, 0.14); }
+  .band { padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* the first band sits 0.5 cm further off the hero's figure bar */
+  .hp + .band { padding-top: calc(clamp(4rem, 9vw, 7.5rem) + 1.2rem); }
+  .band--dark { padding: clamp(4.5rem, 10vw, 8.5rem) 0; }
+  .g-ivory { background: var(--color-ivory); }
+  .g-clay { background: var(--color-clay); }
+  .g-dark { background: var(--color-forest); color: var(--color-ivory); }
+  /* the closing band sits 2 cm shorter than the other dark one, over a plate */
+  .g-forest {
+    background:
+      linear-gradient(180deg, rgba(20, 38, 27, 0.9) 0%, rgba(20, 38, 27, 0.74) 52%, rgba(20, 38, 27, 0.92) 100%),
+      url('https://img.leelinepackage.com/jewelry/cta-bg-v2.webp') center / cover no-repeat,
+      var(--forest-deep);
+    color: var(--color-ivory);
+    padding: clamp(3.6rem, 7.5vw, 6.15rem) 0;
   }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(72% 96% at 50% 46%, rgba(251, 248, 241, 0.94) 0%, rgba(251, 248, 241, 0.78) 48%, rgba(251, 248, 241, 0.42) 100%);
+
+  /* ══ 2 · shared head, label and payoff ══════════════════════════════════════ */
+  .hd { margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+  .hd--c { text-align: center; }
+  .hd h2 {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.9rem, 4.4vw, 3.3rem); line-height: 1.06;
+    letter-spacing: -0.02em; color: var(--color-brand-text);
+    margin: 0; text-wrap: balance;
   }
-  .hero-in { position: relative; z-index: 1; text-align: center; }
-  .hero-in .eyebrow { justify-content: center; }
-  .hero h1 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.95rem, 4.3vw, 3.3rem); line-height: 1.06; letter-spacing: -0.028em; color: var(--color-brand-text); margin: 1rem auto 0; max-width: 22ch; text-wrap: balance; }
-  .hero h1 em { font-style: italic; color: var(--brass); }
-  .lede { margin: 1.3rem auto 0; font-size: 1.05rem; line-height: 1.72; color: var(--color-brand-muted); max-width: 62ch; }
-  .hero .btn { margin-top: 1.9rem; }
-  .figs { list-style: none; margin: clamp(2.4rem, 4.6vw, 3.4rem) auto 0; padding: clamp(1.5rem, 2.8vw, 2rem) 0 0; border-top: 1px solid rgba(31, 59, 44, 0.18); display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 3vw, 2.4rem); text-align: left; }
-  .figs b { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1; color: var(--color-brand-primary); }
-  .figs span { display: block; margin-top: 0.45rem; font-size: 0.88rem; line-height: 1.5; color: var(--color-brand-muted); }
+  .hd p {
+    margin: 1.15rem 0 0; font-size: 1.06rem; line-height: 1.7;
+    color: var(--color-brand-muted); max-width: 80ch;
+  }
+  .hd--c p { margin-inline: auto; }
+  .g-dark .hd h2, .g-forest .hd h2 { color: var(--color-ivory); }
+  .g-dark .hd p { color: rgba(245, 240, 229, 0.78); }
 
-  /* ---- 2 types ---- */
-  .t3 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
-  .t3 li { background: #F8F3E9; border-radius: 1.1rem; overflow: hidden; }
-  .t3 figure { margin: 0; }
-  .t3 img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; display: block; }
-  .t3 .b { padding: 1.3rem 1.4rem 1.5rem; }
-  .t3 h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.12rem; line-height: 1.3; margin: 0.35rem 0 0; color: var(--color-brand-text); }
-  .t3 p { margin: 0.6rem 0 0; font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); }
+  .code {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--forest-deep); background: var(--brass-soft);
+    border-radius: 999px; padding: 0.3rem 0.7rem;
+  }
+  .kicker {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brass);
+  }
+  /* the payoff line — every section states what the buyer gets in the same
+     brass-tinted block, so it reads as the takeaway rather than more body copy */
+  .get {
+    font-size: 0.9rem; line-height: 1.55; font-weight: 600;
+    color: var(--forest-deep); background: rgba(176, 141, 76, 0.18);
+    border-radius: 0.5rem; padding: 0.5rem 0.7rem;
+  }
+  .g-dark .get { color: var(--brass-soft); background: rgba(201, 168, 124, 0.15); }
+  .tail {
+    margin-top: clamp(1.8rem, 4vw, 2.6rem); font-size: 0.95rem;
+    line-height: 1.7; color: var(--color-brand-muted); max-width: 80ch;
+  }
 
-  /* ---- 3 inserts: 16:9 slots, three fields ---- */
-  .ins { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: calc(0.9rem + 0.5cm); row-gap: clamp(1.8rem, 3.6vw, 2.8rem); }
-  .ins > li { grid-column: span 2; }
-  .ins > li:nth-child(4) { grid-column: 2 / span 2; }
-  .ins > li:nth-child(5) { grid-column: 4 / span 2; }
-  .ins h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; margin: 1.1rem 0 0; color: var(--ivory); }
-  .ins p { margin: 0.55rem 0 0; font-size: 0.94rem; line-height: 1.64; color: rgba(245, 240, 229, 0.74); }
-  .ins .when { color: var(--brass-soft); }
-  .ins .get { font-family: var(--font-heading); color: var(--ivory); }
+  /* ══ 3 · hero — the plate is the band's own background; copy sits on a left
+     scrim, and the figure bar is fused to the band's foot ══════════════════ */
+  .hp {
+    position: relative; isolation: isolate; overflow: hidden;
+    padding: calc(clamp(3.2rem, 6vw, 4.6rem) + 4.75rem) 0 0;
+  }
+  .hp::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background: url('https://img.leelinepackage.com/jewelry/hero-bg-v2.webp') center / cover no-repeat;
+    filter: brightness(1.06) saturate(0.97);
+  }
+  .hp::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(100deg,
+      rgba(245, 240, 229, 0.965) 0%, rgba(245, 240, 229, 0.92) 34%,
+      rgba(245, 240, 229, 0.50) 64%, rgba(245, 240, 229, 0.22) 100%);
+  }
+  .hp-in { position: relative; z-index: 1; padding-bottom: clamp(2.6rem, 5vw, 4rem); }
+  .hp-title {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2.05rem, 4.5vw, 3.6rem); line-height: 1.05;
+    letter-spacing: -0.028em; color: var(--forest-deep);
+    margin: 1.2rem 0 0; max-width: 25ch; text-wrap: balance;
+  }
+  .hp-title em { font-style: italic; color: var(--color-brass); }
+  .hp-lede {
+    margin: 1.5rem 0 0; max-width: 68ch;
+    font-size: clamp(1.02rem, 1.5vw, 1.14rem); line-height: 1.78;
+    color: var(--color-brand-muted);
+  }
+  .hp-in .btn { margin-top: 2rem; }
+  .hp-bar {
+    position: relative; z-index: 1;
+    background: rgba(245, 240, 229, 0.9);
+    border-top: 1px solid var(--hair);
+  }
+  .hp-figs {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem; list-style: none; margin: 0 auto; padding: 1.6rem 0;
+    text-align: left;
+  }
+  .hp-figs li {
+    display: flex; flex-direction: column; gap: 0.35rem;
+    padding-left: 1.4rem; border-left: 1px solid rgba(176, 141, 76, 0.45);
+  }
+  .hp-figs li:first-child { border-left: 0; padding-left: 0; }
+  .hp-figs b {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: 1.22rem; color: var(--color-brand-primary);
+  }
+  .hp-figs span { font-size: 0.86rem; line-height: 1.5; color: var(--color-brand-muted); }
 
-  /* ---- 4 structure: one wide row each, plate left, more copy ---- */
-  .st { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: clamp(1.4rem, 3vw, 2.2rem); }
-  .st > li { display: grid; grid-template-columns: minmax(0, 0.46fr) minmax(0, 0.54fr); gap: clamp(1.4rem, 3.4vw, 2.8rem); align-items: center; background: #F8F3E9; border-radius: 1.1rem; padding: clamp(1rem, 2vw, 1.5rem); }
-  .st h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 2.1vw, 1.5rem); line-height: 1.26; margin: 0.35rem 0 0; color: var(--color-brand-text); }
-  .st .why { margin: 0.8rem 0 0; font-size: 1rem; line-height: 1.72; color: var(--color-brand-text); }
-  .st dl { margin: 1rem 0 0; display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.4rem 1rem; align-items: baseline; }
-  .st dt { font-family: var(--font-body); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
-  .st dd { margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); }
+  /* ══ 2 · the three checks — claim above, plate below ═══════════════════════ */
+  .chk {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.2rem, 2.6vw, 2rem); list-style: none; margin: 0; padding: 0;
+  }
+  .chk li {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--hair); border-radius: 1.2rem; overflow: hidden;
+    background: rgba(245, 240, 229, 0.5);
+  }
+  .chk-b {
+    display: flex; flex-direction: column; flex: 1;
+    padding: clamp(1.3rem, 2.4vw, 1.8rem) clamp(1.3rem, 2.4vw, 1.8rem) clamp(1.2rem, 2.2vw, 1.6rem);
+  }
+  .chk-n {
+    font-family: var(--font-heading); font-style: italic;
+    font-weight: 600; font-size: 1.5rem; color: var(--color-brass);
+  }
+  .chk h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem;
+    line-height: 1.28; margin: 0.5rem 0 0; color: var(--color-brand-text);
+  }
+  .chk p {
+    margin: 0.7rem 0 0; font-size: 0.95rem; line-height: 1.7;
+    color: var(--color-brand-muted);
+  }
+  /* the small mark beside each heading — one per failure, its colour set inline */
+  .chk-h { display: flex; align-items: flex-start; gap: 0.7rem; margin: 0.55rem 0 0; }
+  .chk-h h3 { margin: 0; }
+  .chk-ic {
+    flex: 0 0 auto; width: 1.55rem; height: 1.55rem; margin-top: 0.1rem;
+    border-radius: 50%; border: 1.5px solid currentColor; color: var(--ic);
+    display: grid; place-content: center;
+  }
+  .chk-ic svg { width: 0.95rem; height: 0.95rem; display: block; }
+  /* equal-height payoff blocks so the three line up at the card's foot */
+  .chk .get {
+    margin-top: auto; font-size: 0.88rem; color: var(--forest-deep);
+    min-height: 4.1rem; display: flex; align-items: center;
+  }
 
-  /* ---- 5 linings: cards carry the copy ---- */
-  .ln { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
-  .ln > li { background: #F8F3E9; border-radius: 1.1rem; overflow: hidden; display: flex; flex-direction: column; }
-  .ln figure { margin: 0; }
-  .ln img { width: 100%; aspect-ratio: 16 / 11; object-fit: cover; display: block; }
-  .ln .b { padding: 1.2rem 1.3rem 1.5rem; display: flex; flex-direction: column; flex: 1; }
-  .ln h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; color: var(--color-brand-text); margin: 0; }
-  .ln p { margin: 0.5rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
-  .ln .use { color: var(--brass); }
-  .ln .get { margin-top: auto; padding-top: 0.7rem; font-family: var(--font-heading); color: var(--color-brand-text); }
+  /* ══ 5 · types — the page's only photo grid ════════════════════════════════ */
+  .t3 {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.2rem, 2.6vw, 2rem); list-style: none; margin: 0; padding: 0;
+  }
+  .t3 li {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--hair); border-radius: 1.2rem; overflow: hidden;
+  }
+  .t3 figure {
+    margin: 0; aspect-ratio: 22 / 21; overflow: hidden; background: var(--color-clay);
+  }
+  .t3 img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .t3 li:hover img { transform: scale(1.04); }
+  /* Only the frames shot on a white ground are knocked into the card's ivory.
+     The rest carry a styled ground of their own and are left exactly as shot. */
+  .t3 li.knock figure { background: var(--color-ivory); isolation: isolate; }
+  .t3 li.knock img { mix-blend-mode: multiply; }
+  .t3-b { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+  .t3-b .code { align-self: flex-start; }
+  .t3-b h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem;
+    line-height: 1.25; margin: 0; color: var(--color-brand-text);
+  }
+  /* the spec sits under the brass code pill as a secondary, outlined pill */
+  .t3-b .spec {
+    align-self: flex-start; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--color-brand-muted);
+    border: 1px solid rgba(31, 59, 44, 0.22); border-radius: 999px;
+    padding: 0.28rem 0.7rem;
+  }
+  .t3-b p { margin: 0.15rem 0 0; font-size: 0.93rem; line-height: 1.65; color: var(--color-brand-muted); }
 
-  /* ---- 6 finish: a five-step run ---- */
-  .runs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1.2rem, 2.6vw, 2rem); }
-  .runs > li { border-top: 1px solid rgba(31, 59, 44, 0.24); padding-top: 1.2rem; }
-  .runs .n { display: block; font-family: var(--font-heading); font-style: italic; font-weight: 600; font-size: 1.7rem; line-height: 1; color: var(--brass); }
-  .runs h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.3; margin: 0.7rem 0 0; color: var(--color-brand-text); }
-  .runs p { margin: 0.5rem 0 0; font-size: 0.93rem; line-height: 1.64; color: var(--color-brand-muted); }
+  /* ══ 6 · inserts — one framed panel, dividers inside, slots where the source
+     page has no frame ══════════════════════════════════════════════════════ */
+  .panel {
+    border: 1px solid var(--hair); border-radius: 1.3rem;
+    background: rgba(245, 240, 229, 0.5); overflow: hidden;
+  }
+  /* five cells across left every description cramped in a 240 px column. Three
+     on the first row, the remaining two centred under them at the same width —
+     a 6-column track, so the bottom pair sits at columns 2–3 and 4–5.
+     No vertical rule between cells; the rule between the two rows stays. */
+  .panel-row {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    list-style: none; margin: 0; padding: 0;
+  }
+  .panel-row > li {
+    grid-column: span 2;
+    display: flex; flex-direction: column; gap: 0.85rem;
+    padding: clamp(1.2rem, 2.2vw, 1.6rem) clamp(0.75rem, 1.65vw, 1.15rem) clamp(1.3rem, 2.4vw, 1.8rem);
+  }
+  .panel-row > li:nth-child(4) { grid-column: 2 / span 2; }
+  .panel-row > li:nth-child(5) { grid-column: 4 / span 2; }
+  .panel-row > li:nth-child(-n + 3) { border-bottom: 1px solid var(--hair); }
+  /* 13:8 against the old 3:2 — with the padding trimmed that is the plate 0.3 cm
+     wider and 0.3 cm shorter at the wrap width */
+  .slot { margin: 0; aspect-ratio: 13 / 8; border-radius: 0.8rem; overflow: hidden; background: var(--color-clay); }
+  .slot img { width: 100%; height: 100%; object-fit: cover; }
+  /* Only the photographs shot on a white ground are knocked into the band
+     colour. The ones with a ground of their own are left exactly as shot. */
+  .panel-row .slot--knock { isolation: isolate; }
+  .panel-row .slot--knock img { mix-blend-mode: multiply; }
+  .slot--empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.3rem; border: 1px dashed rgba(176, 141, 76, 0.55);
+    background: repeating-linear-gradient(135deg,
+      rgba(176, 141, 76, 0.11) 0 8px, rgba(176, 141, 76, 0.02) 8px 16px);
+  }
+  .slot-n { font-family: var(--font-heading); font-style: italic; font-weight: 600; font-size: 1.3rem; color: var(--color-brass); }
+  .slot-t { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-moss); }
+  .panel-b { display: flex; flex-direction: column; gap: 0.42rem; flex: 1; }
+  .panel-b .code { align-self: flex-start; }
+  .panel-b h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem;
+    line-height: 1.28; margin: 0; color: var(--color-brand-text);
+  }
+  .panel-b p { margin: 0; font-size: 0.88rem; line-height: 1.62; color: var(--color-brand-muted); }
+  .panel-b .get {
+    margin-top: auto; font-size: 0.86rem; color: var(--forest-deep);
+    min-height: 3.5rem; display: flex; align-items: center;
+  }
 
-  /* ---- 7 box or gift box ---- */
-  .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3.4vw, 2.8rem); }
-  .pair article { display: grid; grid-template-rows: auto 1fr; }
-  .pair .plate { padding: 0.45rem; }
-  .pair .plate img { aspect-ratio: 16 / 9; }
-  .pair h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.26; color: var(--ivory); margin: 1.2rem 0 0; }
-  .pair p { margin: 0.7rem 0 0; font-size: 0.97rem; line-height: 1.7; color: rgba(245, 240, 229, 0.76); }
-  .pair b { font-family: var(--font-body); font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass-soft); margin-right: 0.4rem; }
-  .pair .get { color: var(--ivory); }
+  /* ══ 7 · linings — the page's dark centre of gravity, and its key numbers ══ */
+  .ln {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.4vw, 1.9rem); list-style: none; margin: 0; padding: 0;
+  }
+  .ln li { display: flex; flex-direction: column; }
+  .ln figure {
+    margin: 0; aspect-ratio: 14 / 11; border-radius: 1rem; overflow: hidden;
+    background: rgba(245, 240, 229, 0.06);
+  }
+  .ln img { width: 100%; height: 100%; object-fit: cover; }
+  .ln h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem;
+    margin: 1rem 0 0; color: var(--color-ivory);
+  }
+  .ln-use {
+    display: block; margin-top: 0.35rem; font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass-soft);
+  }
+  .ln .get { margin: 0.75rem 0 0; font-size: 0.9rem; }
+  .compare {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.2rem, 3vw, 2.4rem); margin-top: clamp(2.6rem, 5vw, 4rem);
+  }
+  .cmp { border-top: 2px solid var(--brass); padding-top: 1.4rem; }
+  .cmp--warn { border-top-color: rgba(245, 240, 229, 0.3); }
+  /* The panels used to be headed by 18 months / 3–4 weeks, which repeated the
+     hero's own figures at display size. The label is the heading now. */
+  .cmp-k {
+    display: block; margin: 0; font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.4rem, 3vw, 2.2rem); line-height: 1.15;
+    letter-spacing: -0.02em; color: var(--color-ivory);
+  }
+  .cmp--warn .cmp-k { color: rgba(245, 240, 229, 0.62); }
+  .cmp p { margin: 0.8rem 0 0; font-size: 0.95rem; line-height: 1.7; color: rgba(245, 240, 229, 0.76); max-width: 46ch; }
 
-  /* ---- 8 case study ---- */
-  .feat { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(1.6rem, 3.6vw, 3rem); align-items: start; }
-  .feat .plate img { aspect-ratio: auto; }
-  .feat h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2.3vw, 1.7rem); line-height: 1.24; margin: 0; color: var(--color-brand-text); }
-  .feat p { margin: 0.9rem 0 0; font-size: 1rem; line-height: 1.74; color: var(--color-brand-muted); }
-  .feat .btn { margin-top: 1.6rem; }
-  .nums { list-style: none; margin: clamp(2.4rem, 5vw, 3.4rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.2rem, 3vw, 2.4rem); }
-  .nums b { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; letter-spacing: -0.03em; color: var(--color-brand-primary); }
-  .nums span { display: block; margin-top: 0.6rem; font-size: 0.94rem; line-height: 1.6; color: var(--color-brand-muted); }
+  /* ══ 8 · materials — four across, names set on the photograph, placeholders
+     until the client supplies material shots rather than product boxes ═════ */
+  .mat {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.4vw, 1.8rem); list-style: none; margin: 0; padding: 0;
+  }
+  .mat-fig {
+    margin: 0; position: relative; aspect-ratio: 4 / 3;
+    border-radius: 1rem; overflow: hidden; background: var(--color-clay);
+  }
+  .mat-fig img { width: 100%; height: 100%; object-fit: cover; }
+  .mat-fig--empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.55rem; border: 1px dashed rgba(176, 141, 76, 0.55);
+    background: repeating-linear-gradient(135deg,
+      rgba(176, 141, 76, 0.1) 0 10px, rgba(176, 141, 76, 0.02) 10px 20px);
+  }
+  .mat-cap {
+    position: absolute; inset: auto 0 0 0; padding: 1.1rem 1.1rem 0.95rem;
+    background: linear-gradient(180deg, rgba(20, 38, 27, 0) 0%, rgba(20, 38, 27, 0.8) 64%);
+  }
+  .mat-cap h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem;
+    line-height: 1.25; margin: 0; color: var(--color-ivory);
+  }
+  .mat-cap .grade {
+    display: inline-block; margin-top: 0.5rem; font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass-soft);
+    border: 1px solid rgba(201, 168, 124, 0.5); border-radius: 999px;
+    padding: 0.28rem 0.7rem;
+  }
+  /* with no photograph behind them the caption drops below the slot and goes dark */
+  .mat-fig--empty .mat-cap { position: static; inset: auto; padding: 0; background: none; text-align: center; }
+  .mat-fig--empty .mat-cap h3 { color: var(--color-brand-text); }
+  .mat-fig--empty .mat-cap .grade { color: var(--color-brass); border-color: rgba(176, 141, 76, 0.45); }
+  .mat > li > p { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
 
-  /* ---- 9 reviews: the small pair is the only mark ---- */
-  .quotes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.2rem, 3vw, 2.2rem); }
-  .quotes > li { background: #F6F1E6; border: 1px solid rgba(201, 168, 124, 0.3); border-radius: 1.1rem; padding: 1.9rem 1.8rem 1.8rem; }
-  .quotes p { margin: 0 0 0.85rem; font-size: 0.99rem; line-height: 1.74; color: var(--color-brand-text); }
-  .qo, .qc { font-family: var(--font-heading); color: var(--brass); }
-  .who { display: flex; align-items: center; gap: 0.8rem; margin-top: 1.3rem; }
-  .who img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
-  .who b { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-text); }
-  .who span { display: block; font-size: 0.82rem; color: var(--color-brand-muted); }
+  /* ══ 9 · structure — the page's one table; "Best for" carries the brass ════ */
+  .st-wrap { overflow-x: auto; }
+  .st {
+    width: 100%; min-width: 46rem; border-collapse: collapse;
+    font-size: 0.94rem; line-height: 1.62;
+  }
+  .st caption {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  .st th, .st td {
+    text-align: left; vertical-align: top;
+    padding: 1rem 1.1rem; border-bottom: 1px solid var(--hair);
+  }
+  .st thead th {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--color-moss);
+    border-bottom-color: rgba(31, 59, 44, 0.3);
+  }
+  .st-c1 { width: 3.4rem; }
+  .st tbody .st-c1 {
+    font-family: var(--font-heading); font-style: italic; font-weight: 600;
+    font-size: 1.15rem; color: var(--color-brass);
+  }
+  .st-name {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem;
+    line-height: 1.25; color: var(--color-brand-text);
+  }
+  .st-hl { background: rgba(176, 141, 76, 0.2); color: var(--forest-deep); font-weight: 600; }
+  .st thead .st-hl { color: var(--color-brass); }
+  .st-avoid { color: var(--color-brand-muted); }
+  .st-why { color: var(--color-brand-muted); }
 
-  /* ---- 10 faq ---- */
-  .acc { display: flex; flex-direction: column; gap: 0.7rem; max-width: 62rem; margin-inline: auto; }
-  .acc details { background: #F6F1E6; border-radius: 0.95rem; padding: 0.35rem 1.4rem; }
-  .acc summary { cursor: pointer; list-style: none; padding: 1.05rem 2rem 1.05rem 0; position: relative; font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; color: var(--color-brand-text); }
+  /* ══ 10 · buyers — four cards, each carrying a figure the others do not ════ */
+  .buy {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    /* the horizontal gap is 0.5 cm wider than the vertical one */
+    row-gap: clamp(1.2rem, 2.4vw, 1.8rem);
+    column-gap: calc(clamp(1.2rem, 2.4vw, 1.8rem) + 1.18rem);
+    list-style: none; margin: 0 auto; padding: 0;
+    /* 2 × 2 at the full wrap made each card 590 px wide, which read slack */
+    max-width: 56rem;
+  }
+  .buy li {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--hair); border-radius: 1.2rem; padding: 1.1rem 1.15rem 1.3rem;
+    /* this band's heading is centred, so the cards are set centred with it */
+    text-align: center;
+  }
+  /* 2 × 2 — a landscape plate, landscape 16:9, on the card's own measure */
+  .buy figure {
+    margin: 0 auto 1.1rem; aspect-ratio: 16 / 9; border-radius: 0.8rem;
+    overflow: hidden; background: var(--color-clay);
+  }
+  .buy img { width: 100%; height: 100%; object-fit: cover; }
+  .buy h3 {
+    font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem;
+    line-height: 1.28; margin: 0.45rem 0 0; color: var(--color-brand-text);
+  }
+  /* One system in the card, the same one the rest of the page runs: serif for
+     the display items (the card name and the numeral), body sans for every
+     running line, and no second italic. */
+  .buy .scene {
+    margin: 0.7rem auto 0; max-width: 36ch; font-size: 0.95rem; line-height: 1.72;
+    color: var(--color-brand-muted); text-wrap: balance;
+  }
+  .buy .get { margin: 1rem auto 0; max-width: 40ch; font-size: 0.88rem; text-wrap: balance; }
+  /* the figure sits under the card name as its headline fact, not pushed to the
+     card's foot — parked at the bottom it stretched every card to the row height */
+  .buy .stat {
+    margin: 0.6rem 0 0;
+    display: flex; flex-direction: column; align-items: center; gap: 0.2rem;
+  }
+  .buy .stat b {
+    font-family: var(--font-heading); font-style: italic; font-weight: 600;
+    font-size: 1.3rem; color: var(--color-brand-primary);
+  }
+  .buy .stat span { font-size: 0.74rem; color: var(--color-brand-muted); }
+
+  /* ══ 11 · case study ══════════════════════════════════════════════════════ */
+  .feat {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(1.6rem, 4vw, 3.2rem); align-items: center;
+  }
+  .feat-shot { margin: 0; aspect-ratio: 8 / 5; border-radius: 1.2rem; overflow: hidden; background: var(--color-ivory); }
+  .feat-shot img { width: 100%; height: 100%; object-fit: cover; }
+  .feat-b h3 {
+    font-family: var(--font-heading); font-weight: 600;
+    font-size: clamp(1.35rem, 2.6vw, 1.95rem); line-height: 1.2;
+    margin: 0.7rem 0 0; color: var(--color-brand-text);
+  }
+  .feat-b p { margin: 0.9rem 0 0; font-size: 0.97rem; line-height: 1.75; color: var(--color-brand-muted); max-width: 62ch; }
+  .feat-b .btn { margin-top: 1.6rem; }
+  .nums {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.2rem, 2.6vw, 2rem); list-style: none;
+    margin: clamp(2.4rem, 5vw, 3.6rem) 0 0;
+    padding: clamp(1.6rem, 3vw, 2.2rem) 0 0; border-top: 1px solid var(--hair);
+  }
+  .nums b {
+    display: block; font-family: var(--font-heading); font-style: italic; font-weight: 700;
+    font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.05;
+    letter-spacing: -0.02em; color: var(--color-brand-primary);
+  }
+  .nums span { display: block; margin-top: 0.5rem; font-size: 0.88rem; line-height: 1.55; color: var(--color-brand-muted); }
+
+  /* ══ 12 · reviews — two cards, avatar first ═══════════════════════════════ */
+  .quotes {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.4rem, 3vw, 2.4rem); list-style: none; margin: 0; padding: 0;
+  }
+  .quotes li {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--hair); border-radius: 1.2rem;
+    background: var(--color-clay);
+    padding: clamp(1.6rem, 3vw, 2.4rem);
+  }
+  .who { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 1.3rem; }
+  .who img {
+    width: 92px; height: 92px; border-radius: 50%; object-fit: cover;
+    flex: 0 0 auto; border: 2px solid var(--brass);
+  }
+  .who b { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 1.22rem; color: var(--color-brand-text); }
+  .who span { display: block; margin-top: 0.2rem; font-size: 0.88rem; color: var(--color-brand-muted); }
+  /* what the reviewer says they ordered — one line, outside the quotation marks */
+  .quotes .q-what {
+    display: block; margin: 0 0 0.9rem; padding-left: 0.75rem;
+    border-left: 3px solid var(--brass);
+    font-size: 0.9rem; line-height: 1.55; font-weight: 600; color: var(--color-brand-text);
+  }
+  .quotes p {
+    margin: 0.85rem 0 0; font-family: var(--font-heading);
+    font-size: clamp(1.05rem, 1.4vw, 1.22rem); line-height: 1.78; color: var(--color-brand-text);
+  }
+
+  /* ══ 13 · FAQ and closing ═════════════════════════════════════════════════ */
+  .acc { max-width: 60rem; margin-inline: auto; display: grid; gap: 0.7rem; }
+  .acc details {
+    border: 1px solid var(--hair); border-radius: 0.9rem;
+    background: rgba(245, 240, 229, 0.5); padding: 0.15rem 1.2rem;
+  }
+  .acc summary { display: flex; gap: 0.9rem; align-items: baseline; padding: 1rem 0; cursor: pointer; list-style: none; }
   .acc summary::-webkit-details-marker { display: none; }
-  .acc summary::after { content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: var(--brass); font-size: 1.4rem; }
-  .acc details[open] summary::after { content: '–'; }
-  .acc p { margin: 0 0 1.2rem; font-size: 0.97rem; line-height: 1.72; color: var(--color-brand-muted); }
+  .q-n {
+    flex: 0 0 auto; font-family: var(--font-heading); font-style: italic;
+    font-weight: 600; font-size: 0.95rem; color: var(--color-brass);
+  }
+  .q-t { font-family: var(--font-heading); font-weight: 600; font-size: 1.08rem; line-height: 1.35; color: var(--color-brand-text); }
+  .acc p { margin: 0 0 1.15rem; padding-left: 2.05rem; font-size: 0.94rem; line-height: 1.72; color: var(--color-brand-muted); }
 
-  /* ---- 11 closing: shorter ---- */
-  .final-block { text-align: center; max-width: 60rem; margin-inline: auto; }
-  .final-block h2 { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.08; letter-spacing: -0.026em; color: var(--ivory); margin: 0 auto; max-width: 22ch; }
-  .final-block h2 em { font-style: italic; color: var(--brass-soft); }
-  .final-block p { margin: 1rem auto 0; font-size: 1rem; line-height: 1.7; color: rgba(245, 240, 229, 0.78); max-width: 56ch; }
-  .final-block .btn { margin-top: 1.6rem; }
+  .fin { max-width: 48rem; margin-inline: auto; text-align: center; }
+  .fin h2 {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.9rem, 4.4vw, 3.1rem); line-height: 1.08;
+    letter-spacing: -0.02em; margin: 0; color: var(--color-ivory); text-wrap: balance;
+  }
+  .fin h2 em { font-style: italic; color: var(--brass-soft); }
+  .fin p { margin: 1.2rem 0 0; font-size: 1.04rem; line-height: 1.7; color: rgba(245, 240, 229, 0.78); }
+  .fin .btn { margin-top: 2rem; }
 
-  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
-  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.22, 1, 0.36, 1); }
+  /* ══ 14 · reveal ══════════════════════════════════════════════════════════ */
+  [data-reveal] {
+    opacity: 0; transform: translateY(26px);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--d, 0s);
+  }
   [data-reveal].in { opacity: 1; transform: none; }
 
-  @media (max-width: 1024px) {
-    .t3, .ln { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .ins { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; }
-    .ins > li, .ins > li:nth-child(4), .ins > li:nth-child(5) { grid-column: auto; }
-    .runs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .st > li, .feat, .quotes, .pair { grid-template-columns: 1fr; }
-    .nums, .figs { grid-template-columns: repeat(2, 1fr); }
+  /* ══ 15 · breakpoints ═════════════════════════════════════════════════════ */
+  @media (max-width: 1100px) {
+    .panel-row { grid-template-columns: repeat(2, 1fr); }
+    .panel-row > li { border-left: 1px solid var(--hair); border-top: 1px solid var(--hair); }
+    .panel-row > li:nth-child(odd) { border-left: 0; }
+    .panel-row > li:nth-child(-n + 2) { border-top: 0; }
+    .buy { grid-template-columns: repeat(2, 1fr); }
   }
-  @media (max-width: 640px) {
-    .t3, .ln, .nums, .figs, .runs { grid-template-columns: 1fr; }
-    .st dl { grid-template-columns: 1fr; }
+  @media (max-width: 1000px) {
+    .mat { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .panel-row { grid-template-columns: repeat(2, 1fr); }
+    .panel-row > li,
+    .panel-row > li:nth-child(4),
+    .panel-row > li:nth-child(5) { grid-column: auto; }
+    .panel-row > li { border-bottom: 1px solid var(--hair); }
+    .panel-row > li:last-child { border-bottom: 0; }
+    .t3 { grid-template-columns: repeat(2, 1fr); }
+    .ln { grid-template-columns: repeat(2, 1fr); }
+    .compare { grid-template-columns: 1fr; }
+    .feat { grid-template-columns: 1fr; }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+    .hp-figs { grid-template-columns: repeat(2, 1fr); gap: 1.2rem; }
+    .hp-figs li:nth-child(odd) { border-left: 0; padding-left: 0; }
+    .chk { grid-template-columns: repeat(2, 1fr); }
+    .hp::after {
+      background: linear-gradient(180deg,
+        rgba(245, 240, 229, 0.93) 0%, rgba(245, 240, 229, 0.82) 56%,
+        rgba(245, 240, 229, 0.95) 100%);
+    }
+  }
+  /* the one table stacks below tablet — five columns never fit a phone, and a
+     sideways-scrolling spec table is worse than a stacked one */
+  @media (max-width: 768px) {
+    .st-wrap { overflow-x: visible; }
+    .st { min-width: 0; }
+    .st thead {
+      position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+    }
+    .st, .st tbody, .st tr, .st td { display: block; width: auto; }
+    .st tbody tr { padding: 1.1rem 0; }
+    .st td { border: 0; padding: 0.15rem 0; }
+    .st tbody .st-c1 { font-size: 1rem; }
+    .st-name { font-size: 1.14rem; }
+    .st-why { margin-top: 0.5rem; }
+    .st-hl, .st-avoid { margin-top: 0.7rem; }
+    .st-hl { border-radius: 0.5rem; padding: 0.45rem 0.7rem; }
+    .st-hl::before, .st-avoid::before {
+      display: block; margin-bottom: 0.1rem; font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.16em; text-transform: uppercase;
+    }
+    .st-hl::before { content: 'Best for'; color: var(--color-brass); }
+    .st-avoid::before { content: 'Avoid when'; color: var(--color-moss); }
+  }
+  @media (max-width: 620px) {
+    .chk { grid-template-columns: 1fr; }
+    .quotes { grid-template-columns: 1fr; }
+    .panel-row { grid-template-columns: 1fr; }
+    .panel-row > li,
+    .panel-row > li:nth-child(4),
+    .panel-row > li:nth-child(5) { grid-column: auto; }
+    .panel-row > li { border-bottom: 1px solid var(--hair); }
+    .panel-row > li:last-child { border-bottom: 0; }
+    .slot { aspect-ratio: 13 / 6; }
+  }
+  @media (max-width: 600px) {
+    .t3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .ln { grid-template-columns: 1fr; }
+    .mat { grid-template-columns: 1fr; }
+    .buy { grid-template-columns: 1fr; }
+    .nums { grid-template-columns: 1fr; }
+    .hp-figs { grid-template-columns: 1fr; }
+    .hp-figs li { border-left: 0; padding-left: 0; }
+    .st li { grid-template-columns: 1fr; }
+    .st-n { font-size: 1.3rem; }
+    .st-d { grid-column: 1; }
   }
 
-  /* ---- 1 · inserts: gap −0.5 cm, so the plates gain a little width ---- */
-  /* ---- 2 · structure back to 2 × 2, each cell a plate beside its copy ---- */
-  .st { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.2rem); }
-  .st > li { grid-template-columns: minmax(0, 0.44fr) minmax(0, 0.56fr); align-items: start; gap: clamp(1rem, 2.2vw, 1.6rem); }
-  .st .why { font-size: 0.95rem; line-height: 1.66; }
-  .st h3 { font-size: clamp(1.1rem, 1.8vw, 1.28rem); }
-  .st dl { grid-template-columns: 1fr; gap: 0.15rem; }
-
-  /* ---- 3 · linings: the benefit sits tight under the note, in bold green ---- */
-  .ln .b { padding: 1.25rem 1.35rem 1.5rem; }
-  .ln h3 { font-size: 1.16rem; }
-  .ln p { font-size: 0.97rem; line-height: 1.66; margin-top: 0.55rem; }
-  .ln .use { font-size: 0.99rem; }
-  .ln .get { margin-top: 0.7rem; padding-top: 0; font-family: var(--font-body); font-weight: 700; color: var(--color-sage); }
-
-  /* ---- 4 · finish: a small coloured mark left of each label ---- */
-  .runs-ico { display: inline-flex; margin-right: 0.5rem; vertical-align: -3px; }
-  .runs-ico--brass { color: var(--brass); }
-  .runs-ico--forest { color: var(--color-sage); }
-
-  /* ---- 5 · box or gift box: the three labels bold, the payoff recoloured ---- */
-  .pair b { font-size: 0.7rem; font-weight: 800; color: var(--brass); letter-spacing: 0.18em; }
-  .pair .get { color: var(--brass-soft); font-weight: 600; }
-
-  /* ---- 6 · reviews: bigger type, avatars on a common baseline ---- */
-  .quotes > li { display: flex; flex-direction: column; }
-  .quotes p { font-size: 1.03rem; line-height: 1.76; }
-  .who { margin-top: auto; padding-top: 1.4rem; }
-
-  /* ---- 7 · FAQ: a centred numbered list ---- */
-
-  @media (max-width: 1024px) {
-    .st { grid-template-columns: 1fr; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+    .t3 img { transition: none; }
   }
-
-  /* ---- 2b · structure: all four cells the same height, plates the same size, and the two
-     field rows on a common baseline. Without this the copy length decided the layout. ---- */
-  .st { grid-auto-rows: 1fr; }
-  .st > li { align-items: stretch; }
-  .st > li > div { display: flex; flex-direction: column; }
-  .st .plate { display: flex; flex-direction: column; }
-  .st .plate img { flex: 1; aspect-ratio: auto; height: 100%; min-height: 11rem; object-fit: cover; }
-  .st .why { flex: 1; }
-  .st dl { margin-top: 1rem; }
-
-  /* ---- 7 · FAQ — an accordion, LEFT-aligned inside, but the column sits centred under the
-     heading. The numeral hangs in its own column so every question starts on one edge. ---- */
-  .acc--center { max-width: 56rem; margin-inline: auto; }
-  .acc--center details { text-align: left; }
-  .acc--center summary { display: flex; align-items: baseline; gap: 0.7rem; padding: 1.05rem 2.2rem 1.05rem 0; position: relative; }
-  .acc--center summary::after { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
-  .acc--center details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
-  .acc--center .qa-n { flex: 0 0 2rem; font-family: var(--font-heading); font-style: italic; font-weight: 600; font-size: 1.05rem; color: var(--brass); }
-  .acc--center .qa-q { font-size: 1.06rem; }
-  .acc--center p { text-align: left; max-width: none; margin: 0 0 1.15rem 2.7rem; }
 </style>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JK §2 · 换骨架的第二组预览</title>
+<style>
+@font-face{font-family:'Newsreader Variable';font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');}
+@font-face{font-family:'Instrument Sans Variable';font-weight:400 700;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+
+:root{
+  --color-forest:#1F3B2C; --color-brass:#B08D4C; --color-ivory:#F5F0E5;
+  --color-clay:#EDE5D4; --color-charcoal:#21241C; --color-moss:#8C8676;
+  --color-sage:#4A6B52; --color-kraft:#C9A87C;
+  --color-brand-text:#2B2F26; --color-brand-muted:#605C4E;
+  --forest-deep:#14261B; --brass-soft:#C9A87C; --hair:rgba(31,59,44,.14);
+  --font-heading:'Newsreader Variable',Georgia,serif;
+  --font-body:'Instrument Sans Variable',system-ui,sans-serif;
+  --gut:max(1.25rem,calc((100vw - 1200px)/2));
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-clay);color:var(--color-brand-text);
+  font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+.lbl{background:#21241C;color:#EDE5D4;margin:0;padding:1.1rem var(--gut);
+  font-size:.8rem;letter-spacing:.04em;line-height:1.5}
+.lbl b{color:var(--brass-soft);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  font-size:.72rem;margin-right:.7rem}
+.ph{background:repeating-linear-gradient(45deg,rgba(31,59,44,.06) 0 9px,transparent 9px 18px),#E2D8C6;
+  border:1px solid var(--hair);display:grid;place-content:center;text-align:center;color:#867E6A;
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:2;padding:1rem}
+.ph i{display:block;font-style:normal;font-family:var(--font-heading);font-size:1.05rem;
+  font-weight:500;letter-spacing:0;text-transform:none;color:#6E6757}
+.h2{font-family:var(--font-heading);font-weight:500;letter-spacing:-.02em;margin:0;line-height:1.05}
+.num{font-family:var(--font-heading);font-style:italic;font-weight:600;color:var(--brass)}
+
+/* ══════ F · 空场：一张照片出血，左边一栏字，其余全空 ══════ */
+.quiet{display:grid;grid-template-columns:minmax(0,34rem) 1fr;min-height:40rem}
+.quiet-tx{padding:clamp(3rem,6vw,5rem) clamp(2rem,4vw,4rem) clamp(3rem,6vw,5rem) var(--gut);align-self:center}
+.quiet-tx .h2{font-size:clamp(1.9rem,3.6vw,2.9rem)}
+.quiet-tx>p{margin:1.1rem 0 0;font-size:1rem;line-height:1.7;color:var(--color-brand-muted)}
+.quiet-tx ol{list-style:none;margin:2.4rem 0 0;padding:0}
+.quiet-tx li{display:flex;gap:1rem;padding:.85rem 0;font-size:.94rem;line-height:1.55}
+.quiet-tx li+li{border-top:1px solid var(--hair)}
+.quiet-tx li b{font-family:var(--font-heading);font-style:italic;font-weight:600;color:var(--brass);
+  font-size:1.05rem;flex:0 0 1.6rem}
+.quiet-tx li span{color:var(--color-brand-muted)}
+.quiet-ph{border:0;border-left:1px solid var(--hair)}
+
+/* ══════ G · 斜切 ══════ */
+.diag{position:relative;height:36rem;overflow:hidden}
+.diag .ph{position:absolute;inset:0;border:0}
+.diag-tint{position:absolute;inset:0;background:var(--forest-deep);opacity:.82;
+  clip-path:polygon(0 0,58% 0,26% 100%,0 100%)}
+.diag-h{position:absolute;left:var(--gut);top:clamp(2rem,4vw,3.4rem);
+  font-size:clamp(1.7rem,3.4vw,2.7rem);color:var(--color-ivory);max-width:22ch}
+.diag-a,.diag-b{position:absolute;bottom:clamp(2rem,4vw,3.4rem);max-width:24ch}
+.diag-a{left:var(--gut);color:var(--color-ivory)}
+.diag-b{right:calc(var(--gut) + 6vw);text-align:right}
+.diag-a h3,.diag-b h3{font-family:var(--font-heading);font-weight:600;margin:0;
+  font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.15}
+.diag-a p,.diag-b p{margin:.7rem 0 0;font-size:.92rem;line-height:1.65;
+  color:rgba(245,240,229,.8)}
+.diag-b h3{color:var(--forest-deep)}
+.diag-b p{color:var(--color-brand-muted)}
+.diag-k{display:block;font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:.7rem;color:var(--brass-soft)}
+.diag-b .diag-k{color:var(--brass)}
+
+/* ══════ H · 三列竖条 ══════ */
+.trio{display:grid;grid-template-columns:1fr 1.15fr 1fr;min-height:42rem}
+.trio>*{border-right:1px solid var(--hair)}
+.trio>*:last-child{border-right:0}
+.trio .ph{border:0;border-radius:0}
+.trio-tx{padding:clamp(2.6rem,5vw,4rem) clamp(1.6rem,3vw,3rem);display:flex;flex-direction:column;
+  justify-content:center;gap:0;background:var(--color-ivory)}
+.trio-tx .h2{font-size:clamp(1.7rem,3vw,2.5rem)}
+.trio-tx>p{margin:1rem 0 2rem;font-size:.98rem;line-height:1.7;color:var(--color-brand-muted)}
+.trio-c{padding:1.1rem 0;border-top:1px solid var(--hair)}
+.trio-c h3{font-family:var(--font-heading);font-weight:600;margin:0;font-size:1.08rem}
+.trio-c p{margin:.4rem 0 0;font-size:.88rem;line-height:1.6;color:var(--color-brand-muted)}
+
+/* ══════ I · 横向轨道 ══════ */
+.rail{display:flex;gap:1px;overflow-x:auto;scroll-snap-type:x mandatory;
+  background:var(--hair);padding-right:var(--gut);scrollbar-width:thin}
+.stop{flex:0 0 min(880px,68vw);scroll-snap-align:start;height:34rem;position:relative;background:var(--color-ivory)}
+.stop-a{background:var(--forest-deep);color:var(--color-ivory);display:flex;flex-direction:column;
+  justify-content:center;padding:clamp(2rem,4vw,3.6rem)}
+.stop-a .h2{font-size:clamp(1.9rem,3.8vw,2.9rem);max-width:20ch}
+.stop-a p{margin:1.2rem 0 0;max-width:44ch;font-size:1rem;line-height:1.7;color:rgba(245,240,229,.78)}
+.stop-a .rail-hint{margin-top:2.6rem;font-size:.74rem;font-weight:600;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--brass-soft)}
+.stop-b{background:var(--color-ivory)}
+.stop-b .ph{position:absolute;inset:0;border:0}
+.stop-cap{position:absolute;left:0;right:0;bottom:0;padding:clamp(1.6rem,3vw,2.4rem);
+  background:linear-gradient(to top,rgba(245,240,229,.97) 55%,rgba(245,240,229,0))}
+.stop-cap h3{font-family:var(--font-heading);font-weight:600;margin:0;font-size:1.5rem}
+.stop-cap p{margin:.5rem 0 0;font-size:.9rem;line-height:1.6;color:var(--color-brand-muted);max-width:46ch}
+.railbar{display:flex;gap:1.6rem;padding:1rem var(--gut);background:var(--color-clay);
+  font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--color-brand-muted)}
+.railbar b{color:var(--brass)}
+
+/* ══════ J · 标题压在底边（倒序） ══════ */
+.inv{min-height:34rem;display:grid;grid-template-rows:auto 1fr auto auto;
+  padding:clamp(3rem,6vw,5rem) var(--gut) 0}
+.inv-lede{margin:0;max-width:52ch;justify-self:end;text-align:right;font-size:.94rem;line-height:1.7;
+  color:var(--color-brand-muted)}
+.inv-mid{align-self:center;display:grid;gap:clamp(1.4rem,3vw,2.4rem);max-width:60ch;margin-top:2rem}
+.inv-c{margin:0;font-family:var(--font-heading);font-weight:500;font-size:clamp(1.25rem,2.4vw,1.9rem);
+  line-height:1.35;letter-spacing:-.01em}
+.inv-c em{font-style:italic;color:var(--brass)}
+.inv-checks{display:flex;gap:2.4rem;flex-wrap:wrap;padding:0 0 1.4rem;font-size:.78rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--color-brand-muted)}
+.inv-h{font-size:clamp(1.6rem,4.6vw,3.6rem);color:var(--color-forest);
+  padding:clamp(1rem,2vw,1.6rem) 0 clamp(1.2rem,2.4vw,2rem);border-top:1px solid var(--forest)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ F ══════════ -->
+<p class="lbl"><b>F</b>空场 —— 没有标题带、没有网格。一张竖幅照片从右边缘出血满高，左边一栏窄字，其余整个板块留空。用"少"当手法。</p>
+<section>
+  <div class="quiet">
+    <div class="quiet-tx">
+      <h2 class="h2">Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+      <ol>
+        <li><b>01</b><span><strong>压在盖线以下</strong> —— 不管垫多少，件都必须收在盖与底相接的那条线下面</span></li>
+        <li><b>02</b><span><strong>无硫布贴着金属</strong> —— 无硫层夹在件和别的一切之间，而且直接接触金属</span></li>
+        <li><b>03</b><span><strong>挖槽按件本身切</strong> —— 按实际的圈、石和扣切，控在 ±0.5 mm</span></li>
+      </ol>
+    </div>
+    <div class="ph quiet-ph"><i>照片 · struct-book</i>竖幅 · 出血到右边缘，满高</div>
+  </div>
+</section>
+
+<!-- ══════════ G ══════════ -->
+<p class="lbl"><b>G</b>斜切 —— 一张通栏照片，一条斜线把画面切成两半，深绿那半就是"接触/松动"。两个原因分坐在斜线两侧，标题压在最上面。</p>
+<section>
+  <div class="diag">
+    <div class="ph"><i>照片 · 通栏满幅 · struct-book</i>开盖盒 · 一件在里面</div>
+    <div class="diag-tint"></div>
+    <h2 class="h2 diag-h">Two Ways a Piece Arrives Damaged</h2>
+    <div class="diag-a">
+      <span class="diag-k">02 · 碰到金属的东西</span>
+      <h3>它会发黑</h3>
+      <p>空气里的硫，先碰到的是离金属最近的那一层布。无硫层要直接贴着金属，不是贴在胶上。</p>
+    </div>
+    <div class="diag-b">
+      <span class="diag-k">01 / 03 · 固定它的东西</span>
+      <h3>它会被蹭伤</h3>
+      <p>盒里那点松动，旅程走不到一半就已经划了。收在盖线以下、挖槽按件本身切 ±0.5 mm。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ H ══════════ -->
+<p class="lbl"><b>H</b>三列竖条 —— 照片 | 字 | 照片，三列等宽满高，中间那列扛全部文字。板块里没有标题带，标题长在中间那列里。</p>
+<section>
+  <div class="trio">
+    <div class="ph"><i>照片 · velvet</i>满高 · 布层贴着金属</div>
+    <div class="trio-tx">
+      <h2 class="h2">Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it.</p>
+      <div class="trio-c"><h3><span class="num">01</span> 压在盖线以下</h3>
+        <p>件必须收在盖与底相接的那条线下面；盖下去会压到石头，就是垫高了。</p></div>
+      <div class="trio-c"><h3><span class="num">02</span> 无硫布贴着金属</h3>
+        <p>无硫层直接接触金属，不是贴在胶上。18 个月就是从这层来的。</p></div>
+      <div class="trio-c"><h3><span class="num">03</span> 挖槽按件本身切</h3>
+        <p>按实际的圈、石和扣切，控在 ±0.5 mm，件就没法横向移动。</p></div>
+    </div>
+    <div class="ph"><i>照片 · type-travel</i>满高 · 挖槽卡住件</div>
+  </div>
+</section>
+
+<!-- ══════════ I ══════════ -->
+<p class="lbl"><b>I</b>横向轨道 —— 板块变成一条可横向拖动的轨：第一屏只讲问题，第二、三屏各扛一个原因。宽屏上第三屏露一个边，提示可以拖。带交互，代价是移动端要多一次滑动。</p>
+<section>
+  <div class="rail">
+    <div class="stop stop-a">
+      <h2 class="h2">Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it.</p>
+      <span class="rail-hint">往右拖 →</span>
+    </div>
+    <div class="stop stop-b">
+      <div class="ph"><i>照片 · velvet</i>深红丝绒开盖 · 布层贴着金属</div>
+      <div class="stop-cap">
+        <h3><span class="num">02</span> 它会发黑</h3>
+        <p>空气里的硫先碰到离金属最近的那一层布。无硫层要直接贴着金属，不是贴在胶上 —— 18 个月就是从这层来的。</p>
+      </div>
+    </div>
+    <div class="stop stop-b">
+      <div class="ph"><i>照片 · type-travel</i>四格切槽 · 件被卡住</div>
+      <div class="stop-cap">
+        <h3><span class="num">01 / 03</span> 它会被蹭伤</h3>
+        <p>盒里那点松动，旅程走不到一半就已经划了。收在盖线以下，挖槽按件本身切、控在 ±0.5 mm。</p>
+      </div>
+    </div>
+  </div>
+  <div class="railbar"><b>01</b> 压在盖线以下 <b>02</b> 无硫布贴着金属 <b>03</b> 挖槽按件本身切</div>
+</section>
+
+<!-- ══════════ J ══════════ -->
+<p class="lbl"><b>J</b>标题压在底边 —— 没有照片，读序反过来：先读到内容和检验项，最后才是大标题，压在板块的底边上。整页只有这一条不用图。</p>
+<section>
+  <div class="inv">
+    <p class="inv-lede">Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    <div class="inv-mid">
+      <p class="inv-c">空气里的硫，先碰到的是离金属最近的那一层布。<em>无硫层要直接贴着金属，不是贴在胶上。</em></p>
+      <p class="inv-c">盒里那点松动，旅程走不到一半就已经划了。<em>挖槽按件本身切，件就没有横着走的余地。</em></p>
+    </div>
+    <div class="inv-checks"><span>01 压在盖线以下</span><span>02 无硫布贴着金属</span><span>03 挖槽按件本身切 ±0.5 mm</span></div>
+    <h2 class="h2 inv-h">Two Ways a Piece Arrives Damaged</h2>
+  </div>
+</section>
+
+</body>
+</html>

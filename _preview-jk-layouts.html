@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JK · breaking the "image on top, text below" run — four proposals</title>
+<style>
+@font-face{font-family:'Newsreader Variable';font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');}
+@font-face{font-family:'Instrument Sans Variable';font-weight:400 700;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+:root{
+  --color-forest:#1F3B2C; --color-brass:#B08D4C; --color-ivory:#F5F0E5;
+  --color-clay:#EDE5D4; --color-moss:#8C8676; --color-sage:#4A6B52; --color-kraft:#C9A87C;
+  --color-brand-text:#2B2F26; --color-brand-muted:#605C4E;
+  --forest-deep:#14261B; --brass-soft:#C9A87C; --hair:rgba(31,59,44,.14);
+  --font-heading:'Newsreader Variable',Georgia,serif;
+  --font-body:'Instrument Sans Variable',system-ui,sans-serif;
+  --gut:max(1.25rem,calc((100vw - 1200px)/2));
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-clay);color:var(--color-brand-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+.lbl{background:#21241C;color:#EDE5D4;margin:0;padding:1.05rem var(--gut)}
+.lbl b{color:var(--brass-soft);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.7rem;margin-right:.8rem}
+.lbl s{color:#8C8676;text-decoration:none;display:block;margin-top:.25rem;font-size:.74rem;line-height:1.55}
+.band{padding:clamp(3.4rem,7vw,6rem) 0}
+.g-clay{background:var(--color-clay)} .g-ivory{background:var(--color-ivory)}
+.wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+.hd{margin-bottom:clamp(2.2rem,5vw,3.6rem)}
+.h2{font-family:var(--font-heading);font-weight:500;font-size:clamp(1.9rem,4.4vw,3.3rem);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.hd p{margin:1.15rem 0 0;font-size:1.06rem;line-height:1.7;color:var(--color-brand-muted);max-width:80ch}
+.hd--c{text-align:center}.hd--c p{margin-inline:auto}
+.kicker{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--color-brass)}
+.get{font-size:.9rem;line-height:1.55;font-weight:600;color:var(--forest-deep);background:rgba(176,141,76,.18);border-radius:.5rem;padding:.5rem .7rem}
+.slot{background:repeating-linear-gradient(135deg,rgba(176,141,76,.11) 0 8px,rgba(176,141,76,.02) 8px 16px);
+  border:1px dashed rgba(176,141,76,.55);display:grid;place-content:center;text-align:center;color:var(--color-moss);
+  font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.8;padding:.8rem}
+.slot i{display:block;font-style:normal;font-family:var(--font-heading);font-size:1.3rem;font-weight:600;color:var(--color-brass);letter-spacing:0;text-transform:none}
+
+/* ── P1 · three full-width rows ─────────────────────────────────────── */
+.rows{display:grid;gap:0}
+.row{display:grid;grid-template-columns:5rem minmax(0,1fr) minmax(15rem,21rem);
+  gap:clamp(1.2rem,3vw,2.6rem);align-items:center;padding:clamp(1.8rem,3.6vw,2.8rem) 0;
+  border-top:1px solid var(--hair)}
+.row:last-child{border-bottom:1px solid var(--hair)}
+.row-n{font-family:var(--font-heading);font-style:italic;font-weight:600;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--color-brass);line-height:1}
+.row h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.85rem);line-height:1.2;margin:0}
+.row p{margin:.75rem 0 0;font-size:.98rem;line-height:1.72;color:var(--color-brand-muted);max-width:60ch}
+.row .get{margin-top:1.1rem;display:block;width:fit-content;max-width:100%}
+.row-ph{aspect-ratio:4/3;border-radius:.9rem}
+
+/* ── P2 · buyer switcher ────────────────────────────────────────────── */
+.sw{display:grid;grid-template-columns:minmax(16rem,22rem) minmax(0,1fr);
+  border:1px solid var(--hair);border-radius:1.2rem;overflow:hidden;background:rgba(245,240,229,.5)}
+.sw-tabs{display:flex;flex-direction:column;border-right:1px solid var(--hair)}
+.sw-tabs button{
+  appearance:none;background:none;border:0;border-bottom:1px solid var(--hair);text-align:left;
+  padding:1.1rem 1.3rem;cursor:pointer;font-family:var(--font-heading);font-weight:600;
+  font-size:1.12rem;color:var(--color-brand-muted);display:flex;gap:.9rem;align-items:baseline;line-height:1.3}
+.sw-tabs button:last-child{border-bottom:0}
+.sw-tabs button span{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--color-moss);font-family:var(--font-body)}
+.sw-tabs button.on{background:var(--color-ivory);color:var(--color-brand-text);box-shadow:inset 3px 0 0 var(--brass)}
+.sw-tabs button.on span{color:var(--color-brass)}
+.sw-panel{padding:clamp(1.8rem,3.6vw,2.8rem);display:none;grid-template-columns:minmax(0,1fr) 13rem;
+  gap:clamp(1.6rem,3.4vw,3rem);align-items:center}
+.sw-panel.on{display:grid}
+.sw-panel h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.2;margin:.6rem 0 0}
+.sw-panel .scene{margin:.9rem 0 0;font-family:var(--font-heading);font-style:italic;font-size:1.12rem;line-height:1.65;color:var(--color-brand-muted)}
+.sw-panel .get{margin:1.2rem 0 0;display:inline-block}
+.sw-stat{border-left:1px solid var(--hair);padding-left:clamp(1.2rem,2.4vw,2rem)}
+.sw-stat b{display:block;font-family:var(--font-heading);font-style:italic;font-weight:600;
+  font-size:clamp(1.6rem,3vw,2.3rem);line-height:1.05;color:var(--color-brand-primary)}
+.sw-stat span{display:block;margin-top:.45rem;font-size:.86rem;color:var(--color-brand-muted);line-height:1.5}
+
+/* ── P3 · material strip ────────────────────────────────────────────── */
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--hair);
+  border-radius:1rem;overflow:hidden}
+.strip-fig{position:relative;aspect-ratio:3/4;
+  background:repeating-linear-gradient(135deg,rgba(176,141,76,.11) 0 9px,rgba(176,141,76,.02) 9px 18px);
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.1rem;gap:.3rem}
+.strip-fig .cap-h{font-family:var(--font-heading);font-weight:600;font-size:1.16rem;line-height:1.22;color:var(--color-brand-text)}
+.strip-fig .cap-g{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--color-brass)}
+.strip-note{margin-top:1.2rem}
+.strip-note p{margin:0;font-size:.9rem;line-height:1.65;color:var(--color-brand-muted)}
+.strip-notes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,2.4vw,1.8rem)}
+.strip-heads{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,2.4vw,1.8rem);margin-top:1.1rem}
+
+/* ── P4 · pull quote ────────────────────────────────────────────────── */
+.pull{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:clamp(1.6rem,3.4vw,2.6rem);align-items:start}
+.pull img{width:7.5rem;height:7.5rem;border-radius:50%;object-fit:cover;border:2px solid var(--brass)}
+.pull blockquote{margin:0;font-family:var(--font-heading);font-weight:500;
+  font-size:clamp(1.5rem,3vw,2.4rem);line-height:1.38;letter-spacing:-.01em;color:var(--color-brand-text)}
+.pull cite{display:block;margin-top:1.4rem;font-family:var(--font-body);font-style:normal;
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--color-brass)}
+.pull2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,34rem);margin-top:clamp(2.4rem,5vw,4rem);
+  padding-top:clamp(1.6rem,3vw,2.4rem);border-top:1px solid var(--hair)}
+.pull2 .who{display:flex;align-items:center;gap:1.1rem}
+.pull2 img{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--brass)}
+.pull2 b{display:block;font-family:var(--font-heading);font-weight:600;font-size:1.18rem}
+.pull2 span{display:block;margin-top:.2rem;font-size:.86rem;color:var(--color-brand-muted)}
+.pull2 .q{margin:0;font-family:var(--font-heading);font-size:1.06rem;line-height:1.8;color:var(--color-brand-text)}
+.pull2 .q+.q{margin-top:.85rem}
+.pull2 .q-what{display:block;margin:.9rem 0 1rem;padding-left:.75rem;border-left:3px solid var(--brass);
+  font-size:.9rem;line-height:1.55;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- ══════════ P1 ══════════ -->
+<p class="lbl"><b>P1 · §2</b>Three Ways a Piece Arrives Damaged — three full-width rows instead of three columns<s>Cheapest change with the biggest effect: it is the second screen, and the rest of the page is columns. Number left, claim in the middle, evidence plate on the right, a hairline between rows. Nothing new is needed — the same three slots, laid out the other way.</s></p>
+<section class="band g-clay">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">Three Ways a Piece Arrives Damaged</h2>
+      <p>Sulfur in the air, a lid that shuts too low, and a well cut to the wrong size — all three settle the outcome long before anybody opens the box.</p>
+    </header>
+    <div class="rows">
+      <div class="row">
+        <span class="row-n">01</span>
+        <div>
+          <h3>The lid leaves a mark on the stone</h3>
+          <p>The insert holds the piece below the line where lid meets base, and the sample is closed and reopened on the bench before the run starts.</p>
+          <span class="get">A stone that arrives exactly as it left the bench</span>
+        </div>
+        <figure class="slot row-ph"><i>01</i>Photo to come</figure>
+      </div>
+      <div class="row">
+        <span class="row-n">02</span>
+        <div>
+          <h3>Silver goes dark in the box</h3>
+          <p>A sulfur-free layer is laid against the metal itself rather than over the adhesive behind it, and it is the layer we name on the spec sheet.</p>
+          <span class="get">Stock that still reads as new after a season in the case</span>
+        </div>
+        <figure class="slot row-ph"><i>02</i>Photo to come</figure>
+      </div>
+      <div class="row">
+        <span class="row-n">03</span>
+        <div>
+          <h3>The piece scuffs itself on the way</h3>
+          <p>The well is measured from the piece itself, band and clasp included. Nothing in it has room to move.</p>
+          <span class="get">A piece that comes out of the box unmarked, however far it travelled</span>
+        </div>
+        <figure class="slot row-ph"><i>03</i>Photo to come</figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ P2 ══════════ -->
+<p class="lbl"><b>P2 · §8</b>Four Kinds of Buyer — a switcher instead of four photo cards<s>Drops the four scene photographs, which are the least justified on the page (a buyer is not a product). It also gives the page its first band where the content changes. Trade-off to weigh: the four figures can no longer be compared at a glance, because only one is on screen.</s></p>
+<section class="band g-ivory">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">Jewelry Packaging for Four Kinds of Buyer</h2>
+      <p>The box is the same object and the problem is not. These are the four situations that arrive most often, and what changes for each.</p>
+    </header>
+    <div class="sw">
+      <div class="sw-tabs" role="tablist">
+        <button class="on" data-i="0"><span>01</span>DTC jewelry brands</button>
+        <button data-i="1"><span>02</span>Fine jewelry and ateliers</button>
+        <button data-i="2"><span>03</span>Wholesale and stockists</button>
+        <button data-i="3"><span>04</span>Corporate and gift sets</button>
+      </div>
+      <div>
+        <div class="sw-panel on" data-i="0">
+          <div>
+            <span class="kicker">Sell online</span>
+            <h3>DTC jewelry brands</h3>
+            <p class="scene">Orders leave one at a time in a mailer, and the box inside is what the customer photographs.</p>
+            <span class="get">A first run small enough to test, in a box that has to survive the courier.</span>
+          </div>
+          <div class="sw-stat"><b>500 units</b><span>the first run, counted once</span></div>
+        </div>
+        <div class="sw-panel" data-i="1">
+          <div>
+            <span class="kicker">One piece at a time</span>
+            <h3>Fine jewelry and ateliers</h3>
+            <p class="scene">No two pieces match, and a stock tray leaves gaps that let a one-off slide around.</p>
+            <span class="get">A cavity drawn from your piece, not picked from a size chart.</span>
+          </div>
+          <div class="sw-stat"><b>±0.5 mm</b><span>cutting and assembly</span></div>
+        </div>
+        <div class="sw-panel" data-i="2">
+          <div>
+            <span class="kicker">Opened at a counter</span>
+            <h3>Wholesale and stockists</h3>
+            <p class="scene">The box is opened in front of somebody who is still deciding whether to buy.</p>
+            <span class="get">A tray that presents the piece the moment the lid clears.</span>
+          </div>
+          <div class="sw-stat"><b>9 builds</b><span>in a single order and wrap</span></div>
+        </div>
+        <div class="sw-panel" data-i="3">
+          <div>
+            <span class="kicker">A date that cannot move</span>
+            <h3>Corporate and gift sets</h3>
+            <p class="scene">A set ships to a fixed date in packaging that has to match the brand on every surface.</p>
+            <span class="get">A date that holds, because the wrap is settled before the container is booked.</span>
+          </div>
+          <div class="sw-stat"><b>4–6 weeks</b><span>the crossing, against a fixed date</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ P3 ══════════ -->
+<p class="lbl"><b>P3 · §6</b>What the Outside Is Made Of — one swatch band instead of four equal plates<s>Four tall narrow strips cut from the same band, the names set on the strip, the notes in a row underneath. It turns four cards into one object, which is what a material is. Needs the four plates shot as portrait strips rather than plates.</s></p>
+<section class="band g-clay">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">What the Outside Is Made Of</h2>
+      <p>The outside is where the brand is read and where most of the cost sits. Four decisions, and each one is settled against the other three.</p>
+    </header>
+    <div class="strip">
+      <div class="strip-fig"><span class="cap-h">Greyboard</span><span class="cap-g">1.5–3.0 mm</span></div>
+      <div class="strip-fig"><span class="cap-h">Kraft and recycled stock</span><span class="cap-g">FSC chain of custody</span></div>
+      <div class="strip-fig"><span class="cap-h">Leather and leatherette</span><span class="cap-g">Grain to order</span></div>
+      <div class="strip-fig"><span class="cap-h">Foil, deboss or print</span><span class="cap-g">99.8% Pantone</span></div>
+    </div>
+    <div class="strip-note">
+      <div class="strip-notes">
+        <p>Rigidity comes from the board, and each layer above it is measured from its thickness.</p>
+        <p>A recycled sheet that still takes foil cleanly, for a range sold on what it leaves behind.</p>
+        <p>A grain that hides handling marks — that is what survives a counter better than a flat wrap.</p>
+        <p>Settled with the wrap, because each method bites differently into a texture and foil is the one that flakes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ P4 ══════════ -->
+<p class="lbl"><b>P4 · §10</b>What Our Customers Say — one pull quote and one smaller<s>Two equal cards read as "another card grid". Pulling the first quote to display size turns it into a quotation instead, and the second one steps back. Low cost, and it is the last image-and-text run before the FAQ.</s></p>
+<section class="band g-ivory">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">What Our Customers Say</h2>
+    </header>
+    <div class="pull">
+      <img src="https://img.leelinepackage.com/jewelry/avatar-lisa.webp" alt="Lisa Harrington, founder of Artisan Jewel Studio" width="300" height="300" loading="lazy" decoding="async">
+      <div>
+        <blockquote>The custom velvet pouches and matching boxes transformed our handmade jewelry packaging. Soft interiors protect delicate pieces perfectly, and the custom colors matched our brand palette exactly.</blockquote>
+        <cite>Lisa Harrington · Founder, Artisan Jewel Studio</cite>
+      </div>
+    </div>
+    <div class="pull2">
+      <div class="who">
+        <img src="https://img.leelinepackage.com/jewelry/avatar-james.webp" alt="James Kowalski, operations manager" width="300" height="300" loading="lazy" decoding="async">
+        <div><b>James Kowalski</b><span>Operations Manager</span></div>
+      </div>
+      <div>
+        <span class="q-what">Gift boxes with ribbon pulls, FSC-certified board, built to ship</span>
+        <p class="q">LeelinePackage nailed our custom jewelry gift boxes with ribbon pulls and FSC-certified materials. Sustainable, elegant, and durable for shipping.</p>
+        <p class="q">Our customers love the premium feel, and we have seen great feedback on social media. Reliable box supplier with top-notch customization options.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll('.sw-tabs button'));
+  const panels = Array.from(document.querySelectorAll('.sw-panel'));
+  tabs.forEach((b) => b.addEventListener('click', () => {
+    tabs.forEach((x) => x.classList.toggle('on', x === b));
+    panels.forEach((p) => p.classList.toggle('on', p.dataset.i === b.dataset.i));
+  }));
+</script>
+</body>
+</html>

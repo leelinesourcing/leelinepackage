@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JK · second set of proposals for the image-above-text run</title>
+<style>
+@font-face{font-family:'Newsreader Variable';font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');}
+@font-face{font-family:'Instrument Sans Variable';font-weight:400 700;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+:root{
+  --color-forest:#1F3B2C; --color-brass:#B08D4C; --color-ivory:#F5F0E5;
+  --color-clay:#EDE5D4; --color-moss:#8C8676; --color-kraft:#C9A87C;
+  --color-brand-text:#2B2F26; --color-brand-muted:#605C4E;
+  --forest-deep:#14261B; --brass-soft:#C9A87C; --hair:rgba(31,59,44,.14);
+  --font-heading:'Newsreader Variable',Georgia,serif;
+  --font-body:'Instrument Sans Variable',system-ui,sans-serif;
+  --gut:max(1.25rem,calc((100vw - 1200px)/2));
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-clay);color:var(--color-brand-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+.lbl{background:#21241C;color:#EDE5D4;margin:0;padding:1.05rem var(--gut)}
+.lbl b{color:var(--brass-soft);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.7rem;margin-right:.8rem}
+.lbl s{color:#8C8676;text-decoration:none;display:block;margin-top:.25rem;font-size:.74rem;line-height:1.55}
+.band{padding:clamp(3.4rem,7vw,6rem) 0}
+.wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+.hd{margin-bottom:clamp(2.2rem,5vw,3.6rem)}
+.h2{font-family:var(--font-heading);font-weight:500;font-size:clamp(1.9rem,4.4vw,3.3rem);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.hd p{margin:1.15rem 0 0;font-size:1.06rem;line-height:1.7;color:var(--color-brand-muted);max-width:80ch}
+.get{font-size:.9rem;line-height:1.55;font-weight:600;color:var(--forest-deep);background:rgba(176,141,76,.18);border-radius:.5rem;padding:.5rem .7rem}
+.ph{background:repeating-linear-gradient(135deg,rgba(176,141,76,.11) 0 9px,rgba(176,141,76,.02) 9px 18px);
+  display:grid;place-content:center;text-align:center;color:#867E6A;font-size:.7rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;line-height:2}
+.ph i{display:block;font-style:normal;font-family:var(--font-heading);font-size:1.05rem;font-weight:500;letter-spacing:0;text-transform:none;color:#6E6757}
+
+/* ── Q1 · one full-bleed image, type in the margin ─────────────────── */
+.lin{position:relative;isolation:isolate;overflow:hidden;color:var(--color-ivory);
+  background:repeating-linear-gradient(135deg,rgba(20,38,27,.5) 0 14px,rgba(20,38,27,.34) 14px 28px),#4A4433}
+.lin::after{content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(20,38,27,.94) 0%,rgba(20,38,27,.86) 38%,rgba(20,38,27,.34) 74%,rgba(20,38,27,.15) 100%)}
+.lin-in{display:grid;grid-template-columns:minmax(0,26rem) 1fr;gap:clamp(2rem,5vw,4rem);
+  align-items:center;padding:clamp(3.4rem,7vw,5.6rem) 0}
+.lin-in h2{color:var(--color-ivory)}
+.lin-in .sub{margin:1.1rem 0 0;font-size:1rem;line-height:1.7;color:rgba(245,240,229,.78)}
+.lin-list{margin:0;padding:0;list-style:none}
+.lin-list li{padding:1rem 0;border-top:1px solid rgba(245,240,229,.22)}
+.lin-list li h3{font-family:var(--font-heading);font-weight:600;font-size:1.22rem;margin:0;color:var(--color-ivory)}
+.lin-list li span{display:block;margin-top:.25rem;font-size:.72rem;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--brass-soft)}
+.lin-list li p{margin:.55rem 0 0;font-size:.9rem;line-height:1.6;color:rgba(245,240,229,.72)}
+.lin-note{position:absolute;right:var(--gut);bottom:1.4rem;font-size:.68rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(245,240,229,.55)}
+
+/* ── Q2 · index + one plate ────────────────────────────────────────── */
+.idx{display:grid;grid-template-columns:minmax(15rem,20rem) minmax(0,1fr);
+  border:1px solid var(--hair);border-radius:1.2rem;overflow:hidden;background:rgba(245,240,229,.5)}
+.idx-list{list-style:none;margin:0;padding:0;border-right:1px solid var(--hair);
+  max-height:32rem;overflow:auto}
+.idx-list li{display:flex;gap:.9rem;align-items:baseline;padding:.85rem 1.2rem;
+  border-bottom:1px solid var(--hair);cursor:pointer;
+  font-family:var(--font-heading);font-weight:600;font-size:1.08rem;color:var(--color-brand-muted);line-height:1.3}
+.idx-list li:last-child{border-bottom:0}
+.idx-list li span{font-family:var(--font-body);font-size:.7rem;font-weight:600;letter-spacing:.14em;color:var(--color-moss)}
+.idx-list li.on{background:var(--color-ivory);color:var(--color-brand-text);box-shadow:inset 3px 0 0 var(--brass)}
+.idx-list li.on span{color:var(--color-brass)}
+.idx-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;min-height:26rem}
+.idx-plate{border-radius:0;min-height:22rem}
+.idx-cap{padding:clamp(1.6rem,3vw,2.4rem);display:flex;flex-direction:column;justify-content:center}
+.idx-cap h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.4rem,2.4vw,1.9rem);margin:0;line-height:1.2}
+.idx-cap .spec{display:block;margin-top:.5rem;font-size:.72rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-brass)}
+.idx-cap p{margin:.9rem 0 0;font-size:.96rem;line-height:1.7;color:var(--color-brand-muted)}
+
+/* ── Q3 · one plate, four pinned labels ────────────────────────────── */
+.one{position:relative;border-radius:1rem;overflow:hidden}
+.one-plate{aspect-ratio:1200/440;border-radius:0}
+.one-pin{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.one-pin b{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--brass);color:var(--forest-deep);
+  display:grid;place-content:center;font-family:var(--font-body);font-size:.8rem;font-weight:600}
+.one-pin span{white-space:nowrap;background:var(--color-ivory);border:1px solid var(--hair);
+  border-radius:999px;padding:.25rem .6rem;font-size:.72rem;font-weight:600;letter-spacing:.06em;color:var(--color-brand-text)}
+.one-notes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,2.4vw,1.8rem);
+  list-style:none;margin:1.4rem 0 0;padding:0}
+.one-notes h3{font-family:var(--font-heading);font-weight:600;font-size:1.08rem;margin:0}
+.one-notes .grade{display:block;margin-top:.2rem;font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-brass)}
+.one-notes p{margin:.6rem 0 0;font-size:.9rem;line-height:1.65;color:var(--color-brand-muted)}
+
+/* ── Q4 · four rows, alternating ground ────────────────────────────── */
+.rws{border-top:1px solid var(--hair)}
+.rw{display:grid;grid-template-columns:minmax(14rem,20rem) minmax(0,1fr) 12rem;
+  gap:clamp(1.4rem,3vw,3rem);align-items:center;padding:clamp(1.6rem,3.2vw,2.4rem) 0;
+  border-bottom:1px solid var(--hair)}
+.rw.tint{background:rgba(245,240,229,.55);padding-inline:clamp(1rem,3vw,2.4rem);
+  margin-inline:calc(clamp(1rem,3vw,2.4rem) * -1)}
+.rw h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.25rem,2.2vw,1.7rem);
+  line-height:1.18;margin:.5rem 0 0}
+.rw .kicker{display:block;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-brass)}
+.rw .scene{margin:0;font-family:var(--font-heading);font-style:italic;font-size:1.06rem;line-height:1.65;color:var(--color-brand-muted)}
+.rw .get{margin:.9rem 0 0;display:inline-block}
+.rw-stat{text-align:right}
+.rw-stat b{display:block;font-family:var(--font-heading);font-style:italic;font-weight:600;
+  font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.05;color:var(--color-brand-primary)}
+.rw-stat span{display:block;margin-top:.4rem;font-size:.8rem;line-height:1.5;color:var(--color-brand-muted)}
+</style>
+</head>
+<body>
+
+<!-- ══════════ Q1 ══════════ -->
+<p class="lbl"><b>Q1 · §5</b>Linings — one full-bleed photograph, the type in the margin instead of four cards<s>The page has no band where a single image dominates. This makes the dark centre-of-gravity band exactly that: one cloth filling the frame, the four cloths set as a tight list in the left margin. Cost: it needs one strong close-up, and the other three photographs stop being seen.</s></p>
+<section class="lin">
+  <div class="wrap lin-in">
+    <div>
+      <h2 class="h2">Linings and Anti-Tarnish Protection</h2>
+      <p class="sub">Silver dulls in a container weeks before a shop ever sees it, and it is the cloth in contact with the metal that decides the outcome. Four cloths, a single job each.</p>
+    </div>
+    <div>
+      <ul class="lin-list">
+        <li><h3>Velvet</h3><span>Rings and branded retail boxes</span><p>A polished stone meets nothing abrasive.</p></li>
+        <li><h3>Suede or microfiber</h3><span>Modern lines where shine is unwanted</span><p>A matte face, and a chain that comes out unmarked.</p></li>
+        <li><h3>EVA or foam</h3><span>Transit and mixed-SKU trays</span><p>A cavity that fits, and freight cannot move the piece.</p></li>
+        <li><h3>Satin over card</h3><span>Necklaces and certificates</span><p>A bright surface that makes a chain look deliberate.</p></li>
+      </ul>
+    </div>
+  </div>
+  <span class="lin-note">One cloth, full frame · photo to come</span>
+</section>
+
+<!-- ══════════ Q2 ══════════ -->
+<p class="lbl"><b>Q2 · §3</b>Types — an index that drives one large plate, instead of nine equal cards<s>Nine photographs of the same kind of object is what makes this section read as a grid. An index on the left and one big plate on the right keeps all nine, uses the photographs that already exist, and gives the page one genuinely large image. Cost: eight of the nine are behind a click.</s></p>
+<section class="band" style="background:var(--color-ivory)">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">Custom Jewelry Packaging Types</h2>
+      <p>Every build takes its own insert, board and wrap. Change the type and all three change with it.</p>
+    </header>
+    <div class="idx">
+      <ul class="idx-list" id="idxList">
+        <li class="on" data-i="0"><span>JT-01</span>Custom Ring Boxes</li>
+        <li data-i="1"><span>JT-02</span>Custom Necklace Boxes</li>
+        <li data-i="2"><span>JT-03</span>Custom Earring Boxes</li>
+        <li data-i="3"><span>JT-04</span>Custom Pendant Boxes</li>
+        <li data-i="4"><span>JT-05</span>Custom Jewelry Gift Boxes</li>
+        <li data-i="5"><span>JT-06</span>Custom Jewelry Drawer Boxes</li>
+        <li data-i="6"><span>JT-07</span>Custom Jewelry Travel Cases</li>
+        <li data-i="7"><span>JT-08</span>Custom Jewelry Set Boxes</li>
+        <li data-i="8"><span>JT-09</span>High-End Wooden Jewelry Chests</li>
+      </ul>
+      <div class="idx-panel">
+        <div class="ph idx-plate" id="idxPlate"><i>JT-01</i>CUSTOM RING BOXES · PLATE</div>
+        <div class="idx-cap">
+          <h3 id="idxName">Custom Ring Boxes</h3>
+          <span class="spec" id="idxSpec">One or two wells</span>
+          <p id="idxDesc">A well cut to the band itself — the stone finishes clear of the board underneath.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ Q3 ══════════ -->
+<p class="lbl"><b>Q3 · §6</b>Materials — one plate with four pinned labels, instead of four plates<s>Four swatches photographed together as one object, each pinned and named, the notes listed under it. One image, four facts — and the material finally looks like something you can hold. Cost: it needs one shot of all four materials laid together.</s></p>
+<section class="band" style="background:var(--color-clay)">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">What the Outside Is Made Of</h2>
+      <p>The outside is where the brand is read and where most of the cost sits. Four decisions, and each one is settled against the other three.</p>
+    </header>
+    <div class="one">
+      <div class="ph one-plate"><i>One plate</i>Four materials laid together · photo to come</div>
+      <div class="one-pin" style="left:14%;top:62%"><b>01</b><span>Greyboard</span></div>
+      <div class="one-pin" style="left:38%;top:44%"><b>02</b><span>Kraft and recycled</span></div>
+      <div class="one-pin" style="left:62%;top:64%"><b>03</b><span>Leather and leatherette</span></div>
+      <div class="one-pin" style="left:86%;top:46%"><b>04</b><span>Foil, deboss, print</span></div>
+    </div>
+    <ol class="one-notes">
+      <li><h3>Greyboard</h3><span class="grade">1.5–3.0 mm</span>
+        <p>Rigidity comes from the board, and each layer above it is measured from its thickness.</p></li>
+      <li><h3>Kraft and recycled stock</h3><span class="grade">FSC chain of custody</span>
+        <p>A recycled sheet that still takes foil cleanly, for a range sold on what it leaves behind.</p></li>
+      <li><h3>Leather and leatherette</h3><span class="grade">Grain to order</span>
+        <p>A grain that hides handling marks — that is what survives a counter better than a flat wrap.</p></li>
+      <li><h3>Foil, deboss or print</h3><span class="grade">Matched to Pantone</span>
+        <p>Settled with the wrap, because each method bites differently into a texture and foil is the one that flakes.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════ Q4 ══════════ -->
+<p class="lbl"><b>Q4 · §8</b>Buyers — four rows that read across, alternating ground, no photographs<s>A buyer is not a product, so the four scene photographs are the least earned on the page. Four full-width rows, the name set large on the left, the figure held on the right, every other row on a lighter ground so the four read apart. Cost: the four figures can still be compared, but there is nothing to look at.</s></p>
+<section class="band" style="background:var(--color-ivory)">
+  <div class="wrap">
+    <header class="hd">
+      <h2 class="h2">Jewelry Packaging for Four Kinds of Buyer</h2>
+      <p>The box is the same object and the problem is not. These are the four situations that arrive most often, and what changes for each.</p>
+    </header>
+    <div class="rws">
+      <div class="rw">
+        <div><span class="kicker">Sell online</span><h3>DTC jewelry brands</h3></div>
+        <div><p class="scene">Orders leave one at a time in a mailer, and the box inside is what the customer photographs.</p>
+          <span class="get">A first run small enough to test, in a box that has to survive the courier.</span></div>
+        <div class="rw-stat"><b>500 units</b><span>the first run, counted once</span></div>
+      </div>
+      <div class="rw tint">
+        <div><span class="kicker">One piece at a time</span><h3>Fine jewelry and ateliers</h3></div>
+        <div><p class="scene">No two pieces match, and a stock tray leaves gaps that let a one-off slide around.</p>
+          <span class="get">A cavity drawn from your piece, not picked from a size chart.</span></div>
+        <div class="rw-stat"><b>±0.5 mm</b><span>cutting and assembly</span></div>
+      </div>
+      <div class="rw">
+        <div><span class="kicker">Opened at a counter</span><h3>Wholesale and stockists</h3></div>
+        <div><p class="scene">The box is opened in front of somebody who is still deciding whether to buy.</p>
+          <span class="get">A tray that presents the piece the moment the lid clears.</span></div>
+        <div class="rw-stat"><b>1 insert layout</b><span>across a mixed range, one run</span></div>
+      </div>
+      <div class="rw tint">
+        <div><span class="kicker">A date that cannot move</span><h3>Corporate and gift sets</h3></div>
+        <div><p class="scene">A set ships to a fixed date in packaging that has to match the brand on every surface.</p>
+          <span class="get">A date that holds, because the wrap is settled before the container is booked.</span></div>
+        <div class="rw-stat"><b>4–6 weeks</b><span>the crossing, against a fixed date</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const TYPES = [
+    ['JT-01','Custom Ring Boxes','One or two wells','A well cut to the band itself — the stone finishes clear of the board underneath.'],
+    ['JT-02','Custom Necklace Boxes','Card or tray','A card carries the chain along a single curve; it arrives ready to hang rather than knotted.'],
+    ['JT-03','Custom Earring Boxes','Paired wells','Two wells rather than a shared cavity, because a pair must not meet on the way.'],
+    ['JT-04','Custom Pendant Boxes','Deep slot','Depth holds a swinging drop still and keeps the bail from riding on the chain.'],
+    ['JT-05','Custom Jewelry Gift Boxes','Ribbon or magnet','The opening gets photographed. The lid line belongs in the design brief.'],
+    ['JT-06','Custom Jewelry Drawer Boxes','Sliding tray','The tray travels toward the customer; the piece is seen before it is touched.'],
+    ['JT-07','Custom Jewelry Travel Cases','Cut compartments','Cut compartments let one case carry a mixed, separated range.'],
+    ['JT-08','Custom Jewelry Set Boxes','Two levels','Necklace above, with the chain card or the certificate held flat in the level beneath.'],
+    ['JT-09','High-End Wooden Jewelry Chests','Lid and base','The build a customer keeps, refills and leaves out on display.'],
+  ];
+  const list = document.getElementById('idxList');
+  list.addEventListener('click', (e) => {
+    const li = e.target.closest('li'); if (!li) return;
+    list.querySelectorAll('li').forEach((x) => x.classList.toggle('on', x === li));
+    const t = TYPES[+li.dataset.i];
+    document.getElementById('idxPlate').innerHTML = '<i>' + t[0] + '</i>' + t[1].toUpperCase() + ' · PLATE';
+    document.getElementById('idxName').textContent = t[1];
+    document.getElementById('idxSpec').textContent = t[2];
+    document.getElementById('idxDesc').textContent = t[3];
+  });
+</script>
+</body>
+</html>

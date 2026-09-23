@@ -25,6 +25,15 @@
   --color-moss:     #8C8676;
   --color-sage:     #4A6B52;
 
+  /* ── brass for DARK grounds ────────────────────────────────────────────────
+     The brand brass tokens do not survive on a dark band: over the shipping-box
+     §2 photograph at its .68 scrim stop, --brass-bright measures 2.90:1,
+     --brass-soft 2.47:1, --brass 1.78:1 and --moss 1.53:1 — all under the 3:1
+     WCAG needs for large text. This is the same brass hue lifted until it clears
+     that bar (3.45:1), for large display words that sit on a dark photograph.
+     For body-size text on the same ground use --color-ivory (4.87:1). */
+  --color-brass-light: #E9C978;
+
   /* ── Typography ─────────────────────────────── */
   --font-heading: 'Newsreader Variable', Georgia, serif;
   --font-body:    'Instrument Sans Variable', system-ui, sans-serif;

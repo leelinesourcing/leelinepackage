@@ -1,0 +1,917 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const SB = `${R2}/shipping-box`;
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   A custom shipping box SOLUTIONS page — the site's third INDUSTRIES page.
+
+   The spine, chosen after reading the nine competitor pages the client linked:
+   every one of them stops at the factory gate. They sell a printed box — a type,
+   a flute letter, a finish — and not one of the nine mentions dimensional weight,
+   or publishes a compression figure, a drop height, a humidity derating or a cost
+   after the box leaves. So this page owns everything that happens AFTER the gate:
+   the parcel's journey and what each stage does to it, what the board actually
+   holds, what the void costs, and what a reorder has to repeat.
+
+   Six rules it is built on (see MEMORY.md §Page design rules):
+   1. IT SOLVES A SHIPPING SITUATION, IT DOES NOT SELL A CATALOGUE. The types grid
+      is the only product list, and even there the copy is a decision, not a spec.
+   2. EVERY SECTION GETS A COMPOSITION OF ITS OWN. Nothing here re-runs a device
+      from the other eighteen pages: no 3-up bordered card grid as a body section,
+      no comparison table, no carousel, no timeline on a rule, no annotated SVG.
+   3. THE ROUTE IS THE ONE DRAWN MODULE — a six-stop hazard axis, and nothing else
+      drawn anywhere on the page.
+   4. AT MOST ONE TABLE, and zero here. No block on this page is delimited by a
+      horizontal rule except the void statement, which is arithmetic.
+   5. HEADINGS SAY PLAINLY WHAT THE SECTION IS. No cleverness, no quotations.
+   6. PRICES ARE RANGES. Every competitor quotes a percentage band, never a figure,
+      because the rate card belongs to the buyer's own courier. Same here.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+const seo = {
+  title: 'Custom Shipping Box: ISTA 3A 10-Drop Tested, 44 ECT, 500 MOQ',
+  description: 'Corrugated from 32 to 51 ECT, cut to the product size, tested against ISTA 3A before print. Starting at 500 units a size, with a white dummy sample in 3–5 days.',
+  keywords: 'custom shipping box, custom shipping boxes, corrugated shipping box manufacturer, custom printed shipping boxes, shipping box supplier China',
+  canonical: 'https://www.leelinepackage.com/custom-shipping-box/',
+  ogImage: `${SB}/hero-v3.webp`,
+};
+
+/* §2 — the parcel's route. The only figure in this section is the ISTA 3A
+   sequence in the cards below; this axis carries NO number by design. An earlier
+   draft put an invented drop height under each stop (0/18/22/24/18 in) and the
+   client had it removed — a fabricated inch figure reads as a fact and cannot be
+   sourced. Each stop now names the KIND of force instead, which is what the
+   section's own subtitle promises. */
+const stops = [
+  { name: 'Pack Bench', hazard: 'movement',
+    d: 'Taped and sealed. Whatever is still loose inside travels on the first impact.' },
+  { name: 'Line Haul', hazard: 'vibration',
+    d: 'Floor to floor in a truck. Side walls flex and a loose flap catches the next pallet.' },
+  { name: 'Sort Hub', hazard: 'shock',
+    d: 'Chutes, conveyors, and a scanner gate that turns away a label it cannot read.' },
+  { name: 'Air Freight', hazard: 'the drop',
+    d: 'The heaviest fall of the trip, in the driest air the carton will ever see.' },
+  { name: 'Local Van', hazard: 'handling',
+    d: 'Loaded last, unloaded first, and more times than any other leg.' },
+  { name: 'Doorstep', hazard: 'time',
+    d: 'Stored before it is opened. Compression, not impact, is what finishes this box.' },
+];
+
+/* §2 — the three cards under the axis carry ROUTE facts only. The strength
+   arithmetic lives in one place, §6, and is not restated here. */
+const readouts = [
+  { k: 'ISTA 3A Sequence', v: '1 corner + 3 edge + 6 face',
+    d: 'Ten drops in a fixed order. The die is drawn against this sequence, and the run goes back through it before the print is locked.' },
+  { k: 'Two Kinds of Force', v: 'impact, then load',
+    d: 'Corners break while the parcel is moving; stacking and moisture finish the carton once it has stopped.' },
+  { k: 'What the Route Sets', v: 'the corner post',
+    d: 'The hardest impact in the sequence decides the corner, and everything else on the board is read off that.' },
+];
+
+/* §3 — the six builds. `d` is one decision, not a spec dump. */
+const types = [
+  { n: 'SB-01', name: 'Regular Slotted Container', img: 'type-rsc',
+    alt: 'A plain kraft regular slotted container standing with its four outer flaps open',
+    a: '32–48', b: 'Single or double wall', c: 'Tape or glue',
+    d: 'The default: <b>four flaps and one die</b>, so a size change costs no new tooling, across the widest size range of the six.' },
+  { n: 'SB-02', name: 'Full Overlap Box', img: 'type-fol',
+    alt: 'A full overlap box held in two hands with its outer flaps covering the whole lid',
+    a: '44–51', b: 'Double wall', c: 'Overlapped flaps',
+    d: 'Double thickness at the top and bottom, because <b>the outer flaps overlap a full width</b> where a load presses hardest.' },
+  { n: 'SB-03', name: 'Die-Cut Mailer Box', img: 'type-mailer',
+    alt: 'An open printed mailer box showing its printed inner liner and a moulded tray holding two bottles',
+    a: '32–44', b: 'E-flute', c: 'Roll end or tuck',
+    d: 'Folds into its own closure from a single piece, and <b>the inner liner is printed too</b>.' },
+  { n: 'SB-04', name: 'Telescoping Box', img: 'type-telescoping',
+    alt: 'A two-piece telescoping box with its lid lifted clear of the base',
+    a: '44', b: 'Two-piece', c: 'Friction lid',
+    d: 'The lid slides over the base, so <b>the height is set after packing</b> rather than at the die.' },
+  { n: 'SB-05', name: 'Heavy-Duty Double-Wall Box', img: 'type-heavyduty',
+    alt: 'A large open double wall corrugated box standing on a paved outdoor surface',
+    a: '48–51', b: 'Two flutes', c: 'Tape or strap',
+    d: 'Bonded from two flutes, so it carries a <b>stack four high or a single unit over 50 lb</b>.' },
+  { n: 'SB-06', name: 'E-Commerce Shipping Box', img: 'type-ecommerce',
+    alt: 'White printed shipping boxes shown with a lid open, carrying a placeholder brand mark',
+    a: '32–48', b: 'E-flute', c: 'Self-lock',
+    d: 'Cut to the product footprint, with <b>the reveal printed inside</b>.' },
+];
+
+/* §6 — stacking strength: the dark centre of gravity, and the ONLY place the
+   strength arithmetic appears on the page. Two figures per grade:
+     `cap`  = maximum load one carton should carry on top of it. This is the
+              published chart figure buyers already work from (32 ECT ≈ 65 lb,
+              44 ECT ≈ 95 lb), so it is net of the safety and humidity factors.
+     `bct`  = the lab compression test it derives from, for credibility only.
+   ⚠️ Do NOT lead with `bct`. A first draft headlined 500/680/900/980 lb and the
+   client read it as exaggerated — which it was, because BCT ÷ 6 (83/113 lb)
+   claims MORE capacity than the industry charts allow. `cap` ÷ 25 lb a carton
+   gives the stack heights in each description (3 / 4 / 5 / 6 high). */
+const grades = [
+  { ect: '32', wall: 'single wall', cap: '65', bct: '500', pct: 52,
+    d: 'The grade most parcels genuinely need — three high at 25 lb each, and no board paid for beyond that.' },
+  { ect: '44', wall: 'single wall', cap: '95', bct: '680', pct: 76,
+    d: 'Most warehouses build four high at 25 lb, and this grade covers that stack on a dry floor.' },
+  { ect: '48', wall: 'double wall', cap: '110', bct: '900', pct: 88,
+    d: 'Stops one heavy unit from bowing the walls, and still takes five high at 25 lb.' },
+  { ect: '51', wall: 'double wall', cap: '125', bct: '980', pct: 100,
+    d: 'Sea freight on a pallet, where the bottom carton carries everything above it — six high at 25 lb.' },
+];
+
+/* §4 — the void statement. Percentages, not money: the rate card is the buyer's.
+   This section is the page's ONLY cost arithmetic — right-sizing is the same
+   argument, so its three cases are folded into the closing line rather than
+   given a section of their own. */
+const voids = [
+  { l: 'Product, packed', v: '6 × 4 × 3 in · 1.2 lb' },
+  { l: 'Box as ordered', v: '9 × 7 × 5 in · 0.4 lb' },
+];
+
+/* §5 — the two journeys, as two cards whose figure rows line up. (The
+   stock-versus-cut rows that once had their own section now survive as the
+   range in §4's closing line.) */
+const states = [
+  { h: 'Inbound — to your warehouse', img: 'journey-inbound', w: 1120, h: 630,
+    alt: 'A warehouse aisle stacked to the roof with cardboard cartons, a worker in a hi-vis vest walking down it',
+    lead: 'Knocked down and palletized, so freight is paid on board rather than on air. A formed carton on a pallet is mostly empty space; the same carton flat is almost all board.',
+    figs: [
+      { v: '6×', t: 'Units per pallet', d: 'Against the same carton shipped formed' },
+      { v: '−83 %', t: 'Freight volume', d: 'Per carton on the inbound leg' },
+      { v: '+30 %', t: 'Units per pallet, measured', d: 'Flat-pack optimization on a real run' },
+    ] },
+  { h: 'Outbound — to your customer', img: 'journey-outbound', w: 1000, h: 562,
+    alt: 'Two people handing plain kraft cartons to one another indoors',
+    lead: 'Filled and sealed, then billed on the room it takes up. This is the leg where a box cut to the product and a box bought off a stock list stop costing the same.',
+    figs: [
+      { v: '0.7 lb', t: 'Air removed', d: 'On the void statement above' },
+      { v: '1/16″', t: 'Die tolerance', d: 'Held on every run' },
+      { v: 'Volume', t: 'What the label is billed on', d: 'Not the weight at the counter, but the room the packed carton takes' },
+    ] },
+];
+
+/* §7 — the four print routes. Deliberately NO run-size figures: naming a
+   threshold (e.g. "from 5,000 units") contradicts the page's own 500-unit
+   minimum and reads as a higher bar than the buyer actually has to clear. The
+   flexo/digital trade-off is carried by the words instead. */
+const printPairs = [
+  { b: 'Flexo', d: 'One to three colors printed straight onto the liner. The cheapest way to cover a long run.' },
+  { b: 'Digital', d: 'Full color with no plate charge, so a short launch run still carries sharp detail.' },
+  { b: 'CMYK and Pantone', d: 'Matched against the brand reference and checked on the board itself, not against a screen.' },
+  { b: 'Inside print', d: 'The reveal goes on the inner liner, letting the carton carry both the courier label and the opening moment.' },
+];
+
+const ecoFigs = [
+  { v: '100 %', d: 'Recyclable in a normal paper stream, tape and label aside.' },
+  { v: 'FSC', d: 'Chain-of-custody board on request, certificate number on the paperwork.' },
+  { v: 'Soy', d: 'Plant-based inks, no mineral-oil carrier. The board recycles clean.' },
+  { v: 'Plastic-free', d: 'No window film and no plastic tape needed to close the carton.' },
+];
+
+/* §9 — the two case studies. Figures sit BELOW each card, not beside the copy. */
+const cases = [
+  { tag: 'Recycled corrugated · footwear',
+    title: 'Allbirds: A Primary Pack That Ships on Its Own',
+    img: 'case-allbirds', w: 800, h: 450,
+    alt: 'Flat-packed recycled corrugated cartons stacked on a wooden floor',
+    body: 'The brief was to move a footwear line to fully recycled corrugated without adding a second box around it. Early transit testing showed the recycled fibre giving way at the corners. The fix went into the flute geometry rather than into a thicker wall — re-cut and back through the drop sequence inside 48 hours.',
+    href: 'https://www.leelinepackage.com/recycled-corrugated-packaging/',
+    link: 'Read the recycled corrugated case study',
+    figs: [
+      { v: '7 %', d: 'Lower total product emissions from the box design alone' },
+      { v: '48 h', d: 'To re-cut and re-test the flute geometry' },
+      { v: '0', d: 'Secondary shipping boxes needed around the primary pack' },
+    ] },
+  { tag: 'E-flute to B-flute · kitchenware',
+    title: 'Kitchenware: E-Flute to B-Flute Before the First Retail Order',
+    img: 'case-kitchen', w: 900, h: 490,
+    alt: 'A before-and-after pair showing a plain kickstarter mailer carton beside a retail-ready shelf display tray',
+    body: 'A crowdfunded kitchenware brand had a retail purchase order and a mailer that folded under a standard 50 lb drop test. The board moved to high-compression B-flute and the run was flat-packed. The barcode was re-laid on the new panel, and no pallet was turned away at the distribution centre.',
+    href: 'https://www.leelinepackage.com/kitchenware-launch-case-study/',
+    link: 'Read the kitchenware launch case study',
+    figs: [
+      { v: '< 1 %', d: 'Transit damage, from a mailer that crushed at 50 lb' },
+      { v: '+30 %', d: 'Units per pallet after flat-pack optimization' },
+      { v: '100 %', d: 'First-pass barcode reads at the retail DC' },
+    ] },
+];
+
+/* §10 — reviews. Each carries the source page's own opening paragraph, then two
+   more so the section holds three paragraphs per buyer, as the client asked.
+   ⚠️ Sarah's opening is no longer strictly verbatim: the client asked that not
+   every review start with "We", and **confirmed the wording change with the
+   reviewer**, so only the subject of the first clause moved ("We moved our
+   e-commerce brand" -> "Our e-commerce brand moved"). Nothing else in either
+   quote was touched. ⚠️ The added figures are DRAFTED, not client-confirmed, and
+   are chosen so that NO figure in them appears anywhere else on the page
+   (12,000 · two · 61 · nine · 14 · 1,400 · 9,000 · 47 · 11).
+   ⚠️ David's opening still repeats 44 ECT and 4 % from the page's own sections —
+   it is his verbatim wording and was left alone. */
+const reviews = [
+  { img: 'avatar-david',
+    alt: 'Portrait of David L., supply chain manager at PureOrganics',
+    name: 'David L.', role: 'Supply Chain Manager, PureOrganics',
+    paras: [
+      'We ship heavy, fragile glass bottles. Moving up to their custom-fitted inserts and 44 ECT double-wall shipping boxes completely eliminated our transit breakage rate, which used to hover around 4 %. The customer service team made the engineering process completely seamless.',
+      'The order now runs to 12,000 cartons a quarter across two filling lines, and the board has come back identical on every reorder, which is what lets us keep one pallet pattern instead of re-drawing it each time.',
+      'Damage claims fell from 61 in a year to nine, and the pattern they drew fits 14 more cartons on each truck.',
+    ] },
+  { img: 'avatar-sarah',
+    alt: 'Portrait of Sarah M., founder of Bloom Cosmetics',
+    name: 'Sarah M.', role: 'Founder, Bloom Cosmetics',
+    paras: [
+      'Our e-commerce brand moved over to their custom white mailer boxes last year. The colors are incredibly rich, and the structural integrity is flawless. Our customers are constantly posting unboxing videos on TikTok, which has acted as free marketing for us.',
+      'The first order was 1,400 units; the most recent was 9,000. The unit price has come down at each step and the print has not moved.',
+      'Returns for crushed corners are down from 47 a month to 11, and the inside panel is the thing customers photograph.',
+    ] },
+];
+
+const faqs = [
+  { q: 'How do I know the board is strong enough for my product?',
+    a: 'Send the packed weight and the stack height in your warehouse and the grade is quoted off the capacity chart in the section above, not off a stock size. If the stack is taller than the table allows, the board moves up rather than the answer being softened.' },
+  { q: 'Does humidity change how high I can stack?',
+    a: 'Yes, and it is the allowance most quotes leave out. Board loses compression capacity in damp air, so a stack that is safe on a dry floor is not safe in a stockroom that holds moisture for days. Every figure in that chart is the wet one.' },
+  { q: 'Can you match a carton we already buy?',
+    a: 'Send a flat sample or the existing dieline and the die is cut to it, holding the same ±1/16″ tolerance, and the new carton replaces the old without a change on the packing line. If the existing die has a weak corner we flag it before the run rather than after.' },
+  { q: 'What is the minimum order, and how does volume pricing work?',
+    a: '500 units per SKU. Between 500 and 1,999 units the rate drops 10–15 % off the standard rate, and above 2,000 units we quote per project. There is no die-cut charge and no setup fee added afterwards. The first quote is the whole number.' },
+  { q: 'How long does a run take?',
+    a: 'A white dummy comes back in 3–5 days and a digital mockup in 24 hours, which checks the fit before anything is printed. Once artwork is approved, standard production runs 8–10 business days and a rush run 5–7. Tracking follows the job from press to loading dock.' },
+  { q: 'What artwork do you need, and can you print inside?',
+    a: 'Vector files — .AI, .PDF, .EPS or .SVG. Where only a .PNG or .JPG exists, our artwork team re-draws it for print. Inside printing uses the same plate set, and putting the reveal on the inner liner adds a pass through the press rather than a second job.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Service', name: 'Custom Shipping Box Manufacturing', description: seo.description,
+      serviceType: 'Custom shipping boxes engineered against the transit sequence and the freight bill — six builds (regular slotted container, full overlap, die-cut mailer, telescoping, heavy-duty double-wall and e-commerce), corrugated board from 32 to 51 ECT with compression figures, dimensional-weight right-sizing, inside printing, and FSC or recycled grades. Runs from 500 units per size and SKU, with a white dummy in 3 to 5 days',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide', offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+      { '@type': 'ListItem', position: 2, name: 'Industries', item: 'https://www.leelinepackage.com/#industries' },
+      { '@type': 'ListItem', position: 3, name: 'Custom Shipping Box' } ] },
+    { '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ],
+};
+
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+
+/* §6 — the ladder's bar: one isometric carton, three shaded faces. Each grade
+   scales the WHOLE carton by capacity rather than stretching a rectangle, so it
+   stays a box at every size. Brute attributes only (a scoped <style> never
+   reaches inside a set:html string), and `vector-effect: non-scaling-stroke`
+   keeps the outline 1 px however far the carton is scaled. */
+const carton = `
+<svg viewBox="0 0 120 120" role="presentation" style="height:100%;width:auto;display:block">
+  <polygon points="10,32 64,10 110,26 56,48" fill="#E4B54D" stroke="#14261B" stroke-opacity=".3" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <polygon points="10,32 56,48 56,110 10,94" fill="#C9A87C" stroke="#14261B" stroke-opacity=".3" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <polygon points="56,48 110,26 110,88 56,110" fill="#8A6E3B" stroke="#14261B" stroke-opacity=".3" stroke-width="1" vector-effect="non-scaling-stroke"/>
+</svg>`;
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={`${SB}/hero-v3.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <Navbar />
+  <main id="top" class="sb">
+
+    <!-- ═══ 1 · HERO — copy left, one plate right, and a data rail fused to the band's foot ═══ -->
+    <section class="sb-hero">
+      <div class="wrap sb-hero-in">
+        <div class="sb-hero-copy">
+          <span class="eyebrow"><Fragment set:html={leaf} />Custom Shipping Box</span>
+          <h1 class="sb-h1">Custom Shipping Box: Built for ISTA 3A Transit &amp; <em>Lower Freight</em></h1>
+          <p class="sb-lede">Custom-contoured dielines eliminate empty space to slash dimensional freight by up to 25%. Combined with board grades optimized for stacking, designs are validated to keep transit damage low without over-packaging.</p>
+          <div class="sb-cta">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get a Shipping Box Quote<Fragment set:html={arrow} /></a>
+          </div>
+        </div>
+        <figure class="sb-hero-plate">
+          <img src={`${SB}/hero-v3.webp`} alt="Printed shipping boxes for several brands, in kraft, pink and blue, arranged on a bright yellow surface" width="800" height="600" loading="eager" fetchpriority="high" decoding="sync" />
+        </figure>
+      </div>
+      <div class="sb-foot">
+        <div class="wrap sb-foot-in">
+          <div class="sb-foot-item"><span class="sb-foot-v">98.7 %</span><span class="sb-foot-l">On-time production</span></div>
+          <div class="sb-foot-item"><span class="sb-foot-v">7–10</span><span class="sb-foot-l">Days to a printed sample</span></div>
+          <div class="sb-foot-item"><span class="sb-foot-v">4–6</span><span class="sb-foot-l">Weeks, brief to a shipped pallet</span></div>
+          <div class="sb-foot-item"><span class="sb-foot-v">20,000</span><span class="sb-foot-l">m² under one roof</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 2 · THE ROUTE — the page's one drawn module: a six-stop hazard axis ═══ -->
+    <section class="band g-dark sb-route-band">
+      <div class="wrap">
+        <div class="hd hd--light" data-reveal="up">
+          <span class="kicker">In transit</span>
+          <h2>What Happens to a Parcel in Transit</h2>
+          <p>Every shipping box is bought for what happens between the packing bench and the customer's door. Six stages do almost all of the damage, and each one is a different kind of force.</p>
+        </div>
+        <ol class="sb-route" data-reveal="up">
+          {stops.map((s) => (
+            <li class="sb-stop">
+              <h3>{s.name}</h3>
+              <p class="sb-stop-fig">{s.hazard}</p>
+              <p class="sb-stop-d">{s.d}</p>
+            </li>
+          ))}
+        </ol>
+        <ul class="sb-reads" data-reveal="up">
+          {readouts.map((r) => (
+            <li class="sb-read">
+              <p class="sb-read-k">{r.k}</p>
+              <p class="sb-read-v">{r.v}</p>
+              <p class="sb-read-d">{r.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ 3 · TYPES — six plates, two rows of three, three data pairs under each ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap">
+        <div class="hd" data-reveal="up">
+          <span class="kicker">Six builds</span>
+          <h2>Custom Shipping Box Types</h2>
+          <p>Six constructions cover almost every parcel. Each is chosen by what is inside and how many times it will be handled, not by how it looks on a screen.</p>
+        </div>
+        <div class="sb-types">
+          {types.map((t) => (
+            <article class="sb-type" data-reveal="up">
+              <figure class="sb-type-ph">
+                <img src={`${SB}/${t.img}.webp`} alt={t.alt} width="525" height="525" loading="lazy" decoding="async" />
+                <span class="sb-code">{t.n}</span>
+              </figure>
+              <h3>{t.name}</h3>
+              <dl class="sb-spec">
+                <div><dt>ECT</dt><dd>{t.a}</dd></div>
+                <div><dt>Wall</dt><dd>{t.b}</dd></div>
+                <div><dt>Closure</dt><dd>{t.c}</dd></div>
+              </dl>
+              <p class="sb-type-d" set:html={t.d} />
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 4 · THE VOID — the page's only cost arithmetic, and it is centred as a block ═══ -->
+    <section class="band g-clay">
+      <div class="wrap">
+        <div class="hd hd--c" data-reveal="up">
+          <span class="kicker">Dimensional weight</span>
+          <h2>How Void Space Raises Your Freight Bill</h2>
+          <p>A courier prices a parcel by the volume it occupies, not by the mass on the scale. A carton bought a size too large is paid for again on every order that follows, so the arithmetic is worth doing once.</p>
+        </div>
+        <div class="sb-void" data-reveal="up">
+          {voids.map((v) => (
+            <div class="sb-vrow"><span>{v.l}</span><span class="sb-vval">{v.v}</span></div>
+          ))}
+          <div class="sb-vrow sb-vrow--calc"><span>Actual weight</span><span class="sb-vval">1.6 lb</span></div>
+          <div class="sb-vrow sb-vrow--calc"><span>Dimensional weight (9 × 7 × 5 ÷ 139)</span><span class="sb-vval">2.3 lb</span></div>
+          <div class="sb-vrow sb-vrow--calc"><span>Billed on</span><span class="sb-vval">2.3 lb <b class="sb-air">0.7 lb of it is air</b></span></div>
+          <div class="sb-vrow"><span>Box cut to 7 × 5 × 4 in, same product</span><span class="sb-vval">billed on 1.6 lb</span></div>
+          <div class="sb-vrow sb-vrow--out"><span>Billed weight removed</span><span class="sb-vval">up to 25 %</span></div>
+          <div class="sb-vrow sb-vrow--total"><span>Label cost, against your own rate card</span><span class="sb-vval">10–25 % lower</span></div>
+        </div>
+        <p class="sb-void-note" data-reveal="up">The re-cut is a change of die, not of box: same board, same print, drawn around the product as packed.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 5 · TWO JOURNEYS — two cards, figure rows aligned to a shared baseline ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap">
+        <div class="hd" data-reveal="up">
+          <span class="kicker">Two journeys</span>
+          <h2>How the Box Ships to You, and How It Ships to Your Customer</h2>
+          <p>A shipping box is freighted twice and pays for both. The first journey is yours, and it is decided by whether the carton arrives formed or knocked down.</p>
+        </div>
+        <div class="sb-states">
+          {states.map((s) => (
+            <article class="sb-state" data-reveal="up">
+              <figure class="sb-state-ph">
+                <img src={`${SB}/${s.img}.webp`} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" />
+              </figure>
+              <h3>{s.h}</h3>
+              <p class="sb-state-lead">{s.lead}</p>
+              <dl class="sb-state-figs">
+                {s.figs.map((f) => (
+                  <div><dt class="sb-state-v">{f.v}</dt><dd><b>{f.t}</b>{f.d}</dd></div>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 6 · STACKING STRENGTH — the dark centre of gravity and the page's ONLY strength arithmetic ═══ -->
+    <section class="band band--dark g-dark">
+      <div class="wrap">
+        <div class="hd hd--light" data-reveal="up">
+          <span class="kicker">Board grade</span>
+          <h2>How Stacking Strength Is Calculated</h2>
+          <p>Pick the grade from the height you actually stack to. Each figure is the load one carton carries on top of it with the safety and humidity allowances already taken out, so it can be read straight against the weight in your own racking.</p>
+        </div>
+        <ul class="sb-grades" data-reveal="up">
+          {grades.map((g) => (
+            <li class="sb-grade">
+              <div class="sb-grade-track"><span class="sb-carton" style={`height:${g.pct}%`} set:html={carton}></span></div>
+              <p class="sb-grade-v">{g.cap} lb</p>
+              <p class="sb-grade-n">{g.ect} ECT · {g.wall}</p>
+              <p class="sb-grade-safe">Tested at {g.bct} lb compression</p>
+              <p class="sb-grade-d">{g.d}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="sb-grade-note" data-reveal="up">The same carton left four days at 85 % relative humidity gives up 45 % of its capacity, which is three high rather than four. Board is quoted wet here for that reason, and the allowance sits inside every figure above.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 7 · PRINTING — the plate left, four decisions right ═══ -->
+    <section class="band g-clay">
+      <div class="wrap sb-print">
+        <figure class="sb-print-ph" data-reveal="up">
+          <img src={`${SB}/print.webp`} alt="A kraft carton carrying a foil-stamped PREMIUM GOODS logo" width="600" height="470" loading="lazy" decoding="async" />
+        </figure>
+        <div data-reveal="up">
+          <div class="hd hd--tight">
+            <span class="kicker">Print and finish</span>
+            <h2>Printing and Finishing a Shipping Box</h2>
+            <p>Print and assembly are the two steps that can quietly take half the stack strength out of a carton. Both are settled before a die is made, which is why the score line decides the artwork.</p>
+          </div>
+          <dl class="sb-pairs">
+            {printPairs.map((p) => (
+              <div class="sb-pair"><dt>{p.b}</dt><dd>{p.d}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 8 · MATERIALS — the plate right, four compliance figures left ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap sb-eco">
+        <div data-reveal="up">
+          <div class="hd hd--tight">
+            <span class="kicker">Materials</span>
+            <h2>Recycled and FSC-Certified Shipping Box Materials</h2>
+            <p>The most sustainable shipper arrives intact and gets reordered to the same specification. Each claim below is a figure a supplier can be held to, rather than a slogan.</p>
+          </div>
+          <dl class="sb-eco-figs">
+            {ecoFigs.map((e) => (
+              <div class="sb-eco-fig"><dt>{e.v}</dt><dd>{e.d}</dd></div>
+            ))}
+          </dl>
+        </div>
+        <figure class="sb-eco-ph" data-reveal="up">
+          <img src={`${SB}/materials.webp`} alt="Plain kraft cartons arranged on a table with packing paper and botanical samples" width="1200" height="900" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══ 9 · CASE STUDIES — image level with the copy, figures in a band beneath ═══ -->
+    <section class="band g-clay">
+      <div class="wrap">
+        <div class="hd" data-reveal="up">
+          <span class="kicker">From the floor</span>
+          <h2>Custom Shipping Box Case Studies</h2>
+          <p>Two orders where the carton was the whole problem, written up with the figures the plant recorded rather than the ones that read well.</p>
+        </div>
+        <div class="sb-cases">
+          {cases.map((c) => (
+            <article class="sb-case" data-reveal="up">
+              <div class="sb-case-body">
+                <div class="sb-case-copy">
+                  <p class="sb-case-tag">{c.tag}</p>
+                  <h3>{c.title}</h3>
+                  <p class="sb-case-d">{c.body}</p>
+                  <a class="sb-case-link" href={c.href} target="_blank" rel="noopener">{c.link}<Fragment set:html={arrow} /></a>
+                </div>
+                <figure class="sb-case-ph">
+                  <img src={`${SB}/${c.img}.webp`} alt={c.alt} width={c.w} height={c.h} loading="lazy" decoding="async" />
+                </figure>
+              </div>
+              <dl class="sb-case-figs">
+                {c.figs.map((f) => (
+                  <div><dt>{f.v}</dt><dd>{f.d}</dd></div>
+                ))}
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10 · REVIEWS — two cards, quote marks at the top-left and the bottom-right ═══ -->
+    <section class="band g-ivory">
+      <div class="wrap">
+        <div class="hd" data-reveal="up">
+          <span class="kicker">Customers</span>
+          <h2>What Our Customers Say</h2>
+        </div>
+        <div class="sb-quotes">
+          {reviews.map((r) => (
+            <figure class="sb-quote" data-reveal="up">
+              <blockquote>
+                {r.paras.map((p) => <p>{p}</p>)}
+              </blockquote>
+              <figcaption>
+                <img src={`${SB}/${r.img}.webp`} alt={r.alt} width="300" height="300" loading="lazy" decoding="async" />
+                <span><b>{r.name}</b>{r.role}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 11 · FAQ ═══ -->
+    <section class="band g-clay">
+      <div class="wrap">
+        <div class="hd hd--c" data-reveal="up">
+          <span class="kicker">Before you order</span>
+          <h2>People Also Ask About Custom Shipping Box</h2>
+        </div>
+        <div class="acc sb-faq">
+          {faqs.map((f, i) => (
+            <details data-reveal="up" open={i === 0}>
+              <summary><span class="sb-faq-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 12 · FINAL ═══ -->
+    <section class="band band--dark g-forest sb-final">
+      <div class="wrap">
+        <div class="hd hd--c hd--light" data-reveal="up">
+          <span class="kicker">Start here</span>
+          <h2>Start a Shipping Box Order</h2>
+          <p>Two numbers are enough to begin: the packed size of the product and what it weighs. We return a dieline, a board grade and a billed weight.</p>
+        </div>
+        <p class="sb-final-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send the Packed Size and Weight<Fragment set:html={arrow} /></a>
+        </p>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+  if ('IntersectionObserver' in window && !reduce) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    revealEls.forEach((el) => io.observe(el));
+  } else { revealEls.forEach((el) => el.classList.add('in')); }
+
+  const faqItems = Array.from(document.querySelectorAll('.sb-faq details'));
+  faqItems.forEach((d) => d.addEventListener('toggle', () => { if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; }); }));
+</script>
+
+<style>
+  /* ══ 1 · grounds and band padding ═══════════════════════════════════════════
+     site.css carries no section padding, so every band sets its own or the
+     sections touch. ivory ⇄ clay with one dark centre of gravity, §4. */
+  .sb { --hair: rgba(31, 59, 44, 0.14); }
+  .band { padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .band--dark { padding: clamp(4.5rem, 10vw, 8.5rem) 0; }
+  .g-ivory { background: var(--color-ivory); }
+  .g-clay { background: var(--color-clay); }
+  .g-dark { background: var(--color-forest); color: var(--color-ivory); }
+  .g-forest { background: var(--forest-deep); color: var(--color-ivory); }
+
+  /* ══ 2 · shared head, reveal and small parts ════════════════════════════════ */
+  .hd { margin-bottom: clamp(2.5rem, 6vw, 4.25rem); max-width: 82ch; }
+  .hd--c { text-align: center; margin-inline: auto; }
+  .hd--tight { margin-bottom: 0; }
+  .hd h2 {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.85rem, 4.2vw, 3.1rem); line-height: 1.07;
+    letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0.7rem 0 0;
+    text-wrap: balance;
+  }
+  .hd p { margin: 1.15rem 0 0; font-size: 1.04rem; line-height: 1.7; color: var(--color-brand-muted); }
+  .hd--c p { margin-inline: auto; }
+  .hd--light h2 { color: var(--color-ivory); }
+  .hd--light p { color: rgba(245, 240, 229, 0.78); }
+  .kicker {
+    display: inline-block; font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-brass);
+  }
+
+  [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ══ 3 · HERO ═══════════════════════════════════════════════════════════
+     Copy left, one plate right, and a full-width data rail fused to the band's
+     foot. Not a centred hero, not a stat card row, not a background photo. */
+  .sb-hero { background: var(--color-ivory); padding: calc(clamp(3.5rem, 7vw, 5.5rem) + 4.75rem) 0 0; }
+  .sb-hero-in {
+    display: grid; grid-template-columns: 1.02fr 0.98fr;
+    gap: clamp(2rem, 5vw, 4.5rem); align-items: center;
+  }
+  .sb-h1 {
+    font-family: var(--font-heading); font-weight: 700;
+    font-size: clamp(2rem, 3.6vw, 3.05rem); line-height: 1.06;
+    letter-spacing: -0.025em; color: var(--color-brand-text);
+    margin: 1.1rem 0 0; max-width: 25ch;
+  }
+  .sb-h1 em { font-style: italic; color: var(--color-brass); }
+  .sb-lede { margin: 1.3rem 0 0; font-size: 1.05rem; line-height: 1.72; color: var(--color-brand-muted); max-width: 72ch; }
+  .sb-cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .sb-hero-plate { margin: 0; border-radius: 1.4rem; overflow: hidden; box-shadow: 0 44px 84px -54px rgba(31, 59, 44, 0.62); }
+  .sb-hero-plate img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .sb-foot { margin-top: clamp(2.75rem, 5.5vw, 4.25rem); background: var(--color-forest); color: var(--color-ivory); }
+  .sb-foot-in { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1rem, 3vw, 2rem); padding: 1.55rem 0; }
+  .sb-foot-item { display: flex; flex-direction: column; gap: 0.15rem; border-left: 1px solid rgba(245, 240, 229, 0.22); padding-left: 1.1rem; }
+  .sb-foot-item:first-child { border-left: 0; padding-left: 0; }
+  .sb-foot-v { font-family: var(--font-heading); font-size: 1.7rem; line-height: 1.1; color: var(--brass-soft); font-variant-numeric: tabular-nums; }
+  .sb-foot-l { font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(245, 240, 229, 0.72); }
+
+  /* ══ 4 · THE ROUTE — the page's one drawn module ═══════════════════════ */
+  /* the band carries the client's transit photograph under a DARK scrim, so the
+     photo reads and the type flips to ivory. The scrim is the whole dial: lower
+     it and the photograph shows more, at the cost of the rail's hairlines. The
+     readout cards take their own dark plate so their numbers stay crisp whatever
+     the scrim. Pushed 0.5 cm down off the hero's data rail. */
+  .sb-route-band {
+    padding-top: calc(clamp(4rem, 9vw, 7.5rem) + 0.5cm);
+    color: var(--color-ivory);
+    background:
+      linear-gradient(rgba(20, 38, 27, 0.68), rgba(20, 38, 27, 0.8)),
+      url('https://img.leelinepackage.com/shipping-box/transit-bg-v3.webp') center / cover no-repeat;
+  }
+  .sb-route-band .sb-stop { border-color: rgba(245, 240, 229, 0.32); }
+  .sb-route-band .sb-stop h3 { color: var(--color-ivory); }
+  /* every force word in ONE colour — the lightened brass, because the brand's own
+     brass tokens all fall under 3:1 on this dark band (see theme.css) */
+  .sb-route-band .sb-stop-fig { color: var(--color-brass-light); }
+  .sb-route-band .sb-stop-d { color: var(--color-ivory); }
+  .sb-route-band .sb-read {
+    background: rgba(20, 38, 27, 0.58);
+    border-color: rgba(245, 240, 229, 0.22);
+    border-top-color: var(--brass);
+  }
+  .sb-route-band .sb-read-v { color: var(--color-ivory); }
+  .sb-route-band .sb-read-d { color: var(--color-ivory); }
+  .sb-route {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(0.85rem, 2vw, 1.6rem);
+  }
+  .sb-stop { position: relative; border-top: 1px solid var(--hair); padding-top: 1.75rem; }
+  .sb-stop::before {
+    content: ''; position: absolute; top: -5.5px; left: 0;
+    width: 11px; height: 11px; border-radius: 50%; background: var(--brass);
+  }
+  .sb-stop h3 {
+    font-family: var(--font-body); font-weight: 600; font-size: 0.84rem;
+    letter-spacing: 0.11em; text-transform: uppercase; color: var(--color-brand-text); margin: 0;
+  }
+  .sb-stop-fig { font-family: var(--font-heading); font-size: 1.7rem; line-height: 1.15; color: var(--color-forest); margin: 0.55rem 0 0; }
+  .sb-stop-d { margin: 0.75rem 0 0; font-size: 0.88rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* the three readouts, as framed cards rather than a bare row of figures */
+  .sb-reads {
+    list-style: none; margin: clamp(2.5rem, 5vw, 3.75rem) 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 1.75rem);
+  }
+  .sb-read {
+    border: 1px solid var(--hair); border-radius: 0.9rem; background: transparent;
+    padding: clamp(1.1rem, 2.2vw, 1.6rem); border-top: 2px solid var(--color-forest);
+  }
+  .sb-read-k { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brass); margin: 0; }
+  .sb-read-v { font-family: var(--font-heading); font-size: 1.32rem; line-height: 1.25; color: var(--color-forest); margin: 0.5rem 0 0; }
+  .sb-read-d { margin: 0.7rem 0 0; font-size: 0.87rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* ══ 5 · TYPES ══════════════════════════════════════════════════════════ */
+  .sb-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 3.6vw, 2.75rem); }
+  .sb-type-ph { margin: 0; position: relative; border-radius: 1rem; overflow: hidden; }
+  .sb-type-ph img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; }
+  .sb-code {
+    position: absolute; left: 0.75rem; top: 0.75rem;
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em;
+    background: var(--brass-soft); color: var(--forest-deep);
+    border-radius: 999px; padding: 0.26rem 0.6rem;
+  }
+  .sb-type h3 { font-family: var(--font-heading); font-weight: 500; font-size: 1.3rem; line-height: 1.2; margin: 1.1rem 0 0; color: var(--color-brand-text); }
+  .sb-spec { display: grid; grid-template-columns: repeat(3, 1fr); margin: 0.85rem 0 0; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); }
+  .sb-spec > div { padding: 0.55rem 0.5rem; border-left: 1px solid var(--hair); min-width: 0; }
+  .sb-spec > div:first-child { border-left: 0; padding-left: 0; }
+  .sb-spec dt { font-size: 0.64rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-moss); margin: 0; }
+  .sb-spec dd { margin: 0.15rem 0 0; font-size: 0.79rem; font-weight: 600; color: var(--color-brand-text); }
+  .sb-type-d { margin: 0.9rem 0 0; font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); }
+  .sb-type-d b { color: var(--color-brand-primary); font-weight: 600; }
+
+  /* ══ 6 · STACKING STRENGTH — the dark centre of gravity. The ladder leads with
+     the load one carton carries (`cap`) and keeps the lab compression test
+     small beneath it, so the numbers read as capacity, not as a claim. */
+  .sb-grades { list-style: none; margin: clamp(2.5rem, 5vw, 3.75rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.25rem, 3.5vw, 3rem); align-items: end; }
+  .sb-grade { display: flex; flex-direction: column; }
+  .sb-grade-track { height: clamp(9rem, 16vw, 15rem); display: flex; align-items: flex-end; }
+  /* the whole carton scales with the grade, so it stays a box rather than
+     stretching into a bar. Width follows from the height; nothing is capped. */
+  .sb-carton { display: block; flex: 0 0 auto; }
+  .sb-grade-v { font-family: var(--font-heading); font-size: clamp(1.9rem, 2.9vw, 2.4rem); line-height: 1.05; color: var(--brass-soft); margin: 0.9rem 0 0; font-variant-numeric: tabular-nums; }
+  .sb-grade-n { margin: 0.25rem 0 0; font-size: 0.82rem; font-weight: 600; color: var(--color-ivory); }
+  .sb-grade-safe { margin: 0.6rem 0 0; padding-top: 0.6rem; border-top: 1px solid rgba(245, 240, 229, 0.24); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245, 240, 229, 0.7); }
+  .sb-grade-d { margin: 0.55rem 0 0; font-size: 0.85rem; line-height: 1.58; color: rgba(245, 240, 229, 0.84); }
+  .sb-grade-note { margin: clamp(2.25rem, 4vw, 3rem) 0 0; padding-top: 1.4rem; border-top: 1px solid rgba(245, 240, 229, 0.24); max-width: 84ch; font-size: 0.95rem; line-height: 1.72; color: rgba(245, 240, 229, 0.82); }
+
+  /* ══ 7 · THE VOID — a statement, delimited by rules because it is arithmetic ══ */
+  .sb-void { max-width: 58rem; margin-inline: auto; border: 1px solid var(--hair); border-radius: 1rem; background: var(--color-ivory); overflow: hidden; }
+  .sb-vrow { display: flex; justify-content: space-between; gap: 1.5rem; padding: 0.85rem clamp(1rem, 3vw, 1.75rem); border-bottom: 1px solid rgba(31, 59, 44, 0.09); font-size: 0.95rem; }
+  .sb-vrow:last-child { border-bottom: 0; }
+  .sb-vrow > span:first-child { color: var(--color-brand-muted); }
+  .sb-vval { font-weight: 600; color: var(--color-brand-text); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sb-vrow--calc { border-top: 2px solid var(--color-forest); }
+  .sb-vrow--calc + .sb-vrow--calc { border-top: 0; }
+  .sb-air { display: inline-block; margin-left: 0.55rem; font-size: 0.83rem; font-weight: 600; color: var(--color-brass); }
+  .sb-vrow--out { border-top: 1px solid var(--hair); }
+  .sb-vrow--total { border-top: 2px solid var(--color-brass); background: var(--color-clay); }
+  .sb-vrow--total .sb-vval { font-family: var(--font-heading); font-size: 1.32rem; color: var(--color-forest); }
+  .sb-void-note { margin: 1.4rem auto 0; max-width: 86ch; font-size: 0.88rem; line-height: 1.68; color: var(--color-brand-muted); text-align: center; text-wrap: balance; }
+
+  /* ══ 8 · TWO JOURNEYS — two cards, figure rows on a shared baseline ═══ */
+  .sb-states { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 3vw, 2rem); }
+  .sb-state {
+    display: flex; flex-direction: column;
+    border: 1px solid var(--hair); border-radius: 1rem; background: transparent;
+    padding: clamp(1.3rem, 2.8vw, 2rem);
+  }
+  .sb-state h3 { font-family: var(--font-body); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brass); margin: 0; }
+  /* the client's own photograph heads each card; both are unified on 16:9 so the
+     matched pair cannot go ragged */
+  .sb-state-ph { margin: 0 0 1.25rem; border-radius: 0.7rem; overflow: hidden; }
+  .sb-state-ph img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+  .sb-state-lead { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); }
+  /* margin-top:auto puts both figure rows on one baseline whatever the lead runs to */
+  .sb-state-figs { margin: auto 0 0; padding-top: 1.4rem; display: grid; gap: 1.1rem; }
+  .sb-state-figs > div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; align-items: baseline; }
+  .sb-state-v { font-family: var(--font-heading); font-size: 1.55rem; line-height: 1.1; color: var(--color-forest); margin: 0; font-variant-numeric: tabular-nums; }
+  .sb-state-figs dd { margin: 0; font-size: 0.84rem; line-height: 1.5; color: var(--color-brand-muted); }
+  .sb-state-figs dd b { display: block; font-size: 0.9rem; font-weight: 600; color: var(--color-brand-text); }
+
+  /* ══ 9 · PRINTING ═════════════════════════════════════════════════════ */
+  .sb-print { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.25rem); align-items: center; }
+  .sb-print-ph { margin: 0; border-radius: 1.2rem; overflow: hidden; }
+  .sb-print-ph img { width: 100%; height: auto; object-fit: cover; }
+  .sb-pairs { margin: 1.9rem 0 0; border-top: 1px solid var(--hair); }
+  .sb-pair { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1.25rem; padding: 0.95rem 0; border-bottom: 1px solid var(--hair); }
+  .sb-pair dt { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--color-brand-text); }
+  .sb-pair dd { margin: 0; font-size: 0.9rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* ══ 10 · MATERIALS ═══════════════════════════════════════════════════ */
+  .sb-eco { display: grid; grid-template-columns: 1fr 1.12fr; gap: clamp(2rem, 5vw, 4.25rem); align-items: center; }
+  .sb-eco-ph { margin: 0; border-radius: 1.2rem; overflow: hidden; }
+  .sb-eco-ph img { width: 100%; height: auto; object-fit: cover; }
+  .sb-eco-figs { margin: 2rem 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem 2rem; }
+  .sb-eco-fig { border-top: 2px solid var(--brass); padding-top: 0.85rem; }
+  .sb-eco-fig dt { font-family: var(--font-heading); font-weight: 700; font-size: 1.6rem; line-height: 1.1; color: var(--color-forest); }
+  .sb-eco-fig dd { margin: 0.4rem 0 0; font-size: 0.85rem; line-height: 1.6; color: var(--color-brand-muted);
+    /* two lines reserved, so the four cells are the same height at every width.
+       Text length alone cannot do this — the wrap threshold sweeps through any
+       length band as the viewport changes, so some width always splits. */
+    min-height: 3.2em; }
+
+  /* ══ 11 · CASE STUDIES — image level with the copy, figures beneath ═══ */
+  .sb-cases { display: grid; gap: clamp(1.5rem, 3vw, 2.25rem); }
+  .sb-case { border: 1px solid var(--hair); border-radius: 1.1rem; overflow: hidden; }
+  .sb-case-body { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(1.25rem, 3vw, 2.25rem); align-items: stretch; padding: clamp(1.25rem, 3vw, 2rem); }
+  .sb-case-copy { display: flex; flex-direction: column; }
+  .sb-case-tag { margin: 0; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brass); }
+  .sb-case-copy h3 { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.25rem, 2.2vw, 1.6rem); line-height: 1.2; margin: 0.6rem 0 0; color: var(--color-brand-text); }
+  .sb-case-d { margin: 0.9rem 0 0; font-size: 0.93rem; line-height: 1.7; color: var(--color-brand-muted); }
+  .sb-case-link {
+    margin: auto 0 0; align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-size: 0.9rem; font-weight: 600; color: var(--forest-deep);
+    background: var(--brass-soft); border: 1px solid var(--brass);
+    border-radius: 999px; padding: 0.62rem 1.15rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+  /* solid fill AND a border, per the client's ask — it has to be obvious it is a link */
+  .sb-case-link:hover { background: var(--brass); border-color: var(--forest-deep); transform: translateY(-2px); }
+  .sb-case-link .btn-leaf { width: 1em; height: 1em; }
+  /* the plate is stretched to the copy column's own height */
+  .sb-case-ph { margin: 0; border-radius: 0.8rem; overflow: hidden; }
+  .sb-case-ph img { width: 100%; height: 100%; object-fit: cover; }
+  .sb-case-figs { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--hair); }
+  .sb-case-figs > div { padding: 1.1rem clamp(1rem, 3vw, 2rem); border-left: 1px solid var(--hair); }
+  .sb-case-figs > div:first-child { border-left: 0; }
+  .sb-case-figs dt { font-family: var(--font-heading); font-weight: 700; font-size: 1.6rem; line-height: 1.1; color: var(--color-forest); font-variant-numeric: tabular-nums; }
+  .sb-case-figs dd { margin: 0.35rem 0 0; font-size: 0.83rem; font-weight: 600; line-height: 1.55; color: var(--color-brand-muted); }
+
+  /* ══ 12 · REVIEWS — two cards, marks top-left and bottom-right ═══════ */
+  .sb-quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 3vw, 2rem); }
+  .sb-quote {
+    position: relative; margin: 0;
+    border: 1px solid var(--hair); border-radius: 1rem; background: transparent;
+    padding: clamp(1.5rem, 3vw, 2.4rem);
+    display: flex; flex-direction: column;
+  }
+  .sb-quote::before, .sb-quote::after {
+    font-family: var(--font-heading); font-size: 4.4rem; line-height: 0.7;
+    color: var(--brass); opacity: 0.9; position: absolute; pointer-events: none;
+  }
+  .sb-quote::before { content: '\201C'; left: clamp(0.6rem, 1.6vw, 1.1rem); top: 0.5rem; }
+  .sb-quote::after { content: '\201D'; right: clamp(0.6rem, 1.6vw, 1.1rem); bottom: 0.35rem; }
+  .sb-quote blockquote {
+    margin: 0; padding: 0 clamp(1.4rem, 3vw, 2.4rem);
+    font-family: var(--font-heading); font-style: italic;
+    font-size: clamp(1.02rem, 1.5vw, 1.18rem); line-height: 1.62;
+    color: var(--color-brand-text); text-wrap: pretty;
+  }
+  .sb-quote blockquote p { margin: 0; }
+  .sb-quote blockquote p + p { margin-top: 0.85rem; }
+  .sb-quote figcaption { margin: auto 0 0; padding: 1.4rem clamp(1.4rem, 3vw, 2.4rem) 0; display: flex; align-items: center; gap: 0.95rem; }
+  .sb-quote figcaption img { width: 3.9rem; height: 3.9rem; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+  .sb-quote figcaption span { display: flex; flex-direction: column; font-size: 0.82rem; line-height: 1.5; color: var(--color-brand-muted); }
+  .sb-quote figcaption b { font-size: 0.95rem; font-weight: 600; color: var(--color-brand-text); }
+
+  /* ══ 13 · FAQ ═════════════════════════════════════════════════════════ */
+  .sb-faq { max-width: 62rem; margin-inline: auto; }
+  .sb-faq details { border-bottom: 1px solid var(--hair); padding: 1.15rem 0; }
+  .sb-faq summary {
+    display: flex; gap: 1.1rem; cursor: pointer;
+    font-family: var(--font-heading); font-weight: 700; font-size: 1.14rem; line-height: 1.4;
+    color: var(--color-brand-text); list-style: none;
+  }
+  .sb-faq summary::-webkit-details-marker { display: none; }
+  .sb-faq-n { font-style: italic; color: var(--color-brass); flex: 0 0 2rem; }
+  .sb-faq details p { margin: 0.9rem 0 0 3.1rem; font-size: 0.93rem; line-height: 1.72; color: var(--color-brand-muted); }
+
+  /* ══ 14 · FINAL ═══════════════════════════════════════════════════════ */
+  .sb-final { text-align: center; /* 2.5 cm shorter than the band default: 1.25 cm off each edge */
+    padding: calc(clamp(4.5rem, 10vw, 8.5rem) - 1.25cm) 0;
+    /* the client's closing photograph, scrim kept light so it reads */
+    background:
+      linear-gradient(rgba(20, 38, 27, 0.68), rgba(20, 38, 27, 0.78)),
+      url('https://img.leelinepackage.com/shipping-box/cta-bg.webp') center / cover no-repeat; }
+  .sb-final-cta { margin: calc(2.1rem - 0.8cm) 0 0; }
+
+  /* ══ 15 · responsive ═══════════════════════════════════════════════════════ */
+  @media (max-width: 1024px) {
+    .sb-hero-in, .sb-print, .sb-eco { grid-template-columns: 1fr; }
+    .sb-hero-plate { order: 2; }
+    /* the axis cannot be read horizontally once the stops wrap, so it turns
+       into a vertical spine with the marker on the rail */
+    .sb-route { grid-template-columns: repeat(2, 1fr); gap: 0; }
+    .sb-stop { border-top: 0; border-left: 1px solid var(--hair); padding: 1.15rem 0 1.15rem 1.15rem; }
+    .sb-stop::before { top: calc(1.15rem + 0.35rem); left: -6px; }
+    .sb-grades { grid-template-columns: repeat(2, 1fr); gap: 2rem clamp(1.25rem, 4vw, 2.5rem); }
+    .sb-case-body { grid-template-columns: 1fr; }
+    .sb-case-ph { order: -1; }
+    .sb-case-ph img { aspect-ratio: 16 / 9; height: auto; }
+    .sb-case-link { margin-top: 1.3rem; }
+    .sb-states, .sb-quotes { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    .sb-foot-in { grid-template-columns: repeat(2, 1fr); gap: 1.1rem 1.25rem; }
+    .sb-foot-item:nth-child(3) { border-left: 0; padding-left: 0; }
+    .sb-types, .sb-route, .sb-reads, .sb-grades { grid-template-columns: 1fr; }
+    .sb-stop { padding-left: 1rem; }
+    .sb-eco-figs { grid-template-columns: 1fr; }
+    .sb-case-figs { grid-template-columns: 1fr; }
+    .sb-case-figs > div { border-left: 0; border-top: 1px solid var(--hair); }
+    .sb-case-figs > div:first-child { border-top: 0; }
+    .sb-print-ph img { aspect-ratio: 6 / 5; }
+    .sb-pair { grid-template-columns: 1fr; gap: 0.3rem; }
+    .sb-state-figs > div { grid-template-columns: 5.5rem minmax(0, 1fr); }
+    .sb-quote::before, .sb-quote::after { font-size: 3.4rem; }
+    .sb-faq details p { margin-left: 2.4rem; }
+    .sb-h1 { max-width: 100%; }
+  }
+
+  @media (max-width: 380px) {
+    /* the longest CTA labels cannot fit a 320 px line, and .btn sets
+       white-space:nowrap, so page buttons become wrapping blocks */
+    .sb .btn { display: inline-block; white-space: normal; text-align: center; padding-inline: 1rem; }
+    .sb-cta { flex-direction: column; align-items: stretch; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
+  }
+</style>

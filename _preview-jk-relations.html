@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JK · six sections, six different image↔text relations</title>
+<style>
+@font-face{font-family:'Newsreader Variable';font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');}
+@font-face{font-family:'Instrument Sans Variable';font-weight:400 700;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+:root{
+  --color-forest:#1F3B2C; --color-brass:#B08D4C; --color-ivory:#F5F0E5;
+  --color-clay:#EDE5D4; --color-moss:#8C8676; --color-kraft:#C9A87C;
+  --color-brand-text:#2B2F26; --color-brand-muted:#605C4E;
+  --forest-deep:#14261B; --brass-soft:#C9A87C; --hair:rgba(31,59,44,.14);
+  --font-heading:'Newsreader Variable',Georgia,serif;
+  --font-body:'Instrument Sans Variable',system-ui,sans-serif;
+  --gut:max(1.25rem,calc((100vw - 1200px)/2));
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-clay);color:var(--color-brand-text);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+.note{background:#21241C;color:#EDE5D4;padding:1.1rem var(--gut);font-size:.8rem;line-height:1.6}
+.note b{color:var(--brass-soft);letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;margin-right:.7rem}
+.tag{display:block;font-size:.66rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brass);margin-bottom:1.4rem}
+.band{padding:clamp(3.6rem,7.5vw,6.4rem) 0}
+.g-clay{background:var(--color-clay)} .g-ivory{background:var(--color-ivory)}
+.wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+.h2{font-family:var(--font-heading);font-weight:500;font-size:clamp(1.9rem,4.4vw,3.3rem);
+  line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance}
+.hd{margin-bottom:clamp(2.2rem,5vw,3.6rem)}
+.hd p{margin:1.15rem 0 0;font-size:1.06rem;line-height:1.7;color:var(--color-brand-muted);max-width:80ch}
+.code{display:inline-block;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--forest-deep);background:var(--brass-soft);border-radius:999px;padding:.28rem .65rem}
+.get{font-size:.88rem;line-height:1.55;font-weight:600;color:var(--forest-deep);
+  background:rgba(176,141,76,.18);border-radius:.5rem;padding:.5rem .7rem}
+.ph{background:repeating-linear-gradient(135deg,rgba(176,141,76,.11) 0 9px,rgba(176,141,76,.02) 9px 18px);
+  display:grid;place-content:center;text-align:center;color:#8A8168;font-size:.66rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;line-height:1.8;padding:.8rem}
+.ph i{display:block;font-style:normal;font-family:var(--font-heading);font-size:1.1rem;font-weight:600;
+  color:var(--color-brass);letter-spacing:0;text-transform:none}
+
+/* ═══ A · §2 — the plate sits at the END of the line ─────────────────── */
+.a-row{display:grid;grid-template-columns:4.4rem minmax(0,1fr) minmax(14rem,20rem);
+  gap:clamp(1.2rem,3vw,2.6rem);align-items:center;padding:clamp(1.8rem,3.6vw,2.8rem) 0;
+  border-top:1px solid var(--hair)}
+.a-row:last-child{border-bottom:1px solid var(--hair)}
+.a-n{font-family:var(--font-heading);font-style:italic;font-weight:600;
+  font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--color-brass);line-height:1}
+.a-row h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.85rem);
+  line-height:1.2;margin:0}
+.a-row p{margin:.75rem 0 0;font-size:.98rem;line-height:1.72;color:var(--color-brand-muted);max-width:60ch}
+.a-row .get{margin-top:1.1rem;display:inline-block}
+.a-ph{aspect-ratio:4/3;border-radius:.9rem}
+
+/* ═══ B · §3 — the only place the plate stays on top ═══════════════════ */
+.b-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.6vw,2rem)}
+.b-card{border:1px solid var(--hair);border-radius:1.2rem;overflow:hidden;background:var(--color-ivory)}
+.b-card figure{margin:0;aspect-ratio:22/21;overflow:hidden;background:var(--color-clay)}
+.b-card img{width:100%;height:100%;object-fit:cover;display:block}
+.b-b{padding:1.3rem 1.4rem 1.5rem}
+.b-b h3{font-family:var(--font-heading);font-weight:600;font-size:1.2rem;margin:.55rem 0 0;line-height:1.25}
+.b-b .spec{display:block;margin-top:.35rem;font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-moss)}
+.b-b p{margin:.7rem 0 0;font-size:.9rem;line-height:1.65;color:var(--color-brand-muted)}
+
+/* ═══ C · §4 — the copy lies ON the plate ══════════════════════════════ */
+.c-panel{border:1px solid var(--hair);border-radius:1.3rem;background:rgba(245,240,229,.5);
+  overflow:hidden;padding:clamp(1rem,2.2vw,1.5rem)}
+.c-row{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(1rem,2.2vw,1.5rem)}
+.c-cell{grid-column:span 2;position:relative;border-radius:.9rem;overflow:hidden;min-height:20rem;
+  display:flex;flex-direction:column;justify-content:flex-end}
+.c-cell:nth-child(4){grid-column:2/span 2}
+.c-cell:nth-child(5){grid-column:4/span 2}
+.c-fig{position:absolute;inset:0}
+.c-fig img{width:100%;height:100%;object-fit:cover;display:block}
+.c-scrim{position:relative;padding:1.1rem 1.15rem 1.2rem;
+  background:linear-gradient(to top,rgba(245,240,229,.99) 58%,rgba(245,240,229,.86) 78%,rgba(245,240,229,0) 100%)}
+.c-scrim h3{font-family:var(--font-heading);font-weight:600;font-size:1.14rem;margin:.5rem 0 0;line-height:1.25}
+.c-scrim p{margin:.5rem 0 0;font-size:.88rem;line-height:1.6;color:var(--color-brand-muted)}
+.c-scrim .get{margin:.75rem 0 0;display:block}
+
+/* ═══ D · §5 — one plate takes the band, the cloths become a list ══════ */
+.d-band{position:relative;isolation:isolate;overflow:hidden;background:var(--forest-deep);color:var(--color-ivory)}
+.d-band::before{content:'';position:absolute;inset:0;left:34%;z-index:-2;
+  background:url('https://img.leelinepackage.com/jewelry/velvet.webp') center/cover no-repeat}
+.d-band::after{content:'';position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,#14261B 0%,#14261B 30%,rgba(20,38,27,.9) 48%,rgba(20,38,27,.34) 76%,rgba(20,38,27,.1) 100%)}
+.d-in{display:grid;grid-template-columns:minmax(0,26rem) 1fr;gap:clamp(2rem,5vw,4rem);
+  align-items:center;padding:clamp(3.6rem,7.5vw,6.4rem) 0}
+.d-in h2{color:var(--color-ivory)}
+.d-in .sub{margin:1.1rem 0 0;font-size:1rem;line-height:1.7;color:rgba(245,240,229,.78)}
+.d-list{margin:1.8rem 0 0;padding:0;list-style:none}
+.d-list li{padding:.85rem 0;border-top:1px solid rgba(245,240,229,.24);display:grid;
+  grid-template-columns:9rem minmax(0,1fr);gap:1rem;align-items:baseline}
+.d-list li b{font-family:var(--font-heading);font-weight:600;font-size:1.12rem;color:var(--color-ivory)}
+.d-list li span{font-size:.86rem;line-height:1.6;color:rgba(245,240,229,.72)}
+.d-credit{position:absolute;right:var(--gut);bottom:1.3rem;font-size:.66rem;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,229,.6)}
+
+/* ═══ E · §6 — one text column, four plates beside it ══════════════════ */
+.e-grid{display:grid;grid-template-columns:minmax(0,27rem) minmax(0,1fr);gap:clamp(2rem,5vw,4rem);
+  align-items:start}
+.e-list{margin:0;padding:0;list-style:none;counter-reset:e}
+.e-list li{padding:1.15rem 0;border-top:1px solid var(--hair);display:grid;
+  grid-template-columns:2.4rem minmax(0,1fr);gap:.9rem}
+.e-list li:last-child{border-bottom:1px solid var(--hair)}
+.e-list .n{font-family:var(--font-heading);font-style:italic;font-weight:600;color:var(--color-brass);font-size:1.1rem}
+.e-list h3{font-family:var(--font-heading);font-weight:600;font-size:1.1rem;margin:0}
+.e-list .grade{display:block;margin-top:.15rem;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--color-brass)}
+.e-list p{margin:.45rem 0 0;font-size:.9rem;line-height:1.65;color:var(--color-brand-muted)}
+.e-plates{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.8rem,1.6vw,1.2rem);
+  align-self:stretch;min-height:26rem}
+.e-plates figure{margin:0;border-radius:.7rem;overflow:hidden;position:relative;height:100%}
+.e-plates .ph{height:100%}
+.e-plates figcaption{position:absolute;top:.5rem;left:.5rem;width:1.7rem;height:1.7rem;border-radius:50%;
+  background:var(--brass);color:var(--forest-deep);display:grid;place-content:center;
+  font-size:.76rem;font-weight:600}
+
+/* ═══ (the table sits between E and F, unchanged) ══════════════════════ */
+.t{width:100%;border-collapse:collapse;font-size:.94rem;line-height:1.6}
+.t th,.t td{text-align:left;vertical-align:top;padding:.9rem 1rem;border-bottom:1px solid var(--hair)}
+.t thead th{font-size:.68rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--color-moss);border-bottom-color:rgba(31,59,44,.3)}
+.t .hl{background:rgba(176,141,76,.2);color:var(--forest-deep);font-weight:600}
+.t .nm{font-family:var(--font-heading);font-weight:600;font-size:1.05rem}
+
+/* ═══ F · §8 — no image at all ═════════════════════════════════════════ */
+.f-rows{border-top:1px solid var(--hair)}
+.f-row{display:grid;grid-template-columns:minmax(14rem,21rem) minmax(0,1fr) 12rem;
+  gap:clamp(1.4rem,3vw,3rem);align-items:center;padding:clamp(1.6rem,3.2vw,2.4rem) 0;
+  border-bottom:1px solid var(--hair)}
+.f-row.tint{background:rgba(245,240,229,.95);padding-inline:clamp(1rem,3vw,2.4rem);
+  margin-inline:calc(clamp(1rem,3vw,2.4rem) * -1)}
+.f-row .k{display:block;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--color-brass)}
+.f-row h3{font-family:var(--font-heading);font-weight:600;font-size:clamp(1.25rem,2.2vw,1.7rem);line-height:1.18;margin:.5rem 0 0}
+.f-row .scene{margin:0;font-family:var(--font-heading);font-style:italic;font-size:1.06rem;line-height:1.65;color:var(--color-brand-muted)}
+.f-row .get{margin:.9rem 0 0;display:inline-block}
+.f-stat{text-align:right}
+.f-stat b{display:block;font-family:var(--font-heading);font-style:italic;font-weight:600;
+  font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.05;color:var(--color-brand-primary)}
+.f-stat span{display:block;margin-top:.4rem;font-size:.8rem;line-height:1.5;color:var(--color-brand-muted)}
+</style>
+</head>
+<body>
+
+<p class="note"><b>How to read this</b>Six sections in page order, each with a different image↔text relation: <b>A</b> plate at the end of the line · <b>B</b> plate on top (the only one left) · <b>C</b> copy lying on the plate · <b>D</b> one plate takes the whole band · <b>E</b> one text column beside four bare plates · <b>F</b> no plate at all. Scrolling straight down is the point — no two neighbours share a shape.</p>
+
+<!-- ══════════ A ══════════ -->
+<section class="band g-clay">
+  <div class="wrap">
+    <span class="tag">A · §2 — text left, plate at the end of the line</span>
+    <header class="hd">
+      <h2 class="h2">Three Ways a Piece Arrives Damaged</h2>
+      <p>Sulfur in the air, a lid that shuts too low, and a well cut to the wrong size — all three settle the outcome long before anybody opens the box.</p>
+    </header>
+    <div>
+      <div class="a-row">
+        <span class="a-n">01</span>
+        <div>
+          <h3>The lid leaves a mark on the stone</h3>
+          <p>The insert holds the piece below the line where lid meets base, and the sample is closed and reopened on the bench before the run starts.</p>
+          <span class="get">A stone that arrives exactly as it left the bench</span>
+        </div>
+        <figure class="ph a-ph"><i>01</i>Photo to come</figure>
+      </div>
+      <div class="a-row">
+        <span class="a-n">02</span>
+        <div>
+          <h3>Silver goes dark in the box</h3>
+          <p>A sulfur-free layer is laid against the metal itself rather than over the adhesive behind it, and it is the layer we name on the spec sheet.</p>
+          <span class="get">Stock that still reads as new after a season in the case</span>
+        </div>
+        <figure class="ph a-ph"><i>02</i>Photo to come</figure>
+      </div>
+      <div class="a-row">
+        <span class="a-n">03</span>
+        <div>
+          <h3>The piece scuffs itself on the way</h3>
+          <p>The well is measured from the piece itself, band and clasp included. Nothing in it has room to move.</p>
+          <span class="get">A piece that comes out of the box unmarked, however far it travelled</span>
+        </div>
+        <figure class="ph a-ph"><i>03</i>Photo to come</figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ B ══════════ -->
+<section class="band g-ivory">
+  <div class="wrap">
+    <span class="tag">B · §3 — plate on top, copy under · the only section that keeps it</span>
+    <header class="hd">
+      <h2 class="h2">Custom Jewelry Packaging Types</h2>
+      <p>Every build takes its own insert, board and wrap. Change the type and all three change with it.</p>
+    </header>
+    <div class="b-grid">
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/struct-book.webp" alt="Two white ring boxes, the front one open on a black ring slot" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-01</span><h3>Custom Ring Boxes</h3><span class="spec">One or two wells</span><p>A well cut to the band itself — the stone finishes clear of the board underneath.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-necklace.webp" alt="A pink necklace box open beside a fine gold chain" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-02</span><h3>Custom Necklace Boxes</h3><span class="spec">Card or tray</span><p>A card carries the chain along a single curve; it arrives ready to hang rather than knotted.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-earring.webp" alt="Lilac jewelry boxes stacked, a small drawer box open on a pair of stud earrings" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-03</span><h3>Custom Earring Boxes</h3><span class="spec">Paired wells</span><p>Two wells rather than a shared cavity, because a pair must not meet on the way.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-pendant.webp" alt="Two pendant boxes open on their inserts" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-04</span><h3>Custom Pendant Boxes</h3><span class="spec">Deep slot</span><p>Depth holds a swinging drop still and keeps the bail from riding on the chain.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-gift.webp" alt="A paper bag and a jewelry box grouped on an orange ground" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-05</span><h3>Custom Jewelry Gift Boxes</h3><span class="spec">Ribbon or magnet</span><p>The opening gets photographed. The lid line belongs in the design brief.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-drawer.webp" alt="A hand sliding open a green jewelry drawer box" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-06</span><h3>Custom Jewelry Drawer Boxes</h3><span class="spec">Sliding tray</span><p>The tray travels toward the customer; the piece is seen before it is touched.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-travel.webp" alt="An open tan jewelry case with cut compartments" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-07</span><h3>Custom Jewelry Travel Cases</h3><span class="spec">Cut compartments</span><p>Cut compartments let one case carry a mixed, separated range.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/type-set.webp" alt="A dark open jewelry case holding a necklace, earrings and a ring tray" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-08</span><h3>Custom Jewelry Set Boxes</h3><span class="spec">Two levels</span><p>Necklace above, with the chain card or the certificate held flat in the level beneath.</p></div></div>
+      <div class="b-card"><figure><img src="https://img.leelinepackage.com/jewelry/chest.webp" alt="A wooden jewelry chest standing open, its tray divided" width="550" height="525" loading="lazy" decoding="async"></figure>
+        <div class="b-b"><span class="code">JT-09</span><h3>High-End Wooden Jewelry Chests</h3><span class="spec">Lid and base</span><p>The build a customer keeps, refills and leaves out on display.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ C ══════════ -->
+<section class="band g-clay">
+  <div class="wrap">
+    <span class="tag">C · §4 — the copy lies on the plate</span>
+    <header class="hd">
+      <h2 class="h2">Custom Jewelry Box Inserts</h2>
+      <p>An insert is cut from the piece, not from a category. Send one sample or its three measurements, and the cavity is drawn to that and nothing else.</p>
+    </header>
+    <div class="c-panel">
+      <div class="c-row">
+        <div class="c-cell">
+          <div class="c-fig ph"><i>01</i>Photo to come</div>
+          <div class="c-scrim"><span class="code">01</span>
+            <h3>Ring slot</h3>
+            <p>Wells measured from the band, and cut so the stone hangs free of the floor beneath it.</p>
+            <span class="get">Nothing comes to rest on the stone.</span></div>
+        </div>
+        <div class="c-cell">
+          <div class="c-fig"><img src="https://img.leelinepackage.com/jewelry/insert-pair.webp" alt="Several white jewelry boxes open on their inserts" width="700" height="560" loading="lazy" decoding="async"></div>
+          <div class="c-scrim"><span class="code">02</span>
+            <h3>Cut tray</h3>
+            <p>A pocket per SKU, cut from measurements of the actual piece.</p>
+            <span class="get">Every SKU rides in its own pocket.</span></div>
+        </div>
+        <div class="c-cell">
+          <div class="c-fig ph"><i>03</i>Photo to come</div>
+          <div class="c-scrim"><span class="code">03</span>
+            <h3>Necklace card</h3>
+            <p>Satin wrapped over board, notched at the top so the chain hangs in a single curve.</p>
+            <span class="get">A chain that keeps its line.</span></div>
+        </div>
+        <div class="c-cell">
+          <div class="c-fig ph"><i>04</i>Photo to come</div>
+          <div class="c-scrim"><span class="code">04</span>
+            <h3>Pillow pad</h3>
+            <p>A shaped pad cut to the inside curve — the clasp and the band carry no weight at all.</p>
+            <span class="get">The shape survives the trip.</span></div>
+        </div>
+        <div class="c-cell">
+          <div class="c-fig ph"><i>05</i>Photo to come</div>
+          <div class="c-scrim"><span class="code">05</span>
+            <h3>Two-level tray</h3>
+            <p>Two floors from the same measurements: trays above, the certificate below.</p>
+            <span class="get">A set travels as a set.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ D ══════════ -->
+<section class="d-band">
+  <div class="wrap d-in">
+    <div>
+      <span class="tag" style="color:var(--brass-soft)">D · §5 — one plate takes the band</span>
+      <h2 class="h2">Linings and Anti-Tarnish Protection</h2>
+      <p class="sub">Silver dulls in a container weeks before a shop ever sees it, and it is the cloth in contact with the metal that decides the outcome. Four cloths, a single job each.</p>
+      <ul class="d-list">
+        <li><b>Velvet</b><span>Rings and branded retail boxes · a polished stone meets nothing abrasive</span></li>
+        <li><b>Suede or microfiber</b><span>Modern lines where shine is unwanted · a chain that comes out unmarked</span></li>
+        <li><b>EVA or foam</b><span>Transit and mixed-SKU trays · freight cannot move the piece</span></li>
+        <li><b>Satin over card</b><span>Necklaces and certificates · a bright surface, a deliberate chain</span></li>
+      </ul>
+    </div>
+    <div></div>
+  </div>
+  <span class="d-credit">Velvet · one of the four</span>
+</section>
+
+<!-- ══════════ E ══════════ -->
+<section class="band g-ivory">
+  <div class="wrap">
+    <span class="tag">E · §6 — one text column, four bare plates beside it</span>
+    <header class="hd">
+      <h2 class="h2">What the Outside Is Made Of</h2>
+      <p>The outside is where the brand is read and where most of the cost sits. Four decisions, and each one is settled against the other three.</p>
+    </header>
+    <div class="e-grid">
+      <ol class="e-list">
+        <li><span class="n">01</span><div><h3>Greyboard</h3><span class="grade">1.5–3.0 mm</span>
+          <p>Rigidity comes from the board, and each layer above it is measured from its thickness.</p></div></li>
+        <li><span class="n">02</span><div><h3>Kraft and recycled stock</h3><span class="grade">FSC chain of custody</span>
+          <p>A recycled sheet that still takes foil cleanly, for a range sold on what it leaves behind.</p></div></li>
+        <li><span class="n">03</span><div><h3>Leather and leatherette</h3><span class="grade">Grain to order</span>
+          <p>A grain that hides handling marks — that is what survives a counter better than a flat wrap.</p></div></li>
+        <li><span class="n">04</span><div><h3>Foil, deboss or print</h3><span class="grade">Matched to Pantone</span>
+          <p>Settled with the wrap, because each method bites differently into a texture and foil is the one that flakes.</p></div></li>
+      </ol>
+      <div class="e-plates">
+        <figure class="ph"><span>Photo to come</span><figcaption>01</figcaption></figure>
+        <figure class="ph"><span>Photo to come</span><figcaption>02</figcaption></figure>
+        <figure class="ph"><span>Photo to come</span><figcaption>03</figcaption></figure>
+        <figure class="ph"><span>Photo to come</span><figcaption>04</figcaption></figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ table ══════════ -->
+<section class="band g-clay">
+  <div class="wrap">
+    <span class="tag">§7 — unchanged: still the one table</span>
+    <header class="hd">
+      <h2 class="h2">How to Choose the Box Structure</h2>
+      <p>Structure is settled before the wrap, because changing it afterwards re-cuts the dieline and the insert together.</p>
+    </header>
+    <table class="t">
+      <thead><tr><th>#</th><th>Structure</th><th>What it does</th><th class="hl">Best for</th><th>Avoid when</th></tr></thead>
+      <tbody>
+        <tr><td>01</td><td class="nm">Magnetic Book-Style</td><td>A hinged lid frames the piece and shuts on a magnet; it opens one-handed and stays shut in a bag.</td><td class="hl">Rings, earrings and small pendants</td><td>The box has to pack flat for freight</td></tr>
+        <tr><td>02</td><td class="nm">Lid and Base</td><td>The lid lifts clear, and a wide or deep tray comes out in a single movement.</td><td class="hl">A necklace with a tray, watches, multi-piece sets</td><td>You need a one-hand open on camera</td></tr>
+        <tr><td>03</td><td class="nm">Drawer With Ribbon</td><td>The tray slides toward whoever is holding it: a counter gesture, not a packing step.</td><td class="hl">Retail counter, gift-with-purchase</td><td>High e-commerce volume, where it is slow to pack</td></tr>
+        <tr><td>04</td><td class="nm">Two-Piece With Neck</td><td>The shoulder holds a tall or standing piece upright, which is something a ring has never needed.</td><td class="hl">Tall bottles and standing display</td><td>Thin rings that need a deep slot</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════ F ══════════ -->
+<section class="band g-ivory">
+  <div class="wrap">
+    <span class="tag">F · §8 — no plate at all</span>
+    <header class="hd">
+      <h2 class="h2">Jewelry Packaging for Four Kinds of Buyer</h2>
+      <p>The box is the same object and the problem is not. These are the four situations that arrive most often, and what changes for each.</p>
+    </header>
+    <div class="f-rows">
+      <div class="f-row">
+        <div><span class="k">Sell online</span><h3>DTC jewelry brands</h3></div>
+        <div><p class="scene">Orders leave one at a time in a mailer, and the box inside is what the customer photographs.</p>
+          <span class="get">A first run small enough to test, in a box that has to survive the courier.</span></div>
+        <div class="f-stat"><b>500 units</b><span>the first run, counted once</span></div>
+      </div>
+      <div class="f-row tint">
+        <div><span class="k">One piece at a time</span><h3>Fine jewelry and ateliers</h3></div>
+        <div><p class="scene">No two pieces match, and a stock tray leaves gaps that let a one-off slide around.</p>
+          <span class="get">A cavity drawn from your piece, not picked from a size chart.</span></div>
+        <div class="f-stat"><b>±0.5 mm</b><span>cutting and assembly</span></div>
+      </div>
+      <div class="f-row">
+        <div><span class="k">Opened at a counter</span><h3>Wholesale and stockists</h3></div>
+        <div><p class="scene">The box is opened in front of somebody who is still deciding whether to buy.</p>
+          <span class="get">A tray that presents the piece the moment the lid clears.</span></div>
+        <div class="f-stat"><b>1 insert layout</b><span>across a mixed range, one run</span></div>
+      </div>
+      <div class="f-row tint">
+        <div><span class="k">A date that cannot move</span><h3>Corporate and gift sets</h3></div>
+        <div><p class="scene">A set ships to a fixed date in packaging that has to match the brand on every surface.</p>
+          <span class="get">A date that holds, because the wrap is settled before the container is booked.</span></div>
+        <div class="f-stat"><b>4–6 weeks</b><span>the crossing, against a fixed date</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

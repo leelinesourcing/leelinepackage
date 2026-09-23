@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JK §2 · Two Ways a Piece Arrives Damaged — 样式预览</title>
+<style>
+@font-face{font-family:'Newsreader Variable';font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+@font-face{font-family:'Newsreader Variable';font-style:italic;font-weight:200 800;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');}
+@font-face{font-family:'Instrument Sans Variable';font-weight:400 700;font-display:swap;
+  src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+
+:root{
+  --color-forest:#1F3B2C; --color-brass:#B08D4C; --color-ivory:#F5F0E5;
+  --color-clay:#EDE5D4; --color-charcoal:#21241C; --color-moss:#8C8676;
+  --color-sage:#4A6B52; --color-kraft:#C9A87C;
+  --color-brand-text:#2B2F26; --color-brand-muted:#605C4E; --color-brand-primary:#1F3B2C;
+  --forest-deep:#14261B; --brass:#B08D4C; --brass-soft:#C9A87C; --hair:rgba(31,59,44,.14);
+  --font-heading:'Newsreader Variable',Georgia,serif;
+  --font-body:'Instrument Sans Variable',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-clay);color:var(--color-brand-text);
+  font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+
+/* ── the throwaway label bar (not part of any design) ─────────────────── */
+.lbl{background:#21241C;color:#EDE5D4;margin:0;padding:1.1rem clamp(1rem,3vw,3rem);
+  font-size:.8rem;letter-spacing:.04em;line-height:1.5}
+.lbl b{color:var(--brass-soft);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  font-size:.72rem;margin-right:.7rem}
+
+.band{padding:clamp(4rem,9vw,7.5rem) 0}
+.g-clay{background:var(--color-clay)}
+.g-ivory{background:var(--color-ivory)}
+.wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+
+.hd{margin-bottom:clamp(2.5rem,6vw,4.5rem)}
+.hd h2{font-family:var(--font-heading);font-weight:500;font-size:clamp(1.9rem,4.4vw,3.3rem);
+  line-height:1.06;letter-spacing:-.02em;color:var(--color-brand-text);margin:0;text-wrap:balance}
+.hd p{margin:1.15rem 0 0;font-size:1.06rem;line-height:1.7;color:var(--color-brand-muted);max-width:80ch}
+
+/* ── placeholder plate ────────────────────────────────────────────────── */
+.ph{background:
+    repeating-linear-gradient(45deg,rgba(31,59,44,.06) 0 9px,transparent 9px 18px),
+    #E2D8C6;
+  border:1px solid var(--hair);display:grid;place-content:center;text-align:center;
+  color:#867E6A;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  line-height:2; padding:1rem}
+.ph i{display:block;font-style:normal;font-family:var(--font-heading);font-size:1.05rem;
+  font-weight:500;letter-spacing:0;text-transform:none;color:#6E6757}
+
+.num{font-family:var(--font-heading);font-style:italic;font-weight:600;color:var(--brass)}
+.kick{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--forest-deep);background:var(--brass-soft);
+  border-radius:999px;padding:.3rem .7rem}
+h3.t{font-family:var(--font-heading);font-weight:600;margin:0;line-height:1.25;
+  color:var(--color-brand-text)}
+
+/* ═══ A · 双因对开 ═══════════════════════════════════════════════════════ */
+.duo{display:grid;grid-template-columns:1fr 1fr}
+.duo-h{display:flex;flex-direction:column}
+.duo-h:first-child{border-right:1px solid var(--brass)}
+.duo-h .ph{aspect-ratio:16/10;border-radius:0;border:0;border-bottom:1px solid var(--hair)}
+.duo-tx{padding:clamp(1.6rem,3vw,2.4rem) clamp(1.4rem,3.4vw,3rem) 0}
+.duo-tx h3{font-size:clamp(1.5rem,2.8vw,2.1rem)}
+.duo-tx p{margin:.9rem 0 0;font-size:.98rem;line-height:1.75;color:var(--color-brand-muted)}
+.duo-tx ul{list-style:none;margin:1.4rem 0 0;padding:0;border-top:1px solid var(--hair)}
+.duo-tx li{padding:.7rem 0;border-bottom:1px solid var(--hair);font-size:.9rem;
+  color:var(--color-brand-text);display:flex;gap:.7rem}
+.duo-tx li::before{content:"—";color:var(--brass)}
+
+/* ═══ B · 一图两态 ══════════════════════════════════════════════════════ */
+.onepic .ph{aspect-ratio:21/9}
+.onepic-lb{display:grid;grid-template-columns:1fr 1fr;margin-top:0}
+.onepic-lb div{padding:1.5rem 0 0;font-size:.86rem;color:var(--color-brand-muted)}
+.onepic-lb div+div{text-align:right}
+.onepic-lb b{display:block;font-family:var(--font-heading);font-weight:600;font-size:1.32rem;
+  color:var(--color-brand-text);line-height:1.3;margin-top:.2rem}
+.chk3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.4rem,3vw,2.6rem);
+  list-style:none;margin:clamp(2rem,4vw,3rem) 0 0;padding:0}
+.chk3 h3{font-size:1.14rem;margin:.5rem 0 0}
+.chk3 p{margin:.6rem 0 0;font-size:.92rem;line-height:1.7;color:var(--color-brand-muted)}
+.chk3 .num{font-size:1.4rem}
+
+/* ═══ C · 字压图条 ══════════════════════════════════════════════════════ */
+.tp-row+.tp-row{margin-top:clamp(2.4rem,5vw,4rem)}
+.tp-word{font-family:var(--font-heading);font-weight:600;margin:0;position:relative;z-index:2;
+  font-size:clamp(2.6rem,7vw,5rem);line-height:.88;letter-spacing:-.02em;color:var(--color-brand-primary)}
+.tp-row:nth-child(2) .tp-word{color:var(--color-sage)}
+.tp-strip{margin-top:-.6rem;position:relative;z-index:1}
+.tp-strip .ph{aspect-ratio:9/1}
+.tp-row p{margin:1.3rem 0 0;max-width:64ch;font-size:.98rem;line-height:1.75;
+  color:var(--color-brand-muted)}
+
+/* ═══ D · 剖面重画 ══════════════════════════════════════════════════════ */
+.dwg{border:1px solid var(--hair);border-radius:1.2rem;background:rgba(245,240,229,.55);
+  padding:clamp(1.2rem,3vw,2.2rem) clamp(1rem,3vw,2.4rem) clamp(.7rem,2vw,1rem)}
+.dwg svg{display:block;width:100%;height:auto}
+.dwg figcaption{margin-top:.9rem;text-align:center;font-size:.86rem;line-height:1.6;
+  color:var(--color-brand-muted)}
+
+/* ═══ E · 左右交替横条 ══════════════════════════════════════════════════ */
+.alt-row{display:grid;grid-template-columns:5fr 7fr;gap:clamp(1.6rem,4vw,3.4rem);
+  align-items:center;padding:clamp(1.6rem,3.4vw,2.6rem) 0;border-top:1px solid var(--hair)}
+.alt-row:last-child{border-bottom:1px solid var(--hair)}
+.alt-row--rev{grid-template-columns:7fr 5fr}
+.alt-row--rev .ph{order:2}
+.alt-row .ph{aspect-ratio:5/4}
+.alt-tx h3{font-size:clamp(1.5rem,2.9vw,2.2rem)}
+.alt-tx p{margin:.9rem 0 0;font-size:.98rem;line-height:1.75;color:var(--color-brand-muted);max-width:52ch}
+.alt-tx .kick{margin-bottom:1rem}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ A ══════════════ -->
+<p class="lbl"><b>A</b>双因对开 —— 左右各一张通栏照片，中间一条 1px 铜色硬缝。深红 vs 暖棕，颜色节奏自己撑住；不用卡片框。</p>
+<section class="band g-clay">
+  <div class="wrap">
+    <header class="hd">
+      <h2>Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    </header>
+  </div>
+  <div class="duo">
+    <div class="duo-h">
+      <div class="ph"><i>照片 · velvet</i>深红丝绒开盖特写 · 布层贴着金属</div>
+      <div class="duo-tx">
+        <h3 class="t">它会发黑</h3>
+        <p>空气里的硫，先碰到的是离金属最近的那一层布。所以无硫层要直接贴着金属，不是贴在胶上。</p>
+        <ul>
+          <li>无硫布层直接接触金属</li>
+          <li>布层与胶层分两层核算</li>
+          <li>18 个月 = 这层布的年限</li>
+        </ul>
+      </div>
+    </div>
+    <div class="duo-h">
+      <div class="ph"><i>照片 · type-travel</i>皮革旅行盒四格切槽特写 · 件被卡住</div>
+      <div class="duo-tx">
+        <h3 class="t">它会被蹭伤</h3>
+        <p>盒里那点松动，旅程走不到一半就已经划了。挖槽按件本身切，件就没有横着走的余地。</p>
+        <ul>
+          <li>合盖后件压在盖线以下</li>
+          <li>挖槽按件本身切，±0.5 mm</li>
+          <li>一件一坑，不共用腔</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ B ══════════════ -->
+<p class="lbl"><b>B</b>一图两态 —— 一张通栏照片里本来就有「一只合着、一只拉开」，两条标注分指两个状态。最安静，一张照片说完整段。</p>
+<section class="band g-ivory">
+  <div class="wrap">
+    <header class="hd">
+      <h2>Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    </header>
+    <figure class="onepic" style="margin:0">
+      <div class="ph"><i>照片 · struct-book（通栏）</i>左边一只合着 · 右边一只拉开露出戒圈</div>
+      <figcaption class="onepic-lb" style="display:grid">
+        <div>客户唯一看见的是这一只<b>合上的盒</b></div>
+        <div>所有决定都发生在这里<b>拉开的那一层</b></div>
+      </figcaption>
+    </figure>
+    <ol class="chk3">
+      <li><span class="num">01</span><h3 class="t">压在盖线以下</h3>
+        <p>不管垫多少，件都必须收在盖与底相接的那条线下面。盖下去会压到石头，就是垫高了。</p></li>
+      <li><span class="num">02</span><h3 class="t">无硫布贴着金属</h3>
+        <p>无硫层夹在件和别的一切之间，而且直接接触金属。18 个月这个数字就是从这层来的。</p></li>
+      <li><span class="num">03</span><h3 class="t">挖槽按件本身切</h3>
+        <p>按实际的圈、石和扣切，控在 ±0.5 mm，件就没法横向移动。槽松了，快递就变成划痕。</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════ C ══════════════ -->
+<p class="lbl"><b>C</b>字压图条 —— 衬线大字做主角，每行字下面压一条通栏 1:9 的细长照片条当下划线。字是图，照片是线。</p>
+<section class="band g-clay">
+  <div class="wrap">
+    <header class="hd">
+      <h2>Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    </header>
+    <div class="tp">
+      <div class="tp-row">
+        <h3 class="tp-word">它会发黑</h3>
+        <div class="tp-strip"><div class="ph"><i>照片条 1 : 9 · velvet</i></div></div>
+        <p>空气里的硫，先碰到的是离金属最近的那一层布。无硫层要直接贴着金属，不是贴在胶上 —— 18 个月这个数字就是从这层来的。</p>
+      </div>
+      <div class="tp-row">
+        <h3 class="tp-word">它会被蹭伤</h3>
+        <div class="tp-strip"><div class="ph"><i>照片条 1 : 9 · type-travel</i></div></div>
+        <p>盒里那点松动，旅程走不到一半就已经划了。挖槽按件本身切、控在 ±0.5 mm，件就没有横着走的余地，合盖后还要收在盖线以下。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ D ══════════════ -->
+<p class="lbl"><b>D</b>剖面图重画 —— 保留这个信息点（照片拍不出「盖线余量」），但把盖画成一个实体、尺寸线移到戒指正上方、02 贴住布层、03 指住挖槽。</p>
+<section class="band g-ivory">
+  <div class="wrap">
+    <header class="hd">
+      <h2>Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    </header>
+    <figure class="dwg" style="margin:0">
+      <svg viewBox="0 0 1080 372" role="img" style="width:100%;height:auto;display:block">
+        <defs>
+          <pattern id="jk2h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#B08D4C" stroke-width="1.1" opacity=".55"/>
+          </pattern>
+        </defs>
+
+        <!-- lid slab -->
+        <rect x="150" y="46" width="780" height="52" rx="3" fill="url(#jk2h)" stroke="#2B2F26" stroke-width="1.7"/>
+        <text x="926" y="78" fill="#8C8676" style="font-family:'Instrument Sans Variable';font-size:11px;font-weight:600;letter-spacing:.22em" text-anchor="end">LID</text>
+
+        <!-- the lid line, offset below the lid slab so the two read separately -->
+        <line x1="36" y1="98" x2="1044" y2="98" stroke="#B08D4C" stroke-width="1.4" stroke-dasharray="9 7"/>
+        <text x="36" y="88" fill="#B08D4C" style="font-family:'Instrument Sans Variable';font-size:12px;font-weight:600;letter-spacing:.2em">THE LID LINE</text>
+
+        <!-- base -->
+        <rect x="150" y="98" width="780" height="212" rx="3" fill="none" stroke="#2B2F26" stroke-width="1.9"/>
+        <rect x="166" y="114" width="748" height="164" rx="2" fill="none" stroke="#8C8676" stroke-width="1"/>
+        <rect x="150" y="98" width="16" height="212" fill="url(#jk2h)"/>
+        <rect x="914" y="98" width="16" height="212" fill="url(#jk2h)"/>
+        <rect x="150" y="294" width="780" height="16" fill="url(#jk2h)"/>
+
+        <!-- insert halves + notch floor (cut to the piece) -->
+        <rect x="180" y="172" width="322" height="66" fill="none" stroke="#8C8676" stroke-width="1.3"/>
+        <rect x="578" y="172" width="322" height="66" fill="none" stroke="#8C8676" stroke-width="1.3"/>
+        <rect x="502" y="238" width="76" height="10" fill="none" stroke="#8C8676" stroke-width="1.3"/>
+
+        <!-- the piece -->
+        <circle cx="540" cy="205" r="32" fill="none" stroke="#2B2F26" stroke-width="8"/>
+
+        <!-- the sulfur-free cloth, touching the metal (breaks behind the ring) -->
+        <line x1="466" y1="238" x2="506" y2="238" stroke="#B08D4C" stroke-width="2.8" stroke-dasharray="6 4"/>
+        <line x1="574" y1="238" x2="614" y2="238" stroke="#B08D4C" stroke-width="2.8" stroke-dasharray="6 4"/>
+
+        <!-- 01 · clearance, measured over the ring itself -->
+        <line x1="540" y1="102" x2="540" y2="165" stroke="#B08D4C" stroke-width="1.2"/>
+        <path d="M540 98 l-4 9 h8 z" fill="#B08D4C"/>
+        <path d="M540 169 l-4 -9 h8 z" fill="#B08D4C"/>
+        <line x1="546" y1="134" x2="590" y2="134" stroke="#B08D4C" stroke-width="1"/>
+        <circle cx="608" cy="134" r="14" fill="#B08D4C"/>
+        <text x="608" y="139" text-anchor="middle" fill="#14261B" style="font-family:'Instrument Sans Variable';font-size:13px;font-weight:600">01</text>
+
+        <!-- 02 · on the cloth -->
+        <line x1="614" y1="238" x2="626" y2="238" stroke="#B08D4C" stroke-width="1"/>
+        <circle cx="644" cy="238" r="14" fill="#B08D4C"/>
+        <text x="644" y="243" text-anchor="middle" fill="#14261B" style="font-family:'Instrument Sans Variable';font-size:13px;font-weight:600">02</text>
+
+        <!-- 03 · pointing up at the notch -->
+        <line x1="540" y1="252" x2="540" y2="262" stroke="#B08D4C" stroke-width="1"/>
+        <circle cx="540" cy="280" r="14" fill="#B08D4C"/>
+        <text x="540" y="285" text-anchor="middle" fill="#14261B" style="font-family:'Instrument Sans Variable';font-size:13px;font-weight:600">03</text>
+      </svg>
+      <figcaption>A closed box, cut across. Nothing in this drawing is decorative — it is the three things the sample is checked against.</figcaption>
+    </figure>
+    <ol class="chk3">
+      <li><span class="num">01</span><h3 class="t">它要收在盖线以下</h3>
+        <p>不管垫多少，件都必须收在盖与底相接的那条线下面。盖下去会压到石头，就是垫高了。</p></li>
+      <li><span class="num">02</span><h3 class="t">布要把空气挡住</h3>
+        <p>无硫层夹在件和别的一切之间，而且直接接触金属。18 个月这个数字就是从这层来的。</p></li>
+      <li><span class="num">03</span><h3 class="t">挖槽要按件本身切</h3>
+        <p>按实际的圈、石和扣切，控在 ±0.5 mm，件就没法横向移动。槽松了，快递就变成划痕。</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════ E ══════════════ -->
+<p class="lbl"><b>E</b>左右交替横条 —— 一行一个原因，照片左文右、再照片右文左。两条之间一条铜色细线，读起来像两条并列的账。</p>
+<section class="band g-clay">
+  <div class="wrap">
+    <header class="hd">
+      <h2>Two Ways a Piece Arrives Damaged</h2>
+      <p>Silver darkens from sulfur in the air, and a loose piece scratches itself on the board. Both are decided by what sits under the metal and around it — long before anyone opens the box.</p>
+    </header>
+    <div class="alt">
+      <div class="alt-row">
+        <div class="ph"><i>照片 · velvet</i>深红丝绒开盖 · 布层贴着金属</div>
+        <div class="alt-tx">
+          <span class="kick">What touches the metal</span>
+          <h3 class="t">它会发黑</h3>
+          <p>空气里的硫，先碰到的是离金属最近的那一层布。无硫层要直接贴着金属，不是贴在胶上 —— 18 个月这个数字就是从这层来的。</p>
+        </div>
+      </div>
+      <div class="alt-row alt-row--rev">
+        <div class="ph"><i>照片 · type-travel</i>四格切槽 · 件被卡住</div>
+        <div class="alt-tx">
+          <span class="kick">What holds it still</span>
+          <h3 class="t">它会被蹭伤</h3>
+          <p>盒里那点松动，旅程走不到一半就已经划了。挖槽按件本身切、控在 ±0.5 mm，件就没有横着走的余地，合盖后还要收在盖线以下。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

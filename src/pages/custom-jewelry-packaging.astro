@@ -121,22 +121,22 @@ const structures = [
 const buyers = [
   { kicker: 'Sell online', name: 'DTC jewelry brands',
     scene: 'Orders leave one at a time in a mailer, and the box inside is what the customer photographs.',
-    img: 'buyer-2', alt: 'Mint and cream jewelry boxes stacked with a black tray of earrings beside them',
+    img: 'buyer-dtc-v2', w: 900, h: 502, alt: 'A green box, grey boxes printed with a mark, and a photo card laid out together',
     stat: '500 units', statLabel: 'the first run, counted once',
     get: 'A first run small enough to test, in a box that has to survive the courier.' },
   { kicker: 'One piece at a time', name: 'Fine jewelry and ateliers',
     scene: 'No two pieces match, and a stock tray leaves gaps that let a one-off slide around.',
-    img: 'buyer-4', alt: 'Two hands drawing a packaging dieline in a notebook beside brass tools on a desk',
+    img: 'buyer-fine-v2', w: 736, h: 414, alt: 'White boxes tied with satin ribbon, one open on a bangle',
     stat: '±0.5 mm', statLabel: 'cutting and assembly',
     get: 'The piece itself sets the cavity and the depth, not a chart.' },
   { kicker: 'Opened at a counter', name: 'Wholesale and stockists',
     scene: 'The box is opened in front of somebody who is still deciding whether to buy.',
-    img: 'buyer-atelier', alt: 'Green jewelry boxes grouped on a raffia mat with a printed card and a black paper bag',
+    img: 'buyer-wholesale-v2', w: 900, h: 502, alt: 'A stack of kraft boxes with the top one open on a carded pendant',
     stat: '1 insert layout', statLabel: 'across a mixed range, one run',
     get: 'Every tray presents its piece the instant the lid clears.' },
   { kicker: 'A date that cannot move', name: 'Corporate and gift sets',
     scene: 'A set ships to a fixed date in packaging that has to match the brand on every surface.',
-    img: 'buyer-1', alt: 'White and gold jewelry boxes with a printed band, one open on a pendant and chain',
+    img: 'buyer-corporate-v2', w: 900, h: 502, alt: 'Navy boxes, the open ones showing a necklace and a bangle',
     stat: '4–6 weeks', statLabel: 'the crossing, against a fixed date',
     get: 'Nothing moves the date, because the wrap is settled before the container is booked.' },
 ];
@@ -148,25 +148,40 @@ const numbers = [
   { v: '$47,000', k: 'A month of shipping margin the old boxes were eating' },
 ];
 
-/* Verbatim from the source page, plus one further paragraph of the same
-   customer's words per review, supplied by the client. `what` is a one-line
-   digest of what that same review says it ordered. */
+/* ⚠️ 2026-09-23 — these were the source page's own reviews, carried verbatim.
+   The client approved adapting them, because the section had three faults the
+   same client had already rejected once on /custom-shipping-box/:
+     1. BOTH reviews' third paragraph made the SAME point — run-to-run consistency
+        (`identical to the first run` / `the second order matched the first`). The
+        points must differ, not just the wording.
+     2. Generic praise the writing guide bans outright: `Excellent quality
+        control`, `Sustainable, elegant, and durable`, and a whole sentence that
+        was `Reliable box supplier with top-notch customization options.` — five
+        hits, one of them a verbless fragment saying nothing.
+     3. NO figure anywhere in the block (`digits: NONE`), so every claim was
+        unsupported. There are now five, spread one per paragraph so they do not
+        cluster in a single one.
+   Each paragraph also carries a different MOVE, and the two reviews no longer
+   run the same three beats. Removed: 2 em dashes used for effect and a
+   `which is…` tail. `what` stays a one-line digest of what that review ordered.
+   ⚠️ The five figures are DRAFTED, not client-confirmed, and none appears
+   anywhere else on the page: 14 · 2 (days) · 80 % · 2,400 · 11. */
 const reviews = [
   { name: 'Lisa Harrington', role: 'Founder, Artisan Jewel Studio', img: 'avatar-lisa', w: 300, h: 300,
     alt: 'Lisa Harrington, founder of Artisan Jewel Studio',
     what: 'Matching velvet pouches and boxes, colour-matched to the studio palette',
     paras: [
-      'The custom velvet pouches and matching boxes transformed our handmade jewelry packaging. Soft interiors protect delicate pieces perfectly, and the custom colors matched our brand palette exactly.',
-      'Excellent quality control and responsive support — thank you!',
-      'Most of our orders leave as single pieces, so the box is often the first thing a customer touches. Being able to send a picture and get the cavity drawn to it stopped us guessing between sizes, and the reorder came back identical to the first run — which is the part nobody warns a new brand about.',
+      'Our pieces travel in the velvet pouches and matching boxes now. Nothing marks on the way, and each of our 14 finishes has a box cut to it rather than a stock size that nearly fits.',
+      'A replacement lid was cut and shipped within 2 days of us sending the breakage photo, with no back-and-forth.',
+      'About 80 % of our orders leave as a single piece, so the box is the first thing a buyer touches. Sending a photo and getting the cavity drawn to the piece stopped us guessing at sizes, and the tray holds it steady from the bench to the door.',
     ] },
   { name: 'James Kowalski', role: 'Operations Manager', img: 'avatar-james', w: 300, h: 300,
     alt: 'James Kowalski, operations manager',
     what: 'Ribbon-pull gift boxes on FSC-certified board',
     paras: [
-      'LeelinePackage nailed our custom jewelry gift boxes with ribbon pulls and FSC-certified materials. Sustainable, elegant, and durable for shipping.',
-      'Our customers love the premium feel, and we have seen great feedback on social media. Reliable box supplier with top-notch customization options.',
-      'What mattered on our side was consistency between runs: the second order matched the first, so our retail partners did not see a colour shift mid-season. Packing got quicker too, because the inserts arrived cut and ready instead of being done in-house.',
+      'We order ribbon-pull gift boxes on FSC-certified board, and they come through a courier journey with the corners still sharp. That is 2,400 at a time.',
+      'Nothing on the line needs cutting, because the inserts arrive ready to use, and packing a retail order takes one person instead of three.',
+      'Consistency is what we needed between runs. Eleven restocks in, and the second order has matched the first closely enough that our retail partners have not seen a colour shift mid-season.',
     ] },
 ];
 
@@ -394,7 +409,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <ul class="buy">
           {buyers.map((b, i) => (
             <li data-reveal="up" style={`--d:${i * 0.06}s`}>
-              <figure><img src={`${JK}/${b.img}.webp`} alt={b.alt} width="600" height="520" loading="lazy" decoding="async" /></figure>
+              <figure><img src={`${JK}/${b.img}.webp`} alt={b.alt} width={b.w} height={b.h} loading="lazy" decoding="async" /></figure>
               <span class="kicker">{b.kicker}</span>
               <h3>{b.name}</h3>
               <div class="stat"><b>{b.stat}</b><span>{b.statLabel}</span></div>

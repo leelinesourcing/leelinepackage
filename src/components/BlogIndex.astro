@@ -1,0 +1,218 @@
+---
+import PostCard from './PostCard.astro';
+import { POSTS_PER_PAGE, getCategoryIndex, type Post } from '../lib/blog';
+
+interface Props {
+  posts: Post[];
+  page: number;
+  lastPage: number;
+}
+const { posts, page, lastPage } = Astro.props;
+
+const pageHref = (n: number) => (n === 1 ? '/blog/' : `/blog/page/${n}/`);
+
+/* The right-hand chapter directory. Counted from the collection, never written by hand. */
+const categories = await getCategoryIndex();
+
+/* A short window of page numbers around the current one, with the ends always reachable. */
+const windowed = (() => {
+  const nums = new Set([1, lastPage, page, page - 1, page + 1]);
+  return [...nums].filter((n) => n >= 1 && n <= lastPage).sort((a, b) => a - b);
+})();
+---
+<section class="blog-hero">
+  <div class="wrap blog-hero-inner">
+    <p class="eyebrow" data-reveal="up">
+      <svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>
+      Blog
+    </p>
+    <h1 class="blog-hero-title" data-reveal="up" style="--d:.06s">LeelinePackage Insights &amp; Guides</h1>
+    <p class="blog-hero-sub" data-reveal="up" style="--d:.12s">
+      Structured guides from the factory floor — materials, printing, structural design,
+      shipping and quality control, written by the people who actually make the packs.
+    </p>
+    {page > 1 && <p class="blog-hero-page">Page {page} of {lastPage}</p>}
+  </div>
+</section>
+
+<section class="blog-list">
+  <div class="wrap blog-layout">
+    <div class="blog-main">
+      <div class="blog-grid">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+
+      {lastPage > 1 && (
+        <nav class="blog-pager" aria-label="Blog pagination">
+          {page > 1
+            ? <a class="blog-pager-step" href={pageHref(page - 1)} target="_blank" rel="noopener">← Newer</a>
+            : <span class="blog-pager-step is-off">← Newer</span>}
+
+          <ul class="blog-pager-nums">
+            {windowed.map((n, idx) => (
+              <>
+                {idx > 0 && windowed[idx - 1] !== n - 1 && <li class="blog-pager-gap" aria-hidden="true">…</li>}
+                <li>
+                  {n === page
+                    ? <span class="blog-pager-num is-current" aria-current="page">{n}</span>
+                    : <a class="blog-pager-num" href={pageHref(n)} target="_blank" rel="noopener">{n}</a>}
+                </li>
+              </>
+            ))}
+          </ul>
+
+          {page < lastPage
+            ? <a class="blog-pager-step" href={pageHref(page + 1)} target="_blank" rel="noopener">Older →</a>
+            : <span class="blog-pager-step is-off">Older →</span>}
+        </nav>
+      )}
+    </div>
+
+    <!-- The chapter directory. Every link leaves the page, so it opens a tab like everything else. -->
+    <aside class="blog-rail" aria-label="Blog categories">
+      <p class="blog-rail-h">Categories</p>
+      <ul class="blog-rail-list">
+        {categories.map((c) => (
+          <li>
+            <a href={`/category/${c.slug}/`} target="_blank" rel="noopener">
+              <span class="blog-rail-lab">{c.label}</span>
+              <span class="blog-rail-n">{c.count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<style>
+  /*
+    The site nav is fixed and 74px tall at 1440 / 76px at 390, so the first band has to clear
+    it or the eyebrow hides under the bar on mobile.
+  */
+  .blog-hero { background: var(--color-clay); padding: calc(clamp(4rem, 9vw, 7.5rem) + 4.75rem) 0 clamp(4rem, 9vw, 7.5rem); }
+  .blog-hero-inner { max-width: 62rem; }
+  .blog-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.3rem, 5.4vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--color-brand-text);
+    max-width: 18ch;
+    text-wrap: balance;
+    margin: 1.1rem 0 0;
+  }
+  .blog-hero-sub { font-size: 1.08rem; line-height: 1.7; color: var(--color-brand-muted); max-width: 58ch; margin-top: 1.3rem; }
+  .blog-hero-page {
+    display: inline-block;
+    margin-top: 1.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  .blog-list { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+
+  /* The list column plus the chapter directory. `minmax(0,1fr)` so a long card title can never
+     push the rail off the grid; no `overflow` anywhere on this chain or the sticky rail stops
+     sticking (an ancestor's overflow becomes its scroll container). The rail is a reading aid,
+     so it is deliberately set larger and heavier than the article pages' TOC rail. */
+  .blog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: clamp(1.8rem, 3.2vw, 2.6rem); align-items: start; }
+  .blog-main { min-width: 0; }
+
+  .blog-rail { position: sticky; top: 7rem; }
+  .blog-rail-h {
+    margin: 0 0 0.7rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--brass) 36%, transparent);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+  }
+  .blog-rail-list { list-style: none; margin: 0; padding: 0; }
+  .blog-rail-list li { margin: 0; }
+  .blog-rail-list a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.55rem 0 0.55rem 0.7rem;
+    border-left: 2px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--color-brand-muted);
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .blog-rail-list a:hover { color: var(--brass); border-left-color: color-mix(in srgb, var(--brass) 45%, transparent); }
+  .blog-rail-lab { min-width: 0; }
+  /* the count carries the brass so the rail reads as data, not as another link list */
+  .blog-rail-n { flex: none; font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 1.05rem; color: var(--brass); }
+
+  /* Every card is the same shape — image above, copy below. The index used to open with a
+     full-width "lead" card; it was dropped on request ("第一个…不用有区别，不然很奇怪"). */
+  .blog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 2.8vw, 2.2rem); }
+
+  .blog-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    flex-wrap: wrap;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid color-mix(in srgb, var(--color-kraft) 40%, transparent);
+  }
+  .blog-pager-step {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-forest);
+    padding: 0.5rem 0.2rem;
+  }
+  .blog-pager-step.is-off { color: var(--color-moss); opacity: 0.45; }
+  .blog-pager-nums { display: flex; align-items: center; gap: 0.3rem; list-style: none; margin: 0 0.4rem; padding: 0; }
+  .blog-pager-num {
+    display: grid;
+    place-items: center;
+    min-width: 2.3rem;
+    height: 2.3rem;
+    padding: 0 0.5rem;
+    border-radius: 0.6rem;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-brand-text);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .blog-pager-num:hover { background: color-mix(in srgb, var(--color-kraft) 30%, transparent); }
+  .blog-pager-num.is-current { background: var(--forest-light); color: var(--ivory); }
+  .blog-pager-gap { color: var(--color-moss); padding: 0 0.15rem; }
+
+  /*
+    Below this the list column can no longer carry a second column beside it, so the directory
+    stops being a rail and becomes a wrapped filter row above the grid (`order: -1` — a category
+    list parked below the pagination would be useless).
+  */
+  @media (max-width: 1080px) {
+    .blog-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .blog-rail { position: static; order: -1; }
+    .blog-rail-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .blog-rail-list a {
+      padding: 0.42rem 0.85rem;
+      border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent);
+      border-radius: 999px;
+    }
+    .blog-rail-list a:hover { border-color: var(--brass); }
+    .blog-rail-n { font-style: normal; }
+  }
+
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

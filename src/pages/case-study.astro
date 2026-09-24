@@ -1,0 +1,455 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { getPublishedPosts, categoryLabel, readingTime } from '../lib/blog';
+import { CASE_CARD_META } from '../data/case-study-cards';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   `/case-study/` — the index of the client's own case-study articles.
+
+   ⚠️ NOTHING HERE IS A HARDCODED LIST. The cards come out of the `blog` content collection,
+   filtered to the WordPress category `csae-study`, newest first. A new case study appears here
+   by being published — no code change.
+
+   The figure a card leads with, its industry pill and its one-line summary come from
+   `src/data/case-study-cards.ts` — NOT from the post frontmatter. `scripts/import-blog.mjs
+   convert` regenerates every `src/content/blog/*.md` from the WordPress export, so anything
+   hand-added to a post's frontmatter is lost on the next import (it happened once). The
+   collection owns the posts; that file owns what the cards show. A post with no entry there
+   still lists, it just shows its title and the category label with no figure.
+
+   The composition, agreed with the client over six previews (`_preview-cs-*.html`):
+   complete rows of four upright cards, and the FINAL, INCOMPLETE row becomes the wide
+   rows — photograph beside the copy, side alternating. 7 posts → 4 + 3.
+   The earlier drafts were rejected for being a plain equal-height grid ("毫无特色")
+   or for dropping the composition when the density was reduced.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+const R2 = 'https://img.leelinepackage.com';
+const HERO_PLATE = `${R2}/corrugated-boxes/struct-bench.webp`;
+const CASE_CATEGORY = 'csae-study';
+const PER_ROW = 4;
+
+const posts = (await getPublishedPosts()).filter((p) => p.data.category === CASE_CATEGORY);
+
+/* Fill complete rows of four with the upright card; the final, incomplete row becomes
+   the wide rows. ≤4 → a single upright row. 7 → 4 + 3. 8 → 4 + 4. 11 → 4 + 4 + 3. */
+const wideFrom = posts.length <= PER_ROW
+  ? posts.length
+  : Math.floor((posts.length - 1) / PER_ROW) * PER_ROW;
+
+const cards = posts.map((post, i) => ({
+  post,
+  /** Figure, industry pill and one-line summary. Undefined for a post nobody has decorated yet. */
+  meta: CASE_CARD_META[post.id],
+  wide: i >= wideFrom,
+  rev: i >= wideFrom && (i - wideFrom) % 2 === 1,
+  n: String(i + 1).padStart(2, '0'),
+}));
+
+/* The hero's data rail. Every figure is one the site already publishes — the first
+   four are the homepage's own hero-stats row (`index.astro`), so nothing here is
+   invented and nothing is a projection. `posts.length` is counted, not written. */
+const stats = [
+  { v: String(posts.length), k: 'Documented programs' },
+  { v: '10K+', k: 'Global brands served' },
+  { v: '99.5%', k: 'On-time delivery rate' },
+  { v: '500', k: 'MOQ, up to 500k a run' },
+];
+
+const seo = {
+  title: 'Custom Packaging Case Studies: 7 Programs, Measured Outcomes',
+  description: 'Seven packaging programs, each with the result it moved: 0% transit leakage, 94% less transit damage, 42% more retail sales. Read the raw data behind every one.',
+  keywords: 'packaging case study, custom packaging case studies, packaging projects, packaging before and after, packaging transit damage reduction',
+  canonical: 'https://www.leelinepackage.com/case-study/',
+  ogImage: HERO_PLATE,
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      name: seo.title,
+      description: seo.description,
+      url: seo.canonical,
+      isPartOf: { '@type': 'WebSite', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Case Studies' },
+      ],
+    },
+    {
+      '@type': 'ItemList',
+      name: 'Custom packaging case studies',
+      numberOfItems: cards.length,
+      itemListElement: cards.map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.post.data.title,
+        url: `https://www.leelinepackage.com/${c.post.id}/`,
+      })),
+    },
+  ],
+};
+
+const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const arrow = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  ogImage={seo.ogImage}
+  preloadImage={HERO_PLATE}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <Navbar />
+  <main id="top" class="cs">
+
+    <!-- ═══ 1 · HERO — ivory, one workshop photograph dissolving in from the right,
+              and the data rail fused to the band's foot ═══ -->
+    <section class="cs-hero">
+      <div class="cs-shell cs-hero-in">
+        <p class="eyebrow"><Fragment set:html={leaf} />Case Studies</p>
+        <h1 class="cs-h1">The Problem, the Change, the Number</h1>
+        <p class="cs-lede">Programs across beauty, jewelry, apparel, food, housewares and footwear. Each one names the failure we were handed, the structural change we made, and the figure it moved.</p>
+      </div>
+      <div class="cs-shell">
+        <dl class="cs-stats" aria-label="Company figures">
+          {stats.map((s) => (
+            <div class="cs-stat">
+              <dt>{s.v}</dt>
+              <dd>{s.k}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
+
+    <!-- ═══ 2 · THE INDEX — complete rows of four upright, the last row wide ═══ -->
+    <section class="cs-idx">
+      <div class="cs-shell">
+        <div class="section-head">
+          <p class="eyebrow"><Fragment set:html={leaf} />The Index</p>
+          <h2 class="section-title">Programs We Have Documented</h2>
+          <p class="section-sub">Newest first. Each card opens the full write-up, with the test data and the before-and-after behind the number.</p>
+        </div>
+
+        <div class="cs-grid">
+          {cards.map(({ post, meta, wide, rev, n }) => (
+            <article class:list={['cs-card', wide && 'cs-card--wide', rev && 'cs-card--rev']}>
+            <a class="cs-card-media" href={`/${post.id}/`} target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+              <img
+                src={post.data.featuredImage}
+                alt={post.data.featuredImageAlt}
+                width={post.data.featuredImageWidth ?? 800}
+                height={post.data.featuredImageHeight ?? 500}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <div class="cs-card-body">
+              <p class="cs-tags">
+                <span class="cs-pill">{meta?.industry ?? categoryLabel(post.data.category)}</span>
+                <span class="cs-read">{readingTime(post.body)} min read</span>
+              </p>
+              {meta && (
+                <p class="cs-metric-row">
+                  <span class="cs-ord">{n}</span>
+                  <span class="cs-metric">{meta.metric}</span>
+                </p>
+                <span class="cs-metric-lab">{meta.metricLabel}</span>
+              )}
+              <h3 class="cs-title"><a href={`/${post.id}/`} target="_blank" rel="noopener">{post.data.title}</a></h3>
+              {meta && <p class="cs-desc">{meta.summary}</p>}
+              <p class="cs-go"><a href={`/${post.id}/`} target="_blank" rel="noopener">Read the Case Study →</a></p>
+            </div>
+          </article>
+        ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 3 · CTA — the page's one dark band ═══ -->
+    <section class="cs-cta">
+      <div class="cs-shell">
+        <h2 class="cs-cta-h">Make the Next Number Yours</h2>
+        <p class="cs-cta-p">Send us the failure you are trying to move — the leak, the claim rate, the empty space in the carton — and we will tell you what we would change first.</p>
+        <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start a Project<Fragment set:html={arrow} /></a>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  /* ── 1 · HERO ─────────────────────────────────────────────────────────────
+     The photograph is a CSS background, so it is preloaded via Layout's
+     `preloadImage` instead of an eager <img>. Both masks are needed: without the
+     bottom one the plate is cut square by the section edge, and without the left
+     one its own left edge draws a straight seam across the ivory. */
+  .cs-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-ivory);
+    padding: calc(clamp(3.5rem, 7vw, 5.5rem) + 4.75rem) 0 clamp(2.5rem, 5vw, 4rem);
+  }
+  .cs-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 58%;
+    background: url('https://img.leelinepackage.com/corrugated-boxes/struct-bench.webp') center 42% / cover no-repeat;
+    opacity: 0.9;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%), linear-gradient(180deg, #000 58%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 34%), linear-gradient(180deg, #000 58%, transparent 100%);
+    mask-composite: intersect;
+  }
+  .cs-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--ivory) 0%, rgba(245, 240, 229, 0.97) 24%, rgba(245, 240, 229, 0.84) 46%, rgba(245, 240, 229, 0.52) 70%, rgba(245, 240, 229, 0.26) 100%);
+  }
+  .cs-hero-in { position: relative; z-index: 1; }
+  .cs-h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 5.2vw, 4.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--color-brand-text);
+    max-width: 17ch;
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .cs-lede {
+    margin: 1.5rem 0 0;
+    max-width: 48ch;
+    font-size: 1.06rem;
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+  }
+
+  .cs-stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem clamp(1.8rem, 5vw, 4rem);
+    margin: clamp(2.2rem, 4.5vw, 3.4rem) 0 0;
+    padding-top: 1.4rem;
+    border-top: 1px solid color-mix(in srgb, var(--brass) 34%, transparent);
+  }
+  .cs-stat dt {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.6rem, 2.9vw, 2.2rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--brass);
+  }
+  .cs-stat dd {
+    margin: 0.45rem 0 0;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+  }
+
+  /* ── the page shell ─────────────────────────────────────────────────────────
+     The site's standard 1200px measure. All three bands use it, so they stay
+     aligned with each other. */
+  .cs-shell { width: min(1200px, 100% - clamp(2rem, 5vw, 4rem)); margin-inline: auto; }
+
+  /* ── 2 · THE INDEX ──────────────────────────────────────────────────────────
+     The brightest ground on the site's palette, so the ivory cards read as lifted
+     rather than merged. The shadow is doing the separating, not the border. */
+  .cs-idx { background: var(--color-parchment); padding: clamp(4rem, 9vw, 7rem) 0; }
+  .cs-idx .section-head { margin-bottom: clamp(2.2rem, 4.5vw, 3.2rem); }
+
+  .cs-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.4rem; }
+
+  .cs-card {
+    grid-column: span 3;
+    /* containing block for the title's stretched link — see `.cs-title a::after` */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-ivory);
+    border: 1px solid color-mix(in srgb, var(--brass) 26%, transparent);
+    border-radius: 1.1rem;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(20, 38, 27, 0.03), 0 18px 38px -26px rgba(20, 38, 27, 0.2);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+  }
+  .cs-card:hover {
+    transform: translateY(-5px);
+    border-color: color-mix(in srgb, var(--brass) 55%, transparent);
+    box-shadow: 0 1px 2px rgba(20, 38, 27, 0.04), 0 34px 64px -40px rgba(20, 38, 27, 0.55);
+  }
+  /* Whole-card click target. The title's anchor is stretched over the card so a click anywhere
+     opens the case study, while the two real controls below keep their own z-index and stay
+     clickable on top of it. */
+  .cs-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .cs-card-media,
+  .cs-go a { position: relative; z-index: 2; }
+  /* keyboard focus has to read at card scale, not as a thin ring around the title text */
+  .cs-card:has(.cs-title a:focus-visible) {
+    outline: 2px solid var(--brass);
+    outline-offset: 3px;
+  }
+  .cs-card-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    flex: none;
+    background: var(--color-clay);
+  }
+  .cs-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cs-card:hover .cs-card-media img { transform: scale(1.045); }
+
+  .cs-card-body { display: flex; flex-direction: column; flex: 1; min-width: 0; padding: 1.05rem 1.1rem 1.15rem; }
+
+  .cs-tags { display: flex; align-items: center; gap: 0.45rem; margin: 0 0 0.9rem; }
+  .cs-pill {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-sage);
+    background: color-mix(in srgb, var(--color-sage) 12%, transparent);
+    border-radius: 999px;
+    padding: 0.3rem 0.52rem;
+  }
+  .cs-read { font-size: 0.63rem; font-weight: 500; letter-spacing: 0.03em; color: var(--color-moss); }
+
+  .cs-metric-row { display: flex; align-items: baseline; gap: 0.6rem; margin: 0; }
+  .cs-ord { font-family: var(--font-heading); font-style: italic; font-weight: 500; font-size: 0.95rem; color: var(--brass); flex: none; }
+  .cs-metric {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.55rem, 2.3vw, 1.85rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--brass);
+  }
+  .cs-metric-lab {
+    display: block;
+    margin: 0.5rem 0 0.85rem;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+  }
+  .cs-title { font-family: var(--font-heading); font-size: 1.02rem; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; margin: 0 0 0.5rem; text-wrap: balance; }
+  .cs-title a:hover { color: var(--brass); }
+  .cs-desc {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    color: var(--color-brand-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    /* Normalise the block to three lines whatever a summary's own length. In a 4-up row
+       the cards stretch to a common height and `.cs-go` is pushed to the bottom, so
+       without this a 2-line and a 3-line summary put their "Read the Case Study" links in
+       visibly different places. Three lines × line-height 1.6 = 4.8em. */
+    min-height: 4.8em;
+  }
+  /*
+    The action reads as a button rather than a line of small caps: a translucent brass outline
+    on a transparent fill, so it sits on the ivory card without adding a colour block.
+  */
+  .cs-go { margin: auto 0 0; padding-top: 0.9rem; }
+  .cs-go a {
+    display: inline-block;
+    padding: 0.52rem 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--brass) 45%, transparent);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+    transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+  .cs-go a:hover {
+    border-color: var(--brass);
+    background: color-mix(in srgb, var(--brass) 10%, transparent);
+    color: var(--forest-light);
+  }
+
+  /* The final, incomplete row: photograph beside the copy, and the side alternates so
+     one orientation never repeats three times running. */
+  .cs-card--wide { grid-column: span 12; flex-direction: row; min-height: 14.5rem; }
+  .cs-card--wide.cs-card--rev { flex-direction: row-reverse; }
+  .cs-card--wide .cs-card-media { flex: 0 0 46%; aspect-ratio: auto; }
+  /*
+    ⚠️ The photograph must not decide the row's height. With `aspect-ratio: auto` and
+    `height: 100%` the <img>'s INTRINSIC ratio wins: an 800×550 featured image (1.45) made its
+    row 45px taller than the 1000×563 ones (1.78), so the wide cards were visibly uneven.
+    Taking the image out of flow lets the media stretch to whatever the copy needs — which is
+    the same for every wide row.
+  */
+  .cs-card--wide .cs-card-media img { position: absolute; inset: 0; }
+  .cs-card--wide .cs-card-body { justify-content: center; padding: 1.7rem 2rem; }
+  .cs-card--wide .cs-metric { font-size: clamp(2.1rem, 3.4vw, 2.7rem); }
+  .cs-card--wide .cs-ord { font-size: 1.15rem; }
+  .cs-card--wide .cs-title { font-size: clamp(1.2rem, 1.9vw, 1.42rem); }
+  /* The measure is widened rather than the copy cut: at 62ch a summary lands on two lines,
+     so the wide rows stay short without truncating anything. */
+  .cs-card--wide .cs-desc { font-size: 0.92rem; max-width: 62ch; -webkit-line-clamp: 3; min-height: 3.2em; }
+  .cs-card--wide .cs-go { margin: 1.1rem 0 0; padding-top: 0; }
+
+  /* ── 3 · CTA ── */
+  .cs-cta { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8rem) 0; text-align: center; }
+  .cs-cta-h {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    max-width: 22ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+  .cs-cta-p { margin: 1.3rem auto 2.2rem; max-width: 62ch; color: rgba(245, 240, 229, 0.78); }
+
+  @media (max-width: 1080px) {
+    .cs-card { grid-column: span 6; }
+    /* Restated AFTER the rule above, because both are single-class specificity and this one
+       comes later in the sheet: without it the wide rows inherit `span 6`, turn into cramped
+       2-up horizontal cards and clip their copy at 761–1080px. */
+    .cs-card--wide { grid-column: span 12; }
+  }
+  @media (max-width: 760px) {
+    .cs-hero::before, .cs-hero::after { display: none; }
+    .cs-card, .cs-card--wide { grid-column: span 12; }
+    .cs-card--wide, .cs-card--wide.cs-card--rev { flex-direction: column; }
+    .cs-card--wide .cs-card-media { flex: none; aspect-ratio: 3 / 2; }
+    .cs-card--wide .cs-card-body { padding: 1.15rem 1.2rem 1.25rem; }
+    .cs-card--wide .cs-desc { -webkit-line-clamp: 3; }
+  }
+</style>

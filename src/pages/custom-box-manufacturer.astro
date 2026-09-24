@@ -218,6 +218,7 @@ const jsonLd = {
   canonical={seo.canonical}
   ogType="website"
   ogImage={seo.ogImage}
+  preloadImage={`${CX}/hero.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
@@ -865,8 +866,12 @@ const jsonLd = {
 
   /* ============ MATERIALS & COMPLIANCE ============ */
   .cx-mat { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  /* copy flush left; certificates 2.5cm to its right, in the same head row */
-  .cx-mat-head { display: grid; grid-template-columns: minmax(0, 56ch) 1fr; gap: 2.5cm; align-items: end; }
+  /* copy flush left; certificates 2.5cm to its right, in the same head row.
+     `overflow-x: clip` (NOT `hidden` — clip does not create a scroll container) stops the cert
+     row's trailing box from pushing a 5–11px horizontal scrollbar at 901–1100px, where the 1cm
+     nudge below has room to bite. Measured: 0 overflow at every width 901→1440, and every element
+     keeps its exact position; the clipped sliver is empty row box, not a card. */
+  .cx-mat-head { display: grid; grid-template-columns: minmax(0, 56ch) 1fr; gap: 2.5cm; align-items: end; overflow-x: clip; }
   /* certs only: +0.5cm between them, nudged 0.3cm up (transform = no layout shift) */
   .cx-mat-certs { display: flex; gap: calc(0.9rem + 0.5cm); align-items: flex-end; transform: translate(1cm, -0.3cm); }
   .cx-mat-cert { margin: 0; width: clamp(98px, 10.5vw, 138px); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.6rem; overflow: hidden; background: #fff; box-shadow: 0 12px 26px -16px rgba(20,38,27,0.4); }

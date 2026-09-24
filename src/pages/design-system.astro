@@ -6,6 +6,22 @@ import TeamSection from '../components/TeamSection.astro';
 import LegalDoc from '../components/LegalDoc.astro';
 import MobileCta from '../components/MobileCta.astro';
 import BackToTop from '../components/BackToTop.astro';
+import PostCard from '../components/PostCard.astro';
+import AuthorCard from '../components/AuthorCard.astro';
+import BlogIndex from '../components/BlogIndex.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import { getEntry } from 'astro:content';
+import { getPublishedPosts, POSTS_PER_PAGE } from '../lib/blog';
+
+// One real post drives the PostCard preview — the card is data-shaped, so a hand-written stub
+// would not prove it renders.
+const demoPosts = await getPublishedPosts();
+const demoPost = demoPosts[0];
+const demoLastPage = Math.max(1, Math.ceil(demoPosts.length / POSTS_PER_PAGE));
+
+// AuthorCard takes a real `authors` entry for the same reason.
+const demoAuthorEntry = await getEntry('authors', 'lofty-shen');
+const demoAuthor = demoAuthorEntry?.data;
 
 const demoLegalSections = [
   { id: 'preview-first', label: 'First Section' },
@@ -127,6 +143,36 @@ const colors = [
         <p class="ds-comp-name"><strong>BackToTop</strong> · <code>src/components/BackToTop.astro</code> — 38px ivory circle, right:1.5rem, anchored <code>#top</code>, shown at &le; 900px. Rendered once in <code>src/layouts/Layout.astro</code>. Every page's <code>&lt;main&gt;</code> carries <code>id=&quot;top&quot;</code>, so the anchor works without JS. (Preview below forces it into view.)</p>
       </div>
 
+      <h3 class="ds-sub">Blog</h3>
+      {demoPost ? (
+        <div class="ds-component">
+          <div class="ds-frame ds-frame--blog-card"><PostCard post={demoPost} /></div>
+          <p class="ds-comp-name"><strong>PostCard</strong> · <code>src/components/PostCard.astro</code> — one article tile: 16/10 image, category link, serif title, excerpt, date + reading time. One shape only — the old <code>variant=&quot;lead&quot;</code> full-row card was removed. Used by the blog index and the category pages.</p>
+        </div>
+      ) : (
+        <p class="ds-note">PostCard preview needs at least one published post in <code>src/content/blog/</code>.</p>
+      )}
+
+      <div class="ds-component">
+        <div class="ds-frame ds-frame--band">
+          <BlogIndex posts={demoPosts.slice(0, POSTS_PER_PAGE)} page={1} lastPage={demoLastPage} />
+        </div>
+        <p class="ds-comp-name"><strong>BlogIndex</strong> · <code>src/components/BlogIndex.astro</code> — the whole listing band: clay hero (eyebrow + bold H1 + sub), the card grid with a lead card, and numbered pagination. Shared by <code>/blog/</code> (page 1) and <code>/blog/page/[page]/</code>. Shown here as a full-width band rather than inside a card-sized frame.</p>
+      </div>
+
+      {demoAuthorEntry && demoAuthor ? (
+        <div class="ds-component">
+          <div class="ds-frame ds-frame--blog-card"><AuthorCard author={demoAuthor} authorId={demoAuthorEntry.id} posts={demoPosts.slice(0, 5)} /></div>
+          <p class="ds-comp-name"><strong>AuthorCard</strong> · <code>src/components/AuthorCard.astro</code> — the article's closing author block: portrait, name, job title, an About the Author / Latest Posts tablist, both biography paragraphs, the Areas of Expertise list, social links and the &quot;Fact Checked &amp; Editorial Guidelines&quot; disclosure. Content mirrors the live site's author box; the tabs are a real ARIA tablist and the disclosure is a native <code>&lt;details&gt;</code>. Used by every article page.</p>
+        </div>
+      ) : (
+        <p class="ds-note">AuthorCard preview needs an entry in <code>src/data/authors.json</code>.</p>
+      )}
+
+      <div class="ds-component">
+        <p class="ds-comp-name"><strong>ScrollReveal</strong> · <code>src/components/ScrollReveal.astro</code> — behaviour only, so there is nothing to preview: a global <code>[data-reveal]</code> / <code>[data-reveal].in</code> pair plus the IntersectionObserver that adds <code>.in</code>, with a <code>prefers-reduced-motion</code> opt-out. The rule is global because every marked element belongs to the page, not to this component. Rendered once per blog page.</p>
+      </div>
+
       <h3 class="ds-sub">Atoms</h3>
       <p class="ds-note">
         No standalone atom components exist yet. The homepage defines its buttons, cards, badges and
@@ -172,6 +218,11 @@ const colors = [
     .ds-frame--mobile { display: flex; justify-content: center; align-items: center; gap: 1rem; padding: 2rem 0.8rem; }
     .ds-frame--mobile :global(.mobile-cta) { display: flex; position: static; left: auto; transform: none; }
     .ds-frame--mobile :global(.back-to-top) { display: flex; position: static; right: auto; }
+    /* one card wide, so the tile is previewed at the size it actually renders */
+    .ds-frame--blog-card { max-width: 420px; background: transparent; }
+    /* BlogIndex is a full-bleed band (its own `wrap` supplies the gutters) */
+    .ds-frame--band { padding: 0; background: transparent; overflow: hidden; }
+    .ds-frame--band :global(.blog-hero) { padding-top: clamp(2.5rem, 5vw, 4rem); }
     .ds-comp-name { font-size: 0.85rem; color: var(--color-moss); margin: 0.8rem 0 0; }
     .ds-comp-name code { font-size: 0.8rem; }
     .ds-note { font-size: 0.95rem; line-height: 1.65; color: var(--color-moss); max-width: 68ch; }

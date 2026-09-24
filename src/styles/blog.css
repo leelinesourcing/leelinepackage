@@ -1,0 +1,375 @@
+/*
+  Blog article typography — the `.post-prose` scope.
+
+  These rules live in a plain stylesheet rather than a scoped <style> block on purpose: the
+  article body is produced by `<Content />` from a Markdown collection, so its elements never
+  receive a component scope attribute and a scoped selector would silently match nothing.
+  Everything here is therefore deliberately global, namespaced under `.post-prose` (plus the
+  `post-*` class names the importer emits for constructs Markdown cannot express).
+
+  The shape follows the reference blog this was modelled on — brand-coloured links at weight
+  600 with no underline, an H2 with a rule under it, a tinted table with a filled header, a
+  left-barred pull-quote, rounded imagery — but every colour is a LeelinePackage token.
+*/
+
+.post-prose {
+  font-size: 1.125rem;
+  line-height: 1.78;
+  color: var(--color-brand-text);
+  overflow-wrap: break-word;
+}
+
+/* The reference lifts the opening paragraph. `:first-of-type` on p, not `:first-child`,
+   because the table of contents often sits above it. */
+.post-prose > p:first-of-type {
+  font-size: 1.28rem;
+  line-height: 1.66;
+  color: var(--color-charcoal);
+}
+
+/* ── headings ─────────────────────────────────────────────────────────────── */
+.post-prose h2,
+.post-prose h3,
+.post-prose h4 {
+  font-family: var(--font-heading);
+  color: var(--color-brand-text);
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+.post-prose h2 {
+  font-size: clamp(1.7rem, 3.4vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.18;
+  margin: 3.4rem 0 1.1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-kraft) 45%, transparent);
+}
+.post-prose h3 {
+  font-size: clamp(1.35rem, 2.4vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.28;
+  margin: 2.4rem 0 0.8rem;
+}
+.post-prose h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 1.9rem 0 0.6rem;
+}
+
+/* ── text ─────────────────────────────────────────────────────────────────── */
+.post-prose p { margin: 0 0 1.35rem; }
+
+/*
+  ⚠️ NO UNDERLINE — the colour carries it, by request (*"内外链不要有下划线，颜色有区别就行了"*).
+  ⚠️ That makes the COLOUR load-bearing, so it cannot stay `--color-forest` (#1F3B2C): the body text
+  is `--color-brand-text` (#2B2F26) and the two are indistinguishable at a glance, so without the
+  border every link would read as plain text. `--color-sage` (#4A6B52) is clearly a different hue
+  and still clears 4.5:1 on the near-white article ground. **Do not switch it to `--brass`**
+  (#B08D4C, ~3.1:1) — that fails for body-size links, whatever the hover convention elsewhere.
+*/
+.post-prose a {
+  color: var(--color-sage);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.post-prose a:hover { color: var(--color-forest); }
+
+.post-prose strong { font-weight: 600; color: var(--color-charcoal); }
+
+.post-prose ul,
+.post-prose ol { margin: 0 0 1.5rem; padding-left: 1.35rem; }
+.post-prose li { margin-bottom: 0.55rem; }
+.post-prose li::marker { color: var(--brass); }
+.post-prose ul ul,
+.post-prose ol ol,
+.post-prose ul ol,
+.post-prose ol ul { margin-top: 0.55rem; margin-bottom: 0.4rem; }
+
+.post-prose hr {
+  border: 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-kraft) 40%, transparent);
+  margin: 3rem 0;
+}
+
+/* ── imagery ──────────────────────────────────────────────────────────────── */
+.post-prose img {
+  width: 100%;
+  height: auto;
+  border-radius: 1.1rem;
+  box-shadow: 0 22px 48px -34px rgba(31, 59, 44, 0.5);
+}
+
+.post-figure {
+  margin: 2.2rem 0;
+}
+.post-figure a { display: block; border-bottom: 0; }
+.post-figure a:hover img { transform: translateY(-3px); }
+.post-figure img { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ── video ────────────────────────────────────────────────────────────────── */
+/*
+  The reference sets a fixed 480px height, which crushes the player on a phone. Same look,
+  but the box keeps a 16:9 shape at every width instead.
+*/
+.post-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 2.4rem 0;
+  border: 0;
+  border-radius: 1.1rem;
+  box-shadow: 0 22px 48px -34px rgba(31, 59, 44, 0.55);
+  background: var(--color-charcoal);
+}
+
+/* ── tables ───────────────────────────────────────────────────────────────── */
+/*
+  One table treatment for every imported table: the WordPress palette classes are stripped
+  during import, so the look is decided here once. Filled forest header, tinted body, zebra
+  rows, centred cells — the same construction as the reference, in this brand's palette.
+*/
+.post-prose table {
+  width: 100%;
+  margin: 2.4rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-parchment);
+  border: 1px solid color-mix(in srgb, var(--color-kraft) 60%, transparent);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.post-prose thead { background: var(--color-forest); }
+.post-prose thead th {
+  color: var(--color-ivory);
+  font-weight: 600;
+  text-align: center;
+  padding: 0.7rem 1rem;
+  border-right: 1px solid rgba(245, 240, 229, 0.18);
+  border-bottom: 0;
+}
+.post-prose thead th:last-child { border-right: 0; }
+/*
+  ⚠️⚠️ WordPress header cells wrap their text in `<strong>` (e.g. `<th><strong>Metric</strong></th>`),
+  and `.post-prose strong` below paints that element CHARCOAL (#21241C) *directly* — a declaration on
+  the element always beats the ivory it would otherwise inherit from `th`. The header row therefore
+  rendered near-black on the dark green fill: *"表格上方的黑文字盖住了"*. Every inline element the
+  prose layer recolours has to defer to the header's own colour.
+*/
+.post-prose thead strong,
+.post-prose thead b,
+.post-prose thead em,
+.post-prose thead i,
+.post-prose thead code,
+.post-prose thead a { color: inherit; }
+.post-prose tbody td {
+  color: var(--color-charcoal);
+  text-align: center;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-kraft) 45%, transparent);
+  vertical-align: middle;
+}
+.post-prose tbody tr:last-child td { border-bottom: 0; }
+.post-prose tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--color-kraft) 12%, transparent);
+}
+.post-prose tbody strong { color: var(--color-charcoal); }
+
+/* ── table of contents ────────────────────────────────────────────────────── */
+/*
+  The TOC node lives INSIDE the Markdown body, where the importer put it, so it is styled here
+  as a contents card. `[slug].astro` matches that same nav, lifts a copy into the sticky rail
+  beside the article column, and hides this in-body one at the rail's breakpoint (see below) —
+  below that breakpoint the rail is gone and this card is the only index the reader gets.
+  Every href points at a heading id the importer re-derived with the same slugger Astro uses,
+  so the jumps land.
+*/
+.post-toc {
+  margin: 2.2rem 0 3rem;
+  padding: 1.4rem 1.6rem;
+  background: var(--color-parchment);
+  border: 1px solid color-mix(in srgb, var(--color-kraft) 55%, transparent);
+  border-radius: 1rem;
+}
+.post-toc ul { margin: 0; padding-left: 1.1rem; }
+.post-toc li { margin-bottom: 0.4rem; font-size: 1rem; }
+/* the TOC is a raw-HTML nav, so its anchors need the house link colour explicitly — the
+   `.post-prose a` rule would otherwise give every entry an underline and a heavier weight */
+.post-toc a {
+  color: var(--color-brand-text);
+  font-weight: 500;
+  border-bottom: 0;
+}
+.post-toc a:hover { color: var(--brass); }
+
+/* ── the sticky "On This Page" rail ───────────────────────────────────────── */
+/*
+  ⚠️ These rules are GLOBAL (here, not in `[slug].astro`'s scoped <style>) for the documented
+  reason: the rail's nav arrives through `set:html`, and Astro never stamps a scope attribute
+  inside a set:html string, so a scoped selector would silently match nothing.
+  The rail and the in-body card swap at the SAME 1120px breakpoint, so exactly one is ever shown.
+*/
+@media (min-width: 1121px) {
+  .post-prose nav.post-toc { display: none; }
+}
+/*
+  ⚠️ NO `max-height` / `overflow-y` — the rail has no scrollbar of its own, by request: *"右边不要拖动栏，
+  你就跟随我的文章就好了"*. It is a plain sticky column that travels with the article.
+  ⚠️ The trade: a TOC whose entries run taller than the viewport cannot have its last item reached
+  while the rail is pinned. This is measured, not assumed — `rigid-box-vs-folding-carton` (13 entries)
+  is ~640px, so it clears an 800px viewport, but the collection's longest TOC is 20 entries and will
+  not. If it is ever needed back, the old block was `max-height: calc(100vh - 9rem); overflow-y: auto;
+  overscroll-behavior: contain; scrollbar-width: thin` (overflow on the sticky element itself is safe;
+  only an ANCESTOR's overflow kills sticking).
+*/
+.post-rail {
+  position: sticky;
+  top: 7rem;
+}
+.post-rail-h {
+  margin: 0 0 0.7rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--brass) 36%, transparent);
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-moss);
+}
+/* strip the contents-card treatment off the lifted copy — in the rail it is a flat list */
+.post-rail .post-toc {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+}
+.post-rail .post-toc ul { margin: 0; padding: 0; list-style: none; }
+.post-rail .post-toc li { margin: 0; font-size: 0.9rem; line-height: 1.4; }
+.post-rail .post-toc a {
+  display: block;
+  padding: 0.3rem 0 0.3rem 0.7rem;
+  border-left: 2px solid transparent;
+  color: var(--color-brand-muted);
+  font-weight: 500;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.post-rail .post-toc a:hover { color: var(--brass); border-left-color: color-mix(in srgb, var(--brass) 45%, transparent); }
+/* set by the scroll-spy in `[slug].astro` */
+.post-rail .post-toc a.is-active { color: var(--brass); border-left-color: var(--brass); }
+
+/*
+  ⚠️ H2 vs H3. The source nesting is H3s as a `<ul>` inside the H2's own `<li>`, and there is NO
+  level class on any node — the original article relied on the browser's default nested-list
+  indent, which is why the in-body `.post-toc` (padding-left 1.1rem) already shows the hierarchy.
+  The rail's `padding: 0` reset above flattened every `ul`, so all seven entries of a post like
+  `rigid-box-vs-folding-carton` read as siblings. Indent AND step the type down.
+
+  ⚠️⚠️ Colour: BOTH levels stay lighter than the prose (#2B2F26) — H2 at muted, H3 at moss. An
+  earlier pass painted H2 `--color-brand-text`, which made the rail read as a second column of body
+  copy: *"颜色浅一点点，不然和左边看着很冲突"*. At 1rem / 0.94rem it was also too loud; the client
+  asked for one more step down ("稍微再小一点").
+*/
+.post-rail .post-toc ul ul { padding-left: 0.8rem; }
+.post-rail .post-toc ul ul li { font-size: 0.84rem; line-height: 1.36; }
+.post-rail .post-toc ul ul a { font-weight: 450; padding-top: 0.22rem; padding-bottom: 0.22rem; color: var(--color-moss); }
+/* the entry itself is the louder of the two levels — still under the prose's weight and darkness */
+.post-rail .post-toc > ul > li > a { font-size: 0.9rem; font-weight: 600; color: var(--color-brand-muted); }
+
+/* ── pull-quotes ──────────────────────────────────────────────────────────── */
+/*
+  The source markup carries WordPress gradient classes (`has-pale-ocean-gradient-background`
+  and friends). Those hues are not this brand's, so the classes are dropped at import and the
+  quote gets the reference treatment instead: a brass bar on the left, a tinted panel.
+*/
+.post-quote {
+  margin: 2.4rem 0;
+  padding: 1.3rem 1.6rem;
+  background: var(--color-clay);
+  border-left: 3px solid var(--brass);
+  border-radius: 0 1rem 1rem 0;
+}
+.post-quote p { margin: 0 0 0.8rem; font-style: normal; }
+.post-quote p:last-child { margin-bottom: 0; }
+.post-quote strong { color: var(--color-charcoal); }
+
+/* ── FAQ ──────────────────────────────────────────────────────────────────── */
+.post-faq {
+  margin: 2.4rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-kraft) 45%, transparent);
+}
+.post-faq-item { padding: 1.5rem 0 0.4rem; }
+.post-faq-q {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-brand-text);
+  margin: 0 0 0.5rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.post-faq-item p { margin-bottom: 0.9rem; }
+
+/* ── inline CTAs and notes ────────────────────────────────────────────────── */
+/*
+  GenerateBlocks buttons and "headline" notes carried their own colours in the source
+  (#0abee6 cyan, #f4e9e9 pink). Those are replaced with the brand's.
+*/
+/*
+  ⚠️ These two were `display: flex` and that is a trap here: the content is inline markup
+  (`Contact <strong>WestRock</strong>`), and flex turns every contiguous run of text and every
+  inline element into its OWN flex item, laying them out side by side. A three-line note
+  rendered as a dozen narrow columns. Block flow keeps one normal paragraph; the icon floats.
+*/
+.post-note {
+  display: block;
+  margin: 2rem 0;
+  padding: 1rem 1.2rem;
+  background: var(--color-clay);
+  border-left: 3px solid var(--brass);
+  border-radius: 0 0.85rem 0.85rem 0;
+}
+.post-note svg {
+  float: left;
+  width: 1.1em;
+  height: 1.1em;
+  margin: 0.34em 0.7rem 0 0;
+  color: var(--brass);
+}
+.post-note p { margin: 0 0 0.8rem; }
+.post-note p:last-child { margin-bottom: 0; }
+
+/*
+  Scoped through `.post-prose` so these beat the `.post-prose a` rule above on specificity
+  rather than needing `!important` — otherwise the pill would inherit the inline link's colour,
+  weight and underline.
+*/
+.post-cta-row { margin: 2rem 0; text-align: center; }
+.post-prose .post-cta {
+  display: inline-block;
+  padding: 0.85rem 1.6rem;
+  background: var(--forest-light);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border-bottom: 0;
+  transition: background 0.35s ease, transform 0.35s ease;
+}
+.post-prose .post-cta:hover {
+  background: var(--forest-deep);
+  color: var(--ivory);
+  transform: translateY(-2px);
+}
+
+.post-cover-caption {
+  margin-top: -1.4rem;
+  font-size: 0.95rem;
+  color: var(--color-brand-muted);
+  text-align: center;
+}

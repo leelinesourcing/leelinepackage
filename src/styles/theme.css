@@ -34,6 +34,23 @@
      For body-size text on the same ground use --color-ivory (4.87:1). */
   --color-brass-light: #E9C978;
 
+  /* ── parchment ─────────────────────────────────────────────────────────────
+     Article tables and pull-quotes sit ON TOP of an ivory page, so they cannot
+     reuse ivory — they would dissolve into it. This is ivory taken one step
+     lighter, the same move the reference blog makes with its table surface.
+     Brightness only; the hue is unchanged. */
+  --color-parchment: #FFFCF4;
+
+  /* ── linen ─────────────────────────────────────────────────────────────────
+     The article body's ground: a whisper of beige, essentially white. `--ivory`
+     (#F5F0E5) read as dim across a whole long article — *"博客文章页面底色稍微浅一点…看起来很暗"*,
+     then *"文章底色还是有点深，比白色稍微米色一点就行"*. ivory stays the site's general band.
+     ⚠️ `--color-parchment` is deliberately NOT changed with it: it is also the blog
+     index's band background and the PostCard surface, so whitening it would
+     dissolve those. The article's tables and in-body contents card sit on this
+     near-white ground and are held apart by their own kraft borders. */
+  --color-linen: #FCFAF6;
+
   /* ── Typography ─────────────────────────────── */
   --font-heading: 'Newsreader Variable', Georgia, serif;
   --font-body:    'Instrument Sans Variable', system-ui, sans-serif;

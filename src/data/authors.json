@@ -1,0 +1,17 @@
+[
+  {
+    "id": "lofty-shen",
+    "name": "Lofty Shen",
+    "title": "Senior Packaging Engineer",
+    "bio": "Lofty Shen is an IoPP-Certified Packaging Professional (CPP) with over a decade of specialized experience in medical device packaging, cold-chain logistics, and cross-functional project management. Her expertise focuses on navigating the rigorous regulatory landscapes of the healthcare and pharmaceutical sectors, ensuring total product integrity from manufacturing to end-use.\n\nLofty Shen has a proven track record in developing protective solutions for temperature-sensitive and high-value equipment, utilizing her deep knowledge of ISO 11607 standards and ASTM/ISTA testing protocols. Beyond technical design, she excels in optimizing supply chain efficiencies and vendor management, bridging the gap between complex engineering requirements and operational cost-effectiveness.",
+    "avatar": "https://img.leelinepackage.com/blog/author-lofty-shen.webp",
+    "avatarWidth": 400,
+    "avatarHeight": 600,
+    "expertise": [
+      { "t": "Medical Device Compliance", "d": "Mastery of ISO 11607 and sterile barrier system validation." },
+      { "t": "Cold Chain Logistics", "d": "Design and implementation of temperature-controlled packaging solutions." },
+      { "t": "Project Lifecycle Management", "d": "Leading multi-departmental packaging initiatives from R&D to market." },
+      { "t": "Regulatory Documentation", "d": "Technical writing and auditing for FDA and international compliance." }
+    ]
+  }
+]

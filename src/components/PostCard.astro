@@ -1,0 +1,115 @@
+---
+import { categoryLabel, formatDate, readingTime, type Post } from '../lib/blog';
+
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+const { data, body } = post;
+const minutes = readingTime(body);
+const href = `/${post.id}/`;
+---
+<article class="post-card" data-reveal="up">
+  <a class="post-card-media" href={href} target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">
+    <img
+      src={data.featuredImage}
+      alt={data.featuredImageAlt}
+      width={data.featuredImageWidth}
+      height={data.featuredImageHeight}
+      loading="lazy"
+      decoding="async"
+    />
+  </a>
+  <div class="post-card-body">
+    <a class="post-card-cat" href={`/category/${data.category}/`} target="_blank" rel="noopener">{categoryLabel(data.category)}</a>
+    <h3 class="post-card-title">
+      <a href={href} target="_blank" rel="noopener">{data.title}</a>
+    </h3>
+    <p class="post-card-desc">{data.description}</p>
+    <p class="post-card-meta">
+      <time datetime={data.publishDate.toISOString().slice(0, 10)}>{formatDate(data.publishDate)}</time>
+      <span aria-hidden="true">·</span>
+      <span>{minutes} min read</span>
+    </p>
+  </div>
+</article>
+
+<style>
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    /* containing block for the title's stretched link — see `.post-card-title a::after` */
+    position: relative;
+    background: var(--color-parchment);
+    border: 1px solid color-mix(in srgb, var(--color-kraft) 40%, transparent);
+    border-radius: 1.1rem;
+    overflow: hidden;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease, border-color 0.4s ease;
+  }
+  .post-card:hover {
+    transform: translateY(-5px);
+    border-color: color-mix(in srgb, var(--color-kraft) 75%, transparent);
+    box-shadow: 0 26px 54px -34px rgba(31, 59, 44, 0.5);
+  }
+
+  .post-card-media { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--color-clay); }
+  /*
+    Whole-card click target, on request: *"点击任意卡片都能跳转到正文，不要只有图片"*. The title's
+    anchor is stretched over the card so a click anywhere opens the article, while the two real
+    controls keep their own stacking so they stay clickable on top of it.
+  */
+  .post-card-title a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .post-card-media,
+  .post-card-cat { position: relative; z-index: 2; }
+  /* keyboard focus has to read at card scale, not as a thin ring around the title text */
+  .post-card:has(.post-card-title a:focus-visible) { outline: 2px solid var(--brass); outline-offset: 3px; }
+  .post-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .post-card:hover .post-card-media img { transform: scale(1.04); }
+
+  .post-card-body { display: flex; flex-direction: column; flex: 1; padding: 1.4rem 1.5rem 1.5rem; }
+
+  .post-card-cat {
+    align-self: flex-start;
+    font-family: var(--font-body);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--brass);
+    border-bottom: 1px solid color-mix(in srgb, var(--brass) 35%, transparent);
+    padding-bottom: 0.15rem;
+    margin-bottom: 0.7rem;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+  .post-card-cat:hover { color: var(--forest-light); border-bottom-color: var(--forest-light); }
+
+  .post-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.24rem;
+    font-weight: 600;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0 0 0.6rem;
+    text-wrap: balance;
+  }
+  .post-card-title a { color: inherit; }
+
+  .post-card-desc { font-size: 0.95rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0 0 1.2rem; }
+
+  .post-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: auto 0 0;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-moss);
+  }
+</style>

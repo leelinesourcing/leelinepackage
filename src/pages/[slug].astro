@@ -1,0 +1,419 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getEntry, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import ScrollReveal from '../components/ScrollReveal.astro';
+import AuthorCard from '../components/AuthorCard.astro';
+import { categoryLabel, formatDate, getPublishedPosts, readingTime } from '../lib/blog';
+import '../styles/blog.css';
+
+/*
+  Article URLs sit at the site root with no `/blog` prefix — `/what-is-a-gusset/`, not
+  `/blog/what-is-a-gusset/` — matching the live site's permalink structure. Static routes
+  take priority over this one, so the existing hand-built pages are unaffected; the import
+  was checked against them and no slug collides.
+*/
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+};
+
+const { post } = Astro.props;
+const { data, body } = post;
+const { Content, headings } = await render(post);
+
+/*
+  The importer emitted a `<nav class="post-toc">` into the Markdown body of 118 of the 122 posts,
+  so the TOC is a node INSIDE the prose and cannot be moved with CSS alone. It is lifted out here
+  by matching that one nav and re-rendered into the sticky rail beside the column; a rule in
+  blog.css hides the in-body copy at the rail's breakpoint and shows it again below that, where
+  the rail is gone and the contents card is the only index the reader gets.
+
+  ⚠️ The lift keeps every href byte-identical to the ids in the built HTML, which is what makes the
+  jumps land — so it is still the source of the rail's ORDER and its TEXT.
+
+  ⚠️⚠️ But the source TOC is INCOMPLETE on 28 of the 118 posts: Rank Math was configured to list
+  only H2s there, so e.g. `/reach-regulations/` has 10 H3s in the body and none in its TOC
+  (*"这个怎么只有H2标题"*). So the lift is MERGED with `render().headings` (depths 2–3, ids stamped by
+  the same processor that wrote them into the HTML): every rendered heading the lift already lists
+  keeps the lift's text, and every heading it omits is added, in document order. Nothing is dropped
+  — the FAQ questions are `<h3>`s from raw HTML that `headings` may not see, and they survive
+  through the lift side of the merge.
+*/
+const tocHtml = body.match(/<nav class="post-toc">[\s\S]*?<\/nav>/)?.[0] ?? '';
+
+const stripTags = (s: string) => s.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+type TocEntry = { slug: string; text: string; depth: number };
+
+/* The lifted nav, flattened with the nesting read off its `<ul>` depth. */
+const liftedToc: TocEntry[] = (() => {
+  if (!tocHtml) return [];
+  const out: TocEntry[] = [];
+  let depth = 0;
+  const re = /<ul>|<\/ul>|<a href="#([^"]*)"[^>]*>([\s\S]*?)<\/a>/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(tocHtml))) {
+    if (m[0] === '<ul>') { depth += 1; continue; }
+    if (m[0] === '</ul>') { depth -= 1; continue; }
+    out.push({ slug: decodeURIComponent(m[1]), text: stripTags(m[2]), depth: Math.min(3, Math.max(2, depth)) });
+  }
+  return out;
+})();
+
+const renderedToc: TocEntry[] = headings
+  .filter((h) => h.depth === 2 || h.depth === 3)
+  .map((h) => ({ slug: h.slug, text: stripTags(h.text), depth: h.depth }));
+
+/*
+  Ordered-subsequence merge, and it has to be done properly:
+  ⚠️ The lift is a SUBSET of the rendered headings, in the same document order. On its own, "the
+  lift's next entry doesn't match this heading, so the lift must have extras to flush" pushes the
+  lift's LATER entries out early — which nested every H3 under the LAST H2 on
+  `/reach-regulations/`. A lift entry may only be flushed once nothing further down the rendered
+  list matches it, i.e. when it really is lift-only (the FAQ anchors, which `<h3>`s written as raw
+  HTML may not reach `headings`).
+*/
+const railEntries: TocEntry[] = (() => {
+  const out: TocEntry[] = [];
+  let i = 0;
+  for (let j = 0; j < renderedToc.length; j += 1) {
+    const h = renderedToc[j];
+    while (i < liftedToc.length && liftedToc[i].slug !== h.slug) {
+      const rest = new Set(renderedToc.slice(j).map((r) => r.slug));
+      if (rest.has(liftedToc[i].slug)) break;
+      out.push(liftedToc[i]);
+      i += 1;
+    }
+    if (i < liftedToc.length && liftedToc[i].slug === h.slug) {
+      out.push({ ...h, text: liftedToc[i].text });
+      i += 1;
+    } else {
+      out.push(h);
+    }
+  }
+  while (i < liftedToc.length) {
+    out.push(liftedToc[i]);
+    i += 1;
+  }
+  return out;
+})();
+
+/* Nest: each H2 opens an `<li>` that the H3s of its group hang inside. */
+const railToc = (() => {
+  if (!tocHtml || !railEntries.length) return '';
+  const groups: Array<{ head: TocEntry | null; subs: TocEntry[] }> = [];
+  for (const e of railEntries) {
+    if (e.depth === 2 || !groups.length) groups.push({ head: e.depth === 2 ? e : null, subs: e.depth === 2 ? [] : [e] });
+    else groups[groups.length - 1].subs.push(e);
+  }
+  const link = (e: TocEntry) => `<a href="#${encodeURI(e.slug)}">${escapeHtml(e.text)}</a>`;
+  const body = groups
+    .map((g) => {
+      const subs = g.subs.length ? `<ul>${g.subs.map((s) => `<li>${link(s)}</li>`).join('')}</ul>` : '';
+      return `<li>${g.head ? link(g.head) : ''}${subs}</li>`;
+    })
+    .join('');
+  return `<nav class="post-toc"><ul>${body}</ul></nav>`;
+})();
+
+const authorEntry = await getEntry(data.author);
+const author = authorEntry?.data;
+const minutes = readingTime(body);
+
+/* The author card's "Latest Posts" list: this author's newest five, newest first. `posts` already
+   carries every published post sorted by date, so this is just a filter and a slice. */
+const authorPosts = (await getPublishedPosts())
+  .filter((p) => p.data.author.id === authorEntry?.id)
+  .slice(0, 5);
+
+const canonical = `https://www.leelinepackage.com/${post.id}/`;
+const pageTitle = data.seoTitle || data.title;
+
+/*
+  FAQPage schema, derived from the FAQ block that is already in the body — the same lift-not-rebuild
+  rule the TOC follows, so the markup and the schema can never disagree.
+
+  ⚠️ 39 of the 122 posts carry one. The questions are `<h3 class="post-faq-q">` and each answer is a
+  run of plain `<p>`s (the importer emits no nested divs inside `.post-faq-item`), which is why the
+  item split below is a safe non-greedy match. Answers and questions are reduced to plain text:
+  tags stripped, entities decoded — schema `text` is not HTML.
+*/
+const decodeEntities = (s: string) => s
+  .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+  .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+  .replace(/&nbsp;/g, ' ')
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"')
+  .replace(/&#39;|&apos;/g, "'")
+  .replace(/&amp;/g, '&');
+
+const plain = (html: string) => decodeEntities(html.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
+
+const faqSource = body.match(/<div class="post-faq">[\s\S]*?<\/div>\s*(?=\n|$)/)?.[0] ?? '';
+const faqItems = [...faqSource.matchAll(/<div class="post-faq-item">([\s\S]*?)<\/div>/g)].map((m) => {
+  const inner = m[1];
+  const q = inner.match(/<h3[^>]*class="post-faq-q"[^>]*>([\s\S]*?)<\/h3>/i)?.[1] ?? '';
+  return { q: plain(q), a: plain(inner.replace(/<h3[\s\S]*?<\/h3>/i, '')) };
+}).filter((i) => i.q && i.a);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      headline: data.title,
+      description: data.description,
+      image: [data.featuredImage],
+      datePublished: data.publishDate.toISOString(),
+      author: author ? { '@type': 'Person', name: author.name, jobTitle: author.title } : undefined,
+      publisher: {
+        '@type': 'Organization',
+        name: 'LeelinePackage',
+        url: 'https://www.leelinepackage.com/',
+      },
+      articleSection: categoryLabel(data.category),
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.leelinepackage.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: data.title },
+      ],
+    },
+    ...(faqItems.length
+      ? [{
+          '@type': 'FAQPage',
+          mainEntity: faqItems.map((i) => ({
+            '@type': 'Question',
+            name: i.q,
+            acceptedAnswer: { '@type': 'Answer', text: i.a },
+          })),
+        }]
+      : []),
+  ],
+};
+---
+<Layout
+  title={pageTitle}
+  description={data.description}
+  keywords={data.keywords || ''}
+  canonical={canonical}
+  ogType="article"
+  ogImage={data.featuredImage}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <Navbar />
+  <ScrollReveal />
+  <main id="top">
+    <section class="post-hero">
+      <div class="wrap post-hero-inner">
+        <a class="post-hero-cat" href={`/category/${data.category}/`} target="_blank" rel="noopener">{categoryLabel(data.category)}</a>
+        <h1 class="post-hero-title" data-reveal="up">{data.title}</h1>
+        <p class="post-hero-meta" data-reveal="up">
+          {author && (
+            <img
+              class="post-hero-avatar"
+              src={author.avatar}
+              alt=""
+              width={author.avatarWidth}
+              height={author.avatarHeight}
+              loading="eager"
+              decoding="async"
+            />
+          )}
+          {author && (
+            <>
+              <a class="post-hero-by" href={`/author/${authorEntry.id}/`} target="_blank" rel="noopener">By {author.name}</a>
+              {author.title && <span class="post-hero-role">{author.title}</span>}
+              <span aria-hidden="true">·</span>
+            </>
+          )}
+          <time datetime={data.publishDate.toISOString().slice(0, 10)}>{formatDate(data.publishDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{minutes} min read</span>
+        </p>
+      </div>
+    </section>
+
+    <article class="post-main">
+      <div class:list={['wrap', 'post-layout', railToc && 'post-layout--rail']}>
+        <div class="post-body">
+          <figure class="post-hero-figure">
+            <img
+              src={data.featuredImage}
+              alt={data.featuredImageAlt}
+              width={data.featuredImageWidth}
+              height={data.featuredImageHeight}
+              loading="eager"
+              fetchpriority="high"
+              decoding="sync"
+            />
+          </figure>
+
+          <div class="post-prose">
+            <Content />
+          </div>
+
+          {author && <AuthorCard author={author} authorId={authorEntry.id} posts={authorPosts} />}
+        </div>
+
+        {railToc && (
+          <aside class="post-rail" aria-label="On this page">
+            <p class="post-rail-h">On This Page</p>
+            <Fragment set:html={railToc} />
+          </aside>
+        )}
+      </div>
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .post-hero {
+    background: var(--color-clay);
+    padding: calc(clamp(3.5rem, 7vw, 6rem) + 4.75rem) 0 clamp(2.5rem, 5vw, 4rem);
+  }
+  .post-hero-inner { max-width: 54rem; }
+  .post-hero-cat {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass);
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--brass) 40%, transparent);
+    transition: color 0.3s ease;
+  }
+  .post-hero-cat:hover { color: var(--forest-light); }
+  /* The house rule: the article H1 is bold (700) while page section H2s stay at 500. */
+  .post-hero-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 3.3rem);
+    line-height: 1.06;
+    letter-spacing: -0.028em;
+    color: var(--color-brand-text);
+    text-wrap: balance;
+    margin: 1.1rem 0 0;
+  }
+  .post-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.4rem 0 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--color-moss);
+  }
+  .post-hero-meta a { color: var(--color-forest); font-weight: 600; }
+  .post-hero-meta a:hover { color: var(--brass); }
+
+  /* The hero byline portrait, added on request ("头部位置应该也要有作者头像和相关信息，我给你的参考也就有").
+     `alt=""` because the name sits right beside it — announcing it again is noise. Same
+     top-weighted crop as the author card: the source portrait is 400×600. */
+  .post-hero-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 22%;
+    margin-right: 0.3rem;
+    border: 1px solid color-mix(in srgb, var(--color-brand-text) 12%, transparent);
+  }
+  .post-hero-role { color: var(--color-brand-muted); }
+
+  /* Lighter than `--ivory` on request — see the `--color-linen` token comment in theme.css.
+     The hero band above stays `--color-clay` and the author card below stays clay too; only the
+     reading ground moves, which is the largest area on the page by far. */
+  .post-main { background: var(--color-linen); padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 9vw, 7.5rem); }
+  /*
+    Without a TOC the article is a single centred column, exactly as it was before the rail
+    existed — 48rem is the measure every paragraph-length decision was taken against.
+  */
+  .post-layout { max-width: 48rem; }
+
+  /*
+    With a TOC: the column plus the sticky "On This Page" rail. The class is only added when
+    `railToc` is non-empty (4 of the 122 posts have no TOC), because an empty 13rem track would
+    otherwise push the prose column off centre.
+    ⚠️ The prose column stays EXACTLY 48rem. The client's four-line-paragraph rule was measured
+    against a 768px column at 18px (73–79 chars per line), so widening it would silently push
+    paragraphs over four lines.
+  */
+  .post-layout--rail {
+    display: grid;
+    grid-template-columns: minmax(0, 48rem) 13rem;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    justify-content: center;
+    align-items: start;
+    max-width: 64rem;
+  }
+  .post-body { min-width: 0; }
+
+  /* Below this the two columns no longer fit inside `.wrap`, so the rail goes away and the
+     in-body contents card comes back (blog.css re-shows it at the same breakpoint). */
+  @media (max-width: 1120px) {
+    .post-layout--rail { display: block; max-width: 48rem; }
+    .post-rail { display: none; }
+  }
+
+  .post-hero-figure { margin: 0 0 clamp(2.2rem, 4vw, 3rem); }
+  .post-hero-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 1.1rem;
+    box-shadow: 0 26px 56px -36px rgba(31, 59, 44, 0.55);
+  }
+
+  /* The closing author block is `AuthorCard.astro` — it carries its own styles. */
+</style>
+
+<script>
+  /*
+    Scroll-spy for the "On This Page" rail. The rail only exists at ≥1121px, so on the narrower
+    layout this finds no links and does nothing — there the in-body contents card is shown instead.
+    The ids are matched leniently: a heading slug with non-ASCII characters can arrive
+    percent-encoded in the href, so a raw lookup is tried first and the decoded one after it.
+  */
+  const railLinks = Array.from(document.querySelectorAll('.post-rail .post-toc a[href^="#"]'));
+  const idOf = (a) => {
+    const raw = a.hash.slice(1);
+    const direct = document.getElementById(raw);
+    if (direct) return direct;
+    try {
+      return document.getElementById(decodeURIComponent(raw));
+    } catch {
+      return null;
+    }
+  };
+  const railSections = railLinks.map(idOf).filter((el) => el);
+
+  if (railSections.length && 'IntersectionObserver' in window) {
+    const setActive = (current) => {
+      railLinks.forEach((a) => a.classList.toggle('is-active', idOf(a) === current));
+    };
+    const spy = new IntersectionObserver(
+      (entries) => {
+        const shown = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (shown[0]) setActive(shown[0].target);
+      },
+      // the "current" band: everything below the 74px nav and above 65% of the viewport
+      { rootMargin: '-90px 0px -65% 0px', threshold: 0 },
+    );
+    railSections.forEach((el) => spy.observe(el));
+  }
+</script>

@@ -1,5 +1,9 @@
 ---
 import '../styles/global.css';
+// The two latin subsets every page actually renders with. Imported so Vite emits the same
+// content-hashed URLs the bundled @font-face rules point at, which lets us preload them.
+import newsreaderLatin from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
+import instrumentSansLatin from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url';
 import MobileCta from '../components/MobileCta.astro';
 import BackToTop from '../components/BackToTop.astro';
 
@@ -38,6 +42,11 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {preloadFont && <link rel="preload" href={preloadFont} as="font" type="font/woff2" crossorigin="anonymous" />}
+    <!-- Preloaded on every page. Without these the browser only discovers the fonts after the
+         global stylesheet parses, so the swap lands after first paint and reflows the headline
+         (measured 0.08–0.20 CLS on mobile). These URLs are the bundled @font-face src values. -->
+    <link rel="preload" href={newsreaderLatin} as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href={instrumentSansLatin} as="font" type="font/woff2" crossorigin="anonymous" />
     {preloadImage && <link rel="preload" as="image" href={preloadImage} imagesrcset={preloadImageSrcset || undefined} imagesizes={preloadImageSizes || undefined} fetchpriority="high" />}
     <title>{title}</title>
     <meta name="description" content={description} />

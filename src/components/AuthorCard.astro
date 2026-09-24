@@ -1,0 +1,312 @@
+---
+import { formatDate, type Post } from '../lib/blog';
+
+/*
+  AuthorCard — the article's closing author block.
+
+  Content mirrors the live site's author box: portrait, name, job title, an "About the Author" /
+  "Latest Posts" pair of tabs, the author's two biography paragraphs, the Areas of Expertise list,
+  social links, and the "Fact Checked & Editorial Guidelines" disclosure. The client's words were
+  *"博客底部的作者内容直接照搬原网站的，你还少了一些东西"* — what was missing from the old inline
+  block was the second bio paragraph, the expertise list, the post list and the fact-check block.
+
+  Two deliberate departures from the original, both about not shipping WP-plugin machinery:
+  • The tabs are a real ARIA tablist with a ~20-line script and arrow-key support, not jQuery.
+  • The fact-check panel is a native <details>, not a `display: none` div toggled by JS.
+*/
+
+interface AuthorData {
+  name: string;
+  title?: string;
+  bio: string;
+  avatar: string;
+  avatarWidth: number;
+  avatarHeight: number;
+  expertise?: Array<{ t: string; d: string }>;
+}
+
+interface Props {
+  author: AuthorData;
+  /** The `authors` entry id, for the /author/<id>/ link. */
+  authorId: string;
+  /** The author's most recent posts; the card shows up to five. */
+  posts: Post[];
+}
+
+const { author, authorId, posts } = Astro.props;
+const bioParas = author.bio.split('\n\n').map((p) => p.trim()).filter(Boolean);
+const latest = posts.slice(0, 5);
+
+/* Instagram and YouTube are the two the live author box carries. Path data matches the icons
+   already used in `Footer.astro`. */
+const socials = [
+  { name: 'Instagram', href: 'https://www.instagram.com/leelinepackage/', d: 'M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.74.07-1.08.05-1.66.23-2.05.38-.51.2-.88.44-1.26.82-.38.38-.62.75-.82 1.26-.15.39-.33.97-.38 2.05-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.08.23 1.66.38 2.05.2.51.44.88.82 1.26.38.38.75.62 1.26.82.39.15.97.33 2.05.38 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.08-.05 1.66-.23 2.05-.38.51-.2.88-.44 1.26-.82.38-.38.62-.75.82-1.26.15-.39.33-.97.38-2.05.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.08-.23-1.66-.38-2.05a3.4 3.4 0 0 0-.82-1.26 3.4 3.4 0 0 0-1.26-.82c-.39-.15-.97-.33-2.05-.38C15.5 4.01 15.15 4 12 4Zm0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06Zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28Zm5.15-3.14a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z' },
+  { name: 'YouTube', href: 'https://www.youtube.com/channel/UCKP9umForyRo0u-AJg1Cukg', d: 'M23 9.71a8.5 8.5 0 0 0-.91-4.13 2.92 2.92 0 0 0-1.72-1A78.36 78.36 0 0 0 12 4.27a78.45 78.45 0 0 0-8.34.3 2.87 2.87 0 0 0-1.46.74c-.9.83-1 2.25-1.1 3.45a48.29 48.29 0 0 0 0 6.48 9.55 9.55 0 0 0 .3 2 3.14 3.14 0 0 0 .71 1.36 2.86 2.86 0 0 0 1.49.78 45.18 45.18 0 0 0 6.5.33c3.5.05 6.57 0 10.2-.28a2.88 2.88 0 0 0 1.53-.78 2.49 2.49 0 0 0 .61-1 10.58 10.58 0 0 0 .52-3.4C23 13.69 23 10.31 23 9.71ZM9.74 14.85V8.66l5.92 3.11C14 12.69 11.81 13.73 9.74 14.85Z' },
+];
+
+/*
+  ⚠️ The badge is injected with `set:html`, and Astro never stamps a scope attribute inside a
+  set:html string — so `.ac-badge { width: 18px }` in the scoped <style> below matches NOTHING and
+  the SVG falls back to its default size (it rendered as a ~340px blob on the first build). The
+  paint and the size therefore live INSIDE the string, as attributes.
+*/
+const badge = '<svg class="ac-badge" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:none"><path d="M12 2 14.4 3.7 17.3 3.3 18.6 5.9 21.1 7.2 20.7 10.1 22.4 12.5 20.7 14.9 21.1 17.8 18.6 19.1 17.3 21.7 14.4 21.3 12 23 9.6 21.3 6.7 21.7 5.4 19.1 2.9 17.8 3.3 14.9 1.6 12.5 3.3 10.1 2.9 7.2 5.4 5.9 6.7 3.3 9.6 3.7 12 2Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.4 12.4l2.5 2.5 4.7-4.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+---
+
+<aside class="ac" aria-label="About the author">
+  <div class="ac-head">
+    <img
+      class="ac-avatar"
+      src={author.avatar}
+      alt={author.name}
+      width={author.avatarWidth}
+      height={author.avatarHeight}
+      loading="lazy"
+      decoding="async"
+    />
+    <div class="ac-id">
+      <p class="ac-eyebrow">Written by</p>
+      <h2 class="ac-name"><a href={`/author/${authorId}/`} target="_blank" rel="noopener">{author.name}</a></h2>
+      {author.title && <p class="ac-role">{author.title}</p>}
+    </div>
+    <div class="ac-socials">
+      {socials.map((s) => (
+        <a href={s.href} aria-label={s.name} target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={s.d} /></svg>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="ac-tabs" role="tablist" aria-label="Author details">
+    <button class="ac-tab is-on" id="ac-t-about" role="tab" aria-selected="true" aria-controls="ac-p-about" data-tab="about">About the Author</button>
+    <button class="ac-tab" id="ac-t-posts" role="tab" aria-selected="false" aria-controls="ac-p-posts" data-tab="posts" tabindex="-1">Latest Posts</button>
+  </div>
+
+  <div class="ac-panel is-on" id="ac-p-about" role="tabpanel" aria-labelledby="ac-t-about">
+    {bioParas.map((p) => <p class="ac-bio">{p}</p>)}
+
+    {author.expertise && author.expertise.length > 0 && (
+      <div class="ac-exp">
+        <p class="ac-exp-h">Areas of Expertise</p>
+        <ol class="ac-exp-list">
+          {author.expertise.map((e, i) => (
+            <li>
+              <span class="ac-exp-n" aria-hidden="true">{i + 1}</span>
+              <span class="ac-exp-t"><strong>{e.t}</strong> — {e.d}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    )}
+  </div>
+
+  <div class="ac-panel" id="ac-p-posts" role="tabpanel" aria-labelledby="ac-t-posts" hidden>
+    <ul class="ac-posts">
+      {latest.map((p) => (
+        <li>
+          <a href={`/${p.id}/`} target="_blank" rel="noopener">
+            <span class="ac-post-t">{p.data.title}</span>
+            <time class="ac-post-d" datetime={p.data.publishDate.toISOString().slice(0, 10)}>{formatDate(p.data.publishDate)}</time>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <details class="ac-check">
+    <summary class="ac-check-sum"><Fragment set:html={badge} />Fact Checked &amp; Editorial Guidelines</summary>
+    <div class="ac-check-body">
+      <h3 class="ac-check-h">Our Fact Checking Process</h3>
+      <p>We prioritize accuracy and integrity in our content. Here’s how we maintain high standards:</p>
+      <ol class="ac-check-list">
+        <li><strong>Expert Review:</strong> All articles are reviewed by subject matter experts.</li>
+        <li><strong>Source Validation:</strong> Information is backed by credible, up-to-date sources.</li>
+        <li><strong>Transparency:</strong> We clearly cite references and disclose potential conflicts.</li>
+      </ol>
+      <p>Your trust is important. Learn more about our <a href="/fact-checking-process/" target="_blank" rel="noopener">Fact Checking process</a> and <a href="/editorial-policy/" target="_blank" rel="noopener">editorial policy</a>.</p>
+    </div>
+  </details>
+</aside>
+
+<style>
+  .ac {
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    background: var(--color-clay);
+    border-radius: 1.1rem;
+  }
+
+  .ac-head { display: flex; align-items: flex-start; gap: 1.2rem; }
+  /* The portrait is 400×600, so the circle needs a top-weighted crop or it lands on a chin. */
+  .ac-avatar { flex: 0 0 auto; width: 96px; height: 96px; border-radius: 50%; object-fit: cover; object-position: center 22%; }
+  .ac-id { min-width: 0; }
+  .ac-eyebrow {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .ac-name { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0.4rem 0 0.15rem; }
+  .ac-name a { color: inherit; }
+  .ac-name a:hover { color: var(--brass); }
+  .ac-role { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; color: var(--color-moss); margin: 0; }
+
+  /* pushed to the far right of the header row, aligned with the name */
+  .ac-socials { display: flex; gap: 0.5rem; margin-left: auto; flex: none; }
+  .ac-socials a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--color-brand-text) 18%, transparent);
+    display: grid;
+    place-items: center;
+    color: var(--color-brand-muted);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+  }
+  .ac-socials a svg { width: 17px; height: 17px; }
+  .ac-socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--color-ivory); }
+
+  /* ── tabs ─────────────────────────────────────────────────────────────────── */
+  .ac-tabs {
+    display: flex;
+    gap: 1.6rem;
+    margin: 1.4rem 0 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-brand-text) 14%, transparent);
+  }
+  .ac-tab {
+    appearance: none;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    padding: 0 0 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+    cursor: pointer;
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+  .ac-tab:hover { color: var(--color-brand-text); }
+  .ac-tab.is-on { color: var(--brass); border-bottom-color: var(--brass); }
+  .ac-tab:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; border-radius: 2px; }
+
+  .ac-panel { padding-top: 1.2rem; }
+  .ac-panel[hidden] { display: none; }
+  .ac-bio { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0 0 1rem; }
+  .ac-bio:last-of-type { margin-bottom: 0; }
+
+  .ac-exp { margin-top: 1.3rem; padding-top: 1.2rem; border-top: 1px solid color-mix(in srgb, var(--color-brand-text) 12%, transparent); }
+  .ac-exp-h {
+    margin: 0 0 0.7rem;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+  }
+  .ac-exp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+  .ac-exp-list li { display: flex; gap: 0.7rem; font-size: 0.92rem; line-height: 1.55; color: var(--color-brand-muted); }
+  .ac-exp-n { flex: none; font-family: var(--font-heading); font-style: italic; font-weight: 500; color: var(--brass); }
+  .ac-exp-t strong { color: var(--color-brand-text); font-weight: 600; }
+
+  /* ── latest posts ─────────────────────────────────────────────────────────── */
+  .ac-posts { list-style: none; margin: 0; padding: 0; }
+  .ac-posts li + li { border-top: 1px solid color-mix(in srgb, var(--color-brand-text) 10%, transparent); }
+  .ac-posts a { display: flex; align-items: baseline; justify-content: space-between; gap: 1.2rem; padding: 0.7rem 0; }
+  .ac-post-t { font-size: 0.95rem; font-weight: 600; line-height: 1.45; color: var(--color-brand-text); }
+  .ac-posts a:hover .ac-post-t { color: var(--brass); }
+  .ac-post-d { flex: none; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.03em; color: var(--color-moss); }
+
+  /* ── fact check ───────────────────────────────────────────────────────────── */
+  .ac-check { margin-top: 1.4rem; border-top: 1px solid color-mix(in srgb, var(--color-brand-text) 14%, transparent); }
+  .ac-check-sum {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 1rem 0 0.2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand-muted);
+    cursor: pointer;
+    list-style: none;
+  }
+  /* the default triangle sits on its own line in a flex summary */
+  .ac-check-sum::-webkit-details-marker { display: none; }
+  .ac-check-sum:hover { color: var(--brass); }
+  /* size lives inside the set:html string — see the note on `badge` in the frontmatter */
+  .ac-check[open] .ac-check-sum { color: var(--brass); }
+  .ac-check-body { padding: 0.4rem 0 0.2rem; }
+  .ac-check-h { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600; color: var(--color-brand-text); margin: 0 0 0.6rem; }
+  .ac-check-body p { font-size: 0.92rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0 0 0.85rem; }
+  .ac-check-body p:last-child { margin-bottom: 0; }
+  .ac-check-list { margin: 0 0 0.85rem; padding-left: 1.2rem; }
+  .ac-check-list li { font-size: 0.92rem; line-height: 1.66; color: var(--color-brand-muted); margin-bottom: 0.4rem; }
+  .ac-check-body a { color: var(--color-sage); font-weight: 600; text-decoration: none; }
+  .ac-check-body a:hover { color: var(--color-forest); }
+  .ac-check-body strong { color: var(--color-brand-text); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .ac-head { flex-wrap: wrap; gap: 1rem; }
+    .ac-avatar { width: 72px; height: 72px; }
+    .ac-socials { margin-left: 0; width: 100%; }
+  }
+</style>
+
+<script>
+  /*
+    About / Latest Posts tabs. One small ARIA tablist — the article page has exactly one author
+    card, but this walks every `.ac` on the page so a second instance (an author page, say) works.
+
+    Roving tabindex + arrow keys, per the WAI-ARIA tabs pattern: Tab reaches the tablist once,
+    Left/Right move between tabs, Home/End jump to the ends.
+  */
+  document.querySelectorAll('.ac-tabs').forEach((list) => {
+    const tabs = Array.from(list.querySelectorAll<HTMLButtonElement>('.ac-tab'));
+    const card = list.closest('.ac');
+    if (!tabs.length || !card) return;
+
+    const panels = tabs
+      .map((t) => card.querySelector('#' + t.getAttribute('aria-controls')))
+      .filter((p): p is Element => Boolean(p));
+
+    const select = (tab: HTMLButtonElement, focus = true) => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach((p) => {
+        const on = p.id === tab.getAttribute('aria-controls');
+        p.classList.toggle('is-on', on);
+        if (on) p.removeAttribute('hidden');
+        else p.setAttribute('hidden', '');
+      });
+      if (focus) tab.focus();
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab, false));
+      tab.addEventListener('keydown', (e) => {
+        const k = e.key;
+        let next: number | null = null;
+        if (k === 'ArrowRight') next = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') next = 0;
+        else if (k === 'End') next = tabs.length - 1;
+        if (next !== null) {
+          e.preventDefault();
+          select(tabs[next]);
+        }
+      });
+    });
+  });
+</script>

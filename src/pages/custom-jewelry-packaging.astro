@@ -911,9 +911,12 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     text-align: left; vertical-align: top;
     padding: 1rem 1.1rem; border-bottom: 1px solid var(--hair);
   }
+  /* ⚠️ `--color-moss` here measured 3.19:1 on the ivory band, and brass on the tinted highlight
+     column 2.29:1 — both under the 4.5:1 these 0.7rem labels need. The highlight keeps its tint
+     and gets its own darker text below. */
   .st thead th {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.16em;
-    text-transform: uppercase; color: var(--color-moss);
+    text-transform: uppercase; color: var(--color-brand-muted);
     border-bottom-color: rgba(31, 59, 44, 0.3);
   }
   .st-c1 { width: 3.4rem; }
@@ -926,7 +929,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     line-height: 1.25; color: var(--color-brand-text);
   }
   .st-hl { background: rgba(176, 141, 76, 0.2); color: var(--forest-deep); font-weight: 600; }
-  .st thead .st-hl { color: var(--color-brass); }
+  .st thead .st-hl { color: var(--color-forest); }
   .st-avoid { color: var(--color-brand-muted); }
   .st-why { color: var(--color-brand-muted); }
 

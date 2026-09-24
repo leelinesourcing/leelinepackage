@@ -28,13 +28,13 @@ const nav = {
     { label: 'Custom Shipping Box', href: '/custom-shipping-box/' },
   ],
   about: '/about-us/',
-  caseStudy: '/#work',
+  caseStudy: '/case-study/',
   services: [
     { label: 'Structural Engineering', href: '/structural-engineering-and-design/' },
     { label: 'Packaging Artwork Design', href: '/packaging-artwork-design/' },
     { label: 'Packaging Sample & Prototyping', href: '/packaging-sample-prototyping/' },
   ],
-  blog: '#',
+  blog: '/blog/',
   cta: '/contact/',
 };
 ---
@@ -42,7 +42,7 @@ const nav = {
 <header class="site-nav" id="siteNav">
   <div class="site-nav-inner">
     <a class="brand" href="/" target="_blank" rel="noopener" aria-label="LeelinePackage home">
-      <img class="brand-logo" src={LOGO} alt="LeelinePackage" loading="eager" />
+      <img class="brand-logo" src={LOGO} alt="LeelinePackage" width={500} height={100} loading="eager" />
     </a>
 
     <nav class="nav-links" aria-label="Primary">
@@ -73,7 +73,7 @@ const nav = {
       </div>
 
       <a href={nav.about} target="_blank" rel="noopener">About Us</a>
-      <a href={nav.caseStudy} target="_blank" rel="noopener">Case Study</a>
+      <a href={nav.caseStudy} target="_blank" rel="noopener">Case Studies</a>
 
       <div class="nav-drop">
         <a class="nav-drop-link" href="/services/" target="_blank" rel="noopener">
@@ -87,7 +87,7 @@ const nav = {
         </div>
       </div>
 
-      <a href={nav.blog}>Blog</a>
+      <a href={nav.blog} target="_blank" rel="noopener">Blog</a>
     </nav>
 
     <div class="nav-actions">
@@ -116,7 +116,7 @@ const nav = {
       <div class="sub">{nav.industries.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
     </details>
     <a href="/about-us/" target="_blank" rel="noopener">About Us</a>
-    <a href="/#work" target="_blank" rel="noopener">Case Study</a>
+    <a href="/case-study/" target="_blank" rel="noopener">Case Studies</a>
     <details>
       <summary>Services</summary>
       <div class="sub">
@@ -124,7 +124,7 @@ const nav = {
         {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
       </div>
     </details>
-    <a href="/" target="_blank" rel="noopener">Blog</a>
+    <a href="/blog/" target="_blank" rel="noopener">Blog</a>
     <a href="/contact/" class="btn btn-primary" target="_blank" rel="noopener">Get Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </nav>
 </div>
@@ -220,7 +220,7 @@ const nav = {
 
   /* the longer CTA label costs ~35px, so the link row tightens in the band
      between the hamburger breakpoint and ~1200px rather than letting
-     "About Us" / "Case Study" wrap onto two lines */
+     "About Us" / "Case Studies" wrap onto two lines */
   @media (min-width: 1025px) and (max-width: 1200px) {
     .nav-links { gap: 0.95rem; }
     .nav-links > a, .nav-drop-btn, .nav-drop-link { font-size: 0.86rem; }

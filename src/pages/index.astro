@@ -284,6 +284,9 @@ const seoJsonLd = JSON.stringify({
   keywords={KEYWORDS}
   canonical="https://www.leelinepackage.com/"
   ogImage="https://img.leelinepackage.com/rigid-box.webp"
+  preloadImage={IMG.hero1440}
+  preloadImageSrcset={`${IMG.hero480} 480w, ${IMG.hero960} 960w, ${IMG.hero1440} 1440w`}
+  preloadImageSizes="(min-width: 1025px) 1440px, (min-width: 641px) 960px, 480px"
   jsonLd={seoJsonLd}
 >
   <style is:global>
@@ -895,7 +898,7 @@ const seoJsonLd = JSON.stringify({
       <div class="footer-grid">
         <div class="footer-brand">
           <a class="brand brand--light" href="#top" aria-label="LeelinePackage home">
-            <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" loading="lazy" />
+            <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" width={500} height={100} loading="lazy" />
           </a>
           <p class="footer-tagline">
             Engineered, not just printed.

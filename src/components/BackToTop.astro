@@ -1,0 +1,28 @@
+---
+// Round "back to top" button, mobile only (<= 900px). Rendered once in Layout.astro so every page
+// gets it. Every page's <main> carries id="top" (plus design-system.astro), so the anchor works
+// without JS; the jump is instant off the homepage, which scopes `scroll-behavior: smooth`.
+---
+
+<a class="back-to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+<style>
+  .back-to-top {
+    display: none;
+    position: fixed;
+    right: 1.5rem;
+    bottom: 0.9rem;
+    z-index: 985;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--ivory);
+    color: var(--color-brand-primary);
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(31, 59, 44, 0.16);
+    box-shadow: 0 10px 22px rgba(31, 59, 44, 0.14);
+  }
+  .back-to-top svg { width: 15px; height: 15px; }
+  @media (max-width: 900px) { .back-to-top { display: flex; } }
+</style>

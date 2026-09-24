@@ -1392,6 +1392,10 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
     .mb-hero-grid { grid-template-columns: 1fr; gap: clamp(2rem, 4vw, 3rem); align-items: start; }
     /* stacked, the plate goes under the copy at a fixed width and centres itself */
     .mb-hero-plate { max-width: 520px; margin-inline: auto; }
+    /* ⚠️ The offset outline is `translate(22px, 24px)`; on desktop the wrap's side margins absorb
+       the 22px, but stacked the plate is the full column width, so the outline pokes past the
+       viewport and gives the page a 6px sideways scroll. Keep the drop, drop the sideways part. */
+    .mb-hero-plate::before { transform: translateY(24px); }
     .mb-types-head, .mb-mat-head, .mb-fit-head, .mb-ops-head, .mb-size-head { grid-template-columns: 1fr; gap: 1.2rem; }
     .mb-size-body { grid-template-columns: 1fr; }
     .mb-type-grid { grid-template-columns: repeat(2, 1fr); }

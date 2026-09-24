@@ -308,7 +308,6 @@ const seoJsonLd = JSON.stringify({
 
     html { scroll-behavior: smooth; }
     body { overflow-x: hidden; }
-    body.menu-open { overflow: hidden; }
 
     ::selection { background: var(--brass-soft); color: var(--forest-deep); }
 
@@ -394,9 +393,6 @@ const seoJsonLd = JSON.stringify({
   <div class="grain" aria-hidden="true"></div>
 
   <Navbar />
-
-  <a class="mobile-cta" href="/contact/">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-  <a class="back-to-top" href="#top" aria-label="Back to top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
 
   <main id="top">
     <!-- ============ HERO ============ -->
@@ -1075,27 +1071,6 @@ const seoJsonLd = JSON.stringify({
 
     .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
 
-    .mobile-cta {
-      display: none;
-      position: fixed;
-      left: 50%;
-      bottom: 0.9rem;
-      transform: translateX(-50%);
-      z-index: 990;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.9rem 1.7rem;
-      border-radius: 999px;
-      background: var(--brass-bright);
-      color: var(--forest-deep);
-      font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 14px 30px -12px rgba(31, 59, 44, 0.55);
-    }
-    .mobile-cta svg { width: 1.1em; height: 1.1em; }
-    @media (max-width: 900px) { .mobile-cta { display: flex; } }
 
     /* ============ HERO ============ */
     .hero {
@@ -1524,26 +1499,6 @@ const seoJsonLd = JSON.stringify({
     }
     .compare-table tbody td:last-child { opacity: 0.82; }
     .compare-table tbody tr:last-child td { border-bottom: 0; }
-
-    /* ============ BACK TO TOP ============ */
-    .back-to-top {
-      display: none;
-      position: fixed;
-      right: 1rem;
-      bottom: 0.9rem;
-      z-index: 985;
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: var(--ivory);
-      color: var(--color-brand-primary);
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(31, 59, 44, 0.16);
-      box-shadow: 0 10px 22px rgba(31, 59, 44, 0.14);
-    }
-    .back-to-top svg { width: 18px; height: 18px; }
-    @media (max-width: 900px) { .back-to-top { display: flex; } }
 
     /* ============ FINAL CTA (INVERTED) ============ */
     .cta--inline { padding: clamp(3.5rem, 8vw, 6rem) 0; }

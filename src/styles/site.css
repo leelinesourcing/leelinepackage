@@ -102,3 +102,29 @@ img { display: block; max-width: 100%; }
 .text-link:hover .arrow { transform: translateX(5px); }
 
 .section-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: clamp(2.4rem, 5vw, 3.5rem); }
+
+/*
+  ⚠️ Reveal off-axis offsets are horizontal by default (translateX(±48px)). Phone layouts are
+  FULL-WIDTH, so a side offset pushes the page 32px past the viewport and the whole page can be
+  dragged sideways until that element reveals — `/about-us/` did exactly this (`.ab-who-media`).
+  The homepage only escaped because it also sets `body { overflow-x: hidden }`; any NEW page
+  without that would inherit the bug. Below 900px keep the reveal vertical.
+
+  ⚠️ `!important` is deliberate. The same two declarations are restated in every page's own
+  <style> at three different specificities — `:global([data-reveal='right'])` (0,1,0),
+  `html.js :where([data-reveal="right"])` (0,1,1) and scoped `[data-reveal='right'][data-astro-cid-…]`
+  (0,2,0) — and this bundle is linked BEFORE each page's, so an unboosted rule loses to both the
+  specificity and the order. ⚠️ `html.js` is NOT a usable hook here: **only index.astro adds the
+  `js` class** (`<script is:inline>document.documentElement.classList.add('js')</script>`), so
+  `html.js …` would silently apply to the homepage alone and look fixed while about-us stayed broken.
+
+  ⚠️⚠️ `:not(.in)` is ALSO load-bearing. Without it this `!important` also beats every page's
+  `[data-reveal].in { transform: none }` (none of which is important), so once an element revealed
+  it stayed `translateY(36px)` **forever** — every revealed block sitting 36px below its final
+  position at ≤900px. Off the reveal state the rule stops matching, so `.in` goes back to `none`
+  and the transition still animates the 36px rise.
+*/
+@media (max-width: 900px) {
+  [data-reveal='left']:not(.in),
+  [data-reveal='right']:not(.in) { transform: translateY(36px) !important; }
+}

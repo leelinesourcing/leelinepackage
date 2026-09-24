@@ -97,35 +97,43 @@ const nav = {
       </button>
     </div>
   </div>
-
-  <div class="nav-mobile" id="navMobile">
-    <nav class="nav-mobile-links" aria-label="Mobile">
-      <a href="/" target="_blank" rel="noopener">Home</a>
-      <details>
-        <summary>Products</summary>
-        <div class="sub">{nav.products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
-      </details>
-      <details>
-        <summary>Industries</summary>
-        <div class="sub">{nav.industries.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
-      </details>
-      <a href="/about-us/" target="_blank" rel="noopener">About Us</a>
-      <a href="/#work" target="_blank" rel="noopener">Case Study</a>
-      <details>
-        <summary>Services</summary>
-        <div class="sub">
-          <a href="/services/" target="_blank" rel="noopener">Services Overview</a>
-          {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
-        </div>
-      </details>
-      <a href="/" target="_blank" rel="noopener">Blog</a>
-      <a href="/contact/" class="btn btn-primary" target="_blank" rel="noopener">Get Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </nav>
-  </div>
 </header>
+
+<!-- ⚠️ Must stay OUTSIDE <header class="site-nav">. The header carries `backdrop-filter`, which
+     makes it the containing block for `position: fixed` descendants — inside the header this
+     panel resolves `inset: 0` against the 76px bar instead of the viewport, so the menu opens as
+     a 76px sliver and looks like nothing happened. As a sibling its containing block is the ICB.
+     z-index 999 keeps it above the page but below the header bar (1000), so the bar stays usable. -->
+<div class="nav-mobile" id="navMobile">
+  <nav class="nav-mobile-links" aria-label="Mobile">
+    <a href="/" target="_blank" rel="noopener">Home</a>
+    <details>
+      <summary>Products</summary>
+      <div class="sub">{nav.products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
+    </details>
+    <details>
+      <summary>Industries</summary>
+      <div class="sub">{nav.industries.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
+    </details>
+    <a href="/about-us/" target="_blank" rel="noopener">About Us</a>
+    <a href="/#work" target="_blank" rel="noopener">Case Study</a>
+    <details>
+      <summary>Services</summary>
+      <div class="sub">
+        <a href="/services/" target="_blank" rel="noopener">Services Overview</a>
+        {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
+      </div>
+    </details>
+    <a href="/" target="_blank" rel="noopener">Blog</a>
+    <a href="/contact/" class="btn btn-primary" target="_blank" rel="noopener">Get Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </nav>
+</div>
 
 <style>
   :global(body) { padding-top: 0; }
+  /* The open menu is a full-screen panel; lock the page behind it. Kept here (not in a page) so all
+     32 pages get it — it used to live only in index.astro, so the other 31 scrolled underneath. */
+  :global(body.menu-open) { overflow: hidden; }
   .site-nav {
     position: fixed;
     top: 0;
@@ -191,12 +199,15 @@ const nav = {
   body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
   body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
 
+  /* ⚠️ Sits OUTSIDE <header> on purpose — see the note in the markup. The header's
+     `backdrop-filter` would otherwise become this element's containing block and clip
+     `inset: 0` to the 76px bar. z-index 999 = above the page, below the bar (1000). */
   .nav-mobile {
-    position: fixed; inset: 0; z-index: -1; background: var(--ivory);
+    position: fixed; inset: 0; z-index: 999; background: var(--ivory);
     display: grid; place-items: center; opacity: 0; visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease; overflow-y: auto;
   }
-  body.menu-open .nav-mobile { opacity: 1; visibility: visible; z-index: -1; }
+  body.menu-open .nav-mobile { opacity: 1; visibility: visible; }
   .nav-mobile-links { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: 6rem 1.5rem 3rem; width: 100%; max-height: 100%; overflow-y: auto; }
   .nav-mobile-links > a, .nav-mobile-links summary {
     font-family: var(--font-heading); font-size: 1.7rem; color: var(--color-brand-text); text-decoration: none;

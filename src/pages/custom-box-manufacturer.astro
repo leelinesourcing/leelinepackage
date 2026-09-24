@@ -895,7 +895,10 @@ const jsonLd = {
   /* ============ responsive ============ */
   @media (max-width: 1024px) {
     .cx-why-grid { grid-template-columns: 1fr; }
-    .cx-why-visual { aspect-ratio: 16 / 9; }
+    /* ⚠️ `min-height: 0` is load-bearing: with the base rule's min-height:340px still set,
+       `aspect-ratio: 16/9` resolves the WIDTH from the height (340 × 16/9 = 604px) and the figure
+       blows 197px past the 375px viewport, giving the whole page a horizontal scrollbar. */
+    .cx-why-visual { aspect-ratio: 16 / 9; min-height: 0; }
     .cx-print-grid { grid-template-columns: repeat(2, 1fr); }
     .cx-cap-track { grid-template-columns: 1fr; }
     .cx-pro-tests { grid-template-columns: repeat(2, 1fr); }

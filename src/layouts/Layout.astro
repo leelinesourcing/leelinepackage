@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import MobileCta from '../components/MobileCta.astro';
+import BackToTop from '../components/BackToTop.astro';
 
 interface Props {
   title: string;
@@ -60,5 +62,7 @@ const {
   </head>
   <body>
     <slot />
+    <MobileCta />
+    <BackToTop />
   </body>
 </html>

@@ -4,6 +4,8 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import TeamSection from '../components/TeamSection.astro';
 import LegalDoc from '../components/LegalDoc.astro';
+import MobileCta from '../components/MobileCta.astro';
+import BackToTop from '../components/BackToTop.astro';
 
 const demoLegalSections = [
   { id: 'preview-first', label: 'First Section' },
@@ -41,7 +43,7 @@ const colors = [
 <Layout title="Design System" description="Component inventory and brand reference" canonical="https://leelinepackage.com/design-system">
   <Fragment slot="head"><meta name="robots" content="noindex, nofollow" /></Fragment>
 
-  <main class="ds">
+  <main id="top" class="ds">
     <header class="ds-hero">
       <h1>Design System</h1>
       <p>Component inventory and brand reference</p>
@@ -115,6 +117,16 @@ const colors = [
         <p class="ds-comp-name"><strong>LegalDoc</strong> · <code>src/components/LegalDoc.astro</code> — legal-document shell: ivory hero (eyebrow + bold title + optional sub + optional &ldquo;Last updated&rdquo;) over a kraft &ldquo;On This Page&rdquo; card and a 78ch article column. Pass <code>sections</code> for the TOC and put the h2/h3/h4 + lists in the default slot. Used by <code>privacy-policy</code>, <code>disclaimer</code>, <code>editorial-policy</code> and <code>fact-checking-process</code>.</p>
       </div>
 
+      <div class="ds-component">
+        <div class="ds-frame ds-frame--mobile"><MobileCta /></div>
+        <p class="ds-comp-name"><strong>MobileCta</strong> · <code>src/components/MobileCta.astro</code> — fixed bottom &ldquo;Contact Us&rdquo; pill, brass on forest-deep, shown at &le; 900px, fixed width so the pill is the same length on every page. Rendered once in <code>src/layouts/Layout.astro</code>, so every page gets it. (Preview below forces it into view.)</p>
+      </div>
+
+      <div class="ds-component">
+        <div class="ds-frame ds-frame--mobile"><BackToTop /></div>
+        <p class="ds-comp-name"><strong>BackToTop</strong> · <code>src/components/BackToTop.astro</code> — 38px ivory circle, right:1.5rem, anchored <code>#top</code>, shown at &le; 900px. Rendered once in <code>src/layouts/Layout.astro</code>. Every page's <code>&lt;main&gt;</code> carries <code>id=&quot;top&quot;</code>, so the anchor works without JS. (Preview below forces it into view.)</p>
+      </div>
+
       <h3 class="ds-sub">Atoms</h3>
       <p class="ds-note">
         No standalone atom components exist yet. The homepage defines its buttons, cards, badges and
@@ -157,6 +169,9 @@ const colors = [
 
     .ds-component { border: 1px dashed rgba(31, 59, 44, 0.25); border-radius: 1.2rem; overflow: hidden; }
     .ds-frame { padding: 0.8rem; background: var(--color-ivory); }
+    .ds-frame--mobile { display: flex; justify-content: center; align-items: center; gap: 1rem; padding: 2rem 0.8rem; }
+    .ds-frame--mobile :global(.mobile-cta) { display: flex; position: static; left: auto; transform: none; }
+    .ds-frame--mobile :global(.back-to-top) { display: flex; position: static; right: auto; }
     .ds-comp-name { font-size: 0.85rem; color: var(--color-moss); margin: 0.8rem 0 0; }
     .ds-comp-name code { font-size: 0.8rem; }
     .ds-note { font-size: 0.95rem; line-height: 1.65; color: var(--color-moss); max-width: 68ch; }

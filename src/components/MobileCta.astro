@@ -1,0 +1,31 @@
+---
+// Fixed bottom CTA pill, mobile only (<= 900px). Rendered once in Layout.astro so every page gets
+// it. Width is fixed (not content-sized) so the pill is the same length on every page.
+---
+
+<a class="mobile-cta" href="/contact/" target="_blank" rel="noopener">Contact Us<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+<style>
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    left: 50%;
+    bottom: 0.9rem;
+    transform: translateX(-50%);
+    z-index: 990;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 15rem;
+    padding: 0.9rem 0;
+    border-radius: 999px;
+    background: var(--brass-bright);
+    color: var(--forest-deep);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    box-shadow: 0 14px 30px -12px rgba(31, 59, 44, 0.55);
+  }
+  .mobile-cta svg { width: 1.1em; height: 1.1em; }
+  @media (max-width: 900px) { .mobile-cta { display: flex; } }
+</style>

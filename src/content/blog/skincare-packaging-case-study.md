@@ -169,7 +169,7 @@ My time on the Shenzhen factory floor taught me exactly how to prevent cosmetic 
 - **Make Secondary Packaging Work Harder:** Partner with a [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) who understands logistics. Use premium secondary packaging only when it improves product protection and handling.
 - **Demand QC Transparency:** Build strict reporting into your supplier agreements. You must demand raw defect data before releasing funds.
 
-**Pro Tip: **I use this exact list before approving any mass production:
+**Pro Tip:** I use this exact list before approving any mass production:
 
 - Confirm prototype fit under real capping-machine torque.
 - Define strict AQL levels and clear pass/fail rules.
@@ -185,4 +185,4 @@ As skincare brands compete harder on both premium perception and supply-chain re
 
 If your current setup causes transit leaks or crushed corners, you must re-engineer your approach. Contact LeelinePackage for a comprehensive structural packaging review or rapid prototype support. We engineer [custom shipping boxes](https://www.leelinepackage.com/custom-shipping-box/) that protect your margins and impress your customers.
 
-***Transparency Note: **I am not paid by any manufacturer to recommend material upgrades like PETG. I base my advice entirely on raw performance data gathered from my own testing equipment.*
+***Transparency Note:*** *I am not paid by any manufacturer to recommend material upgrades like PETG. I base my advice entirely on raw performance data gathered from my own testing equipment.*

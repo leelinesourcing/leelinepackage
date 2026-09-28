@@ -25,7 +25,7 @@ We linked each physical flaw to official [TAPPI testing standards](https://www.t
 
 ### 1. Warped or Washboarded Sheets
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/YI4v0N8nxW8" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="How to solve the warping issue of corrugated cardboard?" class="post-embed" src="https://www.youtube.com/embed/YI4v0N8nxW8" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 When fresh cut boards curl at the edges like stale bread, you have a problem. In our experience, these defects instantly ruin stacking strength and jam printing presses.
 
@@ -164,9 +164,9 @@ Before you adjust any machines, check the room. Floor Manager Liang taught me th
 
 If you spot washboarding or weak bonds, test your glue delivery and corrugator tension. I constantly see operators blame the paper when the starch is actually failing. In my experience, bad delivery systems ruin good adhesive chemistry.
 
-- **Test your starch viscosity: **Keep the range strictly between 35 and 40 seconds.
-- **Check the adhesive prep: **Verify the glue pan temperature matches your line speed.
-- **Review corrugator heat and pressure: **Drop the pressure to prevent crushed flutes.
+- **Test your starch viscosity:** Keep the range strictly between 35 and 40 seconds.
+- **Check the adhesive prep:** Verify the glue pan temperature matches your line speed.
+- **Review corrugator heat and pressure:** Drop the pressure to prevent crushed flutes.
 
 ### Step 4: Calibrate the Converting Settings
 
@@ -183,8 +183,8 @@ I frequently watch perfect boards get destroyed at the folder-gluer. Clients oft
 Confirm your machine fixes using official quality control standards. In our lab, we rely on exact physical metrics. These standards prove your structural integrity to your buyers.
 
 - **Run [TAPPI T 811](https://www.tappi.org/):** This test measures your raw board edge crush strength. In our tests, weak flutes snapped at exactly 25 lbs of force.
-- **Run TAPPI T 804: **This evaluates your finished-box compression under a heavy load.
-- **Follow [ASTM D5118](https://www.astm.org/): **Treat this as a strict fabrication standard. It is not a universal pass or fail number.
+- **Run TAPPI T 804:** This evaluates your finished-box compression under a heavy load.
+- **Follow [ASTM D5118](https://www.astm.org/):** Treat this as a strict fabrication standard. It is not a universal pass or fail number.
 
 ### Step 6: Expand Your Packaging Program
 

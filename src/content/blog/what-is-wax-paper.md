@@ -85,7 +85,7 @@ Wax paper might look simple, but it's a versatile tool that you can use througho
 
 **Food wrapping and storage**
 
-<figure class="post-figure"><a href="https://www.leelinepackage.com/" target="_blank" rel="noopener"><img src="https://img.leelinepackage.com/blog/media/2025/09/What-is-Wax-Paper-Used-For-1.avif" alt="" width="900" height="600" loading="lazy" decoding="async" /></a></figure>
+<figure class="post-figure"><a href="https://www.leelinepackage.com/" target="_blank" rel="noopener"><img src="https://img.leelinepackage.com/blog/media/2025/09/What-is-Wax-Paper-Used-For-1.avif" alt="What is Wax Paper Used For 1" width="900" height="600" loading="lazy" decoding="async" /></a></figure>
 
 The moisture-resistant qualities of wax paper make it excellent for keeping food fresh. Your sandwiches stay fresher with wax paper than with parchment paper since its wax coating blocks air exposure.
 
@@ -105,7 +105,7 @@ The paper also creates a perfect non-stick surface for no-bake treats like fudge
 
 ## Wax Paper vs Parchment Paper
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/upwgvg6SRmQ" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Wax Paper vs Parchment Paper | 🌈The More You Know🌈 | Anxiety Kitchen" class="post-embed" src="https://www.youtube.com/embed/upwgvg6SRmQ" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Wax paper and parchment paper look alike but serve different purposes in your kitchen. Learning their differences will give you the knowledge to use each one properly.
 

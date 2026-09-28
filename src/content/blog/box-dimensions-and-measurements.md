@@ -38,7 +38,7 @@ I use this exact checklist across hundreds of factory runs to prevent dimensiona
 - **Digital Caliper:** Optional tool for precise, tiny rigid boxes.
 - **Shipping Scale:** Required for freight-ready data.
 - **Workspace Setup:** Clear a flat surface for an empty box. Keep a pen ready.
-- **Single Unit System:** Choose inches or millimeters exclusively. Mixing units ruins your box dimensions and measurements during a [custom box manufacturing](https://leelinepackage.com/custom-boxes/) run.
+- **Single Unit System:** Choose inches or millimeters exclusively. Mixing units ruins your box dimensions and measurements during a [custom box manufacturing](https://www.leelinepackage.com/custom-box-manufacturer/) run.
 - **The L x W x D Standard:** Always record Length x Width x Depth. We use Depth and Height interchangeably.
 - **Inside vs. Outside:** Open the flaps to measure inside dimensions for product fit. Close the flaps for outside shipping dimensions.
 
@@ -58,7 +58,7 @@ In my early structural engineering projects, measuring a sideways box ruined ent
 4. Locate the vertical side running from the base to the top opening. Label this as your **Depth**. Packaging professionals use **Depth** and **Height** interchangeably, but the recording sequence remains **L x W x D**.
 5. Place your tape measure flush against the longest top opening edge. Ensure the tape lies straight with zero slack. The corrugated lip should feel firm, not bowed.
 
-⚠️ **Warning:** Do not use printed front panels to guess the dimension order. For alternative styles like [rigid setup boxes](https://leelinepackage.com/rigid-boxes/) or mailers, locate the main product-loading opening first, then apply the longest-side logic.
+⚠️ **Warning:** Do not use printed front panels to guess the dimension order. For alternative styles like [rigid setup boxes](https://www.leelinepackage.com/custom-rigid-boxes/) or mailers, locate the main product-loading opening first, then apply the longest-side logic.
 
 **🔍 Verification Check:** Ask a coworker to point out the dimensions. If two people identify the exact same three edges in order, your orientation is correct.
 
@@ -169,7 +169,7 @@ Use inches for U.S. shipping teams, but switch to the metric system for overseas
 
 Escalate your spec to a custom box manufacturer if your product is fragile, irregular, or requires dieline development. Seek structural review before production for premium finishes or a [custom tin box](https://leelinepackage.com/custom-tin-box/).
 
-Consult a [Denver custom box manufacturer](https://leelinepackage.com/custom-boxes-denver/) for local drop-testing, or visit the [**LeelinePackage**](https://www.leelinepackage.com/) homepage for global structural engineering.
+Consult a Denver custom box manufacturer for local drop-testing, or visit the [**LeelinePackage**](https://www.leelinepackage.com/) homepage for global structural engineering.
 
 Hand the finished sheet to a teammate, supplier, or 3PL partner. Verify their understanding. They must reproduce the exact same reading without asking what each number means. If they ask, "Is this inside or outside size?", the document fails.
 

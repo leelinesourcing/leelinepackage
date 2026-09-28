@@ -33,7 +33,7 @@ If your brand needs custom packaging engineering, my team at LeelinePackage can 
 
 ## What Material Are Trash Bags Made Of​？
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/bgVRuchYBUE" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="How it&amp;apos;s made - Plastic bags" class="post-embed" src="https://www.youtube.com/embed/bgVRuchYBUE" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 When clients ask **what material are trash bags made of**, the core answer is polyethylene. Polyethylene is a synthetic resin that serves as the foundation for conventional flexible packaging.
 
@@ -108,7 +108,7 @@ First, confirm the Purchase Order matches the artwork, carton counts, and produc
 
 Sort your findings using this defect logic:
 
-<table><thead><tr><th><strong>Defect Class</strong></th><th><strong>Example Condition</strong></th><th><strong>Rejection Impact</strong></th></tr></thead><tbody><tr><td><strong>Critical</strong></td><td>Bottom seal blowouts, massive tears</td><td>Reject entire shipment immediately.</td></tr><tr><td><strong>Major</strong></td><td>Incorrect gauge, seal wander, high gel count</td><td>Reject if failures exceed 14 units.</td></tr><tr><td><strong>Minor</strong></td><td>Label typos, wrinkled outer packaging</td><td>Accept, but request supplier credit.</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Defect Class</strong></th><th><strong>Example Condition</strong></th><th><strong>Rejection Impact</strong></th></tr></thead><tbody><tr><td><strong>Critical</strong></td><td>Bottom seal blowouts, massive tears</td><td>Reject entire shipment immediately.</td></tr><tr><td><strong>Major</strong></td><td>Incorrect gauge, seal wander, high gel count</td><td>Reject if failures exceed 14 units.</td></tr><tr><td><strong>Minor</strong></td><td>Label typos, wrinkled outer packaging</td><td>Accept, but request supplier credit.</td></tr></tbody></table></div>
 
 #### 2. Verifying True Micron Thickness
 
@@ -147,7 +147,7 @@ When buyers ask **what material are trash bags made of**, they must look past un
 
 HDPE cuts unit costs for high-count case needs. During our 96-hour load-bearing test, a 1.5 mil HDPE bag held 40 lbs of dry office trash without stretching.
 
-However, it fails under dynamic impact. **[Manager Li](https://www.linkedin.com/in/daisy-li-72a575269)**noted on the floor: "HDPE looks efficient, but a sharp corner makes the entire bag unzip." Limit HDPE strictly to lightweight, dry waste.
+However, it fails under dynamic impact. **[Manager Li](https://www.linkedin.com/in/daisy-li-72a575269)** noted on the floor: "HDPE looks efficient, but a sharp corner makes the entire bag unzip." Limit HDPE strictly to lightweight, dry waste.
 
 ### Eliminates Cleanup Labor for Mixed Waste
 
@@ -159,7 +159,7 @@ This exact failure threshold prevents daily complaints. LDPE justifies a higher 
 
 LLDPE provides maximum stretch to secure irregular waste streams. We mandate LLDPE for hospital housekeeping and retail mixed waste where sharp objects destroy standard bags. Incorporating **industrial garbage bag ASTM specifications** into your RFQ ensures you buy verified performance.
 
-*If your facility requires specialized sizing, partner with a *[***custom bag manufacturer***](https://www.leelinepackage.com/custom-bag-manufacturer/)* to utilize highly durable ****mono-materials****.*
+*If your facility requires specialized sizing, partner with a [**custom bag manufacturer**](https://www.leelinepackage.com/custom-bag-manufacturer/) to utilize highly durable **mono-materials**.*
 
 **📈 ROI Check:** Track your double-bagging rate. Upgrading from HDPE to LLDPE increases the cost per bag by 10%, but eliminating double-bagging cuts your total plastic consumption in half.
 

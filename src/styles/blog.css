@@ -177,6 +177,18 @@
   background: color-mix(in srgb, var(--color-kraft) 12%, transparent);
 }
 .post-prose tbody strong { color: var(--color-charcoal); }
+/*
+  ⚠️ The `wrap-tables-for-mobile` hast plugin in astro.config.mjs puts every table in this div.
+  Without it the widest tables (min-content up to ~840 px) pushed the whole page sideways on
+  mobile — 65 of the 85 posts that contain a table scrolled horizontally at a 390 px viewport.
+  The table's own margin moves to the wrapper so the scrollbar clears its rounded border.
+*/
+.post-prose .post-table-wrap {
+  overflow-x: auto;
+  margin: 2.4rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+.post-prose .post-table-wrap table { margin: 0; }
 
 /* ── table of contents ────────────────────────────────────────────────────── */
 /*

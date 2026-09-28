@@ -143,7 +143,7 @@ These eco friendly padded mailers win for ecommerce brands needing a clean susta
 
 ## How to Source and Test Sustainable Mailers: A Step-by-Step Plan?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/jxKzJgnlAmA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Compostable Mailers Postal Packaging | Journey Cycle of the Mailer" class="post-embed" src="https://www.youtube.com/embed/jxKzJgnlAmA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Do not rely on a PDF spec sheet alone. I have seen "waterproof" mailers turn into mush after five minutes in the rain. You must validate the product yourself before you order 10,000 units. Follow this exact plan to ensure your packaging survives the real world.
 

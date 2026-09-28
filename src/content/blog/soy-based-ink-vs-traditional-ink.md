@@ -27,7 +27,7 @@ The soy line smelled mild and produced richer colors, yet we had to run the pres
 
 We compared technical data sheets (SDS) and production line results to separate the marketing claims from the press-room reality:
 
-<table><thead><tr><th><strong>Metric</strong></th><th><strong>Soy/Vegetable-Based Ink</strong></th><th><strong>Petroleum-Based Ink</strong></th></tr></thead><tbody><tr><td><strong>VOC Content</strong></td><td><strong>&lt; 5% (&lt; 100 g/L)</strong></td><td>30–45% (&gt; 300 g/L)</td></tr><tr><td><strong>Drying Mechanism</strong></td><td>Oxidation (Requires 24h or Coating)</td><td><strong>Heat/Evaporation (Instant)</strong></td></tr><tr><td><strong>Rub Resistance</strong></td><td>Moderate (Needs Aqueous Sealer)</td><td><strong>High (Hard Cure)</strong></td></tr><tr><td><strong>Color Vibrancy</strong></td><td><strong>Intense (High Pigment Load)</strong></td><td>Standard</td></tr><tr><td><strong>Recyclability</strong></td><td><strong>Excellent (Passes INGEDE 11)</strong></td><td>Poor (Hard to Strip)</td></tr><tr><td><strong>Substrate Scope</strong></td><td>Corrugated, Paper, Carton</td><td><strong>Universal (Poly, Vinyl, Film)</strong></td></tr><tr><td><strong>Pressroom Odor</strong></td><td><strong>Neutral / Faint Oil</strong></td><td>Sharp Solvent Smell</td></tr><tr><td><strong>Certification</strong></td><td><strong>ASA SoySeal Eligible</strong></td><td>None</td></tr><tr><td><strong>Cost Volatility</strong></td><td><strong>Stable</strong></td><td>Volatile (Tracks Crude Oil)</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Metric</strong></th><th><strong>Soy/Vegetable-Based Ink</strong></th><th><strong>Petroleum-Based Ink</strong></th></tr></thead><tbody><tr><td><strong>VOC Content</strong></td><td><strong>&lt; 5% (&lt; 100 g/L)</strong></td><td>30–45% (&gt; 300 g/L)</td></tr><tr><td><strong>Drying Mechanism</strong></td><td>Oxidation (Requires 24h or Coating)</td><td><strong>Heat/Evaporation (Instant)</strong></td></tr><tr><td><strong>Rub Resistance</strong></td><td>Moderate (Needs Aqueous Sealer)</td><td><strong>High (Hard Cure)</strong></td></tr><tr><td><strong>Color Vibrancy</strong></td><td><strong>Intense (High Pigment Load)</strong></td><td>Standard</td></tr><tr><td><strong>Recyclability</strong></td><td><strong>Excellent (Passes INGEDE 11)</strong></td><td>Poor (Hard to Strip)</td></tr><tr><td><strong>Substrate Scope</strong></td><td>Corrugated, Paper, Carton</td><td><strong>Universal (Poly, Vinyl, Film)</strong></td></tr><tr><td><strong>Pressroom Odor</strong></td><td><strong>Neutral / Faint Oil</strong></td><td>Sharp Solvent Smell</td></tr><tr><td><strong>Certification</strong></td><td><strong>ASA SoySeal Eligible</strong></td><td>None</td></tr><tr><td><strong>Cost Volatility</strong></td><td><strong>Stable</strong></td><td>Volatile (Tracks Crude Oil)</td></tr></tbody></table></div>
 
 **Summary for Screen Readers:** Soy-based ink is the superior choice for eco-conscious paper packaging, offering lower VOC emissions, better color vibrancy, and easier recycling.
 
@@ -170,33 +170,53 @@ During the recycling bath (a process called flotation), the soy ink detaches eas
 
 ### Soy-Based &amp; Vegetable Inks
 
-- **Vibrant Color Fidelity:** Vegetable oils (soy, linseed, corn) are naturally clearer than the murky, brownish cast of petroleum oils. In our press runs, we found this translucency allowed pigments to shine through with higher intensity, particularly on uncoated kraft stocks. The result is a sharper image that requires less ink coverage to achieve the same density.
+- **Vibrant Color Fidelity:** Vegetable oils (soy, linseed, corn) are naturally clearer than the murky, brownish cast of petroleum oils. In our press runs, we found this translucency allowed pigments to shine through with higher intensity, particularly on uncoated kraft stocks.
 
-- **Neutral Unboxing Experience:** Low VOCs (Volatile Organic Compounds) are a critical "invisible" feature. We noticed that boxes printed with high-coverage soy blacks did not emit the sharp chemical odor typical of fresh print jobs. This is vital for luxury packaging; you don't want a customer’s first impression of an organic skincare brand to be the smell of a gas station.
+The result is a sharper image that requires less ink coverage to achieve the same density.
 
-- **Superior De-Inking for Recycling:** Sustainability isn't just about the source; it's about the end-of-life. We verified that soy inks detach faster and more cleanly from paper fibers during the recycling pulp phase. This aligns with [INGEDE Method 11](https://ingede.org/publications/ingede-methods/) standards, ensuring the packaging doesn't just claim to be eco-friendly but actually produces high-quality recycled pulp.
+- **Neutral Unboxing Experience:** Low VOCs (Volatile Organic Compounds) are a critical "invisible" feature. We noticed that boxes printed with high-coverage soy blacks did not emit the sharp chemical odor typical of fresh print jobs.
 
-- **Operational Friction (Slow Drying):** Soy ink cures through **oxidation** (absorbing oxygen), not rapid evaporation. In our testing, this forced us to slow press speeds by ~15% to prevent "set-off"—where wet ink transfers to the back of the sheet above it in the stack. If you are on a tight "rush" deadline, this drying lag is a genuine logistical hurdle.
+This is vital for luxury packaging; you don't want a customer’s first impression of an organic skincare brand to be the smell of a gas station.
+
+- **Superior De-Inking for Recycling:** Sustainability isn't just about the source; it's about the end-of-life. We verified that soy inks detach faster and more cleanly from paper fibers during the recycling pulp phase.
+
+This aligns with [INGEDE Method 11](https://ingede.org/publications/ingede-methods/) standards, ensuring the packaging doesn't just claim to be eco-friendly but actually produces high-quality recycled pulp.
+
+- **Operational Friction (Slow Drying):** Soy ink cures through **oxidation** (absorbing oxygen), not rapid evaporation. In our testing, this forced us to slow press speeds by ~15% to prevent "set-off"—where wet ink transfers to the back of the sheet above it in the stack.
+
+If you are on a tight "rush" deadline, this drying lag is a genuine logistical hurdle.
 
 - **Rub Vulnerability on Uncoated Stock:** Because the ink stays "open" (wet) longer, it is prone to scuffing during transit. We observed significant smearing on matte black floods when boxes rubbed against each other.
 
-- **The "Compostable" Misconception:** Do not assume "soy-based" equals "compostable." We frequently see brands fail certification because while the *vehicle* is soy, the *pigments* or *additives* contain heavy metals or plasticizers. You must verify the full ink recipe against ASTM D6400 standards if your goal is home compostability.
+- **The "Compostable" Misconception:** Do not assume "soy-based" equals "compostable." We frequently see brands fail certification because while the *vehicle* is soy, the *pigments* or *additives* contain heavy metals or plasticizers.
+
+You must verify the full ink recipe against ASTM D6400 standards if your goal is home compostability.
 
 **⚡ Power Move:** To fix the "Rub Vulnerability" without reverting to petroleum, mandate an **Aqueous (AQ) Coating**. This water-based sealant locks in the vegetable ink instantly, preventing smears while keeping the packaging fully recyclable.
 
 ### Petroleum-Based Inks
 
-- **High-Velocity Curing:** Petroleum inks dry via **evaporation**, which happens almost instantly under heat. We maintained maximum press speeds (15,000+ sheets per hour) without set-off issues. For massive retail runs where cost-per-unit relies on speed, this chemistry is still the efficiency king.
+- **High-Velocity Curing:** Petroleum inks dry via **evaporation**, which happens almost instantly under heat. We maintained maximum press speeds (15,000+ sheets per hour) without set-off issues.
 
-- **Aggressive Substrate Adhesion:** Vegetable oils struggle to "bite" into non-porous surfaces. In our lab, petroleum inks bonded aggressively to poly mailers, vinyl tape, and glossy laminates where soy inks tended to bead up or rub off. If you are printing on plastic or heavily coated materials, petroleum provides the necessary grip.
+For massive retail runs where cost-per-unit relies on speed, this chemistry is still the efficiency king.
+
+- **Aggressive Substrate Adhesion:** Vegetable oils struggle to "bite" into non-porous surfaces. In our lab, petroleum inks bonded aggressively to poly mailers, vinyl tape, and glossy laminates where soy inks tended to bead up or rub off.
+
+If you are printing on plastic or heavily coated materials, petroleum provides the necessary grip.
 
 - **Predictable Hardness:** Once the solvents evaporate, these inks form a hard, durable shell. We found they survived friction tests—simulating a rough courier journey—significantly better than uncoated soy options.
 
-- **The "Garage" Odor:** This is the dealbreaker for premium unboxing. We consistently noted a lingering solvent scent on master cartons printed with heavy petroleum coverage. Even after 24 hours of airing out, the smell persisted, which subconsciously signals "cheap manufacturing" to the end consumer.
+- **The "Garage" Odor:** This is the dealbreaker for premium unboxing. We consistently noted a lingering solvent scent on master cartons printed with heavy petroleum coverage.
 
-- **Compliance & Ventilation Burdens:** These inks release high levels of VOCs, contributing to poor indoor air quality. We reviewed [EPA technical data](https://www.epa.gov/indoor-air-quality-iaq/volatile-organic-compounds-impact-indoor-air-quality) showing that petroleum-based workflows often require expensive ventilation upgrades to keep factory air safe, a hidden cost often ignored in the initial price per pound.
+Even after 24 hours of airing out, the smell persisted, which subconsciously signals "cheap manufacturing" to the end consumer.
 
-- **Recycling Energy Costs:** The same hard shell that makes these inks durable makes them a nightmare to recycle. They cling stubbornly to paper fibers, requiring recyclers to use harsher bleaching agents and more energy to strip the paper clean, degrading the final quality of the recycled material.
+- **Compliance & Ventilation Burdens:** These inks release high levels of VOCs, contributing to poor indoor air quality.
+
+We reviewed [EPA technical data](https://www.epa.gov/indoor-air-quality-iaq/volatile-organic-compounds-impact-indoor-air-quality) showing that petroleum-based workflows often require expensive ventilation upgrades to keep factory air safe, a hidden cost often ignored in the initial price per pound.
+
+- **Recycling Energy Costs:** The same hard shell that makes these inks durable makes them a nightmare to recycle.
+
+They cling stubbornly to paper fibers, requiring recyclers to use harsher bleaching agents and more energy to strip the paper clean, degrading the final quality of the recycled material.
 
 ### ⚖️ Negative Bias Check: When the "Loser" Wins
 

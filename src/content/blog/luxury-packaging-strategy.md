@@ -41,7 +41,7 @@ Budget 12 to 16 weeks for concept, sampling, line approval, and mass production.
 
 ## The 5-Step Luxury Packaging System: Define It, Sample It, Lock It In
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/SExHNtln5xg" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Luxury Packaging Design Basics | Tips From Louis Vuitton!" class="post-embed" src="https://www.youtube.com/embed/SExHNtln5xg" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### Step 1: Write a One-Page Commercial Packaging Brief
 

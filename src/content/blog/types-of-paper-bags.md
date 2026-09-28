@@ -25,7 +25,7 @@ Before writing this guide, I spent 40 hours auditing production runs with Sourci
 
 ### 1. SOS Bags
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/NegPc5mulR0" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="SOS Paper Bags - Pactap" class="post-embed" src="https://www.youtube.com/embed/NegPc5mulR0" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 The [SOS bag](https://www.leelinepackage.com/sos-bags/) pops open into a self-standing square structure. This speeds up high-throughput packing lines. It prevents tipping and filling inefficiency compared to standard flat bags.
 
@@ -89,7 +89,7 @@ When reviewing production samples, physically test the structure. Verify the FSC
 
 **Our Verdict:** In our Tuesday drop tests, standard glued rope knots pulled through the turnover edge at 18 lbs of force. We switched the client to metal eyelets with hidden reinforcement boards, pushing the failure point past 45 lbs.
 
-**🚀 Power Move: **Load test your unprinted dummy samples to 150% of your actual product weight before approving mass production.
+**🚀 Power Move:** Load test your unprinted dummy samples to 150% of your actual product weight before approving mass production.
 
 ### 5. Flat Paper Merchandise Bags
 

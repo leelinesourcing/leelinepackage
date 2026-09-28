@@ -144,8 +144,8 @@ Weight **data transparency** as heavily as unit cost on your supplier scorecard.
 
 **Require this auditable evidence package:**
 
-- [**FSC Chain of Custody (CoC)**](https://fsc.org/en/chain-of-custody-certification)**:** Verifies fiber traceability. You cannot legally use FSC logos without this specific certificate.
-- [**ISO 14001**](https://www.iso.org/iso-14001-environmental-management.html)**:** Confirms an active Environmental Management System (EMS).
+- **[FSC Chain of Custody (CoC)](https://fsc.org/en/chain-of-custody-certification):** Verifies fiber traceability. You cannot legally use FSC logos without this specific certificate.
+- **[ISO 14001](https://www.iso.org/iso-14001-environmental-management.html):** Confirms an active Environmental Management System (EMS).
 - **Cradle to Cradle Certified:** Validates material health and circularity.
 - **Compostability Marks:** Demand the specific standard (e.g., ASTM D6400).
 

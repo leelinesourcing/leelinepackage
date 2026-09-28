@@ -31,7 +31,7 @@ We audited the precise AQL 2.5 defect checklist used by Inspector Wang. Finally,
 
 ## What Is Display Packaging?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/b5uh7oYb9Gk" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="OEM Custom Foldable PDQ Corrugated Cardboard Counter Display Box" class="post-embed" src="https://www.youtube.com/embed/b5uh7oYb9Gk" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 **What Is Display Packaging?** It is a structural system that protects products during transit and presents them directly on the retail shelf.
 
@@ -176,7 +176,7 @@ We upgraded them to a 350gsm reinforced flute. You must pair high-end aesthetics
 
 Buyers often chase the lowest unit price but destroy their margins on freight. I built the True Landed Cost Matrix below using raw data from [LeelinePackage](https://www.leelinepackage.com/) production runs. Furthermore, an [FMI operations study](https://www.fmi.org/industry-topics/supply-chain) proves that optimized secondary packaging cuts handling costs by **20%**.
 
-<table><thead><tr><th><strong>Display Type</strong></th><th><strong>Unit Cost</strong></th><th><strong>Packed CBM</strong></th><th><strong>Assembly Labor</strong></th><th><strong>Freight Efficiency</strong></th><th><strong>Damage Risk</strong></th><th><strong>Expected ROI Logic</strong></th></tr></thead><tbody><tr><td><strong>Rigid Box</strong></td><td>High</td><td>High</td><td>Zero</td><td>Low</td><td>Low</td><td>Unboxing value offsets freight.</td></tr><tr><td><strong>Flat-Pack POP</strong></td><td>Low</td><td>Low</td><td>High</td><td>High</td><td>Medium</td><td>Freight savings offset labor.</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Display Type</strong></th><th><strong>Unit Cost</strong></th><th><strong>Packed CBM</strong></th><th><strong>Assembly Labor</strong></th><th><strong>Freight Efficiency</strong></th><th><strong>Damage Risk</strong></th><th><strong>Expected ROI Logic</strong></th></tr></thead><tbody><tr><td><strong>Rigid Box</strong></td><td>High</td><td>High</td><td>Zero</td><td>Low</td><td>Low</td><td>Unboxing value offsets freight.</td></tr><tr><td><strong>Flat-Pack POP</strong></td><td>Low</td><td>Low</td><td>High</td><td>High</td><td>Medium</td><td>Freight savings offset labor.</td></tr></tbody></table></div>
 
 **📈 ROI Check:** Audit the hidden labor required to pack adjacent items, like [types of paper bags](https://www.leelinepackage.com/types-of-paper-bags/), before finalizing budgets.
 

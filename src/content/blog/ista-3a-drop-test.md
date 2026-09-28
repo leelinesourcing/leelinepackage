@@ -35,7 +35,7 @@ You will learn how to use these lab results to eliminate transit damage.
 
 ## What is the ISTA 3A Drop Test?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/zoHHSBRRlZw" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="ISTA 3A / ASTM D4169 Schedule A Drop Test" class="post-embed" src="https://www.youtube.com/embed/zoHHSBRRlZw" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 The **ISTA 3A Drop Test** is an advanced **courier shipping simulation**. Think of it as a mechanical obstacle course for a single box. It mimics the exact journey an individual packaged-product takes through a FedEx or UPS parcel system.
 
@@ -197,7 +197,7 @@ I asked Lead Lab Technician Marcus how we handle borderline test results.
 
 **Q: When is a dented corner acceptable?**
 
-**A: **"We allow acceptable cosmetic deformation if the structure holds. The internal cushioning shift must stay under 5mm."
+**A:** "We allow acceptable cosmetic deformation if the structure holds. The internal cushioning shift must stay under 5mm."
 
 **Q: When does a corner crush signal risk?**
 
@@ -227,4 +227,4 @@ Do not leave your profit margins to chance. Partner with a structural custom box
 
 <div class="post-faq"><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778053418235">1. <strong>Is ISTA 3A testing worth the upfront cost?</strong></h3><p>Yes. In our experience, pre-shipment validation routinely prevents thousands of dollars in chargebacks. Paying for laboratory validation is drastically cheaper than funding reverse logistics and replacing shattered inventory.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778053435425">2. <strong>Will passing ISTA 3A guarantee zero shipping damage?</strong></h3><p>No. It drops your functional failure rate to near-zero, but unpredictable events like forklift punctures still occur. The test guarantees survival against standard network abuse, not catastrophic warehouse accidents.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778053451969">3. <strong>Can I perform a 3A drop test in my own warehouse?</strong></h3><p>No. You cannot accurately replicate specific 18 Hz vibration resonances or extreme thermal baking without a calibrated servo-hydraulic shaker table and a controlled environmental chamber.</p></div></div>
 
-***Disclaimer:** My engineering team spent three weeks conducting physical failure tests on the factory floor before writing this guide. I purchase my own lab equipment and receive no kickbacks from any manufacturer or testing body to promote these findings.*
+***Disclaimer:*** *My engineering team spent three weeks conducting physical failure tests on the factory floor before writing this guide. I purchase my own lab equipment and receive no kickbacks from any manufacturer or testing body to promote these findings.*

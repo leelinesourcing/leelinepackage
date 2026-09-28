@@ -23,13 +23,13 @@ Creative Directors want tactile differentiation. Brand Managers need a perceived
 
 This guide synthesizes papermaking mechanics, commercial print constraints, and packaging use cases. We explain how mills create texture, which families matter, and how to select appropriate [types of paper for printing](https://www.leelinepackage.com/types-of-paper-for-printing/).
 
-<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2025/12/What-Is-Texture-Paper-1.webp" alt="" width="800" height="450" loading="lazy" decoding="async" /></figure>
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2025/12/What-Is-Texture-Paper-1.webp" alt="What Is Texture Paper 1" width="800" height="450" loading="lazy" decoding="async" /></figure>
 
 <nav class="post-toc"><ul><li class=""><a href="#what-is-texture-paper">What is Texture Paper?</a></li><li class=""><a href="#the-anatomy-of-texture-how-the-sheet-is-engineered">The Anatomy of Texture: How the Sheet is Engineered?</a><ul><li class=""><a href="#wet-end-formation-where-native-texture-begins">Wet-End Formation: Where Native Texture Begins?</a></li><li class=""><a href="#post-formation-embossing-where-stronger-surface-relief-is-added">Post-Formation Embossing: Where Stronger Surface Relief is Added?</a></li></ul></li><li class=""><a href="#processing-and-printing-challenges-on-textured-substrates">Processing and Printing Challenges on Textured Substrates </a><ul><li class=""><a href="#printing-on-textured-substrates-the-harsh-realities">Printing on Textured Substrates: The Harsh Realities</a></li></ul></li><li class=""><a href="#the-business-and-brand-benefits">The Business and Brand Benefits</a><ul><li class=""><a href="#converting-durability-and-transit-behavior">Converting, Durability, and Transit Behavior</a></li><li class=""><a href="#elevates-brand-perception">Elevates Brand Perception</a></li><li class=""><a href="#justifies-premium-pricing">Justifies Premium Pricing</a></li></ul></li><li class=""><a href="#production-and-supply-chain-risks">Production and Supply Chain Risks</a><ul><li class=""><a href="#production-bottlenecks-and-high-waste">Production Bottlenecks and High Waste</a></li><li class=""><a href="#sourcing-costs-and-supply-chain-friction">Sourcing Costs and Supply Chain Friction</a></li><li class=""><a href="#logistics-and-transit-failures">Logistics and Transit Failures</a></li><li class=""><a href="#proven-mitigation-tactics">Proven Mitigation Tactics</a></li></ul></li><li class=""><a href="#conclusion">Conclusion</a></li></ul></nav>
 
 ## What is Texture Paper?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/r2IxXYpwIA4" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="What Is Textured Paper" class="post-embed" src="https://www.youtube.com/embed/r2IxXYpwIA4" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 **Texture paper** is paper or paperboard manufactured with intentional physical topography. Think of a freshly paved asphalt road versus a cobblestone street. Both support traffic, but the cobblestone forces you to feel every bump.
 
@@ -187,7 +187,7 @@ Simplify your artwork. Demand physical proofs on the exact stock. Confirm the GS
 
 **🛡️ Mitigation:** Specify transit parameters early to avoid crushed textures upon delivery.
 
-***Disclaimer: **I receive no compensation to publish these findings. We extract this raw data directly from factory floor testing.*
+***Disclaimer:*** *I receive no compensation to publish these findings. We extract this raw data directly from factory floor testing.*
 
 ## Conclusion
 

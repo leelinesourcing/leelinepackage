@@ -159,7 +159,7 @@ This approach turns a design choice into a measurable business win. Startups low
 
 ### ▶ Elevate Premium Brand Perception
 
-Restrained design forces buyers to focus on material quality. It signals confidence and justifies luxury pricing. Last month, a wellness client stripped three ink colors from their [custom printed boxes](https://www.leelinepackage.com/custom-printed-boxes/). We switched them to a heavy 400gsm blind-debossed board.
+Restrained design forces buyers to focus on material quality. It signals confidence and justifies luxury pricing. Last month, a wellness client stripped three ink colors from their [custom printed boxes](https://www.leelinepackage.com/custom-box-manufacturer/). We switched them to a heavy 400gsm blind-debossed board.
 
 They raised retail prices by **15%** with zero pushback. In our A/B testing, consumers consistently rated this heavier packaging as a top-tier product.
 

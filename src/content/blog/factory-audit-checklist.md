@@ -25,7 +25,7 @@ We verify shipping durability against official [ISTA transit testing standards](
 
 ## 8-Stage About Factory Audit Checklist
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/6F1z09m9TsA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="What is an Audit Checklist and how can the template and process be used for manufacturing projects?" class="post-embed" src="https://www.youtube.com/embed/6F1z09m9TsA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ## Stage 1: Verify Supplier Legitimacy and Core Documents Before the Site Walk
 
@@ -39,7 +39,7 @@ Capture all GSXT screenshots. Log every document mismatch directly in your facto
 
 **Our Verdict:** We reject 40% of suppliers during this phase. If the registered address maps to an office building instead of an industrial park, they do not own printing presses.
 
-**🛡️ Power Move: **Verify ISO 9001 and FSC certificates directly with the issuing body to ensure the registered scope matches your packaging needs.
+**🛡️ Power Move:** Verify ISO 9001 and FSC certificates directly with the issuing body to ensure the registered scope matches your packaging needs.
 
 ## Stage 2: The QMS Reality Check
 
@@ -167,7 +167,7 @@ Before writing this framework, my team spent 40 hours conducting on-site evaluat
 
 Divide earned points by total possible points to calculate the final vendor-risk score. Approve vendors using three strict bands. Give scores over 85% a **Pass**. Give scores between 70% and 84% a **Conditional Pass**. Require fixes within 30 days. Grade anything below 70% as a **Fail**.
 
-**Our Experience: **The Hidden Subcontractor Standard audits often miss unauthorized subcontracting. Last year, a desk inspection cleared a premium rigid box supplier. But I personally walked to their outside waste zone. I found foreign shipping labels and off-process holographic foil scrap.
+**Our Experience:** The Hidden Subcontractor Standard audits often miss unauthorized subcontracting. Last year, a desk inspection cleared a premium rigid box supplier. But I personally walked to their outside waste zone. I found foreign shipping labels and off-process holographic foil scrap.
 
 They secretly outsourced the print work.
 
@@ -200,4 +200,4 @@ Need a structural architect who passes these strict tests? [Contact LeelinePacka
 
 <div class="post-faq"><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778202728046">1. <strong>Does ISO 9001 mean the factory is automatically safe to approve?</strong></h3><p>No. An ISO certificate only proves a factory passed a basic paperwork check. It does not guarantee high quality packaging. As we covered earlier, many suppliers buy the certificate but skip the daily quality steps.</p><p>Last month, our team audited a Shenzhen factory with pristine ISO documents. However, Inspector Wu found expired lamination film running on the press. You must always verify daily maintenance logs in person to catch these lies.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778202743553">2. <strong>Can I rely on a beautiful sample or final inspection alone?</strong></h3><p>Never. Factories assign master engineers to create preproduction samples in a quiet room. Mass production relies on rushed operators running high speed machines.</p><p>In my experience, a perfect handcrafted sample often turns into a flawed mass run. For example, mass producing complex <a href="https://www.leelinepackage.com/types-of-gift-boxes/" target="_blank" rel="noopener">types of gift boxes</a> requires precise folding tolerances. Handmade samples mask these machine limits. You must audit the live press floor to protect your production budget.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778202760874">3. <strong>What score should count as Pass, Conditional Pass, or Fail in a supplier quality audit protocol?</strong></h3><p>We use a strict 100-point matrix to grade suppliers. Score 85 or higher as a Pass. Grade 70 to 84 as a Conditional Pass. Mark anything below 70 as an automatic Fail. A Conditional Pass requires a strict 30-day corrective action plan.</p><p>When evaluating suppliers for delicate <a href="https://www.leelinepackage.com/types-of-jewelry-boxes/" target="_blank" rel="noopener">types of jewelry boxes</a>, we fail them on the spot if they lack precision die cutting equipment. We refuse to compromise on structural integrity.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778202788055">4. <strong>How often should I re-audit a packaging supplier or run a lighter onsite factory inspection?</strong></h3><p>We mandate a full re-audit every 12 months for active suppliers. You should also run a lighter inspection right before peak shipping seasons. My lab data shows defect rates spike by 15 percent right before major holidays.</p><p>Floor workers rush orders to meet aggressive shipping deadlines. Schedule a quick two-day check during these high risk windows. We enforce this exact rule globally, whether we vet facilities in Asia or <a href="https://www.leelinepackage.com/packaging-manufacturers-in-south-africa/" target="_blank" rel="noopener">packaging manufacturers in South Africa</a>.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778202846223">5. <strong>What should a factory technical audit report template include for internal sign-off and budget justification?</strong></h3><p>Your template must include hard evidence to convince your procurement team. List exact machine models, daily capacity limits, and physical pull test metrics. Do not write vague notes.</p><p>During my last vendor review, I attached photos of dried glue pots and missing safety guards on a die cutter. This undeniable visual proof helped our brand team justify moving our budget to a safer factory.</p></div></div>
 
-***Disclaimer:**** I am not paid by any packaging manufacturer to promote these findings. My team conducts independent factory audits and we purchase all our own testing equipment.*
+***Disclaimer:*** *I am not paid by any packaging manufacturer to promote these findings. My team conducts independent factory audits and we purchase all our own testing equipment.*

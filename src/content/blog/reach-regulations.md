@@ -51,7 +51,7 @@ In my experience auditing 50 disrupted shipments, a complete compliance file fee
 
 The following five steps walk you through every critical control point, from breaking down your Bill of Materials to executing the final physical inspection before shipment release.
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/1uXU1K41Rgo" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Understanding REACH Legislation" class="post-embed" src="https://www.youtube.com/embed/1uXU1K41Rgo" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### Step 1: Deconstruct the Packaging Bill of Materials
 
@@ -114,7 +114,7 @@ Check your approved supplier file. You must see proof of the exact component, ex
 
 If the supplier refuses full disclosure or provides stale evidence, take the fallback path. Freeze the shipment release status. Escalate the materials to third-party testing until the gap closes.
 
-**⚠️ Experience Warning: **Never accept digital documents blindly. You must hold the physical sample to feel the stiffness and smell the coating.
+**⚠️ Experience Warning:** Never accept digital documents blindly. You must hold the physical sample to feel the stiffness and smell the coating.
 
 ### Step 3: Run the Component Decision Tree
 
@@ -140,7 +140,7 @@ When Manager Chen pointed to a red-flagged PVC blister pack, he noted: "This res
 
 Verify your final list. Every packaging component must show one assigned status, one exact owner, and one specific next action.
 
-**⚠️ Experience Warning: **During a Q3 rollout, a client confused EU and UK filing routes. Their UK shipment sat at customs for 14 days. You must separate these workflows immediately.
+**⚠️ Experience Warning:** During a Q3 rollout, a client confused EU and UK filing routes. Their UK shipment sat at customs for 14 days. You must separate these workflows immediately.
 
 ### Step 4: Operationalize the REACH Communication Workflow
 
@@ -162,7 +162,7 @@ Review the final approved communication pack. You must see a clean artwork proof
 
 You will know you succeeded when you can scan the printed QR code with your phone. The screen must instantly display the correct compliance statement.
 
-**⚠️ Experience Warning: **During our Q2 tests, we found QR codes printed over high-gloss spot UV failed to scan on mobile devices. Always test the physical mockup before mass production.
+**⚠️ Experience Warning:** During our Q2 tests, we found QR codes printed over high-gloss spot UV failed to scan on mobile devices. Always test the physical mockup before mass production.
 
 ### Step 5: Execute the Pre-Release Physical Inspection
 

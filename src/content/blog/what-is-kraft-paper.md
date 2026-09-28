@@ -25,7 +25,7 @@ This detailed piece will show you everything about kraft paper's production proc
 
 ## What is Kraft Paper and Why It Matters
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/bna9KczcD5Y" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="What Is Kraft Paper? - How It Comes Together" class="post-embed" src="https://www.youtube.com/embed/bna9KczcD5Y" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Kraft paper is a special type of paper that manufacturers create through a chemical pulping process called the kraft process. Carl Dahl developed this method in 1884. The manufacturing process has earned recognition for creating packaging material that's both durable and versatile.
 
@@ -65,7 +65,7 @@ Next, those chips get dunked into a steamy bath of "white liquor"—a mix of wat
 
 This process leaves strong, stringy cellulose fibers, giving kraft its famous toughness.
 
-**Step 3: Washing and Bleaching **
+**Step 3: Washing and Bleaching**
 
 The hot pulp slurry goes to giant washers. There, it's rinsed free of cooking chemicals. Most of these chemicals get recycled back into the system for efficiency. Bleaching? Classic kraft skips bright colors to stay sustainable and maintain that earthy brown.
 

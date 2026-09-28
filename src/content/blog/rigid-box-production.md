@@ -49,7 +49,7 @@ We built this checklist auditing 50+ rigid box orders across our [custom box man
 
 ## How to Reduce Rigid Box Production Costs Without Sacrificing Quality?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/1X72-eW_D8U" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="How to Reduce Packaging Costs" class="post-embed" src="https://www.youtube.com/embed/1X72-eW_D8U" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Achieving premium packaging on a budget does not require lowering your standards; instead, it demands a strategic approach to design and manufacturing that begins with a solid foundation.
 
@@ -129,7 +129,7 @@ A collapsible alternative ships flat and is folded at packing. To [prevent packa
 
 Warehouse Manager Davis demonstrated this space penalty last month. He pointed out: "Storing 10,000 pre-assembled rigid boxes eats up 12 pallets. The flat-pack versions fit on just two."
 
-<table><thead><tr><th><strong>Packaging Type</strong></th><th><strong>Unit Cost</strong></th><th><strong>Freight Cost</strong></th><th><strong>Warehouse Space</strong></th><th><strong>Assembly Labor</strong></th><th><strong>Perceived Luxury</strong></th></tr></thead><tbody><tr><td><strong>Traditional Rigid</strong></td><td>High</td><td>Very High</td><td>12 Pallets</td><td>Low</td><td>Ultimate</td></tr><tr><td><strong>Collapsible Rigid</strong></td><td>High</td><td>Low</td><td>2 Pallets</td><td>Medium</td><td>Premium</td></tr><tr><td><strong>Folding Carton</strong></td><td>Low</td><td>Low</td><td>1 Pallet</td><td>Medium</td><td>Standard</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Packaging Type</strong></th><th><strong>Unit Cost</strong></th><th><strong>Freight Cost</strong></th><th><strong>Warehouse Space</strong></th><th><strong>Assembly Labor</strong></th><th><strong>Perceived Luxury</strong></th></tr></thead><tbody><tr><td><strong>Traditional Rigid</strong></td><td>High</td><td>Very High</td><td>12 Pallets</td><td>Low</td><td>Ultimate</td></tr><tr><td><strong>Collapsible Rigid</strong></td><td>High</td><td>Low</td><td>2 Pallets</td><td>Medium</td><td>Premium</td></tr><tr><td><strong>Folding Carton</strong></td><td>Low</td><td>Low</td><td>1 Pallet</td><td>Medium</td><td>Standard</td></tr></tbody></table></div>
 
 Review your final spreadsheet totals. If freight adds more cost than the board upgrade you debated earlier, logistics is your real problem.
 

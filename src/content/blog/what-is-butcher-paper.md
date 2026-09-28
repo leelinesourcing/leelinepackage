@@ -240,4 +240,4 @@ We do not pretend to be brand-neutral, but we base all our recommendations on st
 
 Whether you need simple types of paper bags, or you are scaling global operations with [paper bag manufacturers in Nigeria](https://www.leelinepackage.com/paper-bag-manufacturers-in-nigeria/) and [paper bag manufacturers in Dubai](https://www.leelinepackage.com/paper-bag-manufacturers-in-dubai/), the material science remains identical.
 
-**Need help sourcing food-safe custom wrapping or comparing material specs? [Direct your questions to our engineering team](https://www.leelinepackage.com/contact/) here**[**.**](https://www.leelinepackage.com/contact/)
+**Need help sourcing food-safe custom wrapping or comparing material specs? [Direct your questions to our engineering team](https://www.leelinepackage.com/contact/) here.**

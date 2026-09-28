@@ -123,7 +123,7 @@ Retail workers simply tear off the perforated top of the corrugated box to stock
 
 ### Material Performance Comparison
 
-<table><thead><tr><th><strong>Metric</strong></th><th><strong>Legacy PET Pouch</strong></th><th><strong>New Kraft-EVOH Pouch</strong></th><th><strong>Impact on Client</strong></th></tr></thead><tbody><tr><td><strong>OTR</strong></td><td>2.5 cc/m²/day</td><td>0.8 cc/m²/day</td><td>Superior oxygen blocking</td></tr><tr><td><strong>MVTR</strong></td><td>1.2 g/m²/day</td><td>1.3 g/m²/day</td><td>Matched moisture protection</td></tr><tr><td><strong>Burst Strength</strong></td><td>18 PSI</td><td>32 PSI</td><td>Zero transit blowouts</td></tr><tr><td><strong>Sustainability</strong></td><td>None</td><td>FSC-Certified Kraft</td><td>Premium brand positioning</td></tr><tr><td><strong>Line Compatibility</strong></td><td>Standard</td><td>Requires 165°C heat</td><td>Maintained high throughput</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Metric</strong></th><th><strong>Legacy PET Pouch</strong></th><th><strong>New Kraft-EVOH Pouch</strong></th><th><strong>Impact on Client</strong></th></tr></thead><tbody><tr><td><strong>OTR</strong></td><td>2.5 cc/m²/day</td><td>0.8 cc/m²/day</td><td>Superior oxygen blocking</td></tr><tr><td><strong>MVTR</strong></td><td>1.2 g/m²/day</td><td>1.3 g/m²/day</td><td>Matched moisture protection</td></tr><tr><td><strong>Burst Strength</strong></td><td>18 PSI</td><td>32 PSI</td><td>Zero transit blowouts</td></tr><tr><td><strong>Sustainability</strong></td><td>None</td><td>FSC-Certified Kraft</td><td>Premium brand positioning</td></tr><tr><td><strong>Line Compatibility</strong></td><td>Standard</td><td>Requires 165°C heat</td><td>Maintained high throughput</td></tr></tbody></table></div>
 
 ## The Higher-Cost Pouch That Actually Improved Margins
 
@@ -142,7 +142,7 @@ In the lab, our tests confirmed the Kraft-EVOH barrier maintained oxygen transmi
 
 #### Sustainability vs. Margin
 
-<table><thead><tr><th><strong>Metric</strong></th><th><strong>Old PET Pouch</strong></th><th><strong>New Kraft-EVOH Pouch</strong></th><th><strong>Delta / Savings</strong></th></tr></thead><tbody><tr><td><strong>Cost Per Unit</strong></td><td>$0.15</td><td>$0.18</td><td>+$0.03 (Material increase)</td></tr><tr><td><strong>Carbon Footprint</strong></td><td>Baseline</td><td>-22%</td><td>FSC-certified material</td></tr><tr><td><strong>Food Waste</strong></td><td>14%</td><td>2%</td><td>-$0.05 per unit saved</td></tr><tr><td><strong>Logistics Cost</strong></td><td>Baseline</td><td>-15%</td><td>-$0.02 per unit saved</td></tr><tr><td><strong>Net ROI Logic</strong></td><td>N/A</td><td>N/A</td><td><strong>+$0.04 net margin gain per unit</strong></td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Metric</strong></th><th><strong>Old PET Pouch</strong></th><th><strong>New Kraft-EVOH Pouch</strong></th><th><strong>Delta / Savings</strong></th></tr></thead><tbody><tr><td><strong>Cost Per Unit</strong></td><td>$0.15</td><td>$0.18</td><td>+$0.03 (Material increase)</td></tr><tr><td><strong>Carbon Footprint</strong></td><td>Baseline</td><td>-22%</td><td>FSC-certified material</td></tr><tr><td><strong>Food Waste</strong></td><td>14%</td><td>2%</td><td>-$0.05 per unit saved</td></tr><tr><td><strong>Logistics Cost</strong></td><td>Baseline</td><td>-15%</td><td>-$0.02 per unit saved</td></tr><tr><td><strong>Net ROI Logic</strong></td><td>N/A</td><td>N/A</td><td><strong>+$0.04 net margin gain per unit</strong></td></tr></tbody></table></div>
 
 Did the higher-spec pouch pay for itself? Yes. Procurement buyers often panic at a 20% material price hike. However, this modest cost increase improved total margin. The client absorbed a three-cent direct cost penalty per bag.
 
@@ -200,6 +200,6 @@ However, proceed with caution. Highly moisture-sensitive items require distinct 
 
 Sustainable food packaging ROI is entirely real. You simply need to treat shelf-life science, line compatibility, and cost modeling as one unified system. To evaluate your next flexible conversion, barrier test program, or landed-cost review, [consult our structural team](https://www.leelinepackage.com/contact/).
 
-***Methodology & Trust Note:**** I base these conclusions strictly on physical pilot data, line-trial observations, and packaging test outputs. I purchase all testing equipment independently.
+***Methodology & Trust Note:*** I base these conclusions strictly on physical pilot data, line-trial observations, and packaging test outputs. I purchase all testing equipment independently.
 
-I am not paid by any manufacturer to promote these findings, and I receive no undisclosed vendor incentives.*
+I am not paid by any manufacturer to promote these findings, and I receive no undisclosed vendor incentives.

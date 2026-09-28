@@ -13,7 +13,7 @@ keywords: 'kitchenware launch case study'
 draft: false
 ---
 
-During this **kitchenware launch **case study**: from crowdfunding to big box retail packaging **, our team reduced a startup's transit damage rate to under 1% and secured their first wholesale purchase order.
+During this **kitchenware launch** case study **: from crowdfunding to big box retail packaging** , our team reduced a startup's transit damage rate to under 1% and secured their first wholesale purchase order.
 
 The brand validated consumer demand online. However, scaling from Kickstarter to Walmart requires strict supply chain discipline. I inspected their original mailer on our factory floor.
 
@@ -215,7 +215,7 @@ Build packages that save store labor and maximize tight shelf dimensions.
 
 <div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg><p><strong>Pro Tip:</strong> Not sure which format to use? Review this quick matrix. I use these exact criteria when matching a client's product to a retail environment.</p></div>
 
-<table><thead><tr><th><strong>Packaging Format</strong></th><th><strong>Protection Level</strong></th><th><strong>Shelf Impact</strong></th><th><strong>Compliance Burden</strong></th><th><strong>Freight Efficiency</strong></th><th><strong>Best Scalability Use</strong></th></tr></thead><tbody><tr><td><strong>Crowdfunding Mailer</strong></td><td>High (Individual)</td><td>Low (Wastes Space)</td><td>Low</td><td>Low (Ships Air)</td><td>E-com testing</td></tr><tr><td><strong>Retail-Ready Tray</strong></td><td>High (Palletized)</td><td>High (Clean Lip)</td><td>High (Strict Rules)</td><td>High (Stacks Well)</td><td>Big box rollouts</td></tr><tr><td><strong>PDQ Display Format</strong></td><td>Medium</td><td>Very High</td><td>Very High</td><td>Medium</td><td>Impulse aisles</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Packaging Format</strong></th><th><strong>Protection Level</strong></th><th><strong>Shelf Impact</strong></th><th><strong>Compliance Burden</strong></th><th><strong>Freight Efficiency</strong></th><th><strong>Best Scalability Use</strong></th></tr></thead><tbody><tr><td><strong>Crowdfunding Mailer</strong></td><td>High (Individual)</td><td>Low (Wastes Space)</td><td>Low</td><td>Low (Ships Air)</td><td>E-com testing</td></tr><tr><td><strong>Retail-Ready Tray</strong></td><td>High (Palletized)</td><td>High (Clean Lip)</td><td>High (Strict Rules)</td><td>High (Stacks Well)</td><td>Big box rollouts</td></tr><tr><td><strong>PDQ Display Format</strong></td><td>Medium</td><td>Very High</td><td>Very High</td><td>Medium</td><td>Impulse aisles</td></tr></tbody></table></div>
 
 ## Future Outlook
 

@@ -27,7 +27,7 @@ This article highlights the top 8 **[folding carton manufacturers](https://www.l
 
 **Quick Preview:**
 
-<table><thead><tr><th>Manufacturer</th><th>City</th><th>Founded</th><th>Key Certifications</th><th>Industries Served</th><th>Design Support</th></tr></thead><tbody><tr><td>Frankston Packaging</td><td>Frankston</td><td>1957</td><td>ISO 9001</td><td>Food, Pharma, Medical, Retail, CPG</td><td>In-house design team</td></tr><tr><td>American Carton Company</td><td>Mansfield</td><td>1992</td><td>ISO 9001, SQF, FSC, SFI, G7, WBENC</td><td>Healthcare, Pharma, Med Devices, Food, CPG</td><td>Structural design + prototyping</td></tr><tr><td>El Paso Paper Box (EPPB)</td><td>El Paso</td><td>1995</td><td>ISO 9001, SQF, FSC, SFI</td><td>Food &amp; Bakery, Medical, Auto, Beauty, Electronics</td><td>In-house structural + graphic design</td></tr><tr><td>Aspen Packaging &amp; Forest Products</td><td>Dallas</td><td>1993</td><td>ISO 9001, FSC</td><td>General B2B, Mfg, Distribution</td><td>Consultation available</td></tr><tr><td>Green Bay Packaging (Fort Worth Div.)</td><td>Fort Worth</td><td>1933*</td><td>SFI, FSC, ISO 14001 (co.-wide)</td><td>E-commerce, Retail, Food &amp; Bev, Industrial</td><td>Retail-ready pkg design</td></tr><tr><td>SCHC</td><td>Rosenberg (Houston)</td><td>1988</td><td>FDA-registered, BBB A+, IWLA</td><td>Seafood, Poultry, Produce, Bev, Pharma, Oil &amp; Gas</td><td>Pkg + logistics integration</td></tr><tr><td>Packaging Source Inc.</td><td>Frisco (Dallas)</td><td>2008</td><td><br>ISO 9001</td><td>Retail, CPG, General Business</td><td>Packaging design services</td></tr><tr><td>Motivating Graphics</td><td>Fort Worth</td><td>1976</td><td>ISO 9001, FSC, SFI, PEFC</td><td>Telecom, Consumer Electronics, Food Svc, Retail</td><td>Full turnkey: design→prototype→test→mfg</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th>Manufacturer</th><th>City</th><th>Founded</th><th>Key Certifications</th><th>Industries Served</th><th>Design Support</th></tr></thead><tbody><tr><td>Frankston Packaging</td><td>Frankston</td><td>1957</td><td>ISO 9001</td><td>Food, Pharma, Medical, Retail, CPG</td><td>In-house design team</td></tr><tr><td>American Carton Company</td><td>Mansfield</td><td>1992</td><td>ISO 9001, SQF, FSC, SFI, G7, WBENC</td><td>Healthcare, Pharma, Med Devices, Food, CPG</td><td>Structural design + prototyping</td></tr><tr><td>El Paso Paper Box (EPPB)</td><td>El Paso</td><td>1995</td><td>ISO 9001, SQF, FSC, SFI</td><td>Food &amp; Bakery, Medical, Auto, Beauty, Electronics</td><td>In-house structural + graphic design</td></tr><tr><td>Aspen Packaging &amp; Forest Products</td><td>Dallas</td><td>1993</td><td>ISO 9001, FSC</td><td>General B2B, Mfg, Distribution</td><td>Consultation available</td></tr><tr><td>Green Bay Packaging (Fort Worth Div.)</td><td>Fort Worth</td><td>1933</td><td>SFI, FSC, ISO 14001 (co.-wide)</td><td>E-commerce, Retail, Food &amp; Bev, Industrial</td><td>Retail-ready pkg design</td></tr><tr><td>SCHC</td><td>Rosenberg (Houston)</td><td>1988</td><td>FDA-registered, BBB A+, IWLA</td><td>Seafood, Poultry, Produce, Bev, Pharma, Oil &amp; Gas</td><td>Pkg + logistics integration</td></tr><tr><td>Packaging Source Inc.</td><td>Frisco (Dallas)</td><td>2008</td><td><br>ISO 9001</td><td>Retail, CPG, General Business</td><td>Packaging design services</td></tr><tr><td>Motivating Graphics</td><td>Fort Worth</td><td>1976</td><td>ISO 9001, FSC, SFI, PEFC</td><td>Telecom, Consumer Electronics, Food Svc, Retail</td><td>Full turnkey: design→prototype→test→mfg</td></tr></tbody></table></div>
 
 **Suggested Reading**:
 
@@ -37,7 +37,7 @@ This article highlights the top 8 **[folding carton manufacturers](https://www.l
 
 ## 1. Frankston Packaging
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/jsmn8u9-sY4" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Frankston Packaging Company" class="post-embed" src="https://www.youtube.com/embed/jsmn8u9-sY4" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 [Frankston Packaging](https://frankstonpackaging.com/) is one of the top folding carton manufacturers in Texas. They bring over 60 years of expertise to businesses like yours. They have facilities in Frankston and Tyler. They deliver custom folding carton solutions.
 
@@ -46,9 +46,13 @@ These work well for food, beverage, healthcare, and retail industries.
 **Benefits for Your Business**
 
 - **Wide Product Range:** Frankston supplies folding cartons, tray forming cartons, shelf POPs, litho-laminated corrugated packaging, and rigid boxes. This wide range means you can get all your packaging needs from one partner. I recommend this if you want to simplify your supply chain.
-- **Strong Capabilities:** They offer custom design services, die cutting, folding and gluing, foil stamping, UV coating, and windowing. These features create packaging that looks great on shelves. They also protect products during shipping. Based on my experience, this dual benefit is rare in the industry.
+- **Strong Capabilities:** They offer custom design services, die cutting, folding and gluing, foil stamping, UV coating, and windowing. These features create packaging that looks great on shelves. They also protect products during shipping.
+
+Based on my experience, this dual benefit is rare in the industry.
 - **Modern Technology:** Frankston uses top equipment from Bobst, Heidelberg, Nilpeter, and Mark Andy. This ensures quality and speed. They keep investing in new technology. This means fast delivery times and consistent stock, even for large orders.
-- **Green Commitment:** All paper products are 100% recyclable and biodegradable. They offer FSC® options. They recycle 99% of operational materials. They use PET or BOPP films that are better for the environment. Your packaging can meet sustainability goals. It will also appeal to buyers who care about the planet. I believe this is crucial for modern brands.
+- **Green Commitment:** All paper products are 100% recyclable and biodegradable. They offer FSC® options. They recycle 99% of operational materials. They use PET or BOPP films that are better for the environment. Your packaging can meet sustainability goals.
+
+It will also appeal to buyers who care about the planet. I believe this is crucial for modern brands.
 - **Award-Winning Service:** Frankston wins recognition for top quality (over 5 Sigma). They provide exceptional customer support. This includes managed inventory programs and flexible project estimates.
 
 Frankston Packaging has made recent acquisitions. These expand their reach and what they can do. They deliver reliable and innovative solutions. I see them as a strategic partner for companies seeking folding carton manufacturers in Texas.
@@ -191,7 +195,7 @@ If you want to know more about the package manufacturer, you can also read the f
 
 - [**10 Most Reliable Packaging Manufacturers in UAE (2025 Guide)**](https://www.leelinepackage.com/packaging-manufacturers-in-uae/)
 - [**To​p 10 Custom Box Manufacturer In Denver**](https://www.leelinepackage.com/custom-box-manufacturer-in-denver/)
-- [**Top 10 Fibc Bags Manufacturer In India​**](https://www.leelinepackage.com/fibc-bags-manufacturer-in-india/)
+- [**Top 10 Fibc Bags Manufacturer In India**](https://www.leelinepackage.com/fibc-bags-manufacturer-in-india/)
 
 ## People Also Ask About Folding Carton Manufacturers In Texas​
 

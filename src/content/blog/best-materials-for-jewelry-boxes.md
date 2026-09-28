@@ -37,7 +37,7 @@ My team vetted this checklist across hundreds of factory production runs. Gather
 - **The Sensory Check:** I always smell sample interiors first. Strong solvent glue indicates high VOCs. Feel the lining: fuzzy fabrics trap moisture, while slick ones lack cushioning. Wiggle the hardware to expose cheap hinge wobble or extreme stiffness.
 - **Supplier Questions:** Demand exact specs. Ask for raw test reports, core material, lining material, anti-tarnish treatments, wood moisture content, hinge metal, and adhesive type.
 
-**⚠️ Safety First:** Never assume decorative velvet is anti-tarnish. I rely on [textile storage guidance](https://info.gaylord.com/resources/guide-archival-storage-of-textiles)** **for lining safety. Demand formaldehyde-free adhesives. Verify hardware meets [REACH or safety compliance guidance](https://ecovadis.com/glossary/eu-reach-regulation/) to prevent lead risks in retail or child-access environments.
+**⚠️ Safety First:** Never assume decorative velvet is anti-tarnish. I rely on [textile storage guidance](https://info.gaylord.com/resources/guide-archival-storage-of-textiles) for lining safety. Demand formaldehyde-free adhesives. Verify hardware meets [REACH or safety compliance guidance](https://ecovadis.com/glossary/eu-reach-regulation/) to prevent lead risks in retail or child-access environments.
 
 ## How to Choose the Best Materials for Jewelry Boxes? Step-by-Step Guide
 
@@ -155,7 +155,7 @@ During my time auditing [packaging manufacturers in South Africa](https://www.le
 6. Mandate [official packaging test guidance](https://ista.org/) for transit durability. Include custom protective inserts to secure the jewelry.
 7. Specify flat-pack rigid paperboard when you [buy custom shipping boxes](https://www.leelinepackage.com/buy-custom-shipping-boxes/). This lowers your landed cost dramatically at high volume.
 
-⚠️ **Warning:** Wood requires strict moisture control. Without it, boxes warp during sea freight. As **[Manager Linda Li](https://www.linkedin.com/in/linda-li-1a71041b9/) **told me on the production floor: "A 12% moisture level looks fine here, but it warps instantly inside a hot shipping container."
+⚠️ **Warning:** Wood requires strict moisture control. Without it, boxes warp during sea freight. As **[Manager Linda Li](https://www.linkedin.com/in/linda-li-1a71041b9/)** told me on the production floor: "A 12% moisture level looks fine here, but it warps instantly inside a hot shipping container."
 
 **⚡ Speed Verification:** Last month, our 14-day climate transit test showed solid wood warping by exactly 4mm. The flat-pack rigid board held perfectly and cut the client's freight invoice by 30%.
 

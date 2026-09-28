@@ -29,13 +29,13 @@ There is no universal winner. The right choice depends entirely on your run leng
 
 ## Roll-Fed vs Sheet-Fed:Table Comparison
 
-<table><thead><tr><th><strong>Feature</strong></th><th><strong>Roll-Fed</strong></th><th><strong>Sheet-Fed</strong></th></tr></thead><tbody><tr><td><strong>Setup Time</strong></td><td>65 Minutes</td><td><strong>15 Minutes (Tested)</strong></td></tr><tr><td><strong>Setup Waste</strong></td><td>820 Feet</td><td><strong>120 Sheets</strong></td></tr><tr><td><strong>Speed (Units/Hour)</strong></td><td><strong>46,000</strong></td><td>15,000</td></tr><tr><td><strong>Max Substrate</strong></td><td>400 GSM</td><td><strong>1000 GSM</strong></td></tr><tr><td><strong>Registration</strong></td><td>0.3mm (Web stretch)</td><td><strong>0.1mm (Grippers)</strong></td></tr><tr><td><strong>Inline Finishing</strong></td><td><strong>1-Pass</strong></td><td>Offline Required</td></tr><tr><td><strong>Labor Per Shift</strong></td><td><strong>1 Operator</strong></td><td>3 Operators</td></tr><tr><td><strong>Press Uptime</strong></td><td><strong>90%</strong></td><td>75%</td></tr><tr><td><strong>Maintenance (1M Units)</strong></td><td><strong>$150</strong></td><td>$320</td></tr><tr><td><strong>Floor Space</strong></td><td>120 Feet</td><td><strong>40 Feet</strong></td></tr><tr><td><strong>Tooling Cost</strong></td><td>$420/Cylinder</td><td><strong>$50/Plate</strong></td></tr><tr><td><strong>Ideal Volume</strong></td><td>100,000+</td><td>500–50,000</td></tr><tr><td><strong>Applications</strong></td><td>Pouches, Tape</td><td>Rigid Boxes, Inserts</td></tr><tr><td><strong>Unit Cost (1M Run)</strong></td><td><strong>$0.02</strong></td><td>$0.09</td></tr><tr><td><strong>Paper Waste</strong></td><td>12%</td><td><strong>3%</strong></td></tr><tr><td><strong>Label Format</strong></td><td><strong>Roll (Auto-apply)</strong></td><td>Sheet (Manual peel)</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Feature</strong></th><th><strong>Roll-Fed</strong></th><th><strong>Sheet-Fed</strong></th></tr></thead><tbody><tr><td><strong>Setup Time</strong></td><td>65 Minutes</td><td><strong>15 Minutes (Tested)</strong></td></tr><tr><td><strong>Setup Waste</strong></td><td>820 Feet</td><td><strong>120 Sheets</strong></td></tr><tr><td><strong>Speed (Units/Hour)</strong></td><td><strong>46,000</strong></td><td>15,000</td></tr><tr><td><strong>Max Substrate</strong></td><td>400 GSM</td><td><strong>1000 GSM</strong></td></tr><tr><td><strong>Registration</strong></td><td>0.3mm (Web stretch)</td><td><strong>0.1mm (Grippers)</strong></td></tr><tr><td><strong>Inline Finishing</strong></td><td><strong>1-Pass</strong></td><td>Offline Required</td></tr><tr><td><strong>Labor Per Shift</strong></td><td><strong>1 Operator</strong></td><td>3 Operators</td></tr><tr><td><strong>Press Uptime</strong></td><td><strong>90%</strong></td><td>75%</td></tr><tr><td><strong>Maintenance (1M Units)</strong></td><td><strong>$150</strong></td><td>$320</td></tr><tr><td><strong>Floor Space</strong></td><td>120 Feet</td><td><strong>40 Feet</strong></td></tr><tr><td><strong>Tooling Cost</strong></td><td>$420/Cylinder</td><td><strong>$50/Plate</strong></td></tr><tr><td><strong>Ideal Volume</strong></td><td>100,000+</td><td>500–50,000</td></tr><tr><td><strong>Applications</strong></td><td>Pouches, Tape</td><td>Rigid Boxes, Inserts</td></tr><tr><td><strong>Unit Cost (1M Run)</strong></td><td><strong>$0.02</strong></td><td>$0.09</td></tr><tr><td><strong>Paper Waste</strong></td><td>12%</td><td><strong>3%</strong></td></tr><tr><td><strong>Label Format</strong></td><td><strong>Roll (Auto-apply)</strong></td><td>Sheet (Manual peel)</td></tr></tbody></table></div>
 
 **Accessibility Summary:** Roll-fed platforms win on high-volume economics, while sheet-fed systems dominate thick substrate flexibility and short-run customization.
 
 ## Roll-Fed vs. Sheet-Fed Printing: Cost, Waste, and Workflow Comparison
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/VQXTxkSLXwI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Danske Lokaliteter Customer Success Story (English Subtitles)" class="post-embed" src="https://www.youtube.com/embed/VQXTxkSLXwI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### 1. Run-Length Economics and the Crossover Point
 
@@ -95,7 +95,7 @@ According to the [Test Standard](https://teststandard.com/?srsltid=AfmBOorEoxJKN
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/05/Uptime-Maintenance-and-Hidden-Operating-Complexity.webp" alt="Uptime, Maintenance, and Hidden Operating Complexity" width="800" height="500" loading="lazy" decoding="async" /></figure>
 
-Fast machines fail without high uptime. I pulled the** anonymized 5-year backend telemetrics from active customer fleet** to prove this. We rely on raw maintenance logs, not sales pitches.
+Fast machines fail without high uptime. I pulled the **anonymized 5-year backend telemetrics from active customer fleet** to prove this. We rely on raw maintenance logs, not sales pitches.
 
 Our data shows the roll-fed fleet hits 90% **average uptime** compared to the sheet-fed fleet's 75%. Why? A web press has fewer moving parts touching the paper.
 
@@ -159,7 +159,7 @@ The downside is physical floor space. Sheet-fed presses lack inline finishing. W
   - **Handling Bottlenecks:** Helpers must manually move printed paper pallets to offline die-cutting stations. This extra touchpoint increases human error.
   - **Slower Top Speeds:** The pneumatic suction feeder mechanically maxes out at 15,000 sheets per hour. It simply cannot compete with continuous rolls on massive orders.
 
-***Defect Risk & Buyer Impact:* **Beware of suction feeder paper dust jams and wet ink scuffing during pallet transit. This limitation deeply hurts Logistics Larry. He needs 50,000 simple corrugated shippers delivered without delay.
+***Defect Risk & Buyer Impact:*** Beware of suction feeder paper dust jams and wet ink scuffing during pallet transit. This limitation deeply hurts Logistics Larry. He needs 50,000 simple corrugated shippers delivered without delay.
 
 **⚡ Power Move:** Request 500-unit custom mailer test runs during the off-season. Packaging plants will happily run your small startup batches on idle sheet-fed presses.
 

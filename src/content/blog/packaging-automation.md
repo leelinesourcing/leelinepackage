@@ -42,7 +42,7 @@ Gather these inputs before evaluating machinery. When my team audited 30 packagi
 
 ## How to Evaluate Packaging Automation for Rigid Box Production?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/mfsnI7-2v0Y" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Automated Packaging Solutions for  E-Commerce" class="post-embed" src="https://www.youtube.com/embed/mfsnI7-2v0Y" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### Step 1: Capture the Current Cost Per Finished Box
 
@@ -122,7 +122,7 @@ Preserve your physical samples for chain-of-custody. Keep raw images unedited ex
 
 Review this anonymized data distribution from a recent facility audit. Use standard tolerance language when discussing quality with your apparel supplier.
 
-<table><thead><tr><th><strong>Defect Family</strong></th><th><strong>Distribution</strong></th><th><strong>Standard Tolerance Language</strong></th></tr></thead><tbody><tr><td>Measurement Drift</td><td>35%</td><td>Exceeds 1/2 inch tolerance at chest</td></tr><tr><td>Seam Slippage</td><td>25%</td><td>Yarn shift exceeds 1/4 inch under tension</td></tr><tr><td>Shade Variance</td><td>20%</td><td>Fails Delta E color match standard</td></tr><tr><td>Trim Misplacement</td><td>15%</td><td>Label offset exceeds 1/4 inch from center</td></tr><tr><td>Functional Failure</td><td>5%</td><td>Zipper fails mechanical engagement test</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Defect Family</strong></th><th><strong>Distribution</strong></th><th><strong>Standard Tolerance Language</strong></th></tr></thead><tbody><tr><td>Measurement Drift</td><td>35%</td><td>Exceeds 1/2 inch tolerance at chest</td></tr><tr><td>Seam Slippage</td><td>25%</td><td>Yarn shift exceeds 1/4 inch under tension</td></tr><tr><td>Shade Variance</td><td>20%</td><td>Fails Delta E color match standard</td></tr><tr><td>Trim Misplacement</td><td>15%</td><td>Label offset exceeds 1/4 inch from center</td></tr><tr><td>Functional Failure</td><td>5%</td><td>Zipper fails mechanical engagement test</td></tr></tbody></table></div>
 
 **⚠️ Experience Warning:** During an audit, Manager Chen showed me a critical functional defect. Unchecked garment bulk variations caused poor box fit. The automated folder crushed the oversized sweaters. Lock down your upstream sizing before buying packaging machinery.
 
@@ -166,7 +166,7 @@ Calculate your sensitivity to downtime and SKU complexity. You succeed when you 
 
 Protect this investment through strong supplier governance. Your strongest negotiation position relies on your documented defect log tied to quantity, evidence, and commercial impact.
 
-** QA Lead [Jeremy H](https://www.linkedin.com/in/jeremyhongelectronics)** say: "Never use emotional accusations with overseas factories. Document the issue first. Quote the agreed quality standard in your PO terms. Preserve your physical samples. Propose a practical remedy ladder.
+**QA Lead [Jeremy H](https://www.linkedin.com/in/jeremyhongelectronics)** say: "Never use emotional accusations with overseas factories. Document the issue first. Quote the agreed quality standard in your PO terms. Preserve your physical samples. Propose a practical remedy ladder.
 
 Ask for a replacement first, then a credit, and finally a future-order offset."
 

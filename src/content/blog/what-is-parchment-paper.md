@@ -53,7 +53,7 @@ Both papers work well for non-stick purposes at room temperature, but only parch
 
 ## What is Parchment Paper Made Of?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/ENvznT2kbKI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="How It&#039;s Made: Parchment Paper" class="post-embed" src="https://www.youtube.com/embed/ENvznT2kbKI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Your favorite baking companion has more to it than meets the eye. The fascinating makeup of parchment paper stems from specific materials and manufacturing processes that create its unique characteristics.
 

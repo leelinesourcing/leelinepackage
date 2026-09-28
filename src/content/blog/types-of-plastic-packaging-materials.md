@@ -43,7 +43,7 @@ Switching to recycled PET (rPET) for eco-friendly claims requires caution. In ou
 
 ## 2. HDPE: Durable Bottles and Rigid Containers
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/pZ5_59ZwhtE" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="What is HDPE (High-density polyethylene)? | Uses, Benefits, Recycling, and Safety Explained" class="post-embed" src="https://www.youtube.com/embed/pZ5_59ZwhtE" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Nothing kills your margin faster than a pallet of heavy detergent jugs collapsing under their own weight. When evaluating different types of plastic packaging materials, we rely on HDPE when toughness matters more than shelf clarity.
 
@@ -127,7 +127,7 @@ He noted: "PLA seals break under high warehouse humidity, destroying product she
 
 ## How to Execute a Plastic Packaging Supplier Audit?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/XWXAUsdc7Bw" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Supplier Audit Masterclass: Complete Step-by-Step Guide (Preparation to Follow-Up)" class="post-embed" src="https://www.youtube.com/embed/XWXAUsdc7Bw" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 When reviewing different types of plastic packaging materials during my last factory audit, Lead Quality Assurance Manager Chen showed me exactly how polymer structures degrade. He pulled a container from a 40-degree Celsius humidity chamber to demonstrate.
 

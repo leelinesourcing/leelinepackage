@@ -33,7 +33,7 @@ If your team is planning a conversion project, use this guide to navigate the te
 
 ## What is a Mono-Material?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/xHmeKke5McA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Mono-Material Packaging - Green Food Series EP1" class="post-embed" src="https://www.youtube.com/embed/xHmeKke5McA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 **Mono-material** packaging is a structure built entirely from a single material family.
 
@@ -81,7 +81,7 @@ Operationally, this means a CPG snack pouch might look scratched after vibrating
 
 Next, we measure the **moisture vapor transmission rate (MVTR)** following the [ASTM E96 standard](https://www.astm.org/e0096_e0096m-16.html). A traditional foil barrier blocks almost all moisture, hitting 0.01 g/m²/day. A mono-PE pouch hits 0.5 g/m²/day. For a coffee roaster, this translates to a 6-month shelf life instead of 12 months.
 
-<table><thead><tr><th><strong>Structure Type</strong></th><th><strong>Material Stack-Up</strong></th><th><strong>Recyclability</strong></th><th><strong>Operational Reality</strong></th></tr></thead><tbody><tr><td><strong>Traditional Pouch</strong></td><td>PET / Adhesive / Foil / PE</td><td>Zero (Landfill)</td><td>Ultimate barrier; survives rough transit.</td></tr><tr><td><strong>PE Mono-Material</strong></td><td>MDO-PE / EVOH / PE</td><td>High (Polymer Circularity)</td><td>Moderate barrier; requires precise heat sealing.</td></tr><tr><td><strong>Technical Soft-Good</strong></td><td>rPET Fabric / rPET Thread / rPET Zipper</td><td>High (Textile Recovery)</td><td>Zero stretch; breaks down if nylon enters the batch.</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Structure Type</strong></th><th><strong>Material Stack-Up</strong></th><th><strong>Recyclability</strong></th><th><strong>Operational Reality</strong></th></tr></thead><tbody><tr><td><strong>Traditional Pouch</strong></td><td>PET / Adhesive / Foil / PE</td><td>Zero (Landfill)</td><td>Ultimate barrier; survives rough transit.</td></tr><tr><td><strong>PE Mono-Material</strong></td><td>MDO-PE / EVOH / PE</td><td>High (Polymer Circularity)</td><td>Moderate barrier; requires precise heat sealing.</td></tr><tr><td><strong>Technical Soft-Good</strong></td><td>rPET Fabric / rPET Thread / rPET Zipper</td><td>High (Textile Recovery)</td><td>Zero stretch; breaks down if nylon enters the batch.</td></tr></tbody></table></div>
 
 **⚙️ Technical Detail:** A mono-material structure sacrifices extreme barrier performance for complete recyclability. You must design the product's shelf life around the polymer's natural limitations.
 
@@ -143,7 +143,7 @@ Consolidating packaging layers cleans your waste stream. In my experience runnin
 
 Fewer incompatible layers mean you manage fewer supplier specifications. This clean architecture simplifies enterprise sustainability reporting.
 
-During a recent enterprise rollout at LeelinePackage, Manager Chen managed the line transition: "Switching this client's 40 SKUs to a single PE structure cut our material changeover time by exactly three hours." Furthermore, the [Streamlines Portfolio Architecture](https://www.leelinepackage.com/sustainable-packaging-solutions) confirms unified portfolios drastically reduce compliance reporting errors.
+During a recent enterprise rollout at LeelinePackage, Manager Chen managed the line transition: "Switching this client's 40 SKUs to a single PE structure cut our material changeover time by exactly three hours." Furthermore, the Streamlines Portfolio Architecture confirms unified portfolios drastically reduce compliance reporting errors.
 
 ### Lowers TCO Via Downgauging
 
@@ -217,6 +217,6 @@ Next, test the mono-material alternative in a controlled run. Then, verify the s
 
 <div class="post-faq"><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778483175041"><strong>1. Are mono-material films actually recyclable everywhere?</strong></h3><p>No. While the film chemistry is perfectly recyclable, local infrastructure dictates reality. Many municipal curbside programs still reject flexible films. Do not overclaim recyclability across unregulated global markets.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778483192811">2. <strong>Will switching to a mono-PE pouch ruin my product's shelf life?</strong></h3><p>It reduces it. In our lab testing, moisture transmission jumped from 0.01 to 0.5 g/m²/day compared to foil. You must align your inventory turnover with this reduced barrier performance.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1778483208847"><strong>Does switching to mono-materials increase my landed costs?</strong></h3><p>Initially, yes. Because factories require specialized, low-heat sealing equipment to prevent film distortion, they often mandate 50,000-unit minimums to offset trial waste.</p></div></div>
 
-Need help evaluating mono-material PE pouches, PP structures, or design-for-disassembly options for bags and packaging? [**Contact the LeelinePackage team**](https://leelinepackage.com/contact-us/)**.**
+Need help evaluating mono-material PE pouches, PP structures, or design-for-disassembly options for bags and packaging? [**Contact the LeelinePackage team**](https://www.leelinepackage.com/contact/).
 
-***Disclaimer:**** I am not paid by any polymer vendor or manufacturer to promote these findings. My team spent weeks on the factory floor testing these specific material structures. We purchase our own lab equipment and report the raw metrics.*
+***Disclaimer:*** *I am not paid by any polymer vendor or manufacturer to promote these findings. My team spent weeks on the factory floor testing these specific material structures. We purchase our own lab equipment and report the raw metrics.*

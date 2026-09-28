@@ -19,7 +19,7 @@ This material serves as one of the best barriers on Earth.
 
 You see it daily in coffee pouches, chocolate wrappers, take-out containers, and medicine strips, but most people overlook it. Its unique combination of lightness, strength, and total impermeability makes it irreplaceable across food, pharma, and industrial sectors.
 
-In the next few minutes, you’ll learn what aluminum foil packaging is, why a reliable**[custom package manufacturer](https://www.leelinepackage.com/)** can make it beat almost every other material in performance and functionality, and how the industry is pushing it toward greater sustainability. Let’s unwrap the story together.
+In the next few minutes, you’ll learn what aluminum foil packaging is, why a reliable **[custom package manufacturer](https://www.leelinepackage.com/)** can make it beat almost every other material in performance and functionality, and how the industry is pushing it toward greater sustainability. Let’s unwrap the story together.
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2025/11/What-Is-Aluminum-Foil-Packaging-Material-1024x584.webp" alt="What Is Aluminum Foil Packaging Material" width="1024" height="584" loading="lazy" decoding="async" /></figure>
 
@@ -27,7 +27,7 @@ In the next few minutes, you’ll learn what aluminum foil packaging is, why a r
 
 ## Understanding What Is Aluminum Foil Packaging Material
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/sbu8z_UTrYc" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Constantia Flexibles: Why is aluminum foil the ideal material for packaging?" class="post-embed" src="https://www.youtube.com/embed/sbu8z_UTrYc" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 Are you also wondering about aluminum foil packaging material? Aluminum foil stands as a marvel of modern packaging. Its thickness ranges from 0.00017 to 0.2 millimeters, combining flexibility, impermeability, and durability in remarkable ways.
 

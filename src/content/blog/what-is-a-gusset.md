@@ -31,7 +31,7 @@ Later in this guide, our floor lead, Technician Wang, will share our internal gu
 
 ## What Is A Gusset on Paper Bag?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/yFHdC7EUKHQ" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="what is a side gusset bag?what does block bottom bag mean?side gusset vs bottom gusset" class="post-embed" src="https://www.youtube.com/embed/yFHdC7EUKHQ" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 **What Is a Gusset on a Paper Bag**? A gusset is the folded, expandable section on the side or bottom that creates usable three-dimensional volume. Think of it like an accordion. When closed, the paper lays flat for logistics. When pulled open, the folds expand to hold physical products.
 
@@ -53,7 +53,7 @@ He warned: "If the side fold is too narrow by even 5mm, the paper snaps under te
 
 When deciding between square bottom vs flat bottom paper bags, reference our structural guide:
 
-<table><thead><tr><th><strong>Structure</strong></th><th><strong>Structural Feature</strong></th><th><strong>Best Use Cases</strong></th></tr></thead><tbody><tr><td><strong>Side Gusset</strong></td><td>Expands front-to-back. Pinched base.</td><td>Coffee bags, e-commerce inserts.</td></tr><tr><td><strong>Bottom Gusset</strong></td><td>Expands at the base. Sides stay flat.</td><td>Apparel, flat gifts, greeting cards.</td></tr><tr><td><strong>Square Bottom</strong></td><td>Flat, rigid base. Stands completely upright.</td><td>Grocery, food service, premium retail.</td></tr><tr><td><strong>Flat Bottom</strong></td><td>Tapered pinch base. Does not stand independently.</td><td>Bakery items, pharmacy bags, small gifts.</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Structure</strong></th><th><strong>Structural Feature</strong></th><th><strong>Best Use Cases</strong></th></tr></thead><tbody><tr><td><strong>Side Gusset</strong></td><td>Expands front-to-back. Pinched base.</td><td>Coffee bags, e-commerce inserts.</td></tr><tr><td><strong>Bottom Gusset</strong></td><td>Expands at the base. Sides stay flat.</td><td>Apparel, flat gifts, greeting cards.</td></tr><tr><td><strong>Square Bottom</strong></td><td>Flat, rigid base. Stands completely upright.</td><td>Grocery, food service, premium retail.</td></tr><tr><td><strong>Flat Bottom</strong></td><td>Tapered pinch base. Does not stand independently.</td><td>Bakery items, pharmacy bags, small gifts.</td></tr></tbody></table></div>
 
 <blockquote class="post-quote"><p><strong>💡 Expert Insight:</strong> Always clearly label your W x D x H measurements to prevent costly misfits and wasted materials during your initial sample runs.</p><p><strong>—<a href="https://cn.linkedin.com/in/tonyatepackprinting" target="_blank" rel="noopener">Tony Gao</a></strong>, Packaging Expert</p></blockquote>
 
@@ -145,7 +145,7 @@ Last season, a client forced skincare boxes into flat bags. Seams burst instantl
 
 **Flex Test Results: Capacity and Weight Threshold**
 
-<table><thead><tr><th><strong>Gusset Depth</strong></th><th><strong>Paper Type</strong></th><th><strong>Basis Weight</strong></th><th><strong>Max Expansion</strong></th><th><strong>Weight Limit</strong></th><th><strong>Best For</strong></th></tr></thead><tbody><tr><td><strong>Shallow (50mm)</strong></td><td>Luxury Coated</td><td>150gsm Matte</td><td>45mm</td><td>3.5 kg</td><td>Flat cosmetics</td></tr><tr><td><strong>Medium (100mm)</strong></td><td>Heavy Kraft</td><td>120gsm Uncoated</td><td>98mm</td><td>6.0 kg</td><td>Retail boxes</td></tr><tr><td><strong>Deep (150mm)</strong></td><td>Heavy Kraft</td><td>130gsm Uncoated</td><td>145mm</td><td>8.0 kg</td><td>Heavy grocery</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Gusset Depth</strong></th><th><strong>Paper Type</strong></th><th><strong>Basis Weight</strong></th><th><strong>Max Expansion</strong></th><th><strong>Weight Limit</strong></th><th><strong>Best For</strong></th></tr></thead><tbody><tr><td><strong>Shallow (50mm)</strong></td><td>Luxury Coated</td><td>150gsm Matte</td><td>45mm</td><td>3.5 kg</td><td>Flat cosmetics</td></tr><tr><td><strong>Medium (100mm)</strong></td><td>Heavy Kraft</td><td>120gsm Uncoated</td><td>98mm</td><td>6.0 kg</td><td>Retail boxes</td></tr><tr><td><strong>Deep (150mm)</strong></td><td>Heavy Kraft</td><td>130gsm Uncoated</td><td>145mm</td><td>8.0 kg</td><td>Heavy grocery</td></tr></tbody></table></div>
 
 Load capacity depends on the entire structural system. Coated luxury paper looks stunning but cracks at fold lines under pressure. Heavy-duty kraft stretches better. If you use rigid [texture paper](https://www.leelinepackage.com/what-is-texture-paper/), monitor stress points closely.
 
@@ -215,4 +215,4 @@ As global logistics shift away from plastics, precisely engineered paper volume 
 
 To calculate your exact load requirements and prevent costly tearing, reach out to our structural engineers at [LeelinePackage](https://www.leelinepackage.com/contact/). You can also explore our full capabilities as your [custom bag manufacturer](https://www.leelinepackage.com/custom-bag-manufacturer/) to guarantee your next production run survives the supply chain.
 
-***Disclaimer:**** I am not paid by any paper mill or machine manufacturer to promote these standards. My team personally engineered, measured, and validated these structural guidelines during 50 hours of live factory-floor testing.*
+***Disclaimer:*** *I am not paid by any paper mill or machine manufacturer to promote these standards. My team personally engineered, measured, and validated these structural guidelines during 50 hours of live factory-floor testing.*

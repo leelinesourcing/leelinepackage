@@ -39,7 +39,7 @@ You will learn exactly how to choose the right specification for your brand.
 
 ## What is an SOS Bag?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/NegPc5mulR0" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="SOS Paper Bags - Pactap" class="post-embed" src="https://www.youtube.com/embed/NegPc5mulR0" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 **SOS bags** (Self-Opening Sacks) are pre-glued paper bags featuring an open top, expandable side folds, and a rectangular base.
 
@@ -244,6 +244,6 @@ Secure your supply chain with a partner who knows the science. If you need a rel
 
 <div class="post-faq"><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1776654142363"><strong>Q: Are SOS paper bags actually stronger than standard plastic bags?</strong></h3><p>A: Yes, provided you specify the correct paper grade. In our latest tensile tests, a 100 GSM virgin kraft SOS bag safely held 15 lbs without bottom-seam failure. A standard thin plastic grocery bag stretched and ruptured at just 10 lbs.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1776654153098"><strong>Q: Will full-color custom printing weaken the paper structure?</strong></h3><p>A: No. Flexographic ink rests entirely on the paper surface. However, heavy ink saturation can make cheap recycled fibers brittle. As Production Manager Lin actively monitors our floor, we must score the paper perfectly before folding to prevent thick ink from cracking along the side gussets.</p></div><div class="post-faq-item"><h3 class="post-faq-q" id="faq-question-1776654161293"><strong>Q: Can I pack greasy food directly into a standard SOS bag?</strong></h3><p>A: Absolutely not. Standard kraft paper absorbs oil rapidly, destroying the bottom adhesive in minutes. You must specify an FDA-approved grease-resistant coating or an internal glassine liner if you pack raw pastries, fried items, or buttery foods.</p></div></div>
 
-***Transparency Note: **Real-world sustainability and physical performance depend strictly on your actual material specs, chemical coatings, and local recycling conditions.
+***Transparency Note:*** Real-world sustainability and physical performance depend strictly on your actual material specs, chemical coatings, and local recycling conditions.
 
-I purchase all my own laboratory equipment and receive no financial kickbacks from any manufacturer to publish these findings.*
+I purchase all my own laboratory equipment and receive no financial kickbacks from any manufacturer to publish these findings.

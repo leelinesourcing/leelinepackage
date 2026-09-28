@@ -85,7 +85,7 @@ Read our guide on the ECT vs Mullen test for exact testing parameters.
 
 Review the specific grade benchmarks below. As detailed in the chart, the **1100#** grade provides **90 ECT** for standard heavy loads. The stronger **1300#** grade delivers **112 ECT** for maximum stacking resilience. Always verify material certificates with your supplier.
 
-<table><thead><tr><th><strong>Board Grade</strong></th><th><strong>ECT Rating</strong></th><th><strong>Best Application</strong></th></tr></thead><tbody><tr><td><strong>1100#</strong></td><td>90 ECT</td><td>Standard heavy-duty transport</td></tr><tr><td><strong>1300#</strong></td><td>112 ECT</td><td>Maximum pallet stacking</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Board Grade</strong></th><th><strong>ECT Rating</strong></th><th><strong>Best Application</strong></th></tr></thead><tbody><tr><td><strong>1100#</strong></td><td>90 ECT</td><td>Standard heavy-duty transport</td></tr><tr><td><strong>1300#</strong></td><td>112 ECT</td><td>Maximum pallet stacking</td></tr></tbody></table></div>
 
 Verify your shortlist of board grades matches your expected pallet load. If a supplier refuses to provide written certificates, find a new partner immediately.
 

@@ -129,7 +129,7 @@ Build a granular AQL comparison table. While you must agree on the exact AQL pla
 
 Describe alignment using panel names and millimeter gaps (e.g., “2mm gap on the top-right panel”), never just “left side looks off.”
 
-<table><thead><tr><th><strong>Closure Type</strong></th><th><strong>Critical Appearance Defects</strong></th><th><strong>Functional Defects</strong></th><th><strong>Opening/Closing Expectation</strong></th><th><strong>Magnetic Pull-Force Range</strong></th><th><strong>Alignment Tolerance</strong></th><th><strong>Cycle-Test Expectation</strong></th></tr></thead><tbody><tr><td><strong>Magnetic Flap</strong></td><td>Glue seepage</td><td>Weak snap</td><td>Crisp audible snap</td><td>1.5 – 2.0 lbs</td><td>&lt; 1mm offset</td><td>500 opens</td></tr><tr><td><strong>Drawer/Sleeve</strong></td><td>Scuffed edges</td><td>Jams halfway</td><td>Predictable resistance</td><td>N/A</td><td>&lt; 1mm gap</td><td>300 pulls</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Closure Type</strong></th><th><strong>Critical Appearance Defects</strong></th><th><strong>Functional Defects</strong></th><th><strong>Opening/Closing Expectation</strong></th><th><strong>Magnetic Pull-Force Range</strong></th><th><strong>Alignment Tolerance</strong></th><th><strong>Cycle-Test Expectation</strong></th></tr></thead><tbody><tr><td><strong>Magnetic Flap</strong></td><td>Glue seepage</td><td>Weak snap</td><td>Crisp audible snap</td><td>1.5 – 2.0 lbs</td><td>&lt; 1mm offset</td><td>500 opens</td></tr><tr><td><strong>Drawer/Sleeve</strong></td><td>Scuffed edges</td><td>Jams halfway</td><td>Predictable resistance</td><td>N/A</td><td>&lt; 1mm gap</td><td>300 pulls</td></tr></tbody></table></div>
 
 Detail your insert specs. List the **cavity dimensions**, **compression allowance**, and **friction fit**. Specify your material choice like **velvet**, **foam**, or **paper pulp**. Add **anti-scratch** notes for luxury goods.
 
@@ -191,7 +191,7 @@ Last quarter, a client skipped the sensory checklist. The second production run 
 
 ## Common Premium Packaging Failures and How to Prevent Them?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/mh8xvTGlDnI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="See how to avoid common packing mistakes." class="post-embed" src="https://www.youtube.com/embed/mh8xvTGlDnI" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### Premium Samples Rattle or Scuff in Transit
 

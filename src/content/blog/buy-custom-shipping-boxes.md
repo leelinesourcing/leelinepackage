@@ -126,7 +126,7 @@ You must align your production method with your volume to optimize unit economic
 1. **Define print scope.** Select **Outside Only** for standard shipping or **Inside & Outside** for a premium unboxing experience. Note that inside printing requires a second pass, often doubling print costs.
 2. **Select the production method.** Match the technology to your order size:  **Flexographic (Flexo):** Best for **high-volume runs (&gt;1,000 units)** and simple branding.  **Litho-Lamination:** Use this for photo-realistic, retail-ready packaging.
 
-  - *Pros:* Lowest unit cost at scale.
+- *Pros:* Lowest unit cost at scale.
   - *Cons:* Requires upfront payment for "printing plates"; struggles with fine gradients.
 3. **Specify color & finish.** Request **Pantone (PMS) Matching** for logos to ensure your brand color is identical on every box. Apply **Matte/Gloss Lamination** to seal the ink against moisture and scuffing.
 4. **Standardize panel names.** Identify artwork areas by position (e.g., "**Outside Front Panel**") rather than color to ensure accessibility and prevent assembly errors.

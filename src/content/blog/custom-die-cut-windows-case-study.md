@@ -181,7 +181,7 @@ I tracked a dramatic shift across all primary retail metrics:
 
 I compiled this observed store-test data into a direct comparison model. This table strictly separates our real pilot data from generalized market assumptions.
 
-<table><thead><tr><th><strong>Metric</strong></th><th><strong>Legacy Opaque Carton</strong></th><th><strong>Window-Patched Prototype</strong></th></tr></thead><tbody><tr><td><strong>Pickup-to-Purchase Rate</strong></td><td>18%</td><td>49%</td></tr><tr><td><strong>Return Rate (Expectation Mismatch)</strong></td><td>4.2%</td><td>0.0%</td></tr><tr><td><strong>Retail Buyer Reorders</strong></td><td>1 per quarter</td><td>3 per quarter</td></tr><tr><td><strong>Unit Packaging Cost</strong></td><td>$0.45</td><td>$0.52</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Metric</strong></th><th><strong>Legacy Opaque Carton</strong></th><th><strong>Window-Patched Prototype</strong></th></tr></thead><tbody><tr><td><strong>Pickup-to-Purchase Rate</strong></td><td>18%</td><td>49%</td></tr><tr><td><strong>Return Rate (Expectation Mismatch)</strong></td><td>4.2%</td><td>0.0%</td></tr><tr><td><strong>Retail Buyer Reorders</strong></td><td>1 per quarter</td><td>3 per quarter</td></tr><tr><td><strong>Unit Packaging Cost</strong></td><td>$0.45</td><td>$0.52</td></tr></tbody></table></div>
 
 **The Behavioral Shift**
 

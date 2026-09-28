@@ -102,7 +102,7 @@ We classify these structures into three families:
 
 A standalone web of BOPP acts as a simple wrapper. When laminated, it becomes the rigid outer print surface of a multi-material pouch. Many brands now request mono-material PP structures to meet recycling targets.
 
-Because flexible films lack rigid structural integrity, we pack these finished pouches into [custom boxes](https://leelinepackage.com/custom-boxes/) or [custom display boxes](https://leelinepackage.com/custom-display-boxes/). This secondary packaging prevents crushing during pallet transit.
+Because flexible films lack rigid structural integrity, we pack these finished pouches into [custom boxes](https://www.leelinepackage.com/custom-box-manufacturer/) or [custom display boxes](https://www.leelinepackage.com/custom-display-box/). This secondary packaging prevents crushing during pallet transit.
 
 ### Performance Specs Buyers Should Read
 
@@ -150,9 +150,9 @@ BOPP repels water vapor. In our humidity chambers, a 30-micron BOPP bag kept cra
 
 **Internal Moisture Barrier Stress Test: BOPP vs PET vs Nylon**
 
-***Note:** Test conditions must be stated clearly to keep comparisons honest. We ran these at 38°C and 90% Relative Humidity.*
+***Note:*** *Test conditions must be stated clearly to keep comparisons honest. We ran these at 38°C and 90% Relative Humidity.*
 
-<table><thead><tr><th><strong>Material</strong></th><th><strong>Structure Tested</strong></th><th><strong>Gauge</strong></th><th><strong>MVTR (g/m²/day)</strong></th><th><strong>Visual Stability (Post-Exposure)</strong></th><th><strong>Print/Lamination Notes</strong></th><th><strong>Best-Fit Applications</strong></th></tr></thead><tbody><tr><td><strong>BOPP</strong></td><td>Co-extruded</td><td>30µ</td><td>4.5</td><td>Remained crisp and flat</td><td>Requires corona treatment</td><td>Dry snacks, baked goods</td></tr><tr><td><strong>PET</strong></td><td>Plain</td><td>12µ</td><td>40.0</td><td>No distortion</td><td>Excellent ink adhesion</td><td>Outer print web</td></tr><tr><td><strong>Nylon</strong></td><td>Biaxially Oriented</td><td>15µ</td><td>150.0</td><td>Curled heavily</td><td>Absorbs moisture; tricky</td><td>Vacuum pouches, meats</td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Material</strong></th><th><strong>Structure Tested</strong></th><th><strong>Gauge</strong></th><th><strong>MVTR (g/m²/day)</strong></th><th><strong>Visual Stability (Post-Exposure)</strong></th><th><strong>Print/Lamination Notes</strong></th><th><strong>Best-Fit Applications</strong></th></tr></thead><tbody><tr><td><strong>BOPP</strong></td><td>Co-extruded</td><td>30µ</td><td>4.5</td><td>Remained crisp and flat</td><td>Requires corona treatment</td><td>Dry snacks, baked goods</td></tr><tr><td><strong>PET</strong></td><td>Plain</td><td>12µ</td><td>40.0</td><td>No distortion</td><td>Excellent ink adhesion</td><td>Outer print web</td></tr><tr><td><strong>Nylon</strong></td><td>Biaxially Oriented</td><td>15µ</td><td>150.0</td><td>Curled heavily</td><td>Absorbs moisture; tricky</td><td>Vacuum pouches, meats</td></tr></tbody></table></div>
 
 ### Secures Branding and Drives Sales
 
@@ -246,4 +246,4 @@ Never approve a film grade without hard data. We recommend taking these three ex
 
 Need structural selection help, a verified sample review, or a factory consultation? [**Contact our packaging engineering team directly**](https://leelinepackage.com/contact) to lock in your specs today.
 
-***Disclaimer:**** I am not paid by any material manufacturer to promote these findings. My team bases all recommendations strictly on direct factory floor testing, application fit, and rigorous ASTM packaging performance requirements.*
+***Disclaimer:*** *I am not paid by any material manufacturer to promote these findings. My team bases all recommendations strictly on direct factory floor testing, application fit, and rigorous ASTM packaging performance requirements.*

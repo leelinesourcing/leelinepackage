@@ -35,7 +35,7 @@ You will learn exactly what a rigorous inspection can and cannot achieve.
 
 ## What is Pre-Shipment Inspection (PSI)?
 
-<iframe class="post-embed" src="https://www.youtube.com/embed/g9_vwC1MIhA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+<iframe title="Understanding a Pre Shipment Inspection|| Process of a Pre Shipment Inspection || Goodada" class="post-embed" src="https://www.youtube.com/embed/g9_vwC1MIhA" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 A **Pre-shipment Inspection (PSI)** is a systematic, physical examination of finished goods to verify quality, quantity, labeling, and shipment readiness. In our practice, we only trigger a PSI when a factory has 80% to 100% of your order packed into shipping cartons.
 
@@ -44,7 +44,7 @@ Think of PSI as a building inspector’s final walkthrough. You do not hand over
 Buyers often confuse PSI with other factory quality control procedures. Here is how they differ (we recommend adding a short comparison table in your final draft):
 
 - **During Production Inspection (DPI):** Catches assembly line issues early, not the finished batch.
-- [**Onsite factory audits**](https://www.leelinepackage.com/factory-audit-checklist/)**:** Evaluate a supplier’s machinery and management systems, not your specific order.
+- **[Onsite factory audits](https://www.leelinepackage.com/factory-audit-checklist/):** Evaluate a supplier’s machinery and management systems, not your specific order.
 - **Lab Testing:** Validates chemical claims. PSI relies strictly on visual checks and hand-held tools.
 
 I base this on my team's decade of executing thousands of packaging inspections. (We purchase our own testing equipment and receive no kickbacks from any factory). In practice, third-party inspection services pull a "golden sample" (your approved prototype) from the full lot size.
@@ -94,7 +94,7 @@ Most buyers use a standard defect threshold: Critical 0.0, Major 2.5, Minor 4.0.
 - **Level II:** Acts as the default standard. We use Level II for normal commercial risk, like custom shipping boxes, folding cartons, or standard [types of gift boxes](https://www.leelinepackage.com/types-of-gift-boxes/).
 - **Level III:** Secures high-risk or reputation-sensitive orders. We mandate Level III for premium retail programs with strict color matching or child-facing packaging.
 
-<table><thead><tr><th><strong>Product Risk</strong></th><th><strong>Supplier Maturity</strong></th><th><strong>Order Complexity</strong></th><th><strong>Consequence of Failure</strong></th><th><strong>AQL</strong></th></tr></thead><tbody><tr><td>Low</td><td>High</td><td>Simple</td><td>Minor visual flaws</td><td><strong>Level I</strong></td></tr><tr><td>Medium</td><td>Moderate</td><td>Medium</td><td>High return rates</td><td><strong>Level II</strong></td></tr><tr><td>High</td><td>Low</td><td>Complex</td><td>Severe brand damage</td><td><strong>Level III</strong></td></tr></tbody></table>
+<div class="post-table-wrap"><table><thead><tr><th><strong>Product Risk</strong></th><th><strong>Supplier Maturity</strong></th><th><strong>Order Complexity</strong></th><th><strong>Consequence of Failure</strong></th><th><strong>AQL</strong></th></tr></thead><tbody><tr><td>Low</td><td>High</td><td>Simple</td><td>Minor visual flaws</td><td><strong>Level I</strong></td></tr><tr><td>Medium</td><td>Moderate</td><td>Medium</td><td>High return rates</td><td><strong>Level II</strong></td></tr><tr><td>High</td><td>Low</td><td>Complex</td><td>Severe brand damage</td><td><strong>Level III</strong></td></tr></tbody></table></div>
 
 ### The Pre-Shipment Inspection Checklist
 
@@ -209,6 +209,6 @@ We recommend treating PSI as just one layer in a total quality system that inclu
 
 Whether your factory produces velvet jewelry boxes, magnetic gift boxes, heavy-duty shipping boxes, or custom inserts and liners, you must verify the structure. Fixing a misaligned insert on the factory floor saves thousands. Catching it in your local warehouse destroys your profit.
 
-Need help aligning packaging specs, sampling plans, and factory quality control before your next shipment? [**Contact our team today**](https://www.leelinepackage.com/contact/)**.**
+Need help aligning packaging specs, sampling plans, and factory quality control before your next shipment? [**Contact our team today**](https://www.leelinepackage.com/contact/).
 
-***Disclaimer:**** We base these guides on first-hand factory experience. I am not paid by any third-party inspection agencies to recommend their services. Always match your quality control investments directly to your specific product risk and supplier maturity.*
+***Disclaimer:*** *We base these guides on first-hand factory experience. I am not paid by any third-party inspection agencies to recommend their services. Always match your quality control investments directly to your specific product risk and supplier maturity.*

@@ -6,7 +6,10 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
 import AuthorCard from '../components/AuthorCard.astro';
+import CaseStudyArticle from '../components/CaseStudyArticle.astro';
 import { categoryLabel, formatDate, getPublishedPosts, readingTime } from '../lib/blog';
+import { getCaseStudy } from '../data/case-studies';
+import { CASE_CARD_META } from '../data/case-study-cards';
 import '../styles/blog.css';
 
 /*
@@ -130,6 +133,25 @@ const authorPosts = (await getPublishedPosts())
   .filter((p) => p.data.author.id === authorEntry?.id)
   .slice(0, 5);
 
+/*
+  ⚠️ A `csae-study` post whose slug has an entry in `src/data/case-studies/` renders the
+  hand-authored case-study page instead of the shared blog article layout. A case-study post
+  with NO entry falls through to the blog layout unchanged, so the six programs that have not
+  been written yet still render at their own URLs.
+
+  The content lives in a data file, not in the post's frontmatter: `scripts/import-blog.mjs
+  convert` regenerates `src/content/blog/*.md` and would wipe anything written there.
+*/
+const caseStudy = getCaseStudy(post.id);
+
+/* Three other documented programs for "Related Results", excluding this one and anything
+   already flagged as a draft. */
+const related = caseStudy
+  ? (await getPublishedPosts())
+      .filter((p) => p.data.category === data.category && p.id !== post.id)
+      .slice(0, 3)
+  : [];
+
 const canonical = `https://www.leelinepackage.com/${post.id}/`;
 const pageTitle = data.seoTitle || data.title;
 
@@ -211,6 +233,18 @@ const jsonLd = {
 >
   <Navbar />
   <ScrollReveal />
+  {caseStudy ? (
+    <main id="top">
+      <CaseStudyArticle
+        study={caseStudy}
+        author={author}
+        authorId={authorEntry?.id}
+        authorPosts={authorPosts}
+        related={related}
+        relatedLabel={(id) => CASE_CARD_META[id]?.industry ?? categoryLabel(data.category)}
+      />
+    </main>
+  ) : (
   <main id="top">
     <section class="post-hero">
       <div class="wrap post-hero-inner">
@@ -273,6 +307,7 @@ const jsonLd = {
       </div>
     </article>
   </main>
+  )}
   <Footer />
 </Layout>
 

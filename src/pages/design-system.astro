@@ -173,6 +173,10 @@ const colors = [
         <p class="ds-comp-name"><strong>ScrollReveal</strong> · <code>src/components/ScrollReveal.astro</code> — behaviour only, so there is nothing to preview: a global <code>[data-reveal]</code> / <code>[data-reveal].in</code> pair plus the IntersectionObserver that adds <code>.in</code>, with a <code>prefers-reduced-motion</code> opt-out. The rule is global because every marked element belongs to the page, not to this component. Rendered once per blog page.</p>
       </div>
 
+      <div class="ds-component">
+        <p class="ds-comp-name"><strong>CaseStudyArticle</strong> · <code>src/components/CaseStudyArticle.astro</code> &mdash; the whole body of a hand-authored case-study page, from the hero to the closing CTA: three-up captioned photo strip, a dark band carrying four figures at display size, a hanging-numeral ledger of problems, numbered approach steps, one drawn SVG section, a five-gate sequence rail, ONE lookup table, a pair-per-question list and a closing CTA. Driven entirely by a <code>CaseStudy</code> object from <code>src/data/case-studies/</code>; <code>src/pages/[slug].astro</code> renders it instead of the blog article layout when a <code>csae-study</code> post has an entry there. No preview here &mdash; it needs a full content object plus the blog collection, so the live page is the preview: <code>/skincare-packaging-case-study/</code>.</p>
+      </div>
+
       <h3 class="ds-sub">Atoms</h3>
       <p class="ds-note">
         No standalone atom components exist yet. The homepage defines its buttons, cards, badges and

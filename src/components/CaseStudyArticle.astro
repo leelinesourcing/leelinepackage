@@ -1,0 +1,1449 @@
+---
+import type { Post } from '../lib/blog';
+import type { CaseStudy } from '../data/case-studies';
+import AuthorCard from './AuthorCard.astro';
+import { formatDate } from '../lib/blog';
+
+/*
+  CaseStudyArticle — the body of a hand-authored case-study page.
+
+  Used by `src/pages/[slug].astro` when the post's category is `csae-study` AND
+  `src/data/case-studies/` has an entry for it. A case-study post with no entry keeps the
+  shared blog article layout, so nothing breaks while the remaining programs are written.
+
+  ⚠️ This page deliberately does NOT reuse the index's devices (§The Index's white cards) or
+  the blog article's (one prose column + rail). The devices here are: a three-up captioned
+  photo strip · a dark band carrying four figures at display size · a hanging-numeral ledger ·
+  one gated sequence rail · ONE real lookup table · a crew strip. One drawn module, in §02.
+
+  ⚠️ Per the client's page rules: at most one `<table>`; every photograph has a stated role;
+  one dark centre-of-gravity band; bands alternate light → clay → dark; bands carry their own
+  vertical padding because `site.css` has no `section` padding rule.
+*/
+
+interface AuthorData {
+  name: string;
+  title?: string;
+  bio: string;
+  avatar: string;
+  avatarWidth: number;
+  avatarHeight: number;
+  expertise?: Array<{ t: string; d: string }>;
+}
+
+interface Props {
+  study: CaseStudy;
+  author?: AuthorData;
+  authorId?: string;
+  authorPosts: Post[];
+  /** Resolved from the collection — three other documented programs. */
+  related: Post[];
+  /** Industry pill label for each related post, from the card meta file. */
+  relatedLabel: (id: string) => string;
+}
+
+const { study, author, authorId, authorPosts, related, relatedLabel } = Astro.props;
+
+const leaf =
+  '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const arrow =
+  '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+const jump = [
+  { id: 'challenge', n: '01', t: 'The Challenge' },
+  { id: 'change', n: '02', t: 'What We Changed' },
+  { id: 'result', n: '03', t: 'The Numbers' },
+  { id: 'demand', n: '04', t: 'What to Demand' },
+];
+
+/* The client's name is linked at its FIRST mention — in the lead — and nowhere else. Split the
+   string rather than using `set:html`, so the anchor keeps this component's scoped styling (an
+   element inside a set:html string never gets the scope attribute). */
+const linkedClient: { name: string; linkedin: string } | null = study.client.linkedin
+  ? { name: study.client.name, linkedin: study.client.linkedin }
+  : null;
+const clientAt = linkedClient ? study.lead.indexOf(linkedClient.name) : -1;
+const leadHead = clientAt >= 0 ? study.lead.slice(0, clientAt) : study.lead;
+const leadTail =
+  clientAt >= 0 && linkedClient ? study.lead.slice(clientAt + linkedClient.name.length) : '';
+
+/* The two drawn states of the neck thread. Geometry only — every word is HTML outside the
+   viewBox, never `<text>` inside it, which is the trap that silently clips a caption.
+
+   ⚠️ One `<svg>` PER PANEL, laid out by the grid — not one wide svg with a `<g transform>`
+   per state. An element carrying both `clip-path` and `transform` has the transform applied
+   to the clip path too, so the second half was clipped clean off the viewBox and the figure
+   shipped with one panel missing. Separating them removes the offset arithmetic entirely.
+
+   ⚠️ The two panels are captioned side by side rather than a drawing beside a column of copy:
+   "diagram left, text right" is the module every other page on this site already runs, and the
+   client has flagged it before. */
+const THREAD_TEETH_Y = [70, 92, 114];
+const THREAD_PANELS = [
+  { id: 'acrylic', bad: true },
+  { id: 'petg', bad: false },
+];
+
+/* The drawn module is optional — most programs do not carry one. Bound once here so the two
+   captions can be read off the data inside the map without re-narrowing the optional. */
+const csFigure = study.change.figure;
+---
+
+<article class="csx">
+  <!-- ═══ 1 · HERO — ivory. Type-led, then a three-up captioned strip. The numbers do not
+            live here; they are the dark band's job, one band down. ═══ -->
+  <header class="csx-hero">
+    <div class="wrap">
+      <p class="eyebrow"><Fragment set:html={leaf} />{study.category} · Case Study</p>
+      <h1 class="csx-h1" data-reveal="up">{study.title}</h1>
+      <p class="csx-lead" data-reveal="up">
+        {leadHead}{linkedClient && clientAt >= 0 && (
+          <a class="csx-inline-link" href={linkedClient.linkedin} target="_blank" rel="noopener">
+            {linkedClient.name}
+          </a>
+        )}{leadTail}
+      </p>
+    </div>
+
+    <div class="wrap">
+      <ul class="csx-strip">
+        {study.hero.map((img, i) => (
+          <li class="csx-strip-cell">
+            <figure class="csx-fig">
+              <span class="csx-shot">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width={img.w}
+                  height={img.h}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  fetchpriority={i === 0 ? 'high' : 'auto'}
+                  decoding={i === 0 ? 'sync' : 'async'}
+                />
+              </span>
+              <figcaption class="csx-shot-cap">{img.cap}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </header>
+
+  <!-- ═══ 2 · THE VERDICT — the page's dark centre of gravity. Four figures at display size,
+            then the client profile as a light-on-dark fact row. ═══ -->
+  <section class="csx-verdict" aria-label="Headline results">
+    <div class="wrap">
+      <p class="csx-verdict-eyebrow">The Result, Up Front</p>
+      <dl class="csx-verdict-grid">
+        {study.verdict.map((m) => (
+          <div class="csx-verdict-cell">
+            <dt class="csx-verdict-v">{m.v}</dt>
+            <dd class="csx-verdict-k">
+              {m.k}
+              {m.note && <span class="csx-verdict-note">{m.note}</span>}
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      <dl class="csx-facts">
+        {study.facts.map((f) => (
+          <div class="csx-fact">
+            <dt>{f.k}</dt>
+            <dd>{f.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- ═══ 3–6 · THE SECTIONED BODY. The jump bar sticks to the top of this wrapper and
+            releases at its end, so it never floats over the author block or the CTA. ═══ -->
+  <div class="csx-body">
+    <!-- Below 1240px this chip bar IS the contents. Above it, the sheet is wide enough for the
+         real right-hand rail, and the bar is hidden. -->
+    <nav class="csx-jump" aria-label="Sections of this case study">
+      <div class="wrap">
+        <ul class="csx-jump-in">
+          {jump.map((j) => (
+            <li>
+              <a class="csx-chip" href={`#csx-${j.id}`} data-jump={j.id}>
+                <span class="csx-chip-n">{j.n}</span>
+                {j.t}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+
+    <!--
+      The right-hand rail.
+
+      ⚠️ `position: fixed`, NOT `sticky`. Every band in here is a full-bleed sibling section, so a
+      sticky aside would live inside one of them and unstick at that band's foot — the rail could
+      never span the article. Fixed + a reserved right gutter on `.wrap` (below) gives the same
+      read: the sheet travels with the reader and never lands on the copy.
+      ⚠️ It is visible over the WHOLE article, dark bands included, which is why it carries a solid
+      parchment plate — see the note on `.csx-rail-in`.
+    -->
+    <aside class="csx-rail" aria-label="On this page">
+      <div class="csx-rail-in">
+        <p class="csx-rail-h">On This Page</p>
+        <ol class="csx-rail-list">
+          {jump.map((j) => (
+            <li>
+              <a class="csx-rail-link" href={`#csx-${j.id}`} data-jump={j.id}>
+                <span>{j.n}</span>
+                {j.t}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </aside>
+
+    <!-- ── 01 · THE CHALLENGE — clay ─────────────────────────────────────────── -->
+    <section class="csx-band csx-band--clay" id="csx-challenge">
+      <div class="wrap">
+        <div class="csx-head">
+          <p class="csx-label">{study.challenge.label}</p>
+          <h2 class="csx-h2" data-reveal="up">{study.challenge.heading}</h2>
+          <div class="csx-intro">
+            {study.challenge.intro.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+
+        {study.challenge.plate && (
+          <figure class="csx-plate">
+            <img
+              src={study.challenge.plate.src}
+              alt={study.challenge.plate.alt}
+              width={study.challenge.plate.w}
+              height={study.challenge.plate.h}
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>{study.challenge.plate.cap}</figcaption>
+          </figure>
+        )}
+
+        <ol class="csx-ledger">
+          {study.challenge.items.map((it) => (
+            <li class="csx-entry">
+              <p class="csx-entry-n" aria-hidden="true">{it.n}</p>
+              <h3 class="csx-entry-t">{it.t}</h3>
+              {it.d.map((p) => <p class="csx-entry-d">{p}</p>)}
+              {it.list && (
+                <ul class="csx-entry-list">
+                  {it.list.map((l) => <li>{l}</li>)}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ol>
+
+        {study.challenge.notes && (
+          <div class="csx-notes">
+            {study.challenge.notes.map((n) => (
+              <blockquote class="csx-quote">
+                <p class="csx-quote-t">{n.text}</p>
+                <footer class="csx-quote-c">
+                  {n.name && <span class="csx-quote-n">{n.name}</span>}
+                  <span class:list={['csx-quote-r', !n.name && 'csx-quote-r--solo']}>
+                    {n.linkedin ? (
+                      <a class="csx-inline-link" href={n.linkedin} target="_blank" rel="noopener">{n.role}</a>
+                    ) : (
+                      n.role
+                    )}
+                  </span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- ── 02 · WHAT WE CHANGED — parchment. Steps, the page's one drawn module, then the
+              gated sequence rail. ────────────────────────────────────────────── -->
+    <section class="csx-band csx-band--parchment" id="csx-change">
+      <div class="wrap">
+        <div class="csx-head">
+          <p class="csx-label">{study.change.label}</p>
+          <h2 class="csx-h2" data-reveal="up">{study.change.heading}</h2>
+          <div class="csx-intro">
+            {study.change.intro.map((p) => <p>{p}</p>)}
+          </div>
+        </div>
+
+        <ol class="csx-steps">
+          {study.change.steps.map((s) => (
+            <li class="csx-step">
+              <p class="csx-step-n" aria-hidden="true">{s.n}</p>
+              <div class="csx-step-body">
+                <h3 class="csx-step-t">{s.t}</h3>
+                {s.d.map((p) => <p class="csx-step-d">{p}</p>)}
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <!-- the page's ONE drawn module, when the program has one -->
+        {csFigure && (
+          <div class="csx-draw">
+            <p class="csx-draw-label">{csFigure.label}</p>
+            <div class="csx-draw-grid">
+              {THREAD_PANELS.map((p, i) => {
+                const half = i === 0 ? csFigure.a : csFigure.b;
+                return (
+                  <div class="csx-draw-panel">
+                    <svg
+                      class="csx-thread"
+                      viewBox="0 0 200 300"
+                      role="img"
+                      aria-label={`Cross-section of the jar neck and cap thread: ${half.t}.`}
+                    >
+                      {/* neck, running off the bottom of the frame — this is a section, not a whole bottle */}
+                      <rect class:list={['csx-f-shell', p.bad ? 'csx-f-shell--bad' : 'csx-f-shell--good']} x={48} y={52} width={104} height={248} />
+                      {/* the thread, protruding into the cap skirt */}
+                      {THREAD_TEETH_Y.map((y) => (
+                        <>
+                          <path class:list={['csx-f-tooth', p.bad ? 'csx-f-tooth--bad' : 'csx-f-tooth--good']} d={`M48 ${y} L30 ${y + 9} L48 ${y + 18} Z`} />
+                          <path class:list={['csx-f-tooth', p.bad ? 'csx-f-tooth--bad' : 'csx-f-tooth--good']} d={`M152 ${y} L170 ${y + 9} L152 ${y + 18} Z`} />
+                        </>
+                      ))}
+                      {/* the cap, translucent so the engagement reads as a section */}
+                      <rect
+                        class:list={['csx-f-cap', p.bad ? 'csx-f-cap--bad' : 'csx-f-cap--good']}
+                        x={30}
+                        y={6}
+                        width={140}
+                        height={124}
+                        rx={10}
+                      />
+                      {/* the failure, only in the acrylic state */}
+                      {p.bad && (
+                        <>
+                          <path class="csx-f-crack" d="M50 78 L68 86 L52 94 L70 102" />
+                          <path class="csx-f-crack" d="M150 100 L132 108 L148 116" />
+                        </>
+                      )}
+                    </svg>
+                    <p class="csx-draw-t">{half.t}</p>
+                    <p class="csx-draw-d">{half.d}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        <div class="csx-seq">
+          <p class="csx-label csx-label--sub">{study.change.sequence.label}</p>
+          <h3 class="csx-h3">{study.change.sequence.heading}</h3>
+          <ol class="csx-seq-rail">
+            {study.change.sequence.items.map((g) => (
+              <li class="csx-seq-stop">
+                <p class="csx-seq-when">{g.when}</p>
+                <span class="csx-seq-dot" aria-hidden="true" />
+                <h4 class="csx-seq-t">{g.t}</h4>
+                <p class="csx-seq-d">{g.d}</p>
+                {g.releasedBy && <p class="csx-seq-by">{g.releasedBy}</p>}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        {study.change.notes && (
+          <div class="csx-notes">
+            {study.change.notes.map((n) => (
+              <blockquote class="csx-quote">
+                <p class="csx-quote-t">{n.text}</p>
+                <footer class="csx-quote-c">
+                  {n.name && <span class="csx-quote-n">{n.name}</span>}
+                  <span class:list={['csx-quote-r', !n.name && 'csx-quote-r--solo']}>
+                    {n.linkedin ? (
+                      <a class="csx-inline-link" href={n.linkedin} target="_blank" rel="noopener">{n.role}</a>
+                    ) : (
+                      n.role
+                    )}
+                  </span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- ── 03 · WHAT THE NUMBERS SAY — ivory. The page's ONE real table. ──────── -->
+    <section class="csx-band csx-band--ivory" id="csx-result">
+      <div class="wrap">
+        <div class="csx-head">
+          <p class="csx-label">{study.result.label}</p>
+          <h2 class="csx-h2" data-reveal="up">{study.result.heading}</h2>
+          <div class="csx-intro">
+            <p>{study.result.intro}</p>
+          </div>
+        </div>
+
+        <div class="csx-tablewrap">
+          <table class="csx-table">
+            <caption class="csx-sr">Before and after, with the measurement method for each figure</caption>
+            <thead>
+              <tr>
+                <th scope="col">What moved</th>
+                <th scope="col">Before</th>
+                <th scope="col">After</th>
+                <th scope="col">How it was measured</th>
+              </tr>
+            </thead>
+            <tbody>
+              {study.result.rows.map((r) => (
+                <tr>
+                  <th scope="row">{r.metric}</th>
+                  <td class="csx-td-before">{r.before}</td>
+                  <td class="csx-td-after">{r.after}</td>
+                  <td class="csx-td-how">{r.how}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <p class="csx-attr">{study.result.attribution}</p>
+
+        <div class="csx-notes">
+          {study.result.notes.map((n) => (
+            <blockquote class="csx-quote">
+              <p class="csx-quote-t">{n.text}</p>
+              <footer class="csx-quote-c">
+                {n.name && <span class="csx-quote-n">{n.name}</span>}
+                <span class:list={['csx-quote-r', !n.name && 'csx-quote-r--solo']}>
+                  {n.linkedin ? (
+                    <a class="csx-inline-link" href={n.linkedin} target="_blank" rel="noopener">{n.role}</a>
+                  ) : (
+                    n.role
+                  )}
+                </span>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 · WHAT TO DEMAND NEXT TIME — clay. Two-field entries, then the crew. ── -->
+    <section class="csx-band csx-band--clay" id="csx-demand">
+      <div class="wrap">
+        <div class="csx-head">
+          <p class="csx-label">{study.demand.label}</p>
+          <h2 class="csx-h2" data-reveal="up">{study.demand.heading}</h2>
+          <div class="csx-intro">
+            <p>{study.demand.intro}</p>
+          </div>
+        </div>
+
+        <ol class="csx-pairs">
+          {study.demand.items.map((it) => (
+            <li class="csx-pair">
+              <p class="csx-pair-n" aria-hidden="true">{it.n}</p>
+              <h3 class="csx-pair-t">{it.t}</h3>
+              <div class="csx-pair-d">{it.d.map((p) => <p>{p}</p>)}</div>
+            </li>
+          ))}
+        </ol>
+
+        {study.demand.notes && (
+          <div class="csx-notes">
+            {study.demand.notes.map((n) => (
+              <blockquote class="csx-quote">
+                <p class="csx-quote-t">{n.text}</p>
+                <footer class="csx-quote-c">
+                  {n.name && <span class="csx-quote-n">{n.name}</span>}
+                  <span class:list={['csx-quote-r', !n.name && 'csx-quote-r--solo']}>
+                    {n.linkedin ? (
+                      <a class="csx-inline-link" href={n.linkedin} target="_blank" rel="noopener">{n.role}</a>
+                    ) : (
+                      n.role
+                    )}
+                  </span>
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══ 7 · THE AUTHOR AND THE RELATED PROGRAMS — parchment ═══ -->
+  <section class="csx-band csx-band--parchment csx-band--close">
+    <div class="wrap csx-close-in">
+      {author && authorId && (
+        <AuthorCard author={author} authorId={authorId} posts={authorPosts} />
+      )}
+
+      {related.length > 0 && (
+        <div class="csx-related">
+          <p class="csx-label">Related Results</p>
+          <h2 class="csx-h2">More Documented Programs</h2>
+          <ul class="csx-related-list">
+            {related.map((p) => (
+              <li class="csx-related-card">
+                <a href={`/${p.id}/`} target="_blank" rel="noopener">
+                  <span class="csx-related-media">
+                    <img
+                      src={p.data.featuredImage}
+                      alt={p.data.featuredImageAlt}
+                      width={p.data.featuredImageWidth ?? 800}
+                      height={p.data.featuredImageHeight ?? 500}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </span>
+                  <span class="csx-related-pill">{relatedLabel(p.id)}</span>
+                  <span class="csx-related-t">{p.data.title}</span>
+                  <span class="csx-related-d">
+                    {formatDate(p.data.publishDate)} · Case Study
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ═══ 8 · CTA — the closing dark band ═══ -->
+  <section class="csx-cta">
+    <div class="wrap">
+      <h2 class="csx-cta-h">{study.cta.heading}</h2>
+      <p class="csx-cta-p">{study.cta.body}</p>
+      <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">
+        Start a Project<Fragment set:html={arrow} />
+      </a>
+    </div>
+  </section>
+</article>
+
+<style>
+  /* ══ BANDS ══════════════════════════════════════════════════════════════════════════════
+     `site.css` has no `section` padding rule, so every band sets its own — otherwise the
+     sections ship touching (the client has flagged this on two pages). Light bands take the
+     house value; the dark ones are a step larger. */
+  .csx-band { padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .csx-band--ivory { background: var(--color-ivory); }
+  .csx-band--clay { background: var(--color-clay); }
+  .csx-band--parchment { background: var(--color-parchment); }
+
+  /* ══ 1 · HERO ═══════════════════════════════════════════════════════════════════════════ */
+  .csx-hero {
+    background: var(--color-ivory);
+    padding: calc(clamp(3.5rem, 7vw, 5.5rem) + 4.75rem) 0 clamp(3rem, 6vw, 4.5rem);
+  }
+  .csx-h1 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2.05rem, 4.4vw, 3.35rem);
+    line-height: 1.06;
+    letter-spacing: -0.026em;
+    color: var(--color-brand-text);
+    max-width: 34ch;
+    margin: 1.1rem 0 0;
+    text-wrap: balance;
+  }
+  .csx-lead {
+    margin: 1.5rem 0 0;
+    max-width: 62ch;
+    font-size: 1.06rem;
+    line-height: 1.72;
+    color: var(--color-brand-muted);
+  }
+
+  .csx-strip {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.9rem, 2vw, 1.4rem);
+    margin: clamp(2.4rem, 5vw, 3.6rem) 0 0;
+    padding: 0;
+  }
+  .csx-strip-cell { min-width: 0; }
+  .csx-fig { margin: 0; }
+  /* A multi-up grid needs a visible cell boundary — the client reads a missing frame as
+     broken, not as restraint. */
+  .csx-shot {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent);
+    border-radius: 1.1rem;
+    overflow: hidden;
+    background: var(--color-clay);
+    box-shadow: 0 1px 2px rgba(20, 38, 27, 0.03), 0 18px 38px -28px rgba(20, 38, 27, 0.24);
+  }
+  .csx-shot img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+  .csx-shot-cap {
+    margin: 0.7rem 0 0;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    color: var(--color-moss);
+  }
+
+  /* ══ 2 · THE VERDICT (dark centre of gravity) ═══════════════════════════════════════════ */
+  .csx-verdict {
+    background: var(--forest-deep);
+    padding: clamp(4.5rem, 10vw, 8.5rem) 0;
+    color: var(--ivory);
+  }
+  .csx-verdict-eyebrow {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    /* --brass is 1.78:1 on this ground; --color-brass-light is the lifted tone that clears 3:1. */
+    color: var(--color-brass-light);
+  }
+  .csx-verdict-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1.4rem, 4vw, 3rem);
+    margin: clamp(1.6rem, 4vw, 2.6rem) 0 0;
+  }
+  .csx-verdict-cell { min-width: 0; }
+  .csx-verdict-v {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5.6vw, 4.3rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    color: var(--color-brass-light);
+  }
+  .csx-verdict-k {
+    margin: 0.85rem 0 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ivory);
+  }
+  .csx-verdict-note {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: rgba(245, 240, 229, 0.7);
+  }
+
+  .csx-facts {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin: clamp(2.6rem, 5vw, 4rem) 0 0;
+    padding-top: clamp(1.6rem, 3vw, 2.2rem);
+    /* The rule here IS the content: it separates the verdict from the client profile. */
+    border-top: 1px solid rgba(245, 240, 229, 0.2);
+  }
+  .csx-fact { min-width: 0; }
+  .csx-fact dt {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-brass-light);
+  }
+  .csx-fact dd {
+    margin: 0.45rem 0 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: rgba(245, 240, 229, 0.9);
+  }
+
+  /* ══ 3 · THE JUMP BAR ═══════════════════════════════════════════════════════════════════
+     Sticks under the fixed navbar for the whole body and releases at the body's end. Solid
+     background on purpose: `backdrop-filter` would make this element a containing block and
+     break the sticky positioning of anything inside it. */
+  .csx-jump {
+    position: sticky;
+    top: 4.75rem;
+    z-index: 6;
+    background: var(--color-ivory);
+    border-bottom: 1px solid color-mix(in srgb, var(--brass) 30%, transparent);
+  }
+  .csx-jump-in {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0.6rem 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .csx-jump-in::-webkit-scrollbar { display: none; }
+  .csx-jump-in > li { flex: none; }
+  .csx-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.42rem 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--brass) 34%, transparent);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--color-brand-muted);
+    white-space: nowrap;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .csx-chip-n {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    color: var(--brass);
+  }
+  .csx-chip:hover { color: var(--color-brand-text); border-color: var(--brass); }
+  .csx-chip.is-on {
+    color: var(--color-brand-text);
+    border-color: var(--brass);
+    background: color-mix(in srgb, var(--brass) 12%, transparent);
+  }
+
+  /* ── the right-hand rail (≥ 1240px) ───────────────────────────────────────────────────────
+     Two columns cannot coexist with a full-bleed band: the band background would have to stop at
+     the rail. So the bands stay full-bleed and the rail is lifted OUT of the flow into the
+     reserved gutter, which `.csx .wrap` opens up below.
+
+     ⚠️ It carries a SOLID parchment plate, and it is visible over the whole article. Without the
+     plate the muted palette is unreadable the moment a dark band is behind it — reported by the
+     client as *"目录在深色的板块看不到"*. The plate also fills the reserved gutter, so the dark
+     verdict band does not read as a band with a hole in its right side. */
+  .csx-rail { display: none; }
+
+  @media (min-width: 1240px) {
+    .csx-jump { display: none; }
+
+    /* Reserve the gutter on every band, CTA included — the rail is on screen the whole way down.
+       The CTA's own content is centred, so it gets the padding back to stay centred. */
+    .csx .wrap { padding-right: 15.5rem; }
+    .csx-cta .wrap { padding-right: 0; }
+
+    .csx-rail {
+      display: block;
+      position: fixed;
+      top: 7rem;
+      left: 50%;
+      transform: translateX(-50%);
+      /* exactly the site shell, so `margin-left: auto` inside lands the rail on the shell's right
+         edge at every width — no breakpoint arithmetic. */
+      width: min(1200px, 100% - clamp(2rem, 5vw, 4rem));
+      pointer-events: none;
+      z-index: 6;
+    }
+    .csx-rail-in {
+      pointer-events: auto;
+      width: 13rem;
+      margin-left: auto;
+      padding: 1.15rem 1.15rem 1.3rem;
+      background: var(--color-parchment);
+      border: 1px solid color-mix(in srgb, var(--brass) 28%, transparent);
+      border-radius: 1rem;
+      box-shadow: 0 1px 2px rgba(20, 38, 27, 0.03), 0 16px 36px -26px rgba(20, 38, 27, 0.22);
+    }
+
+    .csx-rail-h {
+      margin: 0 0 0.9rem;
+      font-family: var(--font-body);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-moss);
+    }
+    .csx-rail-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-left: 1px solid color-mix(in srgb, var(--brass) 32%, transparent);
+    }
+    .csx-rail-link {
+      display: flex;
+      gap: 0.55rem;
+      padding: 0.5rem 0 0.5rem 0.9rem;
+      margin-left: -1px;
+      border-left: 2px solid transparent;
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--color-brand-muted);
+      transition: color 0.25s ease, border-color 0.25s ease;
+    }
+    .csx-rail-link span {
+      flex: none;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--brass);
+    }
+    .csx-rail-link:hover { color: var(--color-brand-text); }
+    .csx-rail-link.is-on { color: var(--color-brand-text); border-left-color: var(--brass); }
+    .csx-rail-link:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+  }
+
+  /* ══ SHARED SECTION FURNITURE ═══════════════════════════════════════════════════════════ */
+  /* Clears the 76px fixed navbar AND the sticky chip bar. At ≥1240px the chip bar is gone in
+     favour of the rail, so only the navbar has to be cleared. */
+  .csx-band[id] { scroll-margin-top: 8.6rem; }
+  @media (min-width: 1240px) {
+    .csx-band[id] { scroll-margin-top: 5.6rem; }
+  }
+
+  .csx-head { max-width: 62rem; }
+  .csx-label {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .csx-label--sub { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .csx-h2 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.6vw, 2.7rem);
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    color: var(--color-brand-text);
+    margin: 0.9rem 0 0;
+    max-width: 26ch;
+    text-wrap: balance;
+  }
+  .csx-h3 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--color-brand-text);
+    margin: 0.6rem 0 0;
+  }
+  .csx-intro { margin: clamp(1.2rem, 2.5vw, 1.8rem) 0 0; max-width: 68ch; }
+  .csx-intro p {
+    font-size: 1.04rem;
+    line-height: 1.74;
+    color: var(--color-brand-muted);
+    margin: 0 0 0.85rem;
+  }
+  .csx-intro p:last-child { margin-bottom: 0; }
+
+  /* ══ 01 · THE LEDGER OF PROBLEMS ════════════════════════════════════════════════════════
+     Gap-separated. The sequence is carried by the hanging italic brass numeral, so no rule is
+     used between entries — a row of `border-top` would read as a table. */
+  .csx-plate {
+    margin: clamp(2.2rem, 4vw, 3rem) auto clamp(2.4rem, 5vw, 3.4rem);
+    max-width: 46rem;
+  }
+  .csx-plate img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+    border-radius: 1.1rem;
+    box-shadow: 0 26px 56px -38px rgba(31, 59, 44, 0.6);
+  }
+  .csx-plate figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--color-moss);
+    text-align: center;
+  }
+
+  .csx-ledger {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.8rem, 4vw, 3rem) clamp(2rem, 4vw, 3.5rem);
+    margin: 0;
+    padding: 0;
+  }
+  .csx-entry { min-width: 0; }
+  .csx-entry-n {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--brass);
+  }
+  .csx-entry-t {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 1.9vw, 1.4rem);
+    line-height: 1.22;
+    letter-spacing: -0.012em;
+    color: var(--color-brand-text);
+    margin: 0.55rem 0 0.7rem;
+  }
+  .csx-entry-d {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    margin: 0 0 0.7rem;
+  }
+  .csx-entry-d:last-child { margin-bottom: 0; }
+  .csx-entry-list {
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+  .csx-entry-list li {
+    position: relative;
+    padding-left: 0.95rem;
+    font-size: 0.94rem;
+    line-height: 1.6;
+    color: var(--color-brand-muted);
+  }
+  .csx-entry-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.34rem;
+    height: 1px;
+    background: var(--brass);
+  }
+
+  /* ══ QUOTES ═════════════════════════════════════════════════════════════════════════════ */
+  .csx-quote {
+    margin: clamp(2.6rem, 5vw, 4rem) 0 0;
+    padding-left: clamp(1.2rem, 3vw, 2rem);
+    border-left: 2px solid var(--brass);
+    max-width: 56rem;
+  }
+  .csx-quote--wide { margin-top: clamp(2.4rem, 5vw, 3.6rem); }
+  .csx-quote-t {
+    font-family: var(--font-heading);
+    font-size: clamp(1.12rem, 2.1vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.42;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .csx-quote-c { margin-top: 0.9rem; }
+  .csx-quote-n {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+  }
+  .csx-quote-r {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
+    color: var(--color-moss);
+  }
+  /* When a quote is attributed by role alone there is no name line above it, so the role takes
+     the name's weight instead of trailing under nothing. */
+  .csx-quote-r--solo {
+    margin-top: 0;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-brand-text);
+  }
+  /* A client or specialist name that links out.
+     ⚠️ Colour + weight only, NO underline — and the colour is `--color-sage`, not `--brass`. The
+     blog's own prose links set the same convention for the same reason: brass (#B08D4C) is about
+     3.1:1 on these grounds and fails for body-size text. See the note on `.post-prose a` in
+     `blog.css`; do not "tidy" this back to an underline or to brass. */
+  .csx-inline-link {
+    color: var(--color-sage);
+    font-weight: 600;
+    transition: color 0.25s ease;
+  }
+  .csx-inline-link:hover { color: var(--color-forest); }
+  .csx-inline-link:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+  /* ══ 02 · STEPS ═════════════════════════════════════════════════════════════════════════ */
+  .csx-steps {
+    list-style: none;
+    display: grid;
+    gap: clamp(1.6rem, 3.4vw, 2.6rem);
+    margin: 0;
+    padding: 0;
+  }
+  .csx-step {
+    display: grid;
+    grid-template-columns: 3.1rem minmax(0, 1fr);
+    gap: clamp(0.8rem, 2vw, 1.4rem);
+  }
+  .csx-step-n {
+    margin: 0.15rem 0 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.45rem;
+    line-height: 1;
+    color: var(--brass);
+  }
+  .csx-step-t {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.012em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .csx-step-d {
+    font-size: 1rem;
+    line-height: 1.72;
+    color: var(--color-brand-muted);
+    margin: 0.7rem 0 0;
+    max-width: 64ch;
+  }
+
+  /* ══ THE DRAWN MODULE ═══════════════════════════════════════════════════════════════════ */
+  .csx-draw {
+    margin: clamp(2.8rem, 6vw, 4.4rem) 0 0;
+    padding: clamp(1.6rem, 3.5vw, 2.6rem);
+    background: var(--color-ivory);
+    border: 1px solid color-mix(in srgb, var(--brass) 26%, transparent);
+    border-radius: 1.2rem;
+  }
+  .csx-draw-label {
+    margin: 0 0 clamp(1.2rem, 3vw, 1.8rem);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+  .csx-draw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    /* The pair carries its own measure. Stretched across the whole card the two drawings drift
+       to opposite edges and the panel reads as empty space. */
+    max-width: 44rem;
+    margin-inline: auto;
+    align-items: start;
+  }
+  .csx-draw-panel { min-width: 0; }
+  /* Drawing and caption share one left edge — centring each separately (at different widths)
+     left the figure hanging to the right of its own caption. */
+  .csx-thread { width: 100%; max-width: 11rem; height: auto; display: block; }
+  .csx-draw-t {
+    margin: 1.1rem 0 0;
+    max-width: 30ch;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.06rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  .csx-draw-d {
+    margin: 0.45rem 0 0;
+    max-width: 30ch;
+    font-size: 0.94rem;
+    line-height: 1.66;
+    color: var(--color-brand-muted);
+  }
+
+  /* Filled silhouettes, not outlines — at this size an outline drawing reads as a bracket. */
+  .csx-f-shell--bad { fill: color-mix(in srgb, var(--color-charcoal) 58%, transparent); }
+  .csx-f-shell--good { fill: color-mix(in srgb, var(--color-forest) 62%, transparent); }
+  .csx-f-tooth--bad { fill: color-mix(in srgb, var(--color-charcoal) 88%, transparent); }
+  .csx-f-tooth--good { fill: color-mix(in srgb, var(--color-forest) 92%, transparent); }
+  /* translucent so the engaged thread stays visible through the skirt — a section, not a lid */
+  .csx-f-cap { stroke-width: 1.6; }
+  .csx-f-cap--bad { fill: color-mix(in srgb, var(--color-charcoal) 10%, transparent); stroke: color-mix(in srgb, var(--color-charcoal) 46%, transparent); }
+  .csx-f-cap--good { fill: color-mix(in srgb, var(--color-forest) 9%, transparent); stroke: color-mix(in srgb, var(--color-forest) 50%, transparent); }
+  .csx-f-crack {
+    fill: none;
+    stroke: #A8442C;
+    stroke-width: 2.4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+
+  .csx-draw-key { margin: 0; display: grid; gap: 1.2rem; }
+  .csx-draw-item { padding-left: 0.95rem; border-left: 2px solid; }
+  .csx-draw-item--bad { border-color: #A8442C; }
+  .csx-draw-item--good { border-color: var(--color-forest); }
+  .csx-draw-item dt {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+  }
+  .csx-draw-item dd {
+    margin: 0.35rem 0 0;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    color: var(--color-brand-muted);
+  }
+
+  /* ══ THE GATED SEQUENCE ═════════════════════════════════════════════════════════════════
+     A horizontal rail at ≥1000px. A rule is allowed here because the connecting line IS the
+     content of a sequence — unlike the ledger above, where it would be a table by another
+     name. */
+  .csx-seq-rail {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(1rem, 2.4vw, 1.8rem);
+    margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+    padding: 0;
+    counter-reset: none;
+  }
+  .csx-seq-stop { position: relative; min-width: 0; padding-top: 1.5rem; }
+  .csx-seq-stop::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: -1.8rem;
+    top: 0.32rem;
+    height: 1px;
+    background: color-mix(in srgb, var(--brass) 40%, transparent);
+  }
+  .csx-seq-stop:last-child::before { right: 0; }
+  .csx-seq-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0.66rem;
+    height: 0.66rem;
+    border-radius: 50%;
+    background: var(--brass);
+  }
+  .csx-seq-when {
+    margin: 0;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+  }
+  .csx-seq-t {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 1.06rem;
+    line-height: 1.24;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    margin: 0.45rem 0 0;
+  }
+  .csx-seq-d {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.62;
+    color: var(--color-brand-muted);
+  }
+  /* The role that released the gate.
+     ⚠️ A ROLE, never a name. The only names on this page belong to the credited statements;
+     the people who actually worked the order are described by what they did. Putting a name on a
+     gate implies they released it, which for an outside specialist would simply be untrue. */
+  .csx-seq-by {
+    margin: 0.7rem 0 0;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+  }
+
+  /* ══ 03 · THE ONE TABLE ═════════════════════════════════════════════════════════════════ */
+  .csx-tablewrap { margin: clamp(2rem, 4vw, 2.8rem) 0 0; overflow-x: auto; }
+  .csx-table {
+    width: 100%;
+    min-width: 40rem;
+    border-collapse: collapse;
+    background: var(--color-parchment);
+    font-size: 0.95rem;
+  }
+  .csx-table th,
+  .csx-table td {
+    text-align: left;
+    padding: 0.95rem 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-brand-text) 12%, transparent);
+    vertical-align: top;
+  }
+  .csx-table thead th {
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+    border-bottom-color: color-mix(in srgb, var(--brass) 45%, transparent);
+  }
+  .csx-table tbody th {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-brand-text);
+    white-space: nowrap;
+  }
+  .csx-td-before { color: var(--color-moss); }
+  /* The one highlighted column is the one the reader came for. It keeps its row rule — the
+     client reads a missing delimiter as a defect, never as restraint. */
+  .csx-td-after { font-weight: 600; color: var(--color-forest); }
+  .csx-td-how { color: var(--color-brand-muted); font-size: 0.9rem; }
+  .csx-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .csx-attr {
+    margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+    max-width: 74ch;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    padding-left: 1rem;
+    border-left: 2px solid color-mix(in srgb, var(--brass) 50%, transparent);
+  }
+
+  /* ══ 04 · TWO-FIELD PAIRS ═══════════════════════════════════════════════════════════════
+     Numeral and title in the left field, the body in the right. Gap-separated, no rules —
+     which is what keeps this from reading as the same ledger as §01. */
+  .csx-pairs {
+    list-style: none;
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.2rem);
+    margin: 0;
+    padding: 0;
+  }
+  .csx-pair {
+    display: grid;
+    grid-template-columns: 3.1rem minmax(0, 17rem) minmax(0, 1fr);
+    gap: clamp(0.6rem, 2vw, 1.6rem);
+    align-items: baseline;
+  }
+  .csx-pair-n {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--brass);
+  }
+  .csx-pair-t {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+    line-height: 1.22;
+    letter-spacing: -0.012em;
+    color: var(--color-brand-text);
+    margin: 0;
+  }
+  .csx-pair-d { min-width: 0; }
+  .csx-pair-d p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--color-brand-muted);
+    margin: 0 0 0.6rem;
+  }
+  .csx-pair-d p:last-child { margin-bottom: 0; }
+
+  /* ══ 6b · CREDITED STATEMENTS ═══════════════════════════════════════════════════════════
+     ⚠️ These sit INSIDE the section they belong to, never in a roster at the foot of the page —
+     the client: *"说的话和人物都自然融入到前面的文章里面，不要单列"*. One `text` → `name` → `role` shape
+     for both the client's own words and the external specialists, exactly as the client asked. */
+  .csx-notes {
+    display: grid;
+    gap: clamp(1.6rem, 3vw, 2.6rem);
+    margin-top: clamp(2.6rem, 5vw, 4rem);
+  }
+  .csx-notes .csx-quote { margin: 0; }
+
+  /* ══ 7 · AUTHOR + RELATED ═══════════════════════════════════════════════════════════════ */
+  .csx-band--close { padding-bottom: clamp(4.5rem, 10vw, 8rem); }
+  .csx-close-in { max-width: 68rem; }
+  .csx-related { margin-top: clamp(3rem, 6vw, 4.5rem); }
+  .csx-related-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.1rem, 2.6vw, 1.8rem);
+    margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+    padding: 0;
+  }
+  .csx-related-card { min-width: 0; }
+  .csx-related-card a { display: block; height: 100%; }
+  .csx-related-media {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--brass) 28%, transparent);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--color-clay);
+  }
+  .csx-related-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 8 / 5;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .csx-related-card a:hover .csx-related-media img { transform: scale(1.04); }
+  .csx-related-pill {
+    display: inline-block;
+    margin: 0.9rem 0 0;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-sage);
+    background: color-mix(in srgb, var(--color-sage) 12%, transparent);
+    border-radius: 999px;
+    padding: 0.28rem 0.55rem;
+  }
+  .csx-related-t {
+    display: block;
+    margin: 0.6rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1.02rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--color-brand-text);
+    text-wrap: balance;
+  }
+  .csx-related-card a:hover .csx-related-t { color: var(--brass); }
+  .csx-related-d {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-moss);
+  }
+
+  /* ══ 8 · CTA ════════════════════════════════════════════════════════════════════════════ */
+  .csx-cta {
+    background: var(--forest-deep);
+    color: var(--ivory);
+    padding: clamp(4.5rem, 10vw, 8rem) 0;
+    text-align: center;
+  }
+  .csx-cta-h {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+  .csx-cta-p {
+    margin: 1.3rem auto 2.2rem;
+    max-width: 56ch;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: rgba(245, 240, 229, 0.78);
+  }
+
+  /* ══ RESPONSIVE ═════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 1000px) {
+    .csx-seq-rail { grid-template-columns: repeat(2, 1fr); row-gap: 1.6rem; }
+    .csx-seq-stop::before { right: -1.4rem; }
+    .csx-seq-stop:nth-child(2n)::before { right: 0; }
+    .csx-pair { grid-template-columns: 3.1rem minmax(0, 1fr); }
+    .csx-pair-d { grid-column: 2; }
+  }
+  @media (max-width: 860px) {
+    .csx-ledger { grid-template-columns: 1fr; }
+    .csx-draw-grid { grid-template-columns: 1fr; }
+    .csx-verdict-grid { grid-template-columns: repeat(2, 1fr); }
+    .csx-facts { grid-template-columns: repeat(2, 1fr); }
+    .csx-related-list { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .csx-strip { grid-template-columns: 1fr; }
+    .csx-verdict-grid { grid-template-columns: 1fr; }
+    .csx-facts { grid-template-columns: 1fr; }
+    .csx-seq-rail { grid-template-columns: 1fr; }
+    .csx-seq-stop::before { right: 0; }
+    .csx-step { grid-template-columns: 1fr; }
+    .csx-step-n { margin-bottom: 0.35rem; }
+  }
+</style>
+
+<script>
+  /*
+    Two jobs, both small:
+    • the current-section highlight, driven from one observer for BOTH the mobile chip bar and
+      the ≥1240px right-hand rail (they carry the same `data-jump`, so the same element lights up
+      in whichever one is on screen)
+    • the rail's own visibility — it is fixed, so it must be hidden whenever the sectioned body is
+      off screen, or its muted palette would land on the dark verdict band and the dark CTA
+
+    ⚠️ `.csx-body` must stay overflow-free or the sticky chip bar's containing block changes and it
+    silently stops sticking.
+  */
+  const jumpLinks = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('.csx-chip, .csx-rail-link'),
+  );
+
+  const bands = jumpLinks
+    .map((link) => ({ link, el: document.getElementById(`csx-${link.dataset.jump ?? ''}`) }))
+    .filter((b): b is { link: HTMLAnchorElement; el: HTMLElement } => Boolean(b.el));
+
+  if (bands.length && 'IntersectionObserver' in window) {
+    const setActive = (current: Element) =>
+      bands.forEach(({ link, el }) => link.classList.toggle('is-on', el === current));
+
+    const spy = new IntersectionObserver(
+      (entries) => {
+        const shown = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (shown[0]) setActive(shown[0].target);
+      },
+      // the "current" band clears the 76px navbar AND the 52px chip bar
+      { rootMargin: '-136px 0px -60% 0px', threshold: 0 },
+    );
+
+    const seen = new Set<Element>();
+    bands.forEach(({ el }) => {
+      if (!seen.has(el)) {
+        seen.add(el);
+        spy.observe(el);
+      }
+    });
+  }
+
+  /*
+    The rail is on screen from the first band to the last. It is switched off only when the footer
+    arrives, because past that point there is nothing left to navigate to — and a contents card
+    floating over the footer reads as a bug.
+  */
+  /*
+    ⚠️ There is deliberately NO show/hide logic for the rail. It was briefly hidden once the footer
+    arrived, and the client's call was *"不用收，就留着，可以看清楚"*. The parchment plate on
+    `.csx-rail-in` is what makes it readable when a dark band is behind it — that is the fix, not a
+    toggle. Do not reinstate one.
+  */
+</script>

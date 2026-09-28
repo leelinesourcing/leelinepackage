@@ -277,19 +277,7 @@ const csFigure = study.change.figure;
           </div>
         </div>
 
-        <ol class="csx-steps">
-          {study.change.steps.map((s) => (
-            <li class="csx-step">
-              <p class="csx-step-n" aria-hidden="true">{s.n}</p>
-              <div class="csx-step-body">
-                <h3 class="csx-step-t">{s.t}</h3>
-                {s.d.map((p) => <p class="csx-step-d">{p}</p>)}
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <!-- the page's ONE drawn module, when the program has one -->
+        <!-- The page's ONE drawn module, when the program has one. ⚠️ It sits BEFORE the steps on purpose: its own label is a why ("why the thread was the whole problem"), so it sets up the four changes instead of interrupting them between step 1 and step 2. -->
         {csFigure && (
           <div class="csx-draw">
             <p class="csx-draw-label">{csFigure.label}</p>
@@ -338,6 +326,18 @@ const csFigure = study.change.figure;
             </div>
           </div>
         )}
+
+        <ol class="csx-steps">
+          {study.change.steps.map((s) => (
+            <li class="csx-step">
+              <p class="csx-step-n" aria-hidden="true">{s.n}</p>
+              <div class="csx-step-body">
+                <h3 class="csx-step-t">{s.t}</h3>
+                {s.d.map((p) => <p class="csx-step-d">{p}</p>)}
+              </div>
+            </li>
+          ))}
+        </ol>
 
         <div class="csx-seq">
           <p class="csx-label csx-label--sub">{study.change.sequence.label}</p>
@@ -534,7 +534,16 @@ const csFigure = study.change.figure;
      `site.css` has no `section` padding rule, so every band sets its own — otherwise the
      sections ship touching (the client has flagged this on two pages). Light bands take the
      house value; the dark ones are a step larger. */
-  .csx-band { padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* ⚠️ The hairline at every band boundary. The light grounds in this palette all sit within
+     1.10–1.22:1 of each other — ivory→clay 1.103, clay→parchment 1.222, parchment→ivory 1.108,
+     ivory→clay 1.103 — so the light→clay→dark alternation is invisible to the eye without it.
+     Measured, not guessed. The client reads a missing delimiter as broken rather than as restraint,
+     and the index page already draws its rules in the same brass at 34%. Full-bleed on purpose:
+     this is a band edge, not a table row. The two dark bands separate themselves and carry none. */
+  .csx-band {
+    padding: clamp(4rem, 9vw, 7.5rem) 0;
+    border-top: 1px solid color-mix(in srgb, var(--brass) 32%, transparent);
+  }
   .csx-band--ivory { background: var(--color-ivory); }
   .csx-band--clay { background: var(--color-clay); }
   .csx-band--parchment { background: var(--color-parchment); }
@@ -1019,8 +1028,10 @@ const csFigure = study.change.figure;
   }
 
   /* ══ THE DRAWN MODULE ═══════════════════════════════════════════════════════════════════ */
+  /* ⚠️ BOTH margins. The figure sits between the section intro and the four steps, and
+     `.csx-steps` carries `margin: 0`, so the gap below it has to come from here. */
   .csx-draw {
-    margin: clamp(2.8rem, 6vw, 4.4rem) 0 0;
+    margin: clamp(2.8rem, 6vw, 4.4rem) 0;
     padding: clamp(1.6rem, 3.5vw, 2.6rem);
     background: var(--color-ivory);
     border: 1px solid color-mix(in srgb, var(--brass) 26%, transparent);

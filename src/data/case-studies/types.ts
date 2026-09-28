@@ -98,7 +98,14 @@ export interface CaseStudy {
   /** Result-led H1. Chicago Title Case, no trailing period. */
   title: string;
   lead: string;
-  /** 1–3 photographs for the hero strip. Each needs a `cap`. */
+  /**
+   * 1–3 photographs for the three-up strip that closes the hero.
+   *
+   * ⚠️ Keeping the strip in the hero puts the dark verdict band at ~848px, i.e. just below the fold
+   * on a 720–800px laptop. Moving it into §01 lifts the band to ~559px and the numbers *are* on the
+   * first screen — that was built, shown, and rejected: *"原版更好"*. **The hero keeps its imagery.**
+   * If the fold is raised again, do it by shortening the strip or the hero padding, not by moving it.
+   */
   hero: CsImage[];
   /** 3–4 headline figures — carried by the page's dark band at display size. */
   verdict: CsMetric[];

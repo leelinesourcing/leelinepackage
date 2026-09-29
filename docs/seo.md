@@ -382,14 +382,17 @@ Required fields only — `video:thumbnail_loc`, `video:title`, `video:descriptio
 - **`description`** — the page's `<meta name="description">`, clipped to 2,048 characters.
 - **`player_loc`** — `https://www.youtube.com/embed/<id>`, which must not equal the page URL.
 
-> ⚠️ **Three of the 53 embeds are dead.** `DHbSfMlxBH8`, `FPD6eRE0zTg` and `bna9KczcD5Y` 404 on
-> *every* thumbnail variant, and YouTube's oEmbed endpoint returns 404 for them as well — so they
-> are deleted or private, not merely thumbnail-less. They sit in `DEAD_VIDEOS` in the integration
-> and are excluded; a build warning names them and the pages carrying them.
+> ⚠️ **Three of the 53 embeds were dead and have been removed (2026-09-29).** `DHbSfMlxBH8`,
+> `FPD6eRE0zTg` and `bna9KczcD5Y` 404 on *every* thumbnail variant and on YouTube's oEmbed
+> endpoint, so they were deleted or private rather than merely thumbnail-less. Their titles named
+> generic channels where the 50 working embeds name real companies, so the ids look fabricated —
+> there is no original to restore. The embeds were deleted from `aqueous-vs-uv-coating.md`,
+> `what-is-a-pr-package.md` and `what-is-kraft-paper.md`; those pages now build with zero iframes.
 >
-> **This is a content bug, not a sitemap one.** Those pages still render a dead player:
-> `/aqueous-vs-uv-coating/`, `/what-is-a-pr-package/`, `/what-is-kraft-paper/`. Replace or remove
-> the embeds, then drop the IDs from `DEAD_VIDEOS`.
+> ⚠️ **`src/data/dead-videos.mjs` is now a GUARD and must not be deleted.** It matches nothing in
+> the current content, but `scripts/import-blog.mjs convert` **regenerates** `src/content/blog/*.md`,
+> so a re-import would silently restore the three dead embeds. A build after the removal no longer
+> prints the dead-video warning — that is the guard working, not the guard being unnecessary.
 
 > ⚠️ **Do not "fix" this with a build-time probe.** One was tried and removed: Node's `fetch`
 > cannot reach `i.ytimg.com` from this machine (curl fails identically, `schannel: failed to

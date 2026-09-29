@@ -29,8 +29,6 @@ Let’s make your next launch unforgettable.
 
 ## What is a PR Package?
 
-<iframe title="What Is A PR Package? - Trend Unwrapper" class="post-embed" src="https://www.youtube.com/embed/DHbSfMlxBH8" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-
 Are you also curious about what is a PR package? PR packages have become a game-changing marketing strategy that brings brands closer to influential voices. They act like VIP invites to a brand's world.
 
 Selected products go to people who can share their experiences with an engaged audience.

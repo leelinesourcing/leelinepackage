@@ -500,7 +500,16 @@ const jsonLd = {
   /* ============ BENEFITS ============ */
   .aw-benefit { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
   .aw-benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.5vw, 1.8rem); }
-  .aw-benefit-card { background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.4rem, 3vw, 2rem); }
+  /*
+    ⚠️ `min-width: 0` is load-bearing, not decoration. `.aw-benefit-grid` is `repeat(3, 1fr)`, and a
+    grid ITEM defaults to `min-width: auto`, so the card refuses to shrink below its min-content —
+    which here is driven by the `<img>`'s intrinsic width. At 390 px one card rendered **499 px wide**
+    in a 375 px column, pushing the whole document to 515 px and giving the page **140 px of
+    sideways scroll** (the only page on the site that did). Verified in-browser: this declaration
+    takes the overflow to 0, while `grid-template-columns: minmax(0, 1fr)` on the grid does NOT
+    fix it — the item is what has to become shrinkable.
+  */
+  .aw-benefit-card { background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.4rem, 3vw, 2rem); min-width: 0; }
   .aw-benefit-media { margin: 0 0 1.2rem; align-self: stretch; height: 210px; overflow: hidden; border-radius: 0.9rem; background: var(--ivory); }
   .aw-benefit-img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .aw-benefit-pico { width: 34px; height: 34px; }

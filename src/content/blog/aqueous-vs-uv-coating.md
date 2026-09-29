@@ -153,8 +153,6 @@ Understand how these processes connect by reading about [flexo vs offset printin
 
 ### Aqueous Coating
 
-<iframe title="What Is Aqueous Coating In Printing? - Graphic Design Nerd" class="post-embed" src="https://www.youtube.com/embed/FPD6eRE0zTg" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
-
 - **Pros:**
   - **Fold-Line Reliability:** We bent standard cartons a full 180 degrees; the flexible coating stretched perfectly without fracturing the underlying ink.
   - **High-Volume Value:** We slashed a client's production costs by 15%. The water-based layer cures instantly inline on the main printing press, eliminating drying bottlenecks.

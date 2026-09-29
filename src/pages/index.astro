@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 
 const IMG = {
   logo: 'https://img.leelinepackage.com/leelinepackage-logo.webp',
@@ -243,7 +244,7 @@ const edges = [
 
 const process = [
   { title: 'Consultation', body: 'Tell us what you ship and where it needs to land — we steer you to eco-friendly materials and a design that fits the budget.', meta: 'Day 0', img: IMG.proc1 },
-  { title: '3D design & sampling', body: 'Get a 3D mockup in a day and a real sample in 5\u201315 days, so you approve the exact box before a single unit is run.', meta: '5\u201315 days', img: IMG.proc2 },
+  { title: '3D design & sampling', body: 'Get a 3D mockup in a day and a white dummy in 3\u20135 days, so you approve the exact box before a single unit is run.', meta: '3\u20135 days', img: IMG.proc2 },
   { title: 'Quality control', body: 'ISO 9001 and ISTA-3A certified checks catch defects before they reach the customer, so each box ships consistent.', meta: '2\u20133 days', img: IMG.proc3 },
   { title: 'Delivery', body: 'With a 99.5% on-time delivery rate and real-time tracking, packaging arrives exactly as expected.', meta: '4\u20136 weeks', img: IMG.proc4 },
 ];
@@ -254,6 +255,29 @@ const faqs = [
   { q: 'Are samples charged, and does the cost come off my order?', a: 'Digital 3D mockups are free. A physical sample is a small charge that is credited against the production order, so you do not pay twice to see the final box in hand.' },
   { q: 'What pushes production lead time out, and can you rush a launch?', a: 'Volume and finishing are the main drivers — the more complex the finish and the larger the run, the longer it takes. We flag expedited and capacity limits on the quote, so you can plan a launch to the day.' },
   { q: 'How many revisions are included with my design work?', a: 'Two full revision rounds are included with each dieline and artwork project, and we log each change so you always know which version is current.' },
+];
+
+/*
+  The sampling standard, LIFTED from `/packaging-sample-prototyping/` rather than rewritten: the
+  four sample types and the four sign-off fields below are the same ones that page defines, word
+  for word, so the homepage and the service page can never drift apart. If that page changes, change
+  these — a "reworded" copy is how the two versions start disagreeing.
+
+  Kept deliberately short and self-contained: this is the block a buyer can screenshot and an AI
+  answer engine can quote without needing the rest of the page for context.
+*/
+const sampleStages = [
+  { name: '3D Sample', role: 'See the box before a sheet is cut', proves: 'Proportions, openings and a dieline error — caught before tooling is cut.' },
+  { name: 'White Dummy', role: 'Hold the structure, check the fit', proves: 'The product fits without floating or jamming, and the assembly repeats on a line.' },
+  { name: 'Digital Colour Sample', role: 'See the artwork on the real board', proves: 'Artwork sits inside the safe lines, and the colour holds on coated board.' },
+  { name: 'Production-Line Sample', role: 'The real material, the real process', proves: 'Foil and finish hold in the hand, and the pack survives the courier route.' },
+];
+
+const sampleSignoff = [
+  { k: 'Colour reference', v: 'Pantone / CMYK proof stapled to the sheet' },
+  { k: 'Board & flute', v: 'The exact grade the line will run' },
+  { k: 'Dimensions & dieline', v: 'Locked to the signed template' },
+  { k: 'Finish map', v: 'Foil, varnish, emboss — spot for spot' },
 ];
 
 const KEYWORDS = 'custom packaging manufacturers, custom printed packaging manufacturers, custom eco-friendly packaging manufacturers, custom rigid box manufacturers, custom cosmetic packaging manufacturers, custom jewelry packaging manufacturers';
@@ -290,8 +314,16 @@ const seoJsonLd = JSON.stringify({
     { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Cosmetic Packaging' } },
     { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Jewelry Packaging' } },
   ],
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
 });
+
+/*
+  ⚠️ NO `aggregateRating` in the block above. It used to declare `ratingValue: 4.9,
+  reviewCount: 320`, which is a Google structured-data violation: a self-serving rating is only
+  valid when the reviews behind it exist on the page, and this site has no review system. The count
+  also disagreed with itself across pages (320 here, on the sampling page and the structural page;
+  210 on the artwork page) and no `Review` node was ever emitted. Removed rather than left in
+  place — do not reinstate it without real, visible reviews backing the figure.
+*/
 ---
 
 <Layout
@@ -430,11 +462,11 @@ const seoJsonLd = JSON.stringify({
         </p>
         <h1>Custom Packaging Manufacturer:<br /><em>30&ndash;50% Lower Costs &amp; Protect Margins</em></h1>
         <p class="hero-sub">
-          For packaging costs that run well below other manufacturers and a 98% QC pass rate, partner with a custom packaging manufacturer that moves you from first dieline to shelf-ready boxes in as fast as 7 days. With free 3D mockups in 24 hours and white-dummy samples in 3–7 days, we take brands from prototype to mass production.
+          For packaging costs that run well below other manufacturers and a 99.8% QC pass rate, partner with a custom packaging manufacturer that moves you from first dieline to a sample you can sign in as fast as 7 days, then into a 4–6 week run. Free 3D mockups land in 24 hours.
         </p>
         <div class="hero-cta hero-el" style="--d:.46s">
-          <a class="btn btn-gold" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a class="btn btn-light" href="/services/" target="_blank" rel="noopener">Explore Our Services</a>
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-light" href="/packaging-sample-prototyping/" target="_blank" rel="noopener">See How Sampling Works</a>
         </div>
       </div>
     </section>
@@ -443,7 +475,7 @@ const seoJsonLd = JSON.stringify({
       <div class="wrap hero-stats-row">
         <div class="hs-stat"><strong>10K+</strong><span>global brands served</span></div>
         <div class="hs-stat"><strong>99.5%</strong><span>on-time delivery rate</span></div>
-        <div class="hs-stat"><strong>20+</strong><span>in-house designers</span></div>
+        <div class="hs-stat"><strong>9</strong><span>in-house specialists</span></div>
         <div class="hs-stat"><strong>500</strong><span>MOQ, up to 500k per run</span></div>
       </div>
     </section>
@@ -479,7 +511,7 @@ const seoJsonLd = JSON.stringify({
         </div>
       </div>
     <div class="section-cta">
-      <a class="btn btn-primary" href="#quote">Get Packaging Pricing<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get Packaging Pricing<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
 
     </section>
@@ -562,7 +594,7 @@ const seoJsonLd = JSON.stringify({
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Your Product Deserves Packaging That <em>Sells It</em></h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Send us what you ship — the product, the quantity, any reference you have — and our engineers will draw the dieline, pick the material and finish, and reply with a quote the same day. Prefer to feel it first? We ship a physical sample kit before you commit to a run.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
-          <a class="btn btn-gold" href="#quote">Send a Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send a Project Brief<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -616,7 +648,7 @@ const seoJsonLd = JSON.stringify({
             holds run to run, samples before you commit, protected IP and factory-direct pricing
             you can build a margin on.
           </p>
-          <a class="btn btn-ghost" href="#quote" data-reveal="up" style="--d:.18s">
+          <a class="btn btn-ghost" href="/contact/" target="_blank" rel="noopener" data-reveal="up" style="--d:.18s">
             Partner With Us
             <svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -658,23 +690,25 @@ const seoJsonLd = JSON.stringify({
         <div class="section-head section-head--center">
           <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>How We Compare</p>
           <h2 class="section-title" data-reveal="up" style="--d:.06s">The LeelinePackage <em>Difference</em></h2>
-          <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can visit, 100% QC, and terms that keep IP and deposits safe — see how that stacks up against a typical supplier.</p>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">A factory you can visit, 100% QC, and terms that keep IP and deposits safe — see how that stacks up against a catalog supplier or a local printer.</p>
         </div>
         <div class="compare" data-reveal="up">
           <table class="compare-table">
-            <thead><tr><th></th><th>LeelinePackage</th><th>Typical supplier</th></tr></thead>
+            <thead><tr><th></th><th>LeelinePackage</th><th>Catalog box or trading co.</th><th>Local short-run printer</th></tr></thead>
             <tbody>
-              <tr><td>Unit cost vs Western</td><td>30&ndash;50% lower</td><td>smaller savings</td></tr>
-              <tr><td>Minimum order</td><td>from 500</td><td>2,000&ndash;10,000</td></tr>
-              <tr><td>3D mockup</td><td>free, same day</td><td>paid, takes days</td></tr>
-              <tr><td>Physical sample</td><td>3&ndash;7 days</td><td>2&ndash;4 weeks</td></tr>
-              <tr><td>Quality control</td><td>100% inspected</td><td>spot checks</td></tr>
-              <tr><td>On-time delivery</td><td>99.5%</td><td>80&ndash;90%</td></tr>
-              <tr><td>Production</td><td>4&ndash;6 weeks</td><td>8&ndash;12 weeks</td></tr>
-              <tr><td>IP &amp; tooling</td><td>NDA, moulds yours</td><td>varies</td></tr>
+              <tr><td>Minimum order</td><td>from 500 &mdash; a smaller trial at a higher unit price</td><td>usually 2,000&ndash;10,000</td><td>very low, higher unit price</td></tr>
+              <tr><td>3D mockup</td><td>free, same day</td><td>paid, or not offered</td><td>none</td></tr>
+              <tr><td>White dummy</td><td>3&ndash;5 days, fee credited against the run</td><td>2&ndash;4 weeks, or none at all</td><td>fast, but weak on structure</td></tr>
+              <tr><td>Bulk run</td><td>4&ndash;6 weeks after sign-off</td><td>8&ndash;12 weeks is common</td><td>fine for short runs, not for a container</td></tr>
+              <tr><td>Dieline &amp; files</td><td>yours, and a reorder reuses the same set</td><td>often held by the supplier</td><td>usually yours</td></tr>
+              <tr><td>Payment</td><td>deposit, balance before shipment</td><td>full amount up front</td><td>paid up front, per job</td></tr>
+              <tr><td>Landed cost</td><td>DDP available</td><td>mostly FOB, landed cost quoted separately</td><td>no cross-border</td></tr>
+              <tr><td>Compliance files</td><td>FSC &amp; food-contact docs with the quote</td><td>on request, after payment</td><td>local stock only</td></tr>
+              <tr><td>Not a fit for</td><td>fashion bag or apparel OEM, or a bulk run below the agreed MOQ</td><td>&mdash;</td><td>&mdash;</td></tr>
             </tbody>
           </table>
         </div>
+        <p class="compare-note" data-reveal="up">The 7 days in the hero is the dieline-to-sample path &mdash; it does not include ocean freight.</p>
       </div>
     </section>
 
@@ -690,13 +724,13 @@ const seoJsonLd = JSON.stringify({
           <div class="factory-stat"><strong>20,000 m&sup2;</strong><span>production facility in China</span></div>
           <div class="factory-stat"><strong>0.1mm</strong><span>Heidelberg Speedmaster precision</span></div>
           <div class="factory-stat"><strong>24/7</strong><span>automated production lines</span></div>
-          <div class="factory-stat"><strong>500,000+</strong><span>daily packaging capacity</span></div>
+          <div class="factory-stat"><strong>1M+</strong><span>units produced a month</span></div>
         </div>
         <p class="factory-note" data-reveal="up">
           An ISO 9001 quality system and ISTA-3A testing run at each stage, so packaging ships consistent and survives the journey — while premium finishes make it feel anything but ordinary.
         </p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-light" href="#quote">Visit the Facility<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-light" href="/about-us/" target="_blank" rel="noopener">Visit the Facility<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
@@ -862,6 +896,37 @@ const seoJsonLd = JSON.stringify({
       </div>
     </section>
 
+    <!-- ============ SAMPLING STANDARD ============ -->
+    <section class="sampling" id="sampling">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <p class="eyebrow" data-reveal="up"><svg class="eyebrow-leaf" aria-hidden="true"><use href="#i-leaf-sm" /></svg>Sampling Standard</p>
+          <h2 class="section-title" data-reveal="up" style="--d:.06s">What a Sample <em>Has to Prove</em></h2>
+          <p class="section-sub" data-reveal="up" style="--d:.12s">Four stages, each answering a question a render cannot. Nothing runs until the last one is signed, against the sheet below.</p>
+        </div>
+
+        <ol class="sample-stages">
+          {sampleStages.map((s, i) => (
+            <li class="sample-stage" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="sample-num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{s.name}</h3>
+              <p class="sample-role">{s.role}</p>
+              <p class="sample-proves">{s.proves}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div class="signoff" data-reveal="up">
+          <p class="signoff-lead">Signed before the line runs</p>
+          <ul class="signoff-list">
+            {sampleSignoff.map((s) => (
+              <li><strong>{s.k}</strong><span>{s.v}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ FAQ ============ -->
     <section class="faq" id="faq">
       <div class="wrap">
@@ -902,70 +967,21 @@ const seoJsonLd = JSON.stringify({
         <h2 class="cta-title" data-reveal="up" style="--d:.06s">Launch Your Brand, <em>We'll Build the Box</em></h2>
         <p class="cta-sub" data-reveal="up" style="--d:.12s">Tell us what you ship - the product, quantity and target market - and we reply with feasibility, lead time, a price band and the risks to watch. One engineer stays with you from the first dieline to delivery, so nothing gets lost in handoff.</p>
         <div class="cta-actions" data-reveal="up" style="--d:.18s">
-          <a class="btn btn-gold" href="#quote">Request Your Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Request Your Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a class="brand brand--light" href="#top" aria-label="LeelinePackage home">
-            <img class="brand-logo" src={IMG.logo} alt="LeelinePackage" width={500} height={100} loading="lazy" />
-          </a>
-          <p class="footer-tagline">
-            Engineered, not just printed.
-          </p>
-          <p class="footer-note">
-            The Structural Brand Architect — protecting the product and impressing the customer,
-            from the first dieline to the final mile.
-          </p>
-          <div class="socials">
-            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.2 8.5h4.6V23H.2V8.5Zm7.6 0h4.4v2h.06c.61-1.16 2.1-2.38 4.33-2.38 4.63 0 5.49 3.05 5.49 7.01V23h-4.6v-6.6c0-1.57-.03-3.6-2.19-3.6-2.2 0-2.53 1.72-2.53 3.48V23H7.8V8.5Z"/></svg></a>
-            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2Zm0 1.8c-3.15 0-3.5.01-4.74.07-1.08.05-1.66.23-2.05.38-.51.2-.88.44-1.26.82-.38.38-.62.75-.82 1.26-.15.39-.33.97-.38 2.05-.06 1.24-.07 1.59-.07 4.74s.01 3.5.07 4.74c.05 1.08.23 1.66.38 2.05.2.51.44.88.82 1.26.38.38.75.62 1.26.82.39.15.97.33 2.05.38 1.24.06 1.59.07 4.74.07s3.5-.01 4.74-.07c1.08-.05 1.66-.23 2.05-.38.51-.2.88-.44 1.26-.82.38-.38.62-.75.82-1.26.15-.39.33-.97.38-2.05.06-1.24.07-1.59.07-4.74s-.01-3.5-.07-4.74c-.05-1.08-.23-1.66-.38-2.05a3.4 3.4 0 0 0-.82-1.26 3.4 3.4 0 0 0-1.26-.82c-.39-.15-.97-.33-2.05-.38C15.5 4.01 15.15 4 12 4Zm0 3.06A4.94 4.94 0 1 1 12 16.94 4.94 4.94 0 0 1 12 7.06Zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28Zm5.15-3.14a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg></a>
-            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 1.5h3.68l-8.04 9.2L24 22.5h-7.4l-5.8-7.6-6.64 7.6H.48l8.6-9.84L0 1.5h7.59l5.24 6.93L18.9 1.5Zm-1.29 18.7h2.04L6.49 3.6H4.3l13.3 16.6Z"/></svg></a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Popular Products</h4>
-          <a href="#offerings">Custom Boxes</a>
-          <a href="#offerings">Custom Bags</a>
-          <a href="#offerings">Rigid Boxes</a>
-          <a href="#offerings">Mailer Boxes</a>
-          <a href="#offerings">Custom Pouches</a>
-        </div>
-
-        <div class="footer-col">
-          <h4>Company Info</h4>
-          <a href="#offerings">About Us</a>
-          <a href="#offerings">Blog</a>
-          <a href="#offerings">Contact Us</a>
-        </div>
-
-        <div class="footer-col footer-col--contact">
-          <h4>Contact</h4>
-          <a href="mailto:info@LeelinePackage.com">info@LeelinePackage.com</a>
-          <span>Sitai Industrial Park, No. 4 Sitai Road, Yongfeng Street, Hanyang District, Wuhan City, Hubei Province, China</span>
-          <span>Mon–Sat · 9:00–18:00 CST</span>
-          <a class="btn btn-gold btn-sm" href="#quote">Get a Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <span>© 2026 LeelinePackage. All rights reserved.</span>
-        <nav class="footer-legal" aria-label="Legal">
-          <a href="/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
-          <a href="/disclaimer/" target="_blank" rel="noopener">Disclaimer</a>
-          <a href="/editorial-policy/" target="_blank" rel="noopener">Editorial Policy</a>
-          <a href="/fact-checking-process/" target="_blank" rel="noopener">Fact Checking Process</a>
-        </nav>
-      </div>
-    </div>
-  </footer>
+  <!--
+    ⚠️ The shared `Footer.astro`, not a local copy. This file used to carry its own inline footer
+    that was a byte-for-byte duplicate of the component — and it had drifted: every "Popular
+    Products" link, "About Us", "Blog" and "Contact Us" pointed at `#offerings`, and the quote
+    button pointed at `#quote`, which is the id of the final-CTA band on this same page. So the
+    whole block was a set of dead anchors, and none of it opened in a new tab. The component is the
+    single source; do not re-inline it.
+  -->
+  <Footer />
 
   <style>
     /* ============ TOKENS / RESET ============ */
@@ -1510,14 +1526,22 @@ const seoJsonLd = JSON.stringify({
       color: var(--brass);
       font-weight: 700;
     }
-    /* Dim the rival column so LeelinePackage reads as the featured choice */
+    /* Dim BOTH rival columns so LeelinePackage reads as the featured choice. With three options the
+       rival columns are no longer only the last one — a lone `:last-child` rule would have left the
+       middle column styled as a second "us". */
+    .compare-table thead th:nth-child(3),
     .compare-table thead th:last-child,
+    .compare-table tbody td:nth-child(3),
     .compare-table tbody td:last-child {
       color: var(--color-brand-muted);
       font-weight: 400;
     }
+    .compare-table tbody td:nth-child(3),
     .compare-table tbody td:last-child { opacity: 0.82; }
+    /* The ✓ means "this is our standard", which reads wrong beside a "Not a fit for" value. */
+    .compare-table tbody tr:last-child td:nth-child(2)::before { content: none; }
     .compare-table tbody tr:last-child td { border-bottom: 0; }
+    .compare-note { font-size: 0.86rem; line-height: 1.6; color: var(--color-brand-muted); margin: 1rem 0 0; max-width: 74ch; }
 
     /* ============ FINAL CTA (INVERTED) ============ */
     .cta--inline { padding: clamp(3.5rem, 8vw, 6rem) 0; }
@@ -1573,63 +1597,51 @@ const seoJsonLd = JSON.stringify({
     .cta-sub { font-size: 1.08rem; line-height: 1.7; color: rgba(255, 255, 255, 0.97); max-width: 56ch; margin: 1.5rem auto 0; text-shadow: 0 1px 18px rgba(20, 38, 27, 0.4); }
     .cta-actions { display: flex; flex-wrap: wrap; gap: 0.9rem; justify-content: center; margin-top: 2.4rem; }
 
-    /* ============ FOOTER ============ */
-    .footer { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(255, 255, 255, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.3fr;
-      gap: clamp(2rem, 4vw, 3.5rem);
-    }
-    .brand--light .brand-word { color: #fff; }
-    .brand--light .brand-word em { color: rgba(255, 255, 255, 0.55); }
-    .footer-tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-heading);
-      font-style: italic;
-      font-size: 1.35rem;
-      color: var(--brass-soft);
-      margin: 1.4rem 0 1rem;
-    }
-    .tagline-leaf { width: 1.1em; height: 1.1em; color: var(--brass); }
-    .footer-note { font-size: 0.95rem; line-height: 1.7; max-width: 40ch; margin: 0 0 1.6rem; }
-    .socials { display: flex; gap: 0.7rem; }
-    .socials a {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      display: grid;
-      place-items: center;
-      color: rgba(255, 255, 255, 0.8);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease;
-    }
-    .socials a svg { width: 17px; height: 17px; }
-    .socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--forest-deep); }
+    /* Footer styles live in `Footer.astro`, which this page now renders — see the note in the
+       markup. Nothing here should reach into `.footer*`. */
 
-    .footer-col { display: flex; flex-direction: column; gap: 0.7rem; padding-top: 0.5cm; }
-    .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
-    .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
-    .footer-col a:hover { color: #fff; }
-    .footer .brand-logo { height: 48px; filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35)); }
-    .footer-col--contact .btn { color: var(--forest-deep); padding: 0.6rem 1.15rem; font-size: 0.88rem; margin-top: 0.45rem; align-self: flex-start; }
-    .footer-col--contact .btn:hover { color: var(--forest-deep); background: #EFC45A; box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.5); }
-
-    .footer-bottom {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.14);
-      margin-top: clamp(2.5rem, 5vw, 4rem);
-      padding-top: 1.6rem;
-      font-size: 0.82rem;
+    /* ============ SAMPLING STANDARD ============ */
+    /* Clay ground, so the run of ivory bands (scenes → patent → testimonials → FAQ) is broken
+       before the reader reaches the FAQ. Deliberately NOT a table — the page already has one
+       comparison table, and the house rule allows no more than one. */
+    .sampling { background: var(--color-clay); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+    .sample-stages {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(1.2rem, 2.6vw, 2rem);
+      margin: clamp(2.4rem, 5vw, 3.4rem) 0 0;
+      padding: 0;
     }
-    .footer-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.9rem; }
-    .footer-legal a { color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
-    .footer-legal a:hover { color: var(--brass-soft); }
+    .sample-stage { display: flex; flex-direction: column; }
+    .sample-num { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.1em; color: var(--brass); }
+    .sample-stage h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; line-height: 1.2; color: var(--color-brand-text); margin: 0.35rem 0 0; }
+    .sample-role { font-family: var(--font-heading); font-style: italic; font-size: 0.97rem; line-height: 1.35; color: var(--color-brand-primary); margin: 0.45rem 0 0; }
+    .sample-proves { font-size: 0.92rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+    .signoff {
+      display: grid;
+      grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+      align-items: start;
+      gap: clamp(1rem, 3vw, 2.4rem);
+      border-top: 1px solid rgba(31, 59, 44, 0.16);
+      margin-top: clamp(2.4rem, 5vw, 3.4rem);
+      padding-top: clamp(1.4rem, 3vw, 2.2rem);
+    }
+    .signoff-lead { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; line-height: 1.3; color: var(--color-brand-text); margin: 0; }
+    .signoff-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem clamp(1rem, 2.6vw, 2.2rem); margin: 0; padding: 0; }
+    .signoff-list li { display: flex; flex-direction: column; gap: 0.2rem; }
+    .signoff-list strong { font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+    .signoff-list span { font-size: 0.92rem; line-height: 1.5; color: var(--color-brand-muted); }
+
+    @media (max-width: 900px) {
+      .sample-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.8rem clamp(1.2rem, 4vw, 2rem); }
+      .signoff { grid-template-columns: 1fr; gap: 1.2rem; }
+    }
+    @media (max-width: 560px) {
+      .sample-stages { grid-template-columns: 1fr; }
+      .signoff-list { grid-template-columns: 1fr; }
+    }
 
     /* ============ ANIMATION KEYFRAMES ============ */
     @keyframes rise {
@@ -1798,7 +1810,6 @@ const seoJsonLd = JSON.stringify({
       .process-step { grid-template-columns: auto 1fr; }
       .process-thumb { display: none; }
       .process-meta { grid-column: 2; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -1808,8 +1819,6 @@ const seoJsonLd = JSON.stringify({
       .feature { grid-template-columns: 1fr; }
       .stats { grid-template-columns: 1fr 1fr; gap: 1.6rem; }
       .hero-spec { gap: 0.5rem 1.4rem; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .footer-bottom { justify-content: flex-start; flex-direction: column; align-items: flex-start; }
     }
   </style>
 

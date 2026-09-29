@@ -66,49 +66,42 @@ const steps = [
   },
 ];
 
+/*
+  The four routes, as table rows. Each row carries the four facts a buyer can act on: where they are
+  stuck, the step that clears it, what to have ready, and — the leg the cards never stated — what
+  the next step is NOT. That last column is the one that stops a project being started from the
+  wrong end, and it is why this is a table rather than four cards.
+  This is the page's ONE table. The §Compare section below used to be a second one and was de-tabled
+  into cards (2026-09-29) so the rule holds — the route table is the one that earns it.
+*/
 const stuck = [
   {
-    t: 'No box design yet',
-    icon: [
-      { d: 'M8 3h8v5h5v8h-5v5H8v-5H3v-8h5z' },
-      { d: 'M8 8h8' },
-      { d: 'M8 8v8' },
-      { d: 'M16 8v8' },
-      { d: 'M8 16h8' },
-    ],
-    body: 'A product and a target cost, but no dieline yet. Send the outer dimensions, the packed weight and a photo, and we draw the structure around it \u2014 the carton style, the board grade and the insert all picked to keep the box cheap to run and still protect the product.',
-    note: 'The box shape decides what comes after it \u2014 so front-load the structure.',
+    t: 'Only a product and a target price',
+    step: 'Structural engineering',
+    href: '/structural-engineering-and-design/',
+    bring: 'Outer dimensions, packed weight, one photo, and the channel you sell through.',
+    notThis: 'A bulk run before the structure is settled.',
   },
   {
-    t: 'A design that might not print',
-    icon: [
-      { d: 'M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.2-.64-1.67-.08-.1-.13-.21-.13-.33 0-.28.22-.5.5-.5H16c3.31 0 6-2.69 6-6 0-4.96-4.49-9-10-9z' },
-      { d: 'M6 8a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
-      { d: 'M9.8 6.5a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
-      { d: 'M14 8.3a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
-      { d: 'M5.8 12.5a1.2 1.2 0 1 0 2.4 0a1.2 1.2 0 1 0-2.4 0z', fill: 'currentColor' },
-    ],
-    body: 'A logo or a low-res file that needs placing and correcting for the press. We fix bleed, trapping and colour, and catch the details that break a print run \u2014 a panel that falls on a fold, a finish that shifts the shade, or a thin rule that only holds at one size.',
-    note: 'Press-ready artwork means no surprises on press or on the shelf.',
+    t: 'A finished design you are afraid to print',
+    step: 'Prepress & artwork',
+    href: '/packaging-artwork-design/',
+    bring: 'An AI or PDF file, or a low-res file plus the brand colours.',
+    notThis: 'Skipping the white dummy.',
   },
   {
-    t: 'Need physical proof first',
-    icon: [
-      { d: 'M21 8l-9-5-9 5v8l9 5 9-5V8z' },
-      { d: 'M3 8l9 5 9-5' },
-      { d: 'M12 13v8' },
-    ],
-    body: 'Hold, fit and sign off a piece before approving a run. We send a white dummy to prove the fit and the assembly, then a colour prototype once the artwork is locked, so the board, finish and coating are judged on the real thing \u2014 not on a screen or a guess.',
-    note: 'A physical sample stops a problem before it becomes a whole run.',
+    t: 'Hand-feel or assembly still unproven',
+    step: 'White dummy sample',
+    href: '/packaging-sample-prototyping/',
+    bring: 'A structure that is already locked.',
+    notThis: 'Signing off from a render.',
   },
   {
-    t: 'Ready for a full quote',
-    icon: [
-      { d: 'M3 3h8l10 10-8 8L3 11V3z' },
-      { d: 'M5.8 7a1.2 1.2 0 1 0 2.4 0 1.2 1.2 0 0 0-2.4 0z', fill: 'currentColor' },
-    ],
-    body: 'The design is locked and you know the volume. Send size, weight, quantity and channel \u2014 plus any deadline or retail target \u2014 and we price it on the actual structure and board, break down every line of the quote, and name the risks to watch before you commit a run.',
-    note: 'Get a real price band and a recommended path \u2014 not a generic \u2018contact us\u2019.',
+    t: 'Dieline and quantity already settled',
+    step: 'Bulk quote',
+    href: '/contact/',
+    bring: 'Quantity band, deadline, and any FSC or food-contact requirement.',
+    notThis: 'Another round of unlimited free revisions.',
   },
 ];
 
@@ -316,22 +309,30 @@ const jsonLd = {
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Quick route</span>
           <h2 class="section-title" data-reveal="up">Pick the Step <em>You&rsquo;re Stuck On</em></h2>
-          <p class="section-sub" data-reveal="up">Four quick routes. Each names the spot where a project usually stalls, then takes you to the page that fixes it &mdash; or straight to a quote.</p>
+          <p class="section-sub" data-reveal="up">Four quick routes. Each names the spot where a project usually stalls, the step that clears it, and what not to jump to.</p>
         </div>
 
-        <div class="svc-stuck-grid">
-          {stuck.map((it, i) => (
-            <div class="svc-stuck-card" data-reveal="up" style={`--d:${(i % 4) * 0.08}s`}>
-              <span class="svc-stuck-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  {it.icon.map((p) => <path d={p.d} fill={p.fill || 'none'} />)}
-                </svg>
-              </span>
-              <h3>{it.t}</h3>
-              <p>{it.body}</p>
-              <p class="svc-stuck-note">{it.note}</p>
-            </div>
-          ))}
+        <div class="svc-route-wrap" data-reveal="up">
+          <table class="svc-route-table">
+            <thead>
+              <tr>
+                <th scope="col">Where you are stuck</th>
+                <th scope="col">Do this first</th>
+                <th scope="col">What to bring</th>
+                <th scope="col">What it is not</th>
+              </tr>
+            </thead>
+            <tbody>
+              {stuck.map((it) => (
+                <tr>
+                  <th scope="row">{it.t}</th>
+                  <td class="svc-route-step"><a href={it.href} target="_blank" rel="noopener">{it.step}</a></td>
+                  <td>{it.bring}</td>
+                  <td class="svc-route-no">{it.notThis}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
         <div class="section-cta" data-reveal="up">
@@ -373,30 +374,26 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ 5. SHORT COMPARISON TABLE ============ -->
+    <!-- ============ 5. SHORT COMPARISON (de-tabled — see the CSS note) ============ -->
     <section class="svc-compare" id="compare">
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Compare</span>
           <h2 class="section-title" data-reveal="up">LeelinePackage vs <em>a Typical Supplier</em></h2>
-          <p class="section-sub" data-reveal="up">Four differences that matter on an overview page &mdash; not the full long table.</p>
+          <p class="section-sub" data-reveal="up">Four decisions that shape how a project runs &mdash; and what a catalog supplier does instead.</p>
         </div>
 
-        <div class="svc-table-wrap" data-reveal="up">
-          <table class="svc-table svc-table--compare">
-            <thead>
-              <tr><th></th><th>LeelinePackage</th><th>Typical supplier</th></tr>
-            </thead>
-            <tbody>
-              {compare.map((c) => (
-                <tr>
-                  <th scope="row">{c.label}</th>
-                  <td>{c.us}</td>
-                  <td>{c.them}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div class="svc-diff">
+          {compare.map((c, i) => (
+            <article class="svc-diff-card" data-reveal="up" style={`--d:${(i % 2) * 0.06}s`}>
+              <span class="svc-diff-n">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="svc-diff-k">{c.label}</h3>
+              <div class="svc-diff-pair">
+                <p class="svc-diff-us"><span class="svc-diff-tag">LeelinePackage</span>{c.us}</p>
+                <p class="svc-diff-them"><span class="svc-diff-tag">Typical supplier</span>{c.them}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -561,13 +558,21 @@ const jsonLd = {
 
   /* ============ STUCK ============ */
   .svc-stuck { background: var(--kraft); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .svc-stuck-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.5rem, 3vw, 2.6rem); max-width: 1160px; margin-inline: auto; }
-  .svc-stuck-card { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.4rem; padding: clamp(1.5rem, 3vw, 2rem); display: flex; flex-direction: column; }
-  .svc-stuck-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.4rem; color: var(--color-brand-text); margin: 0 0 0.6rem; }
-  .svc-stuck-card p { font-size: 1.05rem; line-height: 1.65; color: var(--color-brand-muted); margin: 0 0 1.1rem; }
-  .svc-stuck-ico { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: rgba(176, 141, 76, 0.14); color: var(--brass); margin-bottom: 1.1rem; }
-  .svc-stuck-ico svg { width: 26px; height: 26px; }
-  .svc-stuck-card .svc-stuck-note { font-size: 0.96rem; line-height: 1.5; font-weight: 700; color: var(--brass); margin: auto 0 0; border-top: 1px solid rgba(31, 59, 44, 0.12); padding-top: 0.8rem; }
+  /* The route table sits on the kraft band, so it gets its own ivory surface with a hairline, like
+     every other table on the site. The WRAPPER scrolls, never the page — `mobile-overflow-audit.md`.
+     ⚠️ Kept on a `svc-route-*` namespace rather than the retired `svc-table*` one, so nothing can
+     reintroduce the old compare table's `nth-child(2)` forest highlight onto the wrong column. */
+  .svc-route-wrap { overflow-x: auto; border: 1px solid rgba(31, 59, 44, 0.12); border-radius: 1.2rem; background: var(--ivory); max-width: 1160px; margin-inline: auto; }
+  .svc-route-table { width: 100%; min-width: 56rem; border-collapse: collapse; }
+  .svc-route-table th, .svc-route-table td { text-align: left; padding: 1.05rem 1.15rem; border-bottom: 1px solid rgba(31, 59, 44, 0.1); vertical-align: top; }
+  .svc-route-table thead th { font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-brand-text); background: var(--color-clay); white-space: nowrap; }
+  .svc-route-table tbody th { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; line-height: 1.35; color: var(--color-brand-text); width: 15rem; }
+  .svc-route-table td { font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .svc-route-table tbody tr:last-child th, .svc-route-table tbody tr:last-child td { border-bottom: 0; }
+  .svc-route-step a { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-primary); border-bottom: 1px solid rgba(176, 141, 76, 0.7); }
+  .svc-route-step a:hover { color: var(--brass); }
+  /* "What it is not" is the leg buyers act on, so unlike the others it stays at full contrast. */
+  .svc-route-no { color: var(--color-brand-text); }
 
   /* ============ PROJECT ============ */
   .svc-project { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -583,24 +588,26 @@ const jsonLd = {
   .svc-result-tag { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass-soft); }
   .svc-result-text { font-family: var(--font-heading); font-weight: 500; font-size: 1.2rem; line-height: 1.5; margin: 0; }
 
-  /* ============ COMPARE TABLE ============ */
+  /* ============ COMPARE (de-tabled 2026-09-29) ============ */
+  /*
+    This used to be a <table>. The client's rule is ONE table per page, and the route table above is
+    the one that earns it, so this became cards: the pairing is carried by NUMERALS and the two panels
+    sit in a `gap`, with no `border-top` row anywhere — a row of border-top is still a table by their
+    definition. ⚠️ The homepage's §Difference table is now the site's full 3-option comparison, so this
+    section is deliberately the short version, not a rival to it.
+  */
   .svc-compare { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .svc-table-wrap { overflow-x: auto; }
-  .svc-table {
-    width: 100%; border-collapse: collapse;
-    background: var(--color-brand-surface);
-    border: 1px solid rgba(31, 59, 44, 0.12);
-    border-radius: 1.2rem; overflow: hidden;
-    font-size: 0.95rem;
-  }
-  .svc-table th, .svc-table td { text-align: left; padding: 1rem 1.2rem; border-bottom: 1px solid rgba(31, 59, 44, 0.1); vertical-align: top; }
-  .svc-table thead th { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-text); background: rgba(201, 168, 124, 0.12); }
-  .svc-table thead th:first-child { color: var(--color-brand-muted); }
-  .svc-table tbody th { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-text); }
-  .svc-table--compare thead th:nth-child(2) { background: var(--color-forest); color: var(--ivory); }
-  .svc-table--compare tbody td:nth-child(2) { background: rgba(31, 59, 44, 0.12); }
-  .svc-table tbody tr:last-child td, .svc-table tbody tr:last-child th { border-bottom: 0; }
-  .svc-table td { color: var(--color-brand-text); }
+  .svc-diff { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.1rem, 2.4vw, 1.7rem); margin-top: clamp(2.2rem, 4.5vw, 3.2rem); }
+  .svc-diff-card { background: var(--color-brand-surface); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.3rem; padding: clamp(1.3rem, 2.6vw, 1.8rem); }
+  .svc-diff-n { display: block; font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; color: var(--brass); }
+  .svc-diff-k { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; line-height: 1.25; color: var(--color-brand-text); margin: 0.3rem 0 0; }
+  .svc-diff-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; margin-top: 1rem; }
+  .svc-diff-us, .svc-diff-them { font-size: 0.92rem; line-height: 1.6; margin: 0; border-radius: 0.9rem; padding: 0.85rem 0.95rem; }
+  .svc-diff-us { background: rgba(31, 59, 44, 0.1); color: var(--color-brand-text); }
+  .svc-diff-them { background: rgba(31, 59, 44, 0.035); color: var(--color-brand-muted); }
+  .svc-diff-tag { display: block; font-family: var(--font-body); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .svc-diff-us .svc-diff-tag { color: var(--brass); }
+  .svc-diff-them .svc-diff-tag { color: var(--color-brand-muted); }
 
   /* ============ COMPLIANCE ============ */
   .svc-cert { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -669,7 +676,7 @@ const jsonLd = {
   /* ============ RESPONSIVE ============ */
   @media (max-width: 900px) {
     .svc-path-grid { grid-template-columns: 1fr; }
-    .svc-stuck-grid { grid-template-columns: 1fr; }
+    .svc-diff { grid-template-columns: 1fr; }
     .svc-flow { flex-direction: column; }
     .svc-flow-step { min-width: 0; }
     .svc-flow-arrow { transform: rotate(90deg); }
@@ -677,6 +684,7 @@ const jsonLd = {
     .svc-brief-media { aspect-ratio: 4/3; }
   }
   @media (max-width: 640px) {
+    .svc-diff-pair { grid-template-columns: 1fr; }
     .svc-hero-cta .btn { width: 100%; }
     .svc-hero-stats { gap: 0.7rem 1.4rem; }
   }

@@ -19,6 +19,26 @@ const reading = [
     d: 'Print, foil and fold lines laid against the dieline rather than a flat rectangle, keeping the logo off the crease and the colour on the panel.' },
 ];
 
+/*
+  Real posts from the blog, not placeholders. Every URL below was checked against the built output
+  (`dist/client/<slug>/index.html`).
+
+  ⚠️ Articles live at the site ROOT with no `/blog/` prefix — `/packaging-costs-and-pricing/`, never
+  `/blog/packaging-costs-and-pricing/`. That prefix exists only for the paginated hub
+  (`/blog/page/2/`), which is the easy mistake to make here. Each `title` is the leading phrase of
+  the post's own `<title>`, so the link text and the destination agree.
+*/
+const blogReads = [
+  { title: 'How to Calculate Packaging Costs and Pricing', url: '/packaging-costs-and-pricing/',
+    d: 'What the quote you are waiting on is built from — board, plates, tooling and where the volume breaks land.' },
+  { title: 'How to Measure a Box', url: '/box-dimensions-and-measurements/',
+    d: 'The three numbers that let a dieline be drawn on the first pass instead of the third.' },
+  { title: 'CMYK vs Pantone', url: '/cmyk-vs-pantone/',
+    d: 'Why colour is matched to a reference rather than to a screenshot, and where the two systems disagree.' },
+  { title: 'What is ISTA 3A Drop Test?', url: '/ista-3a-drop-test/',
+    d: 'The transit test behind the damage figures on this site, and what a pass actually proves.' },
+];
+
 const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z';
 ---
 
@@ -42,7 +62,7 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
         </span>
         <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d={leaf} fill="currentColor" /></svg>Message Received</span>
         <h1 class="ty-title">Thank You</h1>
-        <p class="ty-sub">Your brief landed on a structural designer&#8217;s desk, not in a queue. A dieline, material options and a complete quote are on the way, usually inside 24 hours.</p>
+        <p class="ty-sub">Your brief landed on a structural designer&#8217;s desk, not in a queue. A packaging engineer replies inside 24 hours with a dieline, material options and a complete quote.</p>
         <div class="ty-actions">
           <a class="btn btn-primary" href="/" target="_blank" rel="noopener">
             Back to Home
@@ -78,6 +98,38 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
         <div class="section-cta">
           <a class="btn btn-ghost" href="/services/" target="_blank" rel="noopener">
             View All Services
+            <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FROM THE BLOG ============ -->
+    <section class="ty-blog">
+      <div class="wrap">
+        <div class="ty-blog-head">
+          <h2 class="ty-blog-title">While the Sample Is <em>Being Made</em></h2>
+          <p class="ty-blog-sub">Longer reads from the packaging library, for the parts of a brief that are easier to settle on paper than on a call.</p>
+        </div>
+
+        <ol class="ty-reads">
+          {blogReads.map((p, i) => (
+            <li class="ty-read">
+              <a href={p.url} target="_blank" rel="noopener">
+                <span class="ty-read-num">{String(i + 1).padStart(2, '0')}</span>
+                <span class="ty-read-body">
+                  <strong>{p.title}</strong>
+                  <span class="ty-read-d">{p.d}</span>
+                </span>
+                <svg class="ty-read-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </li>
+          ))}
+        </ol>
+
+        <div class="ty-blog-cta">
+          <a class="btn btn-light" href="/blog/" target="_blank" rel="noopener">
+            Browse All Articles
             <svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -162,6 +214,52 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
   .ty-card-go .arrow { width: 1.1em; height: 1.1em; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
   .ty-card:hover .ty-card-go .arrow { transform: translateX(4px); }
 
+  /* ============ FROM THE BLOG ============ */
+  /*
+    A dark band, and a numbered list rather than a second card grid. The page was two ivory sections
+    stacked, so a grid here would have read as padding and as a copy of the section above it.
+    ⚠️ Contrast on this ground follows the documented rule in `theme.css`: body-size text is
+    `--color-ivory` (4.87:1) and brass appears only as `--color-brass-light` (3.45:1) at LARGE size
+    — `--brass-soft` (2.47:1) is not legible here. The CTA is `.btn-light`, not `.btn-ghost`:
+    `.btn-ghost` is dark-green text and would vanish.
+  */
+  .ty-blog {
+    position: relative;
+    background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%);
+    padding: clamp(4rem, 9vw, 7rem) 0 clamp(4.5rem, 10vw, 7.5rem);
+    overflow: hidden;
+  }
+  .ty-blog::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(50% 60% at 18% 10%, rgba(228, 181, 77, 0.12), transparent 70%);
+  }
+  .ty-blog .wrap { position: relative; z-index: 1; }
+  .ty-blog-head { max-width: 48rem; }
+  .ty-blog-title {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.025em;
+    color: #ffffff; margin: 0;
+  }
+  .ty-blog-title em { font-style: italic; color: var(--color-brass-light); }
+  .ty-blog-sub { font-size: 1rem; line-height: 1.7; color: var(--color-ivory); max-width: 62ch; margin: 1.1rem 0 0; }
+
+  .ty-reads { list-style: none; margin: clamp(2.2rem, 5vw, 3.2rem) 0 0; padding: 0; border-top: 1px solid rgba(255, 255, 255, 0.18); }
+  .ty-read { border-bottom: 1px solid rgba(255, 255, 255, 0.18); }
+  .ty-read a {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+    gap: clamp(1rem, 3vw, 2rem); padding: clamp(1.1rem, 2.4vw, 1.6rem) 0;
+    transition: padding-left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ty-read a:hover { padding-left: 0.7rem; }
+  .ty-read-num { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.06em; color: var(--color-brass-light); }
+  .ty-read-body { display: flex; flex-direction: column; gap: 0.3rem; }
+  .ty-read-body strong { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.9vw, 1.35rem); line-height: 1.25; color: #ffffff; }
+  .ty-read-d { font-size: 0.94rem; line-height: 1.6; color: var(--color-ivory); }
+  .ty-read-arrow { width: 22px; height: 22px; color: var(--color-brass-light); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .ty-read a:hover .ty-read-arrow { transform: translateX(5px); }
+
+  .ty-blog-cta { margin-top: clamp(2rem, 4.5vw, 2.8rem); }
+
   /* ============ RESPONSIVE ============ */
   @media (max-width: 1024px) {
     .ty-grid { grid-template-columns: repeat(2, 1fr); }
@@ -169,5 +267,7 @@ const leaf = 'M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 
   @media (max-width: 640px) {
     .ty-actions .btn { width: 100%; }
     .ty-grid { grid-template-columns: 1fr; }
+    .ty-read a { grid-template-columns: auto minmax(0, 1fr); }
+    .ty-read-arrow { display: none; }
   }
 </style>

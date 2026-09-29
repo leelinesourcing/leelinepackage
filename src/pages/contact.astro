@@ -19,7 +19,7 @@ const contacts = [
 ];
 
 const reassurance = [
-  'Reply within 24 hours', 'MOQ from 500 units', 'ISO 9001 + FSC certified', 'Samples in 3–10 days',
+  'Reply within 24 hours', 'MOQ from 500 units', 'ISO 9001 + FSC certified', 'White dummy in 3–5 days',
 ];
 
 const jsonLd = {
@@ -95,6 +95,22 @@ const jsonLd = {
               </select>
             </label>
             <label class="full"><span>Product &amp; dimensions *</span><input name="product" type="text" required placeholder="e.g. 2,000 rigid gift boxes — 180×90×45 mm" /></label>
+            <label><span>Sales channel</span>
+              <select name="channel">
+                <option>Not sure yet</option>
+                <option>DTC / own store</option>
+                <option>Amazon or marketplace</option>
+                <option>Retail &amp; wholesale</option>
+              </select>
+            </label>
+            <label><span>What you need next</span>
+              <select name="stage">
+                <option>Not sure yet</option>
+                <option>3D mockup</option>
+                <option>White dummy sample</option>
+                <option>Bulk quote &amp; lead time</option>
+              </select>
+            </label>
             <label><span>Material preference</span>
               <select name="material">
                 <option>Not sure yet</option>
@@ -281,9 +297,19 @@ const jsonLd = {
     if (Date.now() - loadedAt < 2000) return;                        // dropped silently
 
     const str = (k) => ((d.get(k) || '') + '').trim();
+    /*
+      `channel` and `stage` were added because the two facts that actually route a lead — where the
+      pack sells, and how far the buyer has got — were nowhere in the form. `stage` also maps onto
+      the four sample types on `/packaging-sample-prototyping/`, so an enquiry can be answered with
+      the right one instead of a generic "send files".
+
+      ⚠️ The n8n workflow behind N8N_WEBHOOK must be checked to confirm it tolerates the two extra
+      keys (and ideally surfaces them). Untested from here — the endpoint is not reachable locally.
+    */
     const payload = {
       name: str('name'), email: str('email'), company: str('company'), phone: str('phone'),
       need: str('need'), quantity: str('quantity'), product: str('product'),
+      channel: str('channel'), stage: str('stage'),
       material: str('material'), timeline: str('timeline'), message: str('message'),
       submittedAt: new Date().toISOString(),
       source: 'contact-page',

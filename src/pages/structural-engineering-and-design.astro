@@ -119,7 +119,11 @@ const jsonLd = {
       },
       areaServed: 'Worldwide',
       offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
+      /*
+        ⚠️ No `aggregateRating`. Removed site-wide on the same grounds as the homepage: the figure
+        was self-declared with no on-page reviews behind it, and the count contradicted itself
+        (320 on some pages, 210 on others). Reinstate only alongside real, visible reviews.
+      */
     },
     {
       '@type': 'BreadcrumbList',

@@ -28,11 +28,11 @@ Whether you're a brand owner exploring options or working with a **[custom packa
 ## Table of Contents
 
 - [What is Blister Card Packaging?](#what-is-blister-card-packaging)
-- [Types of Blister Card Packaging](#types-of-blister-card-packaging)
-- [Materials Used in Blister Card Packaging](#materials-used-in-blister-card-packaging)
-- [Manufacturing Process](#manufacturing-process-how-new-tech-transforms-blister-card-packaging)
+- [Types of Blister Card Packaging](#what-is-blister-card-packaging-types-of-it)
+- [Materials Used in Blister Card Packaging](#what-is-blister-card-packaging-materials-used)
+- [Manufacturing Process](#what-is-blister-card-packaging-manufacturing-process)
 - [Benefits and Applications of Blister Card Packaging](#benefits-and-applications-of-blister-card-packaging)
-- [Conclusion](#conclusion-why-choose-blister-card-packaging-for-your-products)
+- [Conclusion](#conclusion)
 
 ## What is Blister Card Packaging?
 

@@ -22,48 +22,57 @@ const first = [
   { v: '2', l: 'free revisions per sample' },
 ];
 
-/* The four sample types, each with what it looks like and what it validates.
-   Each maps to a real R2 image of that sample. */
+/*
+  The four sample types, as table rows. Each row carries the four facts an answer engine has to be
+  able to lift on its own: the lead time, what the sample proves, what it does NOT prove, and who
+  should stop at that step.
+
+  ⚠️ This replaced a card grid that had the same information apart from the "does not prove" leg —
+  the one a buyer actually needs, because it is what stops a sample being treated as a formality.
+
+  ⚠️ The lead times are the `first[]` figures above and the site-wide standard. Keep them in step
+  with every other page rather than restating them in a new way here.
+*/
 const samples = [
   {
     n: '01',
     name: '3D Sample',
     key: 'in-screen model',
-    tag: 'See the box before a sheet is cut.',
-    img: `${SAMPLE}/3d-sample.webp`, w: 740, h: 740, altH: 'A 3D box model on screen — a rotating openable white dummy',
-    looks: ['Rotate it and open it from any angle', 'No physical sheet is printed', 'A link to send for client sign-off'],
-    validates: ['Structure reads correctly on screen', 'Proportions and openings look right', 'Catch a dieline error before tooling'],
-    media: 'A rotating, openable 3D box model on screen \u2014 the interface, not a beautified render',
+    time: '24 hours, free',
+    img: `${SAMPLE}/3d-sample.webp`, w: 740, h: 740, alt: 'A 3D box model on screen \u2014 a rotating openable white dummy',
+    proves: 'Structure, openings and proportion read correctly, and a dieline error is caught before tooling is cut.',
+    notProves: 'Hand-feel, colour shift, or anything about crush strength.',
+    stop: 'You do not have a dieline yet.',
   },
   {
     n: '02',
     name: 'White Dummy',
-    key: 'unprinted rigid box prototype',
-    tag: 'Hold the structure, check the fit.',
-    img: `${SAMPLE}/white-dummy.webp`, w: 740, h: 740, altH: 'White unprinted rigid box dummies standing together',
-    looks: ['No print \u2014 board, flute and fold only', 'Corrugation and tuck flaps visible', 'Magnetic closure, tabs and assembly on hand'],
-    validates: ['Product fits, never floats or jams', 'Assembly is easy to repeat on a line', 'Wall thickness and weight feel right'],
-    media: 'A plain white unprinted box dummy with a product being fitted by hand \u2014 the hand checking the hold, not posing',
+    key: 'unprinted prototype',
+    time: '3\u20135 days',
+    img: `${SAMPLE}/white-dummy.webp`, w: 740, h: 740, alt: 'White unprinted rigid box dummies standing together',
+    proves: 'The product fits without floating or jamming, the insert holds it, and assembly repeats on a line.',
+    notProves: 'Print, foil, or batch-to-batch colour.',
+    stop: 'The product dimensions are still moving.',
   },
   {
     n: '03',
     name: 'Digital Colour Sample',
-    key: 'digital printed carton prototype',
-    tag: 'See the artwork on the real board.',
-    img: `${SAMPLE}/colour-sample.webp`, w: 1200, h: 720, altH: 'Colourful digitally printed cartons with a spot vs process colour guide',
-    looks: ['Digitally printed artwork', 'Registration crosses and cut edges visible', 'Whether the colour reads dull or true'],
-    validates: ['Artwork sits inside the safe lines', 'No trapped text or bleeding', 'Screen colour holds on coated board'],
-    media: 'A digitally printed carton prototype showing registration marks, cut edges and the printed artwork',
+    key: 'digitally printed prototype',
+    time: '7\u201310 days',
+    img: `${SAMPLE}/colour-sample.webp`, w: 1200, h: 720, alt: 'Digitally printed cartons with a spot versus process colour guide',
+    proves: 'Where the artwork lands on the real board, and whether the colour reads dull or true.',
+    notProves: 'Spot-colour stability across a run, or how a finish feels in the hand.',
+    stop: 'The file is locked but the finish is not decided.',
   },
   {
     n: '04',
     name: 'Production-Line Sample',
-    key: 'production sample vs mockup',
-    tag: 'The real material, the real process.',
-    img: `${SAMPLE}/production-sample.webp`, w: 1200, h: 675, altH: 'A robotic assembly line packing rigid boxes',
-    looks: ['Same material, print and finish as the run', 'Foil, lamination and emboss in place', 'A transit-tested version beside it'],
-    validates: ['Foil and finish hold in the hand', 'The box survives the courier route', 'Cost per unit is locked before bulk'],
-    media: 'A production-line sample with foil and lamination, shown beside its half after a simulated-transit test',
+    key: 'production sample',
+    time: 'per quote',
+    img: `${SAMPLE}/production-sample.webp`, w: 1200, h: 675, alt: 'A production-line sample with foil and lamination beside its transit-tested half',
+    proves: 'Board, print and finish exactly as the line will run, and that the pack survives the courier route.',
+    notProves: 'A full-container transit time \u2014 one tested sample is not a sea trial.',
+    stop: 'You are ready to release a 500+ run.',
   },
 ];
 
@@ -126,7 +135,11 @@ const jsonLd = {
       },
       areaServed: 'Worldwide',
       offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
+      /*
+        ⚠️ No `aggregateRating`. Removed site-wide on the same grounds as the homepage: the figure
+        was self-declared with no on-page reviews behind it, and the count contradicted itself
+        (320 on some pages, 210 on others). Reinstate only alongside real, visible reviews.
+      */
     },
     {
       '@type': 'BreadcrumbList',
@@ -205,40 +218,44 @@ const jsonLd = {
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>Four samples</span>
-          <h2 class="section-title" data-reveal="up">What Each Sample Looks Like, <em>and What It Proves</em></h2>
-          <p class="section-sub" data-reveal="up">Every sample is built to the same structure, so the step between the four is the material and the finish &mdash; not a different box. Here is what each one shows and the risk it takes off.</p>
+          <h2 class="section-title" data-reveal="up">Four Samples, <em>Four Different Jobs</em></h2>
+          <p class="section-sub" data-reveal="up">Every sample is built to the same structure, so the step between the four is the material and the finish &mdash; not a different box. Each one answers a different question, and each has a limit worth knowing before you pay for the next.</p>
         </div>
 
-        <div class="sp-card-grid">
-          {samples.map((s, i) => (
-            <article class="sp-card" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
-              <figure class="sp-media sp-card-ph">
-                <img src={s.img} alt={s.altH} width={s.w} height={s.h} loading="lazy" decoding="async" class="sp-ph-img" />
-              </figure>
-
-              <div class="sp-card-body">
-                <span class="sp-id-eyebrow">{s.n} &middot; {s.key}</span>
-                <h3 class="sp-id-name">{s.name}</h3>
-                <p class="sp-id-tagline">{s.tag}</p>
-
-                <div class="sp-id-cols">
-                  <div class="sp-id-col">
-                    <h4>What it looks like</h4>
-                    <ul class="sp-id-list-col">
-                      {s.looks.map((l) => <li><svg class="sp-bullet" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>{l}</li>)}
-                    </ul>
-                  </div>
-                  <div class="sp-id-col">
-                    <h4>What it validates</h4>
-                    <ul class="sp-id-list-col sp-id-list-col--check">
-                      {s.validates.map((l) => <li><svg class="sp-bullet" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>{l}</li>)}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
+        <div class="sp-table-wrap" data-reveal="up">
+          <table class="sp-table">
+            <thead>
+              <tr>
+                <th scope="col">Sample</th>
+                <th scope="col">Lead time</th>
+                <th scope="col">What it proves</th>
+                <th scope="col">What it does not prove</th>
+                <th scope="col">Stop here if</th>
+              </tr>
+            </thead>
+            <tbody>
+              {samples.map((s) => (
+                <tr>
+                  <th scope="row">
+                    <span class="sp-table-rowhead">
+                      <img class="sp-table-thumb" src={s.img} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" />
+                      <span class="sp-table-meta">
+                        <span class="sp-table-n">{s.n}</span>
+                        <span class="sp-table-name">{s.name}</span>
+                        <span class="sp-table-key">{s.key}</span>
+                      </span>
+                    </span>
+                  </th>
+                  <td class="sp-table-time">{s.time}</td>
+                  <td>{s.proves}</td>
+                  <td class="sp-table-no">{s.notProves}</td>
+                  <td>{s.stop}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        <p class="sp-table-note" data-reveal="up">No row is finished until it is signed off against the approval sheet below. Anything that drifts from that sheet is reworked or credited.</p>
       </div>
     </section>
 
@@ -420,22 +437,30 @@ const jsonLd = {
   .sp-first-cell strong { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.5rem, 2.8vw, 2.1rem); color: var(--brass-soft); display: block; line-height: 1; }
   .sp-first-cell span { font-size: 0.78rem; line-height: 1.4; color: rgba(245, 240, 229, 0.82); display: block; margin-top: 0.35rem; }
 
-  /* ============ THE FOUR SAMPLES ============ */
+  /* ============ THE FOUR SAMPLES (one table, five columns) ============ */
   .sp-id { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .sp-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.2rem, 2.8vw, 2rem); }
-  .sp-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1.2rem; padding: clamp(1.3rem, 2.6vw, 1.8rem); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease; }
-  .sp-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(31, 59, 44, 0.25); border-color: rgba(176, 141, 76, 0.5); }
-  .sp-card-ph { aspect-ratio: 16 / 9; margin: 0 0 clamp(1rem, 2vw, 1.3rem); }
-  .sp-card-body { display: flex; flex-direction: column; align-items: flex-start; }
-  .sp-id-eyebrow { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
-  .sp-id-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.7rem, 3.4vw, 2.5rem); letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0.55rem 0 0.35rem; }
-  .sp-id-tagline { font-size: 1.08rem; line-height: 1.6; color: var(--color-brand-primary); margin: 0 0 1.3rem; }
-  .sp-id-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 2rem); width: 100%; }
-  .sp-id-col h4 { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--forest-deep); margin: 0 0 0.8rem; padding-left: calc(0.6rem + 18px); }
-  .sp-id-list-col { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.7rem; }
-  .sp-id-list-col li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.96rem; line-height: 1.5; color: var(--color-brand-muted); }
-  .sp-id-list-col--check li { color: var(--color-brand-primary); }
-  .sp-bullet { width: 18px; height: 18px; flex: 0 0 auto; color: var(--brass); margin-top: 0.05rem; }
+  /* Five columns of prose will never fit a phone, so the table scrolls sideways inside this box.
+     The fix for a wide table is a scrolling wrapper, never letting the PAGE scroll — see
+     `mobile-overflow-audit.md`. */
+  .sp-table-wrap { overflow-x: auto; border: 1px solid rgba(31, 59, 44, 0.12); border-radius: 1.2rem; background: var(--ivory); }
+  .sp-table { width: 100%; min-width: 62rem; border-collapse: collapse; }
+  .sp-table th, .sp-table td { text-align: left; padding: 1.1rem 1.15rem; border-bottom: 1px solid rgba(31, 59, 44, 0.1); vertical-align: top; }
+  .sp-table thead th { font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-brand-text); background: var(--color-clay); white-space: nowrap; }
+  .sp-table tbody th { width: 13.5rem; }
+  .sp-table tbody tr:last-child th, .sp-table tbody tr:last-child td { border-bottom: 0; }
+  /* ⚠️ The row-head is a flex INSIDE the cell, not on the `th` itself — `display: flex` on a
+     table cell drops its `table-cell` box and collapses the whole table. */
+  .sp-table-rowhead { display: flex; gap: 0.85rem; align-items: flex-start; }
+  .sp-table-thumb { width: 56px; height: 56px; flex: 0 0 auto; object-fit: cover; border-radius: 0.7rem; }
+  .sp-table-meta { display: block; min-width: 0; }
+  .sp-table-n { display: block; font-family: var(--font-heading); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; color: var(--brass); }
+  .sp-table-name { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; line-height: 1.2; color: var(--color-brand-text); margin-top: 0.15rem; }
+  .sp-table-key { display: block; font-size: 0.8rem; line-height: 1.4; color: var(--color-brand-muted); margin-top: 0.25rem; }
+  .sp-table td { font-size: 0.95rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .sp-table-time { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--color-brand-primary); white-space: nowrap; }
+  /* The "does not prove" leg is the reason this table exists, so unlike the others it is not dimmed. */
+  .sp-table-no { color: var(--color-brand-text); }
+  .sp-table-note { font-size: 0.88rem; line-height: 1.6; color: var(--color-brand-muted); margin: 1.1rem 0 0; max-width: 74ch; }
 
   /* ============ APPROVAL (forest) ============ */
   .sp-approve { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
@@ -530,13 +555,11 @@ const jsonLd = {
   @media (max-width: 900px) {
     .sp-hero-grid { grid-template-columns: 1fr; }
     .sp-first-row { grid-template-columns: repeat(2, 1fr); }
-    .sp-card-grid { grid-template-columns: 1fr; }
     .sp-approve-grid { grid-template-columns: 1fr; }
     .sp-test-grid { grid-template-columns: 1fr; }
     .sp-proc-card { flex-basis: calc((100% - var(--pgap)) / 2); }
   }
   @media (max-width: 640px) {
-    .sp-id-cols { grid-template-columns: 1fr; gap: 1.1rem; }
     .sp-signoff { grid-template-columns: 1fr; }
     .sp-next-grid { grid-template-columns: 1fr; }
     .sp-proc-card { flex-basis: 100%; min-width: 0; }

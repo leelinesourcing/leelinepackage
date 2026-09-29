@@ -33,7 +33,7 @@ const capability = [
   { n: '01', t: 'China Bag Factory', d: 'Launch a bag line without owning a factory \u2014 each construction method sits with one supplier.' },
   { n: '02', t: 'OEM & ODM Bags', d: 'Your logo on a finished, shelf-ready bag \u2014 art, print and hardware set up and ready to run.' },
   { n: '03', t: 'Design & Innovation', d: 'Stay a step ahead of what\u2019s in demand — 30% of our profit goes back into new processes yearly.' },
-  { n: '04', t: 'Private Label Bags', d: 'Pick from 6,000+ styles and make one the brand\u2019s own \u2014 tags, hardware and finishing to match.' },
+  { n: '04', t: 'Private Label Bags', d: 'Your name on a bag we already build \u2014 tags, hardware and finishing matched to the range, with nothing carrying our own mark.' },
 ];
 
 /* Materials. */
@@ -82,13 +82,17 @@ const compare = [
     ] },
 ];
 
-/* Industries. */
+/* Industries.
+   ⚠️ "Agriculture & Seed" and "Chemical & Industrial" were removed here. Neither had any page,
+   spec or certificate behind it anywhere on the site, and the chemical card claimed "leak-proof and
+   chemical-resistant, built to international transport standards" — an industrial/UN-rated claim
+   nothing here can evidence, on a plant that makes tote, paper, satin, velvet, jute and mesh bags.
+   Do not reinstate either without a real page and the paperwork to back it. The grid is 2-up
+   because four cards leave a stub row at three. */
 const industries = [
   { name: 'Food & Beverage', img: `${BAG}/industry-food.webp`, w: 500, h: 400, alt: 'Liquid drink pouches with spouts', d: 'Preserves freshness and extends shelf life from production to consumption.' },
-  { name: 'Agriculture & Seed', img: `${BAG}/industry-agriculture.webp`, w: 500, h: 400, alt: 'Seed packets arranged in rows', d: 'Shields against moisture, UV and weather from storage through shipment.' },
   { name: 'Electronics & Technology', img: `${BAG}/industry-electronics.webp`, w: 500, h: 400, alt: 'A padded electronic accessory pouch', d: 'Anti-static, moisture-resistant layers so components arrive intact.' },
   { name: 'Cosmetics & Personal Care', img: `${BAG}/industry-cosmetics.webp`, w: 500, h: 400, alt: 'A row of cosmetic bottles and pumps', d: 'Lightweight, moisture-proof and brand-forward, pristine on the shelf.' },
-  { name: 'Chemical & Industrial', img: `${BAG}/industry-chemical.webp`, w: 500, h: 400, alt: 'Bulk industrial bags stacked on pallets', d: 'Leak-proof and chemical-resistant, built to international transport standards.' },
   { name: 'E-commerce & Retail', img: `${BAG}/industry-ecommerce.webp`, w: 500, h: 400, alt: 'A printed poly mailer bag with a branded design', d: 'Lightweight, customisable and eco-friendly, for a memorable unboxing.' },
 ];
 
@@ -140,6 +144,13 @@ const faqs = [
   { q: 'Is a new design kept confidential?', a: 'A Non-Disclosure Agreement is signed before any artwork is shared, and the design is used only for the order it was made for.' },
   { q: 'What happens if a batch is not right?', a: 'Where variance is on the supplier side \u2014 colour drift or material that does not match the order \u2014 the batch is reworked or the order credited.' },
   { q: 'What payment terms are offered?', a: 'A deposit secures the order and the balance settles before shipment, with terms for repeat buyers available.' },
+  /*
+    The scope boundary, worded to match `services.astro`'s "What won't this factory be a good fit
+    for?" answer. This page was advertising "OEM & ODM Bags" and "Private Label Bags" with no
+    stated limit while the services FAQ ruled out fashion bags and apparel — so a buyer comparing
+    the two pages got opposite answers. Packaging is the line, not the bag-as-garment.
+  */
+  { q: 'Is this a fashion bag or apparel OEM?', a: 'No. Packaging is the focus, not private-label products. It is not a fit for OEM goods, fashion bags or apparel \u2014 what is made here is the printed bag that carries a brand, not the garment or the handbag.' },
 ];
 
 /* Trusted-by logo wall (same set + markup as the homepage). */
@@ -179,7 +190,11 @@ const jsonLd = {
       provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
       areaServed: 'Worldwide',
       offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '320' },
+      /*
+        ⚠️ No `aggregateRating`. Removed site-wide on the same grounds as the homepage: the figure
+        was self-declared with no on-page reviews behind it, and the count contradicted itself
+        (320 on some pages, 210 on others). Reinstate only alongside real, visible reviews.
+      */
     },
     {
       '@type': 'BreadcrumbList',
@@ -398,7 +413,7 @@ const stat = [
         </div>
         <div class="cb-ind-grid">
           {industries.map((it, i) => (
-            <article class="cb-ind-card" data-reveal="up" style={`--d:${(i % 3) * 0.09}s`}>
+            <article class="cb-ind-card" data-reveal="up" style={`--d:${(i % 2) * 0.09}s`}>
               <figure class="cb-ind-ph">
                 <img src={it.img} alt={it.alt} width={it.w} height={it.h} loading="lazy" decoding="async" class="cb-img" />
               </figure>
@@ -641,7 +656,7 @@ const stat = [
 
   /* ============ INDUSTRIES ============ */
   .cb-ind { background: var(--ivory); padding: clamp(4rem, 9vw, 8rem) 0; }
-  .cb-ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
+  .cb-ind-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.1rem, 2.4vw, 1.7rem); }
   .cb-ind-card { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; overflow: hidden; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s ease; }
   .cb-ind-card:hover { transform: translateY(-6px); box-shadow: 0 24px 46px -22px rgba(31,59,44,0.28); }
   .cb-ind-ph { margin: 0; aspect-ratio: 4 / 3; }
@@ -719,7 +734,6 @@ const stat = [
   }
   @media (max-width: 900px) {
     .cb-type-grid { grid-template-columns: repeat(2, 1fr); }
-    .cb-ind-grid { grid-template-columns: repeat(2, 1fr); }
     .cb-quote-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 640px) {

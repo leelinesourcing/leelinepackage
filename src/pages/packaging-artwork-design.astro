@@ -117,7 +117,11 @@ const jsonLd = {
       provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
       areaServed: 'Worldwide',
       offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
-      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '210' },
+      /*
+        ⚠️ No `aggregateRating`. Removed site-wide on the same grounds as the homepage: the figure
+        was self-declared with no on-page reviews behind it, and the count contradicted itself
+        (210 here, 320 elsewhere). Reinstate only alongside real, visible reviews.
+      */
     },
     {
       '@type': 'BreadcrumbList',

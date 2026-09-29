@@ -267,6 +267,22 @@ const seoJsonLd = JSON.stringify({
   foundingDate: '2015',
   areaServed: 'Worldwide',
   address: { '@type': 'PostalAddress', addressCountry: 'CN' },
+  /*
+    `logo` as a typed ImageObject, to match what the old WordPress site published (Rank Math
+    emitted an `ImageObject` at `#logo` with a caption). Google reads Organization.logo from the
+    homepage for the brand entity, which is why it is added here and not on all 28 pages that
+    carry their own inline Organization node.
+
+    ⚠️ Google asks for a logo at least 112 px tall; this file is 500x100, so it is 12 px short.
+    Pre-existing, and the old site's 150x100 crop was short too.
+  */
+  logo: {
+    '@type': 'ImageObject',
+    '@id': 'https://www.leelinepackage.com/#logo',
+    url: IMG.logo,
+    contentUrl: IMG.logo,
+    caption: 'LeelinePackage',
+  },
   makesOffer: [
     { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Printed Packaging' } },
     { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom Eco-Friendly Packaging' } },

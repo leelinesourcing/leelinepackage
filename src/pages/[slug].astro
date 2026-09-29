@@ -8,6 +8,7 @@ import ScrollReveal from '../components/ScrollReveal.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import CaseStudyArticle from '../components/CaseStudyArticle.astro';
 import { categoryLabel, formatDate, getPublishedPosts, readingTime } from '../lib/blog';
+import { DEAD_VIDEOS } from '../data/dead-videos.mjs';
 import { getCaseStudy } from '../data/case-studies';
 import { CASE_CARD_META } from '../data/case-study-cards';
 import '../styles/blog.css';
@@ -183,6 +184,29 @@ const faqItems = [...faqSource.matchAll(/<div class="post-faq-item">([\s\S]*?)<\
   return { q: plain(q), a: plain(inner.replace(/<h3[\s\S]*?<\/h3>/i, '')) };
 }).filter((i) => i.q && i.a);
 
+/*
+  VideoObject for the YouTube embeds in the body.
+
+  `uploadDate` is REQUIRED by Google and we have no per-video date: oEmbed does not return one, the
+  YouTube Data API needs a key, and this box cannot reach i.ytimg.com from Node at all. So the
+  post's publish date is used — exactly what the old WordPress site did (Rank Math). It is an
+  approximation, not the video's upload date.
+
+  ⚠️ Deliberately NOT copied from the old site, whose version was malformed: `description` was
+  YouTube's generic boilerplate, `thumbnailUrl` was the post's featured image rather than the video
+  thumbnail, `isFamilyFriendly` was the string "True", and `publisher` pointed at a Person. Here:
+  the iframe's own `title` as `name`, the page description, the real YouTube thumbnail, a real
+  boolean, and an Organization publisher.
+
+  Dead embeds are excluded via the shared list, because a `thumbnailUrl` that 404s is invalid.
+*/
+const videos = [...body.matchAll(
+  /<iframe\b[^>]*\bsrc="https?:\/\/(?:www\.)?(?:youtube(?:-nocookie)?\.com\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{11})[^"]*"[^>]*>/g,
+)]
+  .map((m) => ({ id: m[1], title: (/title="([^"]*)"/.exec(m[0])?.[1] ?? '').trim() }))
+  .filter((v, i, all) => all.findIndex((x) => x.id === v.id) === i)
+  .filter((v) => !DEAD_VIDEOS.has(v.id));
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -219,6 +243,22 @@ const jsonLd = {
           })),
         }]
       : []),
+    ...videos.map((v) => ({
+      '@type': 'VideoObject',
+      name: v.title || data.title,
+      description: data.description,
+      thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
+      uploadDate: data.publishDate.toISOString(),
+      embedUrl: `https://www.youtube.com/embed/${v.id}`,
+      isFamilyFriendly: true,
+      inLanguage: 'en-US',
+      publisher: {
+        '@type': 'Organization',
+        name: 'LeelinePackage',
+        url: 'https://www.leelinepackage.com/',
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    })),
   ],
 };
 ---
@@ -229,6 +269,11 @@ const jsonLd = {
   canonical={canonical}
   ogType="article"
   ogImage={data.featuredImage}
+  ogImageAlt={data.featuredImageAlt}
+  ogImageWidth={data.featuredImageWidth}
+  ogImageHeight={data.featuredImageHeight}
+  publishedTime={data.publishDate.toISOString()}
+  articleAuthor={author?.name}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <Navbar />
@@ -347,12 +392,12 @@ const jsonLd = {
      `alt=""` because the name sits right beside it — announcing it again is noise. Same
      top-weighted crop as the author card: the source portrait is 400×600. */
   .post-hero-avatar {
-    width: 38px;
-    height: 38px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center 22%;
-    margin-right: 0.3rem;
+    margin-right: 0.5rem;
     border: 1px solid color-mix(in srgb, var(--color-brand-text) 12%, transparent);
   }
   .post-hero-role { color: var(--color-brand-muted); }

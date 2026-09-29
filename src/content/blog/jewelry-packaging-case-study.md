@@ -73,13 +73,13 @@ Before writing this **jewelry packaging case study**, my team spent 40 hours tes
 
 We executed a complete structural pivot. I scrapped the flimsy tuck-top design entirely. Packaging Engineer Lin built a heavy-duty 1200-gram magnetic rigid structure. This single switch locked the product in place and stopped the crushing hazard.
 
-It formed the baseline for our [custom jewelry packaging](https://leelinepackage.com/custom-jewelry-packaging/) operations.
+It formed the baseline for our [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/) operations.
 
 ### Phase 1: Brand And Unboxing Strategy
 
 True luxury relies on anticipation. I reviewed the client's visual guidelines to optimize their **custom jewelry packaging branding**. We needed a slower reveal sequence. The team replaced standard gloss paper with a soft-touch black wrap.
 
-This added a velvet-like tactile perception aligned with [LeelinePackage](https://leelinepackage.com/) standards.
+This added a velvet-like tactile perception aligned with [LeelinePackage](https://www.leelinepackage.com/) standards.
 
 We skipped flashy foil. Foil often flakes off during rough overseas transit. I recommended deep logo debossing instead. This subtle texture signals premium quality immediately. The heavy snap of the magnetic lid controls the unboxing pace.
 
@@ -91,7 +91,7 @@ Quality Lead Wang and I tore down the previous packaging on the factory floor. T
 
 Next, we fixed the interior. The old sponge let rings bounce during transit. This caused micro-scratches that triggered a 12% return rate. Technician Wei cut a high-density molded EVA insert to stop all lateral movement.
 
-I compiled this exact structural checklist for our [custom box manufacturer](https://leelinepackage.com/custom-box-manufacturer/) floor teams:
+I compiled this exact structural checklist for our [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) floor teams:
 
 - **Core Material:** 1200 GSM rigid greyboard (resists crushing).
 - **Wrap Paper:** 157 GSM soft-touch art paper (elevates tactile feel).
@@ -106,7 +106,7 @@ I compiled this exact structural checklist for our [custom box manufacturer](htt
 
 You cannot fake sustainability. When screening **sustainable jewelry box manufacturers**, I demanded strict chain-of-custody evidence from our suppliers. We selected [FSC-certified paper wraps](https://fsc.org/en/what-the-fsc-labels-mean) to ensure responsible forestry.
 
-The rigid core utilizes 100% post-consumer recycled fiber. We also swapped toxic industrial glues for a water-based adhesive. This exact material stack mirrors the success recorded in our [apparel packaging case study](https://leelinepackage.com/apparel-packaging-case-study/).
+The rigid core utilizes 100% post-consumer recycled fiber. We also swapped toxic industrial glues for a water-based adhesive. This exact material stack mirrors the success recorded in our [apparel packaging case study](https://www.leelinepackage.com/apparel-packaging-case-study/).
 
 <div class="post-table-wrap"><table><thead><tr><th><strong>Component</strong></th><th><strong>Previous</strong></th><th><strong>New</strong></th><th><strong>Why changed</strong></th><th><strong>Cost impact</strong></th><th><strong>Sustainability</strong></th></tr></thead><tbody><tr><td><strong>Core Board</strong></td><td>250 GSM Cardboard</td><td>1200 GSM Rigid Board</td><td>Prevent crushing</td><td>+$0.45/unit</td><td>100% recycled fiber</td></tr><tr><td><strong>Insert Tray</strong></td><td>Standard PU Sponge</td><td>Molded EVA Foam</td><td>Stop jewelry movement</td><td>+$0.20/unit</td><td>30% recycled EVA</td></tr><tr><td><strong>Exterior Wrap</strong></td><td>Gloss Lamination</td><td>Soft-touch FSC Paper</td><td>Elevate tactile feel</td><td>+$0.15/unit</td><td>FSC-certified material</td></tr></tbody></table></div>
 
@@ -124,13 +124,13 @@ Technician Zhao immediately upgraded the closure by referencing strict neodymium
 
 The stronger N45 magnet ensured the second sample survived a six-foot drop. This is a crucial lesson in **luxury jewelry packaging design**: a beautiful box fails instantly if it spills the product.
 
-Thicker boards improve customer perception but risk higher freight costs. Operations Manager **[Joan Liu](https://www.linkedin.com/in/packagingboxjoan)** solved this margin threat by tightening the exterior dimensions by half an inch. This structural adjustment mirrors the physical tweaks in our [custom die-cut windows case study](https://leelinepackage.com/custom-die-cut-windows/).
+Thicker boards improve customer perception but risk higher freight costs. Operations Manager **[Joan Liu](https://www.linkedin.com/in/packagingboxjoan)** solved this margin threat by tightening the exterior dimensions by half an inch. This structural adjustment mirrors the physical tweaks in our [custom die-cut windows case study](https://www.leelinepackage.com/custom-die-cut-windows-case-study/).
 
 It optimized our palletization.
 
-Our new **jewelry display packaging solutions** nest perfectly inside master shipping cartons to eliminate dead space. This efficiency directly prevents the [sea-freight damage](https://leelinepackage.com/sea-freight-damage/) that clients often complain about.
+Our new **jewelry display packaging solutions** nest perfectly inside master shipping cartons to eliminate dead space. This efficiency directly prevents the [sea-freight damage](https://www.leelinepackage.com/prevent-packaging-damage-during-sea-freight/) that clients often complain about.
 
-The final structure supports both brutal D2C shipping networks and pristine retail display shelves. You do not need to assemble these boxes on the line. This speeds up fulfillment and pairs easily with future [packaging automation](https://leelinepackage.com/packaging-automation/).
+The final structure supports both brutal D2C shipping networks and pristine retail display shelves. You do not need to assemble these boxes on the line. This speeds up fulfillment and pairs easily with future [packaging automation](https://www.leelinepackage.com/packaging-automation/).
 
 Every material decision answered a distinct business objective. The heavy board protects better. The soft paper feels premium. The tight insert eliminates damage without creating inefficient shipping costs.
 
@@ -153,7 +153,7 @@ I built a simple high-end packaging ROI analysis to measure commercial impact. T
 
 Eliminating damage replacements and lowering freight costs eclipsed the initial price bump.
 
-This structural efficiency also prepares the brand to seamlessly integrate [packaging automation](https://leelinepackage.com/packaging-automation/) as they scale. I tested the load-bearing capacity directly on the warehouse floor to ensure these margins hold under extreme pressure.
+This structural efficiency also prepares the brand to seamlessly integrate [packaging automation](https://www.leelinepackage.com/packaging-automation/) as they scale. I tested the load-bearing capacity directly on the warehouse floor to ensure these margins hold under extreme pressure.
 
 The design impacted every role across the supply chain. End customers unboxed a premium presentation. Warehouse staff packed boxes faster. Retail teams received cleaner shelf displays. Junior staff learned the new, repeatable packing workflow in under ten minutes.
 
@@ -210,8 +210,8 @@ The next competitive edge in jewelry packaging relies on total material transpar
 
 This approach creates an accessible, premium experience for all user types.
 
-Building on this foundation, the client plans to scale this structural model across their entire product line. They will integrate companion pouches from a specialized [custom bag manufacturer](https://leelinepackage.com/custom-bag-manufacturer/) to create a unified unboxing system.
+Building on this foundation, the client plans to scale this structural model across their entire product line. They will integrate companion pouches from a specialized [custom bag manufacturer](https://www.leelinepackage.com/custom-bag-manufacturer/) to create a unified unboxing system.
 
-Are you ready to optimize your packaging economics? Contact our team to request a structural sample of a [custom gift box](https://leelinepackage.com/custom-gift-box/) or explore complete [custom jewelry packaging](https://leelinepackage.com/custom-jewelry-packaging/) solutions. You can also visit our custom box manufacturer homepage to start your quote today.
+Are you ready to optimize your packaging economics? Contact our team to request a structural sample of a [custom gift box](https://www.leelinepackage.com/custom-gift-box/) or explore complete [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/) solutions. You can also visit our custom box manufacturer homepage to start your quote today.
 
 **Transparency Disclosure:** I operate as the Senior Strategic Analyst for this manufacturing project. I personally oversaw the factory testing phases described above. I maintain no financial conflicts of interest with external material suppliers.

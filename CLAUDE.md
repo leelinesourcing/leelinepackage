@@ -16,6 +16,16 @@ All brand, color, and typography decisions live in **`docs/brand-guide.md`** —
 making any design decision. Do not invent hex values, font names, or spacing; extract from there
 or add to the token block first.
 
+How the SEO surface is generated — the sitemaps (URL, image, video), `robots.txt`, and every
+`<head>` tag — lives in **`docs/seo.md`**. Read it before adding a page, changing a URL, or
+reaching for an SEO package: it is the reference for the `Layout` props, the JSON-LD schema
+pattern, the `noindex`-vs-sitemap trap, and why `astro-seo` / `astro-seo-schema` were evaluated and
+rejected.
+
+Google Analytics 4 (`G-1SW1ZD9R55`, site-wide via `Layout.astro`) is documented in
+**`docs/analytics.md`** — including **why `gtag.js` is deliberately loaded after idle rather than at
+parse time**, which must not be "simplified" back to Google's official snippet.
+
 ## File structure
 
 - **Components:** `src/components/` — PascalCase `.astro` files (e.g. `Navbar.astro`)
@@ -23,6 +33,8 @@ or add to the token block first.
 - **Styles & tokens:** `src/styles/global.css` (self-hosted font imports), `src/styles/theme.css`
   (the `@theme static` token block), `src/styles/base.css` (base layer).
 - **Layout:** `src/layouts/Layout.astro` — page shell (head, fonts preload, footer).
+- **Build integrations:** `integrations/` — custom Astro integrations wired up in
+  `astro.config.mjs`. Today: `media-sitemaps.mjs`, which writes the image and video sitemaps.
 
 ## Component rules (IMPORTANT)
 
@@ -81,6 +93,10 @@ There are no local content images in the repo — `src/assets/` is unused.
   before they enter the viewport (e.g. carousels).
 - **No render-blocking external resources:** no external `<link rel="stylesheet">` in the `<head>`.
   All CSS and fonts must be same-origin (bundled into `_astro/`).
+- **Google Analytics stays off the critical path.** `gtag.js` is injected by a deferred loader in
+  `Layout.astro` (idle, ≤3 s, or first interaction) rather than the official parse-time
+  `<script src>` — the site's LCP is already gated by image TTFB, so a third-party script must not
+  compete for it. Do not "simplify" it back. Rationale and the consent gap: `docs/analytics.md`.
 
 ## Visual work
 

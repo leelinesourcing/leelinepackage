@@ -67,7 +67,7 @@ A simple cutout approach also causes severe manufacturing friction. A missing st
 
 It also exposes the inner clear window film to heavy scratching during automated folding and gluing operations. Technician Wang had to reject 15% of our initial test run because the machine belts scuffed the exposed plastic.
 
-I reviewed [Different Types of Box Displays](https://leelinepackage.com/different-types-of-box-displays/) with the client's retail buyers. The purchasing team immediately raised four strict objections:
+I reviewed [Different Types of Box Displays](https://www.leelinepackage.com/different-types-of-box-displays/) with the client's retail buyers. The purchasing team immediately raised four strict objections:
 
 - Will a large window reduce drop-test protection for the internal glass bottles?
 - Will a glossy window film make our premium matte branding look cheap?
@@ -261,9 +261,9 @@ I invite you to request a custom packaging consultation via our contact page tod
 
 ### Explore Related Packaging Resources
 
-- [Corrugated Box Manufacturers in Australia](https://leelinepackage.com/corrugated-box-manufacturers-in-australia/)
-- [Luxury Rigid Box Manufacturer in China](https://leelinepackage.com/luxury-rigid-box-manufacturer-in-china/)
-- [Corrugated Box Manufacturers in California](https://leelinepackage.com/corrugated-box-manufacturers-in-california/)
+- [Corrugated Box Manufacturers in Australia](https://www.leelinepackage.com/corrugated-box-manufacturers-in-australia/)
+- [Luxury Rigid Box Manufacturer in China](https://www.leelinepackage.com/luxury-rigid-box-manufacturer-in-china/)
+- [Corrugated Box Manufacturers in California](https://www.leelinepackage.com/corrugated-box-manufacturers-in-california/)
 
 **Trust Disclaimer:** I base all structural recommendations strictly on specific product types, physical retail environments, and actual production constraints. I do not endorse blindly chasing industry trends.
 

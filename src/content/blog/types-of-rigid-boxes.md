@@ -13,7 +13,7 @@ keywords: 'Types Of Rigid Boxes'
 draft: false
 ---
 
-Brands often treat [custom packaging](https://www.leelinepackage.com/) as a style gallery. We found that choosing the wrong [**types of rigid boxes**](https://www.leelinepackage.com/types-of-rigid-boxes/) destroys margins. Weak structures inflate freight volume, bottleneck assembly, and fail standard [ISTA drop tests](https://ista.org/test_procedures.php). Protection ultimately dictates premium perception.
+Brands often treat [custom packaging](https://www.leelinepackage.com/) as a style gallery. We found that choosing the wrong [**types of rigid boxes**](https://www.leelinepackage.com/types-of-rigid-boxes/) destroys margins. Weak structures inflate freight volume, bottleneck assembly, and fail standard ISTA drop tests. Protection ultimately dictates premium perception.
 
 To build this procurement tool, we analyzed 500 freight orders. We interviewed a [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) engineer and compared a crushed shipment against a sound build. I receive no factory kickbacks for these findings.
 

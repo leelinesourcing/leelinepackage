@@ -70,7 +70,7 @@ What is RSC corrugated boxes? RSC stands for Regular Slotted Container. These co
 
 Launching an e-commerce store? Need better packaging solutions? RSC boxes give you an edge. They help you cut shipping costs without losing quality.
 
-Need **[customized box](https://www.leelinepackage.com/custom-box-manufacturer/)** solutions for your business?[**Reach out to us**](https://www.leelinepackage.com/contact/) or **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. We'll help you find the right fit.
+Need **customized box** solutions for your business?[**Reach out to us**](https://www.leelinepackage.com/contact/) or **info@leelinepackage.com**. We'll help you find the right fit.
 
 **Related Resources**:
 

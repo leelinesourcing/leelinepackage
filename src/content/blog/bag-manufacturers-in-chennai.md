@@ -220,7 +220,7 @@ They offer stand-out solutions across a variety of segments:
 - Green and recycled materials let your company align with sustainability goals.
 - Experience responsive support, smooth order processing, and on-time deliveries. This applies no matter the scale or destination.
 
-<div class="post-note"><p><strong>Pro Tip:</strong> If you'd like <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong>, feel free to <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our experts</a></strong> anytime.</p><p>You're sure to love our technology and product quality.</p></div>
+<div class="post-note"><p><strong>Pro Tip:</strong> If you'd like <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong>, feel free to <strong>contact our experts</strong> anytime.</p><p>You're sure to love our technology and product quality.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Nekton India</a></p>
 
@@ -276,7 +276,7 @@ These companies combine skilled craftsmanship, competitive pricing, and fast del
 
 Looking for custom bags or packaging?
 
-At LeelinePackage, we connect you directly with the best manufacturers in Chennai and China, handling design, sampling, quality control, and shipping. **[Contact us](https://www.leelinepackage.com/contact/)** today at **[Leelinepackage.com](https://www.leelinepackage.com/)** or [info@leelinepackage.com](mailto:info@leelinepackage.com) for a quick quote and seamless manufacturing!
+At LeelinePackage, we connect you directly with the best manufacturers in Chennai and China, handling design, sampling, quality control, and shipping. **[Contact us](https://www.leelinepackage.com/contact/)** today at **Leelinepackage.com** or info@leelinepackage.com for a quick quote and seamless manufacturing!
 
 Related Resources:
 

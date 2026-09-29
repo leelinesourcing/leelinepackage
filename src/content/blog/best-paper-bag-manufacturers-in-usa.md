@@ -222,7 +222,7 @@ Now Ross & Wallace offers small-business care plus a larger support network.
 
 Looking for top green packaging? I recommend checking out our list of the 8 Best Paper Bag Manufacturers in USA. These companies lead the way in sustainable, high-quality solutions. They serve modern businesses well.
 
-Do you need custom paper bags? Want more details? I suggest you **[contact us](https://www.leelinepackage.com/contact/)** at **[Leelinepackage.com](https://www.leelinepackage.com/)** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. We can help you find the right packaging solution for your brand!
+Do you need custom paper bags? Want more details? I suggest you **[contact us](https://www.leelinepackage.com/contact/)** at **Leelinepackage.com** or **info@leelinepackage.com**. We can help you find the right packaging solution for your brand!
 
 You can also read the following related resources:
 

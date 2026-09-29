@@ -123,7 +123,7 @@ Pisacane's clients include Miu Miu, Valentino, Giorgio Armani, and more. Their w
 
 Based on my experience, Pisacane Boxes exhibits at Packaging Premiere & PCD Milan regularly. This strengthens their position among Italy's top luxury packaging manufacturers.
 
-<div class="post-note"><p><strong>Pro Tip:</strong> If you still want to <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">Custom Pouches</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">Custom Tote bags</a></strong>, <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our professional team now</a></strong>, they will further guide you on how to turn your ideas into reality.</p></div>
+<div class="post-note"><p><strong>Pro Tip:</strong> If you still want to <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">Custom Pouches</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">Custom Tote bags</a></strong>, <strong>contact our professional team now</strong>, they will further guide you on how to turn your ideas into reality.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener"><strong>Contact </strong>Pisacane Boxes</a></p>
 
@@ -258,7 +258,7 @@ I recommend Orange Packaging Italia if you want quality and flexibility. Their f
 
 I've researched the top 10 luxury packaging makers in Italy. They stand out for their quality work and fresh design ideas. These companies help brands boost their market image. They also create unboxing moments that customers remember.
 
-Are you searching for a trusted luxury packaging maker in Italy? Do you need custom solutions for your business? I suggest you **[contact us](https://www.leelinepackage.com/contact/)** at **[Leelinepackage.com](https://www.leelinepackage.com/)** or send an email to **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. Based on my experience, our team will help you find what works best for your brand.
+Are you searching for a trusted luxury packaging maker in Italy? Do you need custom solutions for your business? I suggest you **[contact us](https://www.leelinepackage.com/contact/)** at **Leelinepackage.com** or send an email to **info@leelinepackage.com**. Based on my experience, our team will help you find what works best for your brand.
 
 **Related Resources**:
 

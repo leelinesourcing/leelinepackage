@@ -32,7 +32,7 @@ I’ve rescued dozens of failed packaging deployments because buyers skipped bas
 - **Product State:** Define if the contents are dry, oily, powdered, liquid, perishable, or temperature-sensitive.
 - **Logistics Data:** Document shipment duration, storage conditions, and destination climate.
 - **Application Type:** Specify if the liner handles food contact, industrial bulk, or marketplace fulfillment.
-- **Carton Specs:** Liners cannot save weak boxes. Secure your inner dimensions and structural data. Understand [ECT vs. Mullen Test](https://www.leelinepackage.com/ect-vs-mullen-test/) standards, verify if you need a [32 ECT rating](https://www.leelinepackage.com/what-is-32-ect-rating/), and select [E-flute vs. B-flute](https://www.leelinepackage.com/e-flute-vs-b-flute/) via [LeelinePackage](https://www.leelinepackage.com).
+- **Carton Specs:** Liners cannot save weak boxes. Secure your inner dimensions and structural data. Understand [ECT vs. Mullen Test](https://www.leelinepackage.com/ect-vs-mullen-test/) standards, verify if you need a [32 ECT rating](https://www.leelinepackage.com/what-is-32-ect-rating/), and select E-flute vs. B-flute via LeelinePackage.
 - **QA Access:** Have your purchasing specs, QA requirements, compliance records, and supplier sample data ready.
 
 **⚠️ Safety First:** Never trust vague "food grade" marketing. In my experience, you must demand documentation meeting [**official FDA food-contact regulations**](https://www.fda.gov/food/food-ingredients-packaging/packaging-food-contact-substances-fcs). If your liner touches oils, cleaners, powders, or sharp edges, request written chemical resistance, tensile strength, and puncture data.
@@ -189,7 +189,7 @@ Follow this in-house validation process:
 
 Calculate your landed costs during this phase. Your liner choice heavily impacts your storage footprint, packing speed, and freight cube. I always compare flat-packed, collapsible thermal options against bulky formed solutions to save valuable warehouse space.
 
-This step is exactly where small businesses can safely choose between stock and [custom packaging options](https://www.leelinepackage.com).
+This step is exactly where small businesses can safely choose between stock and [custom packaging options](https://www.leelinepackage.com/).
 
 I recently helped a meal-kit brand fix a massive transit issue. They originally used a loose stock liner. Heavy condensation completely destroyed their outer corrugated cartons. We switched them to a correctly fitted, food-grade thermal liner.
 

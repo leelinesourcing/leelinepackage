@@ -65,7 +65,7 @@ A massive factory might be the worst fit for your brand. In my experience, huge 
 
 I always map the floor workflow to find bottlenecks between prepress, laminators, and setup lines. During one [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) audit, Manager Wei pointed to a gluing station. "This manual step adds three days to our lead times," he warned.
 
-Packaging engineers must verify structural flexibility. Check flat-pack capability on [custom shipping boxes](https://www.leelinepackage.com/buy-custom-shipping-boxes/) to slash freight costs. For delicate [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/), transit readiness is non-negotiable. We drop-test prototypes using [ISTA transit standards](https://ista.org/) to guarantee survival.
+Packaging engineers must verify structural flexibility. Check flat-pack capability on [custom shipping boxes](https://www.leelinepackage.com/buy-custom-shipping-boxes/) to slash freight costs. For delicate [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/), transit readiness is non-negotiable. We drop-test prototypes using ISTA transit standards to guarantee survival.
 
 The plant must handle a 500-unit test and a 50,000-unit rollout seamlessly.
 

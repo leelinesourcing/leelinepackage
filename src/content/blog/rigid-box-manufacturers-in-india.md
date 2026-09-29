@@ -308,7 +308,7 @@ Custom box pricing is often opaque. Request a **standardized quote template** th
 
 Stop suppliers from guessing. Include these exact specs in your request for quote:
 
-- **Project Name:** [Your Brand] Luxury Rigid Box
+- **Project Name:** Your Brand Luxury Rigid Box
 - **Box Style:** Magnetic Book-Style / 2-Piece Telescopic / Drawer
 - **Inner Dimensions:** L x W x D (mm)
 - **Board Grade:** 2mm Greyboard (~1200 GSM)

@@ -129,7 +129,7 @@ Execute the **Tariff & Compliance** phase to prevent underbudgeting.
 1. **Open** your packaging calculator. Create a tab titled **Tariff & Compliance**.
 2. **Log inbound freight.** Enter shipping costs from the supplier to your warehouse.
 3. **Calculate volumetric impact.** Determine the dimensional weight for your outbound shipping.
-4. **Add duties and customs.** If importing materials, add tariffs based on classification. Verify rates using the [Link to official 2026 customs/tariff notice]. Include flat fees for customs brokerage. (Note: U.S.-only buyers should focus strictly on domestic freight and retailer compliance).
+4. **Add duties and customs.** If importing materials, add tariffs based on classification. Verify rates using the [official 2026 customs and tariff schedule](https://www.cbp.gov/). Include flat fees for customs brokerage. (Note: U.S.-only buyers should focus strictly on domestic freight and retailer compliance).
 5. **Input compliance fees.** Add your Extended Producer Responsibility (EPR) or packaging-waste fees. Read the EPR/PPWR guidance to verify legal compliance. Confirm platform rules using the official marketplace packaging requirement.
 6. **Compare eco-friendly landed costs.** Review the differences between [biodegradable vs compostable packaging](https://www.leelinepackage.com/biodegradable-vs-compostable-packaging/). Your raw unit price may rise for eco-friendly materials. However, your total landed cost often improves because these designs are lighter, flatter, and cheaper to dispose of.
 7. **Refresh your calculator.** Treat 2026 packaging material price trends as a budgeting lens. Paper, resin, and energy markets shift quarterly. Update your spreadsheet on a 90-day cadence.

@@ -243,7 +243,7 @@ Include these details in your RFQ to ensure comparable bids:
 - **Quantity:** 1,000 units (ask for price breaks at 5k).
 - **Validation:** FSC-certified materials only.
 
-Explore [LeelinePackage](https://leelinepackage.com/) for broader packaging solutions or visit our [custom box manufacturer](https://leelinepackage.com/custom-box-manufacturer/) page for engineering support. [**Request a quote now.**](https://leelinepackage.com/contact)
+Explore [LeelinePackage](https://www.leelinepackage.com/) for broader packaging solutions or visit our [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) page for engineering support. **Request a quote now.**
 
 ## People Also Ask About Corrugated Box Manufacturers in Delhi
 

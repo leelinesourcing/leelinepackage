@@ -51,7 +51,7 @@ Manufacturers create foil by hot-rolling heated aluminum ingots into 2-4mm thick
 
 This technique creates foil's distinctive look - one side shiny and one side matte.
 
-<div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg><p><strong>Pro Tip: </strong>If you're also looking for <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong>, as an experienced <strong><a href="https://www.leelinepackage.com/custom-bag-manufacturer/" target="_blank" rel="noopener">bag manufacturer</a></strong> in China, <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our professionals now</a></strong> for the latest product list.</p></div>
+<div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg><p><strong>Pro Tip: </strong>If you're also looking for <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong>, as an experienced <strong>bag manufacturer</strong> in China, <strong>contact our professionals now</strong> for the latest product list.</p></div>
 
 <div class="post-note"><p><strong>Recommended Reading:</strong> <strong><a href="https://www.leelinepackage.com/what-is-flexible-packaging-material/" target="_blank" rel="noopener">What is Flexible Packaging Material: Your Complete Guide</a></strong></p></div>
 
@@ -149,7 +149,7 @@ Aluminum foil packaging is now 100 years old and has proven to be an exceptional
 
 On top of that, it helps the environment when recycled properly.
 
-You can **[reach us](https://www.leelinepackage.com/contact/)** at **[Leelinepackage.com](https://www.leelinepackage.com/)** or [info@leelinepackage.com](mailto:info@leelinepackage.com) for custom boxes or more details. Your packaging material choice is a vital part of protecting products, extending shelf life, and presenting your brand - and aluminum foil does all these things exceptionally well.
+You can **[reach us](https://www.leelinepackage.com/contact/)** at **Leelinepackage.com** or info@leelinepackage.com for custom boxes or more details. Your packaging material choice is a vital part of protecting products, extending shelf life, and presenting your brand - and aluminum foil does all these things exceptionally well.
 
 **Related Resources**:
 

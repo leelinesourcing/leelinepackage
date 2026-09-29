@@ -252,7 +252,7 @@ CBC is one of the best corrugated carton box manufacturers in Mexico. They focus
 - Capabilities for graphic printing and customized designs.
 - Integration with Smurfit Kappa's global technology for sustainable paper-based packaging.
 
-<div class="post-note"><p><strong>Pro Tip:</strong> If you're still looking for a <strong><a href="https://www.leelinepackage.com/custom-bag-manufacturer/" target="_blank" rel="noopener">custom bag maker</a></strong> or want <strong><a href="https://www.leelinepackage.com/custom-package-stickers/" target="_blank" rel="noopener">custom package stickers</a></strong>, <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our professionals now</a></strong> and let them help you turn your ideas into reality.</p></div>
+<div class="post-note"><p><strong>Pro Tip:</strong> If you're still looking for a <strong><a href="https://www.leelinepackage.com/custom-bag-manufacturer/" target="_blank" rel="noopener">custom bag maker</a></strong> or want <strong><a href="https://www.leelinepackage.com/custom-package-stickers/" target="_blank" rel="noopener">custom package stickers</a></strong>, <strong>contact our professionals now</strong> and let them help you turn your ideas into reality.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Corrugados de Baja California</a></p>
 

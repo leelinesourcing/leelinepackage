@@ -231,7 +231,7 @@ Altpac is a division of Canpac Trends Pvt Ltd. It stands out among Paper Bag Man
 
 India has 8 top paper bag makers. They lead the way in green packaging. These companies create solutions that fit many business needs. I believe they are shaping a plastic-free future. They set new standards in our industry.
 
-Do you need custom packaging or **[custom bags](https://www.leelinepackage.com/custom-bag-manufacturer/)**? I suggest you reach out to us. Visit **[Leelinepackage.com](https://www.leelinepackage.com/)** or email [info@leelinepackage.com](mailto:info@leelinepackage.com),our team will help you find the right paper bag for your business.
+Do you need custom packaging or **[custom bags](https://www.leelinepackage.com/custom-bag-manufacturer/)**? I suggest you reach out to us. Visit **Leelinepackage.com** or email info@leelinepackage.com,our team will help you find the right paper bag for your business.
 
 **Related Resources**:
 

@@ -142,7 +142,7 @@ However, the cheaper finish quickly becomes the most expensive finish if your bo
 
 We also cannot ignore the luxury strategy. Some premium brands happily accept a 20% higher lamination cost. Why? Because a soft-touch laminate drastically increases the perceived value of the unboxing experience.
 
-Just like choosing between [soy-based ink vs traditional ink](http://soy-based-ink-vs-traditional-ink) for a greener footprint, choosing your finish requires aligning your budget with your physical brand identity.
+Just like choosing between soy-based ink vs traditional ink for a greener footprint, choosing your finish requires aligning your budget with your physical brand identity.
 
 <div class="post-note"><p>🚀 <strong>Actionable Insight:</strong> If you want a premium feel without the lamination cost penalty, ask your printer for a "soft-touch aqueous" finish. It costs roughly 10% more than standard aqueous but mimics the tactile suede feel of expensive film.</p></div>
 

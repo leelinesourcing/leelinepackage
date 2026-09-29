@@ -63,7 +63,7 @@ Before requesting quotes, translate your intent into measurable engineering cons
   - **Regular Slotted Container (RSC):** Best for high-volume, cost-first bulk shipping.
 2. **Document distribution risks.** Note if your supply chain involves heavy pallet stacking (requires high Edge Crush Test ratings) or ocean freight (requires moisture-resistant coatings). Consult the [**International Safe Transit Association (ISTA)**](https://ista.org/) guidelines for specific testing protocols.
 3. **Calculate internal clearance.** Measure your product’s maximum length, width, and height. Add a **5–10 mm buffer** to these dimensions. This void allows for expansion and insert strategies (like molded pulp or foam) without crushing the box walls.
-4. **Draft your specification.** Create a single sentence to paste into vendor forms: "I need a [Box Type] for [Product], size [L x W x H mm] + 10mm buffer, estimated weight [Weight], monthly volume [Quantity]."
+4. **Draft your specification.** Create a single sentence to paste into vendor forms: "I need a Box Type for Product, size L x W x H mm + 10mm buffer, estimated weight Weight, monthly volume Quantity."
 
 **🚀 Actionable Insight:** **Perform the "Sensory Shake" test.** Once you receive a structural sample (white dummy), place your product inside and shake it gently.
 

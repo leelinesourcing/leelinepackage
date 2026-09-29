@@ -57,7 +57,7 @@ Modern retail demands fast replenishment. Retailers require engineered logistica
 
 Material choice dictates structural survival.
 
-We test SBS paperboard for light displays, corrugated board for heavy transport, and rigid board for luxury presentations. *(To understand substrate behaviors, review our guides on *[*types of paper for printing*](https://www.leelinepackage.com/types-of-paper-for-printing/)*, *[*what parchment paper is*](https://www.leelinepackage.com/what-is-parchment-paper/)*, and *[*what butcher paper is*](https://www.leelinepackage.com/what-is-butcher-paper/)*).*
+We test SBS paperboard for light displays, corrugated board for heavy transport, and rigid board for luxury presentations. *(To understand substrate behaviors, review our guides on* [*types of paper for printing*](https://www.leelinepackage.com/types-of-paper-for-printing/) *and* [*what parchment paper is*](https://www.leelinepackage.com/what-is-parchment-paper/)*, plus what butcher paper is.)*
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2025/12/We-test-SBS-paperboard-for-light-displays-corrugated-board-for-heavy-transport-a-a516f631.webp" alt="We test SBS paperboard for light displays, corrugated board for heavy transport, and rigid board for luxury presentations." width="800" height="500" loading="lazy" decoding="async" /></figure>
 
@@ -232,6 +232,6 @@ In my experience, a gorgeous E-flute display is entirely worthless if it crushes
 
 Before granting your final approval, execute this mandatory checklist: confirm your exact board spec, opening design, humidity resilience, QC method, pallet plan, and landed-cost logic.
 
-*This assessment relies on hands-on packaging production experience and raw internal factory run data. I am not paid by any manufacturer to promote these findings, and I operate without conflicts of interest. *
+*This assessment relies on hands-on packaging production experience and raw internal factory run data. I am not paid by any manufacturer to promote these findings, and I operate without conflicts of interest.*
 
 Stop losing margin to crushed boxes and inefficient freight. Request a structural review, a physical sampling plan, or a comprehensive landed-cost assessment directly via our [Contact Page](https://www.leelinepackage.com/contact/).

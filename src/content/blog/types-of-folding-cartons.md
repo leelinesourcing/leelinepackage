@@ -255,7 +255,7 @@ Businesses now pick greener materials. Recyclable paperboard, compostable stocks
 
 Cartons now ship with up to 70% renewable content. New designs cut waste even more.
 
-Need custom folding cartons or expert advice? We're here to help. **[Ask us](https://www.leelinepackage.com/contact/)** at [leelinepackage.com](https://www.leelinepackage.com) or email [info@leelinepackage.com](mailto:info@leelinepackage.com) for quick solutions. Your packaging success starts here.
+Need custom folding cartons or expert advice? We're here to help. **[Ask us](https://www.leelinepackage.com/contact/)** at leelinepackage.com or email info@leelinepackage.com for quick solutions. Your packaging success starts here.
 
 ## People Also Ask About Types Of Folding Cartons
 

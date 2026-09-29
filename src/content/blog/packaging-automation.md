@@ -21,7 +21,7 @@ You will learn how to evaluate **Packaging Automation** for rigid box production
 
 We use current-state evidence to map workflows, verify box-design readiness, and compare manual-assist, semi-automated, and fully automated systems. I will share an anonymized defect snapshot showing how apparel repacking distorts [overall equipment effectiveness](https://www.oee.com/).
 
-As engineers at [LeelinePackage](https://leelinepackage.com/), we see these constraints daily. Let us build a real ROI model.
+As engineers at [LeelinePackage](https://www.leelinepackage.com/), we see these constraints daily. Let us build a real ROI model.
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/05/Packaging-Automation.webp" alt="Packaging Automation" width="800" height="430" loading="lazy" decoding="async" /></figure>
 
@@ -170,7 +170,7 @@ Protect this investment through strong supplier governance. Your strongest negot
 
 Ask for a replacement first, then a credit, and finally a future-order offset."
 
-If your team cannot build this model internally, request a feasibility and packaging consultation at [LeelinePackage](https://leelinepackage.com/). We review your numbers without a sales pitch.
+If your team cannot build this model internally, request a feasibility and packaging consultation at [LeelinePackage](https://www.leelinepackage.com/). We review your numbers without a sales pitch.
 
 ## The Real Barriers to Successful Packaging Automation
 

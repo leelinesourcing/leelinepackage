@@ -44,7 +44,7 @@ Year Established: 2015
 
 Location: Wuhan, China
 
-Website: [LeelinePackage Official Site](#)
+Website: LeelinePackage Official Site
 
 LeelinePackage runs a large, modern facility in Wuhan. The 20,000-square-meter plant operates 24/7. It produces over 500,000 units daily. Peak season? No problem—capacity stays strong. The factory uses Heidelberg Speedmaster presses, automated lines, and high-precision CNC cutting.
 
@@ -79,7 +79,7 @@ Year Established: 1988
 
 Location: China
 
-Website: [Packoi Official Site](#)
+Website: Packoi Official Site
 
 Packoi is a China Custom Jewelry Packaging Manufacturer focused on green innovation. Need sustainable solutions and custom designs? This is your partner. They make custom printed boxes and bags for jewelry, shipping, and brand marketing. All packaging is sustainable.
 
@@ -109,7 +109,7 @@ Year Established: 2005
 
 Location: Shenzhen, Guangdong, China
 
-Website: [Shenzhen Pakoro Official Site](#)
+Website: Shenzhen Pakoro Official Site
 
 Shenzhen Pakoro is a China Custom Jewelry Packaging Manufacturer with modern production facilities. They have 200+ employees and high-tech equipment. Large or small orders both get consistent quality.
 
@@ -137,7 +137,7 @@ Year Established: 2009
 
 Location: East Guangzhou City, Guangdong, China; close to Port of Huangpu
 
-Website: [Guangzhou Huaisheng Packaging Co., Ltd. Official Site](#)
+Website: Guangzhou Huaisheng Packaging Co., Ltd. Official Site
 
 Guangzhou Huaisheng Packaging Co., Ltd. makes custom jewelry packaging in China. They've been in the industry for over 23 years. Your packaging gets handled by a team with 10+ years of handmade skills. They have in-house QC experts too.
 
@@ -165,7 +165,7 @@ Year Established: 2006
 
 Location: A-222, Donggangcheng Shangpu, Shatian, Dongguan, Guangdong, China
 
-Website: [Max Bright Packaging Ltd Official Site](#)
+Website: Max Bright Packaging Ltd Official Site
 
 Max Bright Packaging Ltd focuses on custom jewelry packaging in China. They make premium rigid boxes, gift boxes, paper tube boxes, tin boxes, and wooden boxes. These products work well for jewelry, watches, and luxury goods. Their market is broad.
 
@@ -197,7 +197,7 @@ Year Established: 2003 (production since 1998)
 
 Location: Building 3, #780 Lane XinGe Road, Songjiang, Shanghai 201612, China (About 45 km to Pudong airport/seaport)
 
-Website: [Shanghai Custom Packaging Co., Ltd Official Site](#)
+Website: Shanghai Custom Packaging Co., Ltd Official Site
 
 Shanghai Custom Packaging Co., Ltd is a flexible China Custom Jewelry Packaging Manufacturer. They run three production lines: corrugated boxes, rigid cardboard gift boxes, and custom paper bags. You get everything in one place. This cuts down your sourcing time.
 
@@ -231,7 +231,7 @@ Year Established: 2014
 
 Location: No. 120 Chuanzhan Rd, Chuangsha, Pudong, Shanghai, China
 
-Website: [Shanghai Siyuan Printing and Packing Co., Ltd. Official Site](#)
+Website: Shanghai Siyuan Printing and Packing Co., Ltd. Official Site
 
 Shanghai Siyuan Printing and Packing Co., Ltd. is a trusted China Custom Jewelry Packaging Manufacturer. They offer strong B2B support. Their 11 years of export experience covers North America, Eastern Europe, and Oceania. The factory has 11-50 skilled workers on a 3,407-square-meter site.
 
@@ -253,7 +253,7 @@ Year Established: 2014
 
 Location: Guangzhou, Guangdong, China
 
-Website: [Jinguan Printing & Packaging Official Site](#)
+Website: Jinguan Printing & Packaging Official Site
 
 Jinguan Printing & Packaging runs a factory over 30,000 sqm. Their team includes 51-100 employees. Plus, they have more than 450 skilled technicians and workers. Export value hits $2.83M. Annual revenue stays under $5M. This financial base means stability.
 
@@ -281,7 +281,7 @@ Year Established: 2014
 
 Location: Yiwu City, Zhejiang Province, China
 
-Website: [Jialan Package Official Site](#)
+Website: Jialan Package Official Site
 
 Jialan Package brings 10–12 years of experience as a China Custom Jewelry Packaging Manufacturer. They run a 2,800–3,000 sqm facility with over 100 skilled workers. This setup produces more than 80,000 pieces each day.
 

@@ -44,7 +44,7 @@ We've researched and evaluated Kenya's top 8 packaging bag manufacturers. Our ev
 
 **Location:** Off Mzee Paunrana Road, Machakos, Machakos County, Nairobi, Kenya
 
-**Website:** [adpacklimited.com](#)
+**Website:** adpacklimited.com
 
 Adpack Limited ranks among packaging bags manufacturers in Kenya​. The company produces over 100,000 woven polypropylene (PP) sacks each day. That's serious production power.
 
@@ -131,7 +131,7 @@ Year Established: 1934 (started as East African Bag and Cordage Ltd; renamed 199
 
 Location: Juja, Thika region, Kenya (Nairobi-Thika Super Highway, opposite JKUAT)
 
-Website: [premierbag.co.ke](https://www.premierbag.co.ke)
+Website: premierbag.co.ke
 
 Premier Bag & Cordage Ltd stands as one of packaging bags manufacturers in Kenya​. They have been in business for over 92 years. They run two separate factories. One handles natural fibers like sisal. The other produces polypropylene bags.
 
@@ -214,7 +214,7 @@ Year Established: 2018
 
 Location: Atlantis Business, Kenya
 
-Website: [https://buruknonwoven.co.ke/](https://buruknonwoven.co.ke/)
+Website: buruknonwoven.co.ke
 
 Buruk is one of Kenya's top packaging bag manufacturers. They focus on green, non-woven packaging solutions. You get 100% recyclable and biodegradable polypropylene bags. Their products include D-cut, W-cut, khaki, and open-handle bags.
 
@@ -240,7 +240,7 @@ Year Established: 2000
 
 Location: Production facilities around Nairobi (including near Mombasa Road, Tatu City, Ruiru industrial zones)
 
-Website: [https://www.wonderpac.co.ke/](https://www.wonderpac.co.ke/)
+Website: wonderpac.co.ke
 
 Wonderpac Industries Ltd is a leading industrial packaging bags maker in Kenya. They focus on PP woven and laminated sacks for bulk shipments. You get a wide range of packaging options. This includes PP woven sacks, coated bags, laminated bags, leno (mesh) bags, and woven fabric rolls.
 

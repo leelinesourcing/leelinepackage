@@ -108,7 +108,7 @@ Furthermore, recycled boards generate "dust" during conversion. In our cutting m
 
 If your brand relies on an "Apple-like" pristine white box, recycled grades will struggle to deliver that look without expensive coatings that might hurt recyclability.
 
-***Note:*** *If you need grease resistance for food, coatings change the game entirely. Read our guide on *[*wax paper tradeoffs*](https://www.leelinepackage.com/what-is-wax-paper/)*.*
+***Note:*** *If you need grease resistance for food, coatings change the game entirely. Read our guide on* [*wax paper tradeoffs*](https://www.leelinepackage.com/what-is-wax-paper/)*.*
 
 **Winner: Virgin Pulp (for Premium Print Fidelity)**
 

@@ -49,7 +49,7 @@ Before drafting this, my team spent 14 days on the **[paper bag](https://www.lee
 
 <div class="post-table-wrap"><table><thead><tr><th><strong>Run Length</strong></th><th><strong>Recommended Method</strong></th><th><strong>Makeready Waste</strong></th><th><strong>Cost Efficiency Profile</strong></th></tr></thead><tbody><tr><td>&lt;10,000</td><td>Digital / Flexo</td><td>50 sheets</td><td><strong>Validate startup products fit cheaply.</strong></td></tr><tr><td>10,000–49,999</td><td>Flexo</td><td>100 sheets</td><td><strong>Maximizes standard transport carton margins.</strong></td></tr><tr><td>50,000–249,999</td><td><strong>Offset (Crossover)</strong></td><td>300 sheets</td><td><strong>Premium folding cartons justify offset tooling.</strong></td></tr><tr><td>250,000+</td><td>Web Flexo / Offset</td><td>500+ sheets</td><td><strong>Unlocks ultimate enterprise unit economics.</strong></td></tr></tbody></table></div>
 
-***Accessibility Note:*** *Table 3 tracks unit-cost crossover. Offset becomes cost-effective for premium *[*laminated*](https://www.leelinepackage.com/water-based-coatings-vs-plastic-lamination/)* cartons at 50,000 units, while corrugated shippers remain flexo-led at any volume.*
+***Accessibility Note:*** *Table 3 tracks unit-cost crossover. Offset becomes cost-effective for premium* [*laminated*](https://www.leelinepackage.com/water-based-coatings-vs-plastic-lamination/) *cartons at 50,000 units, while corrugated shippers remain flexo-led at any volume.*
 
 We vetted this mechanical teardown by running 40 hours of floor tests comparing these systems back-to-back. I purchase all my own equipment and receive no kickbacks from any manufacturer to promote these findings.
 
@@ -99,7 +99,7 @@ Offset chokes on rough substrates. The rigid process requires perfectly flat pre
 
 We route high-volume folding cartons to offset and specialty webs to flexo. Prepress lead Sarah explained this well. "If a client wants custom packaging using highly absorbent [types of paper bags](https://www.leelinepackage.com/types-of-paper-bags/), we strictly use flexo.
 
-Offset inks take too long to dry on those." Flexo also handles rough [texture paper](https://www.leelinepackage.com/what-is-texture-paper/) favored by any high-end [custom bag manufacturer](https://www.leelinepackage.com/custom-bag-manufacturer/). Offset simply smears on [parchment paper](https://www.leelinepackage.com/what-is-parchment-paper/) wraps.
+Offset inks take too long to dry on those." Flexo also handles rough [texture paper](https://www.leelinepackage.com/what-is-texture-paper/) favored by any high-end [custom bag manufacturer](https://www.leelinepackage.com/custom-bag-manufacturer/). Offset simply smears on parchment paper wraps.
 
 <div class="post-note"><p><strong>⚠️ Safety First:</strong> Never force offset onto recycled corrugated board. The abrasive recycled fibers will destroy your expensive rubber blankets within hours.</p></div>
 

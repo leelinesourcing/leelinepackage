@@ -167,7 +167,7 @@ Colorado Industrial Packaging (CIP), they create custom corrugated boxes that fi
 
 From my perspective, choosing CIP gives your Denver business strong, durable boxes. It also provides the brand appeal you want for every single shipment.
 
-<div class="post-note"><p><strong>Pro Tip: </strong>If you want <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bag</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-folding-cartons/" target="_blank" rel="noopener">custom folding carton</a></strong>, do not hesitate to <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our professionals</a> f</strong>or technical support.</p></div>
+<div class="post-note"><p><strong>Pro Tip: </strong>If you want <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bag</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-folding-cartons/" target="_blank" rel="noopener">custom folding carton</a></strong>, do not hesitate to <strong>contact our professionals f</strong>or technical support.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener"><strong>Contact </strong>Colorado Industrial Packaging</a></p>
 

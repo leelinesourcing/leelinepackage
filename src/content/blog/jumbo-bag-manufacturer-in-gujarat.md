@@ -120,7 +120,7 @@ You can request custom jumbo bag designs. Choose your size, loop type, and fabri
 
 Sourcing from Shubh Polyfab supports your ESG goals. It shows customers you value sustainability and reliability.
 
-<div class="post-note"><p><strong>Pro Tip: </strong>If you'd like <strong><a href="https://www.leelinepackage.com/custom-mailer-bags/" target="_blank" rel="noopener">custom mailer bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong>, <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">get in touch with our packaging team now</a></strong>and you're sure to be satisfied with our product quality.</p></div>
+<div class="post-note"><p><strong>Pro Tip: </strong>If you'd like <strong><a href="https://www.leelinepackage.com/custom-mailer-bags/" target="_blank" rel="noopener">custom mailer bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong>, <strong>get in touch with our packaging team now</strong>and you're sure to be satisfied with our product quality.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Shubh Polyfab</a></p>
 

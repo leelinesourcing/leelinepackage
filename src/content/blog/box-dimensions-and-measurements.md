@@ -42,7 +42,7 @@ I use this exact checklist across hundreds of factory runs to prevent dimensiona
 - **The L x W x D Standard:** Always record Length x Width x Depth. We use Depth and Height interchangeably.
 - **Inside vs. Outside:** Open the flaps to measure inside dimensions for product fit. Close the flaps for outside shipping dimensions.
 
-**🧠 Expert Take:** Verify your outside dimensions against a [FedEx Dimensional Weight Guide](https://www.fedex.com/en-us/shipping/packaging/what-is-dimensional-weight.html) and [ISTA Packaging Standards](https://ista.org/). Always consult a [corrugated flute chart](https://www.fibrebox.org/) first. A thick double-wall board adds fractions of an inch, which routinely triggers higher shipping brackets.
+**🧠 Expert Take:** Verify your outside dimensions against a [FedEx Dimensional Weight Guide](https://www.fedex.com/en-us/shipping/packaging/what-is-dimensional-weight.html) and [ISTA Packaging Standards](https://ista.org/). Always consult a corrugated flute chart first. A thick double-wall board adds fractions of an inch, which routinely triggers higher shipping brackets.
 
 ## Box Dimensions and Measurements Guide
 
@@ -167,7 +167,7 @@ Complete the checklist. Log the unit of measure, measurement date, and measurer'
 
 Use inches for U.S. shipping teams, but switch to the metric system for overseas manufacturing. Calculate exact conversions. Never use approximate math.
 
-Escalate your spec to a custom box manufacturer if your product is fragile, irregular, or requires dieline development. Seek structural review before production for premium finishes or a [custom tin box](https://leelinepackage.com/custom-tin-box/).
+Escalate your spec to a custom box manufacturer if your product is fragile, irregular, or requires dieline development. Seek structural review before production for premium finishes or a [custom tin box](https://www.leelinepackage.com/custom-tin-box/).
 
 Consult a Denver custom box manufacturer for local drop-testing, or visit the [**LeelinePackage**](https://www.leelinepackage.com/) homepage for global structural engineering.
 

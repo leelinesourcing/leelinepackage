@@ -219,7 +219,7 @@ As digital acquisition costs accelerate, we expect hyper-local print to experien
 
 Note: Newspaper mailers are strictly flat advertising media. If your brand needs to protect physical products in transit, you require a structural custom box manufacturer like LeelinePackage.
 
-Elevate your retail presence with our [*custom paper bags*](https://www.leelinepackage.com/custom-paper-bag/), or optimize your e-commerce shipping with [*custom mailer bags*](https://www.leelinepackage.com/custom-mailer-bags/) and [*eco-friendly padded mailers*](https://www.leelinepackage.com/eco-friendly-padded-mailers/).
+Elevate your retail presence with our [*custom paper bags*](https://www.leelinepackage.com/custom-paper-bag/), or optimize your e-commerce shipping with [*custom mailer bags*](https://www.leelinepackage.com/custom-mailer-bags/) and *eco-friendly padded mailers*.
 
 **Ready to build packaging that protects your product and impresses your customer?** [**Contact our structural design team today**](https://www.leelinepackage.com/contact/).
 

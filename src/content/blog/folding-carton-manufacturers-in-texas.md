@@ -189,7 +189,7 @@ Facilities using electronic glue-line monitors and G7-certified spectral press c
 
 Texas has some great folding carton makers. I like how they offer fresh designs, different materials, and custom options. They serve many industries—from retail to specialty products.
 
-Are you looking for a good folding carton maker in Texas? You can **[reach out to us](https://www.leelinepackage.com/contact/)** at **[leelinepackage.com](https://www.leelinepackage.com/contact/)** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. We can help you find the right packaging for your business.
+Are you looking for a good folding carton maker in Texas? You can **[reach out to us](https://www.leelinepackage.com/contact/)** at **leelinepackage.com** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. We can help you find the right packaging for your business.
 
 If you want to know more about the package manufacturer, you can also read the following guide:
 

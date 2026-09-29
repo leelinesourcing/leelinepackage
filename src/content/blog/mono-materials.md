@@ -115,7 +115,7 @@ A mono-material pouch fails at the recycling plant if the attachments pollute th
 
 For flexible packaging, this means using PE valves on PE coffee bags and PP spouts on PP baby food pouches. We strictly monitor adhesives, inks, and coatings.
 
-Instead of applying heavy metallic finishes like [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/) (which introduce metal contamination), we recommend using pure PE [custom package stickers](https://www.leelinepackage.com/custom-package-stickers/). If a brand wants a specific texture, a [glossy vs matte finish](https://www.leelinepackage.com/glossy-vs-matte-finish/) must use polymer-compatible coatings.
+Instead of applying heavy metallic finishes like [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/) (which introduce metal contamination), we recommend using pure PE [custom package stickers](https://www.leelinepackage.com/custom-package-stickers/). If a brand wants a specific texture, a glossy vs matte finish must use polymer-compatible coatings.
 
 This strict standard also applies to soft goods manufactured by a [custom bag manufacturer](https://www.leelinepackage.com/custom-bag-manufacturer/). Enterprise brands often market a backpack or a technical gear pouch as "100% recycled." However, **textile fiber purity standards** dictate true circularity.
 

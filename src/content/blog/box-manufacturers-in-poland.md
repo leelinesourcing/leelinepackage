@@ -207,7 +207,7 @@ In my experience, many suppliers fake sustainability paperwork.
 
 ### Step 2: Write a Strict RFQ
 
-Force suppliers to bid on raw metrics. Detail your [box dimensions](https://www.leelinepackage.com/box-dimensions-and-measurements/) and structural [FEFCO code](https://www.fefco.org/fefco-code). Specify the exact flute, GSM, and [box liners](https://www.leelinepackage.com/box-liners/). Define print colors and order quantity.
+Force suppliers to bid on raw metrics. Detail your [box dimensions](https://www.leelinepackage.com/box-dimensions-and-measurements/) and structural FEFCO code. Specify the exact flute, GSM, and [box liners](https://www.leelinepackage.com/box-liners/). Define print colors and order quantity.
 
 Last month, manager **[Mehul Chauhan](https://www.linkedin.com/in/mehul-chauhan-1409393a8/)** showed me how vague GSM specs directly cause crushing defects on the factory floor.
 

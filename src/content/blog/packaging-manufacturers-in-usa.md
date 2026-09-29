@@ -275,7 +275,7 @@ Professional packaging solutions are now accessible to more people, not just lar
 
 These companies' product lines reflect a strong focus on eco-friendly packaging options that match growing consumer demands.
 
-Small businesses should think over their industry needs, order volumes, and sustainability goals before choosing a manufacturer. Feel free to **[reach out](https://www.leelinesports.com/contact/)** at [**leelinepackage.com**](http://leelinepackage.com) or [**info@leelinepackage.com**](mailto:info@leelinepackage.com) for custom boxes or more details.
+Small businesses should think over their industry needs, order volumes, and sustainability goals before choosing a manufacturer. Feel free to **reach out** at [**leelinepackage.com**](https://www.leelinepackage.com/) or [**info@leelinepackage.com**](mailto:info@leelinepackage.com) for custom boxes or more details.
 
 ## People Also Ask About Packaging Manufacturers in USA
 

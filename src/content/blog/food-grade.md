@@ -241,7 +241,7 @@ Looking ahead to next year, global regulators are aggressively tightening rules 
 
 ### Secure Your Packaging Structure
 
-Stop guessing with your compliance-sensitive designs. If you need technical help reviewing your packaging structure, vetting safe [custom box manufacturers](https://www.leelinepackage.com/custom-box-manufacturer/), or engineering [custom corrugated boxes](https://www.leelinepackage.com/custom-corrugated-boxes/) that survive an [ISTA 3A drop test](https://www.leelinepackage.com/ista-3a-drop-test/), we can help.
+Stop guessing with your compliance-sensitive designs. If you need technical help reviewing your packaging structure, vetting safe [custom box manufacturers](https://www.leelinepackage.com/custom-box-manufacturer/), or engineering [custom corrugated boxes](https://www.leelinepackage.com/custom-corrugated-boxes/) that survive an ISTA 3A drop test, we can help.
 
 Request a structural review at [LeelinePackage Contact](https://www.leelinepackage.com/contact/) to solve your toughest packaging problems.
 

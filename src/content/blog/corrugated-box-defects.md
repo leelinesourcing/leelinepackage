@@ -188,7 +188,7 @@ Confirm your machine fixes using official quality control standards. In our lab,
 
 ### Step 6: Expand Your Packaging Program
 
-Your quality controls must match your final product. Different products require different structural rules. If you build [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/), you need distinct tooling. Explore the [types of jewelry boxes](https://www.leelinepackage.com/types-of-jewelry-boxes/) or [types of gift boxes](https://www.leelinepackage.com/types-of-gift-boxes/) available for your brand.
+Your quality controls must match your final product. Different products require different structural rules. If you build [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/), you need distinct tooling. Explore the [types of jewelry boxes](https://www.leelinepackage.com/types-of-jewelry-boxes/) or types of gift boxes available for your brand.
 
 If your buyers demand sustainability, switch to [eco-friendly packaging materials](https://www.leelinepackage.com/eco-friendly-packaging-materials/). We also guide clients searching for global partners, including [packaging manufacturers in South Africa](https://www.leelinepackage.com/packaging-manufacturers-in-south-africa/).
 

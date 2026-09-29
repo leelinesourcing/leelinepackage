@@ -137,7 +137,7 @@ Blister card packaging works well for product display, security, and efficiency.
 
 Looking at packaging options for your business? Blister cards can lift your brand while meeting safety rules. They balance protection, display power, and the polished look customers want.
 
-Need custom blister card packaging or **[custom boxes](https://www.leelinepackage.com/custom-box-manufacturer/)**? We offer retail packaging solutions too. **[Reach out to us](https://www.leelinepackage.com/contact/)** at **[leelinepackage.com](https://www.leelinepackage.com/)** or [info@leelinepackage.com](mailto:info@leelinepackage.com). We’ll help you find the perfect fit for your products.
+Need custom blister card packaging or **custom boxes**? We offer retail packaging solutions too. **[Reach out to us](https://www.leelinepackage.com/contact/)** at **leelinepackage.com** or info@leelinepackage.com. We’ll help you find the perfect fit for your products.
 
 **Related Resources**:
 

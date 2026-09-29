@@ -53,7 +53,7 @@ They use an Acceptable Quality Limit (AQL) to set the inspection level. The [Int
 
 Packaging requires strict physical validation. For rigid gift boxes, we check color consistency and exact millimeter insert fits. For shipping cartons, we crush-test for compression strength and scan barcodes.
 
-When verifying [GSM paper meaning](https://www.leelinepackage.com/gsm-paper-meaning/), we weigh it to match the spec sheet. Just last Tuesday, Manager **[Guo](https://cn.linkedin.com/in/haijun-guo-579b1327)** tear-tested a batch of [SOS bags](https://www.leelinepackage.com/sos-bags/). He loaded them with 10 lbs of dead weight and noted, "If the glue lines survive this without the handles detaching, they will survive retail handling."
+When verifying [GSM paper meaning](https://www.leelinepackage.com/gsm-paper-meaning/), we weigh it to match the spec sheet. Just last Tuesday, Manager **[Guo](https://cn.linkedin.com/in/haijun-guo-579b1327)** tear-tested a batch of SOS bags. He loaded them with 10 lbs of dead weight and noted, "If the glue lines survive this without the handles detaching, they will survive retail handling."
 
 <div class="post-note"><p><strong>🌍 Real-World Context:</strong> Do not release your final factory payment until the supplier passes a PSI. It is your only practical leverage to prevent shipping defective packaging across the world.</p></div>
 
@@ -105,7 +105,7 @@ A generic checklist fails in the packaging world. Packaging requires physical st
 - **Workmanship:** Flag glue spills, scuffs, and tear-outs.
 - **Dimensions:** Measure length, width, and depth with digital calipers.
 - **Materials:** Weigh the paper. We use a micrometer to confirm board thickness matches your [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/) specification sheet.
-- **Function:** Load products into [box liners](https://www.leelinepackage.com/box-liners/) to verify tension. For [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/) and specific [types of jewelry boxes](https://www.leelinepackage.com/types-of-jewelry-boxes/), we measure the exact foam slot resistance.
+- **Function:** Load products into [box liners](https://www.leelinepackage.com/box-liners/) to verify tension. For [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/) and specific types of jewelry boxes, we measure the exact foam slot resistance.
 - **Compliance:** Verify child-safety locks or FDA food-safe symbols.
 - **Finishes:** Test print registration and Pantone matching. Run a strict thumb-rub test on matte lamination and foil stamping.
 - **Logistics:** Scan barcodes for readability. Check drop-test risks against [ISTA testing standards](https://ista.org/). Verify flat-pack assembly accuracy.

@@ -244,6 +244,6 @@ Never approve a film grade without hard data. We recommend taking these three ex
 2. **Run a Trial:** Mandate a line-trial sample to test machine feed tension and heat-seal dwell times.
 3. **Protect the Pouch:** Flexible film cannot survive global export alone. Always pair your BOPP bags with engineered secondary packaging like custom boxes or custom display boxes.
 
-Need structural selection help, a verified sample review, or a factory consultation? [**Contact our packaging engineering team directly**](https://leelinepackage.com/contact) to lock in your specs today.
+Need structural selection help, a verified sample review, or a factory consultation? [**Contact our packaging engineering team directly**](https://www.leelinepackage.com/contact/) to lock in your specs today.
 
 ***Disclaimer:*** *I am not paid by any material manufacturer to promote these findings. My team bases all recommendations strictly on direct factory floor testing, application fit, and rigorous ASTM packaging performance requirements.*

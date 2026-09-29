@@ -68,7 +68,7 @@ This procedure exposes hidden defects:
 - **Vibration:** Simulates rough transit.
 - **Dynamic Fit:** Checks if inserts hold under load.
 
-We apply this across corrugated mailers, folding cartons, and insert-heavy [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/). For rigid [types of jewelry boxes](https://www.leelinepackage.com/types-of-jewelry-boxes/) or premium [types of gift boxes](https://www.leelinepackage.com/types-of-gift-boxes/), vibration testing stops contents from breaking outer walls.
+We apply this across corrugated mailers, folding cartons, and insert-heavy [custom jewelry packaging](https://www.leelinepackage.com/custom-jewelry-packaging/). For rigid [types of jewelry boxes](https://www.leelinepackage.com/types-of-jewelry-boxes/) or premium types of gift boxes, vibration testing stops contents from breaking outer walls.
 
 **🛡️ Our Verdict:** During an [ISTA transit test](https://ista.org/test_procedures.php), a carton failed our 200 Hz vibration exposure. I thickened the board by 2mm. This added two production days but dropped damage to zero.
 

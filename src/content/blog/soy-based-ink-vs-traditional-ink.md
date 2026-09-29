@@ -81,7 +81,7 @@ Switching to soy ink reduces the "Ink Source" impact. However, if you print on a
 
 Soy ink works best—and is most "green"—when paired with uncoated, recycled corrugated board that allows the ink to dry naturally via absorption.
 
-**🧠 Expert Take:** According to [USDA BioPreferred] standards, an ink must only contain a specific percentage of bio-based content to qualify. Many "Soy Inks" are actually **"Soy-Extended"** inks—a blend of petroleum and soy.
+**🧠 Expert Take:** According to [USDA BioPreferred](https://www.biopreferred.gov/) standards, an ink must only contain a specific percentage of bio-based content to qualify. Many "Soy Inks" are actually **"Soy-Extended"** inks—a blend of petroleum and soy.
 
 This isn't necessarily bad (it helps drying), but if your brand claims "100% Vegetable Ink," you need to verify the specific formulation, not just the category.
 
@@ -136,13 +136,13 @@ Petroleum is the safer bet for high-speed, tight-turnaround logistics.
 
 Recycling isn't just about throwing a box in a blue bin. The paper mill has to "de-ink" the pulp—stripping the color away to reuse the fiber.
 
-We referenced the [INGEDE Method 11] standard for deinkability. Petroleum inks harden into a tough cross-linked film that clings to paper fibers. It requires harsh bleaches to remove. Soy inks remain somewhat soluble.
+We referenced the [INGEDE Method 11](https://ingede.org/) standard for deinkability. Petroleum inks harden into a tough cross-linked film that clings to paper fibers. It requires harsh bleaches to remove. Soy inks remain somewhat soluble.
 
 During the recycling bath (a process called flotation), the soy ink detaches easily from the paper pulp and floats to the top to be skimmed off as sludge.
 
 **The Result:** Paper recycled from soy-printed batches yields **brighter, higher-quality pulp** with less chemical intervention. This supports the circular economy by making the recycling process cheaper and more efficient for the mills.
 
-**Verifying the Claim:** Don't just trust the logo. The **SoySeal** (governed by the [ASA SoySeal standards]) is the gold standard, but it’s often misused.
+**Verifying the Claim:** Don't just trust the logo. The **SoySeal** (governed by the ASA SoySeal standards) is the gold standard, but it’s often misused.
 
 - **My rule:** I ask the printer for the ink manufacturer's technical data sheet (TDS). I verify the "Renewable Content" percentage. If they can't provide it, they are likely using standard ink and slapping a green logo on the quote.
 
@@ -164,7 +164,7 @@ During the recycling bath (a process called flotation), the soy ink detaches eas
 
 **For Custom Canvas/Textile Bags:**
 
-- **Best Pick:** Water-based or [OEKO-TEX Eco Passport] Certified Inks.
+- **Best Pick:** Water-based or [OEKO-TEX Eco Passport](https://www.oeko-tex.com/) Certified Inks.
 - **Why:** Textiles require **wash-fastness**. Raw soy ink will wash out. While GOTS-certified water-based inks are the eco-standard, they are chemically different from the "soy ink" used on paper.
 - **Warning:** Avoid "Plastisol" inks if you want sustainability; they are PVC-based (essentially liquid plastic) and sit on top of the fabric rather than dyeing it.
 
@@ -180,7 +180,7 @@ This is vital for luxury packaging; you don't want a customer’s first impressi
 
 - **Superior De-Inking for Recycling:** Sustainability isn't just about the source; it's about the end-of-life. We verified that soy inks detach faster and more cleanly from paper fibers during the recycling pulp phase.
 
-This aligns with [INGEDE Method 11](https://ingede.org/publications/ingede-methods/) standards, ensuring the packaging doesn't just claim to be eco-friendly but actually produces high-quality recycled pulp.
+This aligns with INGEDE Method 11 standards, ensuring the packaging doesn't just claim to be eco-friendly but actually produces high-quality recycled pulp.
 
 - **Operational Friction (Slow Drying):** Soy ink cures through **oxidation** (absorbing oxygen), not rapid evaporation. In our testing, this forced us to slow press speeds by ~15% to prevent "set-off"—where wet ink transfers to the back of the sheet above it in the stack.
 

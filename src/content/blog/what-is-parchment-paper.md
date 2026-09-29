@@ -126,7 +126,7 @@ A simple test can help verify safety: put an olive oil drop on the paper. The pa
 
 Parchment paper has become a must-have tool for professional bakers and home cooks. This kitchen essential consists of cellulose-based paper coated with food-grade silicone that gives it non-stick and heat-resistant properties.
 
-Need exceptional food packaging solutions or custom boxes for your culinary creations? **[Reach out to us](https://www.leelinepackage.com/contact/)** at [leelinepackage.com](http://leelinepackage.com) or [info@leelinepackage.com](mailto:info@leelinepackage.com).
+Need exceptional food packaging solutions or custom boxes for your culinary creations? **[Reach out to us](https://www.leelinepackage.com/contact/)** at leelinepackage.com or info@leelinepackage.com.
 
 The right tools create exceptional food with minimal fuss - and parchment paper deserves its spot among the kitchen's most valuable assets.
 

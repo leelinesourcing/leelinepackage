@@ -185,7 +185,7 @@ The company balances quality with competitive prices. Their pricing includes:
 
 Budget-friendly rates for custom packaging. Better prices per unit when ordering larger quantities. No extra charges for dies and plates, plus quick delivery times. Orders start at 100 boxes, though 1000 units give the best value.
 
-<div class="post-note"><p><strong>Pro Tip: </strong>If you still want <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bags</a></strong> or <a href="https://www.leelinepackage.com/custom-rigid-boxes/" target="_blank" rel="noopener"><strong>custom rigid boxes</strong>,</a> <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact our professionals now</a></strong> to get professional guidance.</p></div>
+<div class="post-note"><p><strong>Pro Tip: </strong>If you still want <strong><a href="https://www.leelinepackage.com/custom-paper-bag/" target="_blank" rel="noopener">custom paper bags</a></strong> or <a href="https://www.leelinepackage.com/custom-rigid-boxes/" target="_blank" rel="noopener"><strong>custom rigid boxes</strong>,</a> <strong>contact our professionals now</strong> to get professional guidance.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener"><strong>Contact CustomBoxes.ae</strong></a></p>
 

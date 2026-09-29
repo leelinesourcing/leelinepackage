@@ -35,7 +35,7 @@ We compared the direct specs based on 50 live packaging runs on our factory floo
 
 **Accessibility Summary:** Offset printing wins high-volume packaging.
 
-It provides flawless [Pantone Guidance](https://www.pantone.com/pantone-formula-guide?srsltid=AfmBOormzwJT7CIu7R0RqwjED4qj8kJbA_2K8p8V4Q73ye92YnApMmbo) color matching, unlocks heavy [types of paper for printing](https://www.leelinepackage.com/types-of-paper-for-printing/), and secures [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/), [water-based coatings vs plastic lamination](https://www.leelinepackage.com/water-based-coatings-vs-plastic-lamination/), and any [glossy vs matte finish](https://www.leelinepackage.com/glossy-vs-matte-finish/) with zero peeling. Digital printing wins short runs.
+It provides flawless Pantone Guidance color matching, unlocks heavy [types of paper for printing](https://www.leelinepackage.com/types-of-paper-for-printing/), and secures [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/), water-based coatings vs plastic lamination, and any glossy vs matte finish with zero peeling. Digital printing wins short runs.
 
 It eliminates plate costs and setup waste.
 
@@ -77,7 +77,7 @@ Furthermore, large solid digital panels often show subtle banding or roller mark
 
 **Pressroom Insight: What a Master Printer Told Me About Ink-on-Paper Chemistry** "Digital toner sits on top of the paper," Manager Chen explained while adjusting the tensioner. "Offset ink absorbs into the fiber.
 
-When you score and fold a thick board, heavy digital toner cracks at the hinge. Offset ink flexes with the paper." For absolute color fidelity, I rely on the official [Pantone Color Systems](https://www.pantone.com/color-systems/pantone-color-systems-explained) and strict [FOGRA39 Standards](https://www.color.org/fogra39.xalter) rather than supplier marketing.
+When you score and fold a thick board, heavy digital toner cracks at the hinge. Offset ink flexes with the paper." For absolute color fidelity, I rely on the official [Pantone Color Systems](https://www.pantone.com/color-systems/pantone-color-systems-explained) and strict FOGRA39 Standards rather than supplier marketing.
 
 This matters immensely when brand identity is on the line. If your signature orange looks muddy on a retail shelf, your customers notice immediately.
 

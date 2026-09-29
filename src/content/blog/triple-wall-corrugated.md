@@ -31,9 +31,9 @@ This ensures lower transit damage, better stacking performance, and a defensible
 
 ## What You Need Before Upgrading
 
-**[Block] How We Vetted This:** We audited over 50 failed ocean freight shipments. We found 80% of pallet collapses happen because buyers ignore warehouse stacking limits and center-of-gravity shifts.
+**How We Vetted This:** We audited over 50 failed ocean freight shipments. We found 80% of pallet collapses happen because buyers ignore warehouse stacking limits and center-of-gravity shifts.
 
-Buyers purchase triple wall corrugated based on vague marketing claims. This guarantees crushed inventory and wasted budget. Before exploring our [custom packaging capabilities](https://www.leelinepackage.com), gather these metrics:
+Buyers purchase triple wall corrugated based on vague marketing claims. This guarantees crushed inventory and wasted budget. Before exploring our [custom packaging capabilities](https://www.leelinepackage.com/), gather these metrics:
 
 - **Physical Specs:** Document product weight, dimensions, center of gravity, and fragility score. Guess the center of gravity, and pallets tip.
 - **Logistics Profile:** Define your transport mode, warehouse stacking height rules, and maximum humidity exposure. Sea freight demands different moisture protection than domestic transit.
@@ -172,7 +172,7 @@ Testing means nothing without implementation discipline. I found that perfect bo
 
 **Expected Result:** You will see flat packs stored dry. You will watch cartons assembling cleanly on the line. You will feel a consistent board texture from batch to batch. You will observe stable pallet patterns during forklift handling. You now possess a repeatable SOP.
 
-Need expert help finalizing your structural architecture? Review our custom capabilities at [LeelinePackage](https://www.leelinepackage.com) or book a sample consultation via our [contact page](https://www.leelinepackage.com/contact/).
+Need expert help finalizing your structural architecture? Review our custom capabilities at [LeelinePackage](https://www.leelinepackage.com/) or book a sample consultation via our [contact page](https://www.leelinepackage.com/contact/).
 
 **⚠️ Experience Warning:** Do not ignore inbound freight volume. I once ordered a bulk run of a custom triple wall to secure a volume discount. The empty flat-packed boxes consumed half our warehouse space and created a massive bottleneck.
 

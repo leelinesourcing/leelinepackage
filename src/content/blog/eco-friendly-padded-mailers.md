@@ -55,7 +55,7 @@ In our factory testing, we found specific constraints you must plan for:
 
 - **Dimensional Weight:** Honeycomb adds roughly 4mm of outer bulk. This extra thickness can offset DIM savings on tight parcel profiles.
 - **Machine Compatibility:** When **[Manager Chen](https://www.linkedin.com/in/jasonchen-apparel/)** ran these on our automated line, the varying thickness jammed the feed sensors. You must pack these by hand.
-- **Print Limitations:** The porous kraft surface restricts finishes. Read our [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/) guide to see why foil fails here. Review [what is texture paper](https://www.leelinepackage.com/what-is-texture-paper/) to understand ink limits. Seal them with [custom package stickers](https://www.leelinepackage.com/custom-package-stickers/) instead.
+- **Print Limitations:** The porous kraft surface restricts finishes. Read our [spot UV vs foil stamping](https://www.leelinepackage.com/spot-uv-vs-foil-stamping/) guide to see why foil fails here. Review [what is texture paper](https://www.leelinepackage.com/what-is-texture-paper/) to understand ink limits. Seal them with custom package stickers instead.
 
 **🛡️ Our Verdict:** In our Tuesday compression test, the honeycomb core collapsed under 15 pounds of pressure. It lacks bounce-back recovery. Use these strictly for lightweight shipments.
 
@@ -117,7 +117,7 @@ Scaling to wholesale volumes exposes hidden print realities. Budget upfront for 
 
 You must understand how different [types of paper for printing](https://www.leelinepackage.com/types-of-paper-for-printing/) absorb ink.
 
-We enforce strict minimum line weights to prevent ink bleeding. Soy inks risk heavy abrasion during transit, but your [flexo vs offset printing](https://www.leelinepackage.com/flexo-vs-offset-printing-packaging/) choice dictates this rub resistance. Plastic [glossy vs matte finish](https://www.leelinepackage.com/glossy-vs-matte-finish/) destroys your recyclability claims under [EPA guidelines](https://www.epa.gov/recycle).
+We enforce strict minimum line weights to prevent ink bleeding. Soy inks risk heavy abrasion during transit, but your [flexo vs offset printing](https://www.leelinepackage.com/flexo-vs-offset-printing-packaging/) choice dictates this rub resistance. Plastic [glossy vs matte finish](https://www.leelinepackage.com/glossy-vs-matte-finish/) destroys your recyclability claims under EPA guidelines.
 
 Treat these mailers like a standard [custom paper bag](https://www.leelinepackage.com/custom-paper-bag/) and stick to uncoated finishes.
 

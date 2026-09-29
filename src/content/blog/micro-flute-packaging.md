@@ -19,7 +19,7 @@ E-commerce brands lose millions annually to damaged goods and inefficient shippi
 
 Meanwhile, direct-to-consumer founders demand a flawless, high-end unboxing experience that encourages customer loyalty and social media sharing.
 
-Having engineered thousands of custom shipping solutions at [LeelinePackage](https://www.leelinepackage.com), I watch brands make the same costly mistake every day.
+Having engineered thousands of custom shipping solutions at [LeelinePackage](https://www.leelinepackage.com/), I watch brands make the same costly mistake every day.
 
 They either select a gorgeous folding carton that crushes during transit, or they default to heavy corrugated board that inflates freight budgets and ruins the premium feel.
 
@@ -155,7 +155,7 @@ When you source suppliers, run through this procurement checklist:
 - What third-party test data can you provide?
 - What specific printing and converting method are you proposing?
 
-**🧠 Expert Insight:** *Always validate your structural specs against *[*ISO 3034 Corrugated Standards*](https://www.iso.org/standard/74291.html)* to guarantee consistent box performance.*
+**🧠 Expert Insight:** *Always validate your structural specs against* [*ISO 3034 Corrugated Standards*](https://www.iso.org/standard/74291.html) *to guarantee consistent box performance.*
 
 ### 6) The Quick Buyer Decision Matrix
 
@@ -198,7 +198,7 @@ According to [McKinsey & Company](https://www.mckinsey.com/industries/packaging-
 
 The ultra-thin caliper allows these boxes to ship and store flat. You fit thousands of extra units onto a single warehouse pallet. This compact footprint slashes your inbound freight bills and frees up warehouse space.
 
-You elevate the unboxing experience without the financial burden of rigid packaging. Transform your shipping economics today with the structural engineering team at [LeelinePackage](https://www.leelinepackage.com).
+You elevate the unboxing experience without the financial burden of rigid packaging. Transform your shipping economics today with the structural engineering team at [LeelinePackage](https://www.leelinepackage.com/).
 
 **📈 ROI Check:** Audit your dimensional weight (DIM) charges. Switching from a thick B-flute to a slim E-flute drops your package into a cheaper courier tier, compounding savings instantly.
 

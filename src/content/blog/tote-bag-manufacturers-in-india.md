@@ -119,7 +119,7 @@ Partner with sustainable **Tote Bag Manufacturers In India** like EcoRight. You 
 
 This wins global buyers.
 
-<div class="post-note"><p><strong>Pro Tip:</strong> If you also want <strong><a href="https://www.leelinepackage.com/custom-rigid-boxes/" target="_blank" rel="noopener">custom rigged boxes</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-display-box/" target="_blank" rel="noopener">custom display boxes</a></strong>, partner with us and we have everything you need. <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact us now</a></strong>.</p></div>
+<div class="post-note"><p><strong>Pro Tip:</strong> If you also want <strong><a href="https://www.leelinepackage.com/custom-rigid-boxes/" target="_blank" rel="noopener">custom rigged boxes</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-display-box/" target="_blank" rel="noopener">custom display boxes</a></strong>, partner with us and we have everything you need. <strong>Contact us now</strong>.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact EcoRight</a></p>
 
@@ -160,7 +160,7 @@ Looking for reliable **Tote Bag Manufacturers In India**? Double R Bags from Gha
 
 Double R Bags and other top tote bag manufacturers In India offer strong benefits. You get better sourcing reliability. Your business gains growth potential. And you build a competitive edge in the tote bag market.
 
-<div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M576 240c0-23.63-12.95-44.04-32-55.12V32.01C544 23.26 537.02 0 512 0c-7.12 0-14.19 2.38-19.98 7.02l-85.03 68.03C364.28 109.19 310.66 128 256 128H64c-35.35 0-64 28.65-64 64v96c0 35.35 28.65 64 64 64h33.7c-1.39 10.48-2.18 21.14-2.18 32 0 39.77 9.26 77.35 25.56 110.94 5.19 10.69 16.52 17.06 28.4 17.06h74.28c26.05 0 41.69-29.84 25.9-50.56-16.4-21.52-26.15-48.36-26.15-77.44 0-11.11 1.62-21.79 4.41-32H256c54.66 0 108.28 18.81 150.98 52.95l85.03 68.03a32.023 32.023 0 0 0 19.98 7.02c24.92 0 32-22.78 32-32V295.13C563.05 284.04 576 263.63 576 240zm-96 141.42l-33.05-26.44C392.95 311.78 325.12 288 256 288v-96c69.12 0 136.95-23.78 190.95-66.98L480 98.58v282.84z"></path></svg><p><strong>Pro Tip:</strong> If you'd like to <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong>, you can also <strong><a href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">contact us</a></strong> for the latest product list and our startup-friendly MOQ policy.</p></div>
+<div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M576 240c0-23.63-12.95-44.04-32-55.12V32.01C544 23.26 537.02 0 512 0c-7.12 0-14.19 2.38-19.98 7.02l-85.03 68.03C364.28 109.19 310.66 128 256 128H64c-35.35 0-64 28.65-64 64v96c0 35.35 28.65 64 64 64h33.7c-1.39 10.48-2.18 21.14-2.18 32 0 39.77 9.26 77.35 25.56 110.94 5.19 10.69 16.52 17.06 28.4 17.06h74.28c26.05 0 41.69-29.84 25.9-50.56-16.4-21.52-26.15-48.36-26.15-77.44 0-11.11 1.62-21.79 4.41-32H256c54.66 0 108.28 18.81 150.98 52.95l85.03 68.03a32.023 32.023 0 0 0 19.98 7.02c24.92 0 32-22.78 32-32V295.13C563.05 284.04 576 263.63 576 240zm-96 141.42l-33.05-26.44C392.95 311.78 325.12 288 256 288v-96c69.12 0 136.95-23.78 190.95-66.98L480 98.58v282.84z"></path></svg><p><strong>Pro Tip:</strong> If you'd like to <strong><a href="https://www.leelinepackage.com/custom-tote-bags/" target="_blank" rel="noopener">custom tote bags</a></strong> or <strong><a href="https://www.leelinepackage.com/custom-pouches/" target="_blank" rel="noopener">custom pouches</a></strong>, you can also <strong>contact us</strong> for the latest product list and our startup-friendly MOQ policy.</p></div>
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener"><strong>Contact</strong> Double R Bags</a></p>
 
@@ -206,7 +206,7 @@ You gain reliable large-order fulfillment. Pricing stays competitive. Access to 
 
 This guide helps you find quality tote bags from trusted suppliers. Need bulk orders? Want custom designs? Looking for reliable partners? These top Indian tote bag makers offer great options for your business.
 
-Got custom package requests? Need more details? **[Contact us](https://www.leelinepackage.com/contact/)** at **[Leelinepackage.com](https://www.leelinepackage.com/)** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)**. We'll help you find the right solutions.
+Got custom package requests? Need more details? **[Contact us](https://www.leelinepackage.com/contact/)** at **Leelinepackage.com** or **info@leelinepackage.com**. We'll help you find the right solutions.
 
 **Related Resources:**
 

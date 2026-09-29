@@ -29,11 +29,11 @@ Procurement managers, luxury founders, and engineers in electronics, cosmetics, 
 
 ## Table of Contents
 
-- [The Packaging Tech Pack Checklist You Should Know](https://www.leelinesports.com/packaging-tech-pack/#the-pre-flight-checklist)
-- [The 5-Step Blueprint for Flawless Packaging Tech Packs](https://www.leelinesports.com/packaging-tech-pack/#the-5-step-blueprint-for-flawless-packaging-tech-packs)
-- [Common Premium Packaging Failures and How to Prevent Them?](https://www.leelinesports.com/packaging-tech-pack/#common-premium-packaging-failures-and-how-to-prevent-them)
-- [Conclusion](https://www.leelinesports.com/packaging-tech-pack/#conclusion)
-- [People Also Ask About Packaging Tech Pack](https://www.leelinesports.com/packaging-tech-pack/#frequently-asked-questions)
+- [The Packaging Tech Pack Checklist You Should Know](#the-packaging-tech-pack-checklist-you-should-know)
+- [The 5-Step Blueprint for Flawless Packaging Tech Packs](#the-5-step-blueprint-for-flawless-packaging-tech-packs)
+- [Common Premium Packaging Failures and How to Prevent Them?](#common-premium-packaging-failures-and-how-to-prevent-them)
+- [Conclusion](#conclusion)
+- [People Also Ask About Packaging Tech Pack](#people-also-ask-about-packaging-tech-pack)
 
 ## The Packaging Tech Pack Checklist You Should Know
 
@@ -77,7 +77,7 @@ Factories require dedicated structural layers, not just print artwork. Cutting m
 
 Open your CAD or vector software like [Adobe Illustrator](https://helpx.adobe.com/illustrator/using/drawing-basics.html). Create a separate structural layer. Map out your exact dimensions. Internal dimensions never equal external dimensions once you add board thickness.
 
-Define your material strength to calculate this exact thickness difference. Review [ECT vs Mullen Test](https://www.leelinepackage.com/ect-vs-mullen-test/) standards. Choose your board thickness using an [E-Flute vs B-Flute](https://www.leelinepackage.com/e-flute-vs-b-flute/) comparison. Specify [what is 32 ECT rating](https://www.leelinepackage.com/what-is-32-ect-rating/) if you use standard corrugated mailer stock.
+Define your material strength to calculate this exact thickness difference. Review [ECT vs Mullen Test](https://www.leelinepackage.com/ect-vs-mullen-test/) standards. Choose your board thickness using an [E-Flute vs B-Flute](https://www.leelinepackage.com/e-flute-vs-b-flute/) comparison. Specify what is 32 ECT rating if you use standard corrugated mailer stock.
 
 Draft the core dieline elements. Use solid strokes for **cut lines** and dashed strokes for **fold lines**. Mark your **glue tabs**, **perforations**, **bleed**, and **safe zone**. Document the **insert geometry**, **opening style**, and **assembly sequence** in plain text.
 

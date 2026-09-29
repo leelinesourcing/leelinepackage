@@ -249,7 +249,7 @@ Many provide fast, reliable delivery for all industries.
 
 Each manufacturer brings unique value. Poly-America leads in scale and technology. Superbag Corporation excels at sustainability. Aluf Plastics offers rapid turnaround and recycled products. The best fit depends on your priorities: cost, branding, strength, or sustainability.
 
-**[Contact us](https://www.leelinepackage.com/contact/)** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)** for recommendations. I can help match you with the right package manufacturer. Need **[custom boxes](https://www.leelinepackage.com/custom-box-manufacturer/)** or other items? Our experts are ready to help you make the smartest choice for your business.
+**[Contact us](https://www.leelinepackage.com/contact/)** or **[info@leelinepackage.com](mailto:info@leelinepackage.com)** for recommendations. I can help match you with the right package manufacturer. Need **custom boxes** or other items? Our experts are ready to help you make the smartest choice for your business.
 
 **Related Resources**:
 

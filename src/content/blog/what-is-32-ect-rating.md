@@ -217,7 +217,7 @@ We verified these outcomes across diverse business models:
 - **Subscription Boxes:** A beauty curator achieved stable 4-high pallet stacking without the cost of heavy-duty board.
 - **Regional Logistics:** A 3PL standardized their stock boxes to 32 ECT, reducing storage costs for unused heavy-duty cartons.
 
-*Note: 32 ECT is porous. If you ship food or greasy items, standard board fails regardless of the ECT rating. (See: *[*what is wax paper*](https://www.leelinepackage.com/what-is-wax-paper/)* for barrier solutions).*
+*Note: 32 ECT is porous. If you ship food or greasy items, standard board fails regardless of the ECT rating. (See:* [*what is wax paper*](https://www.leelinepackage.com/what-is-wax-paper/) *for barrier solutions).*
 
 **🚀 ROI Check:** Unsure if your product exceeds the 32 ECT weight threshold? [Contact our engineering team](https://www.leelinepackage.com/contact/) for a free structural audit.
 

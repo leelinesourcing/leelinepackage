@@ -19,7 +19,7 @@ Seal bars require tighter thermal windows to prevent warp, and recycled boards g
 
 You cannot simply swap materials. You need a rigorous process to transition without blowing up scrap rates or lead times.
 
-This guide outlines the execution roadmap we use for [Internal link: https://www.leelinepackage.com/custom-box-manufacturer/], covering the entire scope from material selection and converting to global logistics.
+This guide outlines the execution roadmap we use for [custom box manufacturer](https://www.leelinepackage.com/custom-box-manufacturer/), covering the entire scope from material selection and converting to global logistics.
 
 We will examine critical phases including supplier qualification, [ASTM D6400 compliance](https://www.astm.org/d6400-23.html), and pilot validation. You will leave with a line-change checklist and a clear path to stable, scalable production.
 

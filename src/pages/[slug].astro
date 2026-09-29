@@ -279,18 +279,6 @@ const jsonLd = {
     <article class="post-main">
       <div class:list={['wrap', 'post-layout', railToc && 'post-layout--rail']}>
         <div class="post-body">
-          <figure class="post-hero-figure">
-            <img
-              src={data.featuredImage}
-              alt={data.featuredImageAlt}
-              width={data.featuredImageWidth}
-              height={data.featuredImageHeight}
-              loading="eager"
-              fetchpriority="high"
-              decoding="sync"
-            />
-          </figure>
-
           <div class="post-prose">
             <Content />
           </div>
@@ -402,14 +390,6 @@ const jsonLd = {
   @media (max-width: 1120px) {
     .post-layout--rail { display: block; max-width: 48rem; }
     .post-rail { display: none; }
-  }
-
-  .post-hero-figure { margin: 0 0 clamp(2.2rem, 4vw, 3rem); }
-  .post-hero-figure img {
-    width: 100%;
-    height: auto;
-    border-radius: 1.1rem;
-    box-shadow: 0 26px 56px -36px rgba(31, 59, 44, 0.55);
   }
 
   /* The closing author block is `AuthorCard.astro` — it carries its own styles. */

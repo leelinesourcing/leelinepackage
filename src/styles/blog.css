@@ -93,9 +93,19 @@
 }
 
 /* ── imagery ──────────────────────────────────────────────────────────────── */
+/*
+  Uniform picture box, by request (*"图片的尺寸要保持一致"*, 2026-09-29). The images arrive at
+  every aspect ratio between 1:1 and 1.8:1, so at full column width their HEIGHTS were all
+  different and the article read raggedly. 16/9 is the right ratio to standardise on: it is what
+  61% of the 901 article images already are, and it matches `.post-embed` below, so images and
+  videos now share one shape. `object-fit: cover` crops the minority (centre crop) rather than
+  letterboxing them.
+*/
 .post-prose img {
   width: 100%;
   height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border-radius: 1.1rem;
   box-shadow: 0 22px 48px -34px rgba(31, 59, 44, 0.5);
 }

@@ -2,7 +2,23 @@
 const LOGO = 'https://img.leelinepackage.com/leelinepackage-logo.webp';
 const year = new Date().getFullYear();
 
-const products = ['Custom Boxes', 'Custom Bags', 'Rigid Boxes', 'Mailer Boxes', 'Custom Pouches'];
+const products = [
+  { label: 'Custom Boxes', href: '/custom-box-manufacturer/' },
+  { label: 'Custom Bags', href: '/custom-bag-manufacturer/' },
+  { label: 'Rigid Boxes', href: '/custom-rigid-boxes/' },
+  { label: 'Mailer Boxes', href: '/custom-mailer-bags/' },
+  { label: 'Custom Pouches', href: '/custom-pouches/' },
+  { label: 'Folding Cartons', href: '/custom-folding-cartons/' },
+  { label: 'Paper Bags', href: '/custom-paper-bag/' },
+  { label: 'Tote Bags', href: '/custom-tote-bags/' },
+];
+
+const services = [
+  { label: 'Services Overview', href: '/services/' },
+  { label: 'Structural Engineering', href: '/structural-engineering-and-design/' },
+  { label: 'Packaging Artwork Design', href: '/packaging-artwork-design/' },
+  { label: 'Packaging Sample & Prototyping', href: '/packaging-sample-prototyping/' },
+];
 
 const info = [
   { label: 'About Us', href: '/about-us/' },
@@ -36,6 +52,10 @@ const socials = [
           The Structural Brand Architect — protecting the product and impressing the customer,
           from the first dieline to the final mile.
         </p>
+        <p class="footer-note">
+          Since 2015, brands and retailers have come to us for packaging built around the product
+          itself, where material, structure and finish are chosen to present as well as they protect.
+        </p>
         <div class="socials">
           {socials.map((s) => (
             <a href={s.href} aria-label={s.name}><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d={s.d} /></svg></a>
@@ -45,7 +65,12 @@ const socials = [
 
       <nav class="footer-col" aria-label="Popular products">
         <h4>Popular Products</h4>
-        {products.map((p) => <a href="/#offerings" target="_blank" rel="noopener">{p}</a>)}
+        {products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
+      </nav>
+
+      <nav class="footer-col" aria-label="Services">
+        <h4>Services</h4>
+        {services.map((s) => <a href={s.href} target="_blank" rel="noopener">{s.label}</a>)}
       </nav>
 
       <nav class="footer-col" aria-label="Company">
@@ -72,24 +97,57 @@ const socials = [
 </footer>
 
 <style>
-  .footer { background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(255, 255, 255, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.3fr; gap: clamp(2rem, 4vw, 3.5rem); }
+  /* ⚠️ The tagline's line is what the four link columns have to line up with (below 1121px the
+     brand block owns its own row, so there is nothing to align). These two tokens are the whole
+     offset — `--logo-h` is the logo, `--tagline-gap` its top margin — and `.footer-col`'s padding
+     is derived from them, so the alignment survives a change to either. */
+  .footer { --logo-h: 48px; --tagline-gap: 1.4rem; background: linear-gradient(180deg, var(--forest-light) 0%, var(--color-forest) 100%); color: rgba(255, 255, 255, 0.86); padding: clamp(3.5rem, 8vw, 6rem) 0 2rem; }
+  /* ⚠️ `minmax(0, 1fr)`, never a bare `1fr`, for the four link columns. A bare `1fr` is
+     `minmax(auto, 1fr)`, and `auto` is min-content — the `nowrap` heading below makes THAT
+     156px, so the Popular Products column would quietly refuse to match the other three. With a
+     0 min the four tracks divide the row exactly evenly (measured 171.23px each at 1440px), which
+     is what makes the column spacing uniform.
 
-  .brand { display: inline-flex; align-items: center; gap: 0.7rem; }
+     `1.86fr`, not `1.7fr`: at the 1200px wrap the track space is 976px, so the extra 0.16fr is
+     ~19px — the 0.5cm the four columns needed to move right. It scales with the wrap, so the
+     offset stays ~0.5cm down to the 1121px breakpoint instead of collapsing. */
+  .footer-grid { display: grid; grid-template-columns: 1.86fr repeat(4, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem); }
+
+  /* `flex`, not `inline-flex`: as an inline-level box the anchor sits on a text baseline and
+     its line box adds ~6px below the logo, which would put the tagline (and therefore the
+     alignment target) lower than this math predicts. */
+  .footer .brand { display: flex; align-items: center; gap: 0.7rem; }
   .brand--light .brand-word { color: #fff; }
   .brand--light .brand-word em { color: rgba(255, 255, 255, 0.55); }
-  .footer .brand-logo { height: 48px; width: auto; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35)); }
+  .footer .brand-logo { height: var(--logo-h); width: auto; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.35)); }
 
-  .footer-tagline { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-heading); font-style: italic; font-size: 1.35rem; color: var(--brass-soft); margin: 1.4rem 0 1rem; }
-  .footer-note { font-size: 0.95rem; line-height: 1.7; max-width: 40ch; margin: 0 0 1.6rem; }
+  /* `flex`, not `inline-flex`: no strut is added above the line, so its top is exactly
+     `--logo-h + --tagline-gap` below the grid top — the same number `.footer-col` pads by. */
+  .footer-tagline { display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-heading); font-style: italic; font-size: 1.35rem; color: var(--brass-soft); margin: var(--tagline-gap) 0 1rem; }
+  .footer-note { font-size: 0.95rem; line-height: 1.7; max-width: 40ch; margin: 0 0 0.85rem; }
+  /* two paragraphs now — tight between each other, but keep the original gap before the socials */
+  .footer-note:last-of-type { margin-bottom: 1.6rem; }
 
   .socials { display: flex; gap: 0.7rem; }
   .socials a { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.25); display: grid; place-items: center; color: rgba(255, 255, 255, 0.8); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s ease, background 0.4s ease, color 0.4s ease; }
   .socials a svg { width: 17px; height: 17px; }
   .socials a:hover { transform: translateY(-3px); border-color: var(--brass); background: var(--brass); color: var(--forest-deep); }
 
-  .footer-col { display: flex; flex-direction: column; gap: 0.7rem; padding-top: 0.5cm; }
-  .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; }
+  .footer-col { display: flex; flex-direction: column; gap: 0.7rem; }
+  /* The +0.5rem is optical: the 1.35rem italic tagline's cap height starts below its box top, so
+     a bare logo+margin offset leaves the 0.78rem uppercase heading sitting noticeably high. */
+  @media (min-width: 1121px) {
+    .footer-col { padding-top: calc(var(--logo-h) + var(--tagline-gap) + 0.5rem); }
+  }
+  /* ⚠️ `nowrap` + `minmax(0,…)`: the four columns are now exactly equal, so the ONE thing that can
+     still make the gaps read as uneven is this heading — it is the widest of the four and spills
+     into the gap to its right once a column drops under ~170px. 0.12em (down from 0.2em) keeps it
+     inside a 1440px column; the band below shrinks it again for the ~153px columns that appear
+     just above the 5-column breakpoint. */
+  .footer-col h4 { font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass-soft); margin: 0 0 0.6rem; white-space: nowrap; }
+  @media (min-width: 1121px) and (max-width: 1276px) {
+    .footer-col h4 { font-size: 0.7rem; }
+  }
   .footer-col a, .footer-col span { font-size: 0.95rem; color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
   .footer-col a:hover { color: #fff; }
   .footer-col--contact .btn { color: var(--forest-deep); padding: 0.6rem 1.15rem; font-size: 0.88rem; margin-top: 0.45rem; align-self: flex-start; }
@@ -101,7 +159,12 @@ const socials = [
   .footer-legal a { color: rgba(255, 255, 255, 0.72); transition: color 0.3s ease; }
   .footer-legal a:hover { color: var(--brass-soft); }
 
-  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  /* 5 columns is one more than the row can hold comfortably below ~1120px, so the brand block
+     takes its own full-width row and the four link columns pair up beneath it. */
+  @media (max-width: 1120px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
+  }
   @media (max-width: 640px) {
     .footer-grid { grid-template-columns: 1fr; }
     .footer-bottom { justify-content: flex-start; flex-direction: column; align-items: flex-start; }

@@ -38,8 +38,11 @@ const openLinksInNewTab = {
   canonical on the page. `/404` is dropped by the integration itself; these two are ours:
   both carry `<meta name="robots" content="noindex, nofollow">`, and advertising a noindex
   URL in the sitemap is a Search Console error, not a ranking help.
+
+  `/search-index.json` is the navbar search's build-time index — see
+  `src/pages/search-index.json.ts`. A data endpoint, not a page, so nothing should crawl it.
 */
-const SITEMAP_EXCLUDE = ['/thank-you/', '/design-system/'];
+const SITEMAP_EXCLUDE = ['/thank-you/', '/design-system/', '/search-index.json'];
 
 /*
   `lastmod` is the one field in a sitemap that Google actually reads — which is also why a

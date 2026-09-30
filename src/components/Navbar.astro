@@ -92,6 +92,9 @@ const nav = {
 
     <div class="nav-actions">
       <a class="btn btn-primary btn-sm" href={nav.cta} target="_blank" rel="noopener">Get Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button class="search-btn" id="navSearchBtn" type="button" aria-label="Search the blog" aria-haspopup="dialog" aria-controls="navSearch" aria-expanded="false">
+        <svg class="search-ico" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12.9 12.9 17.6 17.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
       <button class="menu-btn" id="navMenuBtn" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span>
       </button>
@@ -108,25 +111,48 @@ const nav = {
   <nav class="nav-mobile-links" aria-label="Mobile">
     <a href="/" target="_blank" rel="noopener">Home</a>
     <details>
-      <summary>Products</summary>
+      <summary>Products<svg class="m-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="sub">{nav.products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
     </details>
     <details>
-      <summary>Industries</summary>
+      <summary>Industries<svg class="m-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="sub">{nav.industries.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
     </details>
     <a href="/about-us/" target="_blank" rel="noopener">About Us</a>
     <a href="/case-study/" target="_blank" rel="noopener">Case Studies</a>
     <details>
-      <summary>Services</summary>
+      <summary>Services<svg class="m-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
       <div class="sub">
         <a href="/services/" target="_blank" rel="noopener">Services Overview</a>
         {nav.services.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}
       </div>
     </details>
     <a href="/blog/" target="_blank" rel="noopener">Blog</a>
-    <a href="/contact/" class="btn btn-primary" target="_blank" rel="noopener">Get Free Quote<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <button class="m-search" id="navMobileSearch" type="button">
+      <svg class="search-ico" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12.9 12.9 17.6 17.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Search the Blog
+    </button>
+    <a href="/contact/" class="btn btn-primary" target="_blank" rel="noopener">Start Your Project<svg class="btn-leaf" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
   </nav>
+</div>
+
+<!--
+  ⚠️ Same containment rule as `.nav-mobile` above: kept OUTSIDE <header class="site-nav">, because
+  the header's `backdrop-filter` would otherwise become this panel's containing block and clip
+  `inset: 0` to the 76 px bar.
+-->
+<div class="nav-search" id="navSearch" role="dialog" aria-modal="true" aria-label="Search the blog">
+  <div class="nav-search-panel">
+    <div class="nav-search-bar">
+      <svg class="search-ico" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.6" cy="8.6" r="5.9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12.9 12.9 17.6 17.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input class="nav-search-input" id="navSearchInput" type="search" name="s" placeholder="Search the blog…" autocomplete="off" aria-label="Search the blog" aria-describedby="navSearchHint" />
+      <button class="nav-search-close" id="navSearchClose" type="button" aria-label="Close search">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="nav-search-hint" id="navSearchHint">Search every article by title or topic.</p>
+    <div class="nav-search-results" id="navSearchResults"></div>
+  </div>
 </div>
 
 <style>
@@ -199,6 +225,27 @@ const nav = {
   body.menu-open .menu-btn span:nth-child(1) { transform: translateY(3.3px) rotate(45deg); }
   body.menu-open .menu-btn span:nth-child(2) { transform: translateY(-3.3px) rotate(-45deg); }
 
+  /* Blog search — the live site's GeneratePress search icon, kept in the same slot (right of the
+     quote pill, left of the hamburger). ⚠️ Hidden below 601px: at 390px the bar is already
+     exactly full (measured 340 of 358px with a logo squeezed to 119px), so a fourth control
+     would crush the wordmark. Under the breakpoint the same action moves into the mobile panel
+     as `.m-search`, which is where the WordPress slideout carried it too. */
+  /* The magnifier is the one control in the bar that has to be NOTICED, so it carries the
+     full-strength brand green rather than the 20%-alpha hairline the hamburger uses, and fills
+     on hover. ⚠️ `.menu-btn` beside it still has the faint border — match it only if asked. */
+  .search-btn {
+    display: none; width: 44px; height: 44px; align-items: center; justify-content: center;
+    background: none; border: 1px solid var(--color-brand-primary); border-radius: 50%;
+    color: var(--color-brand-text); cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  }
+  .search-btn:hover { background: var(--color-brand-primary); color: var(--ivory); }
+  .search-ico { width: 19px; height: 19px; flex: 0 0 auto; }
+  /* Thickened here, once, instead of on all three inline copies of the icon. CSS beats the
+     `stroke-width` presentation attribute. */
+  .search-ico circle, .search-ico path { stroke-width: 2.15; }
+  @media (min-width: 601px) { .search-btn { display: flex; } }
+
   /* ⚠️ Sits OUTSIDE <header> on purpose — see the note in the markup. The header's
      `backdrop-filter` would otherwise become this element's containing block and clip
      `inset: 0` to the 76px bar. z-index 999 = above the page, below the bar (1000). */
@@ -213,17 +260,75 @@ const nav = {
     font-family: var(--font-heading); font-size: 1.7rem; color: var(--color-brand-text); text-decoration: none;
     list-style: none; cursor: pointer; text-align: center;
   }
+  /* The three expandable rows are the only tappable-within-a-tap here, and in the
+     panel they render as plain text — indistinguishable from "Blog". The chevron
+     is what says "this opens". Inline-flex keeps it tight against the word while
+     the column's `align-items: center` still centers the pair. */
+  .nav-mobile-links summary { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .m-chev { width: 0.6em; height: 0.4em; flex: 0 0 auto; transition: transform 0.3s ease; }
+  .nav-mobile-links details[open] > summary .m-chev { transform: rotate(180deg); }
   .nav-mobile-links summary::-webkit-details-marker { display: none; }
   .nav-mobile-links .sub { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.5rem; text-align: center; }
   .nav-mobile-links .sub a { font-family: var(--font-body); font-size: 1rem; color: var(--color-brand-muted); text-decoration: none; }
-  .nav-mobile-links a.btn { font-family: var(--font-body); font-size: 1rem; margin-top: 0.6rem; }
+  /* ⚠️ `.nav-mobile-links > a` (0,1,1) outranks `.btn-primary`'s `color: var(--ivory)`
+     (0,1,0), so the panel's CTA was shipping near-black text on the dark green pill.
+     This (0,2,1) puts the ivory back. */
+  .nav-mobile-links a.btn { font-family: var(--font-body); font-size: 1rem; margin-top: 0.6rem; color: var(--ivory); }
+  /* The <601px stand-in for `.search-btn` — same panel row rhythm as the summaries. */
+  .nav-mobile-links .m-search {
+    display: inline-flex; align-items: center; gap: 0.55rem; padding: 0; background: none; border: 0;
+    font-family: var(--font-heading); font-size: 1.7rem; color: var(--color-brand-text); cursor: pointer;
+  }
+  .nav-mobile-links .m-search .search-ico { width: 0.75em; height: 0.75em; color: var(--brass); }
+  @media (min-width: 601px) { .nav-mobile-links .m-search { display: none; } }
+
+  /* ── blog search panel ─────────────────────────────────────────────────────────────────────
+     The static stand-in for GeneratePress's `?s=` modal on the live site. Same containment rule
+     as `.nav-mobile`: OUTSIDE <header>, or the bar's `backdrop-filter` clips `inset: 0` to 76px.
+     z-index 998 keeps it under the bar (1000) so the logo and the close button stay reachable. */
+  :global(body.search-open) { overflow: hidden; }
+  .nav-search {
+    position: fixed; inset: 0; z-index: 998; display: flex; justify-content: center;
+    align-items: flex-start; padding: clamp(4.5rem, 12vh, 8rem) 1.25rem 1.25rem;
+    background: rgba(31, 59, 44, 0.42); opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  body.search-open .nav-search { opacity: 1; visibility: visible; }
+  .nav-search-panel {
+    width: min(760px, 100%); max-height: min(72vh, 620px); display: flex; flex-direction: column;
+    background: #fff; border-radius: 1.25rem; overflow: hidden;
+    box-shadow: 0 34px 80px -34px rgba(20, 38, 27, 0.6);
+    transform: translateY(-10px); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  body.search-open .nav-search-panel { transform: translateY(0); }
+  .nav-search-bar { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1rem; border-bottom: 1px solid rgba(31, 59, 44, 0.12); color: var(--color-brand-muted); }
+  .nav-search-input { flex: 1 1 auto; min-width: 0; border: 0; outline: none; background: none; font-family: var(--font-body); font-size: 1.05rem; color: var(--color-brand-text); }
+  .nav-search-input::placeholder { color: var(--color-brand-muted); }
+  .nav-search-close { width: 36px; height: 36px; flex: 0 0 auto; display: grid; place-items: center; background: none; border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 50%; color: var(--color-brand-text); cursor: pointer; transition: border-color 0.3s ease; }
+  .nav-search-close:hover { border-color: var(--color-brand-primary); }
+  .nav-search-close svg { width: 15px; height: 15px; }
+  .nav-search-hint, .nav-search-none { margin: 0; padding: 1rem 1.15rem 1.2rem; font-size: 0.92rem; color: var(--color-brand-muted); }
+  .nav-search-results { overflow-y: auto; padding: 0.35rem 0.6rem 0.7rem; }
+  .nav-search-results a { display: block; padding: 0.7rem 0.6rem; border-radius: 0.7rem; text-decoration: none; transition: background 0.2s ease; }
+  .nav-search-results a:hover, .nav-search-results a.is-active { background: rgba(31, 59, 44, 0.06); }
+  .nsr-cat { display: block; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.25rem; }
+  .nsr-title { display: block; font-family: var(--font-heading); font-size: 1.08rem; line-height: 1.3; color: var(--color-brand-text); }
+  .nsr-x { display: block; margin-top: 0.25rem; font-size: 0.88rem; line-height: 1.5; color: var(--color-brand-muted); }
 
   /* the longer CTA label costs ~35px, so the link row tightens in the band
      between the hamburger breakpoint and ~1200px rather than letting
-     "About Us" / "Case Studies" wrap onto two lines */
+     "About Us" / "Case Studies" wrap onto two lines.
+     ⚠️ 1025–1200 is the ONLY band where the bar is at its limit: measured nav-links 527px
+     against a 963px row at 1025px. The search button needs ~44 + a gap, so this band also
+     shrinks it to 38px, tightens `.nav-actions` and the row gap, and pulls the nav-links
+     font/gap down to 0.82rem/0.65rem — that lands nav-links at ~478px, ~27px of slack. */
   @media (min-width: 1025px) and (max-width: 1200px) {
-    .nav-links { gap: 0.95rem; }
-    .nav-links > a, .nav-drop-btn, .nav-drop-link { font-size: 0.86rem; }
+    .site-nav-inner { gap: 1.15rem; }
+    .nav-links { gap: 0.65rem; }
+    .nav-links > a, .nav-drop-btn, .nav-drop-link { font-size: 0.82rem; }
+    .nav-actions { gap: 0.55rem; }
+    .search-btn { width: 38px; height: 38px; }
+    .search-btn .search-ico { width: 17px; height: 17px; }
   }
 
   @media (max-width: 1024px) {
@@ -240,8 +345,10 @@ const nav = {
   const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
+
   const btn = document.getElementById('navMenuBtn');
   const toggle = (open) => {
+    if (open) setSearch(false);
     document.body.classList.toggle('menu-open', open);
     btn.setAttribute('aria-expanded', String(open));
   };
@@ -249,5 +356,100 @@ const nav = {
   document.querySelectorAll('#navMobile a').forEach((a) => a.addEventListener('click', () => toggle(false)));
   document.querySelectorAll('.nav-drop-btn').forEach((b) => {
     b.addEventListener('click', (e) => { e.preventDefault(); b.closest('.nav-drop').classList.toggle('open'); });
+  });
+
+  /*
+    ── blog search ─────────────────────────────────────────────────────────────────────────────
+
+    Backed by `/search-index.json`, written at build time by `src/pages/search-index.json.ts`.
+    The request is deferred until the panel is first opened — the index is ~34 KB and must never
+    be on the critical path (see the note in that endpoint).
+
+    Matches on title + category + excerpt, AND-joined so "rigid foil" narrows rather than widens.
+  */
+  const searchBtn = document.getElementById('navSearchBtn');
+  const mobileSearchBtn = document.getElementById('navMobileSearch');
+  const searchPanel = document.getElementById('navSearch');
+  const searchInput = document.getElementById('navSearchInput');
+  const searchClose = document.getElementById('navSearchClose');
+  const searchResults = document.getElementById('navSearchResults');
+  const searchHint = document.getElementById('navSearchHint');
+  let index = null;
+  let loading = false;
+  let active = -1;
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function setSearch(open) {
+    if (open) toggleMenuClosed();
+    document.body.classList.toggle('search-open', open);
+    [searchBtn, mobileSearchBtn].forEach((b) => b && b.setAttribute('aria-expanded', String(open)));
+    if (!open) return;
+    loadIndex();
+    searchInput.focus();
+  }
+
+  // Kept separate from `toggle` so the two panels can close each other without recursing.
+  function toggleMenuClosed() {
+    document.body.classList.remove('menu-open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function loadIndex() {
+    if (index || loading) return;
+    loading = true;
+    fetch('/search-index.json')
+      .then((r) => (r.ok ? r.json() : []))
+      .then((d) => { index = d; render(); })
+      .catch(() => { index = []; render(); });
+  }
+
+  function render() {
+    const q = searchInput.value.trim();
+    active = -1;
+    if (!q) {
+      searchHint.hidden = false;
+      searchResults.innerHTML = '';
+      return;
+    }
+    searchHint.hidden = true;
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    const hits = (index || [])
+      .filter((p) => {
+        const hay = `${p.t} ${p.c} ${p.x}`.toLowerCase();
+        return terms.every((t) => hay.includes(t));
+      })
+      .slice(0, 12);
+
+    if (!hits.length) {
+      searchResults.innerHTML = `<p class="nav-search-none">No articles match &ldquo;${esc(q)}&rdquo;.</p>`;
+      return;
+    }
+    searchResults.innerHTML = hits
+      .map((p) => `<a href="${esc(p.u)}" target="_blank" rel="noopener"><span class="nsr-cat">${esc(p.c)}</span><span class="nsr-title">${esc(p.t)}</span><span class="nsr-x">${esc(p.x)}</span></a>`)
+      .join('');
+  }
+
+  searchBtn.addEventListener('click', () => setSearch(!document.body.classList.contains('search-open')));
+  mobileSearchBtn.addEventListener('click', () => setSearch(true));
+  searchClose.addEventListener('click', () => setSearch(false));
+  searchInput.addEventListener('input', render);
+  // The backdrop closes; the panel itself must not.
+  searchPanel.addEventListener('click', (e) => { if (e.target === searchPanel) setSearch(false); });
+
+  document.addEventListener('keydown', (e) => {
+    if (!document.body.classList.contains('search-open')) return;
+    if (e.key === 'Escape') { setSearch(false); return; }
+    const links = [...searchResults.querySelectorAll('a')];
+    if (!links.length) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      active = Math.max(0, Math.min(links.length - 1, active + (e.key === 'ArrowDown' ? 1 : -1)));
+      links.forEach((a, i) => a.classList.toggle('is-active', i === active));
+      links[active].scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter' && active >= 0) {
+      e.preventDefault();
+      window.open(links[active].href, '_blank', 'noopener');
+    }
   });
 </script>

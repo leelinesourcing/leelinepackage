@@ -30,8 +30,6 @@ const IMG = {
   labels: 'https://img.leelinepackage.com/labels-stickers-v2.webp',
   fsc: 'https://img.leelinepackage.com/eco-sustainable.webp',
   tailored: 'https://img.leelinepackage.com/size-dimensions.webp',
-  hero480: 'https://img.leelinepackage.com/hero-480.webp',
-  hero960: 'https://img.leelinepackage.com/hero-960.webp',
   hero1440: 'https://img.leelinepackage.com/hero-1440.webp',
   facility: 'https://img.leelinepackage.com/facility.webp',
   ctaInline: 'https://img.leelinepackage.com/cta-inline.webp',
@@ -333,8 +331,6 @@ const seoJsonLd = JSON.stringify({
   canonical="https://www.leelinepackage.com/"
   ogImage="https://img.leelinepackage.com/rigid-box-v2.webp"
   preloadImage={IMG.hero1440}
-  preloadImageSrcset={`${IMG.hero480} 480w, ${IMG.hero960} 960w, ${IMG.hero1440} 1440w`}
-  preloadImageSizes="(min-width: 1025px) 1440px, (min-width: 641px) 960px, 480px"
   jsonLd={seoJsonLd}
 >
   <style is:global>
@@ -1118,10 +1114,8 @@ const seoJsonLd = JSON.stringify({
       padding: clamp(8rem, 16vw, 11rem) 0 clamp(4rem, 8vw, 6rem);
       color: var(--ivory);
     }
-    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://img.leelinepackage.com/hero-480.webp') center / cover no-repeat; filter: brightness(1.12); }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; background: url('https://img.leelinepackage.com/hero-1440.webp') center / cover no-repeat; filter: brightness(1.12); }
     .hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(20, 38, 27, 0.45); }
-    @media (min-width: 641px) { .hero-bg { background-image: url('https://img.leelinepackage.com/hero-960.webp'); } }
-    @media (min-width: 1025px) { .hero-bg { background-image: url('https://img.leelinepackage.com/hero-1440.webp'); } }
     .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; transform: translateY(-1cm); }
     .hero-rating { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.45rem 1.05rem; border-radius: 999px; background: rgba(245, 240, 229, 0.12); border: 1px solid rgba(245, 240, 229, 0.25); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transform: translateY(-0.3cm); }
     .hero-rating .stars { color: #E3C29A; font-size: 1rem; letter-spacing: 0.12em; }

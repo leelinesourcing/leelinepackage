@@ -4,7 +4,10 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 
 const R2 = 'https://img.leelinepackage.com';
-const PC = `${R2}/pouches`;
+/* ⚠️ `pouches-v2/` not `pouches/`: the client re-shot the whole page on 2026-10-08 and the image
+   CDN holds a 4 h edge TTL, so re-uploading under the old keys would keep serving the old bytes.
+   A new prefix publishes instantly and needs no cache-busting query string. */
+const PC = `${R2}/pouches-v2`;
 
 /* ── the nine constructions ─────────────────────────────────────────────
    Plain name + description. A per-card "Typically holds" footer was dropped as
@@ -54,25 +57,25 @@ const anatomy = [
 /* ── the barrier selector. Every figure here comes off the source page or the
    film supplier's own data sheet; nothing is estimated. ── */
 const fills = [
-  { key: 'coffee', tab: 'Coffee &amp; Roast', img: `${PC}/fill-coffee-v2.webp`, w: 700, h: 800,
+  { key: 'coffee', tab: 'Coffee &amp; Roast', img: `${PC}/fill-coffee-v2.webp`, w: 719, h: 480,
     alt: 'A kraft coffee pouch standing beside a scatter of roasted beans',
     structure: 'Printed PET / foil / food-contact PE, valve welded into the top seal',
     barrier: 'The foil layer blocks light and oxygen, which is what stales a roast',
     life: 'Adds 20–30% to the shelf life of a plain bag',
     style: 'Flat bottom or side gusset, split valve' },
-  { key: 'snacks', tab: 'Snacks &amp; Dry Goods', img: `${PC}/fill-snacks-v2.webp`, w: 700, h: 800,
+  { key: 'snacks', tab: 'Snacks &amp; Dry Goods', img: `${PC}/fill-snacks-v2.webp`, w: 1100, h: 956,
     alt: 'A pantry shelf of printed pouches holding granola and dry goods',
     structure: 'Printed PET / EVOH barrier / PE seal',
     barrier: 'Moisture and oxygen held out by a metallized or EVOH layer in place of foil',
     life: 'Keeps a crisp fill crisp past the stated shelf life',
     style: 'Stand-up with a resealable zipper' },
-  { key: 'supplements', tab: 'Supplements &amp; Powders', img: `${PC}/fill-supplements-v2.webp`, w: 700, h: 800,
+  { key: 'supplements', tab: 'Supplements &amp; Powders', img: `${PC}/fill-supplements-v2.webp`, w: 1024, h: 1024,
     alt: 'A tub of chocolate protein powder beside a scoop on a kitchen counter',
     structure: 'Matte PET / EVOH barrier / PE seal, with a child-resistant option',
     barrier: 'Hygroscopic powders pull moisture out of the air; the inner PE layer is what holds it back',
     life: 'Keeps a powder free-flowing to the end of the pack',
     style: 'Stand-up, wide zipper track, optional child-resistant closure' },
-  { key: 'liquids', tab: 'Liquids &amp; Sauces', img: `${PC}/fill-liquids-v2.webp`, w: 700, h: 800,
+  { key: 'liquids', tab: 'Liquids &amp; Sauces', img: `${PC}/fill-liquids-v2.webp`, w: 1024, h: 1024,
     alt: 'Bone broth pouches with fitted spouts standing in a row',
     structure: 'Printed PET / foil or EVOH / PE seal, with a fitted spout',
     barrier: 'Foil or EVOH for oxygen-sensitive fills, matched to the fill temperature',
@@ -85,17 +88,17 @@ const fills = [
    than a product. ── */
 const shapes = [
   { n: '01', name: 'Flat Pouch', fig: 'Two film panels, sealed on four edges',
-    img: `${PC}/shape-flat.webp`,
+    img: `${PC}/shape-flat.webp`, w: 447, h: 447,
     alt: 'Two flat pouches, one blue and one black, lying side by side on a pale surface',
     d: 'Front and back, joined on four edges. The least film per pouch, the largest uninterrupted print area, and the lowest carton weight per unit.',
     when: 'It is a refill, or it ships inside an outer carton anyway' },
   { n: '02', name: 'Stand-Up Pouch', fig: 'Two panels plus a folded bottom gusset',
-    img: `${PC}/shape-standup-v3.webp`,
+    img: `${PC}/shape-standup-v3.webp`, w: 1024, h: 1024,
     alt: 'Three brightly printed stand-up pouches in a row, standing upright',
     d: 'The gusset unfolds into a base and the pouch stands unaided, keeping its shape as the contents settle.',
     when: 'The pouch has to sell itself off a shelf' },
   { n: '03', name: 'Side-Gusseted Pouch', fig: 'Two panels, two side gussets and a base',
-    img: `${PC}/shape-gusset.webp`,
+    img: `${PC}/shape-gusset.webp`, w: 554, h: 554,
     alt: 'A row of narrow side-gusseted clear pouches filled with nuts on a lit shelf',
     d: 'Two side gussets plus a base lift usable capacity 30–50% on an unchanged footprint, and give the pouch four more printable faces.',
     when: 'The fill is bulky and the shelf width is fixed' },
@@ -147,7 +150,7 @@ const finishes = [
      in the markup are fixed 4/5 placeholders, so dropping the files in later moves
      nothing. (Placeholder images used here before: use-1 / use-4 / finish-foil /
      use-5, all still on R2.) */
-  { t: 'Matte', img: `${PC}/fin-matte.webp`,
+  { t: 'Matte', img: `${PC}/fin-matte-v2.webp`,
     alt: 'Four matte-printed stand-up pouches in soft pastel colors',
     d: 'A flat, non-reflective surface that keeps fine type readable straight under shop lighting.' },
   { t: 'Gloss', img: `${PC}/fin-gloss.webp`,
@@ -156,7 +159,7 @@ const finishes = [
   { t: 'Metallic Foil', img: `${PC}/fin-foil.webp`,
     alt: 'Three metallic pouches in black, gold and violet',
     d: 'A metallized layer or a hot-foil stamp for a mirror finish on a logo or a single band.' },
-  { t: 'Soft-Touch', img: `${PC}/fin-soft.webp`,
+  { t: 'Soft-Touch', img: `${PC}/fin-soft-v2.webp`,
     alt: 'Pastel gradient flat pouches printed with a placeholder logo',
     d: 'A velvet-matte laminate. It changes how the pouch reads in the hand before the label is read.' },
 ];
@@ -283,7 +286,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
   ogType="website"
   ogImage={seo.ogImage}
   preloadImage={`${PC}/hero-2-sm.webp`}
-  preloadImageSrcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1210w`}
+  preloadImageSrcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1376w`}
   preloadImageSizes="100vw"
   jsonLd={JSON.stringify(jsonLd)}
 >
@@ -295,11 +298,11 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
       <img
         class="pc-hero-bg"
         src={`${PC}/hero-2-sm.webp`}
-        srcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1210w`}
+        srcset={`${PC}/hero-2-sm.webp 800w, ${PC}/hero-2.webp 1376w`}
         sizes="100vw"
         alt="A collection of printed coffee and snack pouches in orange, blue, kraft and yellow"
-        width={1210}
-        height={726}
+        width={1376}
+        height={768}
         loading="eager"
         fetchpriority="high"
         decoding="sync"
@@ -361,7 +364,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
           {types.map((t, i) => (
             <article class="pc-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.08}s`}>
               <figure class="pc-type-ph">
-                <img src={t.img} alt={t.alt} width={550} height={525} loading="lazy" decoding="async" class="pc-img" />
+                <img src={t.img} alt={t.alt} width={1024} height={1024} loading="lazy" decoding="async" class="pc-img" />
                 <span class="pc-type-num">{t.n}</span>
               </figure>
               <div class="pc-type-body">
@@ -532,7 +535,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
           {shapes.map((s, i) => (
             <article class="pc-shape-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
               <figure class="pc-shape-ph">
-                <img src={s.img} alt={s.alt} width={560} height={420} loading="lazy" decoding="async" class="pc-img" />
+                <img src={s.img} alt={s.alt} width={s.w} height={s.h} loading="lazy" decoding="async" class="pc-img" />
                 <span class="pc-shape-n">{s.n}</span>
               </figure>
               <div class="pc-shape-body">
@@ -779,7 +782,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
           {finishes.map((f, i) => (
             <article class="pc-fin" data-reveal="up" style={`--d:${i * 0.06}s`}>
               <figure class="pc-fin-ph">
-                <img src={f.img} alt={f.alt} width={360} height={405} loading="lazy" decoding="async" class="pc-img" />
+                <img src={f.img} alt={f.alt} width={1024} height={1024} loading="lazy" decoding="async" class="pc-img" />
               </figure>
               <h3 class="pc-fin-t">{f.t}</h3>
               <p class="pc-fin-d">{f.d}</p>
@@ -1206,7 +1209,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
 
        background-image:
          linear-gradient(180deg, rgba(20, 38, 27, 0.7), rgba(20, 38, 27, 0.86)),
-         url('https://img.leelinepackage.com/pouches/<key>.webp');
+         url('https://img.leelinepackage.com/pouches-v2/<key>.webp');
        background-size: auto, cover;
        background-position: center, center;
 
@@ -1220,7 +1223,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
        centred copy stops being legible over a bright mockup shot. */
     background-image:
       linear-gradient(180deg, rgba(20, 38, 27, 0.74), rgba(20, 38, 27, 0.9)),
-      url('https://img.leelinepackage.com/pouches/band-bg.webp');
+      url('https://img.leelinepackage.com/pouches-v2/band-bg.webp');
     background-size: auto, cover;
     background-position: center, center;
     padding: clamp(3.8rem, 8.5vw, 6.6rem) 0;
@@ -1648,7 +1651,7 @@ const leaf = '<path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 1
     position: relative;
     isolation: isolate;
     background: linear-gradient(180deg, rgba(20, 38, 27, 0.62), rgba(20, 38, 27, 0.8)),
-                url('https://img.leelinepackage.com/pouches/final-cta-v2.webp') center / cover no-repeat;
+                url('https://img.leelinepackage.com/pouches-v2/final-cta-v2.webp') center / cover no-repeat;
     padding: max(3rem, calc(clamp(4rem, 9vw, 7.5rem) - 1cm)) 0;
     text-align: center;
     overflow: hidden;

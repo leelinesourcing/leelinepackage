@@ -1,0 +1,827 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const VP = `${R2}/custom-vape`;
+
+/* Shared bits kept as strings so thirteen eyebrows do not repeat the same 180-character path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* ⚠️ Every photograph on this page is a LABELLED PLACEHOLDER. The client supplies the shots
+   later; each `vp-ph` figure names the image it is waiting for and, where it matters, the
+   R2 key it should land on (`custom-vape/<key>.webp`). Swapping one in = replacing that
+   <figure> with the plain <img src={`${VP}/<key>.webp`} …> form used site-wide. */
+const heroTiles = [
+  { key: 'hero-device', note: 'A vape device and its carton together on a light surface' },
+  { key: 'hero-carts', note: 'A row of 510 cartridges beside their drawer boxes' },
+  { key: 'hero-display', note: 'A counter display unit holding pens upright' },
+];
+
+const heroChips = ['500-unit minimum', 'Dieline in 24 hours', 'Report on request'];
+
+/* ── The nine types. Four fields are fixed on every card: what it holds, the closure it
+   runs, the insert inside it, and the order it is the wrong choice for. ─────────────── */
+const types = [
+  { n: '01', name: 'Disposable Vape Boxes', key: 'type-disposable', shot: 'A disposable pen box, front panel',
+    lede: 'A slim lid-and-base or a slide-out, opened along the pen and stood mouthpiece-up.',
+    suits: 'A single sealed pen, 2,000–20,000 puffs', lock: 'None, or a tear-tab', insert: 'None, or a light paperboard sleeve',
+    avoid: 'A pen with a removable pod — there is nothing left to open' },
+  { n: '02', name: 'Cartridge Drawer Boxes', key: 'type-cartridge', shot: 'A drawer box open beside 510 carts',
+    lede: 'A push-button drawer in a single slot or a full row, cut to carry 510 carts.',
+    suits: '510-thread carts, a single cart or a row', lock: 'Push-button drawer', insert: 'EVA or die-cut board, a cell per cart',
+    avoid: 'Carts much past 1.2 ml — the cavity height is drawn to the cart' },
+  { n: '03', name: 'Push-and-Slide CR Boxes', key: 'type-slide', shot: 'A push-and-slide box, tab held in',
+    lede: 'A folding blank that slides only while its tab is held in — awkward for a child, unhurried for an adult.',
+    suits: 'A single disposable or a small cart pack', lock: 'Push-and-slide', insert: 'Flat board, or a paper cradle',
+    avoid: 'Heavier mods — a folding blank will not carry the mass' },
+  { n: '04', name: 'Child-Resistant Tubes', key: 'type-tube', shot: 'A side-button tube holding one cart',
+    lede: 'A round barrel with a side button; a pen or a cart travels alone inside it.',
+    suits: 'A cart, or a single disposable pen', lock: 'Side-button on the barrel', insert: 'None — the tube is the cradle',
+    avoid: 'Kits; a full set will not fit' },
+  { n: '05', name: 'Pod System Boxes', key: 'type-pod', shot: 'A two-zone tray, device and pods',
+    lede: 'Two zones, keeping the spare pods beside the device rather than on top of it.',
+    suits: 'A device and its spare pods', lock: 'Magnetic or drawer', insert: 'A two-zone tray',
+    avoid: 'A device-only order — the second zone goes to waste' },
+  { n: '06', name: 'Device Rigid Boxes', key: 'type-device', shot: 'A rigid shell, device and cable',
+    lede: 'A magnetic or two-piece rigid shell, sized for a mod and its charging cable.',
+    suits: 'A mod, cable included', lock: 'Magnetic', insert: 'An EVA bed with a cable channel',
+    avoid: 'Disposables — rigid cost on a throwaway' },
+  { n: '07', name: 'Starter Kit Boxes', key: 'type-kit', shot: 'A multi-tier kit tray, four cells',
+    lede: 'A multi-tier tray: device, pod, cable and booklet each in a cell of their own.',
+    suits: 'A full kit, four parts', lock: 'Magnetic, or a slide-out drawer', insert: 'Multi-tier tray, a cell each',
+    avoid: 'Single-item orders' },
+  { n: '08', name: 'E-Liquid Bottle Boxes', key: 'type-eliquid', shot: 'A bottle box with a shoulder cradle',
+    lede: 'A cradle that grips the bottle at the shoulder and holds the glass off the walls.',
+    suits: '10–60 ml bottles', lock: 'None', insert: 'Bottle-shoulder cradle',
+    avoid: 'Pouches — a shoulder cradle grips a neck' },
+  { n: '09', name: 'Retail Display Boxes', key: 'type-display', shot: 'A counter display unit, window front',
+    lede: 'A window or open front for the counter, with a lockable retail box behind it.',
+    suits: 'A counter or shelf run', lock: 'None on the display; the inner box keeps its own', insert: 'A shelf-ready tray',
+    avoid: 'Post-only orders — a display unit ships worst' },
+];
+
+/* ── The comparison table: the page's one table. Five points down, nine types across. ── */
+const cmpCols = ['Disposable', 'Cartridge drawer', 'Slide CR', 'CR tube', 'Pod system', 'Device rigid', 'Starter kit', 'E-liquid bottle', 'Retail display'];
+const cmpRows = [
+  { label: 'Structure', v: ['Lid & base / slide', 'Push-button drawer', 'Folding blank', 'Round barrel', 'Two-zone tray', 'Rigid shell', 'Rigid, multi-tier', 'Sleeve, lid & base', 'Open tray or carton'] },
+  { label: 'Child lock', v: ['—', 'Push-button', 'Push-and-slide', 'Side-button', 'Optional', '—', 'Optional', '—', '—'] },
+  { label: 'Insert', v: ['Sleeve or none', 'EVA / board', 'Board cradle', 'None', 'Two-zone tray', 'EVA bed', 'Multi-tier tray', 'Shoulder cradle', 'Shelf tray'] },
+  { label: 'Runs as', v: ['Single', 'Single or row', 'Single', 'Single', 'Set', 'Set', 'Kit', 'Single or pack', 'Display set'] },
+  { label: 'Ships', v: ['Flat', 'Formed', 'Flat', 'Formed', 'Formed', 'Formed', 'Formed', 'Flat', 'Flat'] },
+];
+
+/* ── The three closures a child-resistant order can run. ─────────────────────────────── */
+const locks = [
+  { n: '01', name: 'Push-Button Drawer', adult: 'Press the button and pull', child: 'The button has to go first',
+    d: 'The drawer only travels while the button is held. Release it halfway and the drawer relocks; a small hand cannot simply pull the tray out.' },
+  { n: '02', name: 'Push-and-Slide', adult: 'Push the tab, then slide', child: 'Two actions at once',
+    d: 'A folding blank whose lid stays shut until a tab is pushed inward and the sleeve is drawn at the same moment. It is the closure that still ships flat.' },
+  { n: '03', name: 'Side-Button Tube', adult: 'Press the side button', child: 'Not where a small hand reaches',
+    d: 'A button set into the barrel releases the lid. A cart or a pen travels alone inside, with the barrel itself doing the work of an insert.' },
+];
+
+const crFigs = [
+  { v: '3', l: 'child-resistant closures' },
+  { v: '9', l: 'structures on the same floor' },
+  { v: '4–6', l: 'weeks from sample to pallet' },
+];
+
+/* ── The warning block: what changes by market, and where the logo sits. ─────────────── */
+const markets = [
+  { m: 'United States', d: 'An FDA-style warning block, sized to the front panel and set in solid colour.' },
+  { m: 'EU and UK', d: 'TPD warnings, usually carrying two or more languages on the same panel.' },
+  { m: 'Canada', d: 'Bilingual warnings, with the health-warning block reserved before artwork.' },
+];
+
+const materials = [
+  { name: 'Greyboard, wrapped', key: 'mat-greyboard',
+    d: 'A 1.5–2.5 mm shell under a printed wrap. It carries the weight of a mod or a kit and holds a shelf shape for a season, which is what a rigid order is paying for.' },
+  { name: 'Folding carton board', key: 'mat-carton',
+    d: 'Coated board printed and die-cut in a single pass. The lower-cost route for disposables and carts that leave in volume rather than in ones and twos.' },
+  { name: 'A cut cradle, not padding', key: 'mat-insert',
+    d: 'EVA or die-cut paperboard, cut to the device; the cavity grips it. Anything loose inside a vape carton is a cart that arrives scratched.' },
+];
+
+const finishes = [
+  { name: 'Matte lamination', d: 'Kills glare and fingerprints; a warning block stays readable under a shop light.' },
+  { name: 'Soft-touch', d: 'A quiet, matte skin that makes a device box feel heavier than it is.' },
+  { name: 'Gold foil', d: 'A stamped logo or flavour name — the place a metallic hit earns its cost.' },
+  { name: 'Spot UV', d: 'Gloss raised over artwork, flat everywhere else, keeping contrast off the type.' },
+];
+
+const steps = [
+  { n: '01', t: 'Send the device', d: 'A sample, a drawing, or a length, width and height.' },
+  { n: '02', t: 'Pick a structure', d: 'A choice from the nine, or a call to talk it through.' },
+  { n: '03', t: 'Settle the lock', d: 'Child-resistant, magnetic, or none at all.' },
+  { n: '04', t: 'Draw the dieline', d: 'The cut file, with the warning block and logo placed.' },
+  { n: '05', t: 'Approve a sample', d: 'A white dummy for fit, a printed dummy for colour.' },
+  { n: '06', t: 'Run the batch', d: 'The pallet matches the sample that was signed off.' },
+];
+
+const channels = [
+  { key: 'shelf-shop', name: 'Vape shop counter', d: 'A display unit that stands the pens upright and shows the whole front panel.' },
+  { key: 'shelf-dispensary', name: 'Dispensary shelf', d: 'A cart box drawn around a keep-clear warning zone and a CR closure.' },
+  { key: 'shelf-dtc', name: 'Direct to customer', d: 'A mailer that takes a sortation belt with the device still centred.' },
+  { key: 'shelf-kit', name: 'Subscription drop', d: 'A kit box whose tray changes contents without the box being redrawn.' },
+];
+
+/* ⚠️ PLACEHOLDER REVIEWS. No real vape testimonials exist in the source material, so these
+   two are drafted product-specific copy with role + market attributions only — no invented
+   company names and no invented figures. REPLACE with the client's own approved quotes
+   before launch, or delete the section. No aggregateRating is emitted for the same reason. */
+const reviews = [
+  { role: 'Procurement lead', who: 'a disposable-vape brand', loc: 'United Kingdom', key: 'avatar-uk',
+    q: [
+      'Every mockup we had been shown assumed a pen was a plain rectangle. The dieline came back with the mouthpiece sitting up and the warning block already inside the panel, which no supplier had put together before.',
+      'A white dummy arrived, then a printed dummy, and the lock behaved on the sample the way it had been described on the call. Nothing about the mechanism was a surprise at the counter later.',
+      'Two flavours run on a single box size and a single print pass. The panel is identical across both; the warning is never the thing forgotten in a rush.',
+    ] },
+  { role: 'Retail buyer', who: 'a cartridge brand', loc: 'Canada', key: 'avatar-ca',
+    q: [
+      'Carts were shifting in the boxes we had made elsewhere and arriving with scratches across the glass. What came back here held each cart at the shoulder rather than across the body.',
+      'Now a case comes out of the carton and every cart inside it is standing the same way up. A small thing, until you are holding a tray of them at a counter.',
+      'Our warning panel was laid out for this market before any artwork existed, and the designer worked around the block instead of squeezing it in afterwards.',
+    ] },
+];
+
+const faqs = [
+  { q: 'What is the minimum order for a printed vape box?', a: '500 units for custom vape boxes, whether the order runs as a folding blank or a rigid shell. A white dummy sample comes first, and the fit is agreed before the run.' },
+  { q: 'How long does a sample take?', a: 'A white dummy is 3–5 days for fit; a printed sample is 7–10 days for colour and finish. A 3D mockup is sent before either, which agrees the shape without waiting on post.' },
+  { q: 'Can you supply a child-resistance test report?', a: 'On request. Third-party testing for child-resistant vape packaging is arranged against the market’s standard, and the report is passed to you with the sample.' },
+  { q: 'Who writes the warning text?', a: 'You do. It is a regulated panel and the wording is not ours to author. The approved text is laid into a keep-clear zone in the dieline and set as flat ink, where it stays legible in low light.' },
+  { q: 'Does the price include the insert?', a: 'Yes. The insert is quoted with the box rather than added afterwards, because the cavity is cut at the same time as the structure.' },
+  { q: 'Where is the box made?', a: 'On a single floor in China, then shipped flat-packed or formed, depending on the structure. FOB and EXW terms both work.' },
+  { q: 'Can different box types share a single order?', a: 'Yes. A cartridge drawer and a counter display can sit on a single purchase order, a single artwork approval and a single shipment.' },
+];
+
+const related = [
+  { label: 'Custom Paper Bag', href: '/custom-paper-bag/' },
+  { label: 'Custom Folding Cartons', href: '/custom-folding-cartons/' },
+  { label: 'Custom Rigid Boxes', href: '/custom-rigid-boxes/' },
+  { label: 'Custom Package Stickers', href: '/custom-package-stickers/' },
+  { label: 'Custom Pouches', href: '/custom-pouches/' },
+];
+
+const seo = {
+  title: 'Custom Vape Packaging Manufacturer: 500-Unit MOQ, 24h Mockup',
+  description: 'Custom vape packaging manufacturer building child-resistant drawers, CR tubes, pod and cartridge boxes. 500-unit MOQ, 3D mockups in 24 hours and a free dieline.',
+  keywords: 'custom vape packaging manufacturer, custom vape packaging, custom vape boxes, child resistant vape packaging, disposable vape boxes, vape cartridge packaging, custom vape cartridge boxes, vape pen packaging, e-liquid packaging boxes, vape display boxes',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Vape Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom vape packaging design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Vape Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 7.6l9 4.5 9-4.5z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 7.6v8.8L12 21v-8.9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M21 7.6v8.8L12 21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>';
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — copy left, composed photo cluster right ============ -->
+    <section class="vp-hero">
+      <div class="wrap vp-hero-grid">
+        <div class="vp-hero-copy">
+          <span class="eyebrow" set:html={`${LEAF}Vape packaging factory`}></span>
+          <h1 class="vp-hero-title" data-reveal="up">Custom Vape Packaging Manufacturer: <em>Child-Resistant Boxes from 500 Units</em></h1>
+          <p class="vp-hero-sub" data-reveal="up">A carton drawn to the device, the shelf and the warning rules of the market it sells in — for disposables, carts, pods and e-liquid. Agree the dieline, and the pallet that lands matches the sample.</p>
+          <ul class="vp-chips" data-reveal="up">
+            {heroChips.map((c) => <li class="vp-chip">{c}</li>)}
+          </ul>
+          <div class="vp-hero-cta" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get a Vape Box Quote <Fragment set:html={ARROW} /></a>
+          </div>
+        </div>
+        <div class="vp-hero-tiles" data-reveal="up">
+          {heroTiles.map((t, i) => (
+            <figure class={`vp-ph vp-hero-tile vp-hero-tile--${i === 0 ? 'lead' : i}`} data-img-key={`${VP}/${t.key}.webp`}>
+              <Fragment set:html={PLACEHOLDER_ICO} />
+              <figcaption>{t.note}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ NINE TYPES ============ -->
+    <section class="vp-types" id="box-types">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Box types`}></span>
+          <h2 class="section-title" data-reveal="up">Nine Vape Box Types, <em>Built Around the Device</em></h2>
+          <p class="section-sub" data-reveal="up">Nine structures cover disposables, carts, pods, kits and bottles. Each card names what it holds, the closure it runs and the insert inside it — and the order it is the wrong choice for.</p>
+        </div>
+        <div class="vp-type-grid">
+          {types.map((t, i) => (
+            <article class="vp-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
+              <figure class="vp-ph vp-type-ph" data-img-key={`${VP}/${t.key}.webp`}>
+                <Fragment set:html={PLACEHOLDER_ICO} />
+                <figcaption>{t.shot}</figcaption>
+              </figure>
+              <div class="vp-type-top">
+                <span class="vp-type-num">{t.n}</span>
+                <h3 class="vp-type-name">{t.name}</h3>
+              </div>
+              <p class="vp-type-lede">{t.lede}</p>
+              <ul class="vp-spec">
+                <li><span class="vp-k">Suits</span><span class="vp-v">{t.suits}</span></li>
+                <li><span class="vp-k">Lock</span><span class="vp-v">{t.lock}</span></li>
+                <li><span class="vp-k">Insert</span><span class="vp-v">{t.insert}</span></li>
+                <li class="vp-spec-no"><span class="vp-k">Not for</span><span class="vp-v">{t.avoid}</span></li>
+              </ul>
+            </article>
+          ))}
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Match a Box to Your Device <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPARISON — the page's one table ============ -->
+    <section class="vp-cmp" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Comparison`}></span>
+          <h2 class="section-title" data-reveal="up">The Nine Structures, <em>Side by Side</em></h2>
+          <p class="section-sub" data-reveal="up">Five points decide a structure: how it closes, whether it locks, what holds the product, what ships together, and whether it leaves flat. Read down a column to see whether a type can do the job.</p>
+        </div>
+        <div class="vp-cmp-rail" data-reveal="up">
+          <div class="vp-cmp-track" style={`grid-template-columns: 168px repeat(${cmpCols.length}, minmax(104px, 1fr));`}>
+            <p class="vp-cmp-name vp-cmp-corner" aria-hidden="true"></p>
+            {cmpCols.map((c, i) => (
+              <p class="vp-cmp-name"><span class="vp-cmp-idx">{String(i + 1).padStart(2, '0')}</span>{c}</p>
+            ))}
+            {cmpRows.map((r, ri) => (
+              <>
+                <p class={`vp-cmp-label${ri % 2 ? ' vp-cmp-lite' : ''}${ri > 0 ? ' vp-cmp-rule' : ''}`}>{r.label}</p>
+                {r.v.map((val) => (
+                  <p class={`vp-cmp-cell${ri % 2 ? ' vp-cmp-lite' : ''}${ri > 0 ? ' vp-cmp-rule' : ''}`}>
+                    {val === '—'
+                      ? <span class="vp-cmp-none" aria-label="not offered">—</span>
+                      : (r.label === 'Child lock' ? <span class="vp-cmp-pill">{val}</span> : val)}
+                  </p>
+                ))}
+              </>
+            ))}
+          </div>
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get a Type Recommendation <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHILD RESISTANCE — the dark centre of gravity ============ -->
+    <section class="vp-cr" id="child-resistance">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow eyebrow--light" set:html={`${LEAF}Child resistance`}></span>
+          <h2 class="section-title vp-cr-title" data-reveal="up">Three Closures, <em>Two Audiences</em></h2>
+          <p class="vp-cr-lead" data-reveal="up">A child-resistant box does a single job: a child cannot open it, and an adult opens it without reading anything first. Three structures here do exactly that — and each answers to a different retail shelf.</p>
+        </div>
+        <div class="vp-cr-locks">
+          {locks.map((l, i) => (
+            <article class="vp-cr-lock" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="vp-cr-num">{l.n}</span>
+              <h3 class="vp-cr-name">{l.name}</h3>
+              <p class="vp-cr-d">{l.d}</p>
+              <dl class="vp-cr-pair">
+                <div><dt>Adult</dt><dd>{l.adult}</dd></div>
+                <div><dt>Child</dt><dd>{l.child}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+        <ul class="vp-cr-figs" data-reveal="up">
+          {crFigs.map((f) => (
+            <li class="vp-cr-fig"><strong>{f.v}</strong><span>{f.l}</span></li>
+          ))}
+        </ul>
+        <aside class="vp-cr-note" data-reveal="up">
+          <h3>The paperwork, plainly</h3>
+          <p>The structure is built to the market’s child-resistance standard and third-party testing is arranged for you. The test report is handed over on request. Nothing is claimed on a page, a dieline or a carton until a current report is in hand — which is why this page names the closures rather than a certification number.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ WARNING PANEL + LOGO ============ -->
+    <section class="vp-warn" id="warning">
+      <div class="wrap">
+        <div class="vp-warn-grid">
+          <div class="vp-warn-copy">
+            <span class="eyebrow" set:html={`${LEAF}Warning &amp; shelf`}></span>
+            <h2 class="section-title" data-reveal="up">The Warning Block Is <em>Part of the Dieline</em></h2>
+            <p class="section-sub" data-reveal="up">Two things are fixed on a vape carton’s front panel: the warning block and your logo. Both are placed in the cut file before a sheet is printed; neither arrives as an afterthought squeezed into the artwork.</p>
+            <ul class="vp-market" data-reveal="up">
+              {markets.map((m) => (
+                <li class="vp-market-item"><strong>{m.m}</strong><span>{m.d}</span></li>
+              ))}
+            </ul>
+          </div>
+          <div class="vp-warn-visual" data-reveal="up">
+            <div class="vp-warnlbl">
+              <span class="vp-warnlbl-tag">Reserved keep-clear zone</span>
+              <p class="vp-warnlbl-h">WARNING</p>
+              <p class="vp-warnlbl-b">Your market’s approved wording is set here, at the size the panel allows — never reworded, never foiled.</p>
+              <span class="vp-warnlbl-scale" aria-hidden="true"></span>
+            </div>
+            <figure class="vp-logo-slot">
+              <Fragment set:html={PLACEHOLDER_ICO} />
+              <figcaption>Your logo, on the panel beside the warning</figcaption>
+            </figure>
+          </div>
+        </div>
+        <p class="vp-warn-q" data-reveal="up">Each quote starts with a question: <strong>which market does this box sell in — the United States, the EU and UK, or Canada?</strong></p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Send Your Warning Copy <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MATERIALS ============ -->
+    <section class="vp-mat" id="materials">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Materials`}></span>
+          <h2 class="section-title" data-reveal="up">Three Materials, <em>One Job Each</em></h2>
+          <p class="section-sub" data-reveal="up">Board is chosen for the job rather than for the catalogue: a rigid shell where the device is expensive, a folding blank where it is not, and a cradle that holds the product still.</p>
+        </div>
+        <div class="vp-mat-grid">
+          {materials.map((m, i) => (
+            <article class="vp-mat-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <figure class="vp-ph vp-mat-ph" data-img-key={`${VP}/${m.key}.webp`}>
+                <Fragment set:html={PLACEHOLDER_ICO} />
+                <figcaption>Swatch photograph</figcaption>
+              </figure>
+              <h3>{m.name}</h3>
+              <p>{m.d}</p>
+            </article>
+          ))}
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Lock In a Material <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINISHES ============ -->
+    <section class="vp-fin" id="finishes">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Finishes`}></span>
+          <h2 class="section-title" data-reveal="up">Four Finishes, <em>and One Rule</em></h2>
+          <p class="section-sub" data-reveal="up">Finish is where a carton earns its shelf price. On a regulated panel it also has to stay readable, which is what the rule below is for.</p>
+        </div>
+        <div class="vp-fin-grid">
+          {finishes.map((f, i) => (
+            <article class="vp-fin-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="vp-fin-dot" aria-hidden="true"></span>
+              <h3>{f.name}</h3>
+              <p>{f.d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="vp-fin-rule" data-reveal="up"><strong>The one rule.</strong> Warning text is always printed in solid colour. It is never foiled, glossed or over-laminated, because a warning a customer cannot read in low light is a warning that does not count.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">See a Finish Sample <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA ============ -->
+    <section class="vp-midcta">
+      <div class="wrap vp-midcta-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
+        <h2 class="vp-midcta-title" data-reveal="up">Send the Device, <em>Get the Dieline</em></h2>
+        <p class="vp-midcta-sub" data-reveal="up">A photograph, a 3D file or three measurements is enough to begin. A structure is drawn around the device, and the quote is built on the box that came out of it.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Talk to a Packaging Engineer <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW AN ORDER RUNS ============ -->
+    <section class="vp-order" id="ordering">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}How an order runs`}></span>
+          <h2 class="section-title" data-reveal="up">From a Device to <em>a Pallet</em></h2>
+          <p class="section-sub" data-reveal="up">Six steps, each signed off before the next begins. A single exception is worth knowing early: a change of size or lock after the dieline is drawn is quoted as a new order, because the cut file changes with it.</p>
+        </div>
+        <ol class="vp-steps">
+          {steps.map((s, i) => (
+            <li class="vp-step" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="vp-step-num">{s.n}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ol>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Start a Dieline <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHERE THEY SELL ============ -->
+    <section class="vp-shelf" id="shelf">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Where they sell`}></span>
+          <h2 class="section-title" data-reveal="up">Four Channels, <em>Four Cartons</em></h2>
+          <p class="section-sub" data-reveal="up">The same nine structures leave the floor for four very different counters, and the counter decides more of the drawing than the product does.</p>
+        </div>
+        <div class="vp-shelf-grid">
+          {channels.map((c, i) => (
+            <figure class="vp-shelf-card" data-reveal="up" style={`--d:${(i % 4) * 0.06}s`}>
+              <div class="vp-ph vp-shelf-ph" data-img-key={`${VP}/${c.key}.webp`}>
+                <Fragment set:html={PLACEHOLDER_ICO} />
+              </div>
+              <figcaption>
+                <strong>{c.name}</strong>
+                <span>{c.d}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section class="vp-quote" id="reviews">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Customer voices`}></span>
+          <h2 class="section-title" data-reveal="up">What Buyers Say <em>After the First Run</em></h2>
+        </div>
+        <div class="vp-quote-grid">
+          {reviews.map((r, i) => (
+            <blockquote class="vp-quote-card" data-reveal="up" style={`--d:${i * 0.12}s`}>
+              <div class="vp-quote-copy">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+              <footer class="vp-quote-who">
+                {/* Placeholder portrait. When the real photo lands, swap this figure for
+                    `<img src={`${VP}/${r.key}.webp`} alt={`${r.role}, ${r.loc}`} width={220} height={220} loading="lazy" decoding="async" class="vp-img" />`. */}
+                <figure class="vp-ph vp-quote-av" data-img-key={`${VP}/${r.key}.webp`} aria-hidden="true">
+                  <Fragment set:html={PLACEHOLDER_ICO} />
+                </figure>
+                <div class="vp-quote-id">
+                  <strong>{r.role}</strong>
+                  <span>{r.who} &middot; {r.loc}</span>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="vp-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow" set:html={`${LEAF}FAQ`}></span>
+          <h2 class="section-title" data-reveal="up">Straight Answers, <em>Before You Commit</em></h2>
+        </div>
+        <div class="vp-faq-list">
+          {faqs.map((f, i) => (
+            <details class="vp-faq-item" data-reveal="up">
+              <summary><span class="vp-faq-num">{i + 1}</span>{f.q}</summary>
+              <div class="vp-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RELATED PRODUCTS ============ -->
+    <section class="vp-rel" id="related">
+      <div class="wrap vp-rel-inner">
+        <span class="eyebrow" set:html={`${LEAF}Related`}></span>
+        <h2 class="vp-rel-title" data-reveal="up">Boxes That Ship <em>Beside a Vape Box</em></h2>
+        <ul class="vp-rel-list" data-reveal="up">
+          {related.map((r) => (
+            <li><a class="vp-rel-link" href={r.href} target="_blank" rel="noopener">{r.label}<Fragment set:html={ARROW} /></a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="vp-final" id="get-started">
+      <div class="wrap vp-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
+        <h2 class="vp-final-title" data-reveal="up">A Device Deserves a Box <em>Drawn for It</em></h2>
+        <p class="vp-final-sub" data-reveal="up">Send a sample, a photograph or three measurements. A structure comes back with the quote, and the dieline that was agreed is the dieline that gets cut.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send Your Device Spec <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .vp-hero, .vp-types, .vp-cmp, .vp-cr, .vp-warn, .vp-mat, .vp-fin, .vp-midcta, .vp-order, .vp-shelf, .vp-quote, .vp-faq, .vp-rel, .vp-final { position: relative; }
+  .vp-hero .section-cta, .vp-order .section-cta { justify-content: flex-start; }
+
+  /* the labelled image placeholder every photograph slot on this page uses */
+  .vp-ph {
+    margin: 0; padding: clamp(1rem, 2vw, 1.4rem); border-radius: 1rem;
+    display: grid; place-content: center; justify-items: center; gap: 0.55rem; text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(31,59,44,0.05) 0 10px, transparent 10px 21px),
+      var(--color-brand-surface);
+    border: 1px dashed rgba(31,59,44,0.3);
+    color: var(--color-brand-muted);
+  }
+  /* ⚠️ `:global()` is load-bearing. `PLACEHOLDER_ICO` is injected with `set:html`, and Astro never
+     stamps its scope attribute on string-injected markup — a plain `.vp-ph-ico` rule silently
+     matches nothing, so the SVG falls back to `width:auto` and paints at the container's size in
+     the inherited muted grey instead of brass. Any rule that has to reach inside a `set:html`
+     string must be global. (`eyebrow-leaf` / `btn-leaf` are safe: those styles live in site.css.) */
+  :global(.vp-ph-ico) { width: clamp(34px, 3.6vw, 54px); height: clamp(34px, 3.6vw, 54px); color: var(--brass); opacity: 0.75; }
+  .vp-ph figcaption { font-size: 0.76rem; line-height: 1.45; max-width: 30ch; }
+
+  /* ============ HERO ============ */
+  .vp-hero { background: var(--ivory); padding: calc(4.75rem + clamp(2.5rem, 6vw, 4.5rem)) 0 clamp(3.5rem, 7vw, 5.5rem); }
+  .vp-hero-grid { display: grid; grid-template-columns: 1.06fr 0.94fr; gap: clamp(2rem, 4.5vw, 3.8rem); align-items: center; }
+  .vp-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.15rem, 4.5vw, 3.85rem); line-height: 1.04; letter-spacing: -0.03em; color: var(--color-brand-text); max-width: 22ch; margin: 1.15rem 0 0; text-wrap: balance; }
+  .vp-hero-title em { font-style: italic; color: var(--brass); }
+  .vp-hero-sub { font-size: clamp(1rem, 1.5vw, 1.14rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 50ch; margin: 1.4rem 0 0; }
+  .vp-chips { list-style: none; margin: 1.7rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .vp-chip { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 600; color: var(--color-brand-text); background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.12); border-radius: 999px; padding: 0.5rem 0.95rem; }
+  .vp-chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); flex: 0 0 auto; }
+  .vp-hero-cta { display: flex; margin-top: 2rem; }
+  .vp-hero-tiles { display: grid; grid-template-columns: 1.12fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.85rem; aspect-ratio: 1 / 1; }
+  .vp-hero-tile--lead { grid-row: 1 / 3; }
+
+  /* ============ NINE TYPES ============ */
+  .vp-types { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-types .section-sub { max-width: 80ch; }
+  .vp-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.3vw, 1.7rem); }
+  /* ⚠️ No white surfaces anywhere on this page — the client reads a white card popping off the
+     beige ground as the one jarring element. Cards carry the section's OWN tone (ivory on ivory,
+     clay on clay) and get their cell boundary from the hairline border instead of a fill. */
+  .vp-type-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31,59,44,0.17); border-radius: 1.1rem; padding: clamp(1.2rem, 2vw, 1.55rem); }
+  .vp-type-ph { aspect-ratio: 4 / 3; margin: 0 0 1.15rem; }
+  .vp-type-top { display: flex; align-items: baseline; gap: 0.7rem; }
+  .vp-type-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); flex: 0 0 auto; }
+  .vp-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
+  .vp-type-lede { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+  .vp-spec { list-style: none; margin: 1.15rem 0 0; padding: 1rem 0 0; border-top: 1px solid rgba(31,59,44,0.13); display: grid; gap: 0.62rem; }
+  .vp-spec li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0.65rem; align-items: baseline; }
+  .vp-k { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+  .vp-v { font-size: 0.86rem; line-height: 1.5; color: var(--color-brand-text); }
+  .vp-spec-no .vp-k { color: var(--color-brand-muted); }
+  .vp-spec-no .vp-v { color: var(--color-brand-muted); }
+
+  /* ============ COMPARISON (the page's one table) ============ */
+  .vp-cmp { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-cmp-rail { overflow-x: auto; }
+  /* The compare table is ROW-major in the DOM (a header row of ten cells, then five rows of
+     label + nine values), so the column template is inlined from the data instead of asking
+     `grid-auto-flow: column` to lay it out. Do NOT switch the flow without reordering the
+     markup — a column-flow grid fed row-major items scrambles every cell. */
+  .vp-cmp-track { display: grid; }
+  .vp-cmp-name { margin: 0; background: var(--forest-deep); color: var(--ivory); font-family: var(--font-body); font-weight: 600; font-size: 0.86rem; line-height: 1.3; text-align: center; padding: 0.85rem 0.6rem 0.95rem; border-top: 3px solid var(--brass-bright); display: flex; flex-direction: column; gap: 0.25rem; align-items: center; justify-content: flex-start; }
+  .vp-cmp-corner { border-top-color: var(--brass-bright); }
+  .vp-cmp-idx { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.1em; color: #E3C29A; }
+  .vp-cmp-label, .vp-cmp-cell { background-color: var(--color-brand-surface); }
+  .vp-cmp-lite { background-image: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)); }
+  .vp-cmp-rule { border-top: 1px solid rgba(96,92,78,0.24); }
+  .vp-cmp-label { position: sticky; left: 0; z-index: 1; margin: 0; min-height: 54px; display: flex; align-items: center; padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand-text); }
+  .vp-cmp-cell { margin: 0; min-height: 54px; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.5rem; font-size: 0.8rem; line-height: 1.35; text-align: center; color: var(--color-brand-text); }
+  .vp-cmp-none { color: var(--color-moss); font-size: 1rem; }
+  .vp-cmp-pill { display: inline-block; background: rgba(176,141,76,0.16); border: 1px solid rgba(176,141,76,0.5); color: #6E5626; border-radius: 999px; padding: 0.22rem 0.55rem; font-size: 0.7rem; font-weight: 700; line-height: 1.25; }
+
+  /* ============ CHILD RESISTANCE (dark) ============ */
+  .vp-cr { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8.5rem) 0; overflow: hidden; }
+  .vp-cr::before { content: ''; position: absolute; inset: 0; background: radial-gradient(58% 52% at 80% 10%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .vp-cr .wrap { position: relative; z-index: 1; }
+  .vp-cr-title { color: #fff; }
+  .vp-cr-title em { color: #E3C29A; }
+  .vp-cr-lead { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 58ch; margin: 1.3rem 0 0; }
+  .vp-cr-locks { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+  .vp-cr-lock { padding: 0 clamp(1.2rem, 2.6vw, 2.2rem); border-left: 1px solid rgba(245,240,229,0.18); }
+  .vp-cr-lock:first-child { border-left: 0; padding-left: 0; }
+  .vp-cr-lock:last-child { padding-right: 0; }
+  .vp-cr-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.8rem; line-height: 1; color: var(--brass-light); display: block; }
+  .vp-cr-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.25rem, 1.9vw, 1.5rem); line-height: 1.2; color: #fff; margin: 0.8rem 0 0; }
+  .vp-cr-d { font-size: 0.95rem; line-height: 1.65; color: rgba(245,240,229,0.78); margin: 0.8rem 0 0; }
+  .vp-cr-pair { margin: 1.2rem 0 0; padding-top: 1rem; border-top: 1px solid rgba(245,240,229,0.18); display: grid; gap: 0.7rem; }
+  .vp-cr-pair div { display: grid; grid-template-columns: 3.4rem 1fr; gap: 0.7rem; align-items: baseline; }
+  .vp-cr-pair dt { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E3C29A; }
+  .vp-cr-pair dd { margin: 0; font-size: 0.9rem; line-height: 1.5; color: rgba(245,240,229,0.9); }
+  .vp-cr-figs { list-style: none; margin: clamp(2.6rem, 5vw, 3.6rem) 0 0; padding: clamp(1.8rem, 3.6vw, 2.4rem) 0 0; border-top: 1px solid rgba(245,240,229,0.22); display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 1.5rem; }
+  .vp-cr-fig strong { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; color: var(--brass-light); }
+  .vp-cr-fig span { display: block; margin-top: 0.5rem; font-size: 0.8rem; color: rgba(245,240,229,0.72); }
+  .vp-cr-note { margin-top: clamp(2.4rem, 4.6vw, 3.2rem); background: rgba(245,240,229,0.06); border: 1px solid rgba(245,240,229,0.16); border-left: 3px solid var(--brass-bright); border-radius: 0 1rem 1rem 0; padding: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .vp-cr-note h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: #fff; margin: 0 0 0.6rem; }
+  .vp-cr-note p { font-size: 0.95rem; line-height: 1.68; color: rgba(245,240,229,0.8); margin: 0; max-width: 88ch; }
+
+  /* ============ WARNING PANEL + LOGO ============ */
+  .vp-warn { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-warn-grid { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: clamp(2rem, 4.5vw, 3.6rem); align-items: center; }
+  .vp-market { list-style: none; margin: 1.6rem 0 0; padding: 0; display: grid; gap: 0; }
+  .vp-market-item { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; align-items: baseline; padding: 0.85rem 0; border-top: 1px solid rgba(31,59,44,0.13); }
+  .vp-market-item strong { font-size: 0.86rem; font-weight: 700; color: var(--color-brand-text); }
+  .vp-market-item span { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); }
+  .vp-warn-visual { display: grid; gap: 1rem; }
+  .vp-warnlbl { background: var(--ivory); border: 2px solid var(--color-brand-text); border-radius: 0.5rem; padding: clamp(1rem, 2vw, 1.4rem); }
+  .vp-warnlbl-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.6rem; }
+  .vp-warnlbl-h { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.1rem, 2.2vw, 1.5rem); letter-spacing: 0.02em; color: #000; margin: 0; }
+  .vp-warnlbl-b { font-size: 0.82rem; line-height: 1.5; color: #3a3a3a; margin: 0.6rem 0 0; }
+  .vp-warnlbl-scale { display: block; margin-top: 0.9rem; height: 0.55rem; border-radius: 2px; background: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 22px); opacity: 0.55; }
+  .vp-logo-slot { background: var(--color-brand-surface); border: 1px dashed rgba(31,59,44,0.3); border-radius: 0.8rem; padding: 1.4rem; display: grid; place-content: center; justify-items: center; gap: 0.55rem; text-align: center; color: var(--color-brand-muted); }
+  :global(.vp-logo-slot .vp-ph-ico) { width: 30px; height: 30px; }
+  .vp-logo-slot figcaption { font-size: 0.76rem; line-height: 1.45; }
+  .vp-warn-q { margin: clamp(2rem, 4vw, 2.6rem) 0 0; padding: 1.1rem 1.4rem; background: var(--color-brand-surface); border-left: 3px solid var(--brass); border-radius: 0 0.8rem 0.8rem 0; font-size: 1rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .vp-warn-q strong { color: var(--color-brand-text); }
+
+  /* ============ MATERIALS ============ */
+  .vp-mat { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-mat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.3vw, 1.7rem); }
+  .vp-mat-card { display: flex; flex-direction: column; }
+  .vp-mat-ph { aspect-ratio: 4 / 3; }
+  .vp-mat-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem; line-height: 1.22; color: var(--color-brand-text); margin: 1.1rem 0 0; }
+  .vp-mat-card p { font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ FINISHES ============ */
+  .vp-fin { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-fin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.1rem, 2.2vw, 1.6rem); }
+  .vp-fin-item { padding-top: 1.1rem; border-top: 2px solid rgba(31,59,44,0.16); }
+  .vp-fin-dot { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--brass); margin-bottom: 0.85rem; }
+  .vp-fin-item h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; line-height: 1.24; color: var(--color-brand-text); margin: 0; }
+  .vp-fin-item p { font-size: 0.9rem; line-height: 1.58; color: var(--color-brand-muted); margin: 0.55rem 0 0; }
+  .vp-fin-rule { margin: clamp(2.2rem, 4.4vw, 3rem) 0 0; padding: 1.2rem 1.5rem; background: var(--color-brand-surface); border-radius: 0.9rem; font-size: 1rem; line-height: 1.65; color: var(--color-brand-muted); max-width: 84ch; }
+  .vp-fin-rule strong { color: var(--color-brand-text); }
+
+  /* ============ MID CTA ============ */
+  .vp-midcta { background: linear-gradient(160deg, var(--forest-light), var(--forest-deep)); color: var(--ivory); padding: clamp(4rem, 9vw, 6.6rem) 0; overflow: hidden; }
+  .vp-midcta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(55% 60% at 84% 16%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .vp-midcta-inner { position: relative; z-index: 1; }
+  .vp-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.06; letter-spacing: -0.028em; color: #fff; text-wrap: balance; margin: 1.1rem 0 0; }
+  .vp-midcta-title em { font-style: italic; color: #E3C29A; }
+  .vp-midcta-sub { font-size: clamp(1rem, 1.5vw, 1.1rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 56ch; margin: 1.2rem 0 0; }
+
+  /* ============ HOW AN ORDER RUNS ============ */
+  .vp-order { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
+  .vp-step { padding-top: 1.1rem; border-top: 2px solid rgba(31,59,44,0.2); }
+  .vp-step-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); display: block; }
+  .vp-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.24; color: var(--color-brand-text); margin: 0.55rem 0 0; }
+  .vp-step p { font-size: 0.86rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
+
+  /* ============ WHERE THEY SELL ============ */
+  .vp-shelf { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-shelf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.1rem, 2.2vw, 1.6rem); }
+  .vp-shelf-card { margin: 0; }
+  .vp-shelf-ph { aspect-ratio: 4 / 3; }
+  .vp-shelf-card figcaption { display: grid; gap: 0.4rem; margin-top: 0.95rem; }
+  .vp-shelf-card strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; line-height: 1.24; color: var(--color-brand-text); }
+  .vp-shelf-card span { font-size: 0.88rem; line-height: 1.55; color: var(--color-brand-muted); }
+
+  /* ============ REVIEWS ============ */
+  .vp-quote { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-quote .section-head { margin-bottom: clamp(2.2rem, 4.5vw, 3rem); }
+  .vp-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 2.6vw, 2rem); }
+  .vp-quote-card { margin: 0; background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; padding: clamp(1.5rem, 2.8vw, 2.1rem); border-left: 3px solid var(--brass); }
+  .vp-quote-copy p { font-size: 1rem; line-height: 1.72; color: var(--color-brand-text); margin: 0 0 0.95rem; }
+  .vp-quote-copy p:last-child { margin-bottom: 0; }
+  .vp-quote-who { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.3rem; padding-top: 1.05rem; border-top: 1px solid rgba(31,59,44,0.14); }
+  .vp-quote-av { width: 62px; height: 62px; padding: 0; border-radius: 50%; flex: 0 0 auto; }
+  :global(.vp-quote-av .vp-ph-ico) { width: 24px; height: 24px; }
+  .vp-quote-id strong { display: block; font-family: var(--font-body); font-size: 0.92rem; font-weight: 700; color: var(--color-brand-text); }
+  .vp-quote-id span { display: block; margin-top: 0.22rem; font-size: 0.84rem; color: var(--color-brand-muted); }
+
+  /* ============ FAQ ============ */
+  .vp-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vp-faq-list { max-width: 60rem; margin-inline: auto; display: grid; gap: 0.7rem; }
+  .vp-faq-item { background: var(--ivory); border: 1px solid rgba(31,59,44,0.17); border-radius: 0.9rem; overflow: hidden; }
+  .vp-faq-item summary { display: flex; align-items: baseline; gap: 0.9rem; cursor: pointer; list-style: none; padding: 1.05rem clamp(1.1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.5vw, 1.14rem); line-height: 1.35; color: var(--color-brand-text); }
+  .vp-faq-item summary::-webkit-details-marker { display: none; }
+  .vp-faq-num { font-family: var(--font-heading); font-size: 0.85rem; color: var(--brass); flex: 0 0 auto; }
+  .vp-faq-a { padding: 0 clamp(1.1rem, 2.2vw, 1.5rem) 1.15rem; }
+  .vp-faq-a p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ RELATED ============ */
+  .vp-rel { background: var(--color-brand-surface); padding: clamp(2.8rem, 5.5vw, 4rem) 0; }
+  .vp-rel-inner { display: grid; gap: 0.9rem; }
+  .vp-rel-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0.4rem 0 0; }
+  .vp-rel-title em { font-style: italic; color: var(--brass); }
+  .vp-rel-list { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.65rem; }
+  .vp-rel-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--color-brand-text); background: var(--ivory); border: 1px solid rgba(31,59,44,0.14); border-radius: 999px; padding: 0.6rem 1.05rem; transition: border-color 0.3s ease, color 0.3s ease; }
+  .vp-rel-link .btn-leaf { width: 1em; height: 1em; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+  .vp-rel-link:hover { border-color: var(--brass); color: var(--forest-light); }
+  .vp-rel-link:hover .btn-leaf { transform: translateX(4px); }
+
+  /* ============ FINAL CTA ============ */
+  .vp-final { background: linear-gradient(165deg, var(--forest-light), var(--forest-deep)); color: var(--ivory); text-align: center; padding: clamp(5rem, 11vw, 9rem) 0; overflow: hidden; }
+  .vp-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .vp-final-inner { position: relative; z-index: 1; }
+  .vp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; text-wrap: balance; margin: 1.1rem auto 0; max-width: 24ch; }
+  .vp-final-title em { font-style: italic; color: #E3C29A; }
+  .vp-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 56ch; margin: 1.2rem auto 0; }
+  .vp-final .section-cta { justify-content: center; }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .vp-hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
+    .vp-hero-tiles { aspect-ratio: auto; }
+    .vp-hero-tile { min-height: 210px; }
+    .vp-warn-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+    .vp-fin-grid { grid-template-columns: repeat(2, 1fr); }
+    .vp-shelf-grid { grid-template-columns: repeat(2, 1fr); }
+    .vp-steps { grid-template-columns: repeat(3, 1fr); gap: 1.6rem 1.4rem; }
+    .vp-cr-locks { grid-template-columns: 1fr; }
+    .vp-cr-lock { padding: 0; border-left: 0; border-top: 1px solid rgba(245,240,229,0.18); padding-top: 1.6rem; margin-top: 1.6rem; }
+    .vp-cr-lock:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+  }
+  @media (max-width: 900px) {
+    .vp-type-grid { grid-template-columns: repeat(2, 1fr); }
+    .vp-mat-grid { grid-template-columns: 1fr; }
+    .vp-quote-grid { grid-template-columns: 1fr; }
+    .vp-market-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  }
+  @media (max-width: 640px) {
+    .vp-type-grid { grid-template-columns: 1fr; }
+    .vp-hero-tiles { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .vp-hero-tile--lead { grid-row: auto; }
+    .vp-fin-grid { grid-template-columns: 1fr; }
+    .vp-shelf-grid { grid-template-columns: 1fr; }
+    .vp-steps { grid-template-columns: 1fr 1fr; }
+    .vp-cr-figs { grid-template-columns: 1fr; gap: 1.4rem; }
+    .vp-hero-cta .btn, .vp-order .btn { width: 100%; }
+    .vp-cmp-track { grid-template-columns: 132px; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // FAQ is an accordion: opening one closes the others.
+  const faqItems = Array.from(document.querySelectorAll('.vp-faq-item'));
+  faqItems.forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
+  }));
+</script>

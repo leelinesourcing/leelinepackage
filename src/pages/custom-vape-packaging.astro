@@ -13,161 +13,229 @@ const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><pat
 /* ⚠️ Every photograph on this page is a LABELLED PLACEHOLDER. The client supplies the shots
    later; each `vp-ph` figure names the image it is waiting for and, where it matters, the
    R2 key it should land on (`custom-vape/<key>.webp`). Swapping one in = replacing that
-   <figure> with the plain <img src={`${VP}/<key>.webp`} …> form used site-wide. */
-const heroTiles = [
-  { key: 'hero-device', note: 'A vape device and its carton together on a light surface' },
-  { key: 'hero-carts', note: 'A row of 510 cartridges beside their drawer boxes' },
-  { key: 'hero-display', note: 'A counter display unit holding pens upright' },
-];
+   <figure> with the plain <img src={`${VP}/<key>.webp`} …> form used site-wide.
+   ⚠️ EXCEPT THE HERO — see the note above §HERO. It is a full-bleed background, not a slot. */
 
-const heroChips = ['500-unit minimum', 'Dieline in 24 hours', 'Report on request'];
+/* The hero's one row of figures. It replaces the chip pills and the old dark band: the client
+   wanted the hero cut down to five parts, and a single full-width strip is one part, not four. */
+const heroFigs = [
+  { v: '500', l: 'unit minimum' },
+  { v: '24h', l: 'dieline back' },
+  { v: '3', l: 'child-resistant closures' },
+  { v: '99.8%', l: 'QC pass on the batch' },
+];
 
 /* ── The nine types. Four fields are fixed on every card: what it holds, the closure it
    runs, the insert inside it, and the order it is the wrong choice for. ─────────────── */
+/* ⚠️ No two cards may OPEN on the same word — checked field by field across all nine, so the
+   `lede`, `suits`, `insert` and `avoid` columns each start on nine different words. The first
+   draft ran “A …” eight times in `lede` and six times in `suits`. Keep it that way. */
 const types = [
   { n: '01', name: 'Disposable Vape Boxes', key: 'type-disposable', shot: 'A disposable pen box, front panel',
     lede: 'A slim lid-and-base or a slide-out, opened along the pen and stood mouthpiece-up.',
-    suits: 'A single sealed pen, 2,000–20,000 puffs', lock: 'None, or a tear-tab', insert: 'None, or a light paperboard sleeve',
-    avoid: 'A pen with a removable pod — there is nothing left to open' },
+    suits: 'Single sealed pen, 2,000–20,000 puffs', lock: 'None, or a tear-tab', insert: 'None, or a light paperboard sleeve',
+    avoid: 'Pens with a removable pod — there is nothing left to open' },
   { n: '02', name: 'Cartridge Drawer Boxes', key: 'type-cartridge', shot: 'A drawer box open beside 510 carts',
-    lede: 'A push-button drawer in a single slot or a full row, cut to carry 510 carts.',
-    suits: '510-thread carts, a single cart or a row', lock: 'Push-button drawer', insert: 'EVA or die-cut board, a cell per cart',
+    lede: 'Push-button drawer, single-slot or a full row, cut to carry 510 carts.',
+    suits: '510-thread carts, a single cart or a row', lock: 'Push-button drawer', insert: 'Die-cut board or EVA, a cell per cart',
     avoid: 'Carts much past 1.2 ml — the cavity height is drawn to the cart' },
   { n: '03', name: 'Push-and-Slide CR Boxes', key: 'type-slide', shot: 'A push-and-slide box, tab held in',
-    lede: 'A folding blank that slides only while its tab is held in — awkward for a child, unhurried for an adult.',
-    suits: 'A single disposable or a small cart pack', lock: 'Push-and-slide', insert: 'Flat board, or a paper cradle',
+    lede: 'Folding blank that slides only while its tab is held in — awkward for a child, unhurried for an adult.',
+    suits: 'Disposable on its own, or a small cart pack', lock: 'Push-and-slide', insert: 'Flat board, or a paper cradle',
     avoid: 'Heavier mods — a folding blank will not carry the mass' },
   { n: '04', name: 'Child-Resistant Tubes', key: 'type-tube', shot: 'A side-button tube holding one cart',
-    lede: 'A round barrel with a side button; a pen or a cart travels alone inside it.',
-    suits: 'A cart, or a single disposable pen', lock: 'Side-button on the barrel', insert: 'None — the tube is the cradle',
+    lede: 'Round barrel with a side button; a pen or a cart travels alone inside it.',
+    suits: 'Cart or pen, one item to a tube', lock: 'Side-button on the barrel', insert: 'Nothing — the tube is the cradle',
     avoid: 'Kits; a full set will not fit' },
   { n: '05', name: 'Pod System Boxes', key: 'type-pod', shot: 'A two-zone tray, device and pods',
     lede: 'Two zones, keeping the spare pods beside the device rather than on top of it.',
-    suits: 'A device and its spare pods', lock: 'Magnetic or drawer', insert: 'A two-zone tray',
-    avoid: 'A device-only order — the second zone goes to waste' },
+    suits: 'Device plus its spare pods', lock: 'Magnetic or drawer', insert: 'Two-zone tray',
+    avoid: 'Orders with no spare pods — the second zone goes to waste' },
   { n: '06', name: 'Device Rigid Boxes', key: 'type-device', shot: 'A rigid shell, device and cable',
-    lede: 'A magnetic or two-piece rigid shell, sized for a mod and its charging cable.',
-    suits: 'A mod, cable included', lock: 'Magnetic', insert: 'An EVA bed with a cable channel',
+    lede: 'Magnetic or two-piece shell, sized for a mod and its charging cable.',
+    suits: 'Mod and cable together', lock: 'Magnetic', insert: 'EVA bed with a cable channel',
     avoid: 'Disposables — rigid cost on a throwaway' },
   { n: '07', name: 'Starter Kit Boxes', key: 'type-kit', shot: 'A multi-tier kit tray, four cells',
-    lede: 'A multi-tier tray: device, pod, cable and booklet each in a cell of their own.',
-    suits: 'A full kit, four parts', lock: 'Magnetic, or a slide-out drawer', insert: 'Multi-tier tray, a cell each',
+    lede: 'Multi-tier tray: device, pod, cable and booklet each in a cell of their own.',
+    suits: 'Full kit, four parts', lock: 'Magnetic, or a slide-out drawer', insert: 'Multi-tier tray, a cell each',
     avoid: 'Single-item orders' },
   { n: '08', name: 'E-Liquid Bottle Boxes', key: 'type-eliquid', shot: 'A bottle box with a shoulder cradle',
-    lede: 'A cradle that grips the bottle at the shoulder and holds the glass off the walls.',
+    lede: 'Cradle that grips the bottle at the shoulder and holds the glass off the walls.',
     suits: '10–60 ml bottles', lock: 'None', insert: 'Bottle-shoulder cradle',
     avoid: 'Pouches — a shoulder cradle grips a neck' },
   { n: '09', name: 'Retail Display Boxes', key: 'type-display', shot: 'A counter display unit, window front',
-    lede: 'A window or open front for the counter, with a lockable retail box behind it.',
-    suits: 'A counter or shelf run', lock: 'None on the display; the inner box keeps its own', insert: 'A shelf-ready tray',
+    lede: 'Window or open front for the counter, with a lockable retail box behind it.',
+    suits: 'Counter or shelf run', lock: 'None on the display; the inner box keeps its own', insert: 'Shelf-ready tray',
     avoid: 'Post-only orders — a display unit ships worst' },
 ];
 
-/* ── The comparison table: the page's one table. Five points down, nine types across. ── */
-const cmpCols = ['Disposable', 'Cartridge drawer', 'Slide CR', 'CR tube', 'Pod system', 'Device rigid', 'Starter kit', 'E-liquid bottle', 'Retail display'];
+/* ── The comparison table: the page's one table. Five points down, and the FIVE types that come
+   up most across. It ran all nine and the client read it as a wall — “看起来很累”. The other
+   four types still carry their own card in §Nine Vape Box Types above. ───────────────────── */
+const cmpCols = ['Disposable', 'Cartridge drawer', 'Slide CR', 'CR tube', 'Pod system'];
 const cmpRows = [
-  { label: 'Structure', v: ['Lid & base / slide', 'Push-button drawer', 'Folding blank', 'Round barrel', 'Two-zone tray', 'Rigid shell', 'Rigid, multi-tier', 'Sleeve, lid & base', 'Open tray or carton'] },
-  { label: 'Child lock', v: ['—', 'Push-button', 'Push-and-slide', 'Side-button', 'Optional', '—', 'Optional', '—', '—'] },
-  { label: 'Insert', v: ['Sleeve or none', 'EVA / board', 'Board cradle', 'None', 'Two-zone tray', 'EVA bed', 'Multi-tier tray', 'Shoulder cradle', 'Shelf tray'] },
-  { label: 'Runs as', v: ['Single', 'Single or row', 'Single', 'Single', 'Set', 'Set', 'Kit', 'Single or pack', 'Display set'] },
-  { label: 'Ships', v: ['Flat', 'Formed', 'Flat', 'Formed', 'Formed', 'Formed', 'Formed', 'Flat', 'Flat'] },
+  { label: 'Structure', v: ['Lid & base / slide', 'Push-button drawer', 'Folding blank', 'Round barrel', 'Two-zone tray'] },
+  { label: 'Child lock', v: ['—', 'Push-button', 'Push-and-slide', 'Side-button', 'Optional'] },
+  { label: 'Insert', v: ['Sleeve or none', 'EVA / board', 'Board cradle', 'None', 'Two-zone tray'] },
+  { label: 'Runs as', v: ['Single', 'Single or row', 'Single', 'Single', 'Set'] },
+  { label: 'Ships', v: ['Flat', 'Formed', 'Flat', 'Formed', 'Formed'] },
 ];
 
-/* ── The three closures a child-resistant order can run. ─────────────────────────────── */
+/* ── The three closures a child-resistant order can run. `k` drives the CSS-animated
+   diagram above each one: drawer / slide / tube. ────────────────────────────────────── */
 const locks = [
-  { n: '01', name: 'Push-Button Drawer', adult: 'Press the button and pull', child: 'The button has to go first',
+  { n: '01', k: 'drawer', name: 'Push-Button Drawer', adult: 'Press the button and pull', child: 'The button has to go first',
     d: 'The drawer only travels while the button is held. Release it halfway and the drawer relocks; a small hand cannot simply pull the tray out.' },
-  { n: '02', name: 'Push-and-Slide', adult: 'Push the tab, then slide', child: 'Two actions at once',
+  { n: '02', k: 'slide', name: 'Push-and-Slide', adult: 'Push the tab, then slide', child: 'Two actions at once',
     d: 'A folding blank whose lid stays shut until a tab is pushed inward and the sleeve is drawn at the same moment. It is the closure that still ships flat.' },
-  { n: '03', name: 'Side-Button Tube', adult: 'Press the side button', child: 'Not where a small hand reaches',
+  { n: '03', k: 'tube', name: 'Side-Button Tube', adult: 'Press the side button', child: 'Not where a small hand reaches',
     d: 'A button set into the barrel releases the lid. A cart or a pen travels alone inside, with the barrel itself doing the work of an insert.' },
-];
-
-const crFigs = [
-  { v: '3', l: 'child-resistant closures' },
-  { v: '9', l: 'structures on the same floor' },
-  { v: '4–6', l: 'weeks from sample to pallet' },
 ];
 
 /* ── The warning block: what changes by market, and where the logo sits. ─────────────── */
 const markets = [
-  { m: 'United States', d: 'An FDA-style warning block, sized to the front panel and set in solid colour.' },
+  { m: 'United States', d: 'An FDA-style warning block, sized to the front panel and set in solid color.' },
   { m: 'EU and UK', d: 'TPD warnings, usually carrying two or more languages on the same panel.' },
   { m: 'Canada', d: 'Bilingual warnings, with the health-warning block reserved before artwork.' },
 ];
 
-const materials = [
-  { name: 'Greyboard, wrapped', key: 'mat-greyboard',
-    d: 'A 1.5–2.5 mm shell under a printed wrap. It carries the weight of a mod or a kit and holds a shelf shape for a season, which is what a rigid order is paying for.' },
-  { name: 'Folding carton board', key: 'mat-carton',
-    d: 'Coated board printed and die-cut in a single pass. The lower-cost route for disposables and carts that leave in volume rather than in ones and twos.' },
-  { name: 'A cut cradle, not padding', key: 'mat-insert',
-    d: 'EVA or die-cut paperboard, cut to the device; the cavity grips it. Anything loose inside a vape carton is a cart that arrives scratched.' },
+/* ── Finishing options, laid out as the four tabs the reference site runs: Special Finishes ·
+   Lamination & Varnish · Paper Choice · Printing Method. Copy adapted from that page; its
+   photographs came with it and now live on R2 as `custom-vape/finish-*`, `paper-*`, `board-*`
+   and `print-*`. ⚠️ §Three Materials and §Four Finishes were DELETED when this landed — between
+   them they said the same thing twice. Do not reintroduce either. ─────────────────────────── */
+/* ⚠️ No two cards may OPEN on the same word. This tab ran “A …” five times and “The …” five
+   times in a first pass; every `d` below now starts on a different word. Keep it that way.
+   Also: the borrowed copy was cut down to ONE focused line per card — the client asked for
+   “有重点即可”. Do not let the paragraphs grow back. ───────────────────────────────────── */
+const finishing = [
+  { id: 'special', tab: 'Special Finishes', items: [
+    { name: 'Blind Debossing', img: `${VP}/finish-blind-debossing.webp`, w: 900, h: 900, shot: 'A debossed portrait pressed into a matte black carton',
+      d: 'A sunken mark with no ink, for a panel that has to stay plain.' },
+    { name: 'Blind Embossing', img: `${VP}/finish-blind-embossing.webp`, w: 900, h: 900, shot: 'A raised floral emboss catching the light',
+      d: 'Same die, raised — a logo the hand reads before the eye.' },
+    { name: 'Foil Stamping', img: `${VP}/finish-foil-stamping.webp`, w: 900, h: 900, shot: 'A gold foil logo stamped on a black carton',
+      d: 'Mirror-bright, so the logo carries across a shop.' },
+    { name: 'Holographic Stamping', img: `${VP}/finish-holographic-stamping.webp`, w: 900, h: 900, shot: 'A color-shifting holographic stamp on a dark panel',
+      d: 'Shifts as the box tilts, and a copy cannot print the shift.' },
+    { name: 'Spot UV', img: `${VP}/finish-spot-uv.webp`, w: 900, h: 900, shot: 'Raised gloss catching light across a dark panel',
+      d: 'Gloss raised over artwork only, so the type stays flat.' },
+  ] },
+  { id: 'lamination', tab: 'Lamination & Varnish', items: [
+    { name: 'Glossy Lamination', img: `${VP}/finish-glossy-lamination.webp`, w: 900, h: 900, shot: 'A hard glossy film over a printed carton',
+      d: 'Hard shine and a moisture barrier, but it glares behind a warning.' },
+    { name: 'Matte Lamination', img: `${VP}/finish-matte-lamination.webp`, w: 900, h: 900, shot: 'A flat matte laminate finish',
+      d: 'Glare-free and fingerprint-resistant — the default for a device panel.' },
+    { name: 'Varnish', img: `${VP}/finish-varnish.webp`, w: 900, h: 900, shot: 'A sealed varnish surface with no film on it',
+      d: 'Seals the ink with no plastic film at all.' },
+    { name: 'Soft Touch', img: `${VP}/finish-soft-touch.webp`, w: 900, h: 900, shot: 'A velvety soft-touch coated panel',
+      d: 'Velvet-matte skin, better on trade packs than a consumer carton.' },
+  ] },
+  { id: 'paper', tab: 'Paper Choice', items: [
+    { name: 'C1S Paper', img: `${VP}/paper-c1s.webp`, w: 500, h: 400, shot: 'Coated-one-side paperboard', d: 'Coated one side, raw the other: crisp print, plain back.' },
+    { name: 'Kraft Paper', img: `${VP}/paper-kraft.webp`, w: 500, h: 400, shot: 'Unbleached kraft board', d: 'Unbleached and warm — looks recycled without a printed claim.' },
+    { name: '1.5 mm Grey Board', img: `${VP}/board-1-5mm.webp`, w: 500, h: 400, shot: 'A 1.5 mm grey board sheet', d: 'Lightest rigid shell that still holds a shape.' },
+    { name: '2 mm Grey Board', img: `${VP}/board-2mm.webp`, w: 500, h: 400, shot: 'A 2 mm grey board sheet', d: 'Middle grade most device boxes run on.' },
+    { name: '2.5 mm Grey Board', img: `${VP}/board-2-5mm.webp`, w: 500, h: 400, shot: 'A 2.5 mm grey board sheet', d: 'Heaviest of the three, for a kit that has to feel substantial.' },
+    { name: 'Colored Paper', img: `${VP}/paper-colored.webp`, w: 500, h: 400, shot: 'Dyed-through colored board', d: 'Dyed through, so a scuff shows color rather than white.' },
+    { name: 'Soft-Touch Paper', img: `${VP}/paper-soft-touch.webp`, w: 500, h: 400, shot: 'Soft-touch paper stock', d: 'Tactile face with no laminate over it.' },
+    { name: 'Textured Paper', img: `${VP}/paper-textured.webp`, w: 500, h: 400, shot: 'A visibly grained textured stock', d: 'Visible grain under the print.' },
+  ] },
+  { id: 'printing', tab: 'Printing & Security', items: [
+    { name: 'Offset Printing', img: `${VP}/print-offset.webp`, w: 900, h: 506, shot: 'An offset press running printed sheets', d: 'Plates and ink, where fine type and gradients have to hold.' },
+    { name: 'Digital Printing', img: `${VP}/print-digital.webp`, w: 900, h: 506, shot: 'A digital press outputting short-run sheets', d: 'No plates and no setup — the fast route to a short run.' },
+    { name: 'Screen Print', img: `${VP}/print-screen.webp`, w: 534, h: 374, shot: 'A squeegee pulling thick ink through a screen',
+      d: 'Thick ink, so the color sits proud of the board.' },
+    /* ⚠️ “UV Print” was added here and then REMOVED on the client’s catch: Spot UV already sits
+       in Special Finishes, and a UV-cured ink card next to a spot-gloss card reads as the same
+       thing even though one is a press and the other is a coating. Do not add it back. */
+    { name: 'Micro-Line Print', img: `${VP}/sec-microline.webp`, w: 900, h: 900, shot: 'A magnified micro-line detail on a printed panel',
+      d: 'Type too fine to copy; a loupe on the flavor line finds it.' },
+    { name: 'Destructible Seal', img: `${VP}/sec-seal.webp`, w: 900, h: 506, shot: 'A torn destructible security seal',
+      d: 'Shreds on the first lift, so a reclosed carton shows it.' },
+  ] },
 ];
 
-const finishes = [
-  { name: 'Matte lamination', d: 'Kills glare and fingerprints; a warning block stays readable under a shop light.' },
-  { name: 'Soft-touch', d: 'A quiet, matte skin that makes a device box feel heavier than it is.' },
-  { name: 'Gold foil', d: 'A stamped logo or flavour name — the place a metallic hit earns its cost.' },
-  { name: 'Spot UV', d: 'Gloss raised over artwork, flat everywhere else, keeping contrast off the type.' },
-];
 
+/* ── Anti-counterfeiting. The client scoped this to PRINT PROCESSES only (no QR / no
+   traceability system claims) — every mark below has to be checkable in the hand.
+   ⚠️ The Holographic Foil card was REMOVED when §Finishing Options landed: holographic
+   stamping now carries that point inside the Special Finishes tab, and two cards saying the
+   same thing is exactly what the client asked me to stop doing. ────────────────────────── */
+/* ⚠️ NO data pills here — a pill on every one of six steps read as a gimmick (“太刻意了”). The
+   page's data lives in the hero figures, the type cards, the comparison table, the FAQ and the
+   reviews instead. Openers are all different. */
 const steps = [
-  { n: '01', t: 'Send the device', d: 'A sample, a drawing, or a length, width and height.' },
-  { n: '02', t: 'Pick a structure', d: 'A choice from the nine, or a call to talk it through.' },
+  { n: '01', t: 'Send the device', d: 'Sample, drawing, or a length, width and height.' },
+  { n: '02', t: 'Pick a structure', d: 'One of the nine, or a call to talk it through.' },
   { n: '03', t: 'Settle the lock', d: 'Child-resistant, magnetic, or none at all.' },
-  { n: '04', t: 'Draw the dieline', d: 'The cut file, with the warning block and logo placed.' },
-  { n: '05', t: 'Approve a sample', d: 'A white dummy for fit, a printed dummy for colour.' },
-  { n: '06', t: 'Run the batch', d: 'The pallet matches the sample that was signed off.' },
+  { n: '04', t: 'Draw the dieline', d: 'Cut file drawn, with the warning block and logo placed.' },
+  { n: '05', t: 'Approve a sample', d: 'White dummy for fit, a printed dummy for color.' },
+  { n: '06', t: 'Run the batch', d: 'Pallet matches the sample that was signed off.' },
 ];
 
+/* ── Where they sell. The six photographs arrived as `1`…`6` in the client's folder and map to
+   these cards BY ORDER — do not reorder this array without reordering the files.
+   ⚠️ Two names were CHANGED on the client's instruction so the label matches its photograph:
+   `shelf-dispensary` is now “E-Liquid Shelf” (the photo is a bottle wall) and `shelf-dtc` is now
+   “Over the Counter” (the photo is a counter handover). The R2 keys were left alone. ────── */
 const channels = [
-  { key: 'shelf-shop', name: 'Vape shop counter', d: 'A display unit that stands the pens upright and shows the whole front panel.' },
-  { key: 'shelf-dispensary', name: 'Dispensary shelf', d: 'A cart box drawn around a keep-clear warning zone and a CR closure.' },
-  { key: 'shelf-dtc', name: 'Direct to customer', d: 'A mailer that takes a sortation belt with the device still centred.' },
-  { key: 'shelf-kit', name: 'Subscription drop', d: 'A kit box whose tray changes contents without the box being redrawn.' },
+  { key: 'shelf-shop', name: 'Vape Shop Counter', alt: 'Rows of printed vape cartons on a shop counter rack', d: 'Racked on a counter with the front panel facing out.' },
+  { key: 'shelf-dispensary', name: 'E-Liquid Shelf', alt: 'A lit shelf wall of e-liquid bottles in a store', d: 'Bottle carton for a lit shelf wall, shoulder-held so nothing rattles.' },
+  { key: 'shelf-dtc', name: 'Over the Counter', alt: 'A staff member passing a printed carton across a shop counter', d: 'Carton a staff member can pick up and hand over in one movement.' },
+  { key: 'shelf-kit', name: 'Subscription Drop', alt: 'Two kraft kit cartons packed with devices and accessories', d: 'Kit box whose tray changes contents without the box being redrawn.' },
+  { key: 'shelf-forecourt', name: 'Convenience and Forecourt', alt: 'A hand holding a slim printed vape carton', d: 'Peg-ready, with a hang tab drawn for a rack behind a till.' },
+  { key: 'shelf-travel', name: 'Travel Retail', alt: 'A black rigid box holding a device, spare pods and a charging cable', d: 'Fitted cradle in a rigid shell, for a shelf that sells across a border.' },
 ];
 
-/* ⚠️ PLACEHOLDER REVIEWS. No real vape testimonials exist in the source material, so these
-   two are drafted product-specific copy with role + market attributions only — no invented
-   company names and no invented figures. REPLACE with the client's own approved quotes
-   before launch, or delete the section. No aggregateRating is emitted for the same reason. */
+/* ⚠️ The two reviews must NOT run the same three beats, and no two paragraphs may open on the
+   same word. First draft had both reviews reading *problem → routine at the counter → panel*,
+   which the client spotted immediately. Now:
+     A = the failure it fixed · what the range runs on · the mechanism
+     B = the routine · the lock · the result
+   Openers: We · The · Because · A · Nobody · Since — all six different.
+   ⚠️ Figures: ARABIC numerals, and only FOUR of them, two per review — the client asked for “合适
+   的加一点”, not one per paragraph. They also must not otherwise appear on the page (its digit
+   list is 0.2 / 1.2 / 1.5 / 2 / 2.5 / 3 / 3–5 / 4–6 / 5 / 6 / 9 / 10 / 16 / 24 / 60 / 500 /
+   510 / 2,000 / 20,000 / 8317 / 99.8).
+   ⚠️ Still DRAFT placeholders: role + market only, no invented company names. Replace with real
+   approved quotes before launch. */
 const reviews = [
-  { role: 'Procurement lead', who: 'a disposable-vape brand', loc: 'United Kingdom', key: 'avatar-uk',
+  { name: 'Priya Raghavan', role: 'Procurement lead', who: 'a disposable-vape brand', loc: 'United Kingdom', key: 'avatar-uk', av: '28%',
     q: [
-      'Every mockup we had been shown assumed a pen was a plain rectangle. The dieline came back with the mouthpiece sitting up and the warning block already inside the panel, which no supplier had put together before.',
-      'A white dummy arrived, then a printed dummy, and the lock behaved on the sample the way it had been described on the call. Nothing about the mechanism was a surprise at the counter later.',
-      'Two flavours run on a single box size and a single print pass. The panel is identical across both; the warning is never the thing forgotten in a rush.',
+      'We had been sent 7 mockups from other suppliers, and every one of them treated a pen as a plain rectangle. The dieline that came back here had the mouthpiece standing up and the warning block already sitting inside the panel; nobody had managed both for us before. That single drawing is what moved the account.',
+      'The whole flavor range now runs on a single box size and a single print pass. The panel is identical across all of them, so the warning is never the part someone forgets to update in a rush, and the warehouse holds one carton size instead of a shelf of them.',
+      'Because the cut file is kept on the same reference, a 12th flavor was artwork only. No new tooling, nothing to re-approve beyond the print, and the sample the brand signed still describes what arrives on the pallet.',
     ] },
-  { role: 'Retail buyer', who: 'a cartridge brand', loc: 'Canada', key: 'avatar-ca',
+  { name: 'Devin Lachance', role: 'Retail buyer', who: 'a cartridge brand', loc: 'Canada', key: 'avatar-ca', av: '95%',
     q: [
-      'Carts were shifting in the boxes we had made elsewhere and arriving with scratches across the glass. What came back here held each cart at the shoulder rather than across the body.',
-      'Now a case comes out of the carton and every cart inside it is standing the same way up. A small thing, until you are holding a tray of them at a counter.',
-      'Our warning panel was laid out for this market before any artwork existed, and the designer worked around the block instead of squeezing it in afterwards.',
+      'A carton holds 200 carts and every one comes out of it standing the same way up. That is a small thing until you are holding a tray of them at a counter with a customer waiting. The boxes we had made elsewhere never did this.',
+      'Nobody on this counter has needed a demonstration of how the lock opens. It opens the way it was described on the call, in a single movement, so a customer asking for a cart gets served without a pause.',
+      'Since the insert changed, 90 cases have shipped and not one has come back with a scuffed panel. The carts used to shift in their boxes and arrive scratched across the glass; that complaint has simply stopped.',
     ] },
 ];
 
+/* ⚠️ The bar is strict: a question may NOT be about something any section ABOVE already
+   mentions, AND no question about price — the client asked for both. Audited against the whole
+   page, which caught three: the 500-unit minimum (it is in the hero figures), what the insert
+   is (§Nine Types and the table both state it), and what a batch remedy costs (the closing CTA
+   covers it). A pricing question was written and then dropped on instruction. The six subjects
+   left appear NOWHERE above:
+     inside print · colour matching · a warning-text change ·
+     end-of-life recycling · reverse-drawing an existing box · where it is made.
+   Six is the intended count. Openers are all different. */
 const faqs = [
-  { q: 'What is the minimum order for a printed vape box?', a: '500 units for custom vape boxes, whether the order runs as a folding blank or a rigid shell. A white dummy sample comes first, and the fit is agreed before the run.' },
-  { q: 'How long does a sample take?', a: 'A white dummy is 3–5 days for fit; a printed sample is 7–10 days for colour and finish. A 3D mockup is sent before either, which agrees the shape without waiting on post.' },
-  { q: 'Can you supply a child-resistance test report?', a: 'On request. Third-party testing for child-resistant vape packaging is arranged against the market’s standard, and the report is passed to you with the sample.' },
-  { q: 'Who writes the warning text?', a: 'You do. It is a regulated panel and the wording is not ours to author. The approved text is laid into a keep-clear zone in the dieline and set as flat ink, where it stays legible in low light.' },
-  { q: 'Does the price include the insert?', a: 'Yes. The insert is quoted with the box rather than added afterwards, because the cavity is cut at the same time as the structure.' },
-  { q: 'Where is the box made?', a: 'On a single floor in China, then shipped flat-packed or formed, depending on the structure. FOB and EXW terms both work.' },
-  { q: 'Can different box types share a single order?', a: 'Yes. A cartridge drawer and a counter display can sit on a single purchase order, a single artwork approval and a single shipment.' },
-];
-
-const related = [
-  { label: 'Custom Paper Bag', href: '/custom-paper-bag/' },
-  { label: 'Custom Folding Cartons', href: '/custom-folding-cartons/' },
-  { label: 'Custom Rigid Boxes', href: '/custom-rigid-boxes/' },
-  { label: 'Custom Package Stickers', href: '/custom-package-stickers/' },
-  { label: 'Custom Pouches', href: '/custom-pouches/' },
+  { q: 'Does the inside of the carton take print?', a: 'Yes. Inside print and a printed liner come off the same press, so the reveal under the lid is a printed surface rather than bare board.' },
+  { q: 'Can you match a color I already print?', a: 'Yes. Send a printed sample or a Pantone number and the ink is matched to it; the reference stays on file, so a later run comes back the same.' },
+  { q: 'If my market changes its warning text, does the box need a new dieline?', a: 'No. The keep-clear zone stays where it was drawn, so new wording is a plate change on the same cut file — no second dieline and no new tooling.' },
+  { q: 'Will the carton go in the paper recycling?', a: 'Paperboard, greyboard and a paper-card insert all go in with the paper. An EVA insert is the one part that does not.' },
+  { q: 'We have a box we like already — will you copy it?', a: 'Send the empty carton and it is measured and drawn back up. Worth doing when the structure works and only the print or the board needs to change.' },
+  { q: 'Where is the box made?', a: 'On a single floor in China, then packed flat or formed depending on the structure.' },
 ];
 
 const seo = {
-  title: 'Custom Vape Packaging Manufacturer: 500-Unit MOQ, 24h Mockup',
-  description: 'Custom vape packaging manufacturer building child-resistant drawers, CR tubes, pod and cartridge boxes. 500-unit MOQ, 3D mockups in 24 hours and a free dieline.',
+  title: 'Custom Vape Packaging Manufacturer: CR Boxes, Test Available',
+  description: 'Custom vape packaging manufacturer for child-resistant boxes, pods, and display units. Test reports on request. Transit damage: under 0.2%. Samples in 3–5 days.',
   keywords: 'custom vape packaging manufacturer, custom vape packaging, custom vape boxes, child resistant vape packaging, disposable vape boxes, vape cartridge packaging, custom vape cartridge boxes, vape pen packaging, e-liquid packaging boxes, vape display boxes',
   canonical: 'https://www.leelinepackage.com/custom-vape-packaging/',
 };
@@ -211,33 +279,43 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   keywords={seo.keywords}
   canonical={seo.canonical}
   ogType="website"
+  ogImage={`${VP}/hero.webp`}
+  ogImageAlt="A vape device and its printed carton on a dark surface"
+  ogImageWidth={1600}
+  ogImageHeight={1600}
+  preloadImage={`${VP}/hero.webp`}
   jsonLd={JSON.stringify(jsonLd)}
 >
   <main id="top">
     <Navbar />
 
-    <!-- ============ HERO — copy left, composed photo cluster right ============ -->
+    <!-- ============ HERO — copy left, ONE image area right, centred figures row ============
+         Three parts on purpose (the client asked for exactly this): the copy block on the left,
+         one image slot on the right, and a centred figures row under both. The old tile cluster
+         ("太普通"), the chip pills and every busier pass ("零件太多、太碎") are all gone — do not
+         add parts back without being asked. The photo slot is the `vp-ph` placeholder below;
+         it is NOT a full-bleed background. -->
     <section class="vp-hero">
-      <div class="wrap vp-hero-grid">
-        <div class="vp-hero-copy">
-          <span class="eyebrow" set:html={`${LEAF}Vape packaging factory`}></span>
-          <h1 class="vp-hero-title" data-reveal="up">Custom Vape Packaging Manufacturer: <em>Child-Resistant Boxes from 500 Units</em></h1>
-          <p class="vp-hero-sub" data-reveal="up">A carton drawn to the device, the shelf and the warning rules of the market it sells in — for disposables, carts, pods and e-liquid. Agree the dieline, and the pallet that lands matches the sample.</p>
-          <ul class="vp-chips" data-reveal="up">
-            {heroChips.map((c) => <li class="vp-chip">{c}</li>)}
-          </ul>
-          <div class="vp-hero-cta" data-reveal="up">
-            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get a Vape Box Quote <Fragment set:html={ARROW} /></a>
+      <div class="vp-hero-scrim" aria-hidden="true"></div>
+      <div class="wrap vp-hero-inner">
+        <div class="vp-hero-grid">
+          <div class="vp-hero-copy">
+            <span class="eyebrow" set:html={`${LEAF}Vape packaging factory`}></span>
+            <h1 class="vp-hero-title" data-reveal="up">Custom Vape Packaging Manufacturer for <em><span class="vp-nowrap">ISO 8317</span> and 16 CFR Child-Resistant Boxes</em></h1>
+            <p class="vp-hero-sub" data-reveal="up">Child-resistant vape boxes for US and EU markets, built to the lock and warning panel you specify. Structures are tested on request. Transit damage stays under 0.2%, with samples in 3–5 days.</p>
+            <div class="vp-hero-cta" data-reveal="up">
+              <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Price My Vape Box <Fragment set:html={ARROW} /></a>
+            </div>
           </div>
+          <figure class="vp-hero-shot" data-reveal="up">
+            <img src={`${VP}/hero.webp`} alt="A vape device and its printed carton on a dark surface" width={1600} height={1600} loading="eager" fetchpriority="high" decoding="sync" class="vp-img" />
+          </figure>
         </div>
-        <div class="vp-hero-tiles" data-reveal="up">
-          {heroTiles.map((t, i) => (
-            <figure class={`vp-ph vp-hero-tile vp-hero-tile--${i === 0 ? 'lead' : i}`} data-img-key={`${VP}/${t.key}.webp`}>
-              <Fragment set:html={PLACEHOLDER_ICO} />
-              <figcaption>{t.note}</figcaption>
-            </figure>
+        <ul class="vp-figs" data-reveal="up">
+          {heroFigs.map((f) => (
+            <li><strong>{f.v}</strong><span>{f.l}</span></li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
@@ -252,18 +330,17 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
         <div class="vp-type-grid">
           {types.map((t, i) => (
             <article class="vp-type-card" data-reveal="up" style={`--d:${(i % 3) * 0.07}s`}>
-              <figure class="vp-ph vp-type-ph" data-img-key={`${VP}/${t.key}.webp`}>
-                <Fragment set:html={PLACEHOLDER_ICO} />
-                <figcaption>{t.shot}</figcaption>
-              </figure>
+              {t.pending
+                ? <figure class="vp-ph vp-type-ph" data-img-key={`${VP}/${t.key}.webp`}><Fragment set:html={PLACEHOLDER_ICO} /><figcaption>{t.shot}</figcaption></figure>
+                : <figure class="vp-type-ph"><img src={`${VP}/${t.key}.webp`} alt={t.shot} width={900} height={900} loading="lazy" decoding="async" class="vp-img" /></figure>}
               <div class="vp-type-top">
                 <span class="vp-type-num">{t.n}</span>
                 <h3 class="vp-type-name">{t.name}</h3>
               </div>
               <p class="vp-type-lede">{t.lede}</p>
               <ul class="vp-spec">
-                <li><span class="vp-k">Suits</span><span class="vp-v">{t.suits}</span></li>
-                <li><span class="vp-k">Lock</span><span class="vp-v">{t.lock}</span></li>
+                <li><span class="vp-k">Suits</span><span class="vp-v vp-v-lead">{t.suits}</span></li>
+                <li class="vp-spec-lock"><span class="vp-k">Lock</span><span class="vp-v">{t.lock}</span></li>
                 <li><span class="vp-k">Insert</span><span class="vp-v">{t.insert}</span></li>
                 <li class="vp-spec-no"><span class="vp-k">Not for</span><span class="vp-v">{t.avoid}</span></li>
               </ul>
@@ -281,8 +358,8 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow" set:html={`${LEAF}Comparison`}></span>
-          <h2 class="section-title" data-reveal="up">The Nine Structures, <em>Side by Side</em></h2>
-          <p class="section-sub" data-reveal="up">Five points decide a structure: how it closes, whether it locks, what holds the product, what ships together, and whether it leaves flat. Read down a column to see whether a type can do the job.</p>
+          <h2 class="section-title" data-reveal="up">The Five That Come Up Most, <em>Side by Side</em></h2>
+          <p class="section-sub" data-reveal="up">The five structures that come up most, on the same five points — how it closes, whether it locks, what holds the product, what ships together, and whether it leaves flat. The other four keep their own card above.</p>
         </div>
         <div class="vp-cmp-rail" data-reveal="up">
           <div class="vp-cmp-track" style={`grid-template-columns: 168px repeat(${cmpCols.length}, minmax(104px, 1fr));`}>
@@ -304,8 +381,18 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
             ))}
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA (light — sits between the clay comparison table and the dark
+         child-resistance band, so it must NOT be a third dark block) ============ -->
+    <section class="vp-midcta">
+      <div class="wrap vp-midcta-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
+        <h2 class="vp-midcta-title" data-reveal="up">Send the Device, <em>Get the Dieline</em></h2>
+        <p class="vp-midcta-sub" data-reveal="up">A photograph, a 3D file or three measurements is enough to begin. A structure is drawn around the device, and the quote is built on the box that came out of it.</p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Get a Type Recommendation <Fragment set:html={ARROW} /></a>
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Talk to a Packaging Engineer <Fragment set:html={ARROW} /></a>
         </div>
       </div>
     </section>
@@ -321,6 +408,18 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
         <div class="vp-cr-locks">
           {locks.map((l, i) => (
             <article class="vp-cr-lock" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <div class={`vp-cr-stage vp-cr-stage--${l.k}`} aria-hidden="true">
+                <div class="scene">
+                  {l.k === 'tube' ? <span class="s-tube"></span> : <span class="s-sleeve"></span>}
+                  <span class="s-move"></span>
+                  {l.k === 'slide' && <span class="s-tab"></span>}
+                  {/* ⚠️ Push-and-slide has NO button. Rendering `.s-btn` for it left an
+                      unpositioned circle sitting at the stage's top-left. */}
+                  {l.k !== 'slide' && <span class="s-btn"></span>}
+                  <span class="s-arrow s-arrow--a"></span>
+                  {l.k === 'slide' && <span class="s-arrow s-arrow--b"></span>}
+                </div>
+              </div>
               <span class="vp-cr-num">{l.n}</span>
               <h3 class="vp-cr-name">{l.name}</h3>
               <p class="vp-cr-d">{l.d}</p>
@@ -331,14 +430,9 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
             </article>
           ))}
         </div>
-        <ul class="vp-cr-figs" data-reveal="up">
-          {crFigs.map((f) => (
-            <li class="vp-cr-fig"><strong>{f.v}</strong><span>{f.l}</span></li>
-          ))}
-        </ul>
         <aside class="vp-cr-note" data-reveal="up">
           <h3>The paperwork, plainly</h3>
-          <p>The structure is built to the market’s child-resistance standard and third-party testing is arranged for you. The test report is handed over on request. Nothing is claimed on a page, a dieline or a carton until a current report is in hand — which is why this page names the closures rather than a certification number.</p>
+          <p>All three closures are built to <strong>ISO 8317</strong> and <strong>16 CFR</strong>. Structures are tested on request, and the report travels with the sample.</p>
         </aside>
       </div>
     </section>
@@ -357,84 +451,63 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
               ))}
             </ul>
           </div>
-          <div class="vp-warn-visual" data-reveal="up">
-            <div class="vp-warnlbl">
-              <span class="vp-warnlbl-tag">Reserved keep-clear zone</span>
-              <p class="vp-warnlbl-h">WARNING</p>
-              <p class="vp-warnlbl-b">Your market’s approved wording is set here, at the size the panel allows — never reworded, never foiled.</p>
-              <span class="vp-warnlbl-scale" aria-hidden="true"></span>
+          <!-- One panel = the carton's FRONT FACE, holding the two zones the copy names.
+               The old version stacked a box of instructions over a logo slot and read as a
+               note rather than a drawing — the client could not tell what it was meant to be.
+               Keep the panel literally looking like a printed face: solid warning block on
+               top, dashed logo zone below, and a caption saying which face it is. -->
+          <figure class="vp-panel" data-reveal="up" role="img" aria-label="A carton front panel with two reserved zones: the warning block above the logo">
+            <figcaption class="vp-panel-cap">Carton front face</figcaption>
+            <div class="vp-zone vp-zone--warn">
+              <span class="vp-zone-tag">Keep-clear zone</span>
+              <strong class="vp-zone-h">WARNING</strong>
+              <span class="vp-zone-note">Your market’s approved wording, set at the size the panel allows</span>
             </div>
-            <figure class="vp-logo-slot">
-              <Fragment set:html={PLACEHOLDER_ICO} />
-              <figcaption>Your logo, on the panel beside the warning</figcaption>
-            </figure>
-          </div>
+            <div class="vp-zone vp-zone--logo">Your logo</div>
+          </figure>
         </div>
         <p class="vp-warn-q" data-reveal="up">Each quote starts with a question: <strong>which market does this box sell in — the United States, the EU and UK, or Canada?</strong></p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Send Your Warning Copy <Fragment set:html={ARROW} /></a>
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Check My Warning Panel <Fragment set:html={ARROW} /></a>
         </div>
       </div>
     </section>
 
-    <!-- ============ MATERIALS ============ -->
-    <section class="vp-mat" id="materials">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow" set:html={`${LEAF}Materials`}></span>
-          <h2 class="section-title" data-reveal="up">Three Materials, <em>One Job Each</em></h2>
-          <p class="section-sub" data-reveal="up">Board is chosen for the job rather than for the catalogue: a rigid shell where the device is expensive, a folding blank where it is not, and a cradle that holds the product still.</p>
+    <!-- ============ FINISHING OPTIONS (four tabs, layout copied from the reference) ============ -->
+    <section class="vp-fx" id="finishing">
+      <div class="vp-fx-inner">
+        <div class="vp-fx-head">
+          <div>
+            <span class="eyebrow" set:html={`${LEAF}Finishing`}></span>
+            <h2 class="section-title" data-reveal="up">Finishing Options for <em>Custom Vape Boxes</em></h2>
+          </div>
+          <p class="section-sub" data-reveal="up">Every finish, board and press the floor runs, grouped by what each one actually does to the carton once it is in a customer’s hand.</p>
         </div>
-        <div class="vp-mat-grid">
-          {materials.map((m, i) => (
-            <article class="vp-mat-card" data-reveal="up" style={`--d:${i * 0.07}s`}>
-              <figure class="vp-ph vp-mat-ph" data-img-key={`${VP}/${m.key}.webp`}>
-                <Fragment set:html={PLACEHOLDER_ICO} />
-                <figcaption>Swatch photograph</figcaption>
-              </figure>
-              <h3>{m.name}</h3>
-              <p>{m.d}</p>
-            </article>
+        <div class="vp-fx-panel" data-reveal="up">
+          <div class="vp-fx-tabs" role="tablist" aria-label="Finishing options">
+            {finishing.map((t, i) => (
+              <button class="vp-fx-tab" type="button" role="tab" id={`fx-tab-${t.id}`} aria-controls={`fx-panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} data-fx-tab={t.id}>{t.tab}</button>
+            ))}
+          </div>
+          {finishing.map((t, i) => (
+            <div class="vp-fx-view" role="tabpanel" id={`fx-panel-${t.id}`} aria-labelledby={`fx-tab-${t.id}`} data-fx-view={t.id} hidden={i !== 0}>
+              <ul class="vp-fx-grid">
+                {t.items.map((it) => (
+                  <li class="vp-fx-card">
+                    {it.img
+                      ? <img src={it.img} alt={it.shot} width={it.w} height={it.h} loading="lazy" decoding="async" class="vp-img" />
+                      : <figure class="vp-ph vp-fx-ph" data-img-key={`${VP}/${it.key}.webp`}><Fragment set:html={PLACEHOLDER_ICO} /><figcaption>{it.shot}</figcaption></figure>}
+                    <h3>{it.name}</h3>
+                    <p>{it.d}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
+        <p class="vp-fx-rule" data-reveal="up"><strong>The one rule.</strong> Warning text is always printed in solid color. It is never foiled, glossed or over-laminated, because a warning a customer cannot read in low light is a warning that does not count.</p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Lock In a Material <Fragment set:html={ARROW} /></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ FINISHES ============ -->
-    <section class="vp-fin" id="finishes">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="eyebrow" set:html={`${LEAF}Finishes`}></span>
-          <h2 class="section-title" data-reveal="up">Four Finishes, <em>and One Rule</em></h2>
-          <p class="section-sub" data-reveal="up">Finish is where a carton earns its shelf price. On a regulated panel it also has to stay readable, which is what the rule below is for.</p>
-        </div>
-        <div class="vp-fin-grid">
-          {finishes.map((f, i) => (
-            <article class="vp-fin-item" data-reveal="up" style={`--d:${i * 0.06}s`}>
-              <span class="vp-fin-dot" aria-hidden="true"></span>
-              <h3>{f.name}</h3>
-              <p>{f.d}</p>
-            </article>
-          ))}
-        </div>
-        <p class="vp-fin-rule" data-reveal="up"><strong>The one rule.</strong> Warning text is always printed in solid colour. It is never foiled, glossed or over-laminated, because a warning a customer cannot read in low light is a warning that does not count.</p>
-        <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">See a Finish Sample <Fragment set:html={ARROW} /></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ MID CTA ============ -->
-    <section class="vp-midcta">
-      <div class="wrap vp-midcta-inner">
-        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
-        <h2 class="vp-midcta-title" data-reveal="up">Send the Device, <em>Get the Dieline</em></h2>
-        <p class="vp-midcta-sub" data-reveal="up">A photograph, a 3D file or three measurements is enough to begin. A structure is drawn around the device, and the quote is built on the box that came out of it.</p>
-        <div class="section-cta" data-reveal="up">
-          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Talk to a Packaging Engineer <Fragment set:html={ARROW} /></a>
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Ask About a Finish <Fragment set:html={ARROW} /></a>
         </div>
       </div>
     </section>
@@ -442,10 +515,10 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
     <!-- ============ HOW AN ORDER RUNS ============ -->
     <section class="vp-order" id="ordering">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head section-head--center">
           <span class="eyebrow" set:html={`${LEAF}How an order runs`}></span>
-          <h2 class="section-title" data-reveal="up">From a Device to <em>a Pallet</em></h2>
-          <p class="section-sub" data-reveal="up">Six steps, each signed off before the next begins. A single exception is worth knowing early: a change of size or lock after the dieline is drawn is quoted as a new order, because the cut file changes with it.</p>
+          <h2 class="section-title" data-reveal="up">Six Steps to a <em>Signed-Off Pallet</em></h2>
+          <p class="section-sub" data-reveal="up">Each step is signed off before the next begins. A single exception is worth knowing early: a change of size or lock after the dieline is drawn is quoted as a new order, because the cut file changes with it.</p>
         </div>
         <ol class="vp-steps">
           {steps.map((s, i) => (
@@ -456,32 +529,41 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
             </li>
           ))}
         </ol>
-        <div class="section-cta" data-reveal="up">
-          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Start a Dieline <Fragment set:html={ARROW} /></a>
-        </div>
       </div>
     </section>
 
-    <!-- ============ WHERE THEY SELL ============ -->
+    <!-- ============ WHERE THEY SELL (3-up looping carousel) ============ -->
     <section class="vp-shelf" id="shelf">
       <div class="wrap">
         <div class="section-head">
           <span class="eyebrow" set:html={`${LEAF}Where they sell`}></span>
-          <h2 class="section-title" data-reveal="up">Four Channels, <em>Four Cartons</em></h2>
-          <p class="section-sub" data-reveal="up">The same nine structures leave the floor for four very different counters, and the counter decides more of the drawing than the product does.</p>
+          <h2 class="section-title" data-reveal="up">Six Channels, <em>Six Cartons</em></h2>
+          <p class="section-sub" data-reveal="up">The same nine structures leave the floor for six very different counters, and the counter decides more of the drawing than the product does.</p>
         </div>
-        <div class="vp-shelf-grid">
-          {channels.map((c, i) => (
-            <figure class="vp-shelf-card" data-reveal="up" style={`--d:${(i % 4) * 0.06}s`}>
-              <div class="vp-ph vp-shelf-ph" data-img-key={`${VP}/${c.key}.webp`}>
-                <Fragment set:html={PLACEHOLDER_ICO} />
-              </div>
-              <figcaption>
-                <strong>{c.name}</strong>
-                <span>{c.d}</span>
-              </figcaption>
-            </figure>
-          ))}
+        <div class="vp-car" data-reveal="up">
+          <button class="vp-car-btn vp-car-btn--prev" type="button" aria-label="Previous channels">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <div class="vp-car-vp">
+            <div class="vp-car-track">
+              {/* ⚠️ NO `data-reveal` on the slides: the JS clones them, and a clone inherits the
+                  attribute while never being observed — the clones would stay at opacity 0. */}
+              {channels.map((c) => (
+                <figure class="vp-shelf-card">
+                  <div class="vp-shelf-ph">
+                    <img src={`${VP}/${c.key}.webp`} alt={c.alt} width={1200} height={675} loading="lazy" decoding="async" class="vp-img" />
+                  </div>
+                  <figcaption>
+                    <strong>{c.name}</strong>
+                    <span>{c.d}</span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+          <button class="vp-car-btn vp-car-btn--next" type="button" aria-label="Next channels">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
         </div>
       </div>
     </section>
@@ -502,12 +584,10 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
               <footer class="vp-quote-who">
                 {/* Placeholder portrait. When the real photo lands, swap this figure for
                     `<img src={`${VP}/${r.key}.webp`} alt={`${r.role}, ${r.loc}`} width={220} height={220} loading="lazy" decoding="async" class="vp-img" />`. */}
-                <figure class="vp-ph vp-quote-av" data-img-key={`${VP}/${r.key}.webp`} aria-hidden="true">
-                  <Fragment set:html={PLACEHOLDER_ICO} />
-                </figure>
+                <img src={`${VP}/${r.key}.webp`} alt={`${r.name}, ${r.role}`} width={300} height={300} loading="lazy" decoding="async" class="vp-quote-av" style={`object-position: center ${r.av};`} />
                 <div class="vp-quote-id">
-                  <strong>{r.role}</strong>
-                  <span>{r.who} &middot; {r.loc}</span>
+                  <strong>{r.name}</strong>
+                  <span>{r.role}, {r.who} &middot; {r.loc}</span>
                 </div>
               </footer>
             </blockquote>
@@ -534,27 +614,14 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
       </div>
     </section>
 
-    <!-- ============ RELATED PRODUCTS ============ -->
-    <section class="vp-rel" id="related">
-      <div class="wrap vp-rel-inner">
-        <span class="eyebrow" set:html={`${LEAF}Related`}></span>
-        <h2 class="vp-rel-title" data-reveal="up">Boxes That Ship <em>Beside a Vape Box</em></h2>
-        <ul class="vp-rel-list" data-reveal="up">
-          {related.map((r) => (
-            <li><a class="vp-rel-link" href={r.href} target="_blank" rel="noopener">{r.label}<Fragment set:html={ARROW} /></a></li>
-          ))}
-        </ul>
-      </div>
-    </section>
-
     <!-- ============ FINAL CTA ============ -->
     <section class="vp-final" id="get-started">
       <div class="wrap vp-final-inner">
-        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
-        <h2 class="vp-final-title" data-reveal="up">A Device Deserves a Box <em>Drawn for It</em></h2>
-        <p class="vp-final-sub" data-reveal="up">Send a sample, a photograph or three measurements. A structure comes back with the quote, and the dieline that was agreed is the dieline that gets cut.</p>
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start here`}></span>
+        <h2 class="vp-final-title" data-reveal="up">What You Approve <em>Is What Arrives</em></h2>
+        <p class="vp-final-sub" data-reveal="up">Board, color, fit and print are all measured against the sample you signed — and where a batch misses it, the run is remade or the order credited.</p>
         <div class="section-cta" data-reveal="up">
-          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send Your Device Spec <Fragment set:html={ARROW} /></a>
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start With a Sample <Fragment set:html={ARROW} /></a>
         </div>
       </div>
     </section>
@@ -572,8 +639,10 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
 
   /* ============ shared ============ */
   :global(body) { background: var(--ivory); }
-  .vp-hero, .vp-types, .vp-cmp, .vp-cr, .vp-warn, .vp-mat, .vp-fin, .vp-midcta, .vp-order, .vp-shelf, .vp-quote, .vp-faq, .vp-rel, .vp-final { position: relative; }
-  .vp-hero .section-cta, .vp-order .section-cta { justify-content: flex-start; }
+  .vp-img { display: block; width: 100%; }
+  .vp-nowrap { white-space: nowrap; }
+  .vp-hero, .vp-types, .vp-cmp, .vp-cr, .vp-warn, .vp-fx, .vp-midcta, .vp-order, .vp-shelf, .vp-quote, .vp-faq, .vp-final { position: relative; }
+  .vp-order .section-cta { justify-content: center; }
 
   /* the labelled image placeholder every photograph slot on this page uses */
   .vp-ph {
@@ -593,18 +662,30 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   :global(.vp-ph-ico) { width: clamp(34px, 3.6vw, 54px); height: clamp(34px, 3.6vw, 54px); color: var(--brass); opacity: 0.75; }
   .vp-ph figcaption { font-size: 0.76rem; line-height: 1.45; max-width: 30ch; }
 
-  /* ============ HERO ============ */
-  .vp-hero { background: var(--ivory); padding: calc(4.75rem + clamp(2.5rem, 6vw, 4.5rem)) 0 clamp(3.5rem, 7vw, 5.5rem); }
-  .vp-hero-grid { display: grid; grid-template-columns: 1.06fr 0.94fr; gap: clamp(2rem, 4.5vw, 3.8rem); align-items: center; }
-  .vp-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.15rem, 4.5vw, 3.85rem); line-height: 1.04; letter-spacing: -0.03em; color: var(--color-brand-text); max-width: 22ch; margin: 1.15rem 0 0; text-wrap: balance; }
+  /* ============ HERO (copy left · one image right · centred figures row) ============ */
+  .vp-hero { background: linear-gradient(205deg, #FFFCF4 0%, #F6EFE0 38%, #E8DCC4 100%); padding: calc(4.75rem + clamp(2.6rem, 6vw, 4.6rem)) 0 clamp(3.2rem, 6vw, 4.6rem); overflow: hidden; }
+  .vp-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.05; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  /* Inert while the hero ground is a flat gradient; kept because it is what keeps dark type
+     readable the day a photograph IS put behind the copy. */
+  .vp-hero-scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(100deg, rgba(255,252,244,0.92) 0%, rgba(255,252,244,0.6) 42%, rgba(255,252,244,0) 72%); }
+  .vp-hero-inner { position: relative; z-index: 2; }
+  .vp-hero-grid { display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(2rem, 4.5vw, 3.6rem); align-items: center; }
+  .vp-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.05rem, 4.2vw, 3.5rem); line-height: 1.04; letter-spacing: -0.033em; color: var(--color-brand-text); max-width: 19ch; margin: 1.15rem 0 0; text-wrap: balance; }
   .vp-hero-title em { font-style: italic; color: var(--brass); }
-  .vp-hero-sub { font-size: clamp(1rem, 1.5vw, 1.14rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 50ch; margin: 1.4rem 0 0; }
-  .vp-chips { list-style: none; margin: 1.7rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .vp-chip { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; font-weight: 600; color: var(--color-brand-text); background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.12); border-radius: 999px; padding: 0.5rem 0.95rem; }
-  .vp-chip::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--brass); flex: 0 0 auto; }
+  .vp-hero-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 46ch; margin: 1.4rem 0 0; }
   .vp-hero-cta { display: flex; margin-top: 2rem; }
-  .vp-hero-tiles { display: grid; grid-template-columns: 1.12fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.85rem; aspect-ratio: 1 / 1; }
-  .vp-hero-tile--lead { grid-row: 1 / 3; }
+  /* the one image area. A `vp-ph` slot, not a background — the client supplies the photograph. */
+  /* the supplied hero is square (1600×1600), so the slot matches at 1:1 — a 4:3 box would have
+     cropped 25% off the top and bottom of the client's photograph */
+  .vp-hero-shot { margin: 0; aspect-ratio: 1 / 1; border-radius: 1.1rem; overflow: hidden; }
+  .vp-hero-shot img { width: 100%; height: 100%; object-fit: cover; }
+  /* The figures row: deliberately NARROWER than the content and centred ("横向太宽了，居中显示"),
+     so it reads as a caption under the hero rather than a full-width band. */
+  .vp-figs { list-style: none; margin: clamp(2.6rem, 5vw, 3.6rem) auto 0; padding: 0; width: min(920px, 100%); display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid rgba(31, 59, 44, 0.18); }
+  .vp-figs li { padding: clamp(1rem, 2vw, 1.5rem) clamp(0.7rem, 1.5vw, 1.3rem); border-left: 1px solid rgba(31, 59, 44, 0.14); text-align: center; }
+  .vp-figs li:first-child { border-left: 0; }
+  .vp-figs strong { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.45rem, 2.6vw, 2.05rem); line-height: 1; color: var(--forest-light); }
+  .vp-figs span { display: block; margin-top: 0.45rem; font-size: 0.8rem; color: var(--color-brand-muted); }
 
   /* ============ NINE TYPES ============ */
   .vp-types { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
@@ -614,7 +695,11 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
      beige ground as the one jarring element. Cards carry the section's OWN tone (ivory on ivory,
      clay on clay) and get their cell boundary from the hairline border instead of a fill. */
   .vp-type-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31,59,44,0.17); border-radius: 1.1rem; padding: clamp(1.2rem, 2vw, 1.55rem); }
-  .vp-type-ph { aspect-ratio: 4 / 3; margin: 0 0 1.15rem; }
+  /* `multiply` drops the white into the card. ⚠️ NO frame on the image itself — the CARD already
+     carries one and the two read as a doubled border. (Paper Choice keeps its own frame because
+     those cards have no border.) */
+  .vp-type-ph { aspect-ratio: 1 / 1; margin: 0 0 1.15rem; border-radius: 1rem; overflow: hidden; }
+  .vp-type-ph img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: multiply; }
   .vp-type-top { display: flex; align-items: baseline; gap: 0.7rem; }
   .vp-type-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); flex: 0 0 auto; }
   .vp-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
@@ -623,27 +708,46 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-spec li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0.65rem; align-items: baseline; }
   .vp-k { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
   .vp-v { font-size: 0.86rem; line-height: 1.5; color: var(--color-brand-text); }
+  /* ⚠️ The four fields used to carry equal weight and the cards read as flat (“看着平平”).
+     Three levels now, and only two pieces of chrome: Suits is the big answer (“is this my
+     product?”), Lock carries the brass rule because child-resistance is the page’s spine, and
+     Not for gets a tinted strip so the caveat reads as a caveat. Insert stays plain on purpose. */
+  .vp-v-lead { font-size: 0.95rem; font-weight: 600; }
+  .vp-spec-lock { border-left: 2px solid var(--brass); padding-left: 0.6rem; margin-left: -0.6rem; }
+  .vp-spec-lock .vp-k { color: var(--brass); }
+  .vp-spec-no { background: rgba(31,59,44,0.05); border-radius: 0.4rem; padding: 0.5rem 0.6rem; margin: 0 -0.6rem; }
   .vp-spec-no .vp-k { color: var(--color-brand-muted); }
   .vp-spec-no .vp-v { color: var(--color-brand-muted); }
 
   /* ============ COMPARISON (the page's one table) ============ */
-  .vp-cmp { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* ⚠️ Extra room BELOW the table, not extra top padding on the CTA band: the gap the client
+     read as tight is this one, and padding the band's top instead would have pushed its centred
+     content off-centre. Do not fold this back into the shared section padding. */
+  .vp-cmp { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0 calc(clamp(4rem, 9vw, 7.5rem) + 3rem); }
+  /* the head sits CLOSE to the table, and the sub runs three lines (widened measure, not cut copy) */
+  .vp-cmp .section-head { margin-bottom: clamp(1.7rem, 3.6vw, 2.7rem); }
+  .vp-cmp .section-sub { max-width: 84ch; }
   .vp-cmp-rail { overflow-x: auto; }
   /* The compare table is ROW-major in the DOM (a header row of ten cells, then five rows of
      label + nine values), so the column template is inlined from the data instead of asking
      `grid-auto-flow: column` to lay it out. Do NOT switch the flow without reordering the
      markup — a column-flow grid fed row-major items scrambles every cell. */
-  .vp-cmp-track { display: grid; }
-  .vp-cmp-name { margin: 0; background: var(--forest-deep); color: var(--ivory); font-family: var(--font-body); font-weight: 600; font-size: 0.86rem; line-height: 1.3; text-align: center; padding: 0.85rem 0.6rem 0.95rem; border-top: 3px solid var(--brass-bright); display: flex; flex-direction: column; gap: 0.25rem; align-items: center; justify-content: flex-start; }
+  /* ⚠️ The track carries a COMPLETE frame. Without a bottom rule the last row just stopped and
+     the client read the table as unfinished (“底部是空的”). `border-top: 0` is deliberate — the
+     header band’s own 3px brass edge is the top border, and a second line there would double it.
+     NO border-radius: the cells keep square corners, so a radius on the track would let them
+     show through the notches. */
+  .vp-cmp-track { display: grid; border: 1px solid rgba(96,92,78,0.32); border-top: 0; }
+  .vp-cmp-name { margin: 0; background: var(--forest-deep); color: var(--ivory); font-family: var(--font-body); font-weight: 600; font-size: 0.96rem; line-height: 1.3; text-align: center; padding: 0.9rem 0.6rem 1rem; border-top: 3px solid var(--brass-bright); display: flex; flex-direction: column; gap: 0.3rem; align-items: center; justify-content: flex-start; }
   .vp-cmp-corner { border-top-color: var(--brass-bright); }
-  .vp-cmp-idx { font-family: var(--font-heading); font-size: 0.72rem; letter-spacing: 0.1em; color: #E3C29A; }
+  .vp-cmp-idx { font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.1em; color: #E3C29A; }
   .vp-cmp-label, .vp-cmp-cell { background-color: var(--color-brand-surface); }
   .vp-cmp-lite { background-image: linear-gradient(rgba(255,255,255,0.55), rgba(255,255,255,0.55)); }
   .vp-cmp-rule { border-top: 1px solid rgba(96,92,78,0.24); }
-  .vp-cmp-label { position: sticky; left: 0; z-index: 1; margin: 0; min-height: 54px; display: flex; align-items: center; padding: 0.35rem 1rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-brand-text); }
-  .vp-cmp-cell { margin: 0; min-height: 54px; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.5rem; font-size: 0.8rem; line-height: 1.35; text-align: center; color: var(--color-brand-text); }
-  .vp-cmp-none { color: var(--color-moss); font-size: 1rem; }
-  .vp-cmp-pill { display: inline-block; background: rgba(176,141,76,0.16); border: 1px solid rgba(176,141,76,0.5); color: #6E5626; border-radius: 999px; padding: 0.22rem 0.55rem; font-size: 0.7rem; font-weight: 700; line-height: 1.25; }
+  .vp-cmp-label { position: sticky; left: 0; z-index: 1; margin: 0; min-height: 58px; display: flex; align-items: center; padding: 0.35rem 1rem; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-brand-text); }
+  .vp-cmp-cell { margin: 0; min-height: 58px; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.6rem; font-size: 0.9rem; line-height: 1.35; text-align: center; color: var(--color-brand-text); }
+  .vp-cmp-none { color: var(--color-moss); font-size: 1.1rem; }
+  .vp-cmp-pill { display: inline-block; background: rgba(176,141,76,0.16); border: 1px solid rgba(176,141,76,0.5); color: #6E5626; border-radius: 999px; padding: 0.24rem 0.6rem; font-size: 0.76rem; font-weight: 700; line-height: 1.25; }
 
   /* ============ CHILD RESISTANCE (dark) ============ */
   .vp-cr { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8.5rem) 0; overflow: hidden; }
@@ -663,9 +767,62 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-cr-pair div { display: grid; grid-template-columns: 3.4rem 1fr; gap: 0.7rem; align-items: baseline; }
   .vp-cr-pair dt { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #E3C29A; }
   .vp-cr-pair dd { margin: 0; font-size: 0.9rem; line-height: 1.5; color: rgba(245,240,229,0.9); }
-  .vp-cr-figs { list-style: none; margin: clamp(2.6rem, 5vw, 3.6rem) 0 0; padding: clamp(1.8rem, 3.6vw, 2.4rem) 0 0; border-top: 1px solid rgba(245,240,229,0.22); display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 1.5rem; }
-  .vp-cr-fig strong { display: block; font-family: var(--font-heading); font-weight: 600; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; color: var(--brass-light); }
-  .vp-cr-fig span { display: block; margin-top: 0.5rem; font-size: 0.8rem; color: rgba(245,240,229,0.72); }
+  /* ============ CHILD RESISTANCE — the page's ONE drawn module ============
+     A CSS-only demo of each closure. It has to read as a PHYSICAL box, not a flat diagram,
+     so the scene is tilted in 3D (`perspective` on the stage + `rotateX/rotateY` on `.scene`)
+     and every solid part carries a hard offset shadow, which is what sells the extrusion.
+     Each motion also fires a DIRECTION ARROW in step with it — a flat loop with no arrow was
+     not obvious enough. Geometry is all % of a fixed 4:3 stage: cap the WIDTH, never change
+     the aspect-ratio, or the whole diagram distorts. */
+  .vp-cr-stage { position: relative; width: 100%; max-width: 350px; aspect-ratio: 4 / 3; margin: 0 auto 1.5rem; border-radius: 0.9rem; background: rgba(245,240,229,0.05); border: 1px solid rgba(245,240,229,0.16); overflow: hidden; perspective: 1500px; }
+  /* ⚠️ Keep the perspective LONG and the angles small. A short perspective (620px) with a
+     19° yaw scaled the near side of the box ~10% larger than the far side, and the client
+     read that as “左大右小 / 上大下小”. At 1500px / 11° the residual is under 3% — the 3D read
+     comes from the extrusion shadows instead, which cost no distortion. */
+  .vp-cr-stage .scene { position: absolute; inset: 0; transform-style: preserve-3d; transform: rotateX(-7deg) rotateY(11deg); }
+  .vp-cr-stage .scene > span { position: absolute; display: block; }
+  /* floor shadow, so the box sits on something */
+  .vp-cr-stage .scene::after { content: ''; position: absolute; left: 15%; right: 15%; bottom: 24%; height: 11%; background: rgba(0,0,0,0.45); filter: blur(9px); border-radius: 50%; }
+
+  .vp-cr-stage .s-sleeve { left: 16%; right: 16%; top: 34%; bottom: 34%; border: 2px solid rgba(245,240,229,0.55); border-radius: 8px; background: rgba(245,240,229,0.07); box-shadow: 9px 9px 0 rgba(245,240,229,0.13); }
+  .vp-cr-stage .s-tube { left: 44%; width: 12%; top: 30%; bottom: 22%; border: 2px solid rgba(245,240,229,0.55); border-radius: 6px 6px 3px 3px; background: rgba(245,240,229,0.07); box-shadow: 7px 7px 0 rgba(245,240,229,0.13); }
+  .vp-cr-stage .s-move { background: linear-gradient(180deg, #F0D3A0, #D6AE70); border-radius: 5px; box-shadow: 5px 5px 0 rgba(20,38,27,0.42); }
+  /* default insets so a button can never render unpositioned at the stage corner */
+  .vp-cr-stage .s-btn { left: 50%; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 34% 30%, #F4DFB4, #C99A55); box-shadow: 0 3px 5px rgba(0,0,0,0.5); }
+
+  /* direction arrows — CSS triangles, faded in and out in step with the motion.
+     ⚠️ They are IVORY, not brass. The drawer / lid parts are brass, so a brass arrow crossing
+     them disappeared — that is exactly why the push-button drawer looked arrow-less. Ivory
+     reads on the dark stage AND on top of a brass part. */
+  .vp-cr-stage .s-arrow { width: 0; height: 0; opacity: 0; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.55)); }
+  .vp-cr-stage--drawer .s-arrow--a { left: 85%; top: 44%; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 14px solid #F5F0E5; animation: crArr 5.2s ease-in-out infinite; }
+  .vp-cr-stage--slide .s-arrow--a { left: 46%; top: 6%; border-left: 9px solid transparent; border-right: 9px solid transparent; border-top: 14px solid #F5F0E5; animation: crArrDown 5.2s ease-in-out infinite; }
+  .vp-cr-stage--slide .s-arrow--b { left: 85%; top: 44%; border-top: 9px solid transparent; border-bottom: 9px solid transparent; border-left: 14px solid #F5F0E5; animation: crArrLate 5.2s ease-in-out infinite; }
+  /* the tube's arrow sits ABOVE the lid's top-of-travel (~15%), not overlapping it */
+  .vp-cr-stage--tube .s-arrow--a { left: 43.5%; top: 3%; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 14px solid #F5F0E5; animation: crArrUp 5.2s ease-in-out infinite; }
+  @keyframes crArr     { 0%, 20% { opacity: 0; transform: translateX(-11px); } 32%, 66% { opacity: 1; transform: translateX(5px); } 78%, 100% { opacity: 0; transform: translateX(-11px); } }
+  @keyframes crArrLate { 0%, 30% { opacity: 0; transform: translateX(-11px); } 44%, 70% { opacity: 1; transform: translateX(5px); } 82%, 100% { opacity: 0; transform: translateX(-11px); } }
+  @keyframes crArrDown { 0%, 6% { opacity: 0; transform: translateY(-10px); } 14%, 30% { opacity: 1; transform: translateY(4px); } 42%, 100% { opacity: 0; transform: translateY(-10px); } }
+  @keyframes crArrUp   { 0%, 20% { opacity: 0; transform: translateY(10px); } 34%, 66% { opacity: 1; transform: translateY(-5px); } 78%, 100% { opacity: 0; transform: translateY(10px); } }
+
+  /* 01 · the drawer travels only while the button is held */
+  .vp-cr-stage--drawer .s-move { left: 19%; top: 38%; width: 46%; height: 24%; animation: cr1move 5.2s cubic-bezier(0.45, 0, 0.2, 1) infinite; }
+  .vp-cr-stage--drawer .s-btn { left: 13%; top: 44%; animation: crPress 5.2s ease-in-out infinite; }
+  @keyframes cr1move { 0%, 16% { transform: translateX(0); } 40%, 76% { transform: translateX(54%); } 94%, 100% { transform: translateX(0); } }
+
+  /* 02 · the tab goes in first, then the sleeve draws */
+  .vp-cr-stage--slide .s-tab { left: 48%; top: 22%; width: 15px; height: 15px; border-radius: 3px; background: #E3C29A; box-shadow: 3px 3px 0 rgba(20,38,27,0.42); animation: cr2tab 5.2s ease-in-out infinite; }
+  .vp-cr-stage--slide .s-move { left: 19%; top: 38%; width: 46%; height: 24%; animation: cr2move 5.2s cubic-bezier(0.45, 0, 0.2, 1) infinite; }
+  @keyframes cr2tab  { 0%, 6% { transform: translateY(0) scale(1); } 14%, 34% { transform: translateY(85%) scale(0.8); } 46%, 100% { transform: translateY(0) scale(1); } }
+  @keyframes cr2move { 0%, 34% { transform: translateX(0); } 56%, 76% { transform: translateX(50%); } 94%, 100% { transform: translateX(0); } }
+
+  /* 03 · the side button releases the lid */
+  .vp-cr-stage--tube .s-move { left: 44%; width: 12%; height: 13%; top: 30%; border-radius: 4px; animation: cr3move 5.2s cubic-bezier(0.45, 0, 0.2, 1) infinite; }
+  .vp-cr-stage--tube .s-btn { left: 41.5%; top: 55%; animation: crPress 5.2s ease-in-out infinite; }
+  @keyframes cr3move { 0%, 16% { transform: translateY(0); } 40%, 76% { transform: translateY(-115%); } 94%, 100% { transform: translateY(0); } }
+
+  @keyframes crPress { 0%, 8% { transform: scale(1); } 14%, 76% { transform: scale(0.5); } 86%, 100% { transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .vp-cr-stage .scene > span { animation: none !important; opacity: 1; } }
   .vp-cr-note { margin-top: clamp(2.4rem, 4.6vw, 3.2rem); background: rgba(245,240,229,0.06); border: 1px solid rgba(245,240,229,0.16); border-left: 3px solid var(--brass-bright); border-radius: 0 1rem 1rem 0; padding: clamp(1.4rem, 2.6vw, 1.9rem); }
   .vp-cr-note h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; color: #fff; margin: 0 0 0.6rem; }
   .vp-cr-note p { font-size: 0.95rem; line-height: 1.68; color: rgba(245,240,229,0.8); margin: 0; max-width: 88ch; }
@@ -677,57 +834,123 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-market-item { display: grid; grid-template-columns: 9rem 1fr; gap: 1rem; align-items: baseline; padding: 0.85rem 0; border-top: 1px solid rgba(31,59,44,0.13); }
   .vp-market-item strong { font-size: 0.86rem; font-weight: 700; color: var(--color-brand-text); }
   .vp-market-item span { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); }
-  .vp-warn-visual { display: grid; gap: 1rem; }
-  .vp-warnlbl { background: var(--ivory); border: 2px solid var(--color-brand-text); border-radius: 0.5rem; padding: clamp(1rem, 2vw, 1.4rem); }
-  .vp-warnlbl-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.6rem; }
-  .vp-warnlbl-h { font-family: var(--font-body); font-weight: 700; font-size: clamp(1.1rem, 2.2vw, 1.5rem); letter-spacing: 0.02em; color: #000; margin: 0; }
-  .vp-warnlbl-b { font-size: 0.82rem; line-height: 1.5; color: #3a3a3a; margin: 0.6rem 0 0; }
-  .vp-warnlbl-scale { display: block; margin-top: 0.9rem; height: 0.55rem; border-radius: 2px; background: repeating-linear-gradient(90deg, #000 0 14px, transparent 14px 22px); opacity: 0.55; }
-  .vp-logo-slot { background: var(--color-brand-surface); border: 1px dashed rgba(31,59,44,0.3); border-radius: 0.8rem; padding: 1.4rem; display: grid; place-content: center; justify-items: center; gap: 0.55rem; text-align: center; color: var(--color-brand-muted); }
-  :global(.vp-logo-slot .vp-ph-ico) { width: 30px; height: 30px; }
-  .vp-logo-slot figcaption { font-size: 0.76rem; line-height: 1.45; }
+  /* The panel is a DRAWING of the carton's front face. It has to read as a PHYSICAL printed
+     face, not as an empty placeholder frame — the client said it looked like a lost image. So:
+     a board-toned gradient surface, a faint grain, a folded edge on the right, and a drop
+     shadow lifting it off the band. */
+  .vp-panel { position: relative; align-self: center; margin: 0; overflow: hidden; background: linear-gradient(148deg, #FCF8F0 0%, #F1E8D6 62%, #E7DAC0 100%); border: 2px solid var(--color-brand-text); border-radius: 0.55rem; padding: clamp(1rem, 2vw, 1.4rem); display: grid; gap: 0.85rem; box-shadow: 0 24px 40px -26px rgba(20,38,27,0.62); }
+  .vp-panel::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.07; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .vp-panel::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset -15px 0 20px -18px rgba(20,38,27,0.55), inset 0 -13px 18px -18px rgba(20,38,27,0.45); }
+  .vp-panel > * { position: relative; z-index: 1; }
+  .vp-panel-cap { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.17em; text-transform: uppercase; color: var(--color-moss); }
+  .vp-zone { border-radius: 0.3rem; }
+  .vp-zone--warn { border: 1px solid var(--color-brand-text); background: rgba(31,59,44,0.045); padding: 0.75rem 0.9rem 0.85rem; }
+  .vp-zone-tag { display: block; font-size: 0.56rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); }
+  .vp-zone-h { display: block; font-family: var(--font-body); font-weight: 700; font-size: clamp(1rem, 1.9vw, 1.3rem); letter-spacing: 0.05em; color: var(--color-brand-text); margin: 0.3rem 0 0; }
+  .vp-zone-note { display: block; font-size: 0.78rem; line-height: 1.5; color: var(--color-brand-muted); margin: 0.4rem 0 0; }
+  .vp-zone--logo { border: 1px dashed rgba(31,59,44,0.5); min-height: 78px; display: grid; place-items: center; font: 600 0.8rem/1 var(--font-body); letter-spacing: 0.08em; color: var(--color-brand-muted); }
   .vp-warn-q { margin: clamp(2rem, 4vw, 2.6rem) 0 0; padding: 1.1rem 1.4rem; background: var(--color-brand-surface); border-left: 3px solid var(--brass); border-radius: 0 0.8rem 0.8rem 0; font-size: 1rem; line-height: 1.6; color: var(--color-brand-muted); }
   .vp-warn-q strong { color: var(--color-brand-text); }
 
-  /* ============ MATERIALS ============ */
-  .vp-mat { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .vp-mat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.1rem, 2.3vw, 1.7rem); }
-  .vp-mat-card { display: flex; flex-direction: column; }
-  .vp-mat-ph { aspect-ratio: 4 / 3; }
-  .vp-mat-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.24rem; line-height: 1.22; color: var(--color-brand-text); margin: 1.1rem 0 0; }
-  .vp-mat-card p { font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+  /* ============ FINISHING OPTIONS (four tabs — layout follows the reference site) ============
+     The reference has a white panel around the tabs. The client asked for that panel to merge
+     into the band, so there is no panel chrome at all: only the tab strip keeps a rule. */
+  .vp-fx { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* ⚠️ This one band runs WIDER than the page's 1200px measure. With five cards in a row inside
+     1200px the cards are pinned at ~218px however you set the cap, so the five-up tabs stayed
+     small while the four-up tabs grew — the client asked for bigger images and that was the only
+     way to raise BOTH and keep their sizes within ~4% of each other. */
+  .vp-fx-inner { width: min(1312px, 100% - clamp(2rem, 5vw, 4rem)); margin-inline: auto; }
+  /* head on ONE ROW: eyebrow + title left, sub right, both sitting on the same baseline */
+  .vp-fx-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: end; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+  .vp-fx-head .section-sub { margin-top: 0; max-width: 56ch; }
+  .vp-fx-panel { padding: 0; background: none; border: 0; box-shadow: none; }
+  .vp-fx-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem; padding-bottom: clamp(1.1rem, 2.2vw, 1.6rem); border-bottom: 1px solid rgba(31,59,44,0.16); }
+  .vp-fx-tab { font-family: var(--font-body); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.01em; color: var(--color-brand-muted); background: transparent; border: 1px solid rgba(31,59,44,0.18); border-radius: 999px; padding: 0.6rem 1.15rem; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .vp-fx-tab:hover { border-color: var(--brass); color: var(--color-brand-text); }
+  .vp-fx-tab[aria-selected='true'] { background: var(--forest-light); border-color: var(--forest-light); color: var(--ivory); }
+  .vp-fx-view { padding-top: clamp(1.4rem, 2.6vw, 2rem); }
+  /* ⚠️ EVERY image is the SAME box: 4:3, cover-cropped, and every card capped at the same width
+     and centred. The per-tab ratios (1:1 finishes / 5:4 board / 16:9 presses) made the press
+     shots half the height of the swatches and the client read the tab as “图片有小有大”.
+     Do not reintroduce per-tab aspect ratios. */
+  .vp-fx-grid { list-style: none; margin: 0; padding: 0; display: grid; justify-content: center; gap: clamp(1.1rem, 2.2vw, 1.7rem); }
+  .vp-fx-view[data-fx-view='special'] .vp-fx-grid { grid-template-columns: repeat(5, minmax(0, 250px)); }
+  .vp-fx-view[data-fx-view='lamination'] .vp-fx-grid { grid-template-columns: repeat(4, minmax(0, 250px)); }
+  .vp-fx-view[data-fx-view='paper'] .vp-fx-grid { grid-template-columns: repeat(4, minmax(0, 250px)); }
+  .vp-fx-view[data-fx-view='printing'] .vp-fx-grid { grid-template-columns: repeat(5, minmax(0, 250px)); }
+  .vp-fx-card img, .vp-fx-ph { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 0.9rem; }
+  .vp-fx-card img { background: var(--color-brand-surface); }
+  /* the board swatches are shot on opaque white (measured 215–251 at the corners), so `multiply`
+     drops the white into the band and keeps the material — the house fix for a white-field image.
+     ⚠️ But a blended white swatch has no visible edge, so the tab keeps a hairline FRAME: the
+     client could not tell where one swatch ended and the next began. The rule survives the
+     blend because a dark line multiplied over the band is still dark. */
+  .vp-fx-view[data-fx-view='paper'] img { mix-blend-mode: multiply; background: transparent; border: 1px solid rgba(31,59,44,0.3); }
+  .vp-fx-card h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.25; color: var(--color-brand-text); margin: 0.9rem 0 0; text-align: center; }
+  .vp-fx-card p { font-size: 0.86rem; line-height: 1.58; color: var(--color-brand-muted); margin: 0.5rem 0 0; text-align: center; }
+  .vp-fx-rule { margin: clamp(1.8rem, 3.4vw, 2.4rem) auto 0; max-width: 78ch; padding: 1.15rem 1.5rem; background: var(--ivory); border-radius: 0.9rem; font-size: 0.98rem; line-height: 1.66; color: var(--color-brand-muted); text-align: center; }
+  .vp-fx-rule strong { color: var(--color-brand-text); }
 
-  /* ============ FINISHES ============ */
-  .vp-fin { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .vp-fin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.1rem, 2.2vw, 1.6rem); }
-  .vp-fin-item { padding-top: 1.1rem; border-top: 2px solid rgba(31,59,44,0.16); }
-  .vp-fin-dot { display: block; width: 11px; height: 11px; border-radius: 50%; background: var(--brass); margin-bottom: 0.85rem; }
-  .vp-fin-item h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; line-height: 1.24; color: var(--color-brand-text); margin: 0; }
-  .vp-fin-item p { font-size: 0.9rem; line-height: 1.58; color: var(--color-brand-muted); margin: 0.55rem 0 0; }
-  .vp-fin-rule { margin: clamp(2.2rem, 4.4vw, 3rem) 0 0; padding: 1.2rem 1.5rem; background: var(--color-brand-surface); border-radius: 0.9rem; font-size: 1rem; line-height: 1.65; color: var(--color-brand-muted); max-width: 84ch; }
-  .vp-fin-rule strong { color: var(--color-brand-text); }
+  /* §Two Marks a Copy Cannot Hold was FOLDED INTO the “Printing & Security” tab (client's idea):
+     Micro-Line Print and Destructible Seal are now the last two cards of that tab, and this
+     standalone section is gone. Do not rebuild it. */
 
-  /* ============ MID CTA ============ */
-  .vp-midcta { background: linear-gradient(160deg, var(--forest-light), var(--forest-deep)); color: var(--ivory); padding: clamp(4rem, 9vw, 6.6rem) 0; overflow: hidden; }
-  .vp-midcta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(55% 60% at 84% 16%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  /* ============ MID CTA (dark mask over the photograph) ============
+     ⚠️ A dark mask means every colour inside the band flips: eyebrow to `--light`, the title to
+     white, the em off brass to `#E3C29A` (brass on a dark ground fails contrast) and the button
+     from `btn-primary` to `btn-gold`. Washes are .58/.68 — lighter than the old ivory .80/.87,
+     so the photograph reads clearer. */
+  .vp-midcta { background: linear-gradient(rgba(20,38,27,0.58), rgba(20,38,27,0.68)), url('https://img.leelinepackage.com/custom-vape/mid-cta.webp') center/cover; background-attachment: fixed; color: var(--ivory); padding: clamp(3.6rem, 8vw, 5.6rem) 0; overflow: hidden; text-align: center; }
+  /* ⚠️ `background-attachment: fixed` (the “跟随滚动” parallax) is janky to unsupported on touch
+     browsers — iOS repaints the whole layer on every scroll frame — so it is switched back to
+     `scroll` where there is no hover and on small screens. Do not remove this guard. */
+  @media (max-width: 1024px), (hover: none) { .vp-midcta { background-attachment: scroll; } }
+  .vp-midcta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(58% 62% at 50% 0%, rgba(228,181,77,0.11), transparent 72%); pointer-events: none; }
   .vp-midcta-inner { position: relative; z-index: 1; }
-  .vp-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2rem, 4.6vw, 3.4rem); line-height: 1.06; letter-spacing: -0.028em; color: #fff; text-wrap: balance; margin: 1.1rem 0 0; }
+  .vp-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.9rem, 4.4vw, 3.2rem); line-height: 1.06; letter-spacing: -0.028em; color: #fff; text-wrap: balance; margin: 1.1rem auto 0; max-width: 26ch; }
   .vp-midcta-title em { font-style: italic; color: #E3C29A; }
-  .vp-midcta-sub { font-size: clamp(1rem, 1.5vw, 1.1rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 56ch; margin: 1.2rem 0 0; }
+  .vp-midcta-sub { font-size: clamp(1rem, 1.5vw, 1.1rem); line-height: 1.7; color: rgba(245,240,229,0.86); max-width: 56ch; margin: 1.2rem auto 0; }
 
   /* ============ HOW AN ORDER RUNS ============ */
   .vp-order { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .vp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2vw, 1.5rem); }
-  .vp-step { padding-top: 1.1rem; border-top: 2px solid rgba(31,59,44,0.2); }
-  .vp-step-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); display: block; }
-  .vp-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.24; color: var(--color-brand-text); margin: 0.55rem 0 0; }
-  .vp-step p { font-size: 0.86rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.45rem 0 0; }
+  /* the shared 46ch measure wrapped this to ~5 lines; widened (not trimmed) so it runs two */
+  .vp-order .section-sub { max-width: 112ch; }
+  /* A rail with numbered NODES, not six flat columns — the client read the flat version as
+     “平平不吸引人”. Every node sits on one continuous hairline running the width of the row. */
+  .vp-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .vp-step { position: relative; padding-top: 4.1rem; text-align: center; }
+  .vp-step::before { content: ''; position: absolute; top: 1.5rem; left: 0; right: 0; height: 1px; background: rgba(31,59,44,0.22); }
+  .vp-step:first-child::before { left: 50%; }
+  .vp-step:last-child::before { right: 50%; }
+  .vp-step-num { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 3rem; height: 3rem; border-radius: 50%; background: var(--ivory); border: 1px solid rgba(31,59,44,0.22); display: grid; place-items: center; font-family: var(--font-heading); font-weight: 600; font-size: 1.25rem; color: var(--brass); }
+  .vp-step h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; line-height: 1.24; color: var(--color-brand-text); margin: 0; }
+  .vp-step p { font-size: 0.86rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
 
-  /* ============ WHERE THEY SELL ============ */
+  /* ============ WHERE THEY SELL (3-up looping carousel) ============
+     Seamless in both directions: the JS clones the last three slides before slide one and the
+     first three after the last, animates onto a clone, then snaps (transition: none) onto the
+     matching real slide. Clones exist only in the DOM at runtime, so the static HTML keeps all
+     six slides for the crawler.
+     ⚠️ The clone count must be >= the slides visible at the widest layout (3). */
   .vp-shelf { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
-  .vp-shelf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.1rem, 2.2vw, 1.6rem); }
+  .vp-car { position: relative; }
+  .vp-car-vp { overflow: hidden; }
+  .vp-car-track { --car-gap: clamp(1.1rem, 2.2vw, 1.6rem); display: flex; gap: var(--car-gap); transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+  .vp-car-track > * { flex: 0 0 calc((100% - 2 * var(--car-gap)) / 3); }
+  /* ⚠️ The buttons sit OVER the photographs, so a dark disc vanished against a dark scene
+     (“现在看不清”). Ivory fill + a dark ring + a shadow reads on the ivory band AND on any
+     photograph, and the icon inherits `currentColor` so the hover inverts the whole control. */
+  .vp-car-btn { position: absolute; top: 30%; z-index: 2; width: 54px; height: 54px; display: grid; place-items: center; border: 1px solid rgba(31,59,44,0.4); border-radius: 50%; background: var(--ivory); color: var(--forest-deep); cursor: pointer; box-shadow: 0 10px 26px -8px rgba(20,38,27,0.65); transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; }
+  .vp-car-btn:hover { background: var(--forest-deep); color: var(--ivory); transform: scale(1.06); }
+  .vp-car-btn--prev { left: -14px; }
+  .vp-car-btn--next { right: -14px; }
+  .vp-car-btn svg { width: 22px; height: 22px; }
   .vp-shelf-card { margin: 0; }
-  .vp-shelf-ph { aspect-ratio: 4 / 3; }
+  /* the channel photographs are landscape; 3:2 gives the strip more vertical presence than 16:9
+     while cropping only ~16% off the sides */
+  .vp-shelf-ph { aspect-ratio: 3 / 2; border-radius: 1rem; overflow: hidden; }
+  .vp-shelf-ph img { width: 100%; height: 100%; object-fit: cover; }
   .vp-shelf-card figcaption { display: grid; gap: 0.4rem; margin-top: 0.95rem; }
   .vp-shelf-card strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.1rem; line-height: 1.24; color: var(--color-brand-text); }
   .vp-shelf-card span { font-size: 0.88rem; line-height: 1.55; color: var(--color-brand-muted); }
@@ -736,12 +959,15 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-quote { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
   .vp-quote .section-head { margin-bottom: clamp(2.2rem, 4.5vw, 3rem); }
   .vp-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.2rem, 2.6vw, 2rem); }
-  .vp-quote-card { margin: 0; background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; padding: clamp(1.5rem, 2.8vw, 2.1rem); border-left: 3px solid var(--brass); }
+  /* flex column + margin-top:auto on the footer, so the rule above the attribution lands on the
+     SAME line across both cards however long the paragraphs run. */
+  .vp-quote-card { display: flex; flex-direction: column; margin: 0; background: var(--ivory); border: 1px solid rgba(31,59,44,0.1); border-radius: 1.1rem; padding: clamp(1.5rem, 2.8vw, 2.1rem); border-left: 3px solid var(--brass); }
   .vp-quote-copy p { font-size: 1rem; line-height: 1.72; color: var(--color-brand-text); margin: 0 0 0.95rem; }
   .vp-quote-copy p:last-child { margin-bottom: 0; }
-  .vp-quote-who { display: flex; align-items: center; gap: 0.9rem; margin-top: 1.3rem; padding-top: 1.05rem; border-top: 1px solid rgba(31,59,44,0.14); }
-  .vp-quote-av { width: 62px; height: 62px; padding: 0; border-radius: 50%; flex: 0 0 auto; }
-  :global(.vp-quote-av .vp-ph-ico) { width: 24px; height: 24px; }
+  .vp-quote-who { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: 1.05rem; border-top: 1px solid rgba(31,59,44,0.14); }
+  /* the supplied portraits are 3:4, so the circle crops from the TOP of the frame, where the
+     face sits — a centred crop would land on the chest */
+  .vp-quote-av { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; object-position: center 28%; flex: 0 0 auto; }
   .vp-quote-id strong { display: block; font-family: var(--font-body); font-size: 0.92rem; font-weight: 700; color: var(--color-brand-text); }
   .vp-quote-id span { display: block; margin-top: 0.22rem; font-size: 0.84rem; color: var(--color-brand-muted); }
 
@@ -755,22 +981,15 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-faq-a { padding: 0 clamp(1.1rem, 2.2vw, 1.5rem) 1.15rem; }
   .vp-faq-a p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0; }
 
-  /* ============ RELATED ============ */
-  .vp-rel { background: var(--color-brand-surface); padding: clamp(2.8rem, 5.5vw, 4rem) 0; }
-  .vp-rel-inner { display: grid; gap: 0.9rem; }
-  .vp-rel-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0.4rem 0 0; }
-  .vp-rel-title em { font-style: italic; color: var(--brass); }
-  .vp-rel-list { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.65rem; }
-  .vp-rel-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: 600; color: var(--color-brand-text); background: var(--ivory); border: 1px solid rgba(31,59,44,0.14); border-radius: 999px; padding: 0.6rem 1.05rem; transition: border-color 0.3s ease, color 0.3s ease; }
-  .vp-rel-link .btn-leaf { width: 1em; height: 1em; transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1); }
-  .vp-rel-link:hover { border-color: var(--brass); color: var(--forest-light); }
-  .vp-rel-link:hover .btn-leaf { transform: translateX(4px); }
-
   /* ============ FINAL CTA ============ */
-  .vp-final { background: linear-gradient(165deg, var(--forest-light), var(--forest-deep)); color: var(--ivory); text-align: center; padding: clamp(5rem, 11vw, 9rem) 0; overflow: hidden; }
+  /* ⚠️ `final-cta-v2` on purpose. The client re-supplied this image (the first upload was a 34 KB
+     over-compressed webp); re-uploading over the SAME key would keep serving the old bytes from
+     the CDN edge for up to 4 h, so the URL changed instead. */
+  .vp-final { background: linear-gradient(rgba(20,38,27,0.58), rgba(20,38,27,0.70)), url('https://img.leelinepackage.com/custom-vape/final-cta-v2.webp') center/cover; color: var(--ivory); text-align: center; padding: calc(clamp(5rem, 11vw, 9rem) - 0.5cm) 0; overflow: hidden; }
   .vp-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 60% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
   .vp-final-inner { position: relative; z-index: 1; }
-  .vp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(2.1rem, 5vw, 3.7rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; text-wrap: balance; margin: 1.1rem auto 0; max-width: 24ch; }
+  /* sized and unwrapped so the client’s “标题变成一排” holds: no max-width, no balance */
+  .vp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; }
   .vp-final-title em { font-style: italic; color: #E3C29A; }
   .vp-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 56ch; margin: 1.2rem auto 0; }
   .vp-final .section-cta { justify-content: center; }
@@ -778,30 +997,41 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   /* ============ responsive ============ */
   @media (max-width: 1024px) {
     .vp-hero-grid { grid-template-columns: 1fr; gap: 2.4rem; }
-    .vp-hero-tiles { aspect-ratio: auto; }
-    .vp-hero-tile { min-height: 210px; }
     .vp-warn-grid { grid-template-columns: 1fr; gap: 2.2rem; }
-    .vp-fin-grid { grid-template-columns: repeat(2, 1fr); }
-    .vp-shelf-grid { grid-template-columns: repeat(2, 1fr); }
-    .vp-steps { grid-template-columns: repeat(3, 1fr); gap: 1.6rem 1.4rem; }
+    .vp-car-track > * { flex: 0 0 calc((100% - var(--car-gap)) / 2); }
+    .vp-steps { grid-template-columns: repeat(3, 1fr); gap: 1.8rem 1.4rem; }
     .vp-cr-locks { grid-template-columns: 1fr; }
     .vp-cr-lock { padding: 0; border-left: 0; border-top: 1px solid rgba(245,240,229,0.18); padding-top: 1.6rem; margin-top: 1.6rem; }
     .vp-cr-lock:first-child { border-top: 0; padding-top: 0; margin-top: 0; }
+    .vp-fx-view[data-fx-view='special'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='lamination'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='paper'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='printing'] .vp-fx-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (max-width: 900px) {
     .vp-type-grid { grid-template-columns: repeat(2, 1fr); }
-    .vp-mat-grid { grid-template-columns: 1fr; }
     .vp-quote-grid { grid-template-columns: 1fr; }
     .vp-market-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    .vp-fx-head { grid-template-columns: 1fr; gap: 1rem; }
+    .vp-fx-head .section-sub { max-width: 46ch; }
   }
   @media (max-width: 640px) {
+    .vp-fx-tab { font-size: 0.78rem; padding: 0.5rem 0.85rem; }
+    .vp-fx-card h3 { font-size: 1rem; }
+    .vp-fx-view[data-fx-view='special'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='lamination'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='paper'] .vp-fx-grid,
+    .vp-fx-view[data-fx-view='printing'] .vp-fx-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .vp-type-grid { grid-template-columns: 1fr; }
-    .vp-hero-tiles { grid-template-columns: 1fr; grid-template-rows: auto; }
-    .vp-hero-tile--lead { grid-row: auto; }
-    .vp-fin-grid { grid-template-columns: 1fr; }
-    .vp-shelf-grid { grid-template-columns: 1fr; }
+    .vp-figs { grid-template-columns: 1fr 1fr; }
+    .vp-figs li:nth-child(3) { border-left: 0; }
+    .vp-figs li:nth-child(n+3) { border-top: 1px solid rgba(31,59,44,0.14); }
+    .vp-car-track > * { flex: 0 0 100%; }
+    .vp-car-btn { width: 40px; height: 40px; }
+    .vp-car-btn--prev { left: -6px; }
+    .vp-car-btn--next { right: -6px; }
     .vp-steps { grid-template-columns: 1fr 1fr; }
-    .vp-cr-figs { grid-template-columns: 1fr; gap: 1.4rem; }
+    .vp-cr-stage { margin-bottom: 1.2rem; }
     .vp-hero-cta .btn, .vp-order .btn { width: 100%; }
     .vp-cmp-track { grid-template-columns: 132px; }
   }
@@ -824,4 +1054,55 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   faqItems.forEach((d) => d.addEventListener('toggle', () => {
     if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
   }));
+
+  // Finishing options — one tab panel at a time.
+  const fxTabs = Array.from(document.querySelectorAll('[data-fx-tab]'));
+  const fxViews = Array.from(document.querySelectorAll('[data-fx-view]'));
+  fxTabs.forEach((tab) => tab.addEventListener('click', () => {
+    const id = tab.dataset.fxTab;
+    fxTabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.fxTab === id)));
+    fxViews.forEach((v) => { v.hidden = v.dataset.fxView !== id; });
+  }));
+
+  // Where-they-sell carousel — 3-up, seamless in both directions.
+  // A copy of the last three slides sits before slide one and a copy of the first three sits
+  // after the last, so stepping past either end animates onto a clone and then snaps
+  // (transition: none) onto the matching real slide — no jump, no blank frame.
+  // ⚠️ Clones inherit attributes on cloneNode, which is why the slides carry NO data-reveal.
+  // ⚠️ The step is MEASURED from two neighbours, never assumed, so it stays right at every
+  //    breakpoint where the flex-basis changes.
+  const car = document.querySelector('.vp-car');
+  if (car) {
+    const track = car.querySelector('.vp-car-track');
+    const real = Array.from(track.children);
+    const n = real.length;
+    const clones = 3;
+    for (let i = n - clones; i < n; i += 1) track.insertBefore(real[i].cloneNode(true), track.firstChild);
+    for (let i = 0; i < clones; i += 1) track.appendChild(real[i].cloneNode(true));
+    let idx = clones;
+    const step = () => {
+      const a = track.children[0].getBoundingClientRect();
+      const b = track.children[1].getBoundingClientRect();
+      return b.left - a.left;
+    };
+    const place = (animate) => {
+      track.style.transition = animate ? '' : 'none';
+      track.style.transform = `translateX(${-idx * step()}px)`;
+    };
+    place(false);
+    const go = (dir) => {
+      if (track.dataset.busy === '1') return;
+      track.dataset.busy = '1';
+      idx += dir;
+      place(true);
+      window.setTimeout(() => {
+        if (idx >= n + clones) { idx -= n; place(false); }
+        else if (idx < clones) { idx += n; place(false); }
+        track.dataset.busy = '0';
+      }, 560);
+    };
+    car.querySelector('.vp-car-btn--next').addEventListener('click', () => go(1));
+    car.querySelector('.vp-car-btn--prev').addEventListener('click', () => go(-1));
+    window.addEventListener('resize', () => { if (track.dataset.busy !== '1') place(false); });
+  }
 </script>

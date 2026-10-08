@@ -69,6 +69,7 @@ const expr = `(() => {
   out.boxes = {};
   for (const s of ['.vp-mat-ph', '.vp-shelf-ph', '.vp-hero-tile', '.vp-cmp-rail', '.vp-type-card']) {
     const el = document.querySelector(s);
+    if (!el) { out.boxes[s] = 'missing'; continue; }
     const r = el.getBoundingClientRect();
     out.boxes[s] = { w: Math.round(r.width), h: Math.round(r.height), ar: getComputedStyle(el).aspectRatio };
   }

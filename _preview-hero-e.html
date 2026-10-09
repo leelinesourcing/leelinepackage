@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero option E — Number column</title>
+<style>
+  @font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');font-weight:200 800;font-style:normal;font-display:swap}
+  @font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');font-weight:200 800;font-style:italic;font-display:swap}
+  @font-face{font-family:'Instrument Sans Variable';src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');font-weight:400 700;font-style:normal;font-display:swap}
+  :root{--forest:#1F3B2C;--forest-deep:#14261B;--forest-light:#2E4F3D;--brass:#B08D4C;--brass-bright:#E4B54D;--brass-soft:#C9A87C;--ivory:#F5F0E5;--clay:#EDE5D4;--moss:#8C8676;--text:#2B2F26;--muted:#605C4E;--serif:'Newsreader Variable',Georgia,serif;--sans:'Instrument Sans Variable',system-ui,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ivory);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+  .hero{background:linear-gradient(176deg,#FFFCF4 0%,#F7F1E3 100%);padding:4rem 0 3.4rem}
+  .grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(2rem,5vw,4.5rem);align-items:start}
+  .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brass)}
+  .eyebrow svg{width:1.05em;height:1.05em}
+  .h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.3rem,5vw,4rem);line-height:1.03;letter-spacing:-.034em;margin:1.3rem 0 0;max-width:20ch}
+  .h1 em{font-style:italic;color:var(--brass)}
+  .sub{font-size:1.03rem;line-height:1.72;color:var(--muted);max-width:50ch;margin:1.5rem 0 0}
+  .cta{display:inline-flex;align-items:center;gap:.55rem;background:var(--forest-light);color:var(--ivory);font-weight:600;font-size:.95rem;padding:.95rem 1.7rem;border-radius:999px;margin-top:1.8rem;text-decoration:none}
+  .cta svg{width:1em;height:1em}
+  /* the numbers ARE the graphic */
+  .nums{border-left:1px solid rgba(31,59,44,.18);padding-left:clamp(1.4rem,3vw,2.4rem)}
+  .nums ul{list-style:none;margin:0;padding:0;display:grid;gap:clamp(1.1rem,2.6vw,1.8rem)}
+  .nums b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(2.4rem,4.6vw,3.6rem);line-height:.94;letter-spacing:-.03em;color:var(--brass)}
+  .nums span{display:block;margin-top:.4rem;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .shot{margin:clamp(1.8rem,3.4vw,2.6rem) 0 0;aspect-ratio:4/3;display:grid;place-content:center;justify-items:center;gap:.6rem;text-align:center;color:var(--muted);
+    background:repeating-linear-gradient(135deg,rgba(31,59,44,.05) 0 10px,transparent 10px 21px),var(--clay);border:1px solid rgba(31,59,44,.16);border-radius:.9rem}
+  .shot svg{width:40px;height:40px;color:var(--brass)}
+  .shot figcaption{font-size:.75rem;max-width:28ch;line-height:1.45}
+  .tag{padding:0 0 3rem;text-align:center;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--moss)}
+  @media(max-width:860px){.grid{grid-template-columns:minmax(0,1fr);gap:2.2rem}.nums{border-left:0;padding-left:0;border-top:1px solid rgba(31,59,44,.18);padding-top:1.8rem}}
+</style>
+</head>
+<body>
+  <section class="hero">
+    <div class="wrap">
+      <div class="grid">
+        <div>
+          <span class="eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z"/></svg>Disposable vape packaging</span>
+          <h1 class="h1">Custom Disposable Vape Packaging, Drawn to <em>Your Pen's Length</em></h1>
+          <p class="sub">A disposable pen ships sealed and stays sealed. Length is the only dimension that moves between models, and the carton in front of us is drawn to the pen, never to a size band on a chart.</p>
+          <a class="cta" href="#">Price a Disposable Vape Box <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="nums">
+          <ul>
+            <li><b>500</b><span>units minimum</span></li>
+            <li><b>24 h</b><span>dieline turned around</span></li>
+            <li><b>3–5 d</b><span>white dummy for fit</span></li>
+          </ul>
+          <figure class="shot">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 7.6l9 4.5 9-4.5z"/><path d="M3 7.6v8.8L12 21v-8.9"/><path d="M21 7.6v8.8L12 21"/></svg>
+            <figcaption>Three sealed pens of different lengths on a bench</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p class="tag">Option E — Number column</p>
+</body>
+</html>

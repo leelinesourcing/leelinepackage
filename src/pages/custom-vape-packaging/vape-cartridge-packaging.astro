@@ -1,0 +1,846 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const VC = `${R2}/custom-vape-cartridge`;
+
+/* Shared bits kept as strings so fifteen eyebrows do not repeat the same 180-character path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* Small line-icon per list item. These replace the two "built" diagrams (client: the drawings read
+   oddly) — a few symbols keep the bands from going flat. ⚠️ Injected with `set:html`, so size and
+   paint live in the string's own attributes and the class is styled with `:global()`. */
+const vcIco = (d) => `<svg class="vc-ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const ICONS = {
+  upright: vcIco('<path d="M12 21V7"/><path d="M8 11l4-4 4 4"/><path d="M9 21h6"/>'),
+  oil: vcIco('<path d="M12 4c2.6 3.1 4.6 5.5 4.6 7.9a4.6 4.6 0 0 1-9.2 0C7.4 9.5 9.4 7.1 12 4z"/><path d="M5 19L19 5"/>'),
+  glass: vcIco('<path d="M7 3h10l-1 6.2a4 4 0 0 1-8 0z"/><path d="M12 13.6V20"/><path d="M8.5 20h7"/>'),
+  flat: vcIco('<rect x="3" y="9" width="18" height="6" rx="1.2"/>'),
+  volume: vcIco('<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4"/><path d="M12 12v8"/>'),
+  carton: vcIco('<path d="M5 5.5l7-3 7 3v7l-7 3-7-3z"/><path d="M5 5.5l7 3 7-3"/><path d="M12 8.5v7"/><path d="M2.5 21h19"/>'),
+};
+
+/* Every photograph is the client's own shot, encoded to webp (see `_images/vape-cartridge/encode.py`
+   from `images/Vape Cartridge Packaging/`) and served from
+   `https://img.leelinepackage.com/custom-vape-cartridge/<key>.webp`.
+   The three full-bleed bands (hero · mid CTA · final CTA) take their photo as a CSS `url()` under a
+   forest scrim; the eight content slots are plain `<img>` filling their own aspect-ratio box. */
+
+/* The hero's one row of figures — the OFFER, not the outcome. The outcome numbers live in the
+   dark §What Arrives on the Pallet band so the two rows never say the same thing twice. */
+const offers = [
+  { v: '500', l: 'unit minimum order' },
+  { v: '24 h', l: 'dieline turned around' },
+  { v: '3–5 d', l: 'white dummy for fit' },
+];
+
+/* ── §What counts — the contrast panel. Two halves, and the mark is the whole argument. ── */
+const contrast = [
+  { ok: true, key: 'what-fitted-slot', iw: 1195, ih: 896, shot: 'A 510 cart standing upright in its moulded slot', mark: 'A fitted slot', h: 'The cavity follows the cart you send', d: 'The glass tank rests on a shelf of its own and the mouthpiece sits in a recess. The cart travels upright, and the oil settles on the coil instead of draining back into the airway.' },
+  { ok: false, key: 'what-empty-drawer', iw: 1195, ih: 896, shot: 'A 510 cart lying loose in an empty drawer box', mark: 'An empty drawer', h: 'A hole in a box, sized to whatever fits', d: 'The cart rolls on the journey, the 510 threads grind against bare board, and the oil migrates into a mouthpiece that spent the trip pointing downhill.' },
+];
+
+/* ── §Oil and glass — the band the parent page cannot have. A vape box carries a device; a
+   cartridge box carries a FILLED GLASS TUBE, and that is a different problem: oil that wants to
+   run downhill, a tank that cracks, and a mouthpiece that must never take the lid's weight. ── */
+const oil = [
+  { n: '01', ico: 'upright', t: 'It holds the cart mouthpiece-up', d: 'The cavity is drawn so the cart stands mouthpiece-up, which keeps the oil resting on the coil instead of draining back down the airway.' },
+  { n: '02', ico: 'oil', t: 'It keeps the oil off the print', d: 'A cart weeps a little at the threads, so an oil-resistant liner sits between the cart and the panel and the warning block stays clean.' },
+  { n: '03', ico: 'glass', t: 'It carries the glass, not the threads', d: 'The cradle takes the glass tank, the part that cracks, and leaves the threads and the mouthpiece in open air, clear of the lid.' },
+];
+
+/* ── §Pick the structure by count. The count decides the dieline before anything else does. ── */
+const counts = [
+  { n: '01', count: '1', name: 'One cart', struct: 'Cartridge drawer boxes, or a side-button tube', d: 'A single cavity, moulded to the cart. The smallest order the floor will open a die for is 500, and all of them leave the same way up.', key: 'type-drawer', iw: 1408, ih: 768, shot: 'A push-button drawer open on a single 510 cart' },
+  { n: '02', count: '2–5', name: 'A row of carts', struct: 'Push-slide box, slots cut in a row', d: 'The tab holds the lid while the sleeve draws. Four or five carts come out in a single motion rather than four or five openings.', key: 'type-slide', iw: 1408, ih: 768, shot: 'A push-slide box holding five 510 carts in a row' },
+  { n: '03', count: '10+', name: 'A tray of carts', struct: 'Tray inside a sleeve, lock on the sleeve', d: 'The tray lifts straight out of the sleeve, which keeps the lock, the warning panel and the print on a face that never moves.', key: 'type-tray', iw: 1408, ih: 768, shot: 'A ten-cart tray lifting out of its printed sleeve' },
+];
+
+/* ── §What arrives on the pallet — the dark centre of gravity. OUTCOME numbers, so the page
+   carries two different rows of figures and never the same one twice. ───────────────────── */
+/* ── §How a Cart Box Ships. This REPLACED a dark "what arrives on the pallet" band — its QC and
+   transit-damage figures were the parent page's own numbers repeated, so it is gone. What is left
+   is a cart-specific packout point: a cart box is almost weightless, so the freight bill is
+   dimensional weight and flat-packing is the lever. ── */
+const ship = [
+  { ico: 'flat', t: 'It leaves flat', d: 'The slide box travels folded and its tray nests inside the sleeve. Only the drawer shells ship formed, and those nest too.' },
+  { ico: 'volume', t: 'The bill is volume, not weight', d: 'A cart box is light enough that freight is billed on dimensional weight, so a flat-packed carton is the single biggest lever on landed cost.' },
+  { ico: 'carton', t: 'The carton is the last drawing', d: 'The export carton is sized around the flat blank, so a full run fills a pallet instead of a pallet\'s worth of air.' },
+];
+
+/* ── §The lock. Two mechanisms; each one shows the two moves that open it. ───────────────── */
+const locks = [
+  { n: '01', name: 'Push-Button Drawer', d: 'The tray only travels while its button is held in. Let the button go halfway and the tray relocks before a small hand can work it free.', m1: 'Press the button in', m2: 'Draw the tray straight out', fits: 'A single cart, or a row' },
+  { n: '02', name: 'Push-and-Slide', d: 'A folding blank whose lid stays shut until a tab is pushed inward and the sleeve is drawn at the same moment — two moves, and only one is obvious.', m1: 'Push the tab inward', m2: 'Draw the sleeve off', fits: 'Two to five carts' },
+];
+
+/* ── §The slot. Three numbers remove the guesswork; two cradles hold the answer. ─────────── */
+const ask = [
+  { k: 'Full length', d: 'Mouthpiece tip to thread base, measured along the cart itself.' },
+  { k: 'Tube diameter', d: 'The widest point of the glass or the metal body, not the thread.' },
+  { k: 'Mouthpiece diameter', d: 'Sets the recess that stops the lid ever touching the tip.' },
+];
+const cradles = [
+  { name: 'EVA', key: 'slot-eva', iw: 570, ih: 445, shot: 'A die-cut EVA cradle holding a row of carts', d: 'Cut foam, a cavity per cart, finished with a finger notch so the cart lifts out. Holds a full row at a fixed pitch with nothing to rattle.' },
+  { name: 'Paper card', key: 'slot-paper', iw: 1264, ih: 847, shot: 'A board cradle folded inside a printed box', d: 'A die-cut board cradle. Folds flat with the box and recycles with it — or a molded paper-pulp tray once a run is large enough to warrant the tool.' },
+];
+
+/* ── §0.5 ml and 1 ml. Typical 510 ranges, drawn to scale. ⚠️ These are REFERENCE ranges, not a
+   spec sheet — the whole point of the band is that the cavity is drawn to the cart that arrives,
+   so every figure here is marked "typical" and the copy says to send the cart. ───────────── */
+const fills = [
+  { fill: '0.5 ml', len: '58–62 mm', tube: '10.5–11.5 mm', tip: '8.5–9.5 mm' },
+  { fill: '1 ml', len: '72–80 mm', tube: '10.5–11.5 mm', tip: '8.5–9.5 mm' },
+];
+
+/* ── §The comparison table — the page's ONE table. Four structures down four fields. ─────── */
+const cmpCols = ['Single drawer', 'Single tube', '2–5 slide', '10+ tray'];
+const cmpRows = [
+  { label: 'Lock', v: ['Push-button', 'Side-button', 'Push-and-slide', 'On the sleeve'] },
+  { label: 'Slot', v: ['EVA or card', 'Barrel only', 'A row of slots', 'A tray of slots'] },
+  { label: 'Ships', v: ['Formed', 'Formed', 'Flat', 'Formed'] },
+  { label: 'Not for', v: ['Two carts or more', 'Two carts or more', 'An order of one', 'A run of two to five'] },
+];
+
+/* ⚠️ Every question here must NOT already be answered by a band above — that is the rule for this
+   section (client). The six that used to sit here about the shared slot, the leak, the glass, the
+   MOQ, the sample days and the warning wording are all answered upstream, so they were cut. */
+const faqs = [
+  { q: 'Is the insert in the price?', a: 'It is. The die-cut slot is cut in the same pass as the box, and an EVA cradle and a paper-card cradle are both quoted inside the box price rather than as a second line.' },
+  { q: 'Do you print the inside of the box?', a: 'Yes, and it takes no second pass. Inside print and a printed liner come off the same press, so the reveal under the lid is a printed surface rather than bare board.' },
+  { q: 'Can I mix two structures in one order?', a: 'Yes. A drawer and a slide box on the same purchase order count against one 500-unit minimum, which is how most first runs test two openings without paying for two tool sets.' },
+  { q: 'Can you work from a 3D file instead of a physical cart?', a: 'A STEP or an STL is better than a photograph and worse than the cart. A file gets the cavity close; the cart itself confirms the thread depth and the taper on the mouthpiece.' },
+  { q: 'Do you supply the cartridge as well, or only the box?', a: 'Only the box. Carts, batteries and oil are the brand’s to source, and the cavity is drawn around whatever hardware arrives.' },
+  { q: 'A cart with a glass mouthpiece instead of a plastic tip — does that change the slot?', a: 'It changes the recess, not the outside box. The mouthpiece diameter sets the depth of the recess, so a glass tip is usually a deeper cut on the same cut file.' },
+];
+
+/* ── §What buyers say. ⚠️ This block has its OWN copy rules — page-design-rules.md
+   §THE CUSTOMER-REVIEWS SECTION: one figure per paragraph, and NO figure may appear anywhere else
+   on the page (Seventeen · 0.4 mm · Forty-one · three hundred · Fourteen months · 1.2 mm are all
+   unique to here); no two paragraphs open on the same word; no `which is…` tail; no em dash used
+   for effect; zero generic praise; and the two reviews must not run the same three moves.
+   DRAFT placeholders: role + market only, no company names. */
+const reviews = [
+  { name: 'Dana Whitfield', role: 'Head of product', who: 'a cartridge brand', loc: 'Canada', key: 'avatar-ca', iw: 1193, ih: 896, q: [
+    'Seventeen mockups came back from other suppliers and every one of them treated a cart as a plain rectangle. The dieline that came back here had the mouthpiece standing in a recess of its own, and our quality lead stopped asking questions about it.',
+    'A cart weeps at the threads long before it reaches a customer. The liner they put behind the cavity sits 0.4 mm off the cart, so the oil never reaches the warning block on the panel.',
+    'Forty-one cases have shipped since the liner went in and not one has come back with a scuffed tank.',
+  ] },
+  { name: 'Marcus Ibe', role: 'Retail buyer', who: 'a dispensary group', loc: 'United States', key: 'avatar-us', iw: 500, ih: 500, q: [
+    'Our carts are sold one at a time. We move about three hundred a week. The box is the only thing a buyer holds before deciding, and nobody on the counter has needed a demonstration of the lock.',
+    'Shelf life on a lit case is the part nobody warns you about, so when the boxes still read clean at fourteen months we stopped rotating the front row to hide the faded ones.',
+    'We asked for the cart to sit deeper in the cavity. The box came back at the same outside dimension with the recess cut 1.2 mm deeper, so nothing on the shelf changed and the cart stopped moving.',
+  ] },
+];
+
+/* ⚠️ Targeting note. The PRIMARY keyword is `custom vape cartridge packaging`. The eight secondary
+   terms are woven into the body copy rather than stuffed.
+   `disposable`, `tuck box`, `display` and `child resistant vape packaging` are deliberately NOT
+   targeted here — they belong to the parent page.
+   ⚠️ NUMBERS: `510` belongs to the H1 ALONE. The subtitle, the trust line and the SEO title and
+   description must not repeat it (client). The offer figures live once, in the hero's figure row. */
+const seo = {
+  title: 'Custom Vape Cartridge Packaging: 500-Unit MOQ, Lock and Slot',
+  description: 'Custom vape cartridge packaging: single cartridge boxes, multi-cart drawers and 1ml fills, each cut to the cart. 500-unit MOQ, free dieline, sample in 3–5 days.',
+  keywords: 'custom vape cartridge packaging, 510 cartridge boxes, custom vape cartridge boxes, 510 thread cartridge packaging, vape cart boxes, single cartridge boxes, cartridge drawer boxes, 1ml cartridge packaging, multi cartridge boxes',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/vape-cartridge-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Vape Cartridge Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom vape cartridge packaging design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://www.leelinepackage.com/#offerings' },
+        { '@type': 'ListItem', position: 3, name: 'Custom Vape Packaging', item: 'https://www.leelinepackage.com/custom-vape-packaging/' },
+        { '@type': 'ListItem', position: 4, name: 'Vape Cartridge Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  preloadImage={`${VC}/hero.webp`}
+  ogImage={`${VC}/hero.webp`}
+  ogImageWidth={1376}
+  ogImageHeight={768}
+  ogImageAlt="510 vape cartridges held upright in the fitted slot of a custom cartridge box"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ HERO — full-bleed, dark ============
+         Deliberately NOT the parent page's two-column hero (copy left, one square image right), and
+         not the pale centred hero either. It reads in the SITE'S OWN hero language — the homepage's
+         dark photographic hero: a full-bleed ground, white type, a brass accent, and a figure row
+         underneath. The client's reference for "good" is that page.
+         ⚠️ The photograph IS the full-bleed background, never a separate slot — so until the shot
+         lands there is no empty placeholder box, only this gradient. Swapping the photo in:
+         `background: linear-gradient(scrim), url('${VC}/hero.webp') center/cover`, then pass
+         `preloadImage` to <Layout> like the homepage does. -->
+    <section class="vc-hero">
+      <div class="vc-hero-bg" aria-hidden="true"></div>
+      <div class="vc-hero-grain" aria-hidden="true"></div>
+      <svg class="vc-hero-seal" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z"/></svg>
+      <div class="wrap vc-hero-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Cartridge packaging`}></span>
+        <h1 class="vc-hero-title" data-reveal="up">Custom Vape Cartridge Packaging for 510 Carts, with <em>a Lock and a Fitted Slot</em></h1>
+        <p class="vc-hero-sub" data-reveal="up">A cartridge is a filled glass tube, not a solid block. The fitted slot is what holds it upright, keeps the oil on the coil and the metal threads off the print, and the lock is what keeps it shut until an adult opens it — all inside a box you can close in one hand.</p>
+        <div class="vc-hero-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Price a Cartridge Box <Fragment set:html={ARROW} /></a>
+        </div>
+        <p class="vc-hero-trail" data-reveal="up">Free dieline · FSC-certified board · ISO 9001 factory · ISTA drop-tested · no tooling charge at MOQ</p>
+        <ul class="vc-figs" data-reveal="up">
+          {offers.map((f) => (
+            <li><strong>{f.v}</strong><span>{f.l}</span></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ WHAT COUNTS AS A CARTRIDGE BOX — the ARGUMENT only ============
+         ⚠️ ONE JOB PER BAND. This band carries the fit / no-fit contrast and nothing else. §The Slot
+         (below) carries the spec. Do not merge them, and do not let the copy here slide into "send
+         us the cart" — that is §The Slot's line. -->
+    <section class="vc-what" id="what-counts">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}What counts`}></span>
+          <h2 class="section-title" data-reveal="up">What Counts as a <em>Cartridge Box</em></h2>
+          <p class="section-sub" data-reveal="up">Two vape cart boxes can hold the same cart and only one protects it. For 510 thread cartridge packaging the difference is never the lock — it is the slot.</p>
+        </div>
+        <div class="vc-what-grid">
+          {contrast.map((c, i) => (
+            <article class={`vc-what-half${c.ok ? ' vc-what-half--ok' : ''}`} data-reveal="up" style={`--d:${i * 0.09}s`}>
+              <img class="vc-what-ph vc-ph-img" src={`${VC}/${c.key}.webp`} alt={c.shot} width={c.iw} height={c.ih} loading="lazy" decoding="async" />
+              <div class="vc-what-body">
+                <span class="vc-what-mark">{c.ok ? 'The box that works' : 'The box that only fits'}</span>
+                <h3 class="vc-what-h">{c.mark}</h3>
+                <p class="vc-what-d">{c.h}</p>
+                <p class="vc-what-b">{c.d}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE SLOT — the SPEC only ============ -->
+    <section class="vc-slot" id="the-slot">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}The slot`}></span>
+          <h2 class="section-title" data-reveal="up">Three Measurements, <em>Two Materials</em></h2>
+          <p class="section-sub" data-reveal="up">Send three numbers, and pick one of two materials. The slot is drawn to the numbers, then cut in the material you choose.</p>
+        </div>
+        <div class="vc-slot-block">
+          <p class="vc-slot-h">Send us these three numbers</p>
+          <ul class="vc-slot-3">
+            {ask.map((a, i) => (
+              <li data-n={String(i + 1).padStart(2, '0')} data-reveal="up">
+                <strong>{a.k}</strong><span>{a.d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="vc-slot-block">
+          <p class="vc-slot-h">Pick one of these two cradles</p>
+          <div class="vc-slot-cradles">
+            {cradles.map((c, i) => (
+              <article class="vc-cradle" data-reveal="up" style={`--d:${i * 0.1}s`}>
+                <img class="vc-cradle-ph vc-ph-img" src={`${VC}/${c.key}.webp`} alt={c.shot} width={c.iw} height={c.ih} loading="lazy" decoding="async" />
+                <h4>{c.name}</h4>
+                <p>{c.d}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+        <p class="vc-note" data-reveal="up"><strong>Send the cart itself if you can.</strong> A cavity drawn from a photograph is a cavity we can only estimate, and glass does not survive an over-sized slot. A clear PET window can be set over the slot when the cart has to show on the shelf before the box is opened.</p>
+      </div>
+    </section>
+
+    <!-- ============ MID CTA — sits ABOVE the structure bands (client) ============ -->
+    <section class="vc-mid" id="mid-cta">
+      <div class="wrap vc-mid-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Free quote`}></span>
+        <h2 class="vc-mid-title" data-reveal="up">Send One Cart, <em>Get the Cavity Drawn</em></h2>
+        <p class="vc-mid-sub" data-reveal="up">Send one cart in the post, or three numbers on a drawing — the dieline comes back in 24 hours, free.</p>
+        <div class="vc-mid-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send a Cart for a Quote <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PICK THE STRUCTURE BY COUNT ============ -->
+    <section class="vc-count" id="by-count">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}By the count`}></span>
+          <h2 class="section-title" data-reveal="up">Pick the Structure by <em>How Many Carts</em></h2>
+          <p class="section-sub" data-reveal="up">The count decides the structure before the board does. Three tiers cover single cartridge boxes through multi cartridge boxes, from one cart to a full tray.</p>
+        </div>
+        <div class="vc-count-rows">
+          {counts.map((c, i) => (
+            <article class="vc-count-row" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="vc-count-num" aria-hidden="true">{c.count}</span>
+              <div class="vc-count-body">
+                <h3 class="vc-count-name">{c.name}</h3>
+                <p class="vc-count-struct">{c.struct}</p>
+                <p class="vc-count-d">{c.d}</p>
+              </div>
+              <img class="vc-count-ph vc-ph-img" src={`${VC}/${c.key}.webp`} alt={c.shot} width={c.iw} height={c.ih} loading="lazy" decoding="async" />
+            </article>
+          ))}
+        </div>
+        <p class="vc-note" data-reveal="up"><strong>A different count is a different cut file.</strong> A four-cart order is not a two-cart box cut smaller: the slot pitch, the lock position and the sleeve depth all move with it, and the order is quoted as its own dieline. Pricing steps down at 1,000, 5,000 and 10,000 units, and a single run goes to 500,000.</p>
+      </div>
+    </section>
+
+    <!-- ============ FOUR STRUCTURES, SIDE BY SIDE — the COMPARISON only ============
+         ⚠️ Split back out of §Pick the Structure. That band is the DECISION (how many carts → which
+         structure); this one is the COMPARISON (the same four, on four points). Two jobs, two
+         bands — do not merge them into one. -->
+    <section class="vc-tbl" id="compare">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Comparison`}></span>
+          <h2 class="section-title" data-reveal="up">Four Structures, <em>Side by Side</em></h2>
+          <p class="section-sub" data-reveal="up">The four behind most custom vape cartridge boxes, on the points a buyer asks about — how it locks, what holds the cart, what leaves the floor, and the order it is the wrong answer for.</p>
+        </div>
+        <div class="vc-tbl-rail" data-reveal="up">
+          <div class="vc-tbl-track" style={`grid-template-columns: 148px repeat(${cmpCols.length}, minmax(118px, 1fr));`}>
+            <p class="vc-tbl-name vc-tbl-corner" aria-hidden="true"></p>
+            {cmpCols.map((c, i) => (
+              <p class="vc-tbl-name"><span class="vc-tbl-idx">{String(i + 1).padStart(2, '0')}</span>{c}</p>
+            ))}
+            {cmpRows.map((r, ri) => (
+              <>
+                <p class={`vc-tbl-label${ri % 2 ? ' vc-tbl-lite' : ''}${ri > 0 ? ' vc-tbl-rule' : ''}${r.label === 'Not for' ? ' vc-tbl-hl' : ''}`}>{r.label}</p>
+                {r.v.map((val) => (
+                  <p class={`vc-tbl-cell${ri % 2 ? ' vc-tbl-lite' : ''}${ri > 0 ? ' vc-tbl-rule' : ''}${r.label === 'Not for' ? ' vc-tbl-hl' : ''}`}>
+                    {val}
+                  </p>
+                ))}
+              </>
+            ))}
+          </div>
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Find Your Structure <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OIL AND GLASS — the band a general vape page cannot have ============
+         The parent page's box carries a sealed DEVICE. This one carries a FILLED GLASS TUBE, and
+         that is a different problem: oil that runs downhill, a tank wall that cracks, and a
+         mouthpiece that must never take the lid's weight. -->
+    <section class="vc-oil" id="oil-and-glass">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Oil and glass`}></span>
+          <h2 class="section-title" data-reveal="up">Oil Leaves a Mark, <em>and Glass Cracks</em></h2>
+          <p class="section-sub" data-reveal="up">A cartridge box is not holding a solid object. It is holding a filled tube of oil with a glass wall and a mouthpiece, and each of those parts fails in its own way.</p>
+        </div>
+        <ol class="vc-oil-list">
+          {oil.map((o, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="vc-oil-num">{o.n}</span>
+              <div>
+                <h3><span class="vc-oil-ico" set:html={ICONS[o.ico]}></span>{o.t}</h3>
+                <p>{o.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="vc-note" data-reveal="up"><strong>The liner is quoted with the box.</strong> It is a coated millimetre of board between the cart and the panel, and it costs less than reprinting a run that arrived stained.</p>
+      </div>
+    </section>
+
+    <!-- ============ HOW A CART BOX SHIPS ============
+         Replaced the dark "what arrives on the pallet" band: its QC and transit figures were the
+         parent page's own numbers, and the client asked for a smaller moment. This is a light band
+         with a cart-specific angle — packout economics, which the parent page never covers. -->
+    <section class="vc-ship" id="shipping">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Packout`}></span>
+          <h2 class="section-title" data-reveal="up">A Cart Box Pays to <em>Ship Flat</em></h2>
+          <p class="section-sub" data-reveal="up">A cart box is nearly weightless, so what you pay for at the port is air. Keeping that air out of the export carton is the last thing the drawing does.</p>
+        </div>
+        <ul class="vc-ship-list">
+          {ship.map((s, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <h3><span class="vc-ship-ico" set:html={ICONS[s.ico]}></span>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="vc-note" data-reveal="up"><strong>The dieline stays on file.</strong> A reprint lands on the shelf identical to the sample that was signed — the tenth run of a cart box matches the first, in CMYK with up to two Pantone spot colors matched against the chip the brand signs off.</p>
+      </div>
+    </section>
+
+    <!-- ============ THE LOCK ============ -->
+    <section class="vc-lock" id="the-lock">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}The lock`}></span>
+          <h2 class="section-title" data-reveal="up">Two Locks That Hold <em>a Small Box</em></h2>
+          <p class="section-sub" data-reveal="up">A small box leaves less room for a mechanism than a full carton. Two locks do nearly all of the work on a cartridge order.</p>
+        </div>
+        <div class="vc-lock-grid">
+          {locks.map((l, i) => (
+            <article class="vc-lock-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <span class="vc-lock-num">{l.n}</span>
+              <h3 class="vc-lock-name">{l.name}</h3>
+              <p class="vc-lock-d">{l.d}</p>
+              <ol class="vc-lock-steps">
+                <li>{l.m1}</li>
+                <li>{l.m2}</li>
+              </ol>
+              <p class="vc-pill"><span>Suits</span>{l.fits}</p>
+            </article>
+          ))}
+        </div>
+        <p class="vc-note" data-reveal="up"><strong>A side-button tube is a single-cart structure only</strong> — the barrel has no room for a second cavity. The closures are built to a child-resistant design, and a test report is arranged on request rather than claimed on the page. A tamper band across the sleeve is quoted with the closure, so a box that has been opened once shows it.</p>
+      </div>
+    </section>
+
+    <!-- ============ 0.5 ml AND 1 ml — THE PAGE'S ONE DRAWN MODULE ============
+         A to-scale side view of the two fills, each carrying its own length dimension. It is the
+         one drawing on the page (the parent's lock animation is NOT repeated here) and it exists
+         to answer a single question: can one slot hold both. -->
+    <section class="vc-dims" id="dimensions">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Dimensions`}></span>
+          <h2 class="section-title" data-reveal="up">0.5 ml and 1 ml <em>Are Not One Slot</em></h2>
+          <p class="section-sub" data-reveal="up">The two fills share a 510 connector, not a length, which is why 510 cartridge boxes and 1ml cartridge packaging are two different dielines. A single slot drawn for the first holds the second loosely, and a loose cart is a scuffed cart.</p>
+        </div>
+        <div class="vc-dims-grid">
+          <figure class="vc-dims-fig" data-reveal="up" role="img" aria-label="Two 510 cartridges drawn to scale: a 0.5 ml cart about 60 millimetres long and a 1 ml cart about 76 millimetres long, both on the same connector">
+            <svg class="vc-dw" viewBox="0 0 820 400" xmlns="http://www.w3.org/2000/svg">
+              {/* 0.5 ml — mouthpiece · tube · thread base */}
+              <rect class="vc-dw-mouth" x="209" y="124" width="42" height="52" rx="9" />
+              <rect class="vc-dw-tube" x="202" y="176" width="56" height="148" />
+              <rect class="vc-dw-base" x="211" y="324" width="38" height="26" rx="3" />
+              {/* 1 ml */}
+              <rect class="vc-dw-mouth" x="539" y="66" width="42" height="52" rx="9" />
+              <rect class="vc-dw-tube" x="532" y="118" width="56" height="206" />
+              <rect class="vc-dw-base" x="541" y="324" width="38" height="26" rx="3" />
+              {/* length dimensions */}
+              <line class="vc-dw-dim" x1="160" y1="124" x2="160" y2="350" />
+              <polygon class="vc-dw-tip" points="160,122 154,136 166,136" />
+              <polygon class="vc-dw-tip" points="160,352 154,338 166,338" />
+              <text class="vc-dw-txt" x="146" y="243" text-anchor="end">L 58–62 mm</text>
+              <line class="vc-dw-dim" x1="650" y1="66" x2="650" y2="350" />
+              <polygon class="vc-dw-tip" points="650,64 644,78 656,78" />
+              <polygon class="vc-dw-tip" points="650,352 644,338 656,338" />
+              <text class="vc-dw-txt" x="664" y="212" text-anchor="start">L 72–80 mm</text>
+              {/* names */}
+              <text class="vc-dw-name" x="230" y="386" text-anchor="middle">0.5 ml</text>
+              <text class="vc-dw-name" x="560" y="386" text-anchor="middle">1 ml</text>
+            </svg>
+            <figcaption>Typical 510 ranges, drawn to scale. The 1 ml cart is the taller figure on the same connector.</figcaption>
+          </figure>
+          <div class="vc-dims-spec" data-reveal="up">
+            <h3 class="vc-dims-h">What changes between the two</h3>
+            {fills.map((f) => (
+              <div class="vc-dims-line">
+                <span class="vc-dims-fill">{f.fill}</span>
+                <dl>
+                  <div><dt>Full length</dt><dd>{f.len}</dd></div>
+                  <div><dt>Tube Ø</dt><dd>{f.tube}</dd></div>
+                  <div><dt>Mouthpiece Ø</dt><dd>{f.tip}</dd></div>
+                </dl>
+              </div>
+            ))}
+            <p class="vc-dims-warn">Both fills sit on the same 510 thread and the same tube diameter. The only figure that moves is the length — which is exactly the figure the slot is cut to. A single slot cannot serve both. A 2 ml cart runs longer again, and a pod on a proprietary connector has no standard length at all: send either and the cavity comes off the hardware.</p>
+          </div>
+        </div>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send the Fill Size <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHAT BUYERS SAY ============
+         ⚠️ Deliberately NOT a card grid — every other band on this page is one. A letters-page
+         column: big brass quote glyph, generous measure, small-caps attribution. -->
+    <section class="vc-rev" id="reviews">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow" set:html={`${LEAF}Buyers`}></span>
+          <h2 class="section-title" data-reveal="up">What Buyers Say <em>After the First Run</em></h2>
+        </div>
+        <div class="vc-rev-grid">
+          {reviews.map((r, i) => (
+            <blockquote class="vc-rev-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <header class="vc-rev-by">
+                <img class="vc-rev-av vc-ph-img" src={`${VC}/${r.key}.webp`} alt="" aria-hidden="true" width={r.iw} height={r.ih} loading="lazy" decoding="async" />
+                <div class="vc-rev-id">
+                  <strong>{r.name}</strong>
+                  <span>{r.role}, {r.who} · {r.loc}</span>
+                </div>
+              </header>
+              <div class="vc-rev-copy">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="vc-faq" id="faq">
+      <div class="wrap">
+        <div class="section-head section-head--center">
+          <span class="eyebrow" set:html={`${LEAF}FAQ`}></span>
+          <h2 class="section-title" data-reveal="up">Straight Answers, <em>Before You Order</em></h2>
+        </div>
+        <div class="vc-faq-list">
+          {faqs.map((f, i) => (
+            <details class="vc-faq-item" data-reveal="up">
+              <summary><span class="vc-faq-num">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <div class="vc-faq-a"><p>{f.a}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="vc-final" id="get-started">
+      <div class="wrap vc-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start here`}></span>
+        <h2 class="vc-final-title" data-reveal="up">Send the Cart, <em>Get the Cavity</em></h2>
+        <p class="vc-final-sub" data-reveal="up">A cart in the post, or three numbers on a drawing, is enough to begin. The cavity is drawn around it and the quote is built on the box that comes back.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send a Cart for a Cavity <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .vc-img { display: block; width: 100%; }
+  .vc-nowrap { white-space: nowrap; }
+  .vc-hero, .vc-what, .vc-slot, .vc-mid, .vc-count, .vc-tbl, .vc-oil, .vc-ship, .vc-lock, .vc-dims, .vc-rev, .vc-faq, .vc-final { position: relative; }
+
+  /* every photograph slot is a plain <img> that fills its own aspect-ratio box */
+  .vc-ph-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* a shared full-width line of copy under a band */
+  .vc-note { margin: clamp(1.8rem, 3.6vw, 2.6rem) 0 0; padding: 1.1rem 1.5rem; background: var(--color-brand-surface); border-left: 3px solid var(--brass); border-radius: 0 0.8rem 0.8rem 0; font-size: 0.96rem; line-height: 1.66; color: var(--color-brand-muted); max-width: 92ch; }
+  .vc-note strong { color: var(--color-brand-text); }
+  /* ⚠️ On a clay band the same note would vanish into the band, so it flips to ivory. */
+  .vc-count .vc-note, .vc-slot .vc-note, .vc-ship .vc-note { background: var(--ivory); }
+
+  /* ============ HERO — full-bleed, dark ============
+     ⚠️ The photograph is the FULL BLEED BACKGROUND, never a separate slot, so there is no empty
+     placeholder box while the shot is pending — only the gradient. Layers, back to front:
+     `.vc-hero-bg` (0) → grain + brass glow + watermark seal (1) → `.vc-hero-inner` (2). */
+  .vc-hero { position: relative; overflow: hidden; min-height: min(74vh, 660px); display: grid; align-items: end; color: var(--ivory); padding: calc(1cm + 4.75rem + clamp(2.4rem, 5vw, 3.6rem)) 0 clamp(2.2rem, 4.2vw, 3rem); }
+  .vc-hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(180deg, rgba(20,38,27,0.60) 0%, rgba(20,38,27,0.90) 52%, rgba(20,38,27,0.97) 100%), url('https://img.leelinepackage.com/custom-vape-cartridge/hero.webp') center/cover no-repeat; }
+  .vc-hero-grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .vc-hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(62% 58% at 78% 6%, rgba(228,181,77,0.18), transparent 70%); }
+  .vc-hero-seal { position: absolute; z-index: 1; right: -2%; bottom: -14%; width: clamp(220px, 30vw, 420px); aspect-ratio: 1; height: auto; color: rgba(245,240,229,0.05); pointer-events: none; }
+  /* ⚠️ NO `width: 100%` here. `.vc-hero-inner` also carries `.wrap`, and this page's <style> loads
+     AFTER site.css — an equal-specificity `width: 100%` therefore BEATS `.wrap`'s
+     `min(1200px, 100% - clamp(...))` and the whole hero ran edge-to-edge with no gutters. As a grid
+     item `.wrap`'s own width + `margin-inline: auto` centres it; leave the width alone. */
+  .vc-hero-inner { position: relative; z-index: 2; }
+  .vc-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.2rem, 4.4vw, 3.5rem); line-height: 1.05; letter-spacing: -0.033em; color: #fff; margin: 1.15rem 0 0; max-width: 21ch; text-wrap: balance; }
+  .vc-hero-title em { font-style: italic; color: #E3C29A; }
+  .vc-hero-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.86); max-width: 52ch; margin: 1.25rem 0 0; }
+  .vc-hero-cta { display: flex; margin-top: 1.8rem; }
+  /* the verifiable trust line — certifications a buyer can check, not an adjective */
+  .vc-hero-trail { margin: 1.15rem 0 0; font-size: 0.84rem; line-height: 1.6; letter-spacing: 0.01em; color: rgba(245,240,229,0.72); max-width: 62ch; }
+  /* the offer row — light hairlines on the dark ground, echoing the homepage's own figure band */
+  .vc-figs { list-style: none; margin: clamp(2.2rem, 4.4vw, 3.2rem) 0 0; padding: clamp(1.1rem, 2.2vw, 1.5rem) 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; border-top: 1px solid rgba(245,240,229,0.22); }
+  .vc-figs li { display: flex; align-items: baseline; gap: 0.6rem; }
+  .vc-figs strong { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.95rem); line-height: 1; color: var(--brass-light); }
+  .vc-figs span { font-size: 0.84rem; color: rgba(245,240,229,0.8); }
+
+  /* ============ WHAT COUNTS (contrast panel) ============ */
+  .vc-what { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-what .section-sub { max-width: 72ch; }
+  /* ⚠️ ONE JOB PER BAND. §What Counts carries the ARGUMENT only (the fit / no-fit contrast) and
+     §The Slot carries the SPEC. They are two bands on purpose — do not merge them back, and do not
+     let the contrast copy slide into "send us the cart", which is §The Slot's line. */
+  .vc-what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: calc(clamp(1.1rem, 2.4vw, 1.8rem) + 0.3cm); max-width: 1020px; margin-inline: auto; }
+  /* ⚠️ No white surfaces anywhere on this page. Each half carries the band's own tone and takes
+     its boundary from a hairline; the working half also takes a brass edge, which is the only
+     difference between the two — the mark and the copy do the rest.
+     The photograph is FLUSH to the card's top edge (the half is a grid with `overflow:hidden`, so
+     the image fills the rounded corner) — an inset image on a padded card read as a sticker. */
+  .vc-what-half { display: grid; grid-template-rows: auto 1fr; border: 1px solid rgba(31,59,44,0.17); border-radius: 1rem; overflow: hidden; container-type: inline-size; }
+  .vc-what-half--ok { border-color: rgba(176,141,76,0.8); background: rgba(176,141,76,0.08); }
+  .vc-what-half:not(.vc-what-half--ok) { border-color: rgba(96,92,78,0.36); background: rgba(96,92,78,0.08); }
+  /* ⚠️ The photo is a MODEST STRIP, shorter than the text block under it — at 4:3 it stood taller
+     than the whole card and the band read as two giant pictures with a caption (client). */
+  /* ⚠️ `aspect-ratio` cannot express "a ratio PLUS a length", so the plate height is written out in
+     container units: 5:2 → 40cqw, then + the client's 0.5 cm. `.vc-what-half` is the query container. */
+  .vc-what-ph { height: calc(40cqw + 0.5cm); border: 0; border-bottom: 1px solid rgba(31,59,44,0.14); border-radius: 0; mix-blend-mode: multiply; }
+  .vc-what-half--ok .vc-what-ph { border-bottom: 3px solid var(--brass); }
+  .vc-what-body { padding: clamp(1.2rem, 2.2vw, 1.7rem); }
+  .vc-what-mark { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-brand-muted); }
+  .vc-what-half--ok .vc-what-mark { color: var(--brass); }
+  .vc-what-h { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.7rem); line-height: 1.16; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  .vc-what-d { font-size: 0.98rem; font-weight: 600; line-height: 1.5; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  .vc-what-b { font-size: 0.94rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
+
+  /* ============ OIL AND GLASS ============ */
+  .vc-oil { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-oil .section-sub { max-width: 68ch; }
+  /* ⚠️ Small square thumbnails, never a wide banner. A large placeholder block reads as a hole in
+     the page (client). */
+  .vc-oil-list { list-style: none; margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.2rem, 2.4vw, 1.8rem); }
+  .vc-oil-list li { display: grid; grid-template-columns: 1.9rem minmax(0, 1fr); gap: 0.9rem; align-items: start; background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.15); border-radius: 1.1rem; padding: clamp(1.2rem, 2.4vw, 1.7rem); }
+  .vc-oil-num { display: block; font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem; line-height: 1.35; color: var(--brass); }
+  .vc-oil-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: 1.16rem; line-height: 1.22; color: var(--color-brand-text); margin: 0.25rem 0 0; }
+  .vc-oil-list p { font-size: 0.97rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0.5rem 0 0; }
+  /* a small symbol per item, in place of the two built diagrams (client) */
+  :global(.vc-ico) { width: 20px; height: 20px; color: var(--brass); }
+  .vc-oil-ico, .vc-ship-ico { display: inline-flex; vertical-align: -4px; margin-right: 0.5rem; }
+
+  /* ============ COUNT (wide ledger rows, big left numeral) ============ */
+  .vc-count { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-count .section-sub { max-width: 76ch; }
+  .vc-count-rows { display: grid; gap: clamp(1.1rem, 2.2vw, 1.6rem); }
+  /* a row, NOT a card grid: a numeral the size of a heading, the structure, and one photograph.
+     No border-top between rows — the gap and the block fill carry the separation, so the band
+     never reads as a table. */
+  .vc-count-row { display: grid; grid-template-columns: clamp(4.6rem, 8vw, 7rem) minmax(0, 1fr) clamp(160px, 19vw, 230px); gap: clamp(1.2rem, 2.6vw, 2.2rem); align-items: center; background: var(--ivory); border: 1px solid rgba(31,59,44,0.15); border-radius: 1.1rem; padding: clamp(1.05rem, 2vw, 1.4rem); }
+  .vc-count-num { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.1rem, 4.2vw, 3.2rem); line-height: 0.9; letter-spacing: -0.03em; color: var(--brass); text-align: center; }
+  .vc-count-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.2; color: var(--color-brand-text); margin: 0; }
+  .vc-count-struct { font-size: 0.92rem; font-weight: 600; line-height: 1.5; color: var(--forest-light); margin: 0.55rem 0 0; }
+  .vc-count-d { font-size: 0.92rem; line-height: 1.62; color: var(--color-brand-muted); margin: 0.55rem 0 0; max-width: 60ch; }
+  .vc-count-ph { aspect-ratio: 4 / 3; }
+
+  /* ============ HOW A CART BOX SHIPS — light on purpose ============
+     ⚠️ This band must stay QUIET. It replaced a dark, display-size number band whose figures were
+     the parent page's own; do not let it grow back into a centre of gravity. */
+  .vc-ship { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-ship .section-sub { max-width: 76ch; }
+  .vc-ship-list { list-style: none; margin: clamp(1.8rem, 3.4vw, 2.8rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.6vw, 2.2rem); }
+  .vc-ship-list li { border-top: 2px solid var(--brass); padding-top: clamp(1rem, 2vw, 1.4rem); }
+  .vc-ship-list h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.6vw, 1.32rem); line-height: 1.22; color: var(--color-brand-text); margin: 0; }
+  .vc-ship-list p { font-size: 0.92rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0.7rem 0 0; }
+
+  /* ============ THE LOCK ============ */
+  .vc-lock { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-lock .section-sub { max-width: 74ch; }
+  .vc-lock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.1rem, 2.4vw, 1.8rem); }
+  .vc-lock-card { background: var(--ivory); border: 1px solid rgba(31,59,44,0.17); border-radius: 1.1rem; padding: clamp(1.5rem, 2.8vw, 2.1rem); }
+  .vc-lock-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); }
+  .vc-lock-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.7rem); line-height: 1.16; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  .vc-lock-d { font-size: 0.96rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0.75rem 0 0; }
+  /* the two moves that open it, as a numbered pair on a brass rail */
+  .vc-lock-steps { list-style: none; counter-reset: ms; margin: 1.3rem 0 0; padding: 0; display: grid; gap: 0.6rem; }
+  .vc-lock-steps li { counter-increment: ms; display: grid; grid-template-columns: 1.65rem 1fr; gap: 0.7rem; align-items: baseline; font-size: 0.92rem; line-height: 1.5; color: var(--color-brand-text); }
+  .vc-lock-steps li::before { content: counter(ms); display: grid; place-items: center; width: 1.65rem; height: 1.65rem; border-radius: 50%; border: 1px solid var(--brass); color: var(--brass); font-family: var(--font-heading); font-weight: 600; font-size: 0.82rem; }
+  .vc-pill { margin: 1.4rem 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(31,59,44,0.14); display: flex; align-items: center; gap: 0.7rem; font-size: 0.9rem; font-weight: 600; color: var(--color-brand-text); }
+  .vc-pill span { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+
+  /* ============ COMPARISON — the page's one table ============ */
+  .vc-tbl { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-tbl .section-head { margin-bottom: clamp(1.7rem, 3.6vw, 2.7rem); }
+  .vc-tbl .section-sub { max-width: 86ch; }
+  .vc-tbl-rail { overflow-x: auto; }
+  /* ============ THE SLOT — one job: what the cavity is cut from ============ */
+  .vc-slot { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-slot .section-sub { max-width: 72ch; }
+  /* TWO ROWS of equal cells, columns aligned: 3 measurements on top, 2 materials underneath.
+     Same cell treatment both rows, so the band reads as one chart instead of two lists. */
+  .vc-slot-block + .vc-slot-block { margin-top: clamp(1.8rem, 3.6vw, 2.8rem); }
+  .vc-slot-3 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.1rem, 2.4vw, 1.9rem); }
+  .vc-slot-3 li { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); column-gap: 0.7rem; row-gap: 0.28rem; align-items: baseline; padding-top: clamp(0.85rem, 1.7vw, 1.15rem); border-top: 2px solid var(--brass); }
+  .vc-slot-3 li::before { content: attr(data-n); grid-column: 1; grid-row: 1 / span 2; font-family: var(--font-heading); font-weight: 600; font-size: 0.86rem; color: var(--brass); }
+  .vc-slot-3 strong { grid-column: 2; grid-row: 1; font-family: var(--font-heading); font-weight: 600; font-size: 1.04rem; line-height: 1.2; color: var(--color-brand-text); }
+  .vc-slot-3 span { grid-column: 2; grid-row: 2; font-size: 0.87rem; line-height: 1.58; color: var(--color-brand-muted); }
+  .vc-slot-h { margin: 0 0 1.1rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+  /* Two cradles as centred image-over-text cards. The block is capped and centred so the pair reads
+     as a deliberate choice, not a left-aligned list; each card takes the band's own ivory tone plus
+     a hairline (no white surfaces anywhere on this page) and centres its content. */
+  .vc-slot-cradles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 2.6vw, 2rem); max-width: 780px; margin-inline: auto; }
+  .vc-cradle { display: grid; justify-items: center; text-align: center; background: var(--ivory); border: 1px solid rgba(31,59,44,0.15); border-radius: 1.1rem; padding: clamp(1.1rem, 2.2vw, 1.5rem); }
+  .vc-cradle-ph { width: 100%; aspect-ratio: 4 / 3; border-radius: 0.9rem; mix-blend-mode: multiply; }
+  .vc-cradle h4 { font-family: var(--font-heading); font-weight: 600; font-size: 1.18rem; line-height: 1.2; color: var(--color-brand-text); margin: 1rem 0 0; }
+  .vc-cradle p { font-size: 0.88rem; line-height: 1.58; color: var(--color-brand-muted); margin: 0.5rem 0 0; max-width: 34ch; }
+
+  /* ============ DIMENSIONS — the page's ONE drawn module ============ */
+  .vc-dims { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-dims .section-sub { max-width: 74ch; }
+  .vc-dims-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(2rem, 4vw, 3.2rem); align-items: center; }
+  .vc-dims-fig { margin: 0; }
+  .vc-dw { display: block; width: 100%; height: auto; }
+  .vc-dw-mouth { fill: var(--brass-soft); stroke: #8A6E42; stroke-width: 1.4; }
+  .vc-dw-tube { fill: var(--color-brand-surface); stroke: #8A6E42; stroke-width: 1.4; }
+  .vc-dw-base { fill: var(--forest-deep); }
+  .vc-dw-dim { stroke: rgba(43,47,38,0.55); stroke-width: 1.2; }
+  .vc-dw-tip { fill: rgba(43,47,38,0.75); }
+  .vc-dw-txt { font-family: var(--font-body); font-size: 15px; font-weight: 600; fill: var(--color-brand-muted); }
+  .vc-dw-name { font-family: var(--font-heading); font-size: 17px; font-weight: 700; fill: var(--color-brand-text); }
+  .vc-dims-fig figcaption { margin-top: 1rem; font-size: 0.82rem; line-height: 1.5; color: var(--color-brand-muted); }
+  .vc-dims-spec { border-left: 1px solid rgba(31,59,44,0.16); padding-left: clamp(1.2rem, 2.6vw, 2.2rem); }
+  .vc-dims-h { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.7vw, 1.4rem); line-height: 1.2; color: var(--color-brand-text); margin: 0 0 1.1rem; }
+  .vc-dims-line { padding: 1rem 0; border-top: 1px solid rgba(31,59,44,0.14); }
+  .vc-dims-line:first-of-type { border-top: 0; padding-top: 0; }
+  .vc-dims-fill { display: inline-block; font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; color: var(--forest-light); }
+  .vc-dims-line dl { margin: 0.7rem 0 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; }
+  .vc-dims-line dt { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brass); }
+  .vc-dims-line dd { margin: 0.25rem 0 0; font-size: 0.9rem; font-weight: 600; color: var(--color-brand-text); }
+  .vc-dims-warn { margin: 1.2rem 0 0; padding: 1rem 1.15rem; background: var(--color-brand-surface); border-radius: 0.7rem; font-size: 0.9rem; line-height: 1.62; color: var(--color-brand-muted); }
+
+  /* ============ COMPARISON (the page's one table) ============ */
+  /* ⚠️ The table has NO band CSS of its own any more — it lives inside §Pick the Structure, behind
+     a `.vc-part` marker. Only the rail and the grid survive. */
+  .vc-tbl-rail { overflow-x: auto; }
+  /* ⚠️ ROW-major in the DOM (a header row of five, then four rows of label + four values), so the
+     column template is inlined from `cmpCols.length`. `display:grid` only — NO grid-auto-flow:
+     column. Switching the flow without reordering the markup scrambles all twenty cells. */
+  .vc-tbl-track { display: grid; border: 1px solid rgba(96,92,78,0.3); border-top: 0; }
+  /* ⚠️ A LIGHT header on purpose — the parent vape page's table runs a dark header band, and this
+     one must not read as the same object. Brass hairline on top, brass numerals, no fill block. */
+  .vc-tbl-name { margin: 0; background: var(--ivory); color: var(--color-brand-text); font-family: var(--font-heading); font-weight: 700; font-size: 1rem; line-height: 1.3; text-align: center; padding: 0.95rem 0.6rem 1rem; border-top: 3px solid var(--brass); display: flex; flex-direction: column; gap: 0.3rem; align-items: center; }
+  .vc-tbl-idx { font-family: var(--font-heading); font-size: 0.76rem; letter-spacing: 0.1em; color: var(--brass); }
+  .vc-tbl-label, .vc-tbl-cell { background-color: var(--ivory); }
+  .vc-tbl-lite { background-image: linear-gradient(rgba(31,59,44,0.035), rgba(31,59,44,0.035)); }
+  .vc-tbl-rule { border-top: 1px solid rgba(96,92,78,0.22); }
+  /* ⚠️ The highlighted row KEEPS its row rule (house rule) and takes a brass tint, because "Not for"
+     is the row a buyer actually decides on. */
+  .vc-tbl-hl { background-color: rgba(176,141,76,0.14); background-image: none; font-weight: 600; }
+  .vc-tbl-label { position: sticky; left: 0; z-index: 1; margin: 0; min-height: 56px; display: flex; align-items: center; padding: 0.35rem 1rem; font-size: 0.86rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-brand-text); }
+  .vc-tbl-cell { margin: 0; min-height: 56px; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.6rem; font-size: 0.9rem; line-height: 1.35; text-align: center; color: var(--color-brand-text); }
+
+  /* ============ MID CTA — the page's one mid-point ask ============ */
+  /* ============ MID CTA — centred, like the hero and the final band ============ */
+  .vc-mid { background: linear-gradient(rgba(46,79,61,0.84), rgba(46,79,61,0.86)), url('https://img.leelinepackage.com/custom-vape-cartridge/mid-cta.webp') center/cover no-repeat; color: var(--ivory); padding: clamp(3rem, 6.5vw, 4.8rem) 0; text-align: center; }
+  .vc-mid-inner { display: flex; flex-direction: column; align-items: center; }
+  .vc-mid-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.55rem, 3vw, 2.3rem); line-height: 1.08; letter-spacing: -0.025em; color: #fff; margin: 0.9rem auto 0; }
+  .vc-mid-title em { font-style: italic; color: #E3C29A; }
+  .vc-mid-sub { font-size: clamp(0.96rem, 1.4vw, 1.05rem); line-height: 1.68; color: rgba(245,240,229,0.84); margin: 1rem auto 0; max-width: 58ch; }
+  .vc-mid-cta { display: flex; flex-direction: column; align-items: center; margin-top: 1.8rem; }
+
+  /* ============ WHAT BUYERS SAY — byline first, avatar first, no cards ============
+     ⚠️ The avatar is REQUIRED (client). */
+  .vc-rev { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-rev .section-head { margin-bottom: clamp(2.2rem, 4.4vw, 3.2rem); }
+  .vc-rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.6rem, 3.6vw, 3rem); align-items: start; }
+  .vc-rev-card { margin: 0; padding-top: clamp(1.2rem, 2.4vw, 1.7rem); border-top: 2px solid var(--brass); }
+  .vc-rev-by { display: flex; align-items: center; gap: 1rem; margin-bottom: clamp(1.1rem, 2.2vw, 1.5rem); }
+  .vc-rev-av { width: 84px; height: 84px; flex: 0 0 auto; border-radius: 50%; border: 1px solid rgba(31,59,44,0.2); }
+  .vc-rev-id strong { display: block; font-family: var(--font-body); font-weight: 700; font-size: 0.98rem; color: var(--color-brand-text); }
+  .vc-rev-id span { display: block; margin-top: 0.22rem; font-size: 0.82rem; line-height: 1.45; color: var(--color-brand-muted); }
+  .vc-rev-copy p { font-size: 0.98rem; line-height: 1.78; color: var(--color-brand-text); margin: 0 0 0.95rem; }
+  .vc-rev-copy p:last-child { margin-bottom: 0; }
+
+  /* ============ FAQ ============ */
+  .vc-faq { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .vc-faq-list { max-width: 62rem; margin-inline: auto; display: grid; gap: 0.7rem; }
+  .vc-faq-item { background: var(--ivory); border: 1px solid rgba(31,59,44,0.17); border-radius: 0.9rem; overflow: hidden; }
+  .vc-faq-item summary { display: flex; align-items: baseline; gap: 0.9rem; cursor: pointer; list-style: none; padding: 1.05rem clamp(1.1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.5vw, 1.14rem); line-height: 1.35; color: var(--color-brand-text); }
+  .vc-faq-item summary::-webkit-details-marker { display: none; }
+  .vc-faq-num { font-family: var(--font-heading); font-size: 0.85rem; color: var(--brass); flex: 0 0 auto; }
+  .vc-faq-a { padding: 0 clamp(1.1rem, 2.2vw, 1.5rem) 1.15rem; }
+  .vc-faq-a p { font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ FINAL CTA ============ */
+  /* ⚠️ The dark bands here are GRADIENTS, not photograph backgrounds — the client's shots have not
+     landed yet, and a background URL would 404 until they do. When the folder arrives this band
+     (and the hero slot) are the two to revisit. */
+  .vc-final { background: linear-gradient(150deg, rgba(20,38,27,0.90) 0%, rgba(31,59,44,0.85) 58%, rgba(46,79,61,0.80) 100%), url('https://img.leelinepackage.com/custom-vape-cartridge/final-cta.webp') center/cover no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden; }
+  .vc-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .vc-final-inner { position: relative; z-index: 1; }
+  .vc-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; }
+  .vc-final-title em { font-style: italic; color: #E3C29A; }
+  .vc-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 56ch; margin: 1.2rem auto 0; }
+  .vc-final .section-cta { justify-content: center; }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .vc-count-row { grid-template-columns: clamp(4rem, 12vw, 6rem) minmax(0, 1fr); }
+    .vc-count-ph { grid-column: 1 / -1; aspect-ratio: 16 / 9; }
+    .vc-dims-grid { grid-template-columns: 1fr; gap: clamp(1.8rem, 4vw, 2.6rem); }
+    .vc-dims-spec { border-left: 0; padding-left: 0; }
+    .vc-scope-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
+  @media (max-width: 900px) {
+    .vc-what-grid { grid-template-columns: 1fr; }
+    .vc-rev-grid { grid-template-columns: 1fr; gap: 1.8rem; }
+    .vc-lock-grid { grid-template-columns: 1fr; }
+    .vc-slot-3 { grid-template-columns: 1fr; }
+    .vc-ship-list { grid-template-columns: 1fr; }
+    .vc-oil-list { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) {
+    .vc-hero { min-height: 0; }
+    .vc-figs { grid-template-columns: 1fr; gap: 0.7rem; }
+    .vc-count-row { grid-template-columns: 1fr; text-align: left; }
+    .vc-count-num { text-align: left; }
+    .vc-slot-cradles { grid-template-columns: 1fr; }
+    .vc-scope-links li { grid-template-columns: 1fr; }
+    .vc-dims-line dl { grid-template-columns: 1fr 1fr; }
+    .vc-hero-cta .btn, .vc-mid-cta .btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+
+  // FAQ is an accordion: opening one closes the others.
+  const faqItems = Array.from(document.querySelectorAll('.vc-faq-item'));
+  faqItems.forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) faqItems.forEach((o) => { if (o !== d) o.open = false; });
+  }));
+</script>

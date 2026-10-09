@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>10+ tray — 结构参考</title>
+<style>
+  @font-face{font-family:'Newsreader Variable';font-style:normal;font-display:swap;font-weight:200 800;
+    src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');}
+  @font-face{font-family:'Instrument Sans Variable';font-style:normal;font-display:swap;font-weight:400 700;
+    src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');}
+  :root{--forest:#1F3B2C;--forest-light:#2E4F3D;--brass:#B08D4C;--brass-soft:#C9A87C;--ivory:#F5F0E5;--clay:#EDE5D4;--muted:#605C4E;--text:#2B2F26;
+        --head:'Newsreader Variable',Georgia,serif;--body:'Instrument Sans Variable',system-ui,sans-serif;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--clay);color:var(--text);font-family:var(--body);line-height:1.6}
+  .intro{max-width:1100px;margin:0 auto;padding:2.4rem clamp(1.2rem,5vw,3rem) .6rem}
+  .intro h1{font-family:var(--head);font-weight:600;font-size:1.6rem;margin:0 0 .4rem}
+  .intro p{margin:0 0 .4rem;color:var(--muted);font-size:.95rem;max-width:80ch}
+  .wrap{max-width:1100px;margin:0 auto;padding:1rem clamp(1.2rem,5vw,3rem) 3rem}
+  .card{background:var(--ivory);border-radius:1rem;padding:clamp(1.6rem,4vw,3rem);margin-bottom:1.6rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.6rem,4vw,3.4rem)}
+  figure{margin:0;display:grid;justify-items:center;gap:1rem}
+  figcaption{font-size:.86rem;color:var(--muted);text-align:center;max-width:34ch}
+  figcaption b{display:block;font-family:var(--head);font-weight:600;font-size:1.02rem;color:var(--text);margin-bottom:.2rem}
+
+  /* the sleeve is an OPEN-ENDED wrap: no right wall */
+  .stage{position:relative;height:150px;display:flex;align-items:center}
+  .sleeve{position:relative;width:210px;height:110px;border:3px solid var(--forest-light);border-right:0;border-radius:6px 0 0 6px;background:rgba(31,59,44,.06)}
+  .sleeve::after{content:'';position:absolute;top:0;bottom:0;right:-3px;width:3px;background:var(--brass)} /* the printed face edge */
+  .flap{position:absolute;left:10px;top:12px;right:22px;height:12px;background:var(--brass-soft);border-radius:3px;opacity:.85}
+  .flap2{position:absolute;left:10px;bottom:12px;right:22px;height:12px;background:var(--brass-soft);border-radius:3px;opacity:.55}
+
+  /* the tray: 10 cavities, slides out to the right */
+  .tray{position:absolute;top:14px;left:14px;width:196px;height:82px;background:#fff;border:2px solid var(--forest);border-radius:4px;display:flex;align-items:center;gap:4px;padding:0 8px;transition:transform .3s}
+  .tray i{display:block;width:9px;height:58px;border:1.5px solid var(--forest-light);border-radius:4px 4px 2px 2px;background:var(--ivory)}
+  .tray i::before{content:'';display:block;width:5px;height:7px;margin:3px auto 0;background:var(--brass-soft);border-radius:2px 2px 0 0}
+  .tray.out{transform:translateX(120px)}
+  .tray.out i{background:var(--clay)}
+
+  .arrowrow{display:flex;align-items:center;gap:.7rem;justify-content:center;color:var(--brass);font-size:1.3rem}
+  .terms{background:var(--color-surface,#EDE5D4);border-radius:.8rem;padding:1.2rem 1.5rem;margin-top:1.4rem;font-size:.92rem;color:var(--muted)}
+  .terms b{color:var(--text)}
+  .terms code{background:#fff;border:1px solid rgba(31,59,44,.18);border-radius:4px;padding:.1rem .4rem;font-size:.86rem}
+</style>
+</head>
+<body>
+<div class="intro">
+  <h1>「10+ / A tray of carts」是哪种东西 —— 结构参考</h1>
+  <p>用方框画的结构图，不是实物照片。左边是关着的状态，右边是托盘抽出来的状态。</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <div class="grid">
+      <figure>
+        <div class="stage">
+          <div class="sleeve">
+            <span class="flap"></span><span class="flap2"></span>
+            <div class="tray"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <figcaption><b>Shut</b>套筒（sleeve）把托盘整个罩住。印刷、警示区、锁扣都在套筒这一层。</figcaption>
+      </figure>
+      <figure>
+        <div class="stage">
+          <div class="sleeve">
+            <span class="flap"></span><span class="flap2"></span>
+            <div class="tray out"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+        </div>
+        <figcaption><b>Drawn out</b>托盘往右抽出来，10 个槽一起出来。套筒留在原位 —— 所以上面的印刷不会跟着动。</figcaption>
+      </figure>
+    </div>
+
+    <div class="arrowrow">Sleeve（外套，两端开口的印刷套筒） ＋ Tray（托盘，挖好 10 个槽的内胆）</div>
+
+    <div class="terms">
+      <p><b>这就是你 brief 里写的：</b>「10 支以上：托盘加外套，锁做在外套上」。</p>
+      <p><b>和第一条「push-button drawer」的区别：</b>抽屉盒是<span style="color:var(--forest-light);font-weight:600">带前面板的抽屉 ＋ 一个按钮</span>；这个是<span style="color:var(--forest-light);font-weight:600">没有前面板的托盘 ＋ 锁在外套上</span>。</p>
+      <p><b>找图时搜这些词</b>（图库能搜到）：<code>slide box packaging</code> · <code>tray and sleeve box</code> · <code>matchbox style box</code> · <code>two piece slide box</code> · <code>10 pack cartridge box</code>。
+      搜 <code>tray inside a sleeve</code> 基本搜不到 —— 那不是行业叫法，是我写的描述。</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

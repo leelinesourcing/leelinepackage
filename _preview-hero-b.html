@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero option 2 — Shelf sandwich</title>
+<style>
+  @font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations');font-weight:200 800;font-style:normal;font-display:swap}
+  @font-face{font-family:'Newsreader Variable';src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations');font-weight:200 800;font-style:italic;font-display:swap}
+  @font-face{font-family:'Instrument Sans Variable';src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');font-weight:400 700;font-style:normal;font-display:swap}
+  :root{
+    --forest:#1F3B2C; --forest-deep:#14261B; --forest-light:#2E4F3D;
+    --brass:#B08D4C; --brass-bright:#E4B54D; --brass-soft:#C9A87C;
+    --ivory:#F5F0E5; --clay:#EDE5D4; --moss:#8C8676;
+    --text:#2B2F26; --muted:#605C4E;
+    --serif:'Newsreader Variable',Georgia,serif; --sans:'Instrument Sans Variable',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ivory);color:var(--text);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .wrap{width:min(1200px,100% - clamp(2rem,6vw,6rem));margin-inline:auto}
+
+  /* ── hero: headline on top, the product group as a full-bleed shelf, the pitch under it ── */
+  .shead{background:linear-gradient(172deg,#FFFCF4 0%,#F7F0E1 100%);padding:4.2rem 0 2.6rem}
+  .row{display:flex;align-items:baseline;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+  .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--brass)}
+  .eyebrow svg{width:1.05em;height:1.05em}
+  .micro{font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.5rem,6vw,5rem);line-height:1.02;letter-spacing:-.035em;margin:0;max-width:30ch}
+  .h1 em{font-style:italic;color:var(--brass)}
+
+  /* the shelf: full-bleed, and it is what separates the headline from the proof row */
+  .shelf{height:clamp(210px,28vw,400px);background:
+      repeating-linear-gradient(135deg,rgba(31,59,44,.055) 0 10px,transparent 10px 21px),var(--clay);
+    display:grid;place-content:center;justify-items:center;gap:.65rem;text-align:center;color:var(--muted);
+    border-top:1px solid rgba(31,59,44,.16);border-bottom:1px solid rgba(31,59,44,.16)}
+  .shelf svg{width:clamp(40px,4.2vw,56px);height:clamp(40px,4.2vw,56px);color:var(--brass)}
+  .shelf figcaption{font-size:.78rem;max-width:36ch;line-height:1.45}
+
+  .sproof{background:var(--ivory);padding:2.9rem 0 3.4rem}
+  .pgrid{display:grid;grid-template-columns:minmax(0,1.35fr) repeat(3,minmax(0,.72fr));gap:clamp(1.6rem,4vw,4rem);align-items:start}
+  .sub{font-size:1.02rem;line-height:1.7;color:var(--muted);margin:0;max-width:44ch}
+  .cta{display:inline-flex;align-items:center;gap:.55rem;background:var(--forest-light);color:var(--ivory);font-weight:600;font-size:.95rem;padding:.9rem 1.6rem;border-radius:999px;margin-top:1.5rem;text-decoration:none}
+  .cta svg{width:1em;height:1em}
+  .fig b{display:block;font-family:var(--serif);font-weight:600;font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1;letter-spacing:-.02em;color:var(--forest-light)}
+  .fig span{display:block;margin-top:.5rem;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.45;color:var(--muted);max-width:16ch}
+  .certs{margin:2.2rem 0 0;font-size:.78rem;color:var(--muted)}
+  .tag{padding:0 0 3rem;text-align:center;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--moss)}
+  @media(max-width:900px){.pgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+  @media(max-width:600px){.pgrid{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+  <section class="shead">
+    <div class="wrap">
+      <div class="row">
+        <span class="eyebrow"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z"/></svg>Disposable vape packaging</span>
+        <span class="micro">500-unit minimum runs</span>
+      </div>
+      <h1 class="h1">Custom Disposable Vape Packaging, Drawn to <em>Your Pen's Length</em></h1>
+    </div>
+  </section>
+
+  <figure class="shelf">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 3 7.6l9 4.5 9-4.5z"/><path d="M3 7.6v8.8L12 21v-8.9"/><path d="M21 7.6v8.8L12 21"/></svg>
+    <figcaption>Three sealed pens of different lengths on a bench, each beside its own carton</figcaption>
+  </figure>
+
+  <section class="sproof">
+    <div class="wrap">
+      <div class="pgrid">
+        <div>
+          <p class="sub">A disposable pen ships sealed and stays sealed. Length is the only dimension that moves between models, and the carton in front of us is drawn to the pen, never to a size band on a chart.</p>
+          <a class="cta" href="#">Price a Disposable Vape Box <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="fig"><b>500</b><span>units minimum</span></div>
+        <div class="fig"><b>24 h</b><span>dieline turned around</span></div>
+        <div class="fig"><b>3–5 d</b><span>white dummy for fit</span></div>
+      </div>
+      <p class="certs">FSC-certified board · ISO 9001 factory · ISTA drop-tested before a pallet ships</p>
+    </div>
+  </section>
+  <p class="tag">Option 2 — Shelf sandwich</p>
+</body>
+</html>

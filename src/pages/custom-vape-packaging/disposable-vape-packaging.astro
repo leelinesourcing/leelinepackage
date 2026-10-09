@@ -1,0 +1,693 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const DP = `${R2}/custom-disposable-vape`;
+
+/* Shared bits kept as strings so fifteen eyebrows do not repeat the same 180-character path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/*
+  ⚠️ Every photograph on this page is a LABELLED PLACEHOLDER. The client supplies the shots later;
+  each `dp-ph` figure names the image it is waiting for and carries the R2 key it should land on
+  (`custom-disposable-vape/<key>.webp`). Swapping one in = replacing that <figure> with the plain
+  <img src={`${DP}/<key>.webp`} …> form used site-wide.
+  ⚠️ The two dark bands are GRADIENTS, not photograph backgrounds, so nothing 404s before the
+  folder arrives. The hero plate is an <img>-shaped slot in normal flow, NOT a CSS background, so
+  <Layout> is deliberately NOT passed a `preloadImage`; when the real plate lands it takes
+  `loading="eager" fetchpriority="high" decoding="sync"` in place of this figure.
+  ⚠️ 9 keys: hero-pens · pen-short · pen-standard · pen-long · pen-multi · shelf-retail ·
+  mail-outer · avatar-01 · avatar-02. */
+
+/* ⚠️ There is NO figure / stat row on this page. The parent and the cartridge page both run a
+   `500 · 24 h · 3–5 d` row; the client first called a copy of it 偷懒, then ruled the whole device out
+   (去掉数据条吧，感觉不是很合适). The hero closes on its CTA, and §2 opens the argument. */
+
+/* ── §Four Pen Lengths, Four Cartons — the page's spine. `from`/`to` place each class on the
+   shared 92–172 mm rail (a real scale, so the four bands read against one another).
+   ⚠️ `fill` is the capacity that lands in the band — the buyer's own word, and the only place on
+   the page it appears. Two bands share `10 ml`, which is the honest part: one capacity is built
+   at more than one length. ⚠️ REFERENCE bands only, the cavity is drawn to the pen that arrives,
+   never to a chart (client: 容量不要写死). ───────────────────────────────────────────────── */
+const lengths = [
+  { n: '01', fill: '2 ml', name: 'Compact Pen', box: 'Slide Box', key: 'pen-short', iw: 889, ih: 573, shot: 'A compact pen in its printed slide box', len: '92–112 mm', from: 0, to: 0.25, mouth: 'Round tip', ships: 'Formed', avoid: 'A long or an extended pen' },
+  { n: '02', fill: '5 ml', name: 'Standard Pen', box: 'Slide Box', key: 'pen-standard', iw: 1024, ih: 1024, shot: 'A standard pen in a slide box on a counter', len: '112–128 mm', from: 0.25, to: 0.45, mouth: 'Round or flat', ships: 'Formed', avoid: 'A compact pen' },
+  { n: '03', fill: '10 ml', name: 'Long Pen', box: 'Tuck-End Carton', key: 'pen-long', iw: 1024, ih: 1024, shot: 'A long pen beside its flat printed carton', len: '128–150 mm', from: 0.45, to: 0.725, mouth: 'Flat whistle', ships: 'Flat', avoid: 'A two-millilitre compact' },
+  { n: '04', fill: '10 ml', name: 'Extended Pen', box: 'Two-Piece Carton', key: 'pen-multi', iw: 1024, ih: 1024, shot: 'An extended pen in a two-piece lid-and-base carton', len: '150–172 mm', from: 0.725, to: 1, mouth: 'Flat, deep-set', ships: 'Flat', avoid: 'A five-millilitre standard' },
+];
+
+/* ── §Five Structures at a Glance — the page's ONE table. ⚠️ The `Window` row is the verdict row
+   and it carries the brass pills; every other row is plain text. ───────────────────────────── */
+const cmpCols = ['Slide box', 'Tuck-end carton', 'Lid and base', 'Sleeve and tray', 'Drawer'];
+const cmpRows = [
+  { label: 'Lock', v: ['Push-and-slide', 'Tab tuck', 'Friction lid', 'Lock on the sleeve', 'Push-button'] },
+  { label: 'Cradle', v: ['A formed slot', 'A folded platform', 'A board collar', 'A tray of slots', 'A moulded tray'] },
+  { label: 'Window', v: ['Body only', 'Body only', 'None', 'None', 'Body only'], pills: true },
+  { label: 'Ships', v: ['Flat', 'Flat', 'Formed', 'Flat', 'Formed'] },
+];
+
+/* ── §The Window Stops Where the Mouthpiece Starts — the page's ONE drawn module. Three rules
+   at display size, each answered by a part of the drawing above it. ────────────────────────── */
+const rules = [
+  { n: '01', t: 'Body only', d: 'The window is cut over the body and stops short of the mouthpiece. A mouthpiece handled through a hole is a hygiene claim the box cannot make.' },
+  { n: '02', t: 'Button travel', d: 'The lid is relieved over the button. A snug panel presses it on the pallet, and a pen that fires in transit arrives warm, with a drained cell.' },
+  { n: '03', t: 'Port clear', d: 'The charge port is left reachable or blanked behind a tear strip. Print over the port is re-inked every time the pen is topped up.' },
+];
+
+/* ── §One Carton for the Shelf, Another for the Mail — a fork off one pen. ─────────────────── */
+const fork = [
+  { tag: 'Shelf', name: 'The slim retail carton', key: 'shelf-retail', iw: 678, ih: 452, shot: 'A row of slim printed cartons on a shop shelf', d: 'A printed tuck-end or slide box, thin as the pen. The front face carries the flavour name and the strength, the window carries the pen, so the carton stands in a row of twenty without a display unit.' , note: 'Ships formed' },
+  { tag: 'Direct post', name: 'The transit outer', key: 'mail-outer', iw: 829, ih: 370, shot: 'A slim carton packed inside a printed mailer', d: 'The retail carton, dropped inside an outer drawn around it rather than around the pen. The outer takes the sorting machinery, and the retail carton arrives uncreased.' , note: 'Ships flat' },
+];
+
+/* ── §Four Ways a Pen Box Fails ────────────────────────────────────────────────────────────── */
+const fails = [
+  { n: '01', h: 'A window over the mouthpiece', d: 'The tip a buyer puts to their lips has been touched through an opening. It reads as a defect before the print does.' },
+  { n: '02', h: 'A cavity a size too long', d: 'The pen slides, the seal takes the knock, and the carton is opened with a rattle that says the box was not drawn for it.' },
+  { n: '03', h: 'A lid that presses the fire button', d: 'A tight panel with no relief sits on the button for a week in a warehouse and the pens arrive warm and half-drained.' },
+  { n: '04', h: 'A charge port under the print', d: 'The port sits behind the front panel, and the buyer tears the artwork to reach it on the first top-up.' },
+];
+
+/* ── §What Buyers Told Us ───────────────────────────────────────────────────────────────────
+   ⚠️ DRAFT placeholders: a name, a role and a market, and still NO invented company.
+   ⚠️⚠️ The NAMES are the one thing on this page that must be replaced before launch — an unnamed
+   "Buyer" reads as a placeholder, a named one is a claim about a real person, who has to have given
+   permission. Same standing as the avatar photographs.
+   ⚠️ The client has rejected this block THREE times, so hold the rules in `page-design-rules.md`
+   §THE CUSTOMER-REVIEWS SECTION and re-run the mechanical check after ANY edit:
+   eight paragraphs carry eight DIFFERENT moves (a crease it fixed · the routine · a bare count ·
+   the freight · the brief met · the artwork · the season · the deadline); eight different opening
+   words; ONE figure per paragraph, and no figure appears twice anywhere in the block; no
+   `which is` tail, no em dash for effect, no generic praise. ──────────────────────────────── */
+const reviews = [
+  {
+    key: 'avatar-01', name: 'Lukas Brandt', role: 'Buyer, online vape shop', loc: 'Germany',
+    q: [
+      'The first run sent back 200 cartons cracked along the fold, so we sent photographs and the die was scored deeper on the next pass.',
+      'Adding a variant costs a new front panel and nothing else. 14 of them run on the same carton size today.',
+      'Our last reorder was 46,000 pens, drawn on the dieline we signed in the spring.',
+      'Freight is where our margin lives, and the cartons went out on 7 pallets.',
+    ],
+  },
+  {
+    key: 'avatar-02', name: 'Nadia Ferrer', role: 'Buyer, convenience chain', loc: 'United States',
+    q: [
+      'Shelf space was the whole brief: the carton had to stand in a 55 mm channel and hold its place without a display unit.',
+      'Registration is what our team checks first, and the 2 spot inks have matched the chip we signed every time since.',
+      'Spring is our busiest stretch, and 9 cartons went out on one date with the whole order behind them.',
+      'We put a hard date on the autumn drop, and the order cleared the port 11 days ahead of it.',
+    ],
+  },
+];
+
+/* ── §Common Questions — a <details> accordion. The FAQPage JSON-LD is generated from THIS array,
+   so every edit here moves the schema with it.
+   ⚠️ Every question must be one NO SECTION answers. Capacity→length, the five structures, the
+   three panel clearances, retail against the mailer, the four failure modes and the reprint are all
+   already on the page (and §Pack Count was cut as a duplicate of the cartridge page's count
+   section), so asking any of them here is the page repeating itself. What is left is the commercial
+   layer: order size, sampling, lead time, certification, artwork. ───────────────────────────── */
+const faqs = [
+  { q: 'What is the smallest order for a pen carton?', a: '500 units. A mixed order of a slide box and a tuck-end carton counts against the same 500, so a first run can test two structures at once.' },
+  { q: 'How long does a sample take?', a: 'A white dummy lands in 3–5 days to check the fit and the stop line. A printed dummy follows in 7–10 days once the artwork is signed off, and that one fixes the color.' },
+  { q: 'How long until the bulk order ships?', a: 'Four to six weeks from the signed printed dummy, covering printing, die-cutting and gluing. The window is quoted with the sample rather than after the order.' },
+  { q: 'Can the carton be built child-resistant?', a: 'The structure is available, and a test report is arranged on request rather than claimed on this page. The closure is drawn to defeat a small hand, and the report travels with the sample.' },
+  { q: 'Who provides the artwork for the flavour and the strength?', a: 'The brand supplies the words, and the panel is drawn here to hold them at the size that market prints at. The proof is signed before the printed dummy is cut.' },
+  { q: 'Does a multi-pack need its own dieline?', a: 'Yes. A tray for five is not a box cut wider. Every count moves the slot pitch, the fold and the sleeve depth, so each count is quoted as its own cut file.' },
+];
+
+const seo = {
+  title: 'Custom Disposable Vape Packaging: 500-Unit Runs, 24h Dieline',
+  description: "Custom disposable vape packaging drawn to your pen's length and mouthpiece. Slim tuck-end, slide and lid-and-base cartons from 500 units, a dieline in 24 hours.",
+  keywords: 'custom disposable vape packaging, disposable vape boxes, custom disposable vape boxes, slim disposable vape boxes, all-in-one vape packaging, disposable vape tuck boxes, multi pack disposable vape boxes, long disposable vape boxes',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/disposable-vape-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Disposable Vape Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom disposable vape packaging design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Custom Vape Packaging', item: 'https://www.leelinepackage.com/custom-vape-packaging/' },
+        { '@type': 'ListItem', position: 3, name: 'Disposable Vape Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  preloadImage={`${DP}/hero-pens.webp`}
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1 · HERO — full-bleed background, CENTRED pitch ============
+         The client's call, after four rejected passes: 就居中然后背景图. So this is the site's own
+         approved hero language — the homepage's dark photographic band — centred white type over a
+         full-bleed ground with a brass glow and a scrim.
+         ⚠️ The photograph is the FULL-BLEED BACKGROUND, never a separate slot, so while the shot is
+         pending there is no empty placeholder box — only this gradient. Swapping the photo in:
+         `background: linear-gradient(scrim), url('${DP}/hero-pens.webp') center/cover`, then pass
+         `preloadImage` to <Layout> like the homepage does (${DP}/hero-pens.webp is the key).
+         ⚠️ The hero closes on the CTA — no figure row, no cert trail (see the note above
+         `const seo`). The dark ground runs straight into §2's ivory band. -->
+    <section class="dp-hero">
+      <div class="dp-hero-bg" aria-hidden="true"></div>
+      <div class="dp-hero-grade" aria-hidden="true"></div>
+      <div class="dp-hero-grain" aria-hidden="true"></div>
+      <div class="wrap dp-hero-in">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Disposable vape packaging`}></span>
+        <h1 class="dp-hero-title" data-reveal="up">Custom Disposable Vape Packaging With a 3 mm Mouthpiece Clearance, <em>Cut to the Pen</em></h1>
+        <p class="dp-hero-sub" data-reveal="up">The button face gets a 2 mm relief, so the switch does not fire in the box. A new pen length means a new die.</p>
+        <div class="dp-hero-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Price a Disposable Vape Box <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · FOUR PEN LENGTHS, FOUR CARTONS (ivory) — the spine ============
+         Four STACKED wide cards, not a flat grid (the parent's is a 3×3 of type cards) and not a
+         numbered row list (the cartridge page's). The left rail is a real millimetre scale with the
+         card's own class marked on it, so the composition carries the length data.
+         ⚠️ Each card also carries the CAPACITY that lands in its band. The section that used to sit
+         above this one drew the same 92–172 mm axis a second time and repeated the four class
+         names, so it was folded in here instead. -->
+    <section class="dp-len">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Pen lengths`}></span>
+          <h2 class="section-title" data-reveal="up">Four Pen Lengths, <em>Four Cartons</em></h2>
+          <p class="section-sub" data-reveal="up">Capacity is the first decision a brand makes, and it sets the pen's length class. Each band on the rail below is its own die, and a pen that lands between two takes a fifth, drawn the day the pen arrives.</p>
+        </div>
+        <div class="dp-len-rows">
+          {lengths.map((c) => (
+            <article class="dp-len-row" data-reveal="up">
+              <div class="dp-len-rail" aria-hidden="true">
+                <span class="dp-len-track"><span class="dp-len-band" style={`--from:${c.from}; --to:${c.to}`}></span></span>
+                <span class="dp-len-tick">{c.len}</span>
+              </div>
+              <figure class="dp-len-ph">
+                <img src={`${DP}/${c.key}.webp`} alt={c.shot} width={c.iw} height={c.ih} loading="lazy" decoding="async" />
+              </figure>
+              <div class="dp-len-body">
+                <div class="dp-len-top">
+                  <span class="dp-len-n">{c.n}</span>
+                  <span class="dp-len-fill">{c.fill}</span>
+                </div>
+                <h3 class="dp-len-title">{c.name} <em>{c.box}</em></h3>
+                <dl class="dp-len-spec">
+                  <div><dt>Length</dt><dd>{c.len}</dd></div>
+                  <div><dt>Mouthpiece</dt><dd>{c.mouth}</dd></div>
+                  <div><dt>Ships</dt><dd>{c.ships}</dd></div>
+                  <div class="dp-len-no"><dt>Not for</dt><dd>{c.avoid}</dd></div>
+                </dl>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p class="dp-note" data-reveal="up"><strong>The capacities are the brand's to choose; the carton follows the pen.</strong> These are the usual landing zones for each fill, not a specification — a 10 ml pen from one brand runs two centimetres shorter than another's. Send in the pen, and the cavity is cut to it.</p>
+      </div>
+    </section>
+
+    <!-- ============ 3 · FIVE STRUCTURES (clay) — the page's ONE table ============
+         ⚠️ Dark header band + sticky label column, the two things neither sibling's table runs
+         (the parent's is a plain grid, the cartridge page's header is a light ivory strip). The
+         Window row keeps its brass pills and reads as a verdict. -->
+    <section class="dp-tbl">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Structures`}></span>
+          <h2 class="section-title" data-reveal="up">Five Carton Structures, <em>Compared</em></h2>
+          <p class="section-sub" data-reveal="up">Five cartons cover a disposable order. They are compared on the four points a buyer asks about — how it locks, what holds the pen, where the window sits, and what it costs to ship.</p>
+        </div>
+        <div class="dp-tbl-rail" data-reveal="up">
+          <div class="dp-tbl-track" style={`grid-template-columns: 150px repeat(${cmpCols.length}, minmax(116px, 1fr));`}>
+            <p class="dp-tbl-head dp-tbl-corner" aria-hidden="true"></p>
+            {cmpCols.map((c, i) => (
+              <p class="dp-tbl-head"><span class="dp-tbl-idx">{String(i + 1).padStart(2, '0')}</span>{c}</p>
+            ))}
+            {cmpRows.map((r) => (
+              <>
+                <p class="dp-tbl-label">{r.label}</p>
+                {r.v.map((val) => (
+                  <p class={`dp-tbl-cell${r.pills ? ' dp-tbl-cell--pill' : ''}`}>
+                    {r.pills ? <span class="dp-tbl-pill">{val}</span> : val}
+                  </p>
+                ))}
+              </>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · MID CTA (dark gradient) ============ -->
+    <section class="dp-midcta">
+      <div class="wrap dp-midcta-inner">
+        <h2 class="dp-midcta-title" data-reveal="up">Send the Pen, <em>Get the Carton</em></h2>
+        <p class="dp-midcta-sub" data-reveal="up">A pen in the post, or its length and mouthpiece on a drawing, is enough to begin. The quote is then built on the carton that comes back.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Book a Sample <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · THE WINDOW STOPS (DARK) — the page's ONE drawn module ============
+         ⚠️ The page's dark centre of gravity. The parent page has no drawing; the cartridge
+         page's is a to-scale dimension sketch of two carts. This one is an ANNOTATED anatomy of
+         one pen INSIDE its carton panel — the board is drawn, not just the pen, because this is a
+         packaging page and every rule below is a rule about the board, never about the device. -->
+    <section class="dp-anat">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow eyebrow--light" set:html={`${LEAF}Pen anatomy`}></span>
+          <h2 class="section-title dp-anat-title" data-reveal="up">Where the Window <em>Can Be Cut</em></h2>
+          <p class="dp-anat-lead" data-reveal="up">A single pen, drawn side-on. Three of the four faults a disposable carton has come from a panel that touches a part it should not, and all three are decided in the dieline before any artwork is drawn.</p>
+        </div>
+        <div class="dp-anat-grid">
+          <figure class="dp-anat-fig" data-reveal="up" role="img" aria-label="A disposable pen drawn side-on inside its carton panel. The carton is drawn as a rounded rectangle with a fold line at each end, and the window is cut over the pen's body only, stopping at a marked line before the mouthpiece. A button sits on the top of the body and a charge port sits at the closed end.">
+            <svg class="dp-an" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <pattern id="dpHatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="10" stroke="var(--brass-bright)" stroke-width="2.4" opacity="0.5" />
+                </pattern>
+              </defs>
+              <rect class="dp-an-panel" x="128" y="92" width="696" height="130" rx="14" />
+              <line class="dp-an-fold" x1="142" y1="92" x2="142" y2="222" />
+              <line class="dp-an-fold" x1="810" y1="92" x2="810" y2="222" />
+              <rect class="dp-an-port" x="152" y="142" width="18" height="40" rx="4" />
+              <rect class="dp-an-body" x="170" y="130" width="540" height="64" rx="14" />
+              <rect class="dp-an-win" x="204" y="130" width="320" height="64" rx="10" />
+              <rect class="dp-an-mouth" x="710" y="144" width="86" height="36" rx="10" />
+              <rect class="dp-an-btn" x="352" y="110" width="44" height="20" rx="7" />
+              <line class="dp-an-stop" x1="660" y1="96" x2="660" y2="232" />
+              <line class="dp-an-lead" x1="161" y1="182" x2="161" y2="238" />
+              <line class="dp-an-lead" x1="374" y1="110" x2="374" y2="88" />
+              <line class="dp-an-lead" x1="660" y1="232" x2="660" y2="246" />
+              <line class="dp-an-lead" x1="753" y1="180" x2="753" y2="238" />
+              <line class="dp-an-lead" x1="300" y1="222" x2="300" y2="238" />
+              <text class="dp-an-txt" x="364" y="167" text-anchor="middle">window zone</text>
+              <text class="dp-an-lab" x="300" y="256" text-anchor="middle">carton panel</text>
+              <text class="dp-an-lab" x="161" y="256" text-anchor="middle">charge port</text>
+              <text class="dp-an-lab" x="374" y="80" text-anchor="middle">button</text>
+              <text class="dp-an-lab dp-an-lab--stop" x="660" y="256" text-anchor="middle">stop line</text>
+              <text class="dp-an-lab" x="753" y="256" text-anchor="middle">mouthpiece</text>
+            </svg>
+          </figure>
+          <ul class="dp-rules">
+            {rules.map((r, i) => (
+              <li data-reveal="up" style={`--d:${i * 0.09}s`}>
+                <span class="dp-rule-n">{r.n}</span>
+                <strong class="dp-rule-t">{r.t}</strong>
+                <p>{r.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ONE CARTON FOR THE SHELF, ANOTHER FOR THE MAIL (ivory) ============ -->
+    <section class="dp-fork-sec">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Two journeys`}></span>
+          <h2 class="section-title" data-reveal="up">The Shelf Carton <em>and the Mailer</em></h2>
+          <p class="section-sub" data-reveal="up">The same sealed pen ships two ways. They are two cartons, not a single box asked to do both jobs — and the outer is sized to the carton inside it, never to the pen.</p>
+        </div>
+        <div class="dp-fork">
+          <ul class="dp-fork-arms">
+            {fork.map((a, i) => (
+              <li class="dp-fork-arm" data-reveal="up" style={`--d:${i * 0.1}s`}>
+                <span class="dp-fork-tag">{a.tag}</span>
+                <h3 class="dp-fork-name">{a.name}</h3>
+                <figure class="dp-fork-ph">
+                  <img src={`${DP}/${a.key}.webp`} alt={a.shot} width={a.iw} height={a.ih} loading="lazy" decoding="async" />
+                </figure>
+                <p class="dp-fork-d">{a.d}</p>
+                <span class="dp-fork-note">{a.note}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · FOUR WAYS A PEN BOX FAILS (ivory) ============ -->
+    <section class="dp-fail-sec">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}What goes wrong`}></span>
+          <h2 class="section-title" data-reveal="up">Four Ways <em>These Boxes Fail</em></h2>
+          <p class="section-sub" data-reveal="up">All four are caught by a line in the dieline rather than by a stricter inspection, and they are worth naming before the first sample is cut.</p>
+        </div>
+        <ul class="dp-fail">
+          {fails.map((f, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="dp-fail-n" aria-hidden="true">{f.n}</span>
+              <h3>{f.h}</h3>
+              <p>{f.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8 · WHAT BUYERS SAY (clay) ============ -->
+    <section class="dp-say-sec">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Customer voices`}></span>
+          <h2 class="section-title" data-reveal="up">What Buyers <em>Told Us</em></h2>
+        </div>
+        <div class="dp-say-grid">
+          {reviews.map((r, i) => (
+            <blockquote class="dp-say" data-reveal="up" style={`--d:${i * 0.12}s`}>
+              <div class="dp-say-body">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+              <footer class="dp-say-who">
+                <img class="dp-say-av" src={`${DP}/${r.key}.webp`} alt={`${r.name}, ${r.role} in ${r.loc}`} width={248} height={248} loading="lazy" decoding="async" />
+                <div class="dp-say-id">
+                  <strong>{r.name}</strong>
+                  <span>{r.role} · {r.loc}</span>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9 · COMMON QUESTIONS (ivory) — a <details> accordion ============ -->
+    <section class="dp-faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}FAQ`}></span>
+          <h2 class="section-title" data-reveal="up">Common Questions, <em>Before You Order</em></h2>
+        </div>
+        <div class="dp-qa">
+          {faqs.map((f, i) => (
+            <details class="dp-qa-item" data-reveal="up" style={`--d:${i * 0.05}s`} open={i === 0}>
+              <summary class="dp-qa-q"><span class="dp-qa-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <p class="dp-qa-a">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 · FINAL CTA (dark gradient) ============ -->
+    <section class="dp-final">
+      <div class="wrap dp-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start here`}></span>
+        <h2 class="dp-final-title" data-reveal="up">One Dieline, <em>Every Reprint</em></h2>
+        <p class="dp-final-sub" data-reveal="up">The dieline stays on file, and the tenth run of a pen carton lands on the shelf identical to the sample that was signed — same window position, same stop line, same color.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start From the Dieline <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .dp-img { display: block; width: 100%; }
+  .dp-nowrap { white-space: nowrap; }
+  .dp-hero, .dp-len, .dp-tbl, .dp-anat, .dp-fork-sec, .dp-fail-sec, .dp-midcta, .dp-say-sec, .dp-faq, .dp-final { position: relative; }
+
+  /* the labelled image placeholder every photograph slot on this page uses */
+  .dp-ph {
+    margin: 0; padding: clamp(1rem, 2vw, 1.4rem); border-radius: 1rem;
+    display: grid; place-content: center; justify-items: center; gap: 0.55rem; text-align: center;
+    background:
+      repeating-linear-gradient(135deg, rgba(31,59,44,0.05) 0 10px, transparent 10px 21px),
+      var(--color-brand-surface);
+    border: 1px dashed rgba(31,59,44,0.3);
+    color: var(--color-brand-muted);
+  }
+  /* ⚠️ `:global()` is load-bearing. `PLACEHOLDER_ICO` is injected with `set:html`, and Astro never
+     stamps its scope attribute on string-injected markup — a plain `.dp-ph-ico` rule silently
+     matches nothing, so the SVG falls back to `width:auto` and paints at the container's size in
+     the inherited muted grey instead of brass. Any rule that has to reach inside a `set:html`
+     string must be global. (`eyebrow-leaf` / `btn-leaf` are safe: those styles live in site.css.) */
+  :global(.dp-ph-ico) { width: clamp(34px, 3.6vw, 54px); height: clamp(34px, 3.6vw, 54px); color: var(--brass); opacity: 0.75; }
+  .dp-ph figcaption { font-size: 0.76rem; line-height: 1.45; max-width: 30ch; }
+  /* ── the client's photographs are live: each slot is now a plain <img> filling its own
+     aspect-ratio box. `cover` unifies the §Four Pen Lengths row, whose four files arrived at two
+     different shapes (889x573 and 3 x 1024x1024). ── */
+  .dp-len-ph, .dp-fork-ph { margin: 0; overflow: hidden; }
+  .dp-len-ph img, .dp-fork-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* a shared full-width line of copy under a band */
+  .dp-note { margin: clamp(1.8rem, 3.6vw, 2.6rem) 0 0; padding: 1.1rem 1.5rem; background: var(--color-brand-surface); border-left: 3px solid var(--brass); border-radius: 0 0.8rem 0.8rem 0; font-size: 0.96rem; line-height: 1.66; color: var(--color-brand-muted); max-width: 92ch; }
+  .dp-note strong { color: var(--color-brand-text); }
+  .dp-inline-link { display: inline; padding-bottom: 0; font-size: inherit; font-weight: 600; color: var(--color-brand-primary); }
+  .dp-inline-link .btn-leaf { width: 0.85em; height: 0.85em; vertical-align: -0.08em; }
+
+  /* ============ 1 · HERO — full-bleed background, centred pitch ============ */
+  .dp-hero { position: relative; display: grid; align-content: center; min-height: clamp(540px, 74vh, 740px); padding: calc(4.75rem + clamp(2.4rem, 5vw, 3.6rem)) 0 clamp(2.8rem, 5vw, 4rem); text-align: center; color: var(--ivory); background: #14261B; overflow: hidden; }
+  .dp-hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(165deg, rgba(20,38,27,0.78) 0%, rgba(31,59,44,0.56) 48%, rgba(20,38,27,0.86) 100%), url('https://img.leelinepackage.com/custom-disposable-vape/hero-pens.webp') center / cover no-repeat; }
+  .dp-hero-grade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background:
+      radial-gradient(64% 60% at 50% 6%, rgba(228,181,77,0.2), transparent 66%),
+      linear-gradient(180deg, rgba(20,38,27,0.16) 0%, transparent 42%, rgba(20,38,27,0.24) 100%); }
+  .dp-hero-grain { position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .dp-hero-in { position: relative; z-index: 2; }
+  .dp-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.25rem, 5vw, 4rem); line-height: 1.05; letter-spacing: -0.034em; color: #fff; max-width: 24ch; margin: 1.2rem auto 0; text-wrap: balance; }
+  .dp-hero-title em { font-style: italic; color: #E3C29A; }
+  .dp-hero-sub { margin: 1.3rem auto 0; font-size: clamp(1rem, 1.5vw, 1.14rem); line-height: 1.72; color: rgba(245,240,229,0.88); max-width: 60ch; }
+  .dp-hero-cta { display: flex; justify-content: center; margin-top: 2rem; }
+
+  /* ============ 2 · FOUR PEN LENGTHS (ivory) ============ */
+  .dp-len { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .dp-len .section-sub { max-width: 84ch; }
+  .dp-len-rows { display: grid; gap: clamp(1rem, 2.2vw, 1.5rem); }
+  .dp-len-row { display: grid; grid-template-columns: clamp(3.6rem, 7vw, 5rem) clamp(120px, 20vw, 220px) minmax(0, 1fr); gap: clamp(1.2rem, 2.8vw, 2.4rem); align-items: stretch; background: var(--ivory); border: 1px solid rgba(31,59,44,0.16); border-radius: 1.1rem; padding: clamp(1.1rem, 2.2vw, 1.6rem); }
+  /* the left rail is a real millimetre scale: the brass band marks this card's own class on it */
+  .dp-len-rail { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .dp-len-track { position: relative; flex: 1; width: 2px; min-height: 8rem; background: rgba(31,59,44,0.18); }
+  .dp-len-band { position: absolute; left: -3px; width: 8px; border-radius: 4px; background: var(--brass); top: calc(var(--from) * 100%); height: calc((var(--to) - var(--from)) * 100%); }
+  .dp-len-tick { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.01em; color: var(--color-brand-muted); white-space: nowrap; }
+  .dp-len-ph { aspect-ratio: 4 / 3; }
+  .dp-len-body { display: flex; flex-direction: column; }
+  .dp-len-n { font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.08em; color: var(--brass); }
+  /* the number and the capacity share one line at the top of the card: the mL is the buyer's own
+     word for what they are ordering, so it is a pill rather than a fifth spec field */
+  .dp-len-top { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+  .dp-len-fill { font-family: var(--font-heading); font-weight: 700; font-size: 0.82rem; line-height: 1; letter-spacing: -0.01em; color: var(--forest-deep); background: var(--brass-soft); border-radius: 999px; padding: 0.26rem 0.62rem; }
+  .dp-len-title { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.18; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .dp-len-title em { font-style: italic; font-weight: 500; color: var(--brass); }
+  .dp-len-spec { margin: auto 0 0; padding-top: clamp(1rem, 2vw, 1.4rem); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.85rem clamp(1rem, 2.4vw, 2rem); }
+  .dp-len-spec > div { display: grid; gap: 0.2rem; }
+  .dp-len-spec dt { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brass); }
+  .dp-len-spec dd { margin: 0; font-size: 0.94rem; font-weight: 600; line-height: 1.4; color: var(--color-brand-text); }
+  .dp-len-no dd { color: var(--color-moss); }
+
+  /* ============ 3 · FIVE STRUCTURES (clay) — the page's one table ============ */
+  .dp-tbl { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .dp-tbl .section-head { margin-bottom: clamp(1.7rem, 3.6vw, 2.7rem); }
+  .dp-tbl .section-sub { max-width: 86ch; }
+  .dp-tbl-rail { overflow-x: auto; }
+  /* ⚠️ ROW-major in the DOM (a header row of six, then four rows of label + five values), so the
+     column template is inlined from `cmpCols.length`. `display:grid` only — NO grid-auto-flow:
+     column. Switching the flow without reordering the markup scrambles all twenty-four cells. */
+  .dp-tbl-track { display: grid; border: 1px solid rgba(96,92,78,0.28); border-top: 0; border-radius: 0 0 0.4rem 0.4rem; overflow: hidden; }
+  /* ⚠️ The dark header band is what neither sibling's table runs — it is the page's own move. */
+  .dp-tbl-head { margin: 0; background: var(--forest-deep); color: var(--ivory); font-family: var(--font-heading); font-weight: 700; font-size: 0.98rem; line-height: 1.3; text-align: center; padding: 0.95rem 0.6rem 1.05rem; border-top: 3px solid var(--brass); display: flex; flex-direction: column; gap: 0.3rem; align-items: center; }
+  .dp-tbl-idx { font-family: var(--font-heading); font-size: 0.74rem; letter-spacing: 0.1em; color: var(--color-brass-light); }
+  .dp-tbl-label, .dp-tbl-cell { background-color: var(--ivory); }
+  .dp-tbl-label { position: sticky; left: 0; z-index: 1; margin: 0; min-height: 58px; display: flex; align-items: center; padding: 0.35rem 1rem; border-top: 1px solid rgba(96,92,78,0.22); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-brand-text); }
+  .dp-tbl-cell { margin: 0; min-height: 58px; display: flex; align-items: center; justify-content: center; padding: 0.4rem 0.6rem; border-top: 1px solid rgba(96,92,78,0.22); font-size: 0.9rem; line-height: 1.35; text-align: center; color: var(--color-brand-text); }
+  .dp-tbl-cell--pill { padding-inline: 0.45rem; }
+  .dp-tbl-pill { display: inline-block; padding: 0.3rem 0.75rem; border-radius: 999px; border: 1px solid rgba(176,141,76,0.55); background: rgba(176,141,76,0.1); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: #7A5F2E; }
+
+  /* ============ 4 · THE WINDOW STOPS (DARK) — the one drawn module ============ */
+  .dp-anat { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8.5rem) 0; overflow: hidden; }
+  .dp-anat::before { content: ''; position: absolute; inset: 0; background: radial-gradient(56% 54% at 84% 8%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .dp-anat .wrap { position: relative; z-index: 1; }
+  .dp-anat-title { color: #fff; }
+  .dp-anat-title em { color: #E3C29A; }
+  .dp-anat-lead { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 62ch; margin: 1.3rem 0 0; }
+  .dp-anat-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 0.55fr); gap: clamp(2rem, 4.4vw, 3.6rem); align-items: center; }
+  .dp-anat-fig { margin: 0; }
+  .dp-an { display: block; width: 100%; height: auto; }
+  .dp-an-panel { fill: rgba(245,240,229,0.045); stroke: rgba(245,240,229,0.42); stroke-width: 1.8; }
+  .dp-an-fold { stroke: rgba(245,240,229,0.3); stroke-width: 1.2; stroke-dasharray: 5 5; }
+  .dp-an-body { fill: rgba(245,240,229,0.08); stroke: rgba(245,240,229,0.5); stroke-width: 1.6; }
+  .dp-an-win { fill: url(#dpHatch); stroke: rgba(228,181,77,0.6); stroke-width: 1.2; }
+  .dp-an-mouth { fill: var(--brass-bright); opacity: 0.9; }
+  .dp-an-btn { fill: var(--brass-bright); }
+  .dp-an-port { fill: none; stroke: var(--brass-bright); stroke-width: 2.2; }
+  .dp-an-stop { stroke: var(--brass-bright); stroke-width: 2; stroke-dasharray: 7 6; }
+  .dp-an-lead { stroke: rgba(245,240,229,0.4); stroke-width: 1.2; }
+  .dp-an-txt { font-family: var(--font-body); font-size: 15px; font-weight: 600; fill: rgba(245,240,229,0.78); }
+  .dp-an-lab { font-family: var(--font-body); font-size: 14px; font-weight: 600; fill: rgba(245,240,229,0.88); }
+  .dp-an-lab--stop { fill: var(--color-brass-light); }
+  .dp-rules { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(1.1rem, 2.2vw, 1.6rem); }
+  .dp-rules li { padding-left: clamp(0.9rem, 1.8vw, 1.2rem); border-left: 1px solid rgba(245,240,229,0.22); }
+  .dp-rule-n { font-family: var(--font-heading); font-size: 0.8rem; letter-spacing: 0.1em; color: var(--color-brass-light); }
+  .dp-rule-t { display: block; margin-top: 0.3rem; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.35rem, 2.4vw, 1.9rem); line-height: 1.12; letter-spacing: -0.02em; color: #fff; }
+  .dp-rules p { margin: 0.6rem 0 0; font-size: 0.92rem; line-height: 1.66; color: rgba(245,240,229,0.78); }
+
+  /* ============ 5 · ONE CARTON FOR THE SHELF, ANOTHER FOR THE MAIL (ivory) ============ */
+  .dp-fork-sec { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .dp-fork-sec .section-sub { max-width: 76ch; }
+  .dp-fork { display: grid; gap: clamp(1.4rem, 3vw, 2.2rem); }
+  /* ⚠️ NO origin pill and NO forking bar: the section-sub already says the same pen leaves down
+     two routes, so the drawn fork only repeated it (client: 不知道你要表达什么). The two arms
+     now stand on their own as two plain columns. */
+  .dp-fork-arms { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.2rem, 2.8vw, 2.4rem); }
+  .dp-fork-tag { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+  .dp-fork-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.18; color: var(--color-brand-text); margin: 0.55rem 0 0; }
+  .dp-fork-ph { aspect-ratio: 2 / 1; margin-top: 1rem; }
+  .dp-fork-d { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0.9rem 0 0; max-width: 52ch; }
+  .dp-fork-note { display: inline-block; margin-top: 0.9rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest-light); }
+
+  /* ============ 6 · FOUR WAYS A PEN BOX FAILS (ivory) ============ */
+  .dp-fail-sec { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .dp-fail-sec .section-sub { max-width: 80ch; }
+  .dp-fail { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(0.9rem, 2vw, 1.4rem); }
+  .dp-fail li { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 0.9rem; row-gap: 0.32rem; align-content: start; background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 1rem; padding: clamp(1.15rem, 2.2vw, 1.6rem); }
+  .dp-fail-n { grid-column: 1; grid-row: 1 / span 2; font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; line-height: 1.5; color: var(--brass); }
+  .dp-fail h3 { grid-column: 2; grid-row: 1; font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.08rem, 1.6vw, 1.3rem); line-height: 1.22; color: var(--color-brand-text); margin: 0; }
+  .dp-fail p { grid-column: 2; grid-row: 2; font-size: 0.92rem; line-height: 1.64; color: var(--color-brand-muted); margin: 0; }
+
+  /* ============ 7 · MID CTA (dark gradient) ============ */
+  /* ⚠️ The client asked for the PHOTOGRAPH to follow the scroll (不是整条 CTA 吸顶) — a parallax
+     reveal, not a sticky band. `background-attachment` is a per-layer comma list: the scrim keeps
+     `scroll` so it stays welded to the band, and ONLY the photograph is `fixed`, which anchors it
+     to the VIEWPORT — so the band travels over a stationary photo as you scroll.
+     ⚠️ `cover` against the viewport means the photo is sized to the screen, not to the 250 px band,
+     so you see one horizontal slice of it at a time. ⚠️ iOS Safari still ignores `fixed` for
+     non-body elements, where this degrades to a normal scrolling background. */
+  .dp-midcta {
+    background-image: linear-gradient(150deg, rgba(20,38,27,0.78) 0%, rgba(31,59,44,0.52) 58%, rgba(46,79,61,0.82) 100%), url('https://img.leelinepackage.com/custom-disposable-vape/mid-cta.webp');
+    background-position: center, center;
+    background-size: cover, cover;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: scroll, fixed;
+    color: var(--ivory); text-align: center; padding: clamp(4rem, 9vw, 7rem) 0; overflow: hidden;
+  }
+  .dp-midcta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .dp-midcta-inner { position: relative; z-index: 1; }
+  .dp-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.06; letter-spacing: -0.026em; color: #fff; margin: 0; }
+  .dp-midcta-title em { font-style: italic; color: #E3C29A; }
+  .dp-midcta-sub { font-size: clamp(0.98rem, 1.4vw, 1.08rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 58ch; margin: 1.1rem auto 0; }
+  .dp-midcta .section-cta { justify-content: center; }
+
+  /* ============ 8 · WHAT BUYERS SAY (clay) ============ */
+  .dp-say-sec { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .dp-say-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.2rem, 3vw, 2.4rem); }
+  .dp-say { margin: 0; background: var(--ivory); border: 1px solid rgba(31,59,44,0.16); border-left: 4px solid var(--brass); border-radius: 0 1rem 1rem 0; padding: clamp(1.5rem, 2.8vw, 2.1rem); display: flex; flex-direction: column; }
+  .dp-say-body { display: grid; gap: 0.9rem; margin-bottom: clamp(1.3rem, 2.6vw, 1.8rem); }
+  .dp-say-body p { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-text); }
+  /* ⚠️ `margin-top: auto` pins the rule + byline to the bottom of the card, so both reviews' rules
+     land on ONE line across the row — with a plain margin the taller card pushed its rule down and
+     the two rules sat at different heights. The body's own margin-top keeps a minimum gap. */
+  .dp-say-who { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: clamp(1.1rem, 2.2vw, 1.5rem); border-top: 1px solid rgba(31,59,44,0.14); }
+  /* the client's portraits, at a size a reader can actually make out a face at */
+  .dp-say-av { width: 88px; height: 88px; flex: 0 0 auto; border-radius: 50%; object-fit: cover; margin: 0; }
+  .dp-say-id { display: grid; gap: 0.15rem; }
+  .dp-say-id strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.02rem; color: var(--color-brand-text); }
+  .dp-say-id span { font-size: 0.82rem; color: var(--color-brand-muted); }
+
+  /* ============ 9 · COMMON QUESTIONS (ivory) — a <details> accordion ============ */
+  .dp-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* a <details> accordion, one item per row: two columns would push a row when one opens */
+  .dp-qa { display: grid; gap: clamp(0.7rem, 1.6vw, 1rem); }
+  .dp-qa-item { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.9rem; overflow: hidden; }
+  .dp-qa-q { display: flex; align-items: baseline; gap: 0.85rem; padding: clamp(0.95rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.28; color: var(--color-brand-text); cursor: pointer; list-style: none; }
+  .dp-qa-q::-webkit-details-marker { display: none; }
+  .dp-qa-q::after { content: '+'; margin-left: auto; padding-left: 1rem; font-family: var(--font-body); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--brass); }
+  .dp-qa-item[open] .dp-qa-q::after { content: '\2013'; }
+  .dp-qa-n { flex: 0 0 auto; font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.09em; color: var(--brass); }
+  .dp-qa-a { margin: 0; padding: 0 clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2vw, 1.3rem) calc(clamp(1rem, 2.2vw, 1.5rem) + 2.1rem); font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
+
+  /* ============ 10 · FINAL CTA (dark gradient) ============ */
+  /* ⚠️ The dark bands here are GRADIENTS, not photograph backgrounds — the client's shots have not
+     landed yet, and a background URL would 404 until they do. */
+  .dp-final { background: linear-gradient(150deg, rgba(20,38,27,0.84) 0%, rgba(31,59,44,0.60) 58%, rgba(46,79,61,0.88) 100%), url('https://img.leelinepackage.com/custom-disposable-vape/final-cta.webp') center / cover no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden; }
+  .dp-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .dp-final-inner { position: relative; z-index: 1; }
+  .dp-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; max-width: 22ch; text-wrap: balance; }
+  .dp-final-title em { font-style: italic; color: #E3C29A; }
+  .dp-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 62ch; margin: 1.2rem auto 0; }
+  .dp-final .section-cta { justify-content: center; }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .dp-anat-grid { grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 4vw, 2.8rem); }
+  }
+  @media (max-width: 900px) {
+    .dp-len-row { grid-template-columns: clamp(3.9rem, 15vw, 4.8rem) minmax(0, 1fr); }
+    .dp-len-tick { font-size: 0.64rem; }
+    .dp-len-ph { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 16 / 9; }
+    .dp-len-rail { grid-column: 1; grid-row: 2; }
+    .dp-len-body { grid-column: 2; grid-row: 2; }
+    .dp-fork-arms { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+    .dp-say-grid { grid-template-columns: minmax(0, 1fr); }
+    .dp-qa { gap: 0.6rem; }
+    .dp-fail { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .dp-hero { min-height: 0; }
+    .dp-hero-cta .btn { width: 100%; }
+    /* the drawing is 900 units wide; below 640 it would scale its 14 px labels to ~5 px.
+       Keep it legible and let the figure scroll instead. */
+    .dp-anat-fig { overflow-x: auto; }
+    .dp-an { min-width: 620px; }
+    .dp-len-spec { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

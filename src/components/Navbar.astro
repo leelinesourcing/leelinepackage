@@ -1,44 +1,83 @@
 ---
 const LOGO = 'https://img.leelinepackage.com/leelinepackage-logo.webp';
+const R2 = 'https://img.leelinepackage.com';
 
-// Navbar mirrors the original leelinepackage.com structure (dropdowns kept),
-// links point to the matching in-page section (pages get built later).
+// Products is grouped into three columns for the mega panel. Each entry carries the product
+// thumbnail shown beside it (a plain R2 <img>) plus `sub`, a short descriptor taken from that
+// product page's own copy — it is what tells a buyer what the thing IS, so keep it factual.
+// An entry MAY also carry `children` for a nested sub-list: one line per shipped sub-page,
+// drawn as a tree under the parent on desktop (`.nav-mega-children`) and as a `↳`-marked line
+// in the mobile panel below.
+const productGroups = [
+  {
+    label: 'Bags & Pouches',
+    entries: [
+      { label: 'Custom Bag', href: '/custom-bag-manufacturer/', img: `${R2}/satin-bag-v2.webp`, sub: 'Cotton · canvas · jute' },
+      { label: 'Custom Paper Bag', href: '/custom-paper-bag/', img: `${R2}/paper-bag-v2.webp`, sub: 'Reinforced handles' },
+      { label: 'Custom Mailer Bags', href: '/custom-mailer-bags/', img: `${R2}/mailer-box-v2.webp`, sub: '80% lighter than a box' },
+      { label: 'Custom Pouches', href: '/custom-pouches/', img: `${R2}/pouches-v2.webp`, sub: 'Stand-up · flat · spouted' },
+      { label: 'Custom Tote Bags', href: '/custom-tote-bags/', img: `${R2}/custom-bag/bt-tote.webp`, sub: 'Six fabrics · bar-tacked' },
+      { label: 'Custom Reusable Shopping Bags', href: '/custom-reusable-shopping-bags/', img: `${R2}/reusable-bag-v2.webp`, sub: 'GRS · GOTS certified' },
+      { label: 'Custom Velvet Bags', href: '/custom-velvet-bags/', img: `${R2}/velvet-bags/type-drawstring-v2.webp`, sub: 'Tarnish-lined velvet' },
+    ],
+  },
+  {
+    label: 'Boxes & Cartons',
+    entries: [
+      { label: 'Custom Box', href: '/custom-box-manufacturer/', img: `${R2}/custom-box/types-magnetic.webp`, sub: 'Corrugated · rigid · folding' },
+      { label: 'Custom Folding Cartons', href: '/custom-folding-cartons/', img: `${R2}/folding-carton-v2.webp`, sub: 'Machine-run · FSC board' },
+      { label: 'Custom Rigid Boxes', href: '/custom-rigid-boxes/', img: `${R2}/rigid-box-v2.webp`, sub: '90° V-cut corners' },
+      { label: 'Custom Display Box', href: '/custom-display-box/', img: `${R2}/display-box-v2.webp`, sub: 'Counter · PDQ · floor' },
+      { label: 'Custom Corrugated Boxes', href: '/custom-corrugated-boxes/', img: `${R2}/corrugated-box-v2.webp`, sub: 'Right-sized to your ECT' },
+      { label: 'Custom Tin Box', href: '/custom-tin-box/', img: `${R2}/tin-box-v2.webp`, sub: 'Food-grade lacquer' },
+      { label: 'Custom Acrylic Box', href: '/custom-acrylic-box/', img: `${R2}/acrylic-box.webp`, sub: 'Polished · 92% clarity' },
+    ],
+  },
+  {
+    label: 'Specialty',
+    entries: [
+      { label: 'Custom Package Stickers', href: '/custom-package-stickers/', img: `${R2}/labels-stickers-v2.webp`, sub: 'BOPP · vinyl · kraft' },
+      {
+        label: 'Custom Vape Packaging',
+        href: '/custom-vape-packaging/',
+        img: `${R2}/custom-vape/type-disposable.webp`,
+        sub: 'Child-resistant · pods',
+        // Sub-pages render as a nested line under their parent. Add one entry per shipped page;
+        // a sub-page that does not exist is a 404 on every page of the site.
+        children: [
+          { label: 'Vape Cartridge Packaging', href: '/custom-vape-packaging/vape-cartridge-packaging/' },
+          { label: 'Disposable Vape Packaging', href: '/custom-vape-packaging/disposable-vape-packaging/' },
+        ],
+      },
+    ],
+  },
+];
+
+// The panel's footer strip — the one trading line the mega menu can safely make, using only
+// figures that are already settled site-wide (500-unit MOQ, 24-hour mockup).
+const navMegaMeta = 'All 16 lines from 500 units · 3D mockup in 24 hours';
+
 const nav = {
   home: '/',
-  products: [
-    { label: 'Custom Bag', href: '/custom-bag-manufacturer/' },
-    { label: 'Custom Box', href: '/custom-box-manufacturer/' },
-    { label: 'Custom Folding Cartons', href: '/custom-folding-cartons/' },
-    { label: 'Custom Paper Bag', href: '/custom-paper-bag/' },
-    { label: 'Custom Rigid Boxes', href: '/custom-rigid-boxes/' },
-    { label: 'Custom Mailer Bags', href: '/custom-mailer-bags/' },
-    { label: 'Custom Pouches', href: '/custom-pouches/' },
-    { label: 'Custom Tote Bags', href: '/custom-tote-bags/' },
-    { label: 'Custom Reusable Shopping Bags', href: '/custom-reusable-shopping-bags/' },
-    { label: 'Custom Display Box', href: '/custom-display-box/' },
-    { label: 'Custom Corrugated Boxes', href: '/custom-corrugated-boxes/' },
-    { label: 'Custom Tin Box', href: '/custom-tin-box/' },
-    { label: 'Custom Acrylic Box', href: '/custom-acrylic-box/' },
-    { label: 'Custom Package Stickers', href: '/custom-package-stickers/' },
-    { label: 'Custom Velvet Bags', href: '/custom-velvet-bags/' },
-    { label: 'Custom Vape Packaging', href: '/custom-vape-packaging/' },
-  ],
+  // Industries + Services carry the same `img` / `sub` shape as the Products entries, so the
+  // desktop dropdowns render the identical row. The mobile panel reads only `label` / `href`.
   industries: [
-    { label: 'Custom Jewelry Packaging', href: '/custom-jewelry-packaging/' },
-    { label: 'Custom Gift Box', href: '/custom-gift-box/' },
-    { label: 'Custom Shipping Box', href: '/custom-shipping-box/' },
+    { label: 'Custom Jewelry Packaging', href: '/custom-jewelry-packaging/', img: `${R2}/jewelry/type-chest-v2.webp`, sub: 'Tarnish-free lining' },
+    { label: 'Custom Gift Box', href: '/custom-gift-box/', img: `${R2}/gift-box/type-magnetic.webp`, sub: 'Board · wrap · insert' },
+    { label: 'Custom Shipping Box', href: '/custom-shipping-box/', img: `${R2}/shipping-box/type-rsc.webp`, sub: '32–51 ECT · ISTA 3A' },
   ],
   about: '/about-us/',
   caseStudy: '/case-study/',
   services: [
-    { label: 'Structural Engineering', href: '/structural-engineering-and-design/' },
-    { label: 'Packaging Artwork Design', href: '/packaging-artwork-design/' },
-    { label: 'Packaging Sample & Prototyping', href: '/packaging-sample-prototyping/' },
+    { label: 'Structural Engineering', href: '/structural-engineering-and-design/', img: `${R2}/services/structural.webp`, sub: 'Structure · board · dieline' },
+    { label: 'Packaging Artwork Design', href: '/packaging-artwork-design/', img: `${R2}/services/artwork.webp`, sub: 'Brand colour · foil · finish' },
+    { label: 'Packaging Sample & Prototyping', href: '/packaging-sample-prototyping/', img: `${R2}/sample/hero.webp`, sub: 'White dummy · printed proof' },
   ],
   blog: '/blog/',
   cta: '/contact/',
 };
 ---
+
 
 <header class="site-nav" id="siteNav">
   <div class="site-nav-inner">
@@ -49,15 +88,49 @@ const nav = {
     <nav class="nav-links" aria-label="Primary">
       <a href={nav.home} target="_blank" rel="noopener">Home</a>
 
-      <div class="nav-drop">
+      <div class="nav-drop nav-drop--mega">
         <button class="nav-drop-btn" aria-haspopup="true" aria-expanded="false">
           Products
           <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div class="nav-menu">
-          {nav.products.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
-          ))}
+        <div class="nav-mega">
+          <div class="nav-mega-inner">
+            <div class="nav-mega-grid">
+              {productGroups.map((g) => (
+                <div class="nav-mega-col">
+                  <p class="nav-mega-label">{g.label}</p>
+                  <div class="nav-mega-list">
+                    {g.entries.map((e) => (
+                      <>
+                        <a class="nav-mega-item" href={e.href} target="_blank" rel="noopener">
+                          <span class="nav-mega-thumb-wrap">
+                            {e.img
+                              ? <img class="nav-mega-thumb" src={e.img} alt="" width="60" height="60" loading="lazy" decoding="async" />
+                              : <span class="nav-mega-thumb nav-mega-thumb--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5h8v2"/></svg></span>}
+                          </span>
+                          <span class="nav-mega-text">
+                            <span class="nav-mega-name">{e.label}</span>
+                            {e.sub && <span class="nav-mega-desc">{e.sub}</span>}
+                          </span>
+                        </a>
+                        {e.children && (
+                          <div class="nav-mega-children">
+                            {e.children.map((c) => (
+                              <a href={c.href} target="_blank" rel="noopener">{c.label}</a>
+                            ))}
+                          </div>
+                        )}
+                      </>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div class="nav-mega-foot">
+              <span class="nav-mega-meta">{navMegaMeta}</span>
+              <a class="nav-mega-cta" href="/contact/" target="_blank" rel="noopener">Start Your Project</a>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -68,7 +141,13 @@ const nav = {
         </button>
         <div class="nav-menu">
           {nav.industries.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
+            <a class="nav-mega-item" href={p.href} target="_blank" rel="noopener">
+              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt="" width="60" height="60" loading="lazy" decoding="async" /></span>
+              <span class="nav-mega-text">
+                <span class="nav-mega-name">{p.label}</span>
+                <span class="nav-mega-desc">{p.sub}</span>
+              </span>
+            </a>
           ))}
         </div>
       </div>
@@ -83,7 +162,13 @@ const nav = {
         </a>
         <div class="nav-menu">
           {nav.services.map((p) => (
-            <a href={p.href} target="_blank" rel="noopener">{p.label}</a>
+            <a class="nav-mega-item" href={p.href} target="_blank" rel="noopener">
+              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt="" width="60" height="60" loading="lazy" decoding="async" /></span>
+              <span class="nav-mega-text">
+                <span class="nav-mega-name">{p.label}</span>
+                <span class="nav-mega-desc">{p.sub}</span>
+              </span>
+            </a>
           ))}
         </div>
       </div>
@@ -113,7 +198,12 @@ const nav = {
     <a href="/" target="_blank" rel="noopener">Home</a>
     <details>
       <summary>Products<svg class="m-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-      <div class="sub">{nav.products.map((p) => <a href={p.href} target="_blank" rel="noopener">{p.label}</a>)}</div>
+      <div class="sub">
+        {productGroups.flatMap((g) => g.entries).flatMap((e) => [
+          <a href={e.href} target="_blank" rel="noopener">{e.label}</a>,
+          ...(e.children ?? []).map((c) => <a class="m-sub-child" href={c.href} target="_blank" rel="noopener">{c.label}</a>),
+        ])}
+      </div>
     </details>
     <details>
       <summary>Industries<svg class="m-chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
@@ -206,19 +296,121 @@ const nav = {
   .nav-drop:hover .chev, .nav-drop:focus-within .chev { transform: rotate(180deg); }
 
   .nav-drop { position: relative; }
+  /* Industries + Services: the SAME row as the Products panel (`.nav-mega-item`), in a narrow
+     floating card — three entries each, so no full-bleed band. */
   .nav-menu {
-    position: absolute; top: calc(100% + 0.6rem); left: 50%; transform: translateX(-50%) translateY(-6px);
-    min-width: 240px; background: #fff; border: 1px solid rgba(31, 59, 44, 0.1); border-radius: 1rem;
-    padding: 0.6rem; box-shadow: 0 24px 60px -28px rgba(31, 59, 44, 0.4);
-    opacity: 0; visibility: hidden; transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    display: flex; flex-direction: column;
+    position: absolute; top: calc(100% + 0.5rem); left: 50%; transform: translateX(-50%) translateY(-6px);
+    width: max-content; min-width: 300px; max-width: min(440px, calc(100vw - 2rem));
+    background: var(--ivory); border: 1px solid rgba(176, 141, 76, 0.3); border-radius: 0.9rem;
+    padding: 0.5rem; box-shadow: 0 28px 50px -34px rgba(31, 59, 44, 0.5);
+    display: flex; flex-direction: column; gap: 0.25rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
   }
   .nav-drop:hover .nav-menu, .nav-drop:focus-within .nav-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-  .nav-menu a {
-    font-size: 0.9rem; color: var(--color-brand-text); text-decoration: none; padding: 0.55rem 0.8rem; border-radius: 0.6rem;
+
+  /* ── Products mega panel ───────────────────────────────────────────────────────────────────
+     A full-bleed band under the bar, copied from the LantaoBags navigation the client picked:
+     52 px thumbnails that zoom on hover, a two-line row (name + descriptor), hairline rules
+     between the columns, and a footer strip with one trading line and a CTA.
+     It is anchored to the BAR, not the trigger — `.nav-drop--mega` drops its `position: relative`,
+     so the containing block is <header> and `left: 0; right: 0` spans the viewport. `.nav-mega-inner`
+     reuses `.site-nav-inner`'s exact width, so column 1 lines up under the logo.
+     ⚠️ The band starts at the bar's bottom, so the only dead zone for the pointer crossing from the
+     trigger is the ~14 px inside the bar — shorter than the 0.18 s the close transition lasts.
+     ⚠️ `max-height` + scroll: seven rows per column is a ~690 px panel, taller than a 620 px-tall
+     laptop viewport. Without this guard the footer is cut off. */
+  .nav-drop--mega { position: static; }
+  .nav-mega {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 40;
+    background: var(--ivory);
+    border-bottom: 1px solid rgba(176, 141, 76, 0.3);
+    box-shadow: 0 28px 50px -34px rgba(31, 59, 44, 0.5);
+    max-height: calc(100vh - 4.5rem); overflow-y: auto;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  }
+  .nav-drop--mega:hover .nav-mega, .nav-drop--mega:focus-within .nav-mega {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  .nav-mega-inner { width: min(1280px, 100% - clamp(2rem, 6vw, 6rem)); margin-inline: auto; padding: 1.5rem 0 1.25rem; }
+  .nav-mega-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+  .nav-mega-col + .nav-mega-col { border-left: 1px solid rgba(176, 141, 76, 0.3); padding-left: 2rem; }
+  .nav-mega-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--color-brand-primary); margin: 0 0 0.875rem;
+  }
+  .nav-mega-list { display: flex; flex-direction: column; gap: 0.4rem; }
+  .nav-mega-item {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.4rem; margin: 0 -0.4rem; border-radius: 0.6rem;
+    text-decoration: none; color: var(--color-brand-text);
+    transition: background 0.2s ease;
+  }
+  .nav-mega-item:hover { background: var(--color-brand-surface); }
+  /* The tile's ground is the panel's own ivory and `darken` maps any pixel LIGHTER than that ground
+     back onto it, so white-background studio shots melt into the card instead of showing a white or
+     grey square. Measured over the 16 product thumbnails, only the vape shot is really white
+     (46 % of its pixels move); every other one is under 1 % apart from its own bright highlights,
+     which is why this is one global rule rather than a per-item flag.
+     `isolation: isolate` keeps the blend inside the tile instead of reaching the band behind it;
+     the dashed placeholder opts out. */
+  .nav-mega-thumb-wrap {
+    display: block; width: 60px; height: 60px; flex: 0 0 auto; border-radius: 0.6rem;
+    overflow: hidden; background: var(--ivory); isolation: isolate;
+  }
+  .nav-mega-thumb { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .nav-mega-thumb:not(.nav-mega-thumb--ph) { mix-blend-mode: darken; }
+  .nav-mega-item:hover .nav-mega-thumb { transform: scale(1.05); }
+  .nav-mega-thumb--ph {
+    display: grid; place-items: center; border: 1px dashed rgba(31, 59, 44, 0.25);
+    background: repeating-linear-gradient(135deg, rgba(31, 59, 44, 0.06) 0 7px, rgba(31, 59, 44, 0.02) 7px 14px);
+  }
+  .nav-mega-thumb--ph svg { width: 24px; height: 24px; color: var(--brass); }
+  .nav-mega-thumb--ph:hover, .nav-mega-item:hover .nav-mega-thumb--ph { transform: none; }
+  .nav-mega-text { min-width: 0; }
+  .nav-mega-name { display: block; font-size: 0.95rem; font-weight: 600; line-height: 1.25; }
+  .nav-mega-item:hover .nav-mega-name { color: var(--color-brand-primary); }
+  .nav-mega-desc { display: block; margin-top: 0.2rem; font-size: 0.8rem; line-height: 1.3; color: var(--color-brand-muted); }
+  /* A product's sub-pages, drawn as a TREE so they read as children of the row above instead of as
+     a dim footnote. A brass rail drops down the parent's text column and elbows into each child
+     (├ … └); labels sit at full brand ink, one size under the parent's name.
+     The rail is drawn per row: consecutive rows' stubs meet to form the continuous line, and the
+     LAST row's stub stops at its own elbow (`bottom: 50%`) — that half-height stub is what turns
+     the final ├ into a └. Applies to any future entry that carries `children`. */
+  .nav-mega-children {
+    display: flex; flex-direction: column;
+    margin: 0.2rem 0 0.35rem 4.9rem;
+  }
+  .nav-mega-children a {
+    position: relative; display: block;
+    padding: 0.34rem 0.6rem 0.34rem 1.1rem;
+    font-size: 0.85rem; font-weight: 500; color: var(--color-brand-text);
+    text-decoration: none; border-radius: 0.5rem;
     transition: background 0.2s ease, color 0.2s ease;
   }
-  .nav-menu a:hover { background: rgba(31, 59, 44, 0.05); color: var(--color-brand-primary); }
+  .nav-mega-children a::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px;
+    background: rgba(176, 141, 76, 0.45); transition: background 0.2s ease;
+  }
+  .nav-mega-children a:last-child::before { bottom: 50%; }
+  .nav-mega-children a::after {
+    content: ''; position: absolute; left: 0; top: calc(50% - 0.5px); width: 0.5rem; height: 1px;
+    background: rgba(176, 141, 76, 0.45); transition: background 0.2s ease;
+  }
+  .nav-mega-children a:hover { background: var(--color-brand-surface); color: var(--color-brand-primary); }
+  .nav-mega-children a:hover::before, .nav-mega-children a:hover::after { background: var(--brass); }
+  .nav-mega-foot {
+    margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(176, 141, 76, 0.25);
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+  }
+  .nav-mega-meta { font-size: 0.85rem; color: var(--color-brand-muted); }
+  .nav-mega-cta {
+    flex: 0 0 auto; display: inline-block; background: var(--color-brand-primary); color: var(--ivory);
+    padding: 0.65rem 1.35rem; border-radius: 2rem; font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.04em; text-decoration: none; transition: opacity 0.25s ease;
+  }
+  .nav-mega-cta:hover { opacity: 0.9; }
 
   .nav-actions { display: flex; align-items: center; gap: 0.8rem; }
   .menu-btn { display: none; flex-direction: column; gap: 5px; width: 44px; height: 44px; align-items: center; justify-content: center; background: none; border: 1px solid rgba(31, 59, 44, 0.2); border-radius: 50%; cursor: pointer; }
@@ -271,6 +463,10 @@ const nav = {
   .nav-mobile-links summary::-webkit-details-marker { display: none; }
   .nav-mobile-links .sub { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.5rem; text-align: center; }
   .nav-mobile-links .sub a { font-family: var(--font-body); font-size: 1rem; color: var(--color-brand-muted); text-decoration: none; }
+  /* A sub-page line in the mobile panel. The list is centered, so a rail cannot read as a tree —
+     a brass ↳ plus full-strength ink is what says "this hangs off the line above". */
+  .nav-mobile-links .sub .m-sub-child { font-size: 0.92rem; color: var(--color-brand-text); }
+  .nav-mobile-links .sub .m-sub-child::before { content: '↳ '; color: var(--brass); }
   /* ⚠️ `.nav-mobile-links > a` (0,1,1) outranks `.btn-primary`'s `color: var(--ivory)`
      (0,1,0), so the panel's CTA was shipping near-black text on the dark green pill.
      This (0,2,1) puts the ivory back. */

@@ -1,0 +1,634 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const EL = `${R2}/custom-e-liquid`;
+
+/* Shared bits kept as strings so a dozen eyebrows do not repeat the same long path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/*
+  ⚠️ REAL photographs now (the client dropped `images/E liquid bottle packaging/`, 2026-10-10) — served
+  from the R2 prefix `custom-e-liquid/` as plain `<img src={`${EL}/<key>.webp`}>`, the form used
+  site-wide. Keys: bottle-glass · bottle-pet · carton-flat · carton-formed · avatar-01 · avatar-02,
+  plus `final-cta.webp` as the closing band's CSS background.
+  ⚠️ The hero is still a DRAWING (an inline SVG of the carton with the bottle inside, dimensioned), so
+  <Layout> is deliberately NOT passed a `preloadImage`.
+  ⚠️⚠️ `final-cta.webp` carries THIRD-PARTY WORDMARKS — Diamond Mist · CLOUDRIDE · ROUTINE E-LIQUOS ·
+  MO MOCKA, and www.diamondmist.co.uk. Client-supplied and client-instructed as the closing background;
+  flagged, and used only under a scrim. Swap it if those are not the client's own jobs.
+*/
+
+/* ── §Four Fill Weights, Four Dies — a die is drawn to a bottle, never to a millilitre.
+   ⚠️ NO photograph in this band (client call): *"这里不需要图片，你就讲清楚就好了"*. The argument is
+   numeric — four fill weights, four dies, and none of them a stock die — and the four numerals
+   carry it better than any bottle shot. An earlier plate here (21:9, then 3:1) was cut. ──────── */
+const fills = [
+  { ml: '10', dims: '≈ 21 mm across · 75 mm tall', bottle: 'A short glass dropper, or a small PET bottle', carton: 'A slim carton, one bottle to a box — the lightest in the set to post.' },
+  { ml: '30', dims: '≈ 30 mm across · 80–105 mm tall', bottle: 'Glass or PET, and taller than the 10 ml', carton: 'One bottle to a box and nothing else inside — no tray, no padding.' },
+  { ml: '60', dims: '≈ 35–41 mm across · 105–125 mm tall', bottle: 'Taller glass, or a squat PET chubby', carton: 'With glass this heavy, a base folds in under the bottle.' },
+  { ml: '100', dims: '≈ 39–43 mm across · 110–150 mm tall', bottle: 'The widest of the four, a large PET bottle', carton: 'Built around a tray, since the bottle now carries the weight.' },
+];
+
+/* ── §What Holds the Bottle — ONE array for the two bottle families: the number the die is taken at
+   AND the insert that holds each. ⚠️ §3 ("glass grips the neck / PET grips the widest point") and §5
+   ("inserts") used to argue the same two objects twice — the client: *"是不是有些重复"*. They are
+   merged so each family appears once. The two photographs ARE the bottles (they show the insert in
+   place), so the separate `insert-grip` / `insert-tray` plates were cut. ──────────────────────── */
+const holds = [
+  {
+    key: 'bottle-glass', w: 1024, h: 558, tag: 'Paper card neck grip', name: 'Glass dropper', measure: 'NECK',
+    shot: 'An amber glass dropper bottle held by a die-cut neck card inside its kraft carton',
+    d: 'A cut card flexes over the neck and keeps the bottle upright. The shoulder and the printed label stay clear of the wall.',
+  },
+  {
+    key: 'bottle-pet', w: 720, h: 720, tag: 'Molded base tray', name: 'PET chubby', measure: 'WIDEST POINT',
+    shot: 'PET bottles standing in the shaped tray that sets their pitch',
+    d: 'The base sits in a shallow tray that carries the weight, and that sets the pitch once several bottles go into the carton.',
+  },
+];
+
+/* ── §Four Cartons, Two Ways to Ship — grouped by how they travel.
+   ⚠️ TWO photographs, one per group, and each must SHOW the group's argument: the flat pair as
+   blanks beside the assembled carton, the formed pair half opened with the tray out. Four separate
+   box portraits said nothing — an assembled tuck-end and an assembled lid-and-base look alike. ── */
+const cartonGroups = [
+  {
+    key: 'carton-flat', w: 1024, h: 558, title: 'Travels flat', note: 'Folded and glued by machine',
+    shot: 'Two blanks flat beside the two cartons they become',
+    items: [
+      { name: 'Tuck-end', how: 'Straight or reverse tuck, glued by machine and folded on the filling line.', win: 'Freight is the cheapest of the four, because a stack of blanks ships flat.' },
+      { name: 'Snap-lock bottom', how: 'Its base folds up under the bottle instead of tucking in.', win: 'A heavier glass bottle needs no tray underneath, and the carton stays thin.' },
+    ],
+  },
+  {
+    key: 'carton-formed', w: 1408, h: 768, title: 'Ships formed', note: 'Assembled and loaded at the tray',
+    shot: 'A lid-and-base and a tray-and-sleeve, both half opened',
+    items: [
+      { name: 'Lid and base', how: 'Two pieces, a wrapped base and a separate lid.', win: 'Built the strongest of the four, and the shape a gift set reaches for.' },
+      { name: 'Tray and sleeve', how: 'A printed sleeve over an insert tray that slides out.', win: 'A single pull slides the bottle out, label first, without tipping.' },
+    ],
+  },
+];
+
+/* ── §The Cap Sets the Height — three CARDS, one per measurement. Each card carries what the number
+   sets on the box AND what the buyer gets. ⚠️ (a) The client: *"重新排版，要么就用卡片的样式写清楚，不要用相同
+   的开头，现在很丑，内容可以丰富一些"* — the earlier two-column `dl` + 3-item list had all three gains
+   opening on "A". (b) Every value line below starts on a different word, and no field repeats a word. */
+const capCards = [
+  {
+    h: 'Full height',
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M9 7l3-3 3 3M9 17l3 3 3-3"/></svg>',
+    sets: 'Box height, taken to the top of the cap and never to the shoulder.',
+    gets: 'A lid that closes on its own, and a packing line that never presses it down a second time.',
+  },
+  {
+    h: 'Body diameter',
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M7 9l-3 3 3 3M17 9l3 3-3 3"/></svg>',
+    sets: 'Carton width, and the widest a die-cut window can be cut around the label.',
+    gets: 'No air around the bottle, because the carton is drawn to it and not to a stock size.',
+  },
+  {
+    h: 'Neck diameter',
+    icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="6"/><path d="M2 12h3M19 12h3"/></svg>',
+    sets: 'The grip, which is the one point a glass bottle is held at.',
+    gets: 'Glass that rides upright and clear of the wall, with nothing in the case arriving tipped.',
+  },
+];
+
+/* ── §After the First Run — ⚠️ DRAFT placeholders: a name, a role and a market, and still NO
+   invented company. The names are the one thing here that must be replaced (or cleared) before
+   launch. Hold the rules in `page-design-rules.md` §THE CUSTOMER-REVIEWS SECTION: six paragraphs,
+   six DIFFERENT moves, six different opening words, ONE figure per paragraph, no figure twice in
+   the block, no `which is` tail, no em dash for effect, no generic praise. ──────────────────── */
+const reviews = [
+  {
+    key: 'avatar-01', name: 'Lena Visser', role: 'Head of operations, e-liquid brand', loc: 'Netherlands',
+    q: [
+      'Our first carton was drawn to the shoulder of the bottle, and the dropper cap pushed the lid up by 1.4 mm on every unit. Redrawing the height to the top of the cap closed it flat, and that file has run since.',
+      'Reorders go in on the signed file. A run of 45,000 cartons is cut without a new tool, and the neck grip lands in the same place each time.',
+      '8 markets now carry the same carton, and none has had its box redrawn since the first order.',
+    ],
+  },
+  {
+    key: 'avatar-02', name: 'Daniel Reuter', role: 'Buyer, vape distributor', loc: 'Germany',
+    q: [
+      'A chubby is cut at its widest point. The tray holds the bottle on its own base, and the cap clears the lid by 11 mm.',
+      'The multi-bottle tray was drawn to our own count. A full case sits at a fixed 40 mm pitch, and the line packs it in a single movement.',
+      'What we did not expect was the window. Cut on the body and stopped below the cap, it shows the fill level on the shelf, and 8,000 cartons later buyers still comment on it.',
+    ],
+  },
+];
+
+/* ── §Straight Answers — a <details> accordion. The FAQPage JSON-LD is generated from THIS array.
+   ⚠️ The client listed every question. The last one carries the scope line (this page is bottles
+   only) as plain text — there is deliberately NO outbound link band on this page. ────────────── */
+const faqs = [
+  { q: 'Can the window reach the cap?', a: 'A window stops at the body and never runs up to the cap. The dropper keeps the wall in front of it, and the label is what the window shows.' },
+  { q: 'Can a die be cut without the physical bottle?', a: 'Yes, from the full height, the body diameter and the neck diameter, with a drawing of the bottle. A dummy in 3 to 5 days proves the fit before a printed run.' },
+  { q: 'How long from the first quote to a full run?', a: 'A dieline lands in 24 hours. The white dummy follows in 3 to 5 days to prove the fit, a printed dummy in 7 to 10 days to fix the color, and the bulk run takes 4 to 6 weeks once the sample is signed.' },
+  { q: 'Can the artwork be drawn as well as the carton?', a: 'It can. The dieline, the type and the fill-level panel are set on the same file, so the print and the structure are approved together rather than in two passes.' },
+  { q: 'Is the board recycled, or FSC-certified?', a: 'FSC-certified board is standard on request, and a recycled kraft stock is available for the same carton. The choice is fixed on the sample, so a reprint matches.' },
+  { q: 'Does this page cover pens, pods and cartridges?', a: 'No. A sealed pen and a 510 cartridge are wrapped by their own drawings, not by a bottle carton. A bottle box is cut to a bottle, and a bottle is all this page covers.' },
+];
+
+const seo = {
+  title: 'Custom E-Liquid Bottle Packaging: Neck Card, 24-Hour Dieline',
+  description: 'Custom e-liquid bottle packaging: 10, 30, 60 and 100 ml, each bottle drawn to its own die. A neck card holds the glass upright, and a dieline lands in 24 hours.',
+  keywords: 'custom e liquid bottle packaging, custom e-liquid boxes, e-juice bottle boxes, 30ml e-liquid packaging, dropper bottle boxes, vape juice carton packaging, chubby gorilla bottle boxes, glass e-liquid packaging',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/e-liquid-bottle-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom E-Liquid Bottle Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom e-liquid bottle box and carton design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Custom Vape Packaging', item: 'https://www.leelinepackage.com/custom-vape-packaging/' },
+        { '@type': 'ListItem', position: 3, name: 'E-Liquid Bottle Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1 · HERO (ivory) — copy left, the measured carton right ============
+         The right-hand panel is a DRAWING, not a photograph: a tuck-end carton with the bottle
+         standing inside it, dimensioned on its four governing numbers (full height to the cap,
+         body diameter, box width, neck diameter). It is the page's one drawn module, so no second
+         drawing appears anywhere below. The hero is a figure in normal flow, NOT a CSS background,
+         so <Layout> is deliberately not passed a `preloadImage`.
+         No stat row: the shared 500 · 24 h · 3–5 d strip belongs to the other vape pages, so the
+         figures here live in the copy and in the drawing rather than in a repeated chip row. -->
+    <section class="el-hero">
+      <div class="wrap el-hero-in">
+        <div class="el-hero-copy">
+          <span class="eyebrow" set:html={`${LEAF}E-liquid bottle packaging`}></span>
+          <h1 class="el-hero-title" data-reveal="up">Custom E-Liquid Bottle Packaging in <em>4 Precision Sizes</em> to Keep Droppers Upright</h1>
+          <p class="el-hero-sub" data-reveal="up">A neck card keeps the cap off the box wall in transit, and runs start at 500 units. 10 ml, 30 ml, 60 ml and 100 ml each get their own die, so the glass does not sit in a loose cavity.</p>
+          <div class="el-hero-cta" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Price a Bottle Box <Fragment set:html={ARROW} /></a>
+          </div>
+        </div>
+
+        <div class="el-board" data-reveal="up" style="--d:0.12s">
+          <svg class="el-board-svg" viewBox="0 0 340 430" role="img" aria-label="A tuck-end carton with a bottle standing inside it, dimensioned on four numbers: full height to the cap, body diameter, box width, and the neck diameter at the grip. The die-cut window on the front stops below the cap.">
+            <!-- the bottle, drawn first so the carton outlines sit over it -->
+            <rect x="146" y="70" width="40" height="42" rx="6" fill="var(--brass)"/>
+            <rect x="155" y="112" width="22" height="26" fill="rgba(31,59,44,.16)" stroke="var(--color-forest)" stroke-width="2"/>
+            <polygon points="138,166 155,138 177,138 194,166" fill="rgba(31,59,44,.10)" stroke="var(--color-forest)" stroke-width="2"/>
+            <rect x="138" y="166" width="56" height="170" rx="10" fill="rgba(31,59,44,.10)" stroke="var(--color-forest)" stroke-width="2.2"/>
+            <!-- the carton: front panel, side panel, tuck flap, fold line -->
+            <rect x="96" y="46" width="140" height="304" fill="none" stroke="var(--color-forest)" stroke-width="2.6"/>
+            <polygon points="236,46 268,62 268,366 236,350" fill="rgba(31,59,44,.07)" stroke="var(--color-forest)" stroke-width="2"/>
+            <polygon points="106,46 118,26 214,26 226,46" fill="rgba(31,59,44,.06)" stroke="var(--color-forest)" stroke-width="2"/>
+            <line x1="96" y1="46" x2="236" y2="46" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="5 4" opacity=".7"/>
+            <rect x="122" y="112" width="88" height="200" rx="10" fill="none" stroke="var(--brass)" stroke-width="1.8" stroke-dasharray="7 5"/>
+            <!-- full height, taken to the cap -->
+            <line x1="146" y1="70" x2="64" y2="70" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".55"/>
+            <line x1="138" y1="336" x2="64" y2="336" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".55"/>
+            <line x1="64" y1="70" x2="64" y2="336" stroke="var(--brass)" stroke-width="1.6"/>
+            <line x1="56" y1="70" x2="72" y2="70" stroke="var(--brass)" stroke-width="1.6"/>
+            <line x1="56" y1="336" x2="72" y2="336" stroke="var(--brass)" stroke-width="1.6"/>
+            <text class="el-bd-t" x="46" y="203" transform="rotate(-90 46 203)" text-anchor="middle">FULL HEIGHT · TO CAP</text>
+            <!-- body diameter -->
+            <line x1="138" y1="336" x2="138" y2="366" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+            <line x1="194" y1="336" x2="194" y2="366" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+            <line x1="138" y1="366" x2="194" y2="366" stroke="var(--brass)" stroke-width="1.5"/>
+            <line x1="138" y1="360" x2="138" y2="372" stroke="var(--brass)" stroke-width="1.5"/>
+            <line x1="194" y1="360" x2="194" y2="372" stroke="var(--brass)" stroke-width="1.5"/>
+            <text class="el-bd-t" x="166" y="386" text-anchor="middle">BODY Ø</text>
+            <!-- box width: the body diameter plus two walls -->
+            <line x1="96" y1="350" x2="96" y2="406" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+            <line x1="236" y1="350" x2="236" y2="406" stroke="var(--color-forest)" stroke-width="1" stroke-dasharray="4 4" opacity=".5"/>
+            <line x1="96" y1="406" x2="236" y2="406" stroke="var(--brass)" stroke-width="1.5"/>
+            <line x1="96" y1="400" x2="96" y2="412" stroke="var(--brass)" stroke-width="1.5"/>
+            <line x1="236" y1="400" x2="236" y2="412" stroke="var(--brass)" stroke-width="1.5"/>
+            <text class="el-bd-t" x="166" y="426" text-anchor="middle">BOX WIDTH · Ø + 2 WALLS</text>
+            <!-- neck grip -->
+            <line x1="155" y1="125" x2="278" y2="125" stroke="var(--brass)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <text class="el-bd-t" x="282" y="122">NECK Ø</text>
+            <text class="el-bd-sub" x="282" y="138">held here</text>
+          </svg>
+          <span class="el-board-cap"><b>3</b> numbers to quote</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · FOUR FILL WEIGHTS, FOUR DIES (clay) ============ -->
+    <section class="el-fill">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Capacity`}></span>
+          <h2 class="section-title" data-reveal="up">Four Fill Weights, <em>Four Dies</em></h2>
+          <p class="section-sub" data-reveal="up">A die is drawn to a bottle, not to a millilitre. Move from 30 ml to 60 ml and the bottle grows taller and wider, and the carton is redrawn rather than stretched. Two weights share a die only when the height and the body diameter both match.</p>
+          <!-- ⚠️ This line exists so the four cards are never read as "these are our four stock
+               dies". The brief's four capacities are common breakpoints, not a fixed menu — and a
+               buyer at 15 ml or 120 ml (both standard sizes) must not bounce. -->
+          <p class="el-fill-caveat" data-reveal="up">None of the four is a stock die, and the bottle sizes are only a guide. A 15 ml or a 120 ml bottle is drawn to its own die, from the same three numbers.</p>
+        </div>
+        <div class="el-fill-grid">
+          {fills.map((f, i) => (
+            <article class="el-fill-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="el-fill-ml">{f.ml}<i>ml</i></span>
+              <p class="el-fill-dims">{f.dims}</p>
+              <dl class="el-fill-spec">
+                <div><dt>Bottle</dt><dd>{f.bottle}</dd></div>
+                <div class="el-fill-carton"><dt>Carton</dt><dd>{f.carton}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · WHAT HOLDS THE BOTTLE (DARK) — the page's centre of gravity ============
+         ⚠️ ONE band for three ideas that used to sit in two: the bottle family, the number the die is
+         taken at, and the insert that holds it. Merged after the client flagged §3 vs §5 as
+         repetitive. It carries NO drawing — the hero holds the page's one drawn module. -->
+    <section class="el-family">
+      <div class="wrap">
+        <div class="section-head el-family-head">
+          <span class="eyebrow eyebrow--light" set:html={`${LEAF}What holds the bottle`}></span>
+          <h2 class="section-title el-family-title" data-reveal="up">What Holds the <em>Bottle</em></h2>
+          <p class="el-family-lead" data-reveal="up">The insert fixes the bottle and nothing else — there is no device slot and no foam bed by default. EVA is not the starting point here; a grip for a single glass dropper, a tray for a heavier base or a carton of several.</p>
+        </div>
+        <div class="el-family-grid">
+          {holds.map((h, i) => (
+            <article class="el-family-col" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <figure class="el-family-ph">
+                <img src={`${EL}/${h.key}.webp`} alt={h.shot} width={h.w} height={h.h} loading="lazy" decoding="async" />
+              </figure>
+              <span class="el-family-tag">{h.tag}</span>
+              <h3 class="el-family-name">{h.name}</h3>
+              <p class="el-family-word"><span>Measured at the</span>{h.measure}</p>
+              <p class="el-family-d">{h.d}</p>
+            </article>
+          ))}
+        </div>
+        <p class="el-family-note" data-reveal="up">Two bottles need a divider, and six need a tray drawn to the count. Changing the count is a new die; settle it before the artwork.</p>
+        <div class="el-family-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Match the Insert <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · THE CAP SETS THE HEIGHT (ivory) ============ -->
+    <section class="el-cap">
+      <div class="wrap">
+        <div class="section-head el-cap-head">
+          <span class="eyebrow" set:html={`${LEAF}Measured to the cap`}></span>
+          <h2 class="section-title" data-reveal="up">The Cap Sets the <em>Height</em></h2>
+          <p class="section-sub" data-reveal="up">A dropper cap stands taller than the bottle it closes, and the carton is measured to the cap and not to the shoulder. Take the height at the shoulder and the lid rests on the cap, on every unit in the case. Each measurement below decides something the packing line will notice.</p>
+        </div>
+        <div class="el-cap-grid">
+          {capCards.map((c, i) => (
+            <article class="el-cap-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <div class="el-cap-card-head">
+                <span class="el-cap-ico" set:html={c.icon}></span>
+                <h3>{c.h}</h3>
+              </div>
+              <dl>
+                <div><dt>Sets</dt><dd>{c.sets}</dd></div>
+                <div><dt>So you get</dt><dd>{c.gets}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6 · FOUR CARTONS, TWO WAYS TO SHIP (ivory) ============ -->
+    <section class="el-carton">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Structure`}></span>
+          <h2 class="section-title" data-reveal="up">Four Cartons, <em>Two Ways to Ship</em></h2>
+          <p class="section-sub" data-reveal="up">A tuck-end carton folds flat and is glued on the filling line. A lid-and-base or tray-and-sleeve carton is formed and loaded, because the insert goes in before the walls close.</p>
+        </div>
+        <div class="el-carton-grid">
+          {cartonGroups.map((g, gi) => (
+            <div class="el-carton-group" data-reveal="up" style={`--d:${gi * 0.1}s`}>
+              <div class="el-carton-group-head">
+                <h3>{g.title}</h3>
+                <span>{g.note}</span>
+              </div>
+              <figure class="el-carton-shot">
+                <img src={`${EL}/${g.key}.webp`} alt={g.shot} width={g.w} height={g.h} loading="lazy" decoding="async" />
+              </figure>
+              <div class="el-carton-rows">
+                {g.items.map((c) => (
+                  <article class="el-carton-item">
+                    <h4>{c.name}</h4>
+                    <p class="el-carton-how">{c.how}</p>
+                    <p class="el-carton-win">{c.win}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · AFTER THE FIRST RUN (clay) ============ -->
+    <section class="el-say">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Buyer notes`}></span>
+          <h2 class="section-title" data-reveal="up">After the <em>First Run</em></h2>
+        </div>
+        <div class="el-say-grid">
+          {reviews.map((r, i) => (
+            <blockquote class="el-quote" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <div class="el-quote-body">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+              <footer class="el-quote-who">
+                <figure class="el-quote-av">
+                  <img src={`${EL}/${r.key}.webp`} alt="" width={400} height={400} loading="lazy" decoding="async" />
+                </figure>
+                <div class="el-quote-id">
+                  <strong>{r.name}</strong>
+                  <span>{r.role} · {r.loc}</span>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9 · STRAIGHT ANSWERS (ivory) — a <details> accordion ============ -->
+    <section class="el-faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Questions`}></span>
+          <h2 class="section-title" data-reveal="up">Straight Answers, <em>Before You Order</em></h2>
+        </div>
+        <div class="el-qa">
+          {faqs.map((f, i) => (
+            <details class="el-qa-item" data-reveal="up" style={`--d:${i * 0.04}s`}>
+              <summary class="el-qa-q"><span class="el-qa-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <p class="el-qa-a">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 · FINAL CTA (dark gradient) ============ -->
+    <section class="el-final">
+      <div class="wrap el-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Bottles only`}></span>
+        <h2 class="el-final-title" data-reveal="up">A Bottle Deserves a Carton <em>Drawn for It</em></h2>
+        <p class="el-final-sub" data-reveal="up">Send the bottle shape. The dieline, the tray and the window come back drawn on one file.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get a Free Dieline <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .el-hero, .el-fill, .el-family, .el-cap, .el-carton, .el-say, .el-faq, .el-final { position: relative; }
+
+  /* the real photograph slots — each container fixes the frame's aspect ratio and clips the file, so
+     every image is `object-fit: cover` and the layout is settled before the bytes land. */
+  .el-family-ph img, .el-carton-shot img, .el-quote-av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .el-family-ph, .el-carton-shot { overflow: hidden; border-radius: 1rem; }
+
+  /* ============ 1 · HERO (ivory) ============ */
+  .el-hero { background: var(--ivory); padding: calc(4.75rem + clamp(2.4rem, 5vw, 4rem)) 0 clamp(3.2rem, 6vw, 5rem); }
+  .el-hero-in { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); gap: clamp(2.4rem, 5vw, 4.4rem); align-items: center; }
+  .el-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 4.05vw, 3.25rem); line-height: 1.05; letter-spacing: -0.032em; color: var(--color-brand-text); margin: 1.1rem 0 0; max-width: 26ch; text-wrap: balance; }
+  /* ⚠️ The client's H1 is 79 chars — at the old 20ch/3.5rem it wrapped to FIVE lines and broke
+     `4 Precision Sizes` across two of them. Keep the em on one line and let the column be wider. */
+  .el-hero-title em { font-style: italic; font-weight: 500; color: var(--brass); white-space: nowrap; }
+  .el-hero-sub { font-size: clamp(1rem, 1.5vw, 1.13rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 48ch; margin: 1.3rem 0 0; }
+  .el-hero-cta { margin-top: 1.9rem; display: flex; flex-wrap: wrap; gap: 0.85rem; }
+
+  /* the dimensioned carton. `--parchment` is ivory lifted one step (the established surface for a
+     panel that sits on an ivory band) with a hairline border — never a white fill. */
+  .el-board { position: relative; margin: 0; background: var(--color-parchment); border: 1px solid rgba(31,59,44,0.22); border-radius: 1.1rem; padding: clamp(1rem, 2vw, 1.6rem); overflow: hidden; }
+  .el-board::before { content: ''; position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(31,59,44,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(31,59,44,0.06) 1px, transparent 1px);
+    background-size: 26px 26px; }
+  .el-board-svg { display: block; width: 100%; height: auto; position: relative; }
+  .el-bd-t { font-family: var(--font-body); font-size: 12.5px; font-weight: 700; fill: var(--color-brand-primary); }
+  .el-bd-sub { font-family: var(--font-body); font-size: 10.5px; font-weight: 600; fill: var(--color-moss); }
+  .el-board-cap { position: absolute; left: clamp(1rem, 2vw, 1.6rem); top: clamp(1rem, 2vw, 1.5rem); z-index: 2;
+    background: var(--forest-deep); color: var(--ivory); font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; border-radius: 0.55rem; padding: 0.5rem 0.8rem; }
+  .el-board-cap b { color: var(--color-brass-light); }
+
+  /* ============ 2 · FOUR FILL WEIGHTS (clay) ============ */
+  .el-fill { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .el-fill .section-sub { max-width: 74ch; }
+  /* A brass-edged caveat, NOT the full-width top-bordered note §5 uses — the two must not read as
+     the same device. */
+  .el-fill-caveat { margin: 1.1rem 0 0; padding-left: clamp(0.9rem, 1.6vw, 1.2rem); border-left: 3px solid var(--brass);
+    font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.02rem, 1.5vw, 1.18rem); line-height: 1.5;
+    color: var(--color-brand-text); max-width: 74ch; }
+  .el-fill-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .el-fill-card { display: grid; gap: clamp(0.7rem, 1.4vw, 0.95rem); align-content: start; background: var(--ivory); border: 1px solid rgba(31,59,44,0.15); border-radius: 1rem; padding: clamp(1.1rem, 2.2vw, 1.5rem); }
+  /* ⚠️ No photograph in this band, so the numeral is the only thing carrying the card — set it larger
+     than a caption-sized figure so the four cards read as a deliberate number ladder. */
+  .el-fill-ml { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2.2rem, 4.2vw, 3.2rem); line-height: 1; letter-spacing: -0.02em; color: var(--forest-deep); padding-bottom: clamp(0.7rem, 1.4vw, 0.95rem); border-bottom: 1px solid rgba(31,59,44,0.16); }
+  .el-fill-ml i { font-style: normal; font-size: 0.5em; font-weight: 600; margin-left: 0.15em; color: var(--brass); }
+  /* a GUIDE, not a spec — the values are the usual bottle for that fill weight, not a size we hold (see
+     the caveat above and the section note). */
+  /* a brass PILL, not a line of text — the numbers read as tags instead of prose (client: 用药丸小标签).
+     ⚠️ `justify-self: start` is load-bearing: the card is a grid, so a bare `p` would stretch full width. */
+  .el-fill-dims { justify-self: start; margin: 0; padding: 0.28rem 0.72rem; border: 1px solid rgba(176,141,76,0.5); border-radius: 999px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em; color: var(--brass); }
+  /* ⚠️ The four numerals must share one row (*"四个数字标题都给我放在同一排，不要有高有低"*). The card is a
+     plain grid with `align-content: start`, so on equal-height cards every numeral starts at the same y. */
+  .el-fill-spec { margin: 0; display: grid; gap: clamp(0.7rem, 1.4vw, 0.95rem); }
+  .el-fill-spec dt { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--forest-light); }
+  .el-fill-spec dd { margin: 0.28rem 0 0; font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); }
+  /* the Carton line is the "what you get" half, so it carries more weight than the Bottle line above it. */
+  .el-fill-carton dt { font-size: 0.66rem; color: var(--brass); }
+  .el-fill-carton dd { margin-top: 0.35rem; font-size: 1.04rem; font-weight: 500; line-height: 1.5; color: var(--color-brand-text); }
+
+  /* ============ 3 · TWO BOTTLE FAMILIES (DARK) — the centre of gravity ============ */
+  .el-family { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8.5rem) 0; overflow: hidden; }
+  .el-family::before { content: ''; position: absolute; inset: 0; background: radial-gradient(58% 56% at 82% 6%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .el-family .wrap { position: relative; z-index: 1; }
+  .el-family-head { max-width: 72rem; }
+  .el-family-title { color: #fff; }
+  .el-family-title em { color: #E3C29A; }
+  .el-family-lead { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 68ch; margin: 1.3rem 0 0; }
+  .el-family-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.6rem, 4vw, 3.4rem); margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+  .el-family-col { display: flex; flex-direction: column; }
+  .el-family-col + .el-family-col { border-left: 1px solid rgba(245,240,229,0.2); padding-left: clamp(1.6rem, 4vw, 3.4rem); }
+  /* ⚠️ The rule is drawn with `padding-left` on the RIGHT column, which makes that column's content
+     narrower — so its 4:3 tile would resolve shorter than the left one and the two headings would
+     not sit on one line. Matching `padding-right` on the FIRST column equalises the content width,
+     so both tiles land at the same height. */
+  .el-family-col:first-child { padding-right: clamp(1.6rem, 4vw, 3.4rem); }
+  /* ⚠️ Kept deliberately SHORT (16:9, not 4:3). A full-width 4:3 plate in a 520 px column landed
+     ~390 px tall and read as the heaviest thing in the band — the client asked for it smaller. */
+  .el-family-ph { aspect-ratio: 16 / 9; margin: 0 0 clamp(1.2rem, 2.4vw, 1.6rem); }
+  .el-family-tag { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-brass-light); }
+  .el-family-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.5rem, 2.6vw, 2rem); line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin: 0.6rem 0 0; }
+  /* the measurement line: a brass lead-in plus the display word. It now carries the one fact §3 used
+     to own — the die is taken at the neck, or at the widest point — so it must be legible, not a
+     watermark. */
+  .el-family-word { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.55rem; margin: 0.55rem 0 0; font-family: var(--font-heading); font-weight: 700; font-style: italic; font-size: clamp(1.35rem, 2.8vw, 2.1rem); line-height: 1.05; letter-spacing: -0.02em; color: rgba(245,240,229,0.82); }
+  .el-family-word span { font-family: var(--font-body); font-style: normal; font-weight: 600; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-brass-light); }
+  .el-family-d { margin: 0.95rem 0 0; font-size: 0.96rem; line-height: 1.7; color: rgba(245,240,229,0.8); max-width: 52ch; }
+  .el-family-note { margin: clamp(2rem, 4.4vw, 3rem) 0 0; padding-top: clamp(1.2rem, 2.4vw, 1.6rem); border-top: 1px solid rgba(245,240,229,0.2); font-size: 1rem; line-height: 1.7; color: rgba(245,240,229,0.82); max-width: 84ch; }
+  .el-family-cta { margin-top: clamp(1.8rem, 3.6vw, 2.6rem); display: flex; justify-content: center; }
+
+  /* ============ 4 · THE CAP SETS THE HEIGHT (ivory) ============ */
+  .el-cap { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .el-cap-head { margin-bottom: clamp(2.5rem, 5vw, 3.6rem); }
+  .el-cap-head .section-sub { max-width: 78ch; }
+  /* cards take `--color-brand-surface` (clay) on the ivory band — the same pattern the FAQ rows use,
+     and the only tone that reads as a card here without going white. */
+  .el-cap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  .el-cap-card { display: flex; flex-direction: column; background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.15); border-radius: 1rem; padding: clamp(1.3rem, 2.6vw, 1.9rem); }
+  /* ⚠️ The mark is injected with `set:html`, so it must NOT rely on a scoped `.el-cap-ico svg` rule —
+     its own `width`/`height` are attributes inside the string and the paint is inherited
+     (`currentColor` ← this scoped `color`). */
+  .el-cap-ico { display: block; flex: 0 0 auto; color: var(--brass); }
+  /* the mark sits LEFT of the measurement name, and the hairline runs under the pair. */
+  .el-cap-card-head { display: flex; align-items: center; gap: clamp(0.55rem, 1.2vw, 0.8rem); padding-bottom: clamp(0.8rem, 1.6vw, 1.1rem); border-bottom: 1px solid rgba(31,59,44,0.18); }
+  .el-cap-card-head h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2.1vw, 1.65rem); line-height: 1.14; color: var(--color-brand-text); margin: 0; }
+  .el-cap-card dl { margin: clamp(1rem, 2vw, 1.3rem) 0 0; display: grid; gap: clamp(0.9rem, 1.8vw, 1.2rem); }
+  .el-cap-card dt { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); }
+  .el-cap-card dd { margin: 0.35rem 0 0; font-size: 0.95rem; line-height: 1.62; color: var(--color-brand-text); }
+
+  /* ============ 6 · FOUR CARTONS (ivory) ============ */
+  .el-carton { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .el-carton .section-sub { max-width: 76ch; }
+  .el-carton-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.4rem); }
+  .el-carton-group + .el-carton-group { border-left: 1px solid rgba(31,59,44,0.16); padding-left: clamp(1.4rem, 3vw, 2.4rem); }
+  /* same equaliser as §3 — see the note on `.el-family-col:first-child`. */
+  .el-carton-group:first-child { padding-right: clamp(1.4rem, 3vw, 2.4rem); }
+  .el-carton-group-head { padding-bottom: clamp(1rem, 2vw, 1.3rem); border-bottom: 1px solid rgba(31,59,44,0.16); }
+  .el-carton-group-head h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.15; color: var(--color-brand-text); margin: 0; }
+  .el-carton-group-head span { display: block; margin-top: 0.35rem; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+  /* ⚠️ Same rule as §2: the group's ONE photograph must stay in the small plate class. 2:1 here
+     (542×271), not 16:9 (542×305), so it does not become the heaviest image on the page. */
+  .el-carton-shot { aspect-ratio: 2 / 1; margin: clamp(1.2rem, 2.4vw, 1.6rem) 0 0; }
+  .el-carton-rows { margin-top: clamp(0.2rem, 1vw, 0.6rem); }
+  .el-carton-item { padding: clamp(1rem, 2vw, 1.4rem) 0; }
+  .el-carton-item + .el-carton-item { border-top: 1px solid rgba(31,59,44,0.12); }
+  .el-carton-item h4 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.16; color: var(--color-brand-text); margin: 0; }
+  /* ⚠️ Same shape as §2's card: the HOW stays muted, the BENEFIT goes dark, larger and heavier so it
+     is the line the eye lands on (client: *"不要只写怎么做，要写这样做给客户带来的好处，并且好处要突出"*). */
+  .el-carton-how { margin: 0.45rem 0 0; font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); }
+  .el-carton-win { margin: 0.6rem 0 0; font-size: 1.04rem; font-weight: 500; line-height: 1.5; color: var(--color-brand-text); }
+
+  /* ============ 7 · AFTER THE FIRST RUN (clay) ============ */
+  .el-say { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .el-say-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2.2rem); }
+  .el-quote { margin: 0; background: var(--ivory); border: 1px solid rgba(31,59,44,0.16); border-left: 4px solid var(--brass); border-radius: 0 1rem 1rem 0; padding: clamp(1.5rem, 2.8vw, 2.1rem); display: flex; flex-direction: column; }
+  .el-quote-body { display: grid; gap: 0.9rem; margin-bottom: clamp(1.3rem, 2.6vw, 1.8rem); }
+  .el-quote-body p { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-text); }
+  .el-quote-who { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: clamp(1.1rem, 2.2vw, 1.5rem); border-top: 1px solid rgba(31,59,44,0.14); }
+  .el-quote-av { width: 72px; height: 72px; flex: 0 0 auto; border-radius: 50%; padding: 0; position: relative; overflow: hidden; }
+  .el-quote-id { display: grid; gap: 0.15rem; }
+  .el-quote-id strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.02rem; color: var(--color-brand-text); }
+  .el-quote-id span { font-size: 0.82rem; color: var(--color-brand-muted); }
+
+  /* ============ 9 · STRAIGHT ANSWERS (ivory) — a <details> accordion ============ */
+  .el-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .el-qa { display: grid; gap: clamp(0.7rem, 1.6vw, 1rem); }
+  .el-qa-item { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.9rem; overflow: hidden; }
+  .el-qa-q { display: flex; align-items: baseline; gap: 0.85rem; padding: clamp(0.95rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.28; color: var(--color-brand-text); cursor: pointer; list-style: none; }
+  .el-qa-q::-webkit-details-marker { display: none; }
+  .el-qa-q::after { content: '+'; margin-left: auto; padding-left: 1rem; font-family: var(--font-body); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--brass); }
+  .el-qa-item[open] .el-qa-q::after { content: '\2013'; }
+  .el-qa-n { flex: 0 0 auto; font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.09em; color: var(--brass); }
+  .el-qa-a { margin: 0; padding: 0 clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2vw, 1.3rem) calc(clamp(1rem, 2.2vw, 1.5rem) + 2.1rem); font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
+
+  /* ============ 10 · FINAL CTA (dark gradient) ============ */
+  /* the closing band now carries the client's own line-up photo under a LIGHT scrim — they have
+     complained about over-darkened CTA backgrounds before (*"不要太暗"*), but the source is a WHITE
+     studio sweep, so the scrim still has to hold white text at these stops. */
+  .el-final { background-color: var(--forest-deep); background-image: linear-gradient(150deg, rgba(20,38,27,0.78) 0%, rgba(31,59,44,0.6) 55%, rgba(46,79,61,0.82) 100%), url('https://img.leelinepackage.com/custom-e-liquid/final-cta.webp'); background-position: center; background-size: cover; background-repeat: no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden; }
+  .el-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .el-final-inner { position: relative; z-index: 1; }
+  .el-final .eyebrow { justify-content: center; }
+  .el-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; max-width: 22ch; text-wrap: balance; }
+  .el-final-title em { font-style: italic; color: #E3C29A; }
+  .el-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 60ch; margin: 1.2rem auto 0; }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .el-hero-in { grid-template-columns: minmax(0, 1fr); gap: 2.6rem; }
+    .el-hero-title { max-width: 26ch; }
+    .el-fill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .el-cap-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .el-family-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+    .el-family-col + .el-family-col { border-left: 0; border-top: 1px solid rgba(245,240,229,0.2); padding-left: 0; padding-top: 2rem; }
+    .el-family-col:first-child { padding-right: 0; }
+    .el-carton-grid { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; }
+    .el-carton-group + .el-carton-group { border-left: 0; border-top: 1px solid rgba(31,59,44,0.16); padding-left: 0; padding-top: 2.2rem; }
+    .el-carton-group:first-child { padding-right: 0; }
+    .el-say-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .el-hero-cta .btn { width: 100%; }
+    .el-fill-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

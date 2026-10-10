@@ -1,0 +1,748 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const PM = `${R2}/custom-vape-mod`;
+
+/* Shared bits kept as strings so fourteen eyebrows do not repeat the same 180-character path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+/* ⚠️ The client's photographs are all wired in now, so there is no placeholder glyph left here.
+   Each slot is a plain `<img src="https://img.leelinepackage.com/custom-vape-mod/<key>.webp">`;
+   the two CTA bands take their plate as a CSS `url()` behind the scrim. */
+
+/*
+  ⚠️ EVERY photograph is a LABELLED PLACEHOLDER (client instruction for this page: 占位符即可).
+  Each `pm-ph` figure names the shot it waits for and carries the R2 key it should land on
+  (`custom-vape-mod/<key>.webp`), so the future swap is grep-and-replace: replace the <figure>
+  with the plain `<img src={`${PM}/<key>.webp`} …>` form used site-wide.
+  ⚠️ The two dark bands are GRADIENTS, not photograph backgrounds, so nothing 404s before the
+  folder arrives. The hero ladder is figures in normal flow, NOT a CSS background, so <Layout> is
+  deliberately NOT passed a `preloadImage`; when the real plates land, the first (tallest) step
+  takes `loading="eager" fetchpriority="high" decoding="sync"` in place of its figure.
+  ⚠️ Keys (10): hero-kit · kit-single · kit-pair · kit-full · struct-lid · struct-book ·
+  struct-drawer · struct-folding · avatar-01 · avatar-02 — the drawn module is inline SVG, and the
+  FAQ band carries no image.
+
+  ⚠️ There is NO figure / stat row on this page. The parent and both vape siblings run a
+  `500 · 24 h · 3–5 d` row; the client ruled that strip out here — every figure in it already
+  belongs to another page, so this hero closes on its CTA instead.
+*/
+
+/* ── §Three Kit Classes, Three Trays — the spine. The class is defined by HOW MANY cavities the
+   tray has, because that is the one thing a brand cannot change later without a new die.
+   ⚠️ `cells` is the buyer's own way of describing the order, so it is set at display size. ──── */
+const kits = [
+  { name: 'Single Host', cells: '1', cellsLabel: 'cavity, and a groove for the cable', holds: 'The mod, seated in a lined bed', ships: 'Formed', not: 'A kit that arrives with a tank, a spare cell or a card', shot: 'A box mod in a flocked bed' },
+  { name: 'Host and Tank', cells: '2', cellsLabel: 'cells, side by side', holds: 'Host in the first cell, the tank standing in the second', ships: 'Formed', not: 'A full set with a battery and a charging cable', shot: 'A mod and a tank, two cells' },
+  { name: 'Full Kit', cells: '3–4', cellsLabel: 'a seat for each, and room for the card', holds: 'All four parts, each in its own cell', ships: 'Formed', not: 'A light folding carton — a heavy kit goes in a rigid box', shot: 'A full kit, four cavities' },
+];
+
+/* ── §Three Layers of Protection — the page's ONE drawn module, and the dark centre of gravity.
+   The three layers are the three things the headline names, so the drawing and the rules below it
+   are the same three ideas. ⚠️ No second drawing anywhere on the page. ──────────────────────── */
+const layers = [
+  { n: '01', t: 'Rigid shell', d: 'Wrapped greyboard, 1.5 to 2.5 mm, with the corners turned rather than cut. This is the layer that holds the lid square when a heavy mod sits inside it for a month in a warehouse.' },
+  { n: '02', t: 'Die-cut insert', d: 'Dense flocked EVA or pulp, cut on the same file as the box. The cavity is what stops the mod moving, so the lid closes on the tray rather than on the device.' },
+  { n: '03', t: 'Flocked face', d: 'A soft flock on the insert and the lid liner. The screen and the paint rest on fibre rather than board, and a reprint arrives with the finish signed on the sample.' },
+];
+
+/* ── §What Goes in Each Cavity — read across: the part, and the clearance the tray owes it. ─── */
+const parts = [
+  { n: '01', t: 'Mod', d: 'Seated with the fire button in relief and the charge port reachable. A snug cell that presses the switch drains the battery before the box is opened.' },
+  { n: '02', t: 'Tank', d: 'Its own cell, standing clear of the host. A tank resting on a mod carries the weight of both, and glass that takes a knock on a shelf arrives cracked.' },
+  { n: '03', t: 'Battery', d: 'Isolated in a lined cell, terminals clear of any metal. A loose cell that bridges a contact in transit is the fault a retailer will not forgive twice.' },
+  { n: '04', t: 'Cable and card', d: 'A shallow bed cut to the folded cable beside them, and the lid closes flush instead of riding up on the accessories.' },
+];
+
+/* ── §Four Rigid Structures ──────────────────────────────────────────────────────────────────── */
+const structs = [
+  { n: '01', name: 'Lid and base', d: 'Its base is wrapped and its lid separate, which makes it the strongest of the four. The board thickens for the heaviest kit without changing how the box looks.', suits: 'Heavy mods · retail sets', key: 'struct-lid-v2', w: 800, h: 800, shot: 'A lid-and-base rigid box, the tray loaded' },
+  { n: '02', name: 'Magnetic book', d: 'The lid swings open on a hinge and holds shut on two magnets. It lifts clear of the tray sitting in the base.', suits: 'Single host · gifting', key: 'struct-book-v2', w: 800, h: 800, shot: 'A magnetic book box, hinged open' },
+  { n: '03', name: 'Drawer', d: 'Slide the tray out of its sleeve on a ribbon or a finger pull. The kit is presented in the tray instead of lifted out of it.', suits: 'Starter kits · full kits', key: 'struct-drawer-v2', w: 800, h: 800, shot: 'A drawer box with the tray slid part-way out' },
+  { n: '04', name: 'Folding carton', d: 'Folding board, printed and machine-glued, is the plainest of the four. Only for a light host with no tray — a heavy kit will not survive the fold in transit.', suits: 'Light host only', key: 'struct-folding-v2', w: 800, h: 800, shot: 'A printed folding carton, flat' },
+];
+
+/* ── §Weight, Freight and the Flat-Pack Rule — each card carries a small brass mark. ───────── */
+const ship = [
+  { tag: 'Carry', t: 'The lid has to carry the mod', d: 'A box mod is dead weight in a thin board. The lid is specified against the weight of the kit, and the corners stay square after a stack, not only after the first sample.', ico: '<svg class="pm-ship-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h16v10H4z"/><path d="M12 3v5M9.2 5.6 12 8.4l2.8-2.8"/></svg>' },
+  { tag: 'Formed / flat', t: 'Formed for kits, flat for the rest', d: 'Rigid boxes with a built-in tray ship formed and loaded, because the tray is what sets the walls. Only the folding carton with no tray — a light host — travels flat.', ico: '<svg class="pm-ship-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></svg>' },
+  { tag: 'Right-sized', t: 'Drawn to the kit, cheaper on the reprint', d: 'The cavity is drawn to the parts rather than to a stock size. A box closer to the kit weighs less and stands smaller on a pallet, and the same file holds that saving run after run.', ico: '<svg class="pm-ship-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 5v14M17 5v14M7 12h10"/><path d="M9.5 9.5 7 12l2.5 2.5M14.5 9.5 17 12l-2.5 2.5"/></svg>' },
+];
+
+/* ── §Six Steps, One Tray — the order path, drawn as a connected flow. ──────────────────────── */
+const path = [
+  { n: '01', t: 'Send the three sizes', d: 'The mod, the tank and the battery or cable, measured or in the post. Those three set the cavities on the tray.' },
+  { n: '02', t: 'Count the cells', d: 'Whether the tray seats a part or four, the count is settled before the artwork, because it decides the die.' },
+  { n: '03', t: 'Pick the tray', d: 'Flocked EVA for a soft-touch seat, or moulded pulp for a large recycled run. A die per cavity count.' },
+  { n: '04', t: 'Draw the dieline', d: 'A single file cuts the tray and the shell, and the first dieline reaches you inside 24 hours.' },
+  { n: '05', t: 'Approve a sample', d: 'First a white dummy in 3 to 5 days to pack the real kit, then a printed dummy in 7 to 10 days to fix the color.' },
+  { n: '06', t: 'Run the batch', d: 'Once the dummy is signed, the line runs the batch and the file is kept for the next order.' },
+];
+
+/* ── §What Buyers Say ─────────────────────────────────────────────────────────────────────────
+   ⚠️ DRAFT placeholders — a name, a role and a market, and still NO invented company. The names
+   are the one thing here that must be replaced (or cleared) before launch: an unnamed "Buyer"
+   reads as a placeholder, a named one is a claim about a real person.
+   ⚠️ The client has rejected this block three times on other pages, so hold the rules in
+   `page-design-rules.md` §THE CUSTOMER-REVIEWS SECTION and re-run the mechanical check after ANY
+   edit: six paragraphs, six DIFFERENT moves (a failure it fixed · the routine · the brief met ·
+   the mechanism · a bare count · the freight), six different opening words, ONE figure per
+   paragraph, no figure twice in the block, no `which is` tail, no em dash for effect, no generic
+   praise. ───────────────────────────────────────────────────────────────────────────────────── */
+const reviews = [
+  {
+    key: 'avatar-01', name: 'Julien Moreau', role: 'Head of purchasing, vape distributor', loc: 'France', w: 300, h: 267,
+    q: [
+      'Our first run came back with the mods loose in the tray. The cavity had been cut 1.8 mm too deep, and the body sat low and rattled under the lid. We sent the measurement back, and the second die held the mod the way the sample had.',
+      'Reorders go in on the file we signed. 6 colorways have run on the same tray without a new tool, and that is why the same kit keeps coming back to the same supplier.',
+      'What we check first is the lid. A stack of 40 boxes in the warehouse has to keep its corner, and the board specified for the weight of the mod has held that shape all winter.',
+    ],
+  },
+  {
+    key: 'avatar-02', name: 'Lena Hoffmann', role: 'Founder, vape brand', loc: 'Germany', w: 300, h: 225,
+    q: [
+      'The tray is cut around the fire button and the charge port, with 3 mm of relief over the switch. The mod drops in, the port lines up, and our packing line noticed it on the first run without being told.',
+      'We launched with 5 kits, and each sat in a cavity drawn for its own parts, because a host alone and a full set with a spare cell need different boxes.',
+      'Freight is the number I watch. Keeping each cavity tight to the kit cut roughly 25 % off the carton volume we used to send, and the damage claims we were logging have stopped.',
+    ],
+  },
+];
+
+/* ── §Straight Answers — a <details> accordion. The FAQPage JSON-LD is generated from THIS array,
+   so every edit here moves the schema with it.
+   ⚠️ Every question must be one NO section answers. The three classes, the three layers, the four
+   cavities, the four structures and the weight argument are all on the page, so what is left is
+   the commercial and choice layer — which is exactly what the client listed. ──────────────────── */
+const faqs = [
+  { q: 'What is the smallest run you will take?', a: '500 units. A mixed order of a lid-and-base box and a drawer counts against the same 500, so a first run can test two structures at once.' },
+  { q: 'How long does the whole order take?', a: 'Four to six weeks from the signed printed dummy, covering printing, die-cutting and gluing. The window is quoted with the sample rather than after the order.' },
+  { q: 'Can the tray be cut without the physical device?', a: 'Yes, from a drawing with the mod, tank and battery dimensions plus the button and port positions. A white dummy then proves the fit, and the first printed tray is cut only once that dummy packs the real kit.' },
+  { q: 'Do you arrange a test report on the structure?', a: 'Yes, on request, and it travels with the sample. The structure is drawn first, then put through the test the report covers, so a buyer reads the result rather than a claim.' },
+  { q: 'Who supplies the artwork, and how is the color fixed?', a: 'You supply the words and the logo, and every panel is drawn here to the size your market prints at. A Pantone chip sets the color, and the proof is signed before the printed dummy is cut.' },
+];
+
+const seo = {
+  title: 'Custom Vape Pen Mod Packaging: Rigid 4-Cell Trays, 500 Units',
+  description: 'Custom vape pen mod packaging built around the kit you send: a rigid shell, a die-cut foam insert and a flocked face. From 500 units plus a dieline in 24 hours.',
+  keywords: 'custom vape pen mod packaging, custom vape mod boxes, vape mod kit packaging, box mod packaging, vape starter kit boxes, rigid vape mod packaging, foam insert vape mod boxes, custom mod kit boxes',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/vape-pen-mod-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Vape Pen Mod Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom vape pen mod and kit packaging design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Custom Vape Packaging', item: 'https://www.leelinepackage.com/custom-vape-packaging/' },
+        { '@type': 'ListItem', position: 3, name: 'Vape Pen Mod Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1 · HERO (ivory) — copy left, a photograph right with a small spec block ====
+         The hero carries a single shot of the box in use; the three kit classes live in §2's
+         cards, and the build facts sit in a SMALL drawing block overlapping the photograph's
+         lower-right corner (the block is the inset, the photograph is the hero).
+         No stat row (ruled out — every figure in the shared strip belongs to another page).
+         No `preloadImage`: the plate is a figure in normal flow. -->
+    <section class="pm-hero">
+      <div class="wrap pm-hero-in">
+        <div class="pm-hero-copy">
+          <span class="eyebrow" set:html={`${LEAF}Vape pen mod packaging`}></span>
+          <h1 class="pm-hero-title" data-reveal="up">Custom Vape Pen Mod Packaging: <span class="pm-nb">3-Layer</span> Protection &amp; <em>TPD Readiness</em></h1>
+          <p class="pm-hero-sub" data-reveal="up">Mitigate shipping damage and transit friction with die-cut dense foam inserts, rigid box structures, and reliable 3–5 day sampling. Each part sits in a cut-out of its own, so nothing shifts in transit.</p>
+          <div class="pm-hero-cta" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Price a Mod Kit Box <Fragment set:html={ARROW} /></a>
+          </div>
+        </div>
+
+        <div class="pm-hero-media" data-reveal="up" style="--d:0.1s">
+          <figure class="pm-hero-ph">
+            <img src={`${PM}/hero-kit-v2.webp`} alt="A vape pen mod kit in its rigid box, with a spare tank, a charger and a cable" width={1024} height={1024} loading="eager" fetchpriority="high" decoding="sync" />
+          </figure>
+          <aside class="pm-spec" aria-label="Mod kit box specification">
+            <div class="pm-spec-head"><span>Mod kit box · PM-01</span><b>Rev. C</b></div>
+            <dl class="pm-spec-rows">
+              <div><dt>Shell</dt><dd>Wrapped greyboard, 1.5–2.5 mm</dd></div>
+              <div><dt>Tray</dt><dd>Die-cut, 1 / 2 / 3–4 cavities</dd></div>
+              <div><dt>Seat</dt><dd>Flocked EVA or moulded pulp</dd></div>
+              <div><dt>Clear</dt><dd>Button and charge port relieved</dd></div>
+            </dl>
+            <div class="pm-spec-foot"><span>Drawn to the device you send</span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · THREE KIT CLASSES, THREE TRAYS (clay) — the spine ============
+         Three cards, each carrying its own photograph. The cavity count is the one thing that
+         cannot change after the die, so it is set at display size on every card. -->
+    <section class="pm-class">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Kit classes`}></span>
+          <h2 class="section-title" data-reveal="up">Three Kit Classes, <em>Three Trays</em></h2>
+          <p class="section-sub" data-reveal="up">A kit box is defined by how many cavities its tray has, because that is the detail a brand cannot change later without a new die. Add an accessory and the tray is redrawn.</p>
+        </div>
+        <div class="pm-class-grid">
+          {kits.map((k, i) => (
+            <article class="pm-class-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <div class="pm-class-top">
+                <figure class="pm-class-ph">
+                  <img src={`${PM}/kit-${['single', 'pair', 'full'][i]}.webp`} alt={k.shot} width={760} height={415} loading="lazy" decoding="async" />
+                </figure>
+                <div class="pm-class-id">
+                  <span class="pm-class-n">{k.cells}</span>
+                  <h3 class="pm-class-name">{k.name}</h3>
+                  <p class="pm-class-cells">{k.cellsLabel}</p>
+                </div>
+              </div>
+              <dl class="pm-class-spec">
+                <div><dt>Holds</dt><dd>{k.holds}</dd></div>
+                <div><dt>Ships</dt><dd>{k.ships}</dd></div>
+                <div class="pm-class-no"><dt>Not for</dt><dd>{k.not}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · THREE LAYERS OF PROTECTION (DARK) — the page's ONE drawn module ============
+         ⚠️ The composition differs from every sibling's drawing band on purpose: the drawing runs
+         FULL WIDTH across the band and the three rules sit BELOW it as rule-divided columns —
+         not a diagram beside a column of copy. This is the page's dark centre of gravity. -->
+    <section class="pm-layers">
+      <div class="wrap">
+        <div class="section-head pm-layers-head">
+          <span class="eyebrow eyebrow--light" set:html={`${LEAF}Three layers`}></span>
+          <h2 class="section-title pm-layers-title" data-reveal="up">Three Layers Between the Mod <em>and the Doorstep</em></h2>
+          <p class="pm-layers-lead" data-reveal="up">The headline names three layers, and they stack. A fault in any of them shows up as a mark on the device rather than the box, and each is drawn before the artwork is.</p>
+        </div>
+
+        <figure class="pm-an-fig" data-reveal="up" role="img" aria-label="An exploded side view of a mod kit box in three layers. The lowest layer is the wrapped greyboard shell. Above it sits the die-cut insert, drawn with a cavity for the mod and a second cavity for the tank. Above that is the flocked liner. A mod shape drops on a dashed line into the insert's first cavity.">
+          <svg class="pm-an" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <pattern id="pmHatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="10" stroke="var(--brass-bright)" stroke-width="2.2" opacity="0.5" />
+              </pattern>
+            </defs>
+            <!-- 03 · flocked liner (top) -->
+            <rect class="pm-an-flock" x="200" y="52" width="360" height="96" rx="14" />
+            <!-- 02 · die-cut insert (middle) -->
+            <rect class="pm-an-insert" x="160" y="150" width="360" height="96" rx="14" />
+            <rect class="pm-an-cav" x="186" y="172" width="128" height="52" rx="9" />
+            <rect class="pm-an-cav" x="332" y="172" width="80" height="52" rx="9" />
+            <text class="pm-an-txt" x="250" y="203" text-anchor="middle">mod</text>
+            <text class="pm-an-txt" x="372" y="203" text-anchor="middle">tank</text>
+            <!-- 01 · rigid shell (bottom) -->
+            <rect class="pm-an-shell" x="120" y="248" width="360" height="96" rx="14" />
+            <!-- the device dropping into its cavity -->
+            <rect class="pm-an-mod" x="206" y="6" width="88" height="36" rx="11" />
+            <line class="pm-an-drop" x1="250" y1="44" x2="250" y2="166" />
+            <!-- leaders -->
+            <line class="pm-an-lead" x1="566" y1="100" x2="628" y2="100" />
+            <line class="pm-an-lead" x1="524" y1="198" x2="628" y2="198" />
+            <line class="pm-an-lead" x1="484" y1="296" x2="628" y2="296" />
+            <!-- ⚠️ The stack reads top-down flock → insert → shell, but the numbering runs
+                 01 shell (outermost) → 03 flock (innermost), so the labels are NOT in order. -->
+            <text class="pm-an-lab" x="640" y="94">03 · Flocked face</text>
+            <text class="pm-an-subt" x="640" y="114">Soft lining against the screen</text>
+            <text class="pm-an-lab" x="640" y="192">02 · Die-cut insert</text>
+            <text class="pm-an-subt" x="640" y="212">Flocked EVA or moulded pulp</text>
+            <text class="pm-an-lab" x="640" y="290">01 · Rigid shell</text>
+            <text class="pm-an-subt" x="640" y="310">Wrapped greyboard</text>
+          </svg>
+        </figure>
+
+        <ul class="pm-layer-rules">
+          {layers.map((l, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.09}s`}>
+              <span class="pm-lr-n">{l.n}</span>
+              <h3 class="pm-lr-t">{l.t}</h3>
+              <p>{l.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 3b · MID CTA (dark gradient) — sits directly ABOVE What Each Cavity
+         (client's move). ⚠️ It lands right after the DARK §Three Layers band, so it carries a
+         brass hairline at its top to read as a separate act rather than one long dark region. -->
+    <section class="pm-midcta">
+      <div class="wrap pm-midcta-inner">
+        <h2 class="pm-midcta-title" data-reveal="up">Send the Kit, <em>Get the Tray</em></h2>
+        <p class="pm-midcta-sub" data-reveal="up">Three measurements — the mod, the tank, the battery or cable — are enough to begin. The quote is then built on the cavity count that comes back.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Send the Three Sizes <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · WHAT GOES IN EACH CAVITY (ivory) — read across ============ -->
+    <section class="pm-cav">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Cavity by cavity`}></span>
+          <h2 class="section-title" data-reveal="up">What Each Cavity <em>Has to Do</em></h2>
+          <p class="section-sub" data-reveal="up">Four parts, four jobs. Reading across, the left is the piece that goes in and the right is the clearance the tray owes it — the lines that get drawn before anything is printed.</p>
+        </div>
+        <ul class="pm-cav-list">
+          {parts.map((p, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <div class="pm-cav-k"><span class="pm-cav-n">{p.n}</span>{p.t}</div>
+              <p class="pm-cav-v">{p.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 6 · FOUR RIGID STRUCTURES (clay) ============ -->
+    <section class="pm-struct">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Structures`}></span>
+          <h2 class="section-title" data-reveal="up">Four Rigid <em>Structures</em></h2>
+          <p class="section-sub" data-reveal="up">Three of the four hold a tray, and the fourth does not. Which structure you get is set by how heavy the kit is and the way the box should open, not by the budget.</p>
+        </div>
+        <div class="pm-struct-grid">
+          {structs.map((s, i) => (
+            <article class="pm-struct-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <figure class="pm-struct-ph">
+                <img src={`${PM}/${s.key}.webp`} alt={s.shot} width={s.w} height={s.h} loading="lazy" decoding="async" />
+              </figure>
+              <div class="pm-struct-body">
+                <span class="pm-struct-n">{s.n}</span>
+                <h3 class="pm-struct-name">{s.name}</h3>
+                <p class="pm-struct-d">{s.d}</p>
+                <span class="pm-struct-suits">{s.suits}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · WEIGHT, FREIGHT AND THE FLAT-PACK RULE (ivory) ============ -->
+    <section class="pm-ship">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Weight and freight`}></span>
+          <h2 class="section-title" data-reveal="up">Weight, Freight and <em>the Flat-Pack Rule</em></h2>
+          <p class="section-sub" data-reveal="up">Weight is what separates a kit box from a pen box: it decides the board, the way the box ships and what the pallet costs.</p>
+        </div>
+        <ul class="pm-ship-grid">
+          {ship.map((s, i) => (
+            <li data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <div class="pm-ship-top">
+                <span class="pm-ship-badge"><Fragment set:html={s.ico} /></span>
+                <span class="pm-ship-tag">{s.tag}</span>
+              </div>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8 · SIX STEPS, ONE TRAY (ivory) — a PROCESS FLOW ============ -->
+    <section class="pm-path-sec">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}How it runs`}></span>
+          <h2 class="section-title" data-reveal="up">Six Steps, <em>One Tray</em></h2>
+          <p class="section-sub" data-reveal="up">Six steps, and the first three are yours to measure. A change to the size of any part after step four is a new tray rather than an edit, which is why the count is settled first.</p>
+        </div>
+        <ol class="pm-flow">
+          {path.map((p, i) => (
+            <li class="pm-flow-step" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="pm-flow-node">{p.n}</span>
+              <div class="pm-flow-txt">
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 10 · WHAT BUYERS SAY (clay) ============ -->
+    <section class="pm-say">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Customer voices`}></span>
+          <h2 class="section-title" data-reveal="up">What Buyers Say <em>After the First Run</em></h2>
+        </div>
+        <div class="pm-say-grid">
+          {reviews.map((r, i) => (
+            <blockquote class="pm-quote" data-reveal="up" style={`--d:${i * 0.12}s`}>
+              <div class="pm-quote-body">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+              <footer class="pm-quote-who">
+                <figure class="pm-quote-av">
+                  <img src={`${PM}/${r.key}.webp`} alt={`${r.name}, ${r.role} in ${r.loc}`} width={r.w} height={r.h} loading="lazy" decoding="async" />
+                </figure>
+                <div class="pm-quote-id">
+                  <strong>{r.name}</strong>
+                  <span>{r.role} · {r.loc}</span>
+                </div>
+              </footer>
+            </blockquote>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 · STRAIGHT ANSWERS (ivory) — a <details> accordion ============ -->
+    <section class="pm-faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}FAQ`}></span>
+          <h2 class="section-title" data-reveal="up">Straight Answers, <em>Before You Order</em></h2>
+        </div>
+        <div class="pm-qa">
+          {faqs.map((f, i) => (
+            <details class="pm-qa-item" data-reveal="up" style={`--d:${i * 0.05}s`} open={i === 0}>
+              <summary class="pm-qa-q"><span class="pm-qa-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <p class="pm-qa-a">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 13 · FINAL CTA (dark gradient) ============ -->
+    <section class="pm-final">
+      <div class="wrap pm-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start here`}></span>
+        <h2 class="pm-final-title" data-reveal="up">Keep the Dieline, <em>Reprint the Kit</em></h2>
+        <p class="pm-final-sub" data-reveal="up">The file stays on our shelf, so the tenth run of a kit arrives with the cavity, the clearance over the button and the color unchanged.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start From the Dieline <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal='right'] { transform: translateX(48px); }
+  [data-reveal='left'] { transform: translateX(-48px); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .pm-hero, .pm-class, .pm-layers, .pm-cav, .pm-midcta, .pm-struct, .pm-ship, .pm-path-sec, .pm-say, .pm-faq, .pm-final { position: relative; }
+
+  /* ⚠️ Every photograph is a plain <img> off the R2 bucket, cover-fitted into its slot.
+     ⚠️⚠️ A white-studio shot sits on an ivory card, where a white rectangle is the one jarring
+     element (the client's standing rule). `mix-blend-mode: darken` melts white into the card's own
+     tone and leaves the subject alone — the same trick the navbar thumbnails use. The CARD needs
+     `isolation: isolate` so the blend samples the card, not the page behind it. */
+  .pm-hero-ph img, .pm-class-ph img, .pm-struct-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* the hero and the structure slots hold studio shots that can sit on WHITE — melt them into the
+     band under them. ⚠️ The §Four Rigid CARD carries `isolation: isolate` (see its rule) so the
+     blend samples the card's ivory; the hero blends with the hero band, which is ivory too. */
+  .pm-hero-ph img, .pm-struct-ph img { mix-blend-mode: darken; }
+
+  /* ============ 1 · HERO (ivory) ============ */
+  /* the +1cm is the client's ask: open the gap between the fixed navbar and the hero by 1 cm. */
+  .pm-hero { background: var(--ivory); padding: calc(4.75rem + clamp(2.6rem, 5vw, 4rem) + 1cm) 0 clamp(3.2rem, 6vw, 5rem); }
+  .pm-hero-in { display: grid; grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr); gap: clamp(2.4rem, 5vw, 4.4rem); align-items: center; }
+  /* ⚠️ Three rows is now allowed (client), which is what unblocks a REAL size increase: the two-row
+     version was capped at 2.25 rem by row 2's width, and the `scaleY` stretch that stood in for
+     height is gone. Measured in the real font, this ~587 px column holds the whole headline in
+     THREE balanced rows up to 2.95 rem; 3.0 rem tips it back to four. Do not raise it without
+     re-measuring. */
+  .pm-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.85rem, 3.25vw, 2.95rem); line-height: 1.1; letter-spacing: -0.032em; color: var(--color-brand-text); margin: 1.1rem 0 0; text-wrap: balance; }
+  .pm-hero-title em { font-style: italic; font-weight: 500; color: var(--brass); }
+  /* keeps the hyphenated compound on one line — without it the H1 broke as "3-" / "Layer". */
+  .pm-nb { white-space: nowrap; }
+  .pm-hero-sub { font-size: clamp(1rem, 1.5vw, 1.13rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 54ch; margin: 1.3rem 0 0; }
+  .pm-hero-cta { margin-top: 1.9rem; }
+  /* The photograph is the hero; a SMALL drawing block overlaps its lower-left corner. The block
+     takes `--color-parchment` (ivory lifted one step, the established surface for a panel that
+     sits on ivory) with a hairline border — never a white fill. */
+  .pm-hero-media { position: relative; margin: 0; }
+  .pm-hero-ph { aspect-ratio: 4 / 3; }
+  .pm-spec {
+    /* two client nudges: +0.5 cm, then +0.2 cm further right of the photo's edge. */
+    position: absolute; right: calc(-28px - 0.7cm); bottom: clamp(-32px, -2.6vw, -18px);
+    width: min(304px, 60%);
+    background: var(--color-parchment); border: 1.4px solid rgba(31,59,44,0.34); border-radius: 8px;
+    box-shadow: 0 30px 54px -34px rgba(20,38,27,0.58); overflow: hidden;
+  }
+  .pm-spec-head { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px 9px; border-bottom: 1px solid rgba(31,59,44,0.2); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-brand-primary); }
+  .pm-spec-head b { color: var(--brass); }
+  .pm-spec-rows { margin: 0; }
+  .pm-spec-rows > div { display: grid; grid-template-columns: 50px minmax(0, 1fr); gap: 10px; padding: 8px 14px; border-bottom: 1px solid rgba(31,59,44,0.12); }
+  .pm-spec-rows dt { font-size: 0.56rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); padding-top: 2px; }
+  .pm-spec-rows dd { margin: 0; font-size: 0.78rem; line-height: 1.42; font-weight: 500; color: var(--color-brand-text); }
+  .pm-spec-foot { display: flex; justify-content: flex-start; gap: 10px; padding: 9px 14px 11px; border-top: 2px solid var(--brass); font-size: 0.56rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--color-brand-muted); }
+
+  /* ============ 2 · THREE KIT CLASSES (clay) ============ */
+  .pm-class { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-class .section-sub { max-width: 62ch; }
+  .pm-class-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.2vw, 1.6rem); }
+  /* cards, not rule-divided columns. The photograph is a 1:1 square at ~42 % of the card — kept
+     small so it reads as a label on the spec, not as a full-bleed plate. */
+  .pm-class-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31,59,44,0.15); border-radius: 1rem; padding: clamp(1.2rem, 2.4vw, 1.7rem); }
+  .pm-class-top { display: grid; grid-template-columns: 42% minmax(0, 1fr); gap: clamp(0.85rem, 1.9vw, 1.3rem); align-items: center; }
+  .pm-class-ph { aspect-ratio: 1 / 1; margin: 0; border-radius: 0.7rem; overflow: hidden; }
+  .pm-class-ph img { border-radius: 0.7rem; }
+  .pm-class-id { display: grid; gap: 0.15rem; }
+  /* the leading numeral IS the cavity count (1 / 2 / 3–4) — there is no separate display figure. */
+  .pm-class-n { font-family: var(--font-heading); font-weight: 700; font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1; letter-spacing: -0.01em; color: var(--brass); }
+  .pm-class-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.3rem, 2vw, 1.65rem); line-height: 1.14; color: var(--color-brand-text); margin: 0.5rem 0 0; }
+  .pm-class-cells { margin: 0.5rem 0 0; font-size: 0.85rem; line-height: 1.45; color: var(--color-brand-muted); }
+  .pm-class-spec { margin: auto 0 0; padding-top: clamp(1.1rem, 2.2vw, 1.5rem); border-top: 1px solid rgba(31,59,44,0.14); display: grid; gap: 0.9rem; }
+  .pm-class-spec > div { display: grid; gap: 0.2rem; }
+  .pm-class-spec dt { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brass); }
+  .pm-class-spec dd { margin: 0; font-size: 0.93rem; font-weight: 600; line-height: 1.45; color: var(--color-brand-text); }
+  .pm-class-no dd { color: var(--color-moss); font-weight: 500; }
+
+  /* ============ 3 · THREE LAYERS (DARK) — the one drawn module ============ */
+  /* ⚠️ This dark band's padding is 6.7 rem, NOT the site's usual dark-band 8.5 rem — the client cut
+     1.5 cm off the section's vertical height (8.5 → 6.7 rem = −57.6 px ≈ −1.5 cm top+bottom). */
+  .pm-layers { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 6.7rem) 0; overflow: hidden; }
+  .pm-layers::before { content: ''; position: absolute; inset: 0; background: radial-gradient(58% 56% at 82% 6%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .pm-layers .wrap { position: relative; z-index: 1; }
+  .pm-layers-head { max-width: 70rem; }
+  .pm-layers-title { color: #fff; }
+  .pm-layers-title em { color: #E3C29A; }
+  .pm-layers-lead { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 66ch; margin: 1.3rem 0 0; }
+  .pm-an-fig { margin: clamp(2.4rem, 5vw, 3.6rem) 0 0; }
+  .pm-an { display: block; width: 100%; height: auto; }
+  .pm-an-flock { fill: url(#pmHatch); stroke: rgba(228,181,77,0.72); stroke-width: 1.6; stroke-dasharray: 7 5; }
+  .pm-an-insert { fill: rgba(245,240,229,0.075); stroke: rgba(245,240,229,0.5); stroke-width: 2; }
+  .pm-an-cav { fill: rgba(20,38,27,0.55); stroke: rgba(228,181,77,0.5); stroke-width: 1.2; }
+  .pm-an-shell { fill: rgba(245,240,229,0.05); stroke: rgba(245,240,229,0.62); stroke-width: 3.4; }
+  .pm-an-mod { fill: var(--brass-bright); }
+  .pm-an-drop { stroke: var(--brass-bright); stroke-width: 1.6; stroke-dasharray: 5 5; opacity: 0.8; }
+  .pm-an-lead { stroke: rgba(245,240,229,0.42); stroke-width: 1.2; }
+  .pm-an-txt { font-family: var(--font-body); font-size: 15px; font-weight: 600; fill: rgba(245,240,229,0.72); }
+  .pm-an-lab { font-family: var(--font-body); font-size: 15px; font-weight: 700; fill: var(--color-brass-light); }
+  .pm-an-subt { font-family: var(--font-body); font-size: 13px; font-weight: 500; fill: rgba(245,240,229,0.68); }
+  .pm-layer-rules { list-style: none; margin: clamp(2.2rem, 4.6vw, 3.4rem) 0 0; padding: clamp(2rem, 4vw, 2.8rem) 0 0; border-top: 1px solid rgba(245,240,229,0.2); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pm-layer-rules li { padding: 0 clamp(1.1rem, 2.6vw, 2.1rem); }
+  .pm-layer-rules li:first-child { padding-left: 0; }
+  .pm-layer-rules li:last-child { padding-right: 0; }
+  .pm-layer-rules li + li { border-left: 1px solid rgba(245,240,229,0.2); }
+  .pm-lr-n { font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.1em; color: var(--color-brass-light); }
+  .pm-lr-t { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.35rem, 2.3vw, 1.85rem); line-height: 1.12; letter-spacing: -0.02em; color: #fff; margin: 0.5rem 0 0; }
+  .pm-layer-rules p { margin: 0.7rem 0 0; font-size: 0.93rem; line-height: 1.68; color: rgba(245,240,229,0.78); }
+
+  /* ============ 4 · WHAT GOES IN EACH CAVITY (ivory) — read across ============ */
+  .pm-cav { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-cav .section-sub { max-width: 66ch; }
+  .pm-cav-list { list-style: none; margin: 0; padding: 0; }
+  .pm-cav-list li { display: grid; grid-template-columns: minmax(0, 0.42fr) minmax(0, 1fr); gap: clamp(1rem, 3vw, 2.6rem); align-items: baseline; padding: clamp(1.2rem, 2.4vw, 1.7rem) 0; border-top: 1px solid rgba(31,59,44,0.16); }
+  .pm-cav-list li:last-child { border-bottom: 1px solid rgba(31,59,44,0.16); }
+  .pm-cav-k { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.16; color: var(--color-brand-text); }
+  .pm-cav-n { font-size: 0.8rem; letter-spacing: 0.1em; color: var(--brass); margin-right: 0.7rem; }
+  .pm-cav-v { margin: 0; font-size: 0.98rem; line-height: 1.68; color: var(--color-brand-muted); max-width: 74ch; }
+
+  /* ============ 5 · MID CTA (dark gradient) ============ */
+  /* ⚠️ The client asked for the PHOTOGRAPH to follow the scroll, not the whole band. `background-attachment`
+     is a per-layer comma list: the scrim stays `scroll` and is welded to the band, and ONLY the photo is
+     `fixed`, anchoring it to the VIEWPORT so the band travels over a stationary image. ⚠️ `cover` against
+     the viewport sizes the photo to the SCREEN, so you see one slice of it at a time; iOS Safari ignores
+     `fixed` for non-body elements and degrades to a normal scrolling background. */
+  .pm-midcta {
+    border-top: 1px solid rgba(228,181,77,0.3);
+    background-image: linear-gradient(150deg, rgba(20,38,27,0.9) 0%, rgba(31,59,44,0.78) 60%, rgba(46,79,61,0.9) 100%), url('https://img.leelinepackage.com/custom-vape-mod/mid-cta-v2.webp');
+    background-position: center, center;
+    background-size: cover, cover;
+    background-repeat: no-repeat, no-repeat;
+    background-attachment: scroll, fixed;
+    color: var(--ivory); text-align: center; padding: clamp(4rem, 9vw, 5.8rem) 0; overflow: hidden;
+  }
+  .pm-midcta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.16), transparent 70%); pointer-events: none; }
+  .pm-midcta-inner { position: relative; z-index: 1; }
+  .pm-midcta-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.06; letter-spacing: -0.026em; color: #fff; margin: 0; }
+  .pm-midcta-title em { font-style: italic; color: #E3C29A; }
+  .pm-midcta-sub { font-size: clamp(0.98rem, 1.4vw, 1.08rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 58ch; margin: 1.1rem auto 0; }
+  .pm-midcta .section-cta { justify-content: center; }
+
+  /* ============ 6 · FOUR RIGID STRUCTURES (clay) ============ */
+  .pm-struct { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-struct .section-sub { max-width: 64ch; }
+  .pm-struct-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(0.8rem, 1.8vw, 1.3rem); }
+  /* ⚠️ FOUR across, image ON TOP at 1:1, text below (client's pick — option C). The NARROW CARD is
+     what keeps the photo small: four-up makes each card ~285 px, so a square image is ~285 px, while
+     a full-width 1:1 in a 2-up card would be ~570 px. ⚠️ Do NOT drop this to 2-up above 640 px — that
+     doubles the photo. ⚠️ `isolation: isolate` is load-bearing: a studio shot can have a WHITE
+     background and is melted into the card with `mix-blend-mode: darken` (see the shared rule above). */
+  .pm-struct-card { background: var(--ivory); border: 1px solid rgba(31,59,44,0.15); border-radius: 1rem; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; }
+  .pm-struct-ph { aspect-ratio: 1 / 1; margin: 0; }
+  .pm-struct-body { display: flex; flex-direction: column; flex: 1; padding: clamp(1rem, 1.8vw, 1.4rem); }
+  .pm-struct-n { font-family: var(--font-heading); font-size: 0.82rem; letter-spacing: 0.1em; color: var(--brass); }
+  .pm-struct-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.16; color: var(--color-brand-text); margin: 0.45rem 0 0; }
+  .pm-struct-d { margin: 0.7rem 0 0; font-size: 0.88rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .pm-struct-suits { align-self: flex-start; margin-top: auto; display: inline-block; padding: 0.3rem 0.72rem; border-radius: 999px; background: var(--brass-soft); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #7A5F2E; }
+
+  /* ============ 7 · WEIGHT, FREIGHT (ivory) ============ */
+  .pm-ship { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-ship .section-sub { max-width: 62ch; }
+  .pm-ship-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 1.8rem); }
+  .pm-ship-grid li { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 1rem; padding: clamp(1.3rem, 2.6vw, 1.9rem); }
+  /* a small brass emblem at the head of each card — the one mark, no artwork. */
+  .pm-ship-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .pm-ship-badge { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; border: 1px solid rgba(176,141,76,0.55); background: rgba(176,141,76,0.1); color: var(--brass); }
+  /* ⚠️ `:global()` is load-bearing — the icon is injected with `set:html`, so a scoped
+     `.pm-ship-ico` rule would silently match nothing (the `set:html` scope trap again). */
+  :global(.pm-ship-ico) { width: 21px; height: 21px; }
+  .pm-ship-tag { display: inline-block; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7A5F2E; background: var(--brass-soft); border-radius: 999px; padding: 0.28rem 0.7rem; }
+  .pm-ship-grid h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.15rem, 1.7vw, 1.35rem); line-height: 1.2; color: var(--color-brand-text); margin: 0.9rem 0 0; }
+  .pm-ship-grid p { margin: 0.7rem 0 0; font-size: 0.93rem; line-height: 1.66; color: var(--color-brand-muted); }
+
+  /* ============ 8 · SIX STEPS, ONE TRAY (ivory) — a PROCESS FLOW ============ */
+  .pm-path-sec { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-path-sec .section-sub { max-width: 74ch; }
+  /* ⚠️ A CONNECTED FLOW IN ONE ROW — six steps, one per column, each a brass node sitting ON a
+     hairline rail that carries a chevron at every hand-off. Three-per-row read as two disjoint legs
+     and the client called it ugly (*"为什么不放在同一排"*), so it is 6 × 1 at desktop. Six columns
+     is too tight below ~1024 px, where it stacks to a single vertical rail instead. */
+  .pm-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .pm-flow-step { position: relative; padding: 0 clamp(0.6rem, 1.3vw, 1.2rem) clamp(0.6rem, 1.4vw, 1rem) 0; }
+  .pm-flow-step::before { content: ''; position: absolute; top: 16px; left: 0; right: 0; height: 1.4px; background: rgba(31,59,44,0.18); }
+  .pm-flow-step:last-child::before { display: none; }
+  .pm-flow-step:not(:last-child)::after { content: ''; position: absolute; top: 11px; right: -5px; width: 10px; height: 10px; border-top: 1.6px solid var(--brass); border-right: 1.6px solid var(--brass); transform: rotate(45deg); }
+  .pm-flow-node { position: relative; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ivory); border: 1.4px solid rgba(176,141,76,0.65); font-family: var(--font-heading); font-weight: 700; font-size: 0.78rem; color: var(--brass); }
+  .pm-flow-txt h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(0.95rem, 1.15vw, 1.12rem); line-height: 1.22; color: var(--color-brand-text); margin: 0.75rem 0 0; }
+  .pm-flow-txt p { margin: 0.45rem 0 0; font-size: 0.82rem; line-height: 1.55; color: var(--color-brand-muted); }
+
+  /* ============ 10 · WHAT BUYERS SAY (clay) ============ */
+  .pm-say { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-say-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2.2rem); }
+  .pm-quote { margin: 0; background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.16); border-left: 4px solid var(--brass); border-radius: 0 1rem 1rem 0; padding: clamp(1.5rem, 2.8vw, 2.1rem); display: flex; flex-direction: column; }
+  .pm-quote-body { display: grid; gap: 0.9rem; margin-bottom: clamp(1.3rem, 2.6vw, 1.8rem); }
+  .pm-quote-body p { margin: 0; font-size: 0.97rem; line-height: 1.7; color: var(--color-brand-text); }
+  /* `margin-top: auto` pins the rule + byline to the bottom so both rules land on one line. */
+  .pm-quote-who { display: flex; align-items: center; gap: 0.9rem; margin-top: auto; padding-top: clamp(1.1rem, 2.2vw, 1.5rem); border-top: 1px solid rgba(31,59,44,0.14); }
+  .pm-quote-av { width: 72px; height: 72px; flex: 0 0 auto; border-radius: 50%; overflow: hidden; }
+  .pm-quote-av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .pm-quote-id { display: grid; gap: 0.15rem; }
+  .pm-quote-id strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.02rem; color: var(--color-brand-text); }
+  .pm-quote-id span { font-size: 0.82rem; color: var(--color-brand-muted); }
+
+  /* ============ 11 · STRAIGHT ANSWERS (ivory) — a <details> accordion ============ */
+  .pm-faq { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .pm-qa { display: grid; gap: clamp(0.7rem, 1.6vw, 1rem); }
+  .pm-qa-item { background: var(--ivory); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.9rem; overflow: hidden; }
+  .pm-qa-q { display: flex; align-items: baseline; gap: 0.85rem; padding: clamp(0.95rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.28; color: var(--color-brand-text); cursor: pointer; list-style: none; }
+  .pm-qa-q::-webkit-details-marker { display: none; }
+  .pm-qa-q::after { content: '+'; margin-left: auto; padding-left: 1rem; font-family: var(--font-body); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--brass); }
+  .pm-qa-item[open] .pm-qa-q::after { content: '\2013'; }
+  .pm-qa-n { flex: 0 0 auto; font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.09em; color: var(--brass); }
+  .pm-qa-a { margin: 0; padding: 0 clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2vw, 1.3rem) calc(clamp(1rem, 2.2vw, 1.5rem) + 2.1rem); font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
+
+  /* ============ 13 · FINAL CTA (dark gradient) ============ */
+  .pm-final { background-image: linear-gradient(150deg, rgba(20,38,27,0.9) 0%, rgba(31,59,44,0.78) 58%, rgba(46,79,61,0.9) 100%), url('https://img.leelinepackage.com/custom-vape-mod/final-cta-v2.webp'); background-position: center, center; background-size: cover, cover; background-repeat: no-repeat, no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 6.8rem) 0; overflow: hidden; }
+  .pm-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .pm-final-inner { position: relative; z-index: 1; }
+  .pm-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; max-width: 24ch; text-wrap: balance; }
+  .pm-final-title em { font-style: italic; color: #E3C29A; }
+  .pm-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 62ch; margin: 1.2rem auto 0; }
+  .pm-final .section-cta { justify-content: center; }
+
+  /* ============ responsive ============ */
+  /* ⚠️ Between 1025 and 1332 px the .wrap is only ~31–40 px from the viewport edge (the wrap is
+     `100% - 6vw` there), so the full 0.5 cm overhang would spill past it and give the page a
+     sideways scrollbar. Hold the block at ~2.4vw in that band; at ≥1333 px the wrap is capped at
+     1200 px and there is ≥66 px of room for the whole overhang. */
+  @media (max-width: 1332px) { .pm-spec { right: clamp(-30px, -2.4vw, -18px); } }
+  @media (max-width: 1024px) {
+    .pm-hero-in { grid-template-columns: minmax(0, 1fr); gap: 2.6rem; }
+    /* stacked: the drawing block tucks INSIDE the photograph's corner instead of jutting out */
+    .pm-spec { right: 18px; bottom: 18px; width: min(300px, 62%); }
+    .pm-class-grid { grid-template-columns: minmax(0, 1fr); }
+    .pm-layer-rules { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+    .pm-layer-rules li, .pm-layer-rules li:first-child, .pm-layer-rules li:last-child { padding: 0; }
+    .pm-layer-rules li + li { border-left: 0; border-top: 1px solid rgba(245,240,229,0.2); padding-top: 1.6rem; }
+    /* six columns no longer fit: the rail turns vertical and runs down the node column, chevrons go. */
+    .pm-flow { grid-template-columns: minmax(0, 1fr); }
+    .pm-flow-step { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1rem; padding: 0 0 clamp(1.4rem, 3vw, 1.9rem) 0; }
+    .pm-flow-step::before { top: 32px; bottom: 0; left: 16px; right: auto; width: 1.4px; height: auto; }
+    .pm-flow-step::after { display: none; }
+    .pm-flow-node { grid-column: 1; grid-row: 1; align-self: start; }
+    .pm-flow-txt { grid-column: 2; grid-row: 1; }
+    .pm-flow-txt h3 { margin-top: 0; font-size: 1.05rem; }
+    .pm-flow-txt p { font-size: 0.92rem; }
+  }
+  @media (max-width: 900px) {
+    .pm-ship-grid { grid-template-columns: minmax(0, 1fr); }
+    /* the flow stacks: the rail turns vertical and runs down the node column, and the chevrons go. */
+    .pm-say-grid { grid-template-columns: minmax(0, 1fr); }
+    .pm-cav-list li { grid-template-columns: minmax(0, 1fr); gap: 0.6rem; }
+  }
+  @media (max-width: 640px) {
+    .pm-hero-cta .btn { width: 100%; }
+    .pm-hero-ph { aspect-ratio: 3 / 2; padding: 0.9rem; }
+    /* on a phone the block would cover most of the shot, so it drops below it instead */
+    .pm-spec { position: static; width: 100%; margin-top: 14px; }
+    /* the drawing is 900 units wide; below 640 it would shrink its 13–15 px labels past legibility.
+       Keep them readable and let the figure scroll instead. min-width is kept just wide enough
+       that the right-hand leaders/labels are one short swipe away. */
+    .pm-an-fig { overflow-x: auto; }
+    .pm-an { min-width: 560px; }
+    /* the four structures only drop to two-up here — two-up above this would double the photo. */
+    .pm-struct-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

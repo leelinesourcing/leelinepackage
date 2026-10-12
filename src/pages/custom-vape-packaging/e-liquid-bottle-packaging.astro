@@ -131,7 +131,10 @@ const faqs = [
   { q: 'How long from the first quote to a full run?', a: 'A dieline lands in 24 hours. The white dummy follows in 3 to 5 days to prove the fit, a printed dummy in 7 to 10 days to fix the color, and the bulk run takes 4 to 6 weeks once the sample is signed.' },
   { q: 'Can the artwork be drawn as well as the carton?', a: 'It can. The dieline, the type and the fill-level panel are set on the same file, so the print and the structure are approved together rather than in two passes.' },
   { q: 'Is the board recycled, or FSC-certified?', a: 'FSC-certified board is standard on request, and a recycled kraft stock is available for the same carton. The choice is fixed on the sample, so a reprint matches.' },
-  { q: 'Does this page cover pens, pods and cartridges?', a: 'No. A sealed pen and a 510 cartridge are wrapped by their own drawings, not by a bottle carton. A bottle box is cut to a bottle, and a bottle is all this page covers.' },
+  { q: 'Does this page cover pens, pods and cartridges?', a: 'No. A sealed pen and a 510 cartridge are wrapped by their own drawings, not by a bottle carton. A bottle box is cut to a bottle, and a bottle is all this page covers.',
+    /* ⚠️ The rendered answer carries the two sibling links; `a` above stays PLAIN because it feeds
+       the FAQPage JSON-LD, and schema text must never carry markup. Only this one item needs it. */
+    aHtml: 'No. A <a class="prose-link" href="/custom-vape-packaging/disposable-vape-packaging/" target="_blank" rel="noopener">sealed pen</a> and a <a class="prose-link" href="/custom-vape-packaging/vape-cartridge-packaging/" target="_blank" rel="noopener">510 cartridge</a> are wrapped by their own drawings, not by a bottle carton. A bottle box is cut to a bottle, and a bottle is all this page covers.' },
 ];
 
 const seo = {
@@ -335,7 +338,7 @@ const jsonLd = {
         <div class="section-head">
           <span class="eyebrow" set:html={`${LEAF}Structure`}></span>
           <h2 class="section-title" data-reveal="up">Four Cartons, <em>Two Ways to Ship</em></h2>
-          <p class="section-sub" data-reveal="up">A tuck-end carton folds flat and is glued on the filling line. A lid-and-base or tray-and-sleeve carton is formed and loaded, because the insert goes in before the walls close.</p>
+          <p class="section-sub" data-reveal="up">A tuck-end carton folds flat and is glued on the filling line. A lid-and-base or tray-and-sleeve carton is formed and loaded, because the insert goes in before the walls close. A bottle carton is one of nine structures in the vape range; the rest sit on the <a class="prose-link" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
         </div>
         <div class="el-carton-grid">
           {cartonGroups.map((g, gi) => (
@@ -401,7 +404,9 @@ const jsonLd = {
           {faqs.map((f, i) => (
             <details class="el-qa-item" data-reveal="up" style={`--d:${i * 0.04}s`}>
               <summary class="el-qa-q"><span class="el-qa-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
-              <p class="el-qa-a">{f.a}</p>
+              {f.aHtml
+                ? <p class="el-qa-a" set:html={f.aHtml}></p>
+                : <p class="el-qa-a">{f.a}</p>}
             </details>
           ))}
         </div>

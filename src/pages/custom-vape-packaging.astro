@@ -32,18 +32,22 @@ const heroFigs = [
    draft ran “A …” eight times in `lede` and six times in `suits`. Keep it that way. */
 const types = [
   { n: '01', name: 'Disposable Vape Boxes', key: 'type-disposable', shot: 'A disposable pen box, front panel',
+    href: '/custom-vape-packaging/disposable-vape-packaging/',
     lede: 'A slim lid-and-base or a slide-out, opened along the pen and stood mouthpiece-up.',
     suits: 'Single sealed pen, 2,000–20,000 puffs', lock: 'None, or a tear-tab', insert: 'None, or a light paperboard sleeve',
     avoid: 'Pens with a removable pod — there is nothing left to open' },
   { n: '02', name: 'Cartridge Drawer Boxes', key: 'type-cartridge', shot: 'A drawer box open beside 510 carts',
+    href: '/custom-vape-packaging/vape-cartridge-packaging/',
     lede: 'Push-button drawer, single-slot or a full row, cut to carry 510 carts.',
     suits: '510-thread carts, a single cart or a row', lock: 'Push-button drawer', insert: 'Die-cut board or EVA, a cell per cart',
     avoid: 'Carts much past 1.2 ml — the cavity height is drawn to the cart' },
   { n: '03', name: 'Push-and-Slide CR Boxes', key: 'type-slide', shot: 'A push-and-slide box, tab held in',
+    href: '/custom-vape-packaging/child-resistant-vape-packaging/',
     lede: 'Folding blank that slides only while its tab is held in — awkward for a child, unhurried for an adult.',
     suits: 'Disposable on its own, or a small cart pack', lock: 'Push-and-slide', insert: 'Flat board, or a paper cradle',
     avoid: 'Heavier mods — a folding blank will not carry the mass' },
   { n: '04', name: 'Child-Resistant Tubes', key: 'type-tube', shot: 'A side-button tube holding one cart',
+    href: '/custom-vape-packaging/child-resistant-vape-packaging/',
     lede: 'Round barrel with a side button; a pen or a cart travels alone inside it.',
     suits: 'Cart or pen, one item to a tube', lock: 'Side-button on the barrel', insert: 'Nothing — the tube is the cradle',
     avoid: 'Kits; a full set will not fit' },
@@ -52,14 +56,17 @@ const types = [
     suits: 'Device plus its spare pods', lock: 'Magnetic or drawer', insert: 'Two-zone tray',
     avoid: 'Orders with no spare pods — the second zone goes to waste' },
   { n: '06', name: 'Device Rigid Boxes', key: 'type-device', shot: 'A rigid shell, device and cable',
+    href: '/custom-vape-packaging/vape-pen-mod-packaging/',
     lede: 'Magnetic or two-piece shell, sized for a mod and its charging cable.',
     suits: 'Mod and cable together', lock: 'Magnetic', insert: 'EVA bed with a cable channel',
     avoid: 'Disposables — rigid cost on a throwaway' },
   { n: '07', name: 'Starter Kit Boxes', key: 'type-kit', shot: 'A multi-tier kit tray, four cells',
+    href: '/custom-vape-packaging/vape-pen-mod-packaging/',
     lede: 'Multi-tier tray: device, pod, cable and booklet each in a cell of their own.',
     suits: 'Full kit, four parts', lock: 'Magnetic, or a slide-out drawer', insert: 'Multi-tier tray, a cell each',
     avoid: 'Single-item orders' },
   { n: '08', name: 'E-Liquid Bottle Boxes', key: 'type-eliquid', shot: 'A bottle box with a shoulder cradle',
+    href: '/custom-vape-packaging/e-liquid-bottle-packaging/',
     lede: 'Cradle that grips the bottle at the shoulder and holds the glass off the walls.',
     suits: '10–60 ml bottles', lock: 'None', insert: 'Bottle-shoulder cradle',
     avoid: 'Pouches — a shoulder cradle grips a neck' },
@@ -335,7 +342,13 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
                 : <figure class="vp-type-ph"><img src={`${VP}/${t.key}.webp`} alt={t.shot} width={900} height={900} loading="lazy" decoding="async" class="vp-img" /></figure>}
               <div class="vp-type-top">
                 <span class="vp-type-num">{t.n}</span>
-                <h3 class="vp-type-name">{t.name}</h3>
+                {/* A type that has a device page of its own carries the link on its NAME, so the
+                    wiring lives on the card the buyer is already reading rather than in a
+                    "related pages" block. Two of the nine (pods, display) have no page — they stay
+                    plain titles on purpose. Applies to any future entry that carries `href`. */}
+                {t.href
+                  ? <h3 class="vp-type-name"><a href={t.href} target="_blank" rel="noopener">{t.name}</a></h3>
+                  : <h3 class="vp-type-name">{t.name}</h3>}
               </div>
               <p class="vp-type-lede">{t.lede}</p>
               <ul class="vp-spec">
@@ -432,7 +445,7 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
         </div>
         <aside class="vp-cr-note" data-reveal="up">
           <h3>The paperwork, plainly</h3>
-          <p>All three closures are built to <strong>ISO 8317</strong> and <strong>16 CFR</strong>. Structures are tested on request, and the report travels with the sample.</p>
+          <p>All three closures are built to <strong>ISO 8317</strong> and <strong>16 CFR</strong>. Structures are tested on request, and the report travels with the sample. What each opening takes, move by move, sits on the <a class="prose-link prose-link--light" href="/custom-vape-packaging/child-resistant-vape-packaging/" target="_blank" rel="noopener">child-resistant page</a>.</p>
         </aside>
       </div>
     </section>
@@ -703,6 +716,10 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-type-top { display: flex; align-items: baseline; gap: 0.7rem; }
   .vp-type-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); flex: 0 0 auto; }
   .vp-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
+  /* the card's outbound link sits on its own title; it stays silent until hovered so the card
+     reads exactly as before until the pointer is over it. */
+  .vp-type-name a { color: inherit; }
+  .vp-type-name a:hover { color: var(--color-brand-primary); text-decoration: underline; text-underline-offset: 0.16em; text-decoration-thickness: 1.5px; }
   .vp-type-lede { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
   .vp-spec { list-style: none; margin: 1.15rem 0 0; padding: 1rem 0 0; border-top: 1px solid rgba(31,59,44,0.13); display: grid; gap: 0.62rem; }
   .vp-spec li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0.65rem; align-items: baseline; }

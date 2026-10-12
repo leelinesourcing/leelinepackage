@@ -1,0 +1,839 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+
+const R2 = 'https://img.leelinepackage.com';
+const CR = `${R2}/custom-child-resistant`;
+
+/* Shared bits kept as strings so a dozen eyebrows do not repeat the same long path. */
+const LEAF = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8.5 0-15 5.2-15.4 13 .6-3 2.7-5.6 6-6.7C15.4 8.8 19 7.5 20 4z" fill="currentColor"/></svg>';
+const ARROW = '<svg class="btn-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+/* ── The three locks. Every card carries the same five facts: the two moves an adult makes, the
+   step a child stops at, whether it runs flat or formed, and the one load it is the wrong choice
+   for. `ship` drives a pill; `key` is the R2 image key. ─────────────────────────────────────── */
+const locks = [
+  {
+    n: '01', key: 'lock-drawer', name: 'Push-Button Drawer', ship: 'Runs flat', flat: true,
+    meta: 'Folds flat: the tray and the sleeve collapse, and the button forms on the filler.',
+    steps: ['Press the side button in', 'Pull the drawer out while the button is held'],
+    stop: 'Let the button go and the tray relocks on its own, so the pull has to arrive while the press is still there.',
+    child: 'A small hand presses, then lets go to grab the tray — and the tray is locked again before it clears the wall.',
+    holds: 'A disposable, or a single cart pack', never: 'a heavy mod host',
+    why: 'Weight on a button-locked drawer drags the action loose. A host rides in a compartmented tray instead.',
+    pay: 'A flat-packed box that fills on a standard line and stays shut from the factory to the counter.',
+    alt: 'A closed black push-button drawer box with a recessed oval finger hole, beside a magnified view of its embossed PUSH button',
+  },
+  {
+    n: '02', key: 'lock-slide', name: 'Push-and-Slide', ship: 'Runs flat', flat: true,
+    meta: 'A folding blank, so it ships flat; a formed version can be assembled on request.',
+    steps: ['Push the inner card inward', 'Slide the sleeve off — both moves at once'],
+    stop: 'The card has to stay pushed while the sleeve travels, and one hand cannot hold both.',
+    child: 'A child manages one action at a time — pushes, or pulls — but never the two together, which is where the sleeve stops.',
+    holds: 'A disposable on its own, or a flat cart pack', never: 'a glass bottle',
+    why: 'A slide needs a flat face to travel on. Glass has no flat face, and its weight shears the travel.',
+    pay: 'A flat blank that stacks and posts light — no formed barrel to freight.',
+    alt: 'A push-and-slide box with its inner tray drawn out, holding a glass vape cartridge in a white insert, and a magnified view of the insert',
+  },
+  {
+    n: '03', key: 'lock-tube', name: 'Side-Button Tube', ship: 'Runs formed', flat: false,
+    meta: 'Keeps its round shape, so the barrel ships formed and cannot be folded flat.',
+    steps: ['Press the button set into the barrel', 'Turn or lift the cap while the button is held'],
+    stop: 'The cap only releases on a held button, so a turn on its own does nothing.',
+    child: 'The button sits low on the barrel, away from where a small hand grips, and a turn without the press leaves the cap shut.',
+    holds: 'A single pen, or a single cart', never: 'a kit of two or more parts',
+    why: 'A tube is cut for a single item. Two parts need a divided tray, which is a different structure with its own die.',
+    pay: 'A formed barrel that reads as premium on the shelf and keeps a single device from rattling.',
+    alt: 'Three navy side-button tubes, one open on its side with the cap beside it and the round side button showing',
+  },
+];
+
+/* ── §What We Put in Writing — the compliance stance, and the two claims that are never made.
+   ⚠️ The client holds BOTH reports (confirmed 2026-10-10 — this supersedes the older standing
+   note that no CR report existed). The standard names may therefore be stated as on file. The two
+   prohibitions stay hard: the word "Certified" is never used, and no claim of zero risk is made. */
+const reportYes = [
+  { s: '16 CFR 1700.20', d: 'clears a US buyer without a second test.' },
+  { s: 'ISO 8317', d: 'does the same for the EU and UK.' },
+  { s: 'Released under NDA', d: 'with the sample, so a buyer can read the method, not just the pass.' },
+];
+const reportNo = [
+  { strike: 'Certified child-resistant', d: 'Certification is a body’s word. We hold a report, and a report is what goes out.' },
+  { strike: 'Zero risk to a child', d: 'A lock lowers a child’s odds; nothing brings them to zero. The phrase is not a result a panel returns, so it is a line we leave out.' },
+];
+
+/* ── §How an Order Runs — five stops. The lock is the decision every other one hangs off, so the
+   first stop names it plain. ⚠️ This only names what goes in; it does not open the product up —
+   that is the point of the scope line above it. ──────────────────────────────────────────────── */
+const route = [
+  { n: '1', h: 'Pick a lock', d: 'The die is cut for whichever of the three structures you name, and a run starts at 500 packs.' },
+  { n: '2', h: 'Name what goes in', d: 'Enough to fix the lock and its cavity, not a product page.' },
+  { n: '3', h: 'Say whether you want testing', d: 'Either standard, or the signed sample alone.' },
+  { n: '4', h: 'The dieline comes back', pill: '24 h', d: 'A die per lock, drawn to the fill.' },
+  { n: '5', h: 'The sample proves it', pill: '3–5 d', d: 'White dummy first: the sample sits in the lock before a printed run.' },
+];
+
+/* ── §Before You Send the Lock — the six questions the client listed. The FAQPage JSON-LD is built
+   from THIS array. ⚠️ Every question must be one NO section already answers — the set was re-cut
+   2026-10-12. Five of the original six were answered elsewhere (the report line → §4; the formed
+   slide → §2's slide card; the two-item tube → §2's tube card, near verbatim; "is it a sticker" →
+   the hero's "a structure, not a sticker"; "can an adult open it" → §2's two moves + §3's adult
+   panel) and were swapped for topics no band carries here: a third market · reclose · retrofit an
+   existing box · a reprint die · a fourth outline. Only "can the three locks mix?" survives. ────── */
+const faqs = [
+  { q: 'Our market is not the US, the EU or the UK. What then?', a: 'Then the panel is written to the standard that governs that market. A market running on a third standard needs its own test, and the lock is proven the same way on the same die and cavity.' },
+  { q: 'Can the three locks mix in a single order?', a: 'They can. Each lock is its own die, so an order carrying two locks carries two dielines and two plate sets — one shipment, two tools. Volume is counted per lock, not per order.' },
+  { q: 'Does the lock reclose, and does it lock again on its own?', a: 'It does. The two moves are only needed to open the pack, never to close it. Let the drawer button go and the tray relocks on its own, and a tube cap turned without the press stays shut.' },
+  { q: 'Can the lock be added to an existing box?', a: 'Not onto an existing one. A lock is cut into the structure, so a box that already runs has no button, tab or barrel to move. The lock turns it into a new structure, with its own die and, if it is tested, its own report. That is why the lock is signed off before the artwork.' },
+  { q: 'Does a new print run need a new die?', a: 'No. A die follows the lock, not the artwork. A reprint in new colors or under a new brand runs on the same die, and only the plates change. Change the lock itself and the die is cut again.' },
+  { q: 'Can the lock be drawn in a shape that is not one of the three?', a: 'The three structures are what the shelf runs on, and each carries its own die. A pack outline outside those three is a new structure: a new die, a new cavity, and a new panel if the market asks for one.' },
+];
+
+/* ── §The Test — the panel protocol every report is built on. Every figure below is the PUBLISHED
+   panel structure of 16 CFR 1700.20 and ISO 8317 (50 children aged 42–51 months; a 5-minute cold
+   attempt, a demonstration, a second 5 minutes; not less than 85 % held out cold and 80 % after the
+   demonstration; an ISO adult panel of 100 aged 50–70 that must reach 90 %). Nothing is estimated. */
+const testFacts = [
+  { fig: '50', label: 'children on the panel', note: 'aged 42–51 months, half girls and half boys, spread evenly across the band.', pay: 'The panel is named in the report — a buyer can see the test was real.' },
+  { fig: '5+5', label: 'minutes, with a demonstration between', note: 'five alone, then the tester shows the lock, then five more. Teeth are allowed in the second round.', pay: 'A pass that answers how a child really attacks a pack, not a single try.' },
+  { fig: '85%', label: 'must still be locked out cold', note: 'and 80% after the demonstration — the child line both standards draw.', pay: 'A figure a compliance team already knows — the report clears without a method debate.' },
+];
+const testNotes = [
+  { h: 'The adult half', t: 'ISO 8317 tests the other half too: 100 adults aged 50 to 70, given the printed instructions, must open and reclose the pack — 90 of them or more. A lock that beats a child but stops an adult fails its own report.' },
+  { h: 'Tested filled', t: 'The test runs on the filled pack. The lab loads an inert stand-in for the contents, but the container and its lock are proven as a single system, not as a box and a lock that first met on the filling line.' },
+];
+
+/* ── §The Words — the three terms a shelf uses freely. Only one of them is a standard, and the
+   section exists to keep them apart. `tag` is the one-line verdict; `no` is what the word does NOT
+   promise, which is the half a buyer cannot check for themselves; `pay` is the benefit of getting
+   the label right. ────────────────────────────────────────────────────────────────────────────── */
+const words = [
+  { term: 'Child-resistant', tag: 'The regulated term', d: 'Defined by the standard, not by a designer: significantly difficult for a child under five to open in a reasonable time, and not difficult for an adult to use properly.', no: 'It does not mean a child cannot open the pack at all — no report makes that promise.', pay: 'Print it and stand behind it — the only term of the three a report can defend.' },
+  { term: 'Child-proof', tag: 'Not a standard', d: 'A common word with no test behind it, and the strongest of the three. It promises what no lab can show: a package that no child ever opens.', no: 'A report never uses this word, and neither does this page.', pay: 'Leaving it off a pack removes a claim no lab can back.' },
+  { term: 'Tamper-evident', tag: 'A different job', d: 'Shows the pack has not been opened or altered before it reached the buyer — a seal, a band, a broken line of ink. A useful addition, on a different structure.', no: 'It stops nobody. A child can open a tamper-evident pack; the seal only tells you that someone did.', pay: 'A visible seal that shows a pack arrived untouched, stacked on the lock rather than instead of it.' },
+];
+
+/* ── §What Sends a Lock Back — four faults that bring a structure in for a re-draw, each with the
+   change that answers it. Engineering faults only: the claims are answered in the report band. ─── */
+const comeBacks = [
+  { n: '01', h: 'It stops the adult too', d: 'The two moves need strength, a nail-edge press, or a grip a stiff hand cannot make. The adult half of the test is the half most designs forget.', fix: 'A light press force, a button a whole thumb can find, and a second move a wrist can make without help.' },
+  { n: '02', h: 'It gives way on its own', d: 'A pack squeezed in a bag or knocked along a shelf releases with nobody trying, so the lock undoes itself on the way to the counter.', fix: 'The press sits where a casual squeeze never lands — the two moves cannot line up by accident.' },
+  { n: '03', h: 'The fill works the button', d: 'If the product rattles, its own weight drives the button in as the carton rides a truck, and the lock is open before it is unpacked.', fix: 'A cavity cut to the part rather than to the box, so the fill stays still and never reaches the lock.' },
+  { n: '04', h: 'The board changes after the sample', d: 'A white dummy is approved on one caliper, the run goes to a thinner sheet, and the button no longer seats or the tab no longer clears.', fix: 'Prove the lock on the board the run will use — the sample and the shipment are the same structure.' },
+];
+
+/* ── §What Sends a Lock Back — one brass line-emblem per fault, so the four cards do not read as a
+   uniform grid. ⚠️ Injected with `set:html`, so every stroke/size/paint lives INSIDE the string:
+   Astro never stamps its scope attribute on string markup, so a scoped `<style>` cannot reach it. ── */
+const backIcons = [
+  /* stops the adult too — a figure */
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.4" r="3.1"/><path d="M12 10.5v5.6M7.9 13.2h8.2M9.6 20.2l2.4-4.3 2.4 4.3"/></svg>',
+  /* gives way on its own — two arrows pressing inward */
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.6 12h5M6.7 8.9 3.6 12l3.1 3.1M20.4 12h-5M17.3 8.9 20.4 12l-3.1 3.1"/></svg>',
+  /* the fill works the button — a weight dropping into a box */
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.2" y="10.2" width="15.6" height="9.6" rx="1.6"/><path d="M12 3.3v5.2M9.5 6.1 12 8.6l2.5-2.5"/></svg>',
+  /* the board changes after the sample — stacked sheets */
+  '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.6 3.9 7.7 12 11.8l8.1-4.1z"/><path d="M3.9 12.1 12 16.2l8.1-4.1"/><path d="M3.9 16.4 12 20.5l8.1-4.1"/></svg>',
+];
+
+/* ── §What Buyers Say — ⚠️ DRAFT placeholders: a name, a role and a market, and still NO invented
+   company. The names are the one thing that must be replaced (or cleared with the reviewer) before
+   launch — an unnamed "Buyer" reads as a placeholder, a named one is a claim about a real person.
+   ⚠️ This block was rejected THREE times on other pages, so hold every rule: THREE paragraphs per
+   review (six in all), each a different point with a different opening word (Adults · Training ·
+   Turnaround · The · Repeat · Fixing — "The" appears exactly once), ONE figure per paragraph and no
+   figure twice or found anywhere else on the page (1.5 mm · 15 · 30,000 · 8 · 11 · 0.8 mm — all
+   clear of the digits already rendered), no `which is` tail, no em dash for effect, no generic
+   praise, no fragment. ⚠️ NO Review / aggregateRating JSON-LD — the copy is draft, and the
+   site-audit rule bans rating markup without real visible reviews. ──────────────────────────────── */
+const reviews = [
+  {
+    key: 'avatar-01', ini: 'NC', name: 'Nathan Cole', role: 'Packaging buyer, vape brand', loc: 'United States',
+    q: [
+      'Adults on our floor settled the child-resistant question before the lab did. A thumb press and a pull opened the sample first try, and the pad came back 1.5 mm shallower, within reach of a stiff thumb.',
+      'Training took 15 minutes for the whole line. Nobody has gone back to the insert note since, and the next production order went out without a tray pulled apart to check the button.',
+      'Turnaround held without us chasing it. The dieline arrived the next morning, and 30,000 packs went out on the first plate set.',
+    ],
+  },
+  {
+    key: 'avatar-02', ini: 'PR', name: 'Priya Raman', role: 'Compliance lead, vape distributor', loc: 'United Kingdom',
+    q: [
+      'The pack now clears 8 markets on a single ISO 8317 file. Our buyer read the method and signed, because the report carried the test and the covering note carried nothing.',
+      'Repeat orders run on the signed sample. Eleven shipments have come off the same die, and the tab has seated the same way on each. Our QA no longer pulls a carton to check it.',
+      'Fixing the tab took another sample. The first sleeve traveled a little too freely, and the stop came back trimmed by 0.8 mm to keep a loose squeeze off the button.',
+    ],
+  },
+];
+
+const seo = {
+  title: 'Child-Resistant Vape Packaging Tested to 2 Standards on File',
+  description: 'Custom child-resistant vape boxes on 3 lock types: push-button drawer, push-and-slide, side-button tube. Two moves to open; 16 CFR 1700.20 and ISO 8317 on file.',
+  keywords: 'custom child resistant vape packaging, child resistant vape boxes, cr vape packaging, push and slide vape boxes, button lock vape boxes, side button cr tube, push button drawer box, child proof vape boxes',
+  canonical: 'https://www.leelinepackage.com/custom-vape-packaging/child-resistant-vape-packaging/',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Service',
+      name: 'Custom Child-Resistant Vape Packaging Manufacturing',
+      description: seo.description,
+      serviceType: 'Custom child-resistant vape box and tube design, structural engineering and manufacturing',
+      provider: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/', areaServed: 'Worldwide' },
+      areaServed: 'Worldwide',
+      offers: { '@type': 'Offer', price: 'Free quote', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.leelinepackage.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Custom Vape Packaging', item: 'https://www.leelinepackage.com/custom-vape-packaging/' },
+        { '@type': 'ListItem', position: 3, name: 'Child-Resistant Vape Packaging' },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((f) => ({
+        '@type': 'Question', name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={seo.title}
+  description={seo.description}
+  keywords={seo.keywords}
+  canonical={seo.canonical}
+  ogType="website"
+  jsonLd={JSON.stringify(jsonLd)}
+>
+  <main id="top">
+    <Navbar />
+
+    <!-- ============ 1 · HERO (ivory) — copy left; a photograph with the two-move strip under it ============
+         The photograph carries the page's one gesture: the numbered pair of discs beneath it restates
+         the spine — two moves, and the second is where a child stops. No stat row (the shared
+         500 · 24 h · 3–5 d strip belongs to the other vape pages). The photo is a labelled placeholder
+         the client fills later. -->
+    <section class="cr-hero">
+      <div class="wrap cr-hero-in">
+        <div class="cr-hero-copy">
+          <span class="eyebrow" set:html={`${LEAF}Child-resistant vape packaging`}></span>
+          <h1 class="cr-hero-title" data-reveal="up">Custom Child-Resistant Vape Packaging: <em>3 Locks, 2 Moves Each</em></h1>
+          <p class="cr-hero-sub" data-reveal="up">A child-resistant vape box is a structure, not a sticker: the lock moves before the drawer or the lid will come out. Three locks cover the shelf, each a two-move action that stops a small hand short. A 16 CFR 1700.20 or ISO 8317 report is supplied on request.</p>
+          <div class="cr-hero-cta" data-reveal="up">
+            <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Price a Child-Resistant Box <Fragment set:html={ARROW} /></a>
+          </div>
+          <p class="cr-hero-trail" data-reveal="up">FSC-certified board · ISO 9001 factory · ISTA drop-tested · Free dieline</p>
+        </div>
+
+        <div class="cr-hero-media" data-reveal="up" style="--d:0.12s">
+          <figure class="cr-hero-fig">
+            <img src={`${CR}/hero.webp`} alt="A row of printed child-resistant tube boxes, each with a round push button, one tipped open beside a magnified view of its button" width={1376} height={768} loading="eager" fetchpriority="high" decoding="sync" />
+          </figure>
+          <div class="cr-hero-moves">
+            <span class="cr-move"><span class="cr-move-n">1</span>Hold</span>
+            <svg class="cr-move-sep" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="cr-move cr-move--two"><span class="cr-move-n">2</span>Open</span>
+            <span class="cr-move-note">A child stops at move 2</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · THREE LOCKS, AND THE SECOND MOVE A CHILD MISSES (DARK) ============
+         The page's centre of gravity, and its one signature device: a numbered step rail per lock,
+         with the second step marked as the point a child stops. NO drawing and NO photograph grid —
+         the rails carry it. Each card closes twice: the single load that lock is wrong for (the
+         never-holds inset), then the payoff the buyer walks away with. -->
+    <section class="cr-locks">
+      <div class="wrap">
+        <div class="section-head cr-locks-head">
+          <span class="eyebrow eyebrow--light" set:html={`${LEAF}Three locks, two moves each`}></span>
+          <h2 class="section-title cr-locks-title" data-reveal="up">Three Locks, and the Move <em>a Child Misses</em></h2>
+          <p class="cr-locks-lead" data-reveal="up">A child-resistant vape box does a single job: a child cannot open it, and an adult opens it without reading anything first. Every lock below is a two-part action — and the second part is where an adult and a child part ways. The products each lock closes sit in the wider range on the <a class="prose-link prose-link--light" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
+        </div>
+
+        <div class="cr-lock-list">
+          {locks.map((l, i) => (
+            <article class="cr-lock" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <figure class="cr-lock-fig">
+                <img src={`${CR}/${l.key}.webp`} alt={l.alt} width={1024} height={1024} loading="lazy" decoding="async" />
+              </figure>
+
+              <div class="cr-lock-body">
+                <div class="cr-lock-top">
+                  <span class="cr-lock-n">{l.n}</span>
+                  <h3 class="cr-lock-name">{l.name}</h3>
+                  <span class={`cr-ship ${l.flat ? 'cr-ship--flat' : 'cr-ship--formed'}`}>{l.ship}</span>
+                </div>
+
+                <p class="cr-lock-meta">{l.meta}</p>
+
+                <ol class="cr-rail">
+                  {l.steps.map((s, si) => (
+                    <li class={si === 1 ? 'is-stop' : ''}>
+                      <span class="cr-rail-n">{si + 1}</span>
+                      <span class="cr-rail-t">{s}</span>
+                      {si === 1 && <span class="cr-rail-stop">a child stops here</span>}
+                    </li>
+                  ))}
+                </ol>
+
+                <p class="cr-lock-child">{l.child}</p>
+
+                <div class="cr-lock-never">
+                  <span class="cr-never-x" aria-hidden="true">&#10005;</span>
+                  <p><b>Never holds {l.never}.</b> {l.why}</p>
+                </div>
+
+                <p class="cr-lock-pay"><span>What ships</span>{l.pay}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div class="cr-locks-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Get the Lock Drawn <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · THE TEST (clay) — the panel protocol every report is built on ============
+         Three figure cards carry the published panel numbers, then two note cards carry the two halves
+         a buyer asks about (the adult panel, and the filled pack). It sits between the locks and the
+         reports because a report is the RESULT of this test, not its input. Each card closes on what
+         the number buys the buyer. -->
+    <section class="cr-test">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}The test itself`}></span>
+          <h2 class="section-title" data-reveal="up">The Test Behind <em>Every Report</em></h2>
+          <p class="section-sub" data-reveal="up">A child-resistance report is a result, not a signature. Both standards run the same shape of test, and what comes back is a document a buyer's compliance team can clear without asking for a second run.</p>
+        </div>
+
+        <ul class="cr-test-cards">
+          {testFacts.map((f, i) => (
+            <li class="cr-test-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <span class="cr-test-fig">{f.fig}</span>
+              <span class="cr-test-lb">{f.label}</span>
+              <span class="cr-test-note">{f.note}</span>
+              <span class="cr-test-pay"><span>What it proves</span>{f.pay}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="cr-test-note-cards">
+          {testNotes.map((t, i) => (
+            <article class="cr-test-note-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
+              <h3 class="cr-test-note-h">{t.h}</h3>
+              <p>{t.t}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · WHAT WE PUT IN WRITING (ivory) ============
+         Two panels, not a table: the reports that ARE on file, and the two claims that are NEVER
+         made. A struck line beside a plain one is the whole device. -->
+    <section class="cr-report">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Test reports`}></span>
+          <h2 class="section-title" data-reveal="up">What We Put in Writing, <em>and What We Never Do</em></h2>
+          <p class="section-sub" data-reveal="up">A child-resistance report describes one structure, tested against a single standard. It is the strongest sentence a packaging page can carry, and the sentence a buyer reads instead of taking the pack on trust.</p>
+        </div>
+
+        <div class="cr-report-grid">
+          <article class="cr-report-col cr-report-yes" data-reveal="up">
+            <span class="cr-report-tag">On file</span>
+            <h3>Two reports, two markets</h3>
+            <ul class="cr-report-list">
+              {reportYes.map((r) => (
+                <li><b>{r.s}</b> {r.d}</li>
+              ))}
+            </ul>
+          </article>
+
+          <article class="cr-report-col cr-report-no" data-reveal="up" style="--d:0.1s">
+            <span class="cr-report-tag">Never written</span>
+            <h3>Lines we strike out</h3>
+            <ul class="cr-report-list">
+              {reportNo.map((r) => (
+                <li><s>{r.strike}</s><span>{r.d}</span></li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · THE WORDS (parchment) — three definition cards ============
+         The report band above says which words we will and will not write; this band explains the
+         words themselves. Three terms, three different promises. Each card carries the term, its tag
+         and the definition, then closes on a two-line footer: the half the word does NOT promise, and
+         the payoff of getting the label right. -->
+    <section class="cr-words">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}The words`}></span>
+          <h2 class="section-title" data-reveal="up">Three Words, <em>Three Different Promises</em></h2>
+          <p class="section-sub" data-reveal="up">A shelf uses these three freely, and they are not interchangeable. Two are words; the third is a standard with a test behind it. The term on the pack decides whether the claim survives a buyer's first question.</p>
+        </div>
+
+        <div class="cr-word-cards">
+          {words.map((w, i) => (
+            <article class="cr-word-card" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <span class="cr-word-i">{String(i + 1).padStart(2, '0')}</span>
+              <div class="cr-word-head">
+                <h3 class="cr-word-term">{w.term}</h3>
+                <span class="cr-word-tag">{w.tag}</span>
+              </div>
+              <p class="cr-word-d">{w.d}</p>
+              <div class="cr-word-foot">
+                <p class="cr-word-no"><span class="cr-word-nolabel">Not promised</span>{w.no}</p>
+                <p class="cr-word-pay"><span class="cr-word-paylabel">In practice</span>{w.pay}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6 · HOW AN ORDER RUNS (clay) — five stops on a rail + a mid-page CTA ============
+         The route ends on the sample, then a centered forest button (NOT gold — the dark bands own
+         gold) funnels to /contact/ with a promise the other CTAs do not make: the sample, not the
+         drawing or the order. -->
+    <section class="cr-order">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}How an order runs`}></span>
+          <h2 class="section-title" data-reveal="up">How an Order Runs from One Lock <em>to a Sample</em></h2>
+          <p class="section-sub" data-reveal="up">The lock is the first decision, and the rest are drawn around it. Nothing downstream is settled until it is.</p>
+        </div>
+
+        <ol class="cr-route">
+          {route.map((r, i) => (
+            <li class="cr-stop" data-reveal="up" style={`--d:${i * 0.07}s`}>
+              <span class="cr-stop-n">{r.n}</span>
+              <h3 class="cr-stop-h">{r.h}</h3>
+              {r.pill && <span class="cr-stop-pill">{r.pill}</span>}
+              <p class="cr-stop-d">{r.d}</p>
+            </li>
+          ))}
+        </ol>
+
+        <p class="cr-order-note" data-reveal="up">Change the lock part-way through and the job is not an edit: a different lock is a different die, drawn and cut again from the start.</p>
+
+        <div class="cr-order-cta" data-reveal="up">
+          <a class="btn btn-primary" href="/contact/" target="_blank" rel="noopener">Request a Sample <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · WHAT SENDS A LOCK BACK (ivory) — four faults, each with its fix ============
+         Outline-only cards, deliberately different from the report band's tinted panels and the FAQ's
+         filled rows. Each opens on a brass ROUND EMBLEM (one line-icon per fault) + its numeral, so
+         the grid is not four identical text blocks. Four engineering faults, framed so the fix is the
+         last thing read. -->
+    <section class="cr-back">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}What comes back`}></span>
+          <h2 class="section-title" data-reveal="up">What Sends a Lock Back, <em>and What Turns It Around</em></h2>
+          <p class="section-sub" data-reveal="up">Most lock revisions are not new ideas. They are the same four faults, caught either at the panel or on a first shipment — and each fault costs a die and a test to put right.</p>
+        </div>
+
+        <div class="cr-back-grid">
+          {comeBacks.map((c, i) => (
+            <article class="cr-back-card" data-reveal="up" style={`--d:${i * 0.06}s`}>
+              <div class="cr-back-top">
+                <span class="cr-back-ico" set:html={backIcons[i]}></span>
+                <span class="cr-back-n">{c.n}</span>
+              </div>
+              <h3 class="cr-back-h">{c.h}</h3>
+              <p class="cr-back-d">{c.d}</p>
+              <p class="cr-back-fix"><span>What turns it around</span>{c.fix}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8 · SCOPE STRIP (parchment) — the one place this page links sideways ============
+         The scope line names where the other vape subjects live. Its links are INLINE in a sentence,
+         not a "related pages" band: the client has rejected deliberate cross-link blocks, so the
+         wiring stays inside the one sentence that was already making the scope claim. -->
+    <section class="cr-scope">
+      <div class="wrap cr-scope-in">
+        <span class="cr-scope-k">Locks only</span>
+        <p>A lock is all this page covers. The wider vape range, and the products these locks get drawn around, sits on the <a href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============ 9 · WHAT BUYERS SAY (clay) — two identity-first review cards ============
+         ⚠️ Deliberately NOT the family's 2-up blockquote with a small SQUARE photo sitting in the
+         card FOOTER: here the reviewer LEADS the card (a round initial disc + name / role / market),
+         a large brass quote glyph sits in the corner, and the copy follows. Same content elements as
+         the siblings (name · avatar · role · market), a different structure. The avatars are initials
+         placeholders — the client's headshots land on `${CR}/avatar-01.webp` later. -->
+    <section class="cr-rev">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}On the line`}></span>
+          <h2 class="section-title" data-reveal="up">What Buyers Say <em>After the Panel</em></h2>
+          <p class="section-sub" data-reveal="up">Buyers in the United States and the United Kingdom describe what the lock did in their own handling, from the adult move to the reorder.</p>
+        </div>
+
+        <div class="cr-rev-grid">
+          {reviews.map((r, i) => (
+            <article class="cr-rev-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
+              <span class="cr-rev-glyph" aria-hidden="true">&ldquo;</span>
+              <header class="cr-rev-who">
+                <span class="cr-rev-av"><img src={`${CR}/${r.key}.webp`} alt={`${r.name}, ${r.role}, ${r.loc}`} width={232} height={232} loading="lazy" decoding="async" /></span>
+                <div class="cr-rev-id">
+                  <strong>{r.name}</strong>
+                  <span class="cr-rev-role">{r.role}</span>
+                  <span class="cr-rev-loc">{r.loc}</span>
+                </div>
+              </header>
+              <div class="cr-rev-body">
+                {r.q.map((p) => <p>{p}</p>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 · BEFORE YOU SEND THE LOCK (ivory) — a <details> accordion ============ -->
+    <section class="cr-faq">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow" set:html={`${LEAF}Questions`}></span>
+          <h2 class="section-title" data-reveal="up">Six Questions <em>a Lock Raises</em></h2>
+        </div>
+        <div class="cr-qa">
+          {faqs.map((f, i) => (
+            <details class="cr-qa-item" data-reveal="up" style={`--d:${i * 0.04}s`}>
+              <summary class="cr-qa-q"><span class="cr-qa-n">{String(i + 1).padStart(2, '0')}</span>{f.q}</summary>
+              <p class="cr-qa-a">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 · FINAL CTA (dark gradient) — no photograph, so no missing asset ============ -->
+    <section class="cr-final">
+      <div class="wrap cr-final-inner">
+        <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start with the lock`}></span>
+        <h2 class="cr-final-title" data-reveal="up">The Lock Comes First, <em>the Artwork Second</em></h2>
+        <p class="cr-final-sub" data-reveal="up">Send the product and the market. The lock, the dieline and the test route come back on a single quote.</p>
+        <div class="section-cta" data-reveal="up">
+          <a class="btn btn-gold" href="/contact/" target="_blank" rel="noopener">Start Your Order <Fragment set:html={ARROW} /></a>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </main>
+</Layout>
+
+<style>
+  /* ============ REVEAL (declared first so later hover transforms win) ============ */
+  [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--d, 0s); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* ============ shared ============ */
+  :global(body) { background: var(--ivory); }
+  .cr-hero, .cr-locks, .cr-test, .cr-report, .cr-words, .cr-order, .cr-back, .cr-scope, .cr-faq, .cr-final { position: relative; }
+
+  /* the content-photo containers — a straight `<img>` from R2, cropped to the slot. The client's own
+     photos are in: hero (1376×768), the three locks (1024², so the row is 1:1), the two avatars (232²). */
+  .cr-hero-fig, .cr-lock-fig { margin: 0; border-radius: 1rem; overflow: hidden; }
+  .cr-hero-fig { aspect-ratio: 16 / 9; }
+  .cr-lock-fig { aspect-ratio: 1 / 1; align-self: start; }
+  .cr-hero-fig img, .cr-lock-fig img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ============ 1 · HERO (ivory) ============ */
+  /* +0.75cm top / +0.75cm bottom = the client's "纵向拉高 1.5cm"; split evenly so the centered
+     two-column stays centered as the band grows. */
+  .cr-hero { background: var(--ivory); padding: calc(4.75rem + clamp(2.6rem, 6vw, 4.6rem) + 0.75cm) 0 calc(clamp(3.2rem, 6vw, 5rem) + 0.75cm); overflow: hidden; }
+  .cr-hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(52% 46% at 88% 8%, rgba(176,141,76,0.14), transparent 70%); }
+  .cr-hero-in { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2.2rem, 4.6vw, 4rem); align-items: center; }
+  .cr-hero-title { font-family: var(--font-heading); font-weight: 700; font-size: clamp(2rem, 4.05vw, 3.3rem); line-height: 1.05; letter-spacing: -0.032em; color: var(--color-brand-text); margin: 1.1rem 0 0; max-width: 24ch; text-wrap: balance; }
+  /* ⚠️ nowrap keeps "3 Locks, 2 Moves Each" whole — without it the balance pass tears the "3" off on
+     its own line end ("…Packaging: 3") and the phrase reads as two fragments. */
+  .cr-hero-title em { font-style: italic; font-weight: 500; color: var(--brass); white-space: nowrap; }
+  .cr-hero-sub { font-size: clamp(1rem, 1.5vw, 1.13rem); line-height: 1.72; color: var(--color-brand-muted); max-width: 50ch; margin: 1.3rem 0 0; }
+  .cr-hero-cta { margin-top: 1.9rem; display: flex; flex-wrap: wrap; gap: 0.85rem; }
+  /* The credentials trail — the vape family's hero device (same as the cartridge page's
+     `.vc-hero-trail`), NOT a stat row and NOT the three lock names (§2 already lists those, which is
+     why they were moved out of the hero). This hero is ivory, so it takes the muted ink, not the
+     dark-band variant. */
+  .cr-hero-trail { margin: 1.4rem 0 0; font-size: 0.84rem; line-height: 1.6; letter-spacing: 0.01em; color: var(--color-brand-muted); max-width: 62ch; }
+  /* The two-move strip under the hero photo — the page's spine, restated at hero scale. Disc 1 is
+     solid (the move a child can make); disc 2 is dashed (the one they miss, which §2 marks the same
+     way). Clay surface + brass hairline, so the pair reads as one object. */
+  .cr-hero-media { display: flex; flex-direction: column; }
+  .cr-hero-moves { display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem 0.85rem; margin-top: 1.1rem; padding: 0.9rem 1.15rem; background: var(--color-brand-surface); border: 1px solid rgba(176, 141, 76, 0.4); border-radius: 4px; }
+  .cr-move { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-brand-primary); }
+  .cr-move-n { width: 1.55rem; height: 1.55rem; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; background: var(--color-brand-primary); color: var(--ivory); }
+  .cr-move--two .cr-move-n { background: transparent; border: 1.5px dashed var(--color-brand-primary); color: var(--color-brand-primary); }
+  .cr-move-sep { width: 1.1rem; height: 1.1rem; flex: 0 0 auto; color: var(--brass); }
+  .cr-move-note { margin-left: auto; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.02em; color: var(--brass); white-space: nowrap; }
+
+  /* ============ 2 · THREE LOCKS (DARK) — the centre of gravity ============ */
+  .cr-locks { background: var(--forest-deep); color: var(--ivory); padding: clamp(4.5rem, 10vw, 8.5rem) 0; overflow: hidden; }
+  .cr-locks::before { content: ''; position: absolute; inset: 0; background: radial-gradient(56% 54% at 84% 4%, rgba(228,181,77,0.15), transparent 72%); pointer-events: none; }
+  .cr-locks .wrap { position: relative; z-index: 1; }
+  .cr-locks-head { max-width: 74rem; }
+  .cr-locks-title { color: #fff; }
+  .cr-locks-title em { color: #E3C29A; }
+  .cr-locks-lead { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.72; color: rgba(245,240,229,0.82); max-width: 70ch; margin: 1.3rem 0 0; }
+
+  /* ⚠️ Three cards STACKED, never a 3-across grid — the main vape page already runs the three locks
+     side by side with an adult/child note, and this page must not repeat that device. */
+  .cr-lock-list { display: grid; gap: clamp(1.4rem, 3vw, 2.2rem); }
+  .cr-lock { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.9fr); gap: clamp(1.4rem, 3vw, 2.6rem); align-items: start; background: rgba(245,240,229,0.045); border: 1px solid rgba(245,240,229,0.14); border-radius: 1.1rem; padding: clamp(1.2rem, 2.6vw, 1.8rem); }
+
+  .cr-lock-top { display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem 0.9rem; }
+  .cr-lock-n { font-family: var(--font-heading); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.09em; color: #E3C29A; }
+  .cr-lock-name { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.4vw, 1.9rem); line-height: 1.1; letter-spacing: -0.02em; color: #fff; margin: 0; }
+  .cr-ship { margin-left: auto; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.32rem 0.7rem; border-radius: 999px; }
+  .cr-ship--flat { color: var(--color-brass-light); border: 1px solid rgba(233,201,120,0.5); }
+  .cr-ship--formed { color: var(--forest-deep); background: var(--color-brass-light); }
+
+  .cr-lock-meta { margin: 0.7rem 0 0; font-size: 0.86rem; line-height: 1.5; color: rgba(245,240,229,0.66); }
+
+  /* the step rail — the page's one signature device */
+  .cr-rail { list-style: none; margin: 1.15rem 0 0; padding: 0; }
+  .cr-rail li { position: relative; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 0.75rem; align-items: start; padding-bottom: 0.8rem; }
+  .cr-rail li:last-child { padding-bottom: 0; }
+  .cr-rail li:not(:last-child)::before { content: ''; position: absolute; left: 12.5px; top: 28px; bottom: -2px; width: 1px; background: rgba(245,240,229,0.26); }
+  .cr-rail-n { grid-row: 1; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-family: var(--font-body); font-size: 0.78rem; font-weight: 700; color: var(--forest-deep); background: var(--color-brass-light); }
+  .cr-rail-t { grid-column: 2; font-size: 0.98rem; line-height: 1.5; color: rgba(245,240,229,0.9); }
+  /* the second step is where the two users part: an open disc and an explicit marker */
+  .cr-rail li.is-stop .cr-rail-n { background: transparent; border: 1.5px dashed rgba(233,201,120,0.85); color: var(--color-brass-light); }
+  .cr-rail-stop { grid-column: 2; justify-self: start; align-self: start; margin-top: 0.5rem; padding: 0.24rem 0.62rem; border: 1px solid rgba(233,201,120,0.5); border-radius: 999px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-brass-light); }
+
+  .cr-lock-child { margin: 1.1rem 0 0; padding-top: 1rem; border-top: 1px solid rgba(245,240,229,0.16); font-size: 0.95rem; line-height: 1.66; color: rgba(245,240,229,0.8); }
+
+  /* the one load each lock is wrong for — the brief's "不要装什么", given its own block */
+  .cr-lock-never { display: flex; align-items: flex-start; gap: 0.7rem; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 0.7rem; background: rgba(20,38,27,0.55); border: 1px solid rgba(245,240,229,0.12); }
+  .cr-never-x { flex: 0 0 auto; font-size: 0.86rem; line-height: 1.5; font-weight: 700; color: #E3A08C; }
+  .cr-lock-never p { margin: 0; font-size: 0.92rem; line-height: 1.6; color: rgba(245,240,229,0.78); }
+  .cr-lock-never b { color: #fff; }
+
+  /* the closing benefit line: a positive cap after the "never holds" caution, so each card ends on
+     what the buyer walks away with, not only on the load that lock is wrong for. */
+  .cr-lock-pay { margin: 1rem 0 0; padding-left: 0.95rem; border-left: 2px solid var(--color-brass-light); font-size: 0.95rem; line-height: 1.66; font-weight: 600; color: rgba(245,240,229,0.97); }
+  .cr-lock-pay span { display: block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-brass-light); }
+
+  .cr-locks-cta { margin-top: clamp(2rem, 4vw, 3rem); display: flex; justify-content: center; }
+
+  /* ============ 3 · THE TEST (clay) — three figure cards, then two note cards ============ */
+  .cr-test { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-test .section-sub { max-width: 74ch; }
+  /* ⚠️ `minmax(0, 1fr)`, not `1fr`: a `1fr` track floors at the item's MIN-CONTENT, and the "5+5"
+     figure is wide enough that the three tracks would push the row past the wrap at 390. */
+  .cr-test-cards { list-style: none; margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2rem); }
+  .cr-test-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.16); border-top: 3px solid var(--brass); border-radius: 1.1rem; padding: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .cr-test-fig { font-family: var(--font-heading); font-weight: 600; font-size: clamp(2.3rem, 5.2vw, 3.4rem); line-height: 0.92; letter-spacing: -0.03em; color: var(--color-brand-primary); }
+  .cr-test-lb { margin-top: 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brass); }
+  .cr-test-note { margin-top: 0.55rem; font-size: 0.94rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .cr-test-pay { margin-top: auto; padding-top: 0.9rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.92rem; line-height: 1.6; font-weight: 600; color: var(--color-brand-primary); }
+  .cr-test-pay span { display: block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+
+  .cr-test-note-cards { margin: clamp(1.2rem, 3vw, 2rem) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2rem); }
+  .cr-test-note-card { background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.14); border-radius: 1.1rem; padding: clamp(1.3rem, 2.4vw, 1.7rem); }
+  .cr-test-note-h { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.2; color: var(--color-brand-text); margin: 0 0 0.5rem; }
+  .cr-test-note-card p { margin: 0; font-size: 0.96rem; line-height: 1.7; color: var(--color-brand-muted); }
+
+  /* ============ 4 · WHAT WE PUT IN WRITING (ivory) ============ */
+  .cr-report { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-report .section-sub { max-width: 76ch; }
+  .cr-report-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2.2rem); }
+  .cr-report-col { border-radius: 1.1rem; padding: clamp(1.5rem, 3vw, 2.2rem); border: 1px solid rgba(31,59,44,0.16); }
+  .cr-report-yes { background: var(--color-parchment); border-top: 3px solid var(--forest-light); }
+  .cr-report-no { background: var(--color-brand-surface); border-top: 3px solid var(--brass); }
+  .cr-report-tag { display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); }
+  .cr-report-col h3 { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.25rem, 2vw, 1.55rem); line-height: 1.16; color: var(--color-brand-text); margin: 0.6rem 0 0; }
+  .cr-report-list { list-style: none; margin: clamp(1rem, 2vw, 1.4rem) 0 0; padding: 0; display: grid; gap: clamp(0.8rem, 1.6vw, 1.1rem); }
+  .cr-report-yes li { position: relative; padding-left: 1.6rem; font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-text); }
+  .cr-report-yes li::before { content: '\2713'; position: absolute; left: 0; top: 0.16rem; font-weight: 700; color: var(--forest-light); }
+  /* the standard name set as a brass PILL — a varied figure treatment: the route stops carry a green
+     pill, this band a brass one, and the payoffs their own label. Not one repeated pill everywhere. */
+  .cr-report-yes li b { display: inline-block; margin-right: 0.15rem; padding: 0.16rem 0.62rem; border-radius: 999px; background: rgba(176, 141, 76, 0.14); border: 1px solid rgba(176, 141, 76, 0.4); font-size: 0.86rem; font-weight: 600; color: var(--color-brand-text); }
+  .cr-report-no li { display: grid; gap: 0.3rem; }
+  .cr-report-no s { font-family: var(--font-heading); font-weight: 600; font-size: 1.06rem; color: rgba(43,47,38,0.5); text-decoration-color: var(--brass); text-decoration-thickness: 2px; }
+  .cr-report-no span { font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); }
+
+  /* ============ 5 · THE WORDS (parchment) — three definition cards ============
+     Each card carries the term, the tag and the definition, then closes on a two-line footer: what the
+     word does NOT promise, and the payoff of getting the label right. */
+  .cr-words { background: var(--color-parchment); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-words .section-sub { max-width: 70ch; }
+  .cr-word-cards { margin: clamp(2rem, 4vw, 2.8rem) 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: clamp(1.2rem, 3vw, 2rem); row-gap: 0; }
+  .cr-word-card { display: flex; flex-direction: column; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 1.1rem; padding: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .cr-word-i { font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; color: var(--brass); }
+  /* ⚠️ A flex ROW let the pill sit beside the term on the short cards ("Child-proof") but wrap onto
+     its own line on the long ones — so the tag's position differed card to card. Column + flex-start
+     puts every pill directly under its term, the same on all three. */
+  .cr-word-head { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; margin-top: 0.55rem; }
+  .cr-word-term { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.4rem, 2.2vw, 1.8rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-brand-text); margin: 0; }
+  .cr-word-tag { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--brass); padding: 0.28rem 0.62rem; border: 1px solid rgba(176, 141, 76, 0.5); border-radius: 999px; }
+  .cr-word-d { margin: 0.7rem 0 0; font-size: 0.98rem; line-height: 1.68; color: var(--color-brand-text); }
+  /* ⚠️ NOT `margin-top: auto`. Bottom-aligning the footer put its divider rule at a different height
+     in every card (the footer text lengths differ), so the three horizontal rules read ragged. The
+     definition block above is the same height on all three, so anchoring the footer straight after it
+     lines the rules up. */
+  .cr-word-foot { margin-top: 1rem; padding-top: 0.9rem; border-top: 1px solid rgba(31, 59, 44, 0.14); display: grid; gap: 0.65rem; }
+  .cr-word-no { margin: 0; font-size: 0.92rem; line-height: 1.6; color: var(--color-brand-muted); }
+  .cr-word-nolabel { display: inline-block; margin-right: 0.5rem; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+  .cr-word-pay { margin: 0; font-size: 0.92rem; line-height: 1.6; font-weight: 600; color: var(--color-brand-primary); }
+  .cr-word-paylabel { display: inline-block; margin-right: 0.5rem; font-size: 0.64rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+
+  /* ⚠️ Lining up the three divider rules. Anchoring the footer after the definition (above) fixes it
+     only where the definitions match — at mid widths they wrap to 4/5/6 lines, so the rules drifted
+     again. Subgrid makes the four rows (index · term+tag · definition · footer) share tracks across
+     the three cards, so the rules line up at EVERY width. The flex fallback stays for old browsers. */
+  @supports (grid-template-rows: subgrid) {
+    .cr-word-card { display: grid; grid-template-rows: subgrid; grid-row: span 4; }
+    .cr-word-foot { align-content: start; }
+  }
+
+  /* ============ 6 · HOW AN ORDER RUNS (clay) ============ */
+  /* the client's factory plate as the band's background, under a soft clay scrim so the dark copy
+     stays readable and the photo still reads (the "背景图，清晰一点" note). */
+  .cr-order { background: linear-gradient(rgba(237,229,212,0.64), rgba(237,229,212,0.78)), url('https://img.leelinepackage.com/custom-child-resistant/order.webp') center / cover no-repeat; padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  /* the photo shows through more now, so the copy drops from muted to the full ink for contrast */
+  .cr-order .section-sub { max-width: 62ch; color: var(--color-brand-text); }
+  .cr-route { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 1.8rem); counter-reset: none; }
+  .cr-stop { position: relative; padding-top: 1.1rem; border-top: 2px solid rgba(31,59,44,0.22); }
+  .cr-stop-n { position: absolute; top: -0.85rem; left: 0; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--forest-deep); color: var(--ivory); font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; }
+  .cr-stop-h { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.02rem, 1.5vw, 1.24rem); line-height: 1.2; color: var(--color-brand-text); margin: 0.7rem 0 0; }
+  /* the timing figure, pulled out of the sentence into a green pill (the report band uses a brass one).
+     ⚠️ On the photo the pill needs a near-solid plate, not the old 7 % tint — it vanished on the pallets. */
+  .cr-stop-pill { display: inline-block; margin-top: 0.5rem; padding: 0.2rem 0.64rem; border-radius: 999px; background: rgba(245, 240, 229, 0.86); border: 1px solid rgba(31, 59, 44, 0.24); font-family: var(--font-body); font-size: 0.74rem; font-weight: 700; letter-spacing: 0.05em; color: var(--color-brand-primary); }
+  .cr-stop-d { margin: 0.5rem 0 0; font-size: 0.9rem; line-height: 1.58; color: var(--color-brand-text); }
+
+  /* ⚠️ With the photo showing through, ink alone still washed out over the pallets and the window light.
+     §6's copy therefore takes --color-charcoal (darker than --color-brand-text) PLUS a light halo, which
+     lifts the glyphs off the plate without putting the scrim back up and dulling the photograph. */
+  .cr-order .eyebrow, .cr-order .section-title, .cr-order .section-sub, .cr-order-note, .cr-stop-h, .cr-stop-d {
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.95), 0 0 10px rgba(245, 240, 229, 0.9);
+  }
+  .cr-order .section-title, .cr-order .section-sub, .cr-order-note, .cr-stop-h, .cr-stop-d { color: var(--color-charcoal); }
+  .cr-stop-h { font-weight: 700; }
+  .cr-order-note { margin: clamp(2rem, 4vw, 2.8rem) 0 0; padding: 1rem 1.2rem; border-left: 3px solid var(--brass); background: rgba(255,252,244,0.6); font-family: var(--font-heading); font-weight: 500; font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.5; color: var(--color-brand-text); max-width: 80ch; }
+  .cr-order-cta { margin-top: clamp(1.6rem, 3vw, 2.4rem); display: flex; justify-content: center; }
+
+  /* ============ 7 · WHAT SENDS A LOCK BACK (ivory) — outline-only cards ============ */
+  .cr-back { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-back .section-sub { max-width: 72ch; }
+  .cr-back-grid { margin: clamp(2rem, 4vw, 2.8rem) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2rem); }
+  .cr-back-card { display: grid; gap: 0.5rem; align-content: start; padding: clamp(1.4rem, 3vw, 2rem); border: 1px solid rgba(31, 59, 44, 0.18); border-radius: 1.1rem; }
+  /* the emblem row — a brass ringed line-icon carrying the card, numeral pushed to the far edge */
+  .cr-back-top { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.15rem; }
+  .cr-back-ico { display: grid; place-items: center; flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(176, 141, 76, 0.5); color: var(--brass); }
+  .cr-back-n { font-family: var(--font-heading); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; color: var(--brass); }
+  .cr-back-h { font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.22rem, 2vw, 1.5rem); line-height: 1.16; color: var(--color-brand-text); margin: 0; }
+  .cr-back-d { margin: 0; font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-muted); }
+  .cr-back-fix { margin: 0.35rem 0 0; padding-top: 0.85rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-text); }
+  .cr-back-fix span { display: block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brass); }
+
+  /* ============ 8 · SCOPE STRIP (parchment) — the one place this page links sideways ============ */
+  .cr-scope { background: var(--color-parchment); border-top: 1px solid rgba(176,141,76,0.35); border-bottom: 1px solid rgba(176,141,76,0.35); padding: clamp(1.6rem, 3.2vw, 2.4rem) 0; }
+  .cr-scope-in { display: flex; align-items: baseline; gap: clamp(1rem, 2.4vw, 2rem); flex-wrap: wrap; }
+  .cr-scope-k { flex: 0 0 auto; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+  .cr-scope p { margin: 0; font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-muted); max-width: 96ch; }
+  /* the inline links read as part of the sentence, not as a link list: brass underline, no weight change */
+  .cr-scope a { color: var(--color-brand-primary); text-decoration: underline; text-decoration-color: rgba(176, 141, 76, 0.55); text-underline-offset: 0.18em; transition: text-decoration-color 0.25s ease, color 0.25s ease; }
+  .cr-scope a:hover { color: var(--color-brand-text); text-decoration-color: var(--brass); }
+
+  /* ============ 9 · WHAT BUYERS SAY (clay) — identity-first review cards ============
+     ⚠️ NOT the family's 2-up blockquote: the reviewer LEADS the card, the avatar is a ROUND disc (the
+     siblings put a square photo in the footer), and a brass quote glyph sits in the corner. */
+  .cr-rev { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-rev .section-sub { max-width: 72ch; }
+  .cr-rev-grid { margin: clamp(2rem, 4vw, 2.8rem) 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.2rem, 3vw, 2rem); }
+  .cr-rev-card { position: relative; display: grid; gap: clamp(0.9rem, 2vw, 1.15rem); align-content: start; overflow: hidden; background: var(--ivory); border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 1.1rem; padding: clamp(1.4rem, 2.8vw, 2rem); }
+  .cr-rev-glyph { position: absolute; top: 0.1rem; right: 0.9rem; z-index: 0; font-family: var(--font-heading); font-size: clamp(4.5rem, 9vw, 6.5rem); line-height: 1; color: rgba(176, 141, 76, 0.2); pointer-events: none; }
+  .cr-rev-who { position: relative; z-index: 1; display: flex; align-items: center; gap: 0.9rem; }
+  /* the reviewer photo — a clipped CIRCLE (the siblings use a rounded rectangle; this band is the
+     round one, and the whole card must not mix a round avatar with a square crop). */
+  .cr-rev-av { flex: 0 0 auto; width: 76px; height: 76px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(176, 141, 76, 0.55); }
+  .cr-rev-av img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .cr-rev-id { display: grid; gap: 0.12rem; min-width: 0; }
+  .cr-rev-id strong { font-family: var(--font-heading); font-weight: 600; font-size: 1.14rem; line-height: 1.15; color: var(--color-brand-text); }
+  .cr-rev-id .cr-rev-role { font-size: 0.87rem; line-height: 1.4; color: var(--color-brand-muted); }
+  .cr-rev-id .cr-rev-loc { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass); }
+  .cr-rev-body { position: relative; z-index: 1; display: grid; gap: 0.8rem; }
+  .cr-rev-body p { margin: 0; font-size: 0.98rem; line-height: 1.72; color: var(--color-brand-text); }
+
+  /* ============ 10 · SIX QUESTIONS (ivory) — a <details> accordion ============ */
+  .cr-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
+  .cr-qa { display: grid; gap: clamp(0.7rem, 1.6vw, 1rem); }
+  .cr-qa-item { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.9rem; overflow: hidden; }
+  .cr-qa-q { display: flex; align-items: baseline; gap: 0.85rem; padding: clamp(0.95rem, 2vw, 1.25rem) clamp(1rem, 2.2vw, 1.5rem); font-family: var(--font-heading); font-weight: 600; font-size: clamp(1.05rem, 1.6vw, 1.25rem); line-height: 1.28; color: var(--color-brand-text); cursor: pointer; list-style: none; }
+  .cr-qa-q::-webkit-details-marker { display: none; }
+  .cr-qa-q::after { content: '+'; margin-left: auto; padding-left: 1rem; font-family: var(--font-body); font-size: 1.3rem; font-weight: 700; line-height: 1; color: var(--brass); }
+  .cr-qa-item[open] .cr-qa-q::after { content: '\2013'; }
+  .cr-qa-n { flex: 0 0 auto; font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.09em; color: var(--brass); }
+  .cr-qa-a { margin: 0; padding: 0 clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2vw, 1.3rem) calc(clamp(1rem, 2.2vw, 1.5rem) + 2.1rem); font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
+
+  /* ============ 11 · FINAL CTA (dark gradient) ============ */
+  .cr-final { background: linear-gradient(150deg, rgba(20,38,27,0.84) 0%, rgba(27,51,36,0.76) 52%, rgba(46,79,61,0.7) 100%), url('https://img.leelinepackage.com/custom-child-resistant/final-cta.webp') center / cover no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden; }
+  .cr-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
+  .cr-final-inner { position: relative; z-index: 1; }
+  .cr-final .eyebrow { justify-content: center; }
+  .cr-final-title { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.85rem, 4vw, 3rem); line-height: 1.05; letter-spacing: -0.028em; color: #fff; margin: 1.1rem auto 0; max-width: 22ch; text-wrap: balance; }
+  .cr-final-title em { font-style: italic; color: #E3C29A; }
+  .cr-final-sub { font-size: clamp(1rem, 1.5vw, 1.12rem); line-height: 1.7; color: rgba(245,240,229,0.84); max-width: 60ch; margin: 1.2rem auto 0; }
+
+  /* ============ responsive ============ */
+  @media (max-width: 1024px) {
+    .cr-hero-in { grid-template-columns: minmax(0, 1fr); gap: 2.6rem; }
+  }
+  @media (max-width: 900px) {
+    .cr-lock { grid-template-columns: minmax(0, 1fr); gap: 1.3rem; }
+    /* the ship pill drops to its own row, left-aligned, so all three cards read the same */
+    .cr-lock-top { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: 'n name' 'ship ship'; gap: 0.45rem 0.9rem; align-items: center; }
+    .cr-lock-n { grid-area: n; }
+    .cr-lock-name { grid-area: name; }
+    .cr-ship { grid-area: ship; margin-left: 0; justify-self: start; }
+    .cr-test-cards { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+    .cr-test-note-cards { grid-template-columns: minmax(0, 1fr); }
+    .cr-word-cards { grid-template-columns: minmax(0, 1fr); }
+    .cr-report-grid { grid-template-columns: minmax(0, 1fr); }
+    .cr-back-grid { grid-template-columns: minmax(0, 1fr); }
+    .cr-rev-grid { grid-template-columns: minmax(0, 1fr); }
+    .cr-route { grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+    .cr-stop { padding-top: 0; padding-left: 2.4rem; border-top: 0; border-left: 2px solid rgba(31,59,44,0.22); }
+    .cr-stop-n { top: 0; }
+  }
+  @media (max-width: 560px) {
+    .cr-hero-cta .btn { width: 100%; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('in'));
+  }
+</script>

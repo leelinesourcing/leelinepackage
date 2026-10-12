@@ -51,20 +51,19 @@ img { display: block; max-width: 100%; }
 
 /*
   In-body links. A page's prose links sit INSIDE a normal sentence, so they must read as part of the
-  sentence rather than as a call to action: brass underline, no weight or size change, and the ink
-  only darkening on hover. Used to wire the vape family (each page → its siblings and the hub)
-  without adding a "related pages" block. `--light` is the dark-band variant.
+  sentence rather than as a call to action: bold, and a colour shift from the surrounding text — NO
+  underline (a brass underline read as too deliberate). Used to wire the vape family (each page → its
+  siblings and the hub) without adding a "related pages" block. `--light` is the dark-band variant.
 */
 .prose-link {
-  color: var(--color-brand-primary);
-  text-decoration: underline;
-  text-decoration-color: rgba(176, 141, 76, 0.55);
-  text-underline-offset: 0.18em;
-  transition: color 0.25s ease, text-decoration-color 0.25s ease;
+  color: var(--forest-light);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.25s ease;
 }
-.prose-link:hover { color: var(--color-brand-text); text-decoration-color: var(--brass); }
-.prose-link--light { color: #E3C29A; text-decoration-color: rgba(227, 194, 154, 0.5); }
-.prose-link--light:hover { color: #fff; text-decoration-color: #E3C29A; }
+.prose-link:hover { color: var(--brass); }
+.prose-link--light { color: var(--color-brass-light); }
+.prose-link--light:hover { color: #fff; }
 
 /* Buttons */
 .btn {

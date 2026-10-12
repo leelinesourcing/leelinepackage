@@ -717,9 +717,10 @@ const PLACEHOLDER_ICO = '<svg class="vp-ph-ico" viewBox="0 0 24 24" aria-hidden=
   .vp-type-num { font-family: var(--font-heading); font-weight: 600; font-size: 1.05rem; color: var(--brass); flex: 0 0 auto; }
   .vp-type-name { font-family: var(--font-heading); font-weight: 600; font-size: 1.2rem; line-height: 1.2; letter-spacing: -0.01em; color: var(--color-brand-text); margin: 0; }
   /* the card's outbound link sits on its own title; it stays silent until hovered so the card
-     reads exactly as before until the pointer is over it. */
+     reads exactly as before until the pointer is over it. Hover shifts the colour only — no
+     underline. */
   .vp-type-name a { color: inherit; }
-  .vp-type-name a:hover { color: var(--color-brand-primary); text-decoration: underline; text-underline-offset: 0.16em; text-decoration-thickness: 1.5px; }
+  .vp-type-name a:hover { color: var(--forest-light); }
   .vp-type-lede { font-size: 0.9rem; line-height: 1.55; color: var(--color-brand-muted); margin: 0.6rem 0 0; }
   .vp-spec { list-style: none; margin: 1.15rem 0 0; padding: 1rem 0 0; border-top: 1px solid rgba(31,59,44,0.13); display: grid; gap: 0.62rem; }
   .vp-spec li { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0.65rem; align-items: baseline; }

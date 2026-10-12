@@ -20,7 +20,7 @@ const locks = [
     steps: ['Press the side button in', 'Pull the drawer out while the button is held'],
     stop: 'Let the button go and the tray relocks on its own, so the pull has to arrive while the press is still there.',
     child: 'A small hand presses, then lets go to grab the tray — and the tray is locked again before it clears the wall.',
-    holds: 'A disposable, or a single cart pack', never: 'a heavy mod host',
+    holds: 'A disposable, or a single cart pack', never: 'a heavy <a class="cr-ilink cr-ilink--light" href="/custom-vape-packaging/vape-pen-mod-packaging/" target="_blank" rel="noopener">mod host</a>',
     why: 'Weight on a button-locked drawer drags the action loose. A host rides in a compartmented tray instead.',
     pay: 'A flat-packed box that fills on a standard line and stays shut from the factory to the counter.',
     alt: 'A closed black push-button drawer box with a recessed oval finger hole, beside a magnified view of its embossed PUSH button',
@@ -31,7 +31,7 @@ const locks = [
     steps: ['Push the inner card inward', 'Slide the sleeve off — both moves at once'],
     stop: 'The card has to stay pushed while the sleeve travels, and one hand cannot hold both.',
     child: 'A child manages one action at a time — pushes, or pulls — but never the two together, which is where the sleeve stops.',
-    holds: 'A disposable on its own, or a flat cart pack', never: 'a glass bottle',
+    holds: 'A disposable on its own, or a flat cart pack', never: 'a <a class="cr-ilink cr-ilink--light" href="/custom-vape-packaging/e-liquid-bottle-packaging/" target="_blank" rel="noopener">glass bottle</a>',
     why: 'A slide needs a flat face to travel on. Glass has no flat face, and its weight shears the travel.',
     pay: 'A flat blank that stacks and posts light — no formed barrel to freight.',
     alt: 'A push-and-slide box with its inner tray drawn out, holding a glass vape cartridge in a white insert, and a magnified view of the insert',
@@ -101,7 +101,7 @@ const testFacts = [
 ];
 const testNotes = [
   { h: 'The adult half', t: 'ISO 8317 tests the other half too: 100 adults aged 50 to 70, given the printed instructions, must open and reclose the pack — 90 of them or more. A lock that beats a child but stops an adult fails its own report.' },
-  { h: 'Tested filled', t: 'The test runs on the filled pack. The lab loads an inert stand-in for the contents, but the container and its lock are proven as a single system, not as a box and a lock that first met on the filling line.' },
+  { h: 'Tested filled', t: 'The test runs on the filled pack. The lab loads an inert stand-in for the contents, but the container and its lock are proven as a single system: a different <a class="cr-ilink" href="/custom-vape-packaging/vape-cartridge-packaging/" target="_blank" rel="noopener">cart</a> or <a class="cr-ilink" href="/custom-vape-packaging/disposable-vape-packaging/" target="_blank" rel="noopener">pen</a> is a different structure, drawn and tested again.' },
 ];
 
 /* ── §The Words — the three terms a shelf uses freely. Only one of them is a standard, and the
@@ -256,7 +256,7 @@ const jsonLd = {
         <div class="section-head cr-locks-head">
           <span class="eyebrow eyebrow--light" set:html={`${LEAF}Three locks, two moves each`}></span>
           <h2 class="section-title cr-locks-title" data-reveal="up">Three Locks, and the Move <em>a Child Misses</em></h2>
-          <p class="cr-locks-lead" data-reveal="up">A child-resistant vape box does a single job: a child cannot open it, and an adult opens it without reading anything first. Every lock below is a two-part action — and the second part is where an adult and a child part ways. The products each lock closes sit in the wider range on the <a class="prose-link prose-link--light" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
+          <p class="cr-locks-lead" data-reveal="up">A child-resistant vape box does a single job: a child cannot open it, and an adult opens it without reading anything first. Every lock below is a two-part action — and the second part is where an adult and a child part ways.</p>
         </div>
 
         <div class="cr-lock-list">
@@ -289,7 +289,7 @@ const jsonLd = {
 
                 <div class="cr-lock-never">
                   <span class="cr-never-x" aria-hidden="true">&#10005;</span>
-                  <p><b>Never holds {l.never}.</b> {l.why}</p>
+                  <p><b>Never holds <Fragment set:html={l.never} />.</b> {l.why}</p>
                 </div>
 
                 <p class="cr-lock-pay"><span>What ships</span>{l.pay}</p>
@@ -332,7 +332,7 @@ const jsonLd = {
           {testNotes.map((t, i) => (
             <article class="cr-test-note-card" data-reveal="up" style={`--d:${i * 0.08}s`}>
               <h3 class="cr-test-note-h">{t.h}</h3>
-              <p>{t.t}</p>
+              <p set:html={t.t}></p>
             </article>
           ))}
         </div>
@@ -755,9 +755,19 @@ const jsonLd = {
   .cr-scope-in { display: flex; align-items: baseline; gap: clamp(1rem, 2.4vw, 2rem); flex-wrap: wrap; }
   .cr-scope-k { flex: 0 0 auto; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
   .cr-scope p { margin: 0; font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-muted); max-width: 96ch; }
-  /* the inline links read as part of the sentence, not as a link list: brass underline, no weight change */
-  .cr-scope a { color: var(--color-brand-primary); text-decoration: underline; text-decoration-color: rgba(176, 141, 76, 0.55); text-underline-offset: 0.18em; transition: text-decoration-color 0.25s ease, color 0.25s ease; }
-  .cr-scope a:hover { color: var(--color-brand-text); text-decoration-color: var(--brass); }
+  /* ⚠️ NO underline — the client's call: an in-body link reads as BOLD + a different colour, nothing
+     more. (The shared `.prose-link` is not used on this page; do not reintroduce it here.) */
+  .cr-scope a { font-weight: 700; color: var(--forest-light); transition: color 0.25s ease; }
+  .cr-scope a:hover { color: var(--color-brand-primary); }
+
+  /* ⚠️ In-body sibling links. They are injected with `set:html` from the data strings, so these rules
+     MUST be `:global()` — Astro never stamps its scope attribute on string markup, and a plain rule
+     would silently match nothing. Bold + a colour difference only, NO underline (the client's rule);
+     `--light` is the dark-band variant. Used twice in §2 ("Never holds …") and twice in §3. */
+  :global(.cr-ilink) { font-weight: 700; color: var(--forest-light); text-decoration: none; }
+  :global(.cr-ilink:hover) { color: var(--color-brand-primary); }
+  :global(.cr-ilink--light) { color: var(--color-brass-light); }
+  :global(.cr-ilink--light:hover) { color: #fff; }
 
   /* ============ 9 · WHAT BUYERS SAY (clay) — identity-first review cards ============
      ⚠️ NOT the family's 2-up blockquote: the reviewer LEADS the card, the avatar is a ROUND disc (the

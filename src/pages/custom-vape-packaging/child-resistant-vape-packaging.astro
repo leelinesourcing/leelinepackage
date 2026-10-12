@@ -464,7 +464,7 @@ const jsonLd = {
           ))}
         </div>
 
-        <p class="cr-back-scope"><span class="cr-scope-k">Locks only</span> A lock is all this page covers. The wider vape range, and the products these locks get drawn around, sits on the <a class="cr-ilink" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
+        <p class="cr-back-scope"><span class="cr-scope-k">Locks only</span> A lock is all this page covers. The wider vape range sits on the <a class="cr-ilink" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
       </div>
     </section>
 
@@ -743,15 +743,17 @@ const jsonLd = {
   /* ⚠️ The scope line used to be its own parchment band; the client moved it to the FOOT of §7 —
      *"不要单开一个不同的背景，很突兀"*. It now shares §7's ivory ground and has no background of its
      own. `.cr-scope-k` survives as its inline brass label. */
-  .cr-back-scope { margin: clamp(1.8rem, 3.6vw, 2.4rem) 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); max-width: 92ch; }
+  /* ⚠️ NO `max-width` (it capped the line at 92ch and forced a second row). The sentence is kept short
+     enough to sit on ONE row at desktop — "一排就行了，不用两排". */
+  .cr-back-scope { margin: clamp(1.8rem, 3.6vw, 2.4rem) 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); }
   .cr-scope-k { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-right: 0.5rem; }
 
   /* ⚠️ In-body sibling links. They are injected with `set:html` from the data strings, so these rules
      MUST be `:global()` — Astro never stamps its scope attribute on string markup, and a plain rule
      would silently match nothing. Bold + a colour difference only, NO underline (the client's rule);
      `--light` is the dark-band variant. Used twice in §2 ("Never holds …") and twice in §3. */
-  :global(.cr-ilink) { font-weight: 700; color: var(--forest-light); text-decoration: none; }
-  :global(.cr-ilink:hover) { color: var(--color-brand-primary); }
+  :global(.cr-ilink) { font-weight: 700; color: var(--forest-light); text-decoration: none; transition: color 0.2s ease; }
+  :global(.cr-ilink:hover) { color: var(--brass); }
   :global(.cr-ilink--light) { color: var(--color-brass-light); }
   :global(.cr-ilink--light:hover) { color: #fff; }
 

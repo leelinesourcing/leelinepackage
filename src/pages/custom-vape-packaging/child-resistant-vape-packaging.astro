@@ -463,26 +463,16 @@ const jsonLd = {
             </article>
           ))}
         </div>
+
+        <p class="cr-back-scope"><span class="cr-scope-k">Locks only</span> A lock is all this page covers. The wider vape range, and the products these locks get drawn around, sits on the <a class="cr-ilink" href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
       </div>
     </section>
 
-    <!-- ============ 8 · SCOPE STRIP (parchment) — the one place this page links sideways ============
-         The scope line names where the other vape subjects live. Its links are INLINE in a sentence,
-         not a "related pages" band: the client has rejected deliberate cross-link blocks, so the
-         wiring stays inside the one sentence that was already making the scope claim. -->
-    <section class="cr-scope">
-      <div class="wrap cr-scope-in">
-        <span class="cr-scope-k">Locks only</span>
-        <p>A lock is all this page covers. The wider vape range, and the products these locks get drawn around, sits on the <a href="/custom-vape-packaging/" target="_blank" rel="noopener">main vape packaging page</a>.</p>
-      </div>
-    </section>
-
-    <!-- ============ 9 · WHAT BUYERS SAY (clay) — two identity-first review cards ============
+    <!-- ============ 8 · WHAT BUYERS SAY (clay) — two identity-first review cards ============
          ⚠️ Deliberately NOT the family's 2-up blockquote with a small SQUARE photo sitting in the
-         card FOOTER: here the reviewer LEADS the card (a round initial disc + name / role / market),
-         a large brass quote glyph sits in the corner, and the copy follows. Same content elements as
-         the siblings (name · avatar · role · market), a different structure. The avatars are initials
-         placeholders — the client's headshots land on `${CR}/avatar-01.webp` later. -->
+         card FOOTER: here the reviewer LEADS the card (a round photo + name / role / market), a large
+         brass quote glyph sits in the corner, and the copy follows. Same content elements as the
+         siblings (name · avatar · role · market), a different structure. -->
     <section class="cr-rev">
       <div class="wrap">
         <div class="section-head">
@@ -512,7 +502,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ 10 · BEFORE YOU SEND THE LOCK (ivory) — a <details> accordion ============ -->
+    <!-- ============ 9 · BEFORE YOU SEND THE LOCK (ivory) — a <details> accordion ============ -->
     <section class="cr-faq">
       <div class="wrap">
         <div class="section-head">
@@ -530,7 +520,7 @@ const jsonLd = {
       </div>
     </section>
 
-    <!-- ============ 11 · FINAL CTA (dark gradient) — no photograph, so no missing asset ============ -->
+    <!-- ============ 10 · FINAL CTA — the client's plate under a forest scrim ============ -->
     <section class="cr-final">
       <div class="wrap cr-final-inner">
         <span class="eyebrow eyebrow--light" set:html={`${LEAF}Start with the lock`}></span>
@@ -553,7 +543,7 @@ const jsonLd = {
 
   /* ============ shared ============ */
   :global(body) { background: var(--ivory); }
-  .cr-hero, .cr-locks, .cr-test, .cr-report, .cr-words, .cr-order, .cr-back, .cr-scope, .cr-faq, .cr-final { position: relative; }
+  .cr-hero, .cr-locks, .cr-test, .cr-report, .cr-words, .cr-order, .cr-back, .cr-rev, .cr-faq, .cr-final { position: relative; }
 
   /* the content-photo containers — a straight `<img>` from R2, cropped to the slot. The client's own
      photos are in: hero (1376×768), the three locks (1024², so the row is 1:1), the two avatars (232²). */
@@ -750,15 +740,11 @@ const jsonLd = {
   .cr-back-fix { margin: 0.35rem 0 0; padding-top: 0.85rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.95rem; line-height: 1.68; color: var(--color-brand-text); }
   .cr-back-fix span { display: block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brass); }
 
-  /* ============ 8 · SCOPE STRIP (parchment) — the one place this page links sideways ============ */
-  .cr-scope { background: var(--color-parchment); border-top: 1px solid rgba(176,141,76,0.35); border-bottom: 1px solid rgba(176,141,76,0.35); padding: clamp(1.6rem, 3.2vw, 2.4rem) 0; }
-  .cr-scope-in { display: flex; align-items: baseline; gap: clamp(1rem, 2.4vw, 2rem); flex-wrap: wrap; }
-  .cr-scope-k { flex: 0 0 auto; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
-  .cr-scope p { margin: 0; font-size: 0.96rem; line-height: 1.6; color: var(--color-brand-muted); max-width: 96ch; }
-  /* ⚠️ NO underline — the client's call: an in-body link reads as BOLD + a different colour, nothing
-     more. (The shared `.prose-link` is not used on this page; do not reintroduce it here.) */
-  .cr-scope a { font-weight: 700; color: var(--forest-light); transition: color 0.25s ease; }
-  .cr-scope a:hover { color: var(--color-brand-primary); }
+  /* ⚠️ The scope line used to be its own parchment band; the client moved it to the FOOT of §7 —
+     *"不要单开一个不同的背景，很突兀"*. It now shares §7's ivory ground and has no background of its
+     own. `.cr-scope-k` survives as its inline brass label. */
+  .cr-back-scope { margin: clamp(1.8rem, 3.6vw, 2.4rem) 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(31, 59, 44, 0.14); font-size: 0.94rem; line-height: 1.62; color: var(--color-brand-muted); max-width: 92ch; }
+  .cr-scope-k { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); margin-right: 0.5rem; }
 
   /* ⚠️ In-body sibling links. They are injected with `set:html` from the data strings, so these rules
      MUST be `:global()` — Astro never stamps its scope attribute on string markup, and a plain rule
@@ -769,7 +755,7 @@ const jsonLd = {
   :global(.cr-ilink--light) { color: var(--color-brass-light); }
   :global(.cr-ilink--light:hover) { color: #fff; }
 
-  /* ============ 9 · WHAT BUYERS SAY (clay) — identity-first review cards ============
+  /* ============ 8 · WHAT BUYERS SAY (clay) — identity-first review cards ============
      ⚠️ NOT the family's 2-up blockquote: the reviewer LEADS the card, the avatar is a ROUND disc (the
      siblings put a square photo in the footer), and a brass quote glyph sits in the corner. */
   .cr-rev { background: var(--color-brand-surface); padding: clamp(4rem, 9vw, 7.5rem) 0; }
@@ -789,7 +775,7 @@ const jsonLd = {
   .cr-rev-body { position: relative; z-index: 1; display: grid; gap: 0.8rem; }
   .cr-rev-body p { margin: 0; font-size: 0.98rem; line-height: 1.72; color: var(--color-brand-text); }
 
-  /* ============ 10 · SIX QUESTIONS (ivory) — a <details> accordion ============ */
+  /* ============ 9 · SIX QUESTIONS (ivory) — a <details> accordion ============ */
   .cr-faq { background: var(--ivory); padding: clamp(4rem, 9vw, 7.5rem) 0; }
   .cr-qa { display: grid; gap: clamp(0.7rem, 1.6vw, 1rem); }
   .cr-qa-item { background: var(--color-brand-surface); border: 1px solid rgba(31,59,44,0.14); border-radius: 0.9rem; overflow: hidden; }
@@ -800,7 +786,7 @@ const jsonLd = {
   .cr-qa-n { flex: 0 0 auto; font-family: var(--font-heading); font-size: 0.78rem; letter-spacing: 0.09em; color: var(--brass); }
   .cr-qa-a { margin: 0; padding: 0 clamp(1rem, 2.2vw, 1.5rem) clamp(1rem, 2vw, 1.3rem) calc(clamp(1rem, 2.2vw, 1.5rem) + 2.1rem); font-size: 0.95rem; line-height: 1.7; color: var(--color-brand-muted); }
 
-  /* ============ 11 · FINAL CTA (dark gradient) ============ */
+  /* ============ 10 · FINAL CTA (photo under a forest scrim) ============ */
   .cr-final { background: linear-gradient(150deg, rgba(20,38,27,0.84) 0%, rgba(27,51,36,0.76) 52%, rgba(46,79,61,0.7) 100%), url('https://img.leelinepackage.com/custom-child-resistant/final-cta.webp') center / cover no-repeat; color: var(--ivory); text-align: center; padding: clamp(4.5rem, 10vw, 8rem) 0; overflow: hidden; }
   .cr-final::before { content: ''; position: absolute; inset: 0; background: radial-gradient(60% 62% at 50% 0%, rgba(228,181,77,0.18), transparent 70%); pointer-events: none; }
   .cr-final-inner { position: relative; z-index: 1; }

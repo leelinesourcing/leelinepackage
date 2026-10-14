@@ -459,6 +459,46 @@ const jsonLd = {
     }
   };
   const railSections = railLinks.map(idOf).filter((el) => el);
+  const railEl = document.querySelector('.post-rail');
+
+  /*
+    FOLLOW. The rail is a plain sticky column with no scrollbar of its own (the client's call —
+    *"右边不要拖动栏，你就跟随我的文章就好了"*). A TOC taller than the viewport (this article's is
+    26 entries ≈ 1130px against a ~700–800px window) therefore strands its lower entries below the
+    fold, so on the late sections the highlighted entry sits off-screen — *"On This Page 并不是对应的
+    位置"*. Fix: slide the WHOLE rail up just enough to keep the ACTIVE entry in view, clamped to the
+    rail's own height. Nothing is removed from the list and no scrollbar is added; the entries above
+    simply travel off the top, which is exactly "the rail follows the article".
+    ⚠️ `offsetHeight` / `offsetTop` are layout reads and `transform` is a compositor-only write, so
+    this does not thrash layout; it is rAF-throttled to at most one pass per frame.
+  */
+  const RAIL_GAP = 24; // breathing room under the viewport
+  let railTop = 112;   // `.post-rail`'s computed `top` (7rem); read at load + resize so it cannot drift
+  let followRaf = 0;
+  const follow = () => {
+    if (!railEl) return;
+    const active = railEl.querySelector('a.is-active');
+    if (!active) return;
+    const avail = window.innerHeight - railTop - RAIL_GAP;
+    const railH = railEl.offsetHeight;
+    if (railH <= avail) {
+      railEl.style.transform = '';
+      return;
+    }
+    const rel = active.offsetTop;
+    const shift = Math.max(0, Math.min(rel - avail * 0.34, railH - avail));
+    railEl.style.transform = shift ? `translateY(${-shift}px)` : '';
+  };
+  const followNow = () => {
+    if (followRaf) return;
+    followRaf = requestAnimationFrame(() => { followRaf = 0; follow(); });
+  };
+  const syncTop = () => {
+    if (!railEl) return;
+    const t = parseFloat(getComputedStyle(railEl).top);
+    if (Number.isFinite(t)) railTop = t;
+    followNow();
+  };
 
   if (railSections.length && 'IntersectionObserver' in window) {
     const setActive = (current) => {
@@ -469,11 +509,18 @@ const jsonLd = {
         const shown = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (shown[0]) setActive(shown[0].target);
+        if (shown[0]) {
+          setActive(shown[0].target);
+          followNow();
+        }
       },
       // the "current" band: everything below the 74px nav and above 65% of the viewport
       { rootMargin: '-90px 0px -65% 0px', threshold: 0 },
     );
     railSections.forEach((el) => spy.observe(el));
   }
+
+  window.addEventListener('scroll', followNow, { passive: true });
+  window.addEventListener('resize', syncTop, { passive: true });
+  syncTop();
 </script>

@@ -28,13 +28,20 @@
 }
 
 /* ── headings ─────────────────────────────────────────────────────────────── */
+/*
+  ⚠️ Headings use plain `text-wrap: wrap` — fill line 1 to the column edge, only the LAST line is
+  short. `balance` broke them EARLY to equalise the two lines ("Challenges and Limitations of /
+  Child-Resistant Vape Packaging"), and even `pretty` pulled a word down (measured on a 768px
+  column: wrap 763/153 vs pretty 683/234 vs balance 443/471). The client wants the first line
+  filled first — *"不是应该先横向铺满了再转行吗"*.
+*/
 .post-prose h2,
 .post-prose h3,
 .post-prose h4 {
   font-family: var(--font-heading);
   color: var(--color-brand-text);
   letter-spacing: -0.015em;
-  text-wrap: balance;
+  text-wrap: wrap;
 }
 .post-prose h2 {
   font-size: clamp(1.7rem, 3.4vw, 2.15rem);
@@ -63,12 +70,14 @@
   ⚠️ NO UNDERLINE — the colour carries it, by request (*"内外链不要有下划线，颜色有区别就行了"*).
   ⚠️ That makes the COLOUR load-bearing, so it cannot stay `--color-forest` (#1F3B2C): the body text
   is `--color-brand-text` (#2B2F26) and the two are indistinguishable at a glance, so without the
-  border every link would read as plain text. `--color-sage` (#4A6B52) is clearly a different hue
-  and still clears 4.5:1 on the near-white article ground. **Do not switch it to `--brass`**
-  (#B08D4C, ~3.1:1) — that fails for body-size links, whatever the hover convention elsewhere.
+  border every link would read as plain text. It moved to `--color-sage` (#4A6B52) next — but the
+  client then called that green too faint (*"包含内链的绿色感觉不是很明显"*), so it now uses the
+  dedicated `--color-link` (#2E7D4F): the same hue family at higher chroma, still ≥4.5:1 on the
+  near-white article ground. **Do not switch it to `--brass`** (#B08D4C, ~3.1:1) — that fails for
+  body-size links, whatever the hover convention elsewhere.
 */
 .post-prose a {
-  color: var(--color-sage);
+  color: var(--color-link);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.25s ease;
@@ -79,6 +88,15 @@
 
 .post-prose ul,
 .post-prose ol { margin: 0 0 1.5rem; padding-left: 1.35rem; }
+/*
+  ⚠️ Tailwind's Preflight ships `ol, ul, menu { list-style: none }`, so the Markdown-generated
+  <ol>/<ul> in every article had NO bullet or number at all — only the indent below. (The
+  marketing pages escape this because they set `list-disc`/`list-decimal` utilities by hand;
+  Markdown emits bare <ol>/<ul>, so nothing re-enabled the marker.) The `li::marker` colour rule
+  was written expecting markers that were never there. Re-enable the marker type explicitly.
+*/
+.post-prose ul { list-style-type: disc; }
+.post-prose ol { list-style-type: decimal; }
 .post-prose li { margin-bottom: 0.55rem; }
 .post-prose li::marker { color: var(--brass); }
 .post-prose ul ul,
@@ -240,12 +258,13 @@
 /*
   ⚠️ NO `max-height` / `overflow-y` — the rail has no scrollbar of its own, by request: *"右边不要拖动栏，
   你就跟随我的文章就好了"*. It is a plain sticky column that travels with the article.
-  ⚠️ The trade: a TOC whose entries run taller than the viewport cannot have its last item reached
-  while the rail is pinned. This is measured, not assumed — `rigid-box-vs-folding-carton` (13 entries)
-  is ~640px, so it clears an 800px viewport, but the collection's longest TOC is 20 entries and will
-  not. If it is ever needed back, the old block was `max-height: calc(100vh - 9rem); overflow-y: auto;
-  overscroll-behavior: contain; scrollbar-width: thin` (overflow on the sticky element itself is safe;
-  only an ANCESTOR's overflow kills sticking).
+  The FOLLOW: when the TOC is taller than the viewport (this article is 26 entries ≈ 1130px) the script
+  in `[slug].astro` slides the whole rail up with `transform: translateY(...)` so the highlighted entry
+  stays in view — *"On This Page 并不是对应的位置"*. ⚠️ `top` MUST stay `7rem`: the script's `RAIL_TOP`
+  (112) mirrors it. The transform is set only on this one element, so no `will-change` is needed.
+  (Older fallback, if the follow is ever removed: `max-height: calc(100vh - 9rem); overflow-y: auto;
+  overscroll-behavior: contain; scrollbar-width: thin` — overflow on the sticky element itself is safe;
+  only an ANCESTOR's overflow kills sticking.)
 */
 .post-rail {
   position: sticky;
@@ -320,9 +339,14 @@
 .post-quote strong { color: var(--color-charcoal); }
 
 /* ── FAQ ──────────────────────────────────────────────────────────────────── */
+/*
+  ⚠️ NO `border-top`. The "People Also Ask" H2 sits directly above every FAQ block and already
+  draws its own `border-bottom` (the heading underline), so the FAQ's border-top added a SECOND
+  rule ~50px below it — the client read that as a double line (*"下方不要用两条横线，还是一条隔开就行"*).
+  The heading's underline is now the single separator.
+*/
 .post-faq {
   margin: 2.4rem 0;
-  border-top: 1px solid color-mix(in srgb, var(--color-kraft) 45%, transparent);
 }
 .post-faq-item { padding: 1.5rem 0 0.4rem; }
 .post-faq-q {

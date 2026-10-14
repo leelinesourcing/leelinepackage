@@ -24,6 +24,12 @@
   --color-charcoal: #21241C;
   --color-moss:     #8C8676;
   --color-sage:     #4A6B52;
+  /* ── article link green ─────────────────────────────────────────────────────
+     In-body article links (`blog.css` `.post-prose a`). `--color-sage` is only ~31% saturated,
+     so on the near-white article ground the client read it as a washed-out grey-green and not an
+     obvious link (*"包含内链的绿色感觉不是很明显"*). Same hue family, higher chroma, dark enough to
+     still clear 4.5:1 on the linen ground. Do NOT reuse `--color-sage` for links. */
+  --color-link:     #2E7D4F;
 
   /* ── brass for DARK grounds ────────────────────────────────────────────────
      The brand brass tokens do not survive on a dark band: over the shipping-box

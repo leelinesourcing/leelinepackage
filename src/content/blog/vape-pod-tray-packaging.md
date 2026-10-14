@@ -4,10 +4,10 @@ description: 'Compare eight vape pod tray structures on fit security, oil resist
 publishDate: 2026-10-14
 author: lofty-shen
 category: 'quality-control'
-featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/vape-pod-tray-packaging-cover.webp'
-featuredImageAlt: 'A custom vape pod tray insert holding a row of pods'
-featuredImageWidth: 1200
-featuredImageHeight: 750
+featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Pod-Tray-Packaging.webp'
+featuredImageAlt: 'Eight vape pod tray packaging structures shown under the title 8 Vape Pod Tray Packaging'
+featuredImageWidth: 800
+featuredImageHeight: 400
 seoTitle: 'Vape Pod Tray Packaging: 8 Inserts Compared for Fit and Cost'
 keywords: 'vape pod tray packaging'
 draft: false
@@ -29,6 +29,8 @@ We test every tray on cushioning, tolerance, and assembly speed. Our engineers c
 
 ### 1. PET / PETG Vacuum-Formed Blister Trays
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/PET-PETG-Vacuum-Formed-Blister-Trays.webp" alt="A clear vacuum-formed PETG blister tray with molded pod cavities" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 If pod tins rattle or metallic finishes scuff, skip generic PVC. Vacuum-formed PET and PETG trays hold pods tight in CAD-matched negative cavities, usually at 0.35 mm to 0.60 mm sheet thickness.
 
 PETG beats basic PET and PVC on deep draws, with cleaner corners and better oil resistance. PVC costs less but carries [chlorine lifecycle concerns](https://www.cancer.gov/about-cancer/causes-prevention/risk/substances/vinyl-chloride).
@@ -43,6 +45,8 @@ PET and PETG run clearer and support [recyclability claims](https://how2recycle.
 
 ### 2. Biodegradable Molded Paper Pulp Trays
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Biodegradable-Molded-Paper-Pulp-Trays.webp" alt="Two white molded paper pulp trays with formed cavities for pod cartridges" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 If plastic-free compliance blocks retail access, molded pulp wins. We tested these trays for pod cartridges, and they carry strong brand alignment under [EU single-use plastics rules](https://environment.ec.europa.eu/topics/plastics/single-use-plastics_en).
 
 Inspect four specs before sampling. Wall thickness: 1.2 to 2.0 mm. Draft angles: 3 to 5 degrees. Cavity edges stay blunt on compact pod formats, and dry-press pulp produces cleaner geometry.
@@ -56,6 +60,8 @@ Our warehouse log showed 14% more dust rejection versus PVC trays. We moved one 
 For the fiber itself, see [bamboo fiber versus wood pulp](https://www.leelinepackage.com/bamboo-fiber-vs-wood-pulp/).
 
 ### 3. High-Density EVA Foam Trays
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/High-Density-EVA-Foam-Trays.webp" alt="A dark high-density EVA foam tray with die-cut pod cavities" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 For premium starter kits mixing pods, chargers, and USB cables, EVA is the protection-first pick. We cut plain and presentation-grade [ethylene-vinyl-acetate foam](https://www.leelinepackage.com/ethylene-vinyl-acetate-foam/) trays for a 2-pod export set.
 
@@ -73,6 +79,8 @@ Tooling is cheap, often under \$800 for die-cut inserts. Assembly runs slower th
 
 ### 4. Custom Cardboard Cutout Inserts
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Custom-Cardboard-Cutout-Inserts.webp" alt="A kraft cardboard cutout insert beside a white layered cutout insert" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 Cardboard cutouts suit light pods or secondary stabilization, when molded-pulp tooling costs too much and plastic feels off-brand. We cut layered 1.5 mm SBS inserts with slot-locking tabs and no mold.
 
 **⚡ Power Move:** Match insert height to carton depth plus 0.5 mm to stop pod bounce.
@@ -86,6 +94,8 @@ Read our [types of folding cartons](https://www.leelinepackage.com/types-of-fold
 <blockquote class="post-quote"><p><strong>🧠 Expert Take:</strong> "Recyclability is the quiet advantage here. A one-material paper tray drops straight into curbside bins, and at 500 units it runs about 30% under molded pulp."</p><p><strong>— <a href="https://cn.linkedin.com/in/hughes-zhu-951204219" target="_blank" rel="noopener">Hughes Zhu</a></strong>, Packaging Technology Professional</p></blockquote>
 
 ### 5. Silicone Gasket-Sealed Trays
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Silicone-Gasket-Sealed-Trays.webp" alt="A blue silicone case holding a vape mod on a wooden desk" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 When oil or smell migrates past PET, pulp, or EVA, add a gasket. We tested a PETG tray with a 1.8 mm 40A [platinum-cured silicone](https://www.astm.org/d1418-21a.html) rim, and it held 0.5 mL of e-liquid back from the fold line in a 48-hour tilt test.
 
@@ -101,6 +111,8 @@ Unit cost climbs \$0.12 to \$0.25 per tray plus hand assembly. Two-shot overmold
 
 ### 6. Velvet-Coated EVA Inserts
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Velvet-Coated-EVA-Inserts.webp" alt="A black velvet-flocked EVA insert with die-cut pod cavities" width="1456" height="720" loading="lazy" decoding="async" /></figure>
+
 Metallic pods survive transit but still pick up micro-scratches from plain foam friction on the shelf. Velvet-coated EVA fixes that cosmetic failure. We cut flocked EVA inserts for a 2-pod holiday gift set, and the plush cavity stopped scuffs on chrome and gradient finishes.
 
 Touch matters too. Buyers feel the velvet before the pod, which lifts perceived value in premium kits, gift boxes, and influencer mailers.
@@ -113,6 +125,8 @@ Cleaning is hard, and flocking is a secondary adhesion process, so this format c
 
 ### 7. E-Liquid Barrier-Coated Paper Trays
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/E-Liquid-Barrier-Coated-Paper-Trays.webp" alt="An e-liquid carton packed with bottles of e-liquid" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 Many brands want paper-led design but fear leakage. Uncoated board soaks e-liquid in hours, and thermoformed plastic kills the eco story, so a barrier coating is the middle path.
 
 We tested 1.5 mm SBS trays with a 4 gsm water-based acrylic coating. In a 48-hour tilt test, oil stayed on the surface, while untreated board wicked through in 9 hours. The coating also cut odor pickup.
@@ -124,6 +138,8 @@ Check your end-of-life claim first. PE or wax coatings make trays non-recyclable
 **🛡️ Our Verdict:** Use water-based barrier coatings for small pods, sample kits, or retail shelves, and skip PE if you claim curbside recyclability. For the substrate, read our [greaseproof paper](https://www.leelinepackage.com/greaseproof-paper/) guide.
 
 ### 8. EPE Pearl Cotton Trays
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/EPE-Pearl-Cotton-Trays.webp" alt="A white EPE pearl cotton tray with round pod cavities" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 EPE pearl cotton wins when freight abuse, low cost, and light weight matter more than shelf looks. It fits master packs, export cartons, budget bundles, and B2B shipments.
 

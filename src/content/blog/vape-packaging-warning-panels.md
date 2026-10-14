@@ -4,10 +4,10 @@ description: 'Balance vape warning panel visibility with pack design, print qual
 publishDate: 2026-10-14
 author: lofty-shen
 category: 'quality-control'
-featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/vape-packaging-warning-panels-cover.webp'
-featuredImageAlt: 'Placeholder cover for the vape packaging warning panels guide'
-featuredImageWidth: 1200
-featuredImageHeight: 750
+featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Packaging-Warning-Panels.webp'
+featuredImageAlt: 'A red vape carton showing an FDA nicotine warning panel, captioned Vape Packaging Warning Panels'
+featuredImageWidth: 800
+featuredImageHeight: 400
 seoTitle: 'Vape Packaging Warning Panels: A 3-Market Labeling Checklist'
 keywords: 'vape packaging warning panels'
 draft: false
@@ -50,6 +50,8 @@ This article covers nicotine-containing vape packaging. It is not a full legal t
 
 ## FDA Nicotine Warning Panel Requirements
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/FDA-Nicotine-Warning-Panel-Requirements.webp" alt="A hand using a digital caliper to measure a white vape carton beside a CMYK color swatch fan" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 **WARNING: This product contains nicotine. Nicotine is an addictive chemical.**
 
 Under the [FDA covered tobacco products warning rule](https://www.fda.gov/tobacco-products/labeling-and-warning-statements-tobacco-products/covered-tobacco-products-and-roll-your-own-cigarette-tobacco-labeling-and-warning-statement), this statement must appear on two principal display panels for U.S. nicotine vape cartons. We treat it as a hard compliance block, not a brand design element.
@@ -77,6 +79,8 @@ Sources: the [EU TPD](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CE
 
 ## How Warning Panels Get Engineered at the Dieline Stage?
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/How-Warning-Panels-Get-Engineered-at-the-Dieline-Stage.webp" alt="A monitor showing a vape carton dieline with red warning-panel zones highlighted in artwork software" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 Production follows a five-step pre-press SOP, and each file must pass a locked QA checklist before plate approval.
 
 **Reserve space first:** warning zones are locked on the flat dieline before branding begins. Front and back PDP rectangles are non-negotiable.
@@ -99,6 +103,8 @@ Production follows a five-step pre-press SOP, and each file must pass a locked Q
 
 ## Child-Resistant Vape Box Compliance and Tactile Warning Triangles
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Child-Resistant-Vape-Box-Compliance-and-Tactile-Warning-Triangles.webp" alt="A lab press testing machine pushing down on a small kraft carton" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 Child-resistant packaging is a separate performance requirement, and it does not replace a warning panel. We keep the two QC checks in different folders.
 
 In the U.S., CPSC special packaging under [16 CFR part 1700](https://www.cpsc.gov/FAQ/Special-Packaging-PPPA-FAQs) must meet child-resistance and adult-friendly testing thresholds. FDA has also flagged missing child-resistant packaging as a public-health concern.
@@ -112,6 +118,8 @@ The same closure and panel checks apply to [vape cartridge packaging](https://ww
 <blockquote class="post-quote"><p><strong>🔄 Common Misconception:</strong> A child-resistant cap or tactile triangle does not replace the printed warning panel. The warning zone still has to cover its required area on the PDPs.</p><p><strong>— <a href="https://www.linkedin.com/in/liu-hui-foodcontact/" target="_blank" rel="noopener">Liu Hui</a></strong>, Regulatory Affairs Specialist</p></blockquote>
 
 ## The Value: Compliance-First Packaging Protects Your Launch
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/The-Value-Compliance-First-Packaging-Protects-Your-Launch.webp" alt="A white folded carton beside a clipboard checklist and pen on a desk by a window" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 We pulled three quarters of pre-press rejection logs for vape packaging warning panels across U.S., U.K./E.U., and Canadian runs. Warning-panel errors dominated, not print quality.
 
@@ -134,6 +142,8 @@ Typography, area, and language rules are verified before mass production. Meetin
 Design around a fixed compliance block. Reserve warning zones on the flat dieline before logo placement, then measure compliance as warning panel area ÷ PDP area × 100. A locked 30% zone still leaves 70% for brand identity.
 
 ## Challenges to Consider
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Challenges-to-Consider.webp" alt="A dark close-up of a box corner under raking light showing a glossy foil panel" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 Warning panels are legal infrastructure, not brand art. Proofs undergo market-rule audits before touching plates, and the trade-offs are real.
 

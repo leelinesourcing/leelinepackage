@@ -67,7 +67,18 @@ const postDates = new Map(
 export default defineConfig({
   output: 'static',
   site: 'https://www.leelinepackage.com',
-  adapter: cloudflare(),
+  /*
+    `imageService: 'passthrough'` is deliberate, not a leftover. Every content image on this site
+    is a plain `<img src="https://img.leelinepackage.com/…">` — nothing goes through `astro:assets`,
+    so Astro's image pipeline is never invoked (`<Image>` was removed on purpose; see CLAUDE.md).
+
+    A bare `cloudflare()` is NOT equivalent. Since @astrojs/cloudflare ≥14 the adapter default is
+    `imageService: 'cloudflare-binding'`, which force-enables Cloudflare Images: it logs "Enabling
+    image processing with Cloudflare Images…", injects `"images": { "binding": "IMAGES" }` into the
+    generated `dist/client/wrangler.json`, and makes the deploy depend on the Cloudflare Images
+    product. This static site uses none of that, so `passthrough` drops the binding.
+  */
+  adapter: cloudflare({ imageService: 'passthrough' }),
   integrations: [
     react(),
     /*

@@ -71,8 +71,11 @@ There are no local content images in the repo — `src/assets/` is unused.
 
 - **Do NOT use Astro's `<Image>`** (`astro:assets`) for these. It rewrites the `src` to
   `/_image?href=<encoded>` in dev and copies the file into self-hosted `/_astro/*.webp` at build, so
-  the raw R2 URL never reaches the HTML. The `<Image>` component, `image.remotePatterns` and the
-  adapter's `imageService` have all been removed — do not reintroduce them for R2 imagery.
+  the raw R2 URL never reaches the HTML. The `<Image>` component and `image.remotePatterns` have been
+  removed — do not reintroduce them for R2 imagery. The Cloudflare adapter is pinned to
+  **`imageService: 'passthrough'`** in `astro.config.mjs`: a bare `cloudflare()` now defaults to
+  `'cloudflare-binding'`, which force-enables Cloudflare Images and injects an `IMAGES` binding the
+  static site does not use.
 - Above-the-fold images (hero, header) use `loading="eager"`, `fetchpriority="high"`,
   `decoding="sync"`. All others use `loading="lazy"`, `decoding="async"`.
 - Full-bleed hero/CTA backgrounds stay as CSS `url('https://img.leelinepackage.com/…')` with a

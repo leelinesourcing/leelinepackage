@@ -108,7 +108,7 @@ const nav = {
                         <a class="nav-mega-item" href={e.href} target="_blank" rel="noopener">
                           <span class="nav-mega-thumb-wrap">
                             {e.img
-                              ? <img class="nav-mega-thumb" src={e.img} alt="" width="60" height="60" loading="lazy" decoding="async" />
+                              ? <img class="nav-mega-thumb" src={e.img} alt={e.label} width="60" height="60" loading="lazy" decoding="async" />
                               : <span class="nav-mega-thumb nav-mega-thumb--ph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="7" width="16" height="13" rx="2"/><path d="M8 7V5h8v2"/></svg></span>}
                           </span>
                           <span class="nav-mega-text">
@@ -145,7 +145,7 @@ const nav = {
         <div class="nav-menu">
           {nav.industries.map((p) => (
             <a class="nav-mega-item" href={p.href} target="_blank" rel="noopener">
-              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt="" width="60" height="60" loading="lazy" decoding="async" /></span>
+              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt={p.label} width="60" height="60" loading="lazy" decoding="async" /></span>
               <span class="nav-mega-text">
                 <span class="nav-mega-name">{p.label}</span>
                 <span class="nav-mega-desc">{p.sub}</span>
@@ -166,7 +166,7 @@ const nav = {
         <div class="nav-menu">
           {nav.services.map((p) => (
             <a class="nav-mega-item" href={p.href} target="_blank" rel="noopener">
-              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt="" width="60" height="60" loading="lazy" decoding="async" /></span>
+              <span class="nav-mega-thumb-wrap"><img class="nav-mega-thumb" src={p.img} alt={p.label} width="60" height="60" loading="lazy" decoding="async" /></span>
               <span class="nav-mega-text">
                 <span class="nav-mega-name">{p.label}</span>
                 <span class="nav-mega-desc">{p.sub}</span>

@@ -105,7 +105,7 @@ Pitted metal harbors bacteria.
 
 One drop of standard industrial grease on an overhead chain ruins an entire pallet of open cartons.
 
-For high-risk operations, we verify facility-level certifications like [BRCGS Packaging Materials](https://www.brcgs.com/our-standards/packaging-materials/), ISO 22000, and HACCP.
+For high-risk operations, we verify facility-level certifications like [BRCGS Packaging Materials](https://www.brcgs.com/certification-listing/packaging-materials/), ISO 22000, and HACCP.
 
 ### Pillar 3: Documentation and Traceability
 

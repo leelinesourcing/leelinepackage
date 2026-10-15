@@ -8,7 +8,7 @@ featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Corrugated-Box
 featuredImageAlt: 'Corrugated Box Manufacturers In Canada'
 featuredImageWidth: 900
 featuredImageHeight: 400
-seoTitle: '10 Top Corrugated Box Manufacturers In Canada'
+seoTitle: 'Top 10 Corrugated Box Manufacturers in Canada (2026)'
 keywords: 'Corrugated Box Manufacturers In Canada'
 draft: false
 ---

@@ -94,7 +94,7 @@ They fit best when you need standard RSC cartons, regular inventory replenishmen
 
 **What to request in the quote** To get a comparable **custom corrugated boxes price**, isolate the cost drivers. Ask for a breakdown based on:
 
-- **Dimensions & Flute:** Ask how changing the flute profile (B-flute vs. C-flute) impacts vertical stacking strength.
+- **Dimensions & Flute:** Ask how changing the [flute profile](https://www.leelinepackage.com/e-flute-vs-b-flute/) (B-flute vs. C-flute) impacts vertical stacking strength.
 - **Ply Economics:** Request the specific price difference between 3-ply and 5-ply for your exact size.
 - **MOQ Tiers:** Check the minimums for plain brown boxes versus printed options.
 

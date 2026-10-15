@@ -1,5 +1,5 @@
 ---
-title: 'What Is Rsc Corrugated Boxes?'
+title: 'What Is an RSC Corrugated Box? Design & Uses Guide'
 description: 'What is RSC corrugated boxes? Regular Slotted Container: most common style with equal flaps meeting in center. Strong & economical shipping.'
 publishDate: 2026-01-12
 author: lofty-shen
@@ -8,7 +8,7 @@ featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Rsc-Corrugated
 featuredImageAlt: 'Rsc Corrugated Boxes'
 featuredImageWidth: 900
 featuredImageHeight: 700
-seoTitle: 'What Is Rsc Corrugated Boxes?'
+seoTitle: 'What Is an RSC Corrugated Box? Sizes, Strength & Uses'
 keywords: 'What Is Rsc Corrugated Boxes'
 draft: false
 ---

@@ -505,7 +505,7 @@ const jsonLd = {
           {reviews.map((r, i) => (
             <blockquote class="vc-rev-card" data-reveal="up" style={`--d:${i * 0.1}s`}>
               <header class="vc-rev-by">
-                <img class="vc-rev-av vc-ph-img" src={`${VC}/${r.key}.webp`} alt="" aria-hidden="true" width={r.iw} height={r.ih} loading="lazy" decoding="async" />
+                <img class="vc-rev-av vc-ph-img" src={`${VC}/${r.key}.webp`} alt={r.name} aria-hidden="true" width={r.iw} height={r.ih} loading="lazy" decoding="async" />
                 <div class="vc-rev-id">
                   <strong>{r.name}</strong>
                   <span>{r.role}, {r.who} · {r.loc}</span>

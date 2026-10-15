@@ -98,7 +98,7 @@ When we engineer a custom packaging layout, we specify exact metrics. You can ev
 - **Shore A Hardness:** Harder grades (50+) build rigid structures like custom trays. Softer grades (20 to 30) cradle fragile items and improve comfort in orthopedic wearables.
 - **Compression Set and Recovery:** This measures permanent deformation after a heavy load. Repeated-load applications require a low compression set. We validate this using [ASTM D395 guidelines](https://www.astm.org/d0395-18.html).
 - **Water Absorption:** Because the cells are closed, EVA naturally repels water. This behavior makes it mandatory for marine gear and humid supply chains. Testing follows the [ASTM D1056 standard for water absorption](https://www.astm.org/d1056-20.html).
-- **Thermal Insulation:** The trapped gas restricts heat transfer. This makes EVA an excellent [closed-cell foam insulation](https://www.energy.gov/energysaver/insulation) material for temperature-sensitive shipping.
+- **Thermal Insulation:** The trapped gas restricts heat transfer. This makes EVA an excellent [closed-cell foam insulation](https://en.wikipedia.org/wiki/Thermal_insulation) material for temperature-sensitive shipping.
 - **Chemical and UV Resistance:** EVA withstands standard machine oils well. However, harsh industrial solvents degrade the surface over time.
 - **Fabrication Behavior:** High-density EVA machines beautifully. We use CNC routers to cut complex shapes without tearing the edges. It also responds perfectly to die-cutting and thermoforming.
 

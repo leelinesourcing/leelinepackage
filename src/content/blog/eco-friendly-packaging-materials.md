@@ -1,6 +1,6 @@
 ---
 title: 'Eco-Friendly Packaging Materials: 10 Sustainable Options'
-description: 'Explore 10 eco friendly packaging materials: kraft paper, biodegradable plastics & recycled cardboard. Source sustainable packaging wholesale for your business.'
+description: 'Compare 10 eco-friendly packaging materials: kraft paper, biodegradable plastics, and recycled cardboard, with costs and wholesale sourcing tips.'
 publishDate: 2025-10-09
 author: lofty-shen
 category: 'supplier-list'
@@ -8,7 +8,7 @@ featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/Eco-Friendly-P
 featuredImageAlt: 'Eco Friendly Packaging Materials'
 featuredImageWidth: 1254
 featuredImageHeight: 837
-seoTitle: 'Eco Friendly Packaging Materials: 10 Sustainable Options'
+seoTitle: '10 Eco-Friendly Packaging Materials for Sustainable Brands'
 keywords: 'Eco Friendly Packaging Materials'
 draft: false
 ---

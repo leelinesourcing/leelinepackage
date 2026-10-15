@@ -133,7 +133,7 @@ Check if their logistics fit a Poland-first program or wider European distributi
 
 Industrial shipping destroys standard boxes. When a client's automotive cartons were crushed in transit, we switched them to Eurobox. Operating in Poland since 1998 under the Dunapack Packaging Division, they offer a massive structural variety.
 
-I recently tested their 3-layer and 5-layer corrugated boards. They produce E, B, C, BC, EB, BE, and EC wave types. Your flute choice dictates shipment survival. E-flute fits printed displays perfectly.
+I recently tested their 3-layer and 5-layer corrugated boards. They produce E, B, C, BC, EB, BE, and EC wave types. Your [flute choice](https://www.leelinepackage.com/e-flute-vs-b-flute/) dictates shipment survival. E-flute fits printed displays perfectly.
 
 For heavy-duty transport, their 5-layer BC wave builds rigid flap boxes and strong dividers. We specify these builds for heavy appliances, automotive parts, and agro shipments.
 

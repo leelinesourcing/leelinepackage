@@ -300,7 +300,7 @@ const jsonLd = {
             <img
               class="post-hero-avatar"
               src={author.avatar}
-              alt=""
+              alt={author.name}
               width={author.avatarWidth}
               height={author.avatarHeight}
               loading="eager"
@@ -389,7 +389,8 @@ const jsonLd = {
   .post-hero-meta a:hover { color: var(--brass); }
 
   /* The hero byline portrait, added on request ("头部位置应该也要有作者头像和相关信息，我给你的参考也就有").
-     `alt=""` because the name sits right beside it — announcing it again is noise. Same
+     `alt` carries the author's name: it is decorative beside the visible byline, but Screaming
+     Frog flags any empty alt, and a non-empty one is harmless here. Same
      top-weighted crop as the author card: the source portrait is 400×600. */
   .post-hero-avatar {
     width: 56px;

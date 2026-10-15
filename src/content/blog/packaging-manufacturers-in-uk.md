@@ -8,7 +8,7 @@ featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Top-Packaging-
 featuredImageAlt: 'Top Packaging Manufacturers in UK'
 featuredImageWidth: 900
 featuredImageHeight: 450
-seoTitle: '10 Top Packaging Manufacturers in UK: A Commercial Review'
+seoTitle: 'Top 10 Packaging Manufacturers in the UK (2026)'
 keywords: 'packaging manufacturers in uk'
 draft: false
 ---
@@ -188,7 +188,7 @@ As a specialized **packaging manufacturer in the UK**, they focus on ovenable li
 
 **What to ask in the RFQ:**
 
-- **Compliance:** Request current [BRCGS Packaging Materials](https://www.brcgs.com/our-standards/packaging-materials/) certification to ensure retail acceptance.
+- **Compliance:** Request current [BRCGS Packaging Materials](https://www.brcgs.com/certification-listing/packaging-materials/) certification to ensure retail acceptance.
 - **Testing:** Ask for accelerated shelf-life data to validate oxygen and moisture barriers.
 - **Print:** Check high-definition flexo samples to verify clarity on flexible substrates.
 
@@ -258,7 +258,7 @@ Verify claims with current documentation. A logo on a website proves nothing.
 
 - **Quality Management:** Request the supplier's valid [ISO 9001 certificate](https://www.iso.org/iso-9001-quality-management.html) to verify their process consistency.
 - **Sourcing:** Demand the [FSC Chain-of-Custody](https://fsc.org/en/chain-of-custody-certification) number for paper products.
-- **Food Safety:** Check the latest [BRCGS audit grade](https://www.brcgs.com/our-standards/packaging-materials/) for any food-contact items.
+- **Food Safety:** Check the latest [BRCGS audit grade](https://www.brcgs.com/certification-listing/packaging-materials/) for any food-contact items.
 - **Recycled Content:** Request declaration docs to prove 30% recycled plastic content.
 
 **Step 3: Reality Check the RFQ**

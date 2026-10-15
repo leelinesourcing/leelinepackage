@@ -6,6 +6,39 @@ import Footer from '../components/Footer.astro';
 const R2 = 'https://img.leelinepackage.com';
 const BAG = `${R2}/custom-bag`;
 
+/*
+  Intrinsic sizes for the two image sets on this page that are not otherwise declared inline (the
+  brand-logo wall and the compliance marks). Screaming Frog flagged both as "missing size
+  attributes"; the wall is also a carousel, so a reserved box keeps the track from reflowing as the
+  logos stream in. Keyed by filename so any query string is ignored.
+*/
+const DIMS: Record<string, [number, number]> = {
+  'under-armour-3.webp': [400, 200],
+  'copper.webp': [400, 200],
+  'RING.webp': [400, 200],
+  'sephora.webp': [400, 200],
+  'illy-1.webp': [400, 200],
+  'WILDERNESS.webp': [400, 200],
+  'misstomis.webp': [400, 200],
+  'JBL-2.webp': [400, 200],
+  'VOLCOM-1.webp': [400, 200],
+  'PUFIES.webp': [400, 200],
+  'disney.webp': [400, 200],
+  'pat.webp': [400, 200],
+  'Procana.webp': [400, 200],
+  'MAYBELLINE.webp': [400, 200],
+  'iso-9001.webp': [960, 878],
+  'fsc.webp': [700, 400],
+  'bsci.webp': [559, 539],
+  'sedex.webp': [740, 415],
+  'lwg.webp': [430, 430],
+};
+
+const wh = (u: string) => {
+  const d = DIMS[(u || '').split('/').pop()!.split('?')[0]];
+  return d ? { width: d[0], height: d[1] } : {};
+};
+
 /* Why a brand picks us — five outcomes, no repeated claims. */
 const why = [
   { n: '01', t: 'In-house design & R&D', d: 'A rough sketch becomes a runnable sample in-house — no separate design bill.' },
@@ -343,7 +376,7 @@ const stat = [
           <div class="logo-slider">
             <div class="logo-track" id="logoTrack">
               {brandLogos.map((b) => (
-                <span class="logo-item"><img src={b.img} alt={b.name} loading="lazy" decoding="async" /></span>
+                <span class="logo-item"><img src={b.img} alt={b.name} loading="lazy" decoding="async" {...wh(b.img)} /></span>
               ))}
             </div>
             <button class="logo-pager logo-pager--prev" id="logoPrev" aria-label="Previous logos"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -442,7 +475,7 @@ const stat = [
           <p class="cb-cert-sub" data-reveal="up">The standards and audits behind every bag that leaves the factory.</p>
         </div>
         <div class="cb-cert-row" data-reveal="up">
-          {certs.map((c) => <img class="cb-cert-logo" src={c.img} alt={c.name} loading="lazy" decoding="async" />)}
+          {certs.map((c) => <img class="cb-cert-logo" src={c.img} alt={c.name} loading="lazy" decoding="async" {...wh(c.img)} />)}
         </div>
       </div>
     </section>

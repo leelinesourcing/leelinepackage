@@ -128,7 +128,7 @@ A sound board often fails at the folder-gluer. Preventing this requires strict f
 
 On the floor, Manager [Leung](https://www.linkedin.com/in/vincent-leung-990a06339/) points out inconsistent belt tension and worn guides. These mechanical flaws ruin folding timing. Poor crease quality or over-crushing destroys the flute structure. If you apply the wrong compression time or pressure, the glue never sets.
 
-You must separate board-level quality checks from finished-box checks. Rely on the Edge Crush Test (ECT) for the raw board. Use the Box Compression Test (BCT) for the assembled box. Run fabrication checks for construction accuracy.
+You must separate board-level quality checks from finished-box checks. Rely on the [Edge Crush Test (ECT)](https://www.leelinepackage.com/what-is-32-ect-rating/) for the raw board. Use the Box Compression Test (BCT) for the assembled box. Run fabrication checks for construction accuracy.
 
 No single universal pass number exists. Test against your specific shipping environment using established protocols like ISTA testing standards. Before you [buy custom shipping boxes](https://www.leelinepackage.com/buy-custom-shipping-boxes/), ensure your factory follows strict [packaging quality control](https://www.leelinepackage.com/packaging-quality-control/) methods.
 

@@ -2,7 +2,7 @@
 title: 'What Are Tyvek Bags? The Ultimate Guide'
 description: 'What are Tyvek bags? Stylish, rip-proof reusable bags with a unique paper-like feel. Waterproof, lightweight, and 100% recyclable from DuPont Tyvek.'
 publishDate: 2026-01-04
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/What-Are-Tyvek-Bags.webp'
 featuredImageAlt: 'What Are Tyvek Bags'

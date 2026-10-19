@@ -2,7 +2,7 @@
 title: '10 Most Reliable Packaging Manufacturers in UAE (2025 Guide)'
 description: 'Discover premier packaging manufacturers in UAE. Durable, customized packaging for food, cosmetics & e-commerce. Fast delivery, great prices!'
 publishDate: 2025-09-13
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Packaging-Manufacturers-in-UAE.avif'
 featuredImageAlt: 'Packaging Manufacturers in UAE'

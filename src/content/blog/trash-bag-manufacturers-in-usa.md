@@ -2,7 +2,7 @@
 title: 'Top 10 Trash Bag Manufacturers In USA | Quality Comparison'
 description: 'Looking for trash bag manufacturers in USA? Compare the top 10 suppliers by product range, sustainability, and MOQ. Includes HDPE, LDPE & recycled options.'
 publishDate: 2025-11-11
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Trash-Bag-Manufacturers-In-USA.webp'
 featuredImageAlt: 'Trash Bag Manufacturers In USA'

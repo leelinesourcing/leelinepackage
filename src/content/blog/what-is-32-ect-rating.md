@@ -2,7 +2,7 @@
 title: 'What Is 32 ECT Rating? Box Strength and Stacking Logic'
 description: 'Learn what a 32 ECT rating means for packaging. Compare weight limits, stacking strength, and how to balance box durability against shipping costs.'
 publishDate: 2026-02-26
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Why-the-32-ECT-Rating-is-the-Profit-Standard-for-E-commerce.webp'
 featuredImageAlt: 'Why the 32 ECT Rating is the Profit Standard for E-commerce'

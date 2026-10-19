@@ -2,7 +2,7 @@
 title: 'How to Buy Custom Shipping Boxes: A Step-by-Step Production Guide'
 description: 'Learn how to buy custom shipping boxes online: design branded sizes, choose materials, get quotes & fast delivery for e-commerce.'
 publishDate: 2026-02-02
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/How-to-Buy-Custom-Shipping-Boxes.webp'
 featuredImageAlt: 'How to Buy Custom Shipping Boxes'

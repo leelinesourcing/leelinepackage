@@ -2,7 +2,7 @@
 title: 'Spot UV vs Foil Stamping: Which Packaging Finish Is Better?'
 description: 'Compare Spot UV vs Foil Stamping to find the best finish for your packaging. Discover insights on durability, costs, and tactile effects from factory testing.'
 publishDate: 2026-05-02
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Visual-Language-Metallic-Prestige-vs.-Transparent-Gloss.webp'
 featuredImageAlt: 'Visual Language Metallic Prestige vs. Transparent Gloss'

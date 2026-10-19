@@ -2,7 +2,7 @@
 title: '7 Types of Plastic Packaging Materials For Your Product'
 description: 'Common types of plastic packaging materials explained: clear PET, durable HDPE, flexible LDPE, heat-resistant PP.'
 publishDate: 2026-01-30
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/LDPE.webp'
 featuredImageAlt: 'LDPE'

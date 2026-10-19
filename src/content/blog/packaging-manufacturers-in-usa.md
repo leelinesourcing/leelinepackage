@@ -2,7 +2,7 @@
 title: '10 Best Packaging Manufacturers in USA for Small Business Orders'
 description: 'Trusted packaging manufacturers in USA delivering durable, sustainable packaging. Custom designs for your business needs. Fast turnaround, top quality.'
 publishDate: 2025-09-01
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/08/custom-bag-manufacturer.avif'
 featuredImageAlt: 'custom bag manufacturer'

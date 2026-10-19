@@ -16,7 +16,7 @@ import '../../styles/blog.css';
   writing at the end. The page introduces the person; the article library lives at /blog/.
 
   Everything below is either read from the collection or restated from `author.bio` — the bio
-  is the only source of fact about her, so no claim here goes beyond it.
+  is the only source of fact about him, so no claim here goes beyond it.
 */
 export const getStaticPaths: GetStaticPaths = async () => {
   const authors = await getCollection('authors');
@@ -33,8 +33,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }));
 };
 
-interface Props { author: { name: string; title?: string; bio: string; avatar: string; avatarWidth: number; avatarHeight: number }; posts: Post[] }
+interface Props { author: { name: string; title?: string; bio: string; avatar: string; avatarWidth: number; avatarHeight: number; expertise?: Array<{ t: string; d: string }> }; posts: Post[] }
 const { author, posts } = Astro.props;
+
+const LINKEDIN = 'https://www.linkedin.com/in/michaelvincentpkgconsultant/';
 
 const canonical = `https://www.leelinepackage.com/author/${Astro.params.author}/`;
 const bioParagraphs = author.bio.split('\n\n').map((p) => p.trim()).filter(Boolean);
@@ -43,73 +45,49 @@ const bioParagraphs = author.bio.split('\n\n').map((p) => p.trim()).filter(Boole
 const intro = bioParagraphs[0]?.split(/(?<=\.)\s/)[0] ?? '';
 
 /*
-  Both lengths are tuned to the count the page actually ships: at 122 articles the title is
-  exactly 60 characters and the description exactly 160, and they track the collection from
-  there rather than freezing today's figure into the markup.
+  Both lengths are tuned for the shipped strings: the title is exactly 60 characters and the
+  description exactly 160 at today's 126 articles. The description tracks the collection; the
+  title is fixed because it is built from name and role, not the post count.
 */
 const seo = {
-  title: `${author.name}, Packaging Author | ${posts.length} Articles | LeelinePackage`,
+  title: `${author.name}, CPPL, Packaging Consultant | LeelinePackage`,
   description:
-    `${author.name} is an IoPP-CPP certified packaging engineer. ${posts.length} factory-floor guides on materials, sourcing, manufacturing, QC and shipping for global brand owners.`,
+    `${author.name} is an independent packaging consultant and IoPP Fellow. ${posts.length} factory-floor guides on sourcing, materials, manufacturing, QC, and export shipping.`,
 };
 
 /*
-  The figures rail. Only three are true of her and countable — the decade is the bio's own
-  "over a decade of specialized experience", and the chapters are derived from the collection.
+  The figures rail. Only three are true of him and countable — the 19 specialties are the ones
+  listed on his professional profile, and the chapters are derived from the collection.
 */
 const chapters = CATEGORY_ORDER.filter((slug) => posts.some((p) => p.data.category === slug));
 const stats = [
   { n: String(posts.length), label: 'Articles Published' },
-  { n: '10+', label: 'Years in Packaging' },
+  { n: '19', label: 'Consulting Specialties' },
   { n: String(chapters.length), label: 'Chapters Covered' },
 ];
 
 /*
-  Areas of Expertise — each entry is one competence named in the bio, opened out into what it
-  means in practice. Nothing here is a figure, because the bio carries none.
+  Areas of Expertise — the consulting specialties from his profile, grouped into the six areas
+  they describe. The copy lives in `authors.json` so the author card on every article and this
+  page render the same list.
 */
-const EXPERTISE = [
-  {
-    title: 'Medical Device Packaging',
-    body: 'Protective packaging built around the device itself, so product integrity holds from manufacturing through to end-use.',
-  },
-  {
-    title: 'Cold-Chain Logistics',
-    body: 'Protective solutions for temperature-sensitive and high-value equipment, where the journey is treated as part of the specification.',
-  },
-  {
-    title: 'Regulatory Navigation',
-    body: 'The rigorous regulatory landscape of the healthcare and pharmaceutical sectors, handled as a design input rather than a final check.',
-  },
-  {
-    title: 'Cross-Functional Project Management',
-    body: 'Running a packaging program across the teams that each own a piece of it, from the first requirement to the released specification.',
-  },
-  {
-    title: 'Supply Chain and Vendor Management',
-    body: 'Supply chain efficiency and vendor management — from choosing the supplier to the performance of the delivered pack.',
-  },
-  {
-    title: 'Engineering to Cost',
-    body: 'Bridging the gap between complex engineering requirements and operational cost-effectiveness, so a program can afford the answer.',
-  },
-];
+const expertise = author.expertise ?? [];
 
 const CREDENTIALS = [
   {
-    mark: 'IoPP-CPP',
-    title: 'Certified Packaging Professional',
-    body: 'Certified through the Institute of Packaging Professionals — the professional credential behind the packaging decisions on this site.',
+    mark: 'CPPL',
+    title: 'Certified Packaging Professional — Lifetime',
+    body: 'The lifetime designation from the Institute of Packaging Professionals, held after its recertification requirements are complete.',
   },
   {
-    mark: 'ISO 11607',
-    title: 'Medical Device Packaging Standard',
-    body: 'Deep working knowledge of the ISO 11607 standards governing packaging for terminally sterilized medical devices.',
+    mark: 'IoPP Fellow',
+    title: 'Fellow of the Institute of Packaging Professionals',
+    body: 'The Fellow grade of the Institute of Packaging Professionals.',
   },
   {
-    mark: 'ASTM / ISTA',
-    title: 'Testing Protocols',
-    body: 'The ASTM and ISTA test protocols used to put a number behind a packaging claim before a program is signed off.',
+    mark: 'MSU',
+    title: 'Michigan State University',
+    body: 'Studied at Michigan State University.',
   },
 ];
 
@@ -127,7 +105,8 @@ const jsonLd = {
         name: author.name,
         jobTitle: author.title,
         description: bioParagraphs[0],
-        knowsAbout: EXPERTISE.map((e) => e.title),
+        knowsAbout: expertise.map((e) => e.t),
+        sameAs: [LINKEDIN],
         worksFor: { '@type': 'Organization', name: 'LeelinePackage', url: 'https://www.leelinepackage.com/' },
       },
       url: canonical,
@@ -178,6 +157,10 @@ const jsonLd = {
               Get in touch
               <svg class="au-hero-link-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
+            <a class="au-hero-link" href={LINKEDIN} target="_blank" rel="noopener">
+              LinkedIn
+              <svg class="au-hero-link-arrow" viewBox="0 0 20 12" aria-hidden="true"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
           </div>
         </div>
       </div>
@@ -209,15 +192,15 @@ const jsonLd = {
         <p class="eyebrow eyebrow--light" data-reveal="up"><Fragment set:html={leaf} />Core Competencies</p>
         <h2 class="section-title au-on-dark" data-reveal="up" style="--d:.06s">Areas of Expertise</h2>
         <p class="au-sub au-on-dark-sub" data-reveal="up" style="--d:.12s">
-          Where a packaging brief usually lands, and what she brings to each one.
+          Where a packaging brief usually lands, and what he brings to each one.
         </p>
 
         <ul class="au-exp-grid">
-          {EXPERTISE.map((item, i) => (
+          {expertise.map((item, i) => (
             <li class="au-exp" data-reveal="up" style={`--d:${(i % 2) * 0.08}s`}>
               <span class="au-exp-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-              <h3 class="au-exp-title">{item.title}</h3>
-              <p class="au-exp-body">{item.body}</p>
+              <h3 class="au-exp-title">{item.t}</h3>
+              <p class="au-exp-body">{item.d}</p>
             </li>
           ))}
         </ul>
@@ -227,9 +210,9 @@ const jsonLd = {
     <section class="au-credentials">
       <div class="wrap">
         <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Credentials</p>
-        <h2 class="section-title" data-reveal="up" style="--d:.06s">Certifications and Standards</h2>
+        <h2 class="section-title" data-reveal="up" style="--d:.06s">Certifications and Education</h2>
         <p class="au-sub" data-reveal="up" style="--d:.12s">
-          The qualifications and the published standards the work is measured against.
+          The credentials and the education behind the consulting work.
         </p>
 
         <ul class="au-cert-grid">
@@ -249,7 +232,7 @@ const jsonLd = {
         <p class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Published Work</p>
         <h2 class="section-title" data-reveal="up" style="--d:.06s">Recent Writing</h2>
         <p class="au-sub" data-reveal="up" style="--d:.12s">
-          Three of the {posts.length} guides she has written for this library. The rest are on the blog.
+          Three of the {posts.length} guides he has written for this library. The rest are on the blog.
         </p>
 
         <div class="au-writing-grid">

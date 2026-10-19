@@ -2,7 +2,7 @@
 title: 'Is Greaseproof Paper the Best Choice for Food Packaging?'
 description: 'Discover if greaseproof paper is the best choice for your food packaging. Learn about oil resistance, compliance, and sourcing tips in our expert guide.'
 publishDate: 2026-05-13
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Your-total-landed-cost-involves-more-than-just-the-raw-paper-price.webp'
 featuredImageAlt: 'Your total landed cost involves more than just the raw paper price.'

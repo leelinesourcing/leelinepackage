@@ -2,7 +2,7 @@
 title: 'What are Mono-materials and Their Role in Packaging?'
 description: 'Learn how to transition to mono-materials packaging with our 2024 factory report. Discover barrier trade-offs, seal engineering, and circular design tips.'
 publishDate: 2026-05-11
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/A-mono-material-pouch-fails-at-the-recycling-plant-if-the-attachments-pollute-th-8a86b1a0.webp'
 featuredImageAlt: 'A mono-material pouch fails at the recycling plant if the attachments pollute the batch.'

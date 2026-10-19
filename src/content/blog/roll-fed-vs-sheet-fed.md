@@ -2,7 +2,7 @@
 title: 'Roll-Fed vs Sheet-Fed: Cost, Speed & Quality Comparison'
 description: 'Compare roll-fed vs sheet-fed printing. Learn about run-length economics, setup waste, and substrate limits based on our 1-million-impression production test.'
 publishDate: 2026-05-28
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Changeovers-SKU-Mix-and-Workflow-Design.webp'
 featuredImageAlt: 'Changeovers, SKU Mix, and Workflow Design'

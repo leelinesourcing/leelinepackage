@@ -2,7 +2,7 @@
 title: 'How to Measure A Box: Box Dimensions and Measurements Guide'
 description: 'Master the standard protocol for box dimensions and measurements. Learn how to calculate volume, account for thickness, and avoid costly shipping surcharges.'
 publishDate: 2026-03-18
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Box-Dimensions-and-Measurements-Guide.webp'
 featuredImageAlt: 'Box Dimensions and Measurements Guide'

@@ -2,7 +2,7 @@
 title: 'Common Defects in Corrugated Boxes and How to Spot Them?'
 description: 'Identify and fix common corrugated box defects like warping, delamination, and crushed flutes with our expert troubleshooting guide and TAPPI-aligned SOPs.'
 publishDate: 2026-05-04
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Crushed-Flutes-High-Low-Profiles-and-Slit-Score-Damage.webp'
 featuredImageAlt: 'Crushed Flutes, High-Low Profiles, and Slit-Score Damage'

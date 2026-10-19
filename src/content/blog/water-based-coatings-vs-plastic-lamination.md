@@ -2,7 +2,7 @@
 title: 'Water-Based Coatings VS Plastic Lamination: Expert Guide'
 description: 'Compare water-based coatings vs plastic lamination for packaging. Discover which finish offers the best recyclability, scuff resistance, and cost-efficiency.'
 publishDate: 2026-04-08
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Water-Based-Coatings-vs-Plastic-Lamination-Main-Differences.webp'
 featuredImageAlt: 'Water-Based Coatings vs Plastic Lamination Main Differences'

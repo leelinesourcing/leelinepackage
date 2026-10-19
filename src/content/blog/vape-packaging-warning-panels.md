@@ -2,7 +2,7 @@
 title: 'Vape Packaging Warning Panels: Align Safety and Brand Design'
 description: 'Balance vape warning panel visibility with pack design, print quality, and product consistency. See what to check before your 30% panel enters final production.'
 publishDate: 2026-10-14
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Packaging-Warning-Panels.webp'
 featuredImageAlt: 'A red vape carton showing an FDA nicotine warning panel, captioned Vape Packaging Warning Panels'

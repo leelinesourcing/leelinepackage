@@ -2,7 +2,7 @@
 title: 'Top 10 Paper Bag Manufacturers In Dubai'
 description: 'Innovative paper bag manufacturers in Dubai producing twisted/flat handle bags. Eco-friendly, high-strength options for food, retail, and e-commerce.'
 publishDate: 2025-12-30
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Paper-Bag-Manufacturers-In-Dubai.webp'
 featuredImageAlt: 'Paper Bag Manufacturers In Dubai'

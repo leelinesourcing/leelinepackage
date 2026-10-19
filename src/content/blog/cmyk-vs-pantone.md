@@ -2,7 +2,7 @@
 title: 'CMYK vs Pantone: Which is Better for Enterprise Packaging?'
 description: 'Compare CMYK vs Pantone for brand packaging. Learn about color fidelity, cost-efficiency, and substrate risks to choose the right print method for your brand.'
 publishDate: 2026-04-30
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Brand-Identity-Precision-and-Global-Repeatability.webp'
 featuredImageAlt: 'Brand Identity Precision and Global Repeatability'

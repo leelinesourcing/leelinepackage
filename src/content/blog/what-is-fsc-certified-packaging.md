@@ -2,7 +2,7 @@
 title: 'What is FSC Certified Packaging? The 2026 Procurement & Brand Guide'
 description: 'What is FSC certified packaging? Verifies no illegal logging, protects communities & forests. Ideal for brands wanting authentic sustainable packaging.'
 publishDate: 2026-02-21
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/FSC-Certified-Packaging-Benefits.webp'
 featuredImageAlt: 'FSC Certified Packaging Benefits'

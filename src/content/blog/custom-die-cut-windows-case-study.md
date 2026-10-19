@@ -2,7 +2,7 @@
 title: 'Custom Die-Cut Windows Case Study: Boosting Retail Sales'
 description: 'This custom die-cut windows case study reveals how innovative window packaging boosted brand visibility and customer engagement significantly.'
 publishDate: 2026-04-16
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/The-Challenge-of-Custom-Die-Cut-Windows-1.webp'
 featuredImageAlt: 'The Challenge of Custom Die-Cut Windows'

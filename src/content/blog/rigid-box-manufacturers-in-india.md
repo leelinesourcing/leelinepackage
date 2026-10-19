@@ -2,7 +2,7 @@
 title: '8 Best Rigid Box Manufacturers in India for Luxury Brands'
 description: 'Leading rigid box manufacturers in India offering premium custom luxury rigid boxes, gift packaging, jewelry boxes with magnetic closure & foil stamping.'
 publishDate: 2026-01-26
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Rigid-Box-Manufacturers-in-India.webp'
 featuredImageAlt: 'Rigid Box Manufacturers in India'

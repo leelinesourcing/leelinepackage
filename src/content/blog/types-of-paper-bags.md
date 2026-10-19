@@ -2,7 +2,7 @@
 title: 'Maximizing Your Packaging’s Potential: 6 Types of Paper Bags Explained'
 description: 'Explore the main types of paper bags: Kraft, SOS, Euro Tote, pinch bottom, and gusseted. Find the best eco-friendly options for retail, food, and shopping.'
 publishDate: 2026-04-13
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Die-Cut-Handle-Paper-Bags.webp'
 featuredImageAlt: 'Die-Cut Handle Paper Bags'

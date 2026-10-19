@@ -2,7 +2,7 @@
 title: 'What is SOS Bags? A Complete Guide in 2026'
 description: 'Wondering what is SOS bags? Explore our guide on self-opening sacks. Learn about their structural design, benefits for retail, and how to choose the right GSM.'
 publishDate: 2026-04-20
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/The-Manufacturing-Loop-From-Roll-to-Retail.webp'
 featuredImageAlt: 'The Manufacturing Loop From Roll to Retail'

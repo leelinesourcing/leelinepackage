@@ -2,7 +2,7 @@
 title: 'REACH Regulations: Mastering Packaging Compliance Guide'
 description: 'Ensure your packaging meets REACH Regulations. Learn how to audit suppliers, identify SVHCs, and manage Article 33 duties to prevent costly customs holds.'
 publishDate: 2026-06-09
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/SOP-Template-for-AQL-2.5-Incoming-Inspection.webp'
 featuredImageAlt: 'SOP Template for AQL 2.5 Incoming Inspection'

@@ -2,7 +2,7 @@
 title: 'Top 8 Jumbo Bag Manufacturer In Gujarat'
 description: 'Top jumbo bag manufacturer in Gujarat: Custom-printed FIBCs for branding & exports in textiles/powders. Fast turnaround, high-volume. Start your order now!'
 publishDate: 2025-10-30
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/Jumbo-Bag-Manufacturer-In-Gujarat.webp'
 featuredImageAlt: 'Jumbo Bag Manufacturer In Gujarat'

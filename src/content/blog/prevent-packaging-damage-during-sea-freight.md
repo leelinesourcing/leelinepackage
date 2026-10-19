@@ -2,7 +2,7 @@
 title: 'How to Prevent Packaging Damage During Sea Freight?'
 description: 'Eliminate cargo claims. Learn how to prevent packaging damage during sea freight with our SOP on moisture control, pallet stability, and export-grade materials.'
 publishDate: 2026-05-15
-author: lofty-shen
+author: michael-vincent
 category: 'shipping'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Pallets-Shifted-or-Surged.webp'
 featuredImageAlt: 'Pallets Shifted or Surged'

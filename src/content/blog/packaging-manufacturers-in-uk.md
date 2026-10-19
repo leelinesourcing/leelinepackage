@@ -2,7 +2,7 @@
 title: '10 Top Packaging Manufacturers in UK: A Commercial Review'
 description: 'Top custom packaging manufacturers in UK: bespoke cardboard boxes, eco-friendly solutions and expert design for product protection & branding.'
 publishDate: 2026-01-27
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Top-Packaging-Manufacturers-in-UK.webp'
 featuredImageAlt: 'Top Packaging Manufacturers in UK'

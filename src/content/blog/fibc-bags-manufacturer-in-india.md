@@ -2,7 +2,7 @@
 title: 'Top 10 Fibc Bags Manufacturer In India'
 description: 'Leading fibc bags manufacturer in India offering durable, customizable bulk bags for industries. High-quality, cost-effective solutions. Reading now!'
 publishDate: 2025-09-06
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Fibc-Bags-Manufacturer-In-India.avif'
 featuredImageAlt: 'Fibc Bags Manufacturer In India'

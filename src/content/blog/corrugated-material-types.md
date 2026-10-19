@@ -2,7 +2,7 @@
 title: '7 Corrugated Material Types: The Engineering Guide to Safer Shipping'
 description: 'Learn the most popular Corrugated Material Types and their unique strengths. From micro flute to heavy duty triple wall – complete specifications and…'
 publishDate: 2026-02-13
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Corrugated-Material-Types.webp'
 featuredImageAlt: 'Corrugated Material Types'

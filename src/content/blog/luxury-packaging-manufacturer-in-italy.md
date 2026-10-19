@@ -2,7 +2,7 @@
 title: 'Luxury Packaging Manufacturer in Italy: Top 10 Suppliers'
 description: 'Explore top 10 luxury packaging manufacturer in Italy — rigid boxes, tin containers, custom finishes & sustainable materials. Get wholesale sourcing quotes.'
 publishDate: 2025-10-13
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/08/Leeline-package-factory.avif'
 featuredImageAlt: 'Leeline package factory'

@@ -2,7 +2,7 @@
 title: 'Food Packaging Case Study: 18% Increase in Repeat Purchases'
 description: 'Discover how eco-friendly materials boosted ROI and shelf life in this food packaging case study. See the raw data behind an 18% rise in repeat purchases.'
 publishDate: 2026-05-09
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/The-Solution-of-Engineering-a-Retail-Ready-Sustainable-Barrier.webp'
 featuredImageAlt: 'The Solution of Engineering a Retail-Ready Sustainable Barrier'

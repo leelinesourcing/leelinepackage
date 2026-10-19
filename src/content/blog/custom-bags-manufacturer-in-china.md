@@ -2,7 +2,7 @@
 title: 'Top 10 Custom Bags Manufacturer In China'
 description: 'Create unique bags with our expert custom bags manufacturer in China. High-quality, customizable solutions for businesses worldwide.'
 publishDate: 2025-09-08
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Custom-Bags-Manufacturer-In-China.avif'
 featuredImageAlt: 'Custom Bags Manufacturer In China'

@@ -2,7 +2,7 @@
 title: '5 Types Of Gift Boxes That Scale: A Procurement Guide for B2B Buyers'
 description: 'Discover different types of gift boxes and materials, from kraft to luxury rigid, to match your product, budget, and branding.'
 publishDate: 2026-02-02
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Types-Of-Gift-Boxes.webp'
 featuredImageAlt: 'Types Of Gift Boxes'

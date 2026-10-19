@@ -2,7 +2,7 @@
 title: 'What Material Are Trash Bags Made Of？'
 description: 'What material are trash bags made of? Mostly polyethylene: HDPE, LDPE, LLDPE. Compare types, strength, and eco compostable options in this guide.'
 publishDate: 2026-01-23
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/What-Material-Are-Trash-Bags-Made-Of.webp'
 featuredImageAlt: 'What Material Are Trash Bags Made Of'

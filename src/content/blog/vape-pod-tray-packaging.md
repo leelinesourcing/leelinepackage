@@ -2,7 +2,7 @@
 title: 'Vape Pod Tray Packaging: Prevent Transit Damage Before Tooling'
 description: 'Compare eight vape pod tray structures on fit security, oil resistance, tooling, and landed costs, then prototype the right insert before tooling, from MOQ 500.'
 publishDate: 2026-10-14
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Pod-Tray-Packaging.webp'
 featuredImageAlt: 'Eight vape pod tray packaging structures shown under the title 8 Vape Pod Tray Packaging'

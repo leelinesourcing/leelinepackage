@@ -2,7 +2,7 @@
 title: '6 Most Popular Types Of Rigid Boxes For Luxury Packaging'
 description: 'Learn about various types of rigid boxes like two-piece, drawer, and collapsible styles. Luxury packaging solutions for brands seeking superior protection.'
 publishDate: 2025-12-31
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Types-Of-Rigid-Boxes.webp'
 featuredImageAlt: 'Types Of Rigid Boxes'

@@ -2,7 +2,7 @@
 title: 'Skincare Packaging Case Study: Achieving 0% Transit Leakage'
 description: 'Discover how a luxury brand achieved a 0% transit leakage rate in the skincare packaging case study. Learn about PETG upgrades, QC protocols and luxury results.'
 publishDate: 2026-05-27
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/The-client-launched-the-redesigned-PETG-and-rigid-box-system-1.webp'
 featuredImageAlt: 'The client launched the redesigned PETG and rigid box system.'

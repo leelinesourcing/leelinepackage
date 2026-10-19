@@ -2,7 +2,7 @@
 title: 'E-Flute vs B-Flute: Which is Better?'
 description: 'Choosing between E-Flute vs B-Flute? Learn the key differences in thickness, strength, and print quality. Discover which flute type is best for your product.'
 publishDate: 2026-02-26
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/E-Flute-vs-B-Flute.webp'
 featuredImageAlt: 'E-Flute vs B-Flute'

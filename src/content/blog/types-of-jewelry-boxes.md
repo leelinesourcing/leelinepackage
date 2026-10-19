@@ -2,7 +2,7 @@
 title: '9 Types Of Jewelry Boxes: The Structural Guide for Scaling Brands'
 description: 'Best types of jewelry boxes: travel pouches, multi-layer stackables & velvet gift boxes. Organize earrings, bracelets & watches effortlessly.'
 publishDate: 2026-01-23
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Types-Of-Jewelry-Boxes.webp'
 featuredImageAlt: 'Types Of Jewelry Boxes'

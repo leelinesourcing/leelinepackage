@@ -2,7 +2,7 @@
 title: 'Top 7 Packaging Manufacturers in South Africa: A Commercial Sourcing Shortlist'
 description: 'Looking for packaging manufacturers in South Africa? Compare top suppliers like Nampak and Mpact. Get tips on EPR compliance and quality standards. Learn more!'
 publishDate: 2026-03-05
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Engineer-the-Structural-Dieline.webp'
 featuredImageAlt: 'Engineer the Structural Dieline'

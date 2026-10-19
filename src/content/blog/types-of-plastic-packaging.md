@@ -2,7 +2,7 @@
 title: '8 Most Common Types of Plastic Packaging Used in 2025'
 description: 'Discover the 8 main Types of Plastic Packaging. From durable HDPE bottles to flexible LDPE films, find the right material for your product. Reading Now!'
 publishDate: 2025-09-20
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Types-of-Plastic-Packaging.webp'
 featuredImageAlt: 'Types of Plastic Packaging'

@@ -2,7 +2,7 @@
 title: 'Packaging Shipping And Logistics: A Guide to E-commerce'
 description: 'Master packaging shipping and logistics to reduce costs and prevent damage. Learn how structural design and fulfillment workflows protect your bottom line.'
 publishDate: 2026-03-26
-author: lofty-shen
+author: michael-vincent
 category: 'shipping'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Why-Strategic-Packaging-Shipping-And-Logistics-Matter-for-Your-Bottom-Line.webp'
 featuredImageAlt: 'Why Strategic Packaging Shipping And Logistics Matter for Your Bottom Line'

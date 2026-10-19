@@ -2,7 +2,7 @@
 title: 'GSM Paper Meaning Explained: The Complete Expert Guide'
 description: 'Understand Gsm paper meaning to choose the right weight for your projects. Learn how to optimize costs and print quality with our expert paper weight guide.'
 publishDate: 2026-03-31
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Gsm-Paper-Meaning.webp'
 featuredImageAlt: 'Gsm Paper Meaning'

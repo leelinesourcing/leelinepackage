@@ -2,7 +2,7 @@
 title: 'Top 8 Texas Folding Carton Manufacturers for Retail & E-Commerce'
 description: 'Compare 8 folding carton manufacturers in Texas by die-cutting precision, certifications, MOQ, and lead time, plus how to choose a partner.'
 publishDate: 2025-10-25
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/08/custom-packaging-manufacturers-.avif'
 featuredImageAlt: 'custom packaging manufacturers'

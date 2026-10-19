@@ -2,7 +2,7 @@
 title: 'Allbirds’ 100% Recycled Corrugated Packaging Case Study'
 description: 'Discover how Allbirds reduced total emissions by 7% in this 100% recycled corrugated packaging case study. Learn about structural design and sustainability.'
 publishDate: 2026-03-26
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Recycled-Corrugated-Packaging.webp'
 featuredImageAlt: 'Recycled Corrugated Packaging'

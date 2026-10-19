@@ -2,7 +2,7 @@
 title: 'Kitchenware Crowdfunding to Big Box Retail Packaging Case Study'
 description: 'Learn how this kitchenware launch case study reduced transit damage to <1% and secured a Walmart PO through retail-ready packaging engineering and…'
 publishDate: 2026-04-09
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/By-optimizing-the-packaging-we-delivered-distinct-wins-across-the-supply-chain.webp'
 featuredImageAlt: 'By optimizing the packaging, we delivered distinct wins across the supply chain.'

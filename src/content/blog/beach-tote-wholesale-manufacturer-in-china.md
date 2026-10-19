@@ -2,7 +2,7 @@
 title: 'Top 10 Beach Tote Wholesale Manufacturer In China'
 description: 'Discover premium beach tote wholesale manufacturer in China. Durable, stylish totes in vibrant patterns. Factory-direct pricing, OEM/ODM, fast global delivery.'
 publishDate: 2025-11-17
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Beach-Tote-Wholesale-Manufacturer-In-China.webp'
 featuredImageAlt: 'Beach Tote Wholesale Manufacturer In China'

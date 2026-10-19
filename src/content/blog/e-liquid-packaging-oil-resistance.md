@@ -2,7 +2,7 @@
 title: 'E-Liquid Packaging Oil Resistance: Prevent Finish Failures'
 description: 'Prevent smudged graphics, lifting labels, and seal failures by matching the bottle resin, closure, liner, and print to your exact e-liquid formula, from MOQ 500'
 publishDate: 2026-10-14
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/E-Liquid-Packaging-Oil-Resistance.webp'
 featuredImageAlt: 'A black VAPE premium e-liquid box captioned E-Liquid Packaging Oil Resistance'

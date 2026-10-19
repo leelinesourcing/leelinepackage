@@ -2,7 +2,7 @@
 title: 'What is ISTA 3A Drop Test? The Complete Engineer''s Guide'
 description: 'Master the ISTA 3A Drop Test with expert guide. Learn how to simulate real-world courier shipping to eliminate transit damage and protect your profit margins.'
 publishDate: 2026-05-06
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/The-rigid-box-survived-perfectly.webp'
 featuredImageAlt: 'The rigid box survived perfectly.'

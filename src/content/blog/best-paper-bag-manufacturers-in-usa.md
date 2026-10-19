@@ -2,7 +2,7 @@
 title: '8 Best Paper Bag Manufacturers In USA'
 description: 'Discover top paper bag manufacturers in USA offering eco-friendly, custom-printed solutions for retail and events. Elevate your branding today!'
 publishDate: 2025-10-20
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/Paper-Bag-Manufacturers-In-USA.webp'
 featuredImageAlt: 'Paper Bag Manufacturers In USA'

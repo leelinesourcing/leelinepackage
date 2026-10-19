@@ -2,7 +2,7 @@
 title: 'Twisted-Handle VS Flat-Handle Paper Bags: Which Should You Choose?'
 description: 'Compare twisted-handle vs flat-handle paper bags for strength, comfort, and cost. Learn which style is best for retail or takeout in our expert testing guide.'
 publishDate: 2026-04-14
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Flat-Handle-and-Twisted-Handle-Bags-Pros-Cons-Breakdown.webp'
 featuredImageAlt: 'Flat Handle and Twisted Handle Bags Pros & Cons Breakdown'

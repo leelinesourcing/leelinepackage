@@ -2,7 +2,7 @@
 title: 'What Is Minimalist Packaging Design?'
 description: 'Curious about minimalist packaging design? Explore its core elements, benefits, and real examples that make packaging feel premium and eco-friendly.'
 publishDate: 2026-04-13
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Minimalist-Packaging-Design.webp'
 featuredImageAlt: 'Minimalist Packaging Design'

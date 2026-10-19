@@ -2,7 +2,7 @@
 title: 'Top 10 Corrugated Box Manufacturers In California'
 description: 'Compare 10 corrugated box manufacturers in California by capacity, lead time, and MOQ, plus how to pick a partner for shipping and retail.'
 publishDate: 2025-12-10
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Corrugated-Box-Manufacturers-In-California1.webp'
 featuredImageAlt: 'Corrugated Box Manufacturers In California(1)'

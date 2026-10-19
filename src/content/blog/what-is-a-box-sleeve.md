@@ -2,7 +2,7 @@
 title: 'What Is A Box Sleeve? The Complete Expert Guide'
 description: 'What is a box sleeve? Learn how custom packaging sleeves can slash costs by 60% and elevate your unboxing experience. Get expert tips on materials and design.'
 publishDate: 2026-04-10
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/a-box-sleeve-represents-a-printed-outer-wrap-that-upgrades-plain-packaging-with-b8da6ef6.webp'
 featuredImageAlt: 'a box sleeve represents a printed outer wrap that upgrades plain packaging with instant branding.'

@@ -2,7 +2,7 @@
 title: 'Packaging Trends and Innovations Explained: A 2026 Field Report'
 description: 'Discover the top packaging trends and innovations for 2026. From mono-materials to smart tech, learn how to stay compliant and boost margins. Read our report.'
 publishDate: 2026-03-20
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Circular-Economy-in-Packaging-and-Minimalist-Package-Design.webp'
 featuredImageAlt: 'Circular Economy in Packaging and Minimalist Package Design'

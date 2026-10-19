@@ -2,7 +2,7 @@
 title: '10 Best Paper Bag Manufacturers in China: 2025 Buyer''s Guide'
 description: 'Trusted paper bag manufacturers in China specializing in custom, biodegradable bags. Affordable prices, fast shipping, and top quality. Inquire today!'
 publishDate: 2025-09-15
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Paper-Bag-Manufacturers-in-China.avif'
 featuredImageAlt: 'Paper Bag Manufacturers in China'

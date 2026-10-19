@@ -2,7 +2,7 @@
 title: 'The 8-Stage Custom Packaging Factory Audit Checklist'
 description: 'Ensure packaging quality with this 8-stage factory audit checklist. Discover how to verify supplier legitimacy, QMS, and labor safety for your brand. Read now!'
 publishDate: 2026-05-08
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Verify-Supplier-Legitimacy-and-Core-Documents-Before-the-Site-Walk.webp'
 featuredImageAlt: 'Verify Supplier Legitimacy and Core Documents Before the Site Walk'

@@ -2,7 +2,7 @@
 title: '10 Top-Rated Packaging Manufacturers in China: Factory-Direct Guide 2025'
 description: 'Leading packaging manufacturers in China offering custom solutions for food, cosmetics, and more. High-quality, eco-friendly packaging at competitive prices.'
 publishDate: 2025-09-05
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Packaging-Manufacturers-in-China.avif'
 featuredImageAlt: 'Packaging Manufacturers in China'

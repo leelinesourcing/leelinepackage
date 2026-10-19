@@ -2,7 +2,7 @@
 title: '10 Types Of Foam For Packaging: A Complete Guide'
 description: 'Master types of foam for packaging essentials: from recyclable options to high-density solutions. Ensure product safety and sustainability in every package.'
 publishDate: 2025-10-17
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/Types-Of-Foam-For-Packaging.webp'
 featuredImageAlt: 'Types Of Foam For Packaging'

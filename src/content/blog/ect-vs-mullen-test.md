@@ -2,7 +2,7 @@
 title: 'ECT vs. Mullen Test: Which Cardboard Strength is Better?'
 description: 'Compare ECT vs Mullen to choose the best cardboard strength for your shipping needs. Learn which test prevents crushing or punctures in transit.'
 publishDate: 2026-02-26
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/ECT-vs.-Mullen-Test-1.webp'
 featuredImageAlt: 'ECT vs. Mullen Test'

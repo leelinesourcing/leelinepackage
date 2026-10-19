@@ -2,7 +2,7 @@
 title: 'Top 8 Paper Bag Manufacturers In India'
 description: 'Top paper bag manufacturers in India: Eco-friendly kraft bags for retail. Customizable, affordable, sustainable packaging. Contact for bulk orders!'
 publishDate: 2025-11-07
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Paper-Bag-Manufacturers-In-India.webp'
 featuredImageAlt: 'Paper Bag Manufacturers In India'

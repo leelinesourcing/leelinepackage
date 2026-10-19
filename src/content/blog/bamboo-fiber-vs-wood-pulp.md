@@ -2,7 +2,7 @@
 title: 'Bamboo Fiber vs Wood Pulp: Which Is Best for Packaging?'
 description: 'Compare bamboo fiber vs wood pulp for packaging. Discover the pros and cons of each, from tensile strength to sustainability, based on our rigorous lab testing.'
 publishDate: 2026-05-20
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Environmental-Footprint-and-Lifecycle-Assessment.webp'
 featuredImageAlt: 'Environmental Footprint and Lifecycle Assessment'

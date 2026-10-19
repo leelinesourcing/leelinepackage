@@ -2,7 +2,7 @@
 title: '10 Different Types Of Box Displays To Elevate Your Retail Merchandising'
 description: 'Explore different types of box displays, from countertop to floor stands and pallet displays. Boost retail visibility and sales with custom options today!'
 publishDate: 2026-01-09
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Different-Types-Of-Box-Displays.webp'
 featuredImageAlt: 'Different Types Of Box Displays'

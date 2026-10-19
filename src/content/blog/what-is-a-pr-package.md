@@ -2,7 +2,7 @@
 title: 'What Is a PR Package? An Expert Guide to Brand Success in 2026'
 description: 'What Is A PR Package? It is a curated product set sent to influencers for unboxings, reviews & brand awareness. Learn what''s inside and how to create one.'
 publishDate: 2025-11-19
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/What-Is-a-PR-Package.webp'
 featuredImageAlt: 'What Is a PR Package'

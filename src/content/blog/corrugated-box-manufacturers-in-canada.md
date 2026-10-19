@@ -2,7 +2,7 @@
 title: '10 Top Corrugated Box Manufacturers In Canada'
 description: 'Top corrugated box manufacturers in Canada provide high-quality custom cardboard boxes, sustainable options, and fast delivery across the country.'
 publishDate: 2026-01-05
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Corrugated-Box-Manufacturers-In-Canada.webp'
 featuredImageAlt: 'Corrugated Box Manufacturers In Canada'

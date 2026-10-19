@@ -2,7 +2,7 @@
 title: 'Best 8 Tote Bag Manufacturers in India'
 description: 'Top-rated tote bag manufacturers in India offering personalized, promotional & shopping tote bags. Bulk orders, low MOQ & premium quality guaranteed.'
 publishDate: 2025-12-01
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Tote-Bag-Manufacturers-in-India.webp'
 featuredImageAlt: 'Tote Bag Manufacturers in India'

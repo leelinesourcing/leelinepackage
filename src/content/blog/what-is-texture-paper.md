@@ -2,7 +2,7 @@
 title: 'What Is Texture Paper? Complete Guide to Benefits & Uses'
 description: 'Explore what is texture paper and its role in premium packaging. Learn about manufacturing, printing challenges, and how to select the right substrate today.'
 publishDate: 2025-12-12
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Texture-Paper.webp'
 featuredImageAlt: 'Texture Paper'

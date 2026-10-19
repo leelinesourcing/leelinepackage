@@ -2,7 +2,7 @@
 title: '8 Best Packaging Bags Manufacturers In Kenya'
 description: 'Leading packaging bags manufacturers in Kenya offering custom PP woven sacks, paper bags & eco-friendly solutions for retail, agriculture & industry.'
 publishDate: 2026-01-16
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Packaging-Bags-Manufacturers-In-Kenya-1.webp'
 featuredImageAlt: 'Packaging Bags Manufacturers In Kenya'

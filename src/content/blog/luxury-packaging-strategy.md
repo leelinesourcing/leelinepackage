@@ -2,7 +2,7 @@
 title: 'How to Build A Luxury Packaging Strategy That Scales in 2026?'
 description: 'Master your luxury packaging strategy with our expert guide. Learn how to select premium materials, ensure transit durability, and scale production seamlessly.'
 publishDate: 2026-05-25
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Build-and-Review-Physical-Samples.webp'
 featuredImageAlt: 'Build and Review Physical Samples'

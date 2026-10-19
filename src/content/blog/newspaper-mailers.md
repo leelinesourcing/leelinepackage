@@ -2,7 +2,7 @@
 title: 'What Are Newspaper Mailers? The Complete Expert Guide'
 description: 'Discover how newspaper mailers drive local foot traffic and ROI. Learn about targeting, shared vs. solo mail, and how to audit your print marketing budget.'
 publishDate: 2026-03-18
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/What-Are-Newspaper-Mailers.webp'
 featuredImageAlt: 'What Are Newspaper Mailers'

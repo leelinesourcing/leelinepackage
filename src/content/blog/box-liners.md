@@ -2,7 +2,7 @@
 title: 'How to Choose a Box Liner: A Step-by-Step Guide'
 description: 'Master the art of understanding box liners with our guide. Learn how to evaluate materials, ensure food safety, and select the right thermal protection for…'
 publishDate: 2026-03-11
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Perform-a-physical-sensory-check-before-finalizing-any-packaging-order.webp'
 featuredImageAlt: 'Perform a physical sensory check before finalizing any packaging order.'

@@ -45,7 +45,7 @@ const blog = defineCollection({
     /** Rank Math focus keyword, surfaced as <meta keywords>. */
     keywords: z.string().optional(),
     publishDate: z.coerce.date(),
-    /** Reference to an entry id in the `authors` collection (e.g. `lofty-shen`). */
+    /** Reference to an entry id in the `authors` collection (e.g. `michael-vincent`). */
     author: reference('authors'),
     /** WordPress category slug. Drives the /category/<slug>/ routes. */
     category: z.string(),

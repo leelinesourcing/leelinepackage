@@ -2,7 +2,7 @@
 title: 'Top 10 Paper Bag Manufacturers In UAE'
 description: 'Leading paper bag manufacturers in UAE offering eco-friendly, custom designs. High-quality, sustainable solutions for all your packaging needs. Contact us!'
 publishDate: 2025-09-24
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Paper-Bag-Manufacturers-In-UAE.webp'
 featuredImageAlt: 'Paper Bag Manufacturers In UAE'

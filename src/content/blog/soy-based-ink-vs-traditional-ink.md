@@ -2,7 +2,7 @@
 title: 'Soy-based Ink vs Traditional Ink: Which is Better for Packaging?'
 description: 'Compare soy-based Ink vs traditional Ink for your packaging. Learn about drying times, VOC emissions, and color vibrancy to choose the best option for you.'
 publishDate: 2026-02-10
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Drying-Time-Production-Throughput.webp'
 featuredImageAlt: 'Drying Time & Production Throughput'

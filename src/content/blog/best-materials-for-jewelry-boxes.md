@@ -2,7 +2,7 @@
 title: 'How to Choose the Best Materials for Jewelry Boxes?'
 description: 'What are the best materials for jewelry boxes? Solid hardwood, PU leather, and plush velvet provide excellent scratch resistance and a high-end luxurious feel.'
 publishDate: 2026-04-21
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Run-a-Physical-Durability-and-Hardware-Inspection-1.webp'
 featuredImageAlt: 'Run a Physical Durability and Hardware Inspection'

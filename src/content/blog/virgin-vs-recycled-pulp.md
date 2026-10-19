@@ -2,7 +2,7 @@
 title: 'Virgin Pulp vs Recycled Pulp: Key Differences In Packaging'
 description: 'Compare Virgin vs. Recycled Pulp for packaging. Learn about structural integrity, sustainability, and print quality to choose the best material for your brand.'
 publishDate: 2026-02-26
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/We-refuse-to-source-virgin-fiber-that-lacks-certification.webp'
 featuredImageAlt: 'We refuse to source virgin fiber that lacks certification.'

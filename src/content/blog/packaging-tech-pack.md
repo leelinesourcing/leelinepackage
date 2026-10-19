@@ -2,7 +2,7 @@
 title: 'How to Build a Packaging Tech Pack for Mass Production?'
 description: 'Learn how to build a professional Packaging Tech Pack for mass production. Master dielines, materials, and QC standards to ensure manufacturing accuracy.'
 publishDate: 2026-05-14
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Freeze-the-Tech-Pack-and-QC-Standards.webp'
 featuredImageAlt: 'Freeze the Tech Pack and QC Standards'

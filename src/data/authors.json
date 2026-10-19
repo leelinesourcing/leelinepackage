@@ -1,17 +1,19 @@
 [
   {
-    "id": "lofty-shen",
-    "name": "Lofty Shen",
-    "title": "Senior Packaging Engineer",
-    "bio": "Lofty Shen is an IoPP-Certified Packaging Professional (CPP) with over a decade of specialized experience in medical device packaging, cold-chain logistics, and cross-functional project management. Her expertise focuses on navigating the rigorous regulatory landscapes of the healthcare and pharmaceutical sectors, ensuring total product integrity from manufacturing to end-use.\n\nLofty Shen has a proven track record in developing protective solutions for temperature-sensitive and high-value equipment, utilizing her deep knowledge of ISO 11607 standards and ASTM/ISTA testing protocols. Beyond technical design, she excels in optimizing supply chain efficiencies and vendor management, bridging the gap between complex engineering requirements and operational cost-effectiveness.",
-    "avatar": "https://img.leelinepackage.com/blog/author-lofty-shen.webp",
-    "avatarWidth": 400,
-    "avatarHeight": 600,
+    "id": "michael-vincent",
+    "name": "Michael Vincent",
+    "title": "Independent Consultant — Packaging Development and Sourcing",
+    "bio": "Michael Vincent is a strategic business leader and consultant with food packaging, engineering, product development, quality assurance, strategic sourcing, sustainable business practices and strategic managerial experience.\n\nHe works through The Sustainable Package, LLC, his independent consulting practice based in Dublin, California.",
+    "avatar": "https://img.leelinepackage.com/blog/author-michael-vincent.webp",
+    "avatarWidth": 284,
+    "avatarHeight": 284,
     "expertise": [
-      { "t": "Medical Device Compliance", "d": "Mastery of ISO 11607 and sterile barrier system validation." },
-      { "t": "Cold Chain Logistics", "d": "Design and implementation of temperature-controlled packaging solutions." },
-      { "t": "Project Lifecycle Management", "d": "Leading multi-departmental packaging initiatives from R&D to market." },
-      { "t": "Regulatory Documentation", "d": "Technical writing and auditing for FDA and international compliance." }
+      { "t": "Packaging Development and Engineering", "d": "Packaging development and package engineering, from the first concept through the specification that goes to the line." },
+      { "t": "Innovation and Product Development", "d": "Innovation and ideation, product development and project management, including the patents that come out of the work." },
+      { "t": "Sustainable Business Practices", "d": "Sustainable business practices treated as a design input rather than a report written after the pack is chosen." },
+      { "t": "Strategic Sourcing and Supplier Negotiation", "d": "Strategic sourcing, category reviews and bids, contracts and supplier negotiation." },
+      { "t": "Market Development and Retail", "d": "Market development, plus retail and retailer score carding — what a buyer measures before a listing is approved." },
+      { "t": "Audits, Regulatory and Expert Work", "d": "Facility audits, specifications, regulatory reviews, public speaking and expert witness work." }
     ]
   }
 ]

@@ -2,7 +2,7 @@
 title: 'Top 10 Bag Manufacturers In Chennai You Should Know'
 description: 'Leading bag manufacturers in Chennai offering custom school bags, laptop bags, travel bags & eco-friendly jute bags with premium quality & fast delivery.'
 publishDate: 2025-11-24
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Bag-Manufacturers-In-Chennai.webp'
 featuredImageAlt: 'Bag Manufacturers In Chennai'

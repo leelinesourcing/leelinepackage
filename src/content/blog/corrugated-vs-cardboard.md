@@ -2,7 +2,7 @@
 title: 'Corrugated vs Cardboard: Key Differences for Packaging'
 description: 'Learn the key differences between corrugated vs cardboard. Discover which material is best for shipping protection, retail graphics, and cost-efficiency.'
 publishDate: 2026-03-11
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Sustainability-Branding-and-End-of-Life-Outcomes.webp'
 featuredImageAlt: 'Sustainability, Branding, and End-of-Life Outcomes'

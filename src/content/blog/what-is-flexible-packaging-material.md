@@ -2,7 +2,7 @@
 title: 'What is Flexible Packaging Material: Your Complete Guide'
 description: 'What is Flexible Packaging Material? Pliable multi-layer films for freshness in snacks, beverages. Reduces waste, enhances brand appeal. Dive into our guide!'
 publishDate: 2025-11-10
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/What-is-Flexible-Packaging-Material.webp'
 featuredImageAlt: 'What is Flexible Packaging Material'

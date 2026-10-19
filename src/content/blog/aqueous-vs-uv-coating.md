@@ -2,7 +2,7 @@
 title: 'Aqueous vs UV Coating: Comparison & Factory Test Results'
 description: 'Aqueous vs UV coating for packaging. Learn why aqueous wins for fold reliability and when to choose UV for scuff resistance. Get our factory-tested data.'
 publishDate: 2026-05-28
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/UV-for-premium-tactile-effects.webp'
 featuredImageAlt: 'UV for premium tactile effects;'

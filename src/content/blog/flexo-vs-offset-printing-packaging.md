@@ -2,7 +2,7 @@
 title: 'Flexo vs. Offset Printing Packaging: Expert Comparison Guide'
 description: 'Compare flexo vs offset printing packaging to choose the right method. Learn about cost differences, image fidelity, and substrate compatibility for your brand.'
 publishDate: 2026-04-24
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/During-our-trials-on-heavy-corrugated-boards-soft-flexo-plates-kissed-the-uneven-5d61155a.webp'
 featuredImageAlt: 'During our trials on heavy corrugated boards, soft flexo plates kissed the uneven peaks perfectly.'

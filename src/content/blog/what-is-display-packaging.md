@@ -2,7 +2,7 @@
 title: 'What Is Display Packaging And How It Boosts Product Sales?'
 description: 'What is display packaging: creative retail tools like dump bins and countertop boxes that elevate product merchandising and drive higher sales.'
 publishDate: 2025-12-30
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/What-Is-Display-Packaging.webp'
 featuredImageAlt: 'What Is Display Packaging'

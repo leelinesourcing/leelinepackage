@@ -2,7 +2,7 @@
 title: 'The Buyer''s Guide To 9 Custom Packaging Paper Types'
 description: 'Discover the best types of paper for printing packaging and documents. Learn about weights, finishes, and textures to ensure high-quality, professional results.'
 publishDate: 2026-04-10
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Laser-Printer-Paper-for-Crisp-Toner-and-Jam-Free-Runs.webp'
 featuredImageAlt: 'Laser Printer Paper for Crisp Toner and Jam-Free Runs'

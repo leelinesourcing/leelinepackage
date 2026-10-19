@@ -2,7 +2,7 @@
 title: 'What Is Aluminum Foil Packaging Material? A Simple Guide'
 description: 'Discover premium aluminum foil packaging material – superior barrier protection, heat-resistant, and 100% recyclable for food, pharma & industrial use.'
 publishDate: 2025-11-28
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/What-Is-Aluminum-Foil-Packaging-Material.webp'
 featuredImageAlt: 'What Is Aluminum Foil Packaging Material'

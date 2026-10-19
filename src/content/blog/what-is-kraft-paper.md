@@ -2,7 +2,7 @@
 title: 'What is Kraft Paper? The Honest Guide to This Natural Packaging Wonder'
 description: 'What is kraft paper? Durable, eco-friendly brown wrap from wood pulp. Stronger than standard paper, perfect for sustainable packaging. Discover its uses!'
 publishDate: 2025-10-24
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/What-is-Kraft-Paper.webp'
 featuredImageAlt: 'What is Kraft Paper'

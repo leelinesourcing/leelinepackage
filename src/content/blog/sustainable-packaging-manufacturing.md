@@ -2,7 +2,7 @@
 title: 'The Complete Guide to Sustainable Packaging Manufacturing'
 description: 'Discover a technical roadmap for sustainable packaging manufacturing. Learn how to manage material swaps, compliance, and QC without increasing scrap rates.'
 publishDate: 2026-02-17
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Sustainable-Packaging-Manufacturing.webp'
 featuredImageAlt: 'Sustainable Packaging Manufacturing'

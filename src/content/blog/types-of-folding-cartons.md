@@ -2,7 +2,7 @@
 title: 'Top 8 Types Of Folding Cartons: A Comprehensive Guide'
 description: 'Discover the 8 main types of folding cartons – from straight tuck to reverse tuck, crash lock, and more. Perfect guide for packaging designers!'
 publishDate: 2025-12-03
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Types-Of-Folding-Cartons.webp'
 featuredImageAlt: 'Types Of Folding Cartons'

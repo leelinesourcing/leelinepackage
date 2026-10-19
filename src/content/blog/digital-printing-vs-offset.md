@@ -2,7 +2,7 @@
 title: 'Digital Printing vs Offset: Which is Better for Packaging?'
 description: 'Compare digital printing vs offset for packaging. Learn why offset wins for large runs and Pantone matching, while digital is best for short runs and VDP.'
 publishDate: 2026-05-07
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Digital-printing-requires-basic-file-hygiene.webp'
 featuredImageAlt: 'Digital printing requires basic file hygiene.'

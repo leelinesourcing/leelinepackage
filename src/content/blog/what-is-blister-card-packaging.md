@@ -2,7 +2,7 @@
 title: 'What Is Blister Card Packaging: A Comprehensive Guide'
 description: 'What is blister card packaging? A popular retail packaging type with clear plastic blisters and cardboard backing for enhanced shelf appeal and security.'
 publishDate: 2025-12-23
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/What-Is-Blister-Card-Packaging.webp'
 featuredImageAlt: 'What Is Blister Card Packaging'

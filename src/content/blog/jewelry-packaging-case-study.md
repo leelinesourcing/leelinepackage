@@ -2,7 +2,7 @@
 title: 'Jewelry Packaging Case Study: 94% Damage Reduction'
 description: 'Discover how a D2C brand cut shipping breakage by 94% in this jewelry packaging case study. Learn about magnetic rigid box design, ROI, and sustainability.'
 publishDate: 2026-05-22
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Production-and-Logistics-Implementation.webp'
 featuredImageAlt: 'Production and Logistics Implementation'

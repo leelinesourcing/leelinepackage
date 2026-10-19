@@ -2,7 +2,7 @@
 title: 'What is Butcher Paper? The Complete Expert Guide'
 description: 'Discover what is butcher paper and how it differs from other wraps. Learn about food safety, smoking meat, and expert sourcing tips in this complete guide.'
 publishDate: 2026-04-20
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Why-Butcher-Paper-Works-for-Smoking-Meat.webp'
 featuredImageAlt: 'Why Butcher Paper Works for Smoking Meat'

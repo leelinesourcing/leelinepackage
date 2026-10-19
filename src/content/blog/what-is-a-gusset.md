@@ -2,7 +2,7 @@
 title: 'What Is A Gusset On Paper Bag? Meaning & Measurement Guide'
 description: 'What is a gusset on a paper bag? Learn how to measure, engineer, and optimize gussets for retail packaging to improve durability and ROI with LeelinePackage.'
 publishDate: 2026-05-28
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/In-our-daily-stress-tests-we-find-buyers-often-approve-flat-dielines-that-fail-o-28695f25.webp'
 featuredImageAlt: 'In our daily stress tests, we find buyers often approve flat dielines that fail on the packing line'

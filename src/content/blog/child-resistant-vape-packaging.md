@@ -2,7 +2,7 @@
 title: 'Child-Resistant Vape Packaging: Stop Cap Failures Before Launch'
 description: 'Learn the cap torque, locking, and seal checks that prevent opening failures, leakage claims, and delayed releases across every vape product line, from MOQ 500.'
 publishDate: 2026-10-14
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Child-Resistant-Vape-Packaging.webp'
 featuredImageAlt: 'A young child trying to open a white child-resistant vape box'

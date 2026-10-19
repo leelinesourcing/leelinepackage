@@ -2,7 +2,7 @@
 title: 'Top 8 Corrugated Box Manufacturers In Australia'
 description: 'Leading corrugated box manufacturers in Australia offer custom cardboard boxes, sustainable packaging & fast delivery for businesses nationwide.'
 publishDate: 2026-01-15
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Corrugated-Box-Manufacturers-In-Australia.webp'
 featuredImageAlt: 'Corrugated Box Manufacturers In Australia'

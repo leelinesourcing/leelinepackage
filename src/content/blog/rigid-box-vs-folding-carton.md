@@ -2,7 +2,7 @@
 title: 'Rigid Box vs Folding Carton: Save Money Without Sacrifice'
 description: 'Stop guessing. Get a clear breakdown of rigid box vs folding carton on price, durability, unboxing experience & brand impact.'
 publishDate: 2026-07-17
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/07/Rigid-Box-vs-Folding-Carton-1.webp'
 featuredImageAlt: 'Rigid Box vs Folding Carton 1'

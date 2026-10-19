@@ -2,7 +2,7 @@
 title: 'What ‘Food Grade’ Really Means in Packaging And Why It Matters?'
 description: 'Food grade packaging refers to materials safe for direct food contact. FDA-approved, non-toxic, and BPA-free, they prevent contamination and keep food fresh.'
 publishDate: 2026-06-06
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/06/Documentation-and-Traceability.webp'
 featuredImageAlt: 'Documentation and Traceability'

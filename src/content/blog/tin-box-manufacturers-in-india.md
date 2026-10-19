@@ -2,7 +2,7 @@
 title: 'Luxury 10 Tin Box Manufacturers in India: 2026 Metal Export'
 description: 'Leading tin box manufacturers in India. Custom designs for cosmetics, tea, gifts & more. Low MOQ, worldwide shipping, FDA compliant. Get samples & quote now!'
 publishDate: 2025-12-16
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Tin-Box-Manufacturers-in-India-1.webp'
 featuredImageAlt: 'Tin Box Manufacturers in India'

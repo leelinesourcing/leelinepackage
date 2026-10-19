@@ -2,7 +2,7 @@
 title: '8 Best Paper Bag Manufacturers In Nigeria'
 description: 'Find premium paper bag manufacturers in Nigeria for kraft and laminated shopping bags. Affordable, customizable designs promoting your brand sustainably.'
 publishDate: 2026-01-08
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/Paper-Bag-Manufacturers-In-Nigeria_.webp'
 featuredImageAlt: 'Paper Bag Manufacturers In Nigeria'

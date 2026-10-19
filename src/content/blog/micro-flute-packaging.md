@@ -2,7 +2,7 @@
 title: 'What is Micro Flute Packaging? The Complete Expert Guide'
 description: 'Master micro flute packaging with our expert guide. Discover how E, F, and N flutes enhance branding, protect products, and reduce shipping costs.'
 publishDate: 2026-03-11
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/We-base-crush-resistance-packaging-decisions-on-board-construction-and-physical-a9418e4d.webp'
 featuredImageAlt: 'We base crush resistance packaging decisions on board construction and physical test data'

@@ -2,7 +2,7 @@
 title: 'Cardboard Recycling Lifecycle: Step-by-Step Guide'
 description: 'Master the cardboard recycling lifecycle with our expert guide. Learn how to prep corrugated boxes and understand the industrial recovery process.'
 publishDate: 2026-03-05
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Cardboard-Recycling-Lifecycle-2.webp'
 featuredImageAlt: 'Cardboard Recycling Lifecycle'

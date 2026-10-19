@@ -2,7 +2,7 @@
 title: 'Heatseal Vs Embroidery: Which Is Best?'
 description: 'A complete guide to Heatseal vs Embroidery in package applications, covering design impact, affordability, durability, and customization possibilities.'
 publishDate: 2026-04-02
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Heatseal-Vs-Embroidery.webp'
 featuredImageAlt: 'Heatseal Vs Embroidery'

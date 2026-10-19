@@ -2,7 +2,7 @@
 title: 'Packaging Quality Control: The Ultimate 7-Step Checklist'
 description: 'Master packaging quality control with our field-tested checklist. Learn about ISO sampling, stress tests, and automation to prevent transit damage and save…'
 publishDate: 2026-04-28
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Prove-Tertiary-Packaging-Can-Survive-Warehousing-Pallets-and-Transit.webp'
 featuredImageAlt: 'Prove Tertiary Packaging Can Survive Warehousing, Pallets, and Transit'

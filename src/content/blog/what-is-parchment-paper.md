@@ -2,7 +2,7 @@
 title: 'Parchment Paper Meaning: What It Is, Types & Uses'
 description: 'What is parchment paper? A heat-resistant, silicone-coated paper for baking and food packaging. Compare types, GSM, and bulk pricing.'
 publishDate: 2025-11-03
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/What-is-Parchment-Paper.webp'
 featuredImageAlt: 'What is Parchment Paper'

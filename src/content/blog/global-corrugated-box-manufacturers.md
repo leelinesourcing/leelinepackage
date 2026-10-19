@@ -2,7 +2,7 @@
 title: 'Global Corrugated Box Manufacturers: A 15-Year Sourcing Veteran''s Guide'
 description: '2026 updated guide to global corrugated box manufacturers. Learn about quality, fast turnaround and sustainable option from the world’s most reliable suppliers.'
 publishDate: 2026-05-23
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/How-I-Vet-a-Corrugated-Manufacturer.webp'
 featuredImageAlt: 'How I Vet a Corrugated Manufacturer'

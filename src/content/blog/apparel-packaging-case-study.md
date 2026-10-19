@@ -2,7 +2,7 @@
 title: 'Apparel Packaging Case Study: 28% Drop in Product Damage Rate'
 description: 'Discover how an ecommerce brand reduced shipping damage by 28% and lowered costs in this apparel packaging case study. Learn to optimize your fulfillment today.'
 publishDate: 2026-05-15
-author: lofty-shen
+author: michael-vincent
 category: 'csae-study'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/A-smarter-mailer-specification-always-outperforms-excess-material.webp'
 featuredImageAlt: 'A smarter mailer specification always outperforms excess material.'

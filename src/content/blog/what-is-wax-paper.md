@@ -2,7 +2,7 @@
 title: 'What is Wax Paper? The Essential Guide'
 description: 'Learn about what is wax paper, a non-stick, wax-coated sheet used in cooking, baking, and food wrapping. Discover its benefits and uses today!'
 publishDate: 2025-09-16
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/What-is-Wax-Paper.avif'
 featuredImageAlt: 'What is Wax Paper'

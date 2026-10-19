@@ -2,7 +2,7 @@
 title: 'Biodegradable vs Compostable Packaging: Which is Best?'
 description: 'Learn the truth about biodegradable vs compostable packaging. Discover why certified compostable materials are the superior choice for sustainable brands today.'
 publishDate: 2026-02-19
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Biodegradable-vs-Compostable-Packaging.webp'
 featuredImageAlt: 'Biodegradable vs Compostable Packaging'

@@ -2,7 +2,7 @@
 title: 'What is BOPP Packaging Material? Expert Guide to Benefits & Applications'
 description: 'What is BOPP packaging material? Biaxially Oriented Polypropylene – versatile film for superior protection & print quality in snack & cosmetic. Learn more now.'
 publishDate: 2025-10-27
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/10/What-is-BOPP-Packaging-Material.webp'
 featuredImageAlt: 'What is BOPP Packaging Material'

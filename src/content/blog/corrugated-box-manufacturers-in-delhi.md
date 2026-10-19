@@ -2,7 +2,7 @@
 title: 'The Best Corrugated Box Manufacturers in Delhi-NCR: A Buyer’s Shortlist'
 description: 'Explore corrugated box manufacturers in Delhi specializing in eco-friendly, printed, and die-cut boxe. Reliable packaging partners for businesses big and small.'
 publishDate: 2026-02-15
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/02/Corrugated-Box-Manufacturers-in-Delhi.webp'
 featuredImageAlt: 'Corrugated Box Manufacturers in Delhi'

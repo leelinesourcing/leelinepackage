@@ -2,7 +2,7 @@
 title: 'What is Ethylene Vinyl Acetate Foam? The Complete Expert Guide'
 description: 'Learn everything about Ethylene Vinyl Acetate Foam in this expert guide. Discover its unique properties, technical specifications, and benefits for packaging.'
 publishDate: 2026-03-26
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Ethylene-Vinyl-Acetate-Foam.webp'
 featuredImageAlt: 'Ethylene Vinyl Acetate Foam'

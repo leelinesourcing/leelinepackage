@@ -2,7 +2,7 @@
 title: 'How to Implement Triple Wall Corrugated for Heavy Shipments'
 description: 'Discover how triple wall corrugated protects heavy shipments. Learn to calculate ROI, select ECT grades, and prevent transit damage in our expert guide.'
 publishDate: 2026-03-11
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Triple-Wall-Corrugated.webp'
 featuredImageAlt: 'Triple Wall Corrugated'

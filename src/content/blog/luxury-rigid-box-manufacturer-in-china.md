@@ -2,7 +2,7 @@
 title: 'Best 10 Luxury Rigid Box Manufacturers In China You Should Know'
 description: 'Top luxury rigid box manufacturer in China : tailored for brands. Magnetic closures, foil stamping, sustainable materials. Boost allure with premium packaging.'
 publishDate: 2025-11-08
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Luxury-Rigid-Box-Manufacturer-In-China.webp'
 featuredImageAlt: 'Luxury Rigid Box Manufacturer In China'

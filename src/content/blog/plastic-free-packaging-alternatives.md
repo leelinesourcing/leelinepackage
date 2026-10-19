@@ -2,7 +2,7 @@
 title: '7 Best Plastic Free Packaging Alternatives for Shipping'
 description: 'Explore 8 durable plastic free packaging alternatives for your business. Learn how to swap poly mailers and foam for materials that survive shipping.'
 publishDate: 2026-03-05
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Plastic-Free-Packaging-Alternatives-2.webp'
 featuredImageAlt: 'Plastic Free Packaging Alternatives'

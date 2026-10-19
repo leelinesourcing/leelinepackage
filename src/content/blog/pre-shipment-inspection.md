@@ -2,7 +2,7 @@
 title: 'Pre-Shipment Inspection (PSI): A Complete Guide & Checklist'
 description: 'Protect your brand and margins with a Pre-shipment Inspection (PSI). Learn about AQL sampling, factory checklists, and how to catch defects before they ship.'
 publishDate: 2026-05-09
-author: lofty-shen
+author: michael-vincent
 category: 'quality-control'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/The-Pre-Shipment-Inspection-Playbook.webp'
 featuredImageAlt: 'The Pre-Shipment Inspection Playbook'

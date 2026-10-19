@@ -2,7 +2,7 @@
 title: '7 Eco-Friendly Padded Mailers: Factory-Tested For Scale'
 description: 'Discover the best eco friendly padded mailers to reduce shipping costs. We review top honeycomb, compostable, and recycled options with real performance tests.'
 publishDate: 2026-03-05
-author: lofty-shen
+author: michael-vincent
 category: 'material'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Eco-Friendly-Padded-Mailers.webp'
 featuredImageAlt: 'Eco Friendly Padded Mailers'

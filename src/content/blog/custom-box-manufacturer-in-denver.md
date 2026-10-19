@@ -2,7 +2,7 @@
 title: 'Top 10 Custom Box Manufacturer In Denver'
 description: 'Transform your packaging with top custom box manufacturer in Denver. Sustainable, stylish boxes for all industries, designed to elevate your brand’s image!'
 publishDate: 2025-09-11
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/09/Custom-Box-Manufacturer-In-Denver.avif'
 featuredImageAlt: 'Custom Box Manufacturer In Denver'

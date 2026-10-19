@@ -2,7 +2,7 @@
 title: 'How Glossier Reduced Shipping Costs 40%: Case Study'
 description: 'Discover how Glossier reduced shipping costs 40% with custom corrugated mailer boxes. Learn to audit DIM weight and right-size your packaging for maximum ROI.'
 publishDate: 2026-03-20
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Shipping-Costs-Barely-Change.webp'
 featuredImageAlt: 'Shipping Costs Barely Change'

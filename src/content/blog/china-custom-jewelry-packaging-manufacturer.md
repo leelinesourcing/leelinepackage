@@ -2,7 +2,7 @@
 title: 'Top 10 China Custom Jewelry Packaging Manufacturer'
 description: 'Premium China custom jewelry packaging manufacturer. Velvet, leather & rigid packaging for rings & necklaces. Low MOQ, branding solutions & wholesale quality.'
 publishDate: 2026-01-19
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/01/China-Custom-Jewelry-Packaging-Manufacturer.webp'
 featuredImageAlt: 'China Custom Jewelry Packaging Manufacturer'

@@ -2,7 +2,7 @@
 title: 'Top 10 Box Manufacturers in Poland for Enterprise Brands'
 description: 'Discover the leading box manufacturers in Poland. We vetted the top 10 suppliers for enterprise scale and quality. Get our expert procurement guide today.'
 publishDate: 2026-04-24
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/04/Box-Manufacturers-in-Poland-1.webp'
 featuredImageAlt: 'Box Manufacturers in Poland'

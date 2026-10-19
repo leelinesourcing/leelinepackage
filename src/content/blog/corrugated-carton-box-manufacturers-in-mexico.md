@@ -2,7 +2,7 @@
 title: '10 Corrugated Carton Box Manufacturers & Suppliers In Mexico'
 description: 'Top corrugated carton box manufacturers in mexico providing custom boxes. Perfect for safe shipping and branding. Eco-friendly options available—explore more!'
 publishDate: 2025-12-25
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/corrugated-carton-box-manufacturers-in-Mexico.webp'
 featuredImageAlt: 'corrugated carton box manufacturers in Mexico'

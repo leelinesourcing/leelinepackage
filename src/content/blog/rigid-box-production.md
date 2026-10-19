@@ -2,7 +2,7 @@
 title: 'How We Reduced Rigid Box Production Costs by 25% in 2026?'
 description: 'Learn how to calculate the true rigid box production cost and save 25%. Discover tips on auditing setup fees, freight penalties, and material specs for custom…'
 publishDate: 2026-05-22
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Calculate-the-Landed-Cost-and-Freight-Penalty.webp'
 featuredImageAlt: 'Calculate the Landed-Cost and Freight Penalty'

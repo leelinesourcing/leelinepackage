@@ -2,7 +2,7 @@
 title: 'Glossy vs Matte Finish: Ultimate Guide to Choosing the Right Finish'
 description: 'Glossy vs Matte Finish: Which is better? Discover the pros, cons, and best uses for photos, prints, business cards, and wall art. Complete comparison guide.'
 publishDate: 2026-03-30
-author: lofty-shen
+author: michael-vincent
 category: 'manufacturing'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Glossy-Vs-Matte-Finish.webp'
 featuredImageAlt: 'Glossy Vs Matte Finish'

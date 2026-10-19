@@ -2,7 +2,7 @@
 title: 'How Packaging Automation Can Cut Labor Costs By 60%?'
 description: 'Learn how to evaluate packaging automation for rigid box production. Get practical tips on auditing labor, mapping workflows, and building a credible ROI model.'
 publishDate: 2026-05-20
-author: lofty-shen
+author: michael-vincent
 category: 'selling'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/05/Build-the-ROI-Scenario-Model-and-Supplier-Governance.webp'
 featuredImageAlt: 'Build the ROI Scenario Model and Supplier Governance'

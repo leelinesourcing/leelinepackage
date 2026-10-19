@@ -2,7 +2,7 @@
 title: 'How to Calculate Packaging Costs and Pricing?'
 description: 'Learn how to accurately calculate packaging costs and pricing. This guide covers manufacturing, hidden fees, and logistics to help you protect your margins.'
 publishDate: 2026-03-31
-author: lofty-shen
+author: michael-vincent
 category: 'how-to-guide'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2026/03/Cheap-Quotes-Massive-Landed-Costs.webp'
 featuredImageAlt: 'Cheap Quotes, Massive Landed Costs'

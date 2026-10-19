@@ -2,7 +2,7 @@
 title: 'Exploring The 8 Best Rigid Box Manufacturers In Bangalore'
 description: 'Leading rigid box manufacturers in Bangalore – Premium custom luxury packaging for cosmetics, jewelry, electronics & gifts with fast delivery.'
 publishDate: 2025-12-05
-author: lofty-shen
+author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/12/Rigid-Box-Manufacturers-In-Bangalore1.webp'
 featuredImageAlt: 'Rigid Box Manufacturers In Bangalore'

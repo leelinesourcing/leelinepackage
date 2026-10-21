@@ -4,10 +4,10 @@ description: 'Use one dieline for multiple flavors to cut tooling costs, speed a
 publishDate: 2026-10-21
 author: michael-vincent
 category: 'how-to-guide'
-featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/one-dieline-multiple-flavors-cover.webp'
-featuredImageAlt: 'Blank clay placeholder for the One Dieline Multiple Flavors cover photograph'
-featuredImageWidth: 1200
-featuredImageHeight: 750
+featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/One-Dieline-Multiple-Flavors.webp'
+featuredImageAlt: 'A dieline drawing beside an orange vape carton under the title One Dieline Multiple Flavors'
+featuredImageWidth: 800
+featuredImageHeight: 400
 seoTitle: 'One Dieline Multiple Flavors: 5 Steps That Cut Tooling Costs'
 keywords: 'one dieline multiple flavors'
 draft: false
@@ -60,6 +60,8 @@ We use one master dieline to print ten flavors at once. On the runs we handle, t
 
 ### Step 1: Approve and Freeze the Master Dieline
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Approve-and-Freeze-the-Master-Dieline.webp" alt="A vape carton dieline displayed on a monitor with a padlock icon marking the frozen structure" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 On our shop floor, I approve one converter-supplied carton dieline before any flavor file opens. Stop structural edits now. Freeze cut lines, crease lines, glue tab, bleed, and safe zones.
 
 Also freeze tuck or lock geometry, insert points, child-resistant features, and panel naming. Every later flavor file inherits these locked coordinates. Move a crease after versioning, and I have watched that rework multiply across 12 SKUs in a single afternoon.
@@ -75,6 +77,8 @@ That file belongs to our [structural engineering and design](https://www.leeline
 <blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> I have seen one late glue-tab shift force a new plate and add five days. Lock it first.</p><p><strong>— Christine Wong</strong>, Sales Director</p></blockquote>
 
 ### Step 2: Build the Locked-Layer Master File
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Build-the-Locked-Layer-Master-File.webp" alt="An Adobe Illustrator layers panel with the dieline, structure, and compliance layers locked" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 I build one Adobe Illustrator master before any flavor art lands. The clean master feels calm: artboards align, the dieline sits grayed out, and variable fields are visible on top. I lock three layers and leave one editable. Set the layer stack exactly:
 
@@ -100,6 +104,8 @@ Name layers semantically. Do not rely on red and green coding alone. If the boar
 
 ### Step 3: Build the Same-vs-Change Matrix
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Build-the-Same-vs-Change-Matrix.webp" alt="Ten printed vape cartons in different flavor colors with identical warning panels" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 I pin the master dieline to the wall and force every flavor through one matrix. This stops flavor-line chaos before plates are cut. Here is the exact split we use.
 
 <div class="post-table-wrap"><table><thead><tr><th>Must stay the same</th><th>Can change</th></tr></thead><tbody><tr><td>Dieline geometry</td><td>Flavor name</td></tr><tr><td>Dimensions</td><td>Color palette</td></tr><tr><td>Board thickness</td><td>Secondary imagery</td></tr><tr><td>Bleed and safe zones</td><td>Flavor iconography</td></tr><tr><td>Warning-panel size and position</td><td>Ingredient details</td></tr><tr><td>Barcode position rules</td><td>Nicotine-strength line, if applicable</td></tr><tr><td>Opening direction</td><td>SKU code</td></tr><tr><td>Child-resistant features</td><td>Finish accents, if production allows</td></tr><tr><td>Glue area</td><td></td></tr><tr><td>Mandatory legal marks</td><td></td></tr><tr><td>Key brand architecture</td><td></td></tr></tbody></table></div>
@@ -115,6 +121,8 @@ For broader product families, one parent brand system can branch into different 
 **🧠 Author’s Take:** I make every flavor pass this matrix in review. The matrix caught drift faster than a full preflight.
 
 ### Step 4: Version Every Flavor With Locked Copy and Barcode Control
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Version-Every-Flavor-With-Locked-Copy-and-Barcode-Control.webp" alt="A Pantone color fan deck beside a teal vape carton with a printed barcode" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 In our prepress room, I duplicate the locked master for each flavor. I never redraw it. Duplicate the artboard and rename it immediately: **Brand_Product_Structure_Flavor_Region_Rev_Date**.
 
@@ -138,6 +146,8 @@ Check each UPC against the [GS1 barcode specification](https://www.gs1.org/stand
 
 ### Step 5: Run the Pilot Proof and Lock the Master
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Run-the-Pilot-Proof-and-Lock-the-Master.webp" alt="Gloved hands folding a printed vape carton along its score line" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 On our floor, I never release a full flavor line on a master dieline until a pilot proof passes. Pick **one light and one dark flavor**. They expose different prepress and registration issues. The dark flavor hid a 0.5 mm plate drift that the light flavor revealed instantly.
 
 Check these items in order: **color match**, **plate registration**, **warning-panel legibility**, **barcode scan**, **coating stop at glue areas**, **fold cracking**, and **distortion at score lines**.
@@ -155,6 +165,8 @@ The same pilot logic applies to [disposable vape packaging](https://www.leelinep
 **⚠️ Experience Warning:** I have seen a pilot proof pass color but fail fold cracking at the score line. Always fold the proof by hand before you sign.
 
 ## Troubleshooting of One Dieline Multiple Flavors
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Troubleshooting-of-One-Dieline-Multiple-Flavors.webp" alt="A loupe magnifying CMYK print dots on a printed carton" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 Most multi-flavor failures start in version control, not in the structure. They show up late, when flavor art drifts, one UPC stops scanning, and small type fuzzes at the fold.
 

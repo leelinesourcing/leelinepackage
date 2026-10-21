@@ -79,9 +79,9 @@ Bottle-led kits need cap clearance and label protection, so the [e-liquid bottle
 
 **Verification checkpoint:** confirm the factory returns one consolidated spec summary covering dimensions, tolerances, structure, insert, finish, and compliance copy. Reject scattered email assumptions.
 
-**⚡ Power Move:** Send dimensions and regulatory copy in one PDF. Split files cause mismatched samples.
+<blockquote class="post-quote"><p><strong>⚡ Power Move:</strong> Send dimensions and regulatory copy in one PDF. Split files cause mismatched samples.</p><p><strong>— <a href="https://cn.linkedin.com/in/nick-wong-5605b67a" target="_blank" rel="noopener">Nick Wong</a></strong>, Sales Manager</p></blockquote>
 
-**⚠️ Experience Warning:** One client sent rounded website specs, and the printed tray missed the cartridge cavity by 1.2 mm. Caliper data caught it before tooling.
+<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> One client sent rounded website specs, and the printed tray missed the cartridge cavity by 1.2 mm. Caliper data caught it before tooling.</p><p><strong>— <a href="https://www.linkedin.com/in/packagingbestchina/" target="_blank" rel="noopener">George Fan</a></strong>, Packagingbestchina VP Sales</p></blockquote>
 
 ### Step 2: Inspect the Dieline and Structural Sample
 
@@ -105,7 +105,7 @@ Li Wei, Senior Packaging Engineer at LeelinePackage, told me: “The CR tab enga
 
 **Verification checkpoint:** approve an annotated dieline with comments resolved, not a screenshot in chat. I have seen chat screenshots hide a 1.0 mm tray gap.
 
-**⚠️ Experience Warning:** A pretty printed sample can hide a loose lock. Approve the annotated dieline before tooling.
+<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> A pretty printed sample can hide a loose lock. Approve the annotated dieline before tooling.</p><p><strong>— <a href="https://cn.linkedin.com/in/bags-boxes/zh-cn" target="_blank" rel="noopener">Steve</a></strong>, Packaging Specialist</p></blockquote>
 
 ### Step 3: Inspect the White Dummy with the Real Product
 

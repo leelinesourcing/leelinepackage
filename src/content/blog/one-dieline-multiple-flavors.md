@@ -29,6 +29,8 @@ This guide covers folding-carton vape packaging, not different box structures. I
 
 ## Prerequisites for One Dieline Multiple Flavors
 
+<iframe title="One Dieline Multiple Flavors: Five Steps to Cut Tooling Costs" class="post-embed" src="https://www.youtube.com/embed/C2MN5HJPK90" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+
 I built this checklist from 50 multi-flavor runs on our own floor. Before Step 1, confirm you have:
 
 - **Manufacturer-approved dieline** (PDF or .ai, cut and crease on separate layers)
@@ -55,8 +57,6 @@ Bottle-led kits need cap clearance and label protection, so the [e-liquid bottle
 ## How to Use One Dieline for Multiple Flavors in Vape Packaging?
 
 We use one master dieline to print ten flavors at once. On the runs we handle, that shared structure cuts tooling costs by about forty percent. Follow our exact five-step factory workflow below.
-
-<iframe title="One Dieline Multiple Flavors: Five Steps to Cut Tooling Costs" class="post-embed" src="https://www.youtube.com/embed/C2MN5HJPK90" width="100%" height="480" frameborder="0" loading="lazy" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
 
 ### Step 1: Approve and Freeze the Master Dieline
 

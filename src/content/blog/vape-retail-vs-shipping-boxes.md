@@ -17,6 +17,8 @@ draft: false
 
 **Retail boxes** are the primary pack the buyer sees: printed folding cartons, rigid boxes, and counter displays that sell the unit and carry the warnings. **Shipping boxes** are corrugated outer packs built to absorb drop and crush loads.
 
+For the structure range behind both formats, start with our [custom vape packaging](https://www.leelinepackage.com/custom-vape-packaging/) hub.
+
 Most e-commerce vape brands need both. A compliant retail carton goes inside a corrugated outer mailer. In our 5,000-unit transit log, retail-only shipments failed at 4.1%, against 0.7% with an outer mailer.
 
 Shelf appeal wins the first sale. Burst strength wins the replacement order. The right split depends on your channel, not on ideology.
@@ -177,7 +179,7 @@ For this comparison, we ran mock shelf, drop, and crush tests before scoring the
 
 We tested 5,000 units and interviewed LeelinePackage’s Senior Packaging Engineer. Here is the segmentation that actually holds.
 
-- **Choose retail boxes first if** you sell through dispensaries, smoke shops, or premium in-store environments and shelf conversion matters. See [custom vape packaging](https://www.leelinepackage.com/custom-vape-packaging/).
+- **Choose retail boxes first if** you sell through dispensaries, smoke shops, or premium in-store environments and shelf conversion matters. Start from our vape packaging range.
 - **Choose shipping boxes first if** you ship fragile vape units DTC, manage returns tightly, or need lower damage rates at scale. See [custom corrugated boxes](https://www.leelinepackage.com/custom-corrugated-boxes/).
 - **Use both if** you run e-commerce with branded primary packs inside corrugated outer mailers. This is the default for most serious brands. Our drop tests showed retail-only failure at 4.1% versus 0.7% with an outer mailer.
 - **Upgrade to child-resistant retail systems only when** channel or product risk requires it. The outer carton is not a CR pack; the inner retail pack is. Confirm with counsel per 16 CFR 1700.

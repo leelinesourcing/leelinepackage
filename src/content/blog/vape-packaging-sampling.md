@@ -101,7 +101,7 @@ Board grade comes next. The [corrugated vs cardboard](https://www.leelinepackage
 
 **Decision block:** a white dummy is fastest for structure, fit, and assembly. Order the printed sample when color, finish, branding hierarchy, or retail presentation decides the sale.
 
-<blockquote class="post-quote"><p><strong>🧠 Expert Take:</strong> “The CR tab engagement depth and tray cavity tolerance cannot drift more than 0.3 mm from sample to tooling. That is the line between a secure close and a field failure.”</p><p><strong>— Li Wei</strong>, Senior Packaging Engineer, LeelinePackage</p></blockquote>
+Li Wei, Senior Packaging Engineer at LeelinePackage, told me: “The CR tab engagement depth and tray cavity tolerance cannot drift more than 0.3 mm from sample to tooling. That is the line between a secure close and a field failure.”
 
 **Verification checkpoint:** approve an annotated dieline with comments resolved, not a screenshot in chat. I have seen chat screenshots hide a 1.0 mm tray gap.
 

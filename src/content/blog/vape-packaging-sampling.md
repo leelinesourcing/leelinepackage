@@ -4,10 +4,10 @@ description: 'Check vape packaging samples in 5 steps: caliper fit, CR lock cycl
 publishDate: 2026-10-21
 author: michael-vincent
 category: 'how-to-guide'
-featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Packaging-Sampling.webp'
-featuredImageAlt: 'Blank clay placeholder for the vape packaging sampling cover image'
-featuredImageWidth: 1200
-featuredImageHeight: 750
+featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Packaging-Sampling-v2.webp'
+featuredImageAlt: 'Five printed vape packaging samples and bottles lined up on a wooden table under the title Vape Packaging Sampling'
+featuredImageWidth: 800
+featuredImageHeight: 400
 seoTitle: 'Vape Packaging Sampling: 5 Checks Before You Approve Tooling'
 keywords: 'vape packaging sampling'
 draft: false
@@ -61,6 +61,8 @@ Follow this five-step process to evaluate prototypes, test structural durability
 
 ### Step 1: Send a Production-Ready Sample Brief
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Send-a-Production-Ready-Sample-Brief.webp" alt="A flat printed dieline sheet on a table showing the panel layout for a vape carton" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 Start with one email, not a casual inquiry. The correct brief makes the sample feel snug, open cleanly, and seat the product without forcing it into the cavity. Send these seven items:
 
 1. **Caliper dimensions:** length, width, height, and tolerances. Never use rounded website specs.
@@ -82,6 +84,8 @@ Bottle-led kits need cap clearance and label protection, so the [e-liquid bottle
 **⚠️ Experience Warning:** One client sent rounded website specs, and the printed tray missed the cartridge cavity by 1.2 mm. Caliper data caught it before tooling.
 
 ### Step 2: Inspect the Dieline and Structural Sample
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Inspect-the-Dieline-and-Structural-Sample.webp" alt="A 3D vape carton dieline rotating on a monitor before board is cut" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 I open the box on screen before the factory cuts board. Run a sensory check: mentally open the box, feel the thumb notch, trace tuck depth, and watch panel overlap. Check five areas:
 
@@ -105,6 +109,8 @@ Board grade comes next. The [corrugated vs cardboard](https://www.leelinepackage
 
 ### Step 3: Inspect the White Dummy with the Real Product
 
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Inspect-the-White-Dummy-with-the-Real-Product.webp" alt="A white dummy vape box with an open lid and a vape pen seated in the insert cavity" width="800" height="400" loading="lazy" decoding="async" /></figure>
+
 The white dummy is the first time you touch the pack, and it comes before print because it isolates structure from color and finish. Brands that skip it approve beautiful boxes that rattle.
 
 Assemble the box exactly as fulfillment will, place the real product inside, then check orientation, headspace, and ease of insertion and removal. Note loose fit, bulging panels, flap interference, or awkward user motion.
@@ -120,6 +126,8 @@ Format-specific checks:
 **⚠️ Experience Warning:** One client skipped the white dummy and went straight to print. The cavity was 0.8 mm too tight, they forced the product in, and 30% of units shipped scratched.
 
 ### Step 4: Run the Pre-Production Inspection
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Run-the-Pre-Production-Inspection.webp" alt="Two hands pulling a white child-resistant slide box open by its thumb notches" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 This is the non-negotiable gate. Do not approve bulk without passing all five checks; this sequence caught three fatal defects before tooling in our own runs.
 
@@ -140,6 +148,8 @@ The first two rows are exactly what the 0.3 mm tolerance rule exists to stop.
 **⚠️ Experience Warning:** One brand skipped the crease fatigue test. The first 500 boxes cracked at the hinge after 48 hours, and the rework cost $2,200 plus a launch date.
 
 ### Step 5: Approve the Printed Sample and Lock the PO
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Approve-the-Printed-Sample-and-Lock-the-PO.webp" alt="A Pantone color fan deck resting on a printed vape carton during sample approval" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 Skip the printed sample only when structure is the sole risk, because that is what the white dummy already proves. Order one when color, foil, or soft-touch decides the sale; a generic kit will not match your Pantone.
 
@@ -162,6 +172,8 @@ Custom printed samples cost more than generic kits, and most suppliers credit th
 **⚠️ Experience Warning:** One client approved a sample without scanning the barcode. It failed at retail, and rework cost $1,800 and two weeks.
 
 ## Troubleshooting Vape Packaging Sampling
+
+<figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/10/Troubleshooting-of-Vape-Packaging-Sampling.webp" alt="Ten metal vape cartridges lined up in a row for dimensional consistency checks" width="800" height="400" loading="lazy" decoding="async" /></figure>
 
 Most sampling failures start with one mistake: approving a prototype that does not match production materials or tolerances. It shows up later, when locks soften, trays scrape, and folds whiten.
 

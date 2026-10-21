@@ -1,6 +1,6 @@
 ---
 title: 'Vape Retail vs Shipping Boxes: Win Shelf Appeal and Delivery'
-description: 'Compare vape retail boxes and shipping boxes on shelf appeal, transit protection, and landed cost, using drop-test data from our 5,000 transit units at MOQ 500.'
+description: 'Compare vape retail boxes and shipping boxes on shelf appeal, transit protection, and landed cost, using 5,000-unit drop tests and the 4.1% vs 0.7% failure gap.'
 publishDate: 2026-10-21
 author: michael-vincent
 category: 'how-to-guide'
@@ -8,7 +8,7 @@ featuredImage: 'https://img.leelinepackage.com/blog/media/2026/10/Vape-Retail-vs
 featuredImageAlt: 'Vape products on a retail shelf beside stacked corrugated shipping boxes'
 featuredImageWidth: 800
 featuredImageHeight: 400
-seoTitle: 'Vape Retail vs Shipping Boxes: Shelf Appeal vs Transit Costs'
+seoTitle: 'Vape Retail vs Shipping Boxes: 5 Tests, 4.1% vs 0.7% Verdict'
 keywords: 'vape retail vs shipping boxes'
 draft: false
 ---

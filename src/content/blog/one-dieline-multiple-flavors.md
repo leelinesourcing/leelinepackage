@@ -48,7 +48,7 @@ Material proof should travel with the sample: [REACH](https://www.leelinepackage
 
 Bottle-led kits need cap clearance and label protection, so the [e-liquid bottle packaging](https://www.leelinepackage.com/custom-vape-packaging/e-liquid-bottle-packaging/) page is the closest structural reference.
 
-<blockquote class="post-quote"><p><strong>🧠 Expert Take:</strong> Keep the legal warning area intact, follow the nicotine disclosure hierarchy, and protect a 3 mm barcode quiet zone. Confirm region-specific material and chemical rules before print.</p><p><strong>— Cathy Wong</strong>, Packaging Specialist (Paper Packaging)</p></blockquote>
+<blockquote class="post-quote"><p><strong>🧠 Expert Take:</strong> Keep the legal warning area intact, follow the nicotine disclosure hierarchy, and protect a 3 mm barcode quiet zone. Confirm region-specific material and chemical rules before print.</p><p><strong>— <a href="https://cn.linkedin.com/in/9dvrchair" target="_blank" rel="noopener">Cathy Wong</a></strong>, Packaging Specialist (Paper Packaging)</p></blockquote>
 
 **⚡ Power Move:** Fold one dummy per flavor by hand before you approve plates.
 
@@ -74,7 +74,7 @@ Our primary workflow uses the manufacturer AI or PDF dieline. We use industrial 
 
 That file belongs to our [structural engineering and design](https://www.leelinepackage.com/structural-engineering-and-design/) team, and their measurements are the ones every flavor inherits.
 
-<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> I have seen one late glue-tab shift force a new plate and add five days. Lock it first.</p><p><strong>— Christine Wong</strong>, Sales Director</p></blockquote>
+<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> I have seen one late glue-tab shift force a new plate and add five days. Lock it first.</p><p><strong>— <a href="https://cn.linkedin.com/in/packfine" target="_blank" rel="noopener">Christine Wong</a></strong>, Sales Director</p></blockquote>
 
 ### Step 2: Build the Locked-Layer Master File
 
@@ -142,7 +142,7 @@ Check each UPC against the [GS1 barcode specification](https://www.gs1.org/stand
 
 **Validation:** Every artboard shows the same dieline coordinates. Print preview shows no hidden layers. A handheld scanner reads each UPC on screen.
 
-<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> I have watched one unlocked swatch drag a Pantone match off-brand across 8 SKUs. Lock swatches and re-check every variant before release.</p><p><strong>— Nick Wong</strong>, Packaging &amp; Printing Specialist</p></blockquote>
+<blockquote class="post-quote"><p><strong>⚠️ Experience Warning:</strong> I have watched one unlocked swatch drag a Pantone match off-brand across 8 SKUs. Lock swatches and re-check every variant before release.</p><p><strong>— <a href="https://cn.linkedin.com/in/nick-wong-5605b67a" target="_blank" rel="noopener">Nick Wong</a></strong>, Packaging &amp; Printing Specialist</p></blockquote>
 
 ### Step 5: Run the Pilot Proof and Lock the Master
 

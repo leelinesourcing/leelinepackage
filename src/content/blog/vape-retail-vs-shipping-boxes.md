@@ -95,7 +95,7 @@ A retail box may require CR testing per [16 CFR 1700](https://www.cpsc.gov/Busin
 
 The outer shipper instead needs correct labeling, documentation, and shipping configuration, such as battery warnings and PACT Act compliance. Our compliance lead flagged a caution for first-time exporters.
 
-Carriers like USPS, FedEx, and UPS have specific rules for vape devices, especially when lithium batteries are involved. Get the outer labeling wrong, and your shipment gets refused. FedEx publishes its [battery shipping rules](https://www.fedex.com/en-us/shipping/batteries.html).
+Carriers like USPS, FedEx, and UPS have specific rules for vape devices, especially when lithium batteries are involved. Get the outer labeling wrong, and your shipment gets refused.
 
 Structure choices and lock mechanisms are covered in our [child-resistant vape packaging](https://www.leelinepackage.com/custom-vape-packaging/child-resistant-vape-packaging/) guide, including the two standards behind every test report.
 

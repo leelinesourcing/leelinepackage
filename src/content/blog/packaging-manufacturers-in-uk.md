@@ -39,7 +39,7 @@ This list sorts ten UK suppliers by what they actually make — cartons and boxe
 - <a href="https://www.leelinepackage.com/packaging-sample-prototyping/" target="_blank" rel="noopener"><strong>Packaging Sample Prototyping: Four Samples, One Structure</strong></a> — what each sample proves before you commit to a production run.
 - <a href="https://www.leelinepackage.com/packaging-costs-and-pricing/" target="_blank" rel="noopener"><strong>How Packaging Costs and Pricing Work</strong></a> — the cost drivers behind a quoted unit price.
 
-## 1. DS Smith (Best for Corrugated Boxes &amp; E-commerce Transit Packaging at Scale)
+### 1. DS Smith (Best for Corrugated Boxes &amp; E-commerce Transit Packaging at Scale)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/DS-Smith.webp" alt="DS Smith homepage banner announcing its merger with International Paper" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -56,7 +56,7 @@ Since January 2025, DS Smith has been part of International Paper and still trad
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact DS Smith</a></p>
 
-## 2. Mondi Group (Best for High-Performance Sustainable Materials)
+### 2. Mondi Group (Best for High-Performance Sustainable Materials)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Mondi-Group.webp" alt="Mondi homepage promoting its products and solutions" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -81,7 +81,7 @@ If you are vetting **packaging manufacturers in the UK**, Mondi offers a strateg
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Mondi Group</a></p>
 
-## 3. Macfarlane Group (Best for One-Stop Wholesale Supply)
+### 3. Macfarlane Group (Best for One-Stop Wholesale Supply)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Macfarlane-Group.webp" alt="Macfarlane Group homepage showing a delivery truck and protective packaging services" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -104,7 +104,7 @@ They combine a massive stock catalog with custom design, allowing you to consoli
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Macfarlane Group</a></p>
 
-## 4. GWP Group (Best for Engineered Protective Packaging)
+### 4. GWP Group (Best for Engineered Protective Packaging)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/GWP-Group.webp" alt="GWP Group homepage showing custom protective cases and foam inserts" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -123,7 +123,7 @@ If shipping globally, confirm their support for **export documentation** and [IS
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact GWP Group.</a></p>
 
-## 5. Delta Global (Best for Luxury Retail Packaging &amp; Premium Unboxing)
+### 5. Delta Global (Best for Luxury Retail Packaging &amp; Premium Unboxing)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Delta-Global.webp" alt="Delta Global homepage highlighting its B Corp certification" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -149,7 +149,7 @@ They prioritize structural integrity alongside aesthetics to protect brand perce
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact<strong> </strong>Delta Global</a></p>
 
-## 6. Essentra Packaging (Best for Regulated Sectors: Pharma, Medical &amp; Security Features)
+### 6. Essentra Packaging (Best for Regulated Sectors: Pharma, Medical &amp; Security Features)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Essentra-Packaging.webp" alt="Essentra employees working on a production line" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -168,7 +168,7 @@ Essentra Packaging has been part of MM Group's MM Packaging division since Octob
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener"><strong>Contact</strong> Essentra Packaging</a></p>
 
-## 7. Innovia Films (Best for Flexible Films, Labels &amp; High-Performance Material Layers)
+### 7. Innovia Films (Best for Flexible Films, Labels &amp; High-Performance Material Layers)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Innovia-Films.webp" alt="Innovia Films careers page banner" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -187,7 +187,7 @@ Innovia Films doesn't make boxes; they manufacture the material that makes flexi
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Innovia Films</a></p>
 
-## 8. Constantia Flexibles FFP UK (Best for High-Barrier Flexible Packaging)
+### 8. Constantia Flexibles FFP UK (Best for High-Barrier Flexible Packaging)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Constantia-Flexibles.webp" alt="Constantia Flexibles homepage showing its headquarters and EcoVadis platinum rating" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -209,7 +209,7 @@ As a specialized **packaging manufacturer in the UK**, they focus on ovenable li
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Constantia Flexibles</a></p>
 
-## 9. Coveris (Best for Recyclable Flexible Packaging in UK Retail)
+### 9. Coveris (Best for Recyclable Flexible Packaging in UK Retail)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Coveris.webp" alt="Coveris homepage with the message No Packaging Waste over a forest" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -229,7 +229,7 @@ This allows you to switch to sustainable materials without slowing down your pac
 
 <p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Contact Coveris</a></p>
 
-## 10. Tyler Packaging (Best for Food &amp; Pet Food Pouches)
+### 10. Tyler Packaging (Best for Food &amp; Pet Food Pouches)
 
 <figure class="post-figure"><img src="https://img.leelinepackage.com/blog/media/2026/01/Tyler-Packaging.webp" alt="Tyler Packaging homepage with a snowy landscape and a sustainable packaging message" width="900" height="450" loading="lazy" decoding="async" /></figure>
 
@@ -295,7 +295,7 @@ Choose local partners for speed and risk control. Stick to domestic suppliers if
 - **Hands-on QA:** You want to visit the press to approve colors personally.
 - **Agile Replenishment:** You cannot afford to tie up cash in six months of inventory.
 
-### Step 6: When to Source Globally
+### Step 6: When to Source Globally?
 
 Select overseas partners for scale and complex finishes. Consider global sourcing if:
 

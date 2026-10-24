@@ -63,7 +63,7 @@ const liftedToc: TocEntry[] = (() => {
   while ((m = re.exec(tocHtml))) {
     if (m[0] === '<ul>') { depth += 1; continue; }
     if (m[0] === '</ul>') { depth -= 1; continue; }
-    out.push({ slug: decodeURIComponent(m[1]), text: stripTags(m[2]), depth: Math.min(3, Math.max(2, depth)) });
+    out.push({ slug: decodeURIComponent(m[1]), text: decodeEntities(stripTags(m[2])), depth: Math.min(3, Math.max(2, depth)) });
   }
   return out;
 })();
@@ -165,15 +165,20 @@ const pageTitle = data.seoTitle || data.title;
   item split below is a safe non-greedy match. Answers and questions are reduced to plain text:
   tags stripped, entities decoded — schema `text` is not HTML.
 */
-const decodeEntities = (s: string) => s
-  .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
-  .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
-  .replace(/&nbsp;/g, ' ')
-  .replace(/&lt;/g, '<')
-  .replace(/&gt;/g, '>')
-  .replace(/&quot;/g, '"')
-  .replace(/&#39;|&apos;/g, "'")
-  .replace(/&amp;/g, '&');
+/* Declared as a function so the TOC lift above can use it: function declarations are hoisted,
+   `const` arrow functions are not. The lift's text still carries `&amp;` entities from the raw
+   nav HTML; without decoding here the rail re-escapes them to a literal `&amp;amp;`. */
+function decodeEntities(s: string) {
+  return s
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&amp;/g, '&');
+}
 
 const plain = (html: string) => decodeEntities(html.replace(/<[^>]*>/g, ' ')).replace(/\s+/g, ' ').trim();
 
@@ -216,6 +221,7 @@ const jsonLd = {
       description: data.description,
       image: [data.featuredImage],
       datePublished: data.publishDate.toISOString(),
+      dateModified: (data.updatedDate ?? data.publishDate).toISOString(),
       author: author ? { '@type': 'Person', name: author.name, jobTitle: author.title } : undefined,
       publisher: {
         '@type': 'Organization',
@@ -273,6 +279,7 @@ const jsonLd = {
   ogImageWidth={data.featuredImageWidth}
   ogImageHeight={data.featuredImageHeight}
   publishedTime={data.publishDate.toISOString()}
+  modifiedTime={data.updatedDate?.toISOString()}
   articleAuthor={author?.name}
   jsonLd={JSON.stringify(jsonLd)}
 >
@@ -315,6 +322,12 @@ const jsonLd = {
             </>
           )}
           <time datetime={data.publishDate.toISOString().slice(0, 10)}>{formatDate(data.publishDate)}</time>
+          {data.updatedDate && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>Updated {formatDate(data.updatedDate)}</span>
+            </>
+          )}
           <span aria-hidden="true">·</span>
           <span>{minutes} min read</span>
         </p>

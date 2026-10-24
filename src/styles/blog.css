@@ -85,6 +85,12 @@
 .post-prose a:hover { color: var(--color-forest); }
 
 .post-prose strong { font-weight: 600; color: var(--color-charcoal); }
+/*
+  ⚠️ `.post-prose strong` paints `color` DIRECTLY, so a bolded link — `[**Contact our team**](…)`
+  — rendered charcoal inside a green anchor. The link's own colour must win; the 600 weight is
+  already supplied by `.post-prose a`, so inheriting loses nothing.
+*/
+.post-prose a strong { color: inherit; }
 
 .post-prose ul,
 .post-prose ol { margin: 0 0 1.5rem; padding-left: 1.35rem; }
@@ -131,6 +137,14 @@
 .post-figure {
   margin: 2.2rem 0;
 }
+/*
+  ⚠️ The 16:9 crop above is wrong for a 2:1 source that carries content at its edges — the vendor
+  screenshots (logo on the left, nav on the right) were losing ~6% off each side under
+  `object-fit: cover`, which sliced the company logo. Posts that ship native 2:1 frames mark them
+  with `.post-img-wide` and keep the frame whole.
+*/
+.post-prose img.post-img-wide { aspect-ratio: 2 / 1; }
+
 .post-figure a { display: block; border-bottom: 0; }
 .post-figure a:hover img { transform: translateY(-3px); }
 .post-figure img { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -412,6 +426,12 @@
   color: var(--ivory);
   transform: translateY(-2px);
 }
+/*
+  ⚠️ `.post-prose strong` sets `color` DIRECTLY, so the charcoal it paints does not inherit from
+  the pill. A CTA whose label is fully bolded (or only partly bolded) therefore rendered black-on-
+  forest while the rest of the label stayed ivory. Force the bold runs to take the pill's colour.
+*/
+.post-prose .post-cta strong { color: inherit; }
 
 .post-cover-caption {
   margin-top: -1.4rem;

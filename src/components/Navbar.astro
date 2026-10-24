@@ -496,7 +496,7 @@ const nav = {
   body.search-open .nav-search { opacity: 1; visibility: visible; }
   .nav-search-panel {
     width: min(760px, 100%); max-height: min(72vh, 620px); display: flex; flex-direction: column;
-    background: #fff; border-radius: 1.25rem; overflow: hidden;
+    background: var(--color-clay); border-radius: 1.25rem; overflow: hidden;
     box-shadow: 0 34px 80px -34px rgba(20, 38, 27, 0.6);
     transform: translateY(-10px); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -507,13 +507,42 @@ const nav = {
   .nav-search-close { width: 36px; height: 36px; flex: 0 0 auto; display: grid; place-items: center; background: none; border: 1px solid rgba(31, 59, 44, 0.16); border-radius: 50%; color: var(--color-brand-text); cursor: pointer; transition: border-color 0.3s ease; }
   .nav-search-close:hover { border-color: var(--color-brand-primary); }
   .nav-search-close svg { width: 15px; height: 15px; }
-  .nav-search-hint, .nav-search-none { margin: 0; padding: 1rem 1.15rem 1.2rem; font-size: 0.92rem; color: var(--color-brand-muted); }
-  .nav-search-results { overflow-y: auto; padding: 0.35rem 0.6rem 0.7rem; }
-  .nav-search-results a { display: block; padding: 0.7rem 0.6rem; border-radius: 0.7rem; text-decoration: none; transition: background 0.2s ease; }
-  .nav-search-results a:hover, .nav-search-results a.is-active { background: rgba(31, 59, 44, 0.06); }
-  .nsr-cat { display: block; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); margin-bottom: 0.25rem; }
-  .nsr-title { display: block; font-family: var(--font-heading); font-size: 1.08rem; line-height: 1.3; color: var(--color-brand-text); }
-  .nsr-x { display: block; margin-top: 0.25rem; font-size: 0.88rem; line-height: 1.5; color: var(--color-brand-muted); }
+  .nav-search-hint { margin: 0; padding: 1rem 1.15rem 1.2rem; font-size: 0.92rem; color: var(--color-brand-muted); }
+  .nav-search-results { overflow-y: auto; padding: 0.15rem 0.85rem 0.9rem; }
+  /* ⚠️ Every rule below targets markup injected by `render()` via innerHTML. Astro's scoped styles
+     compile to `.foo[data-astro-cid-…]` and runtime-created nodes never carry that attribute, so
+     these MUST be `:global()` — without it the results fall back to one unstyled wall of text. */
+  .nav-search-results :global(a) {
+    display: block; margin-top: 0.55rem; padding: 0.75rem 0.9rem;
+    border: 1px solid rgba(31, 59, 44, 0.12); border-radius: 0.7rem;
+    background: var(--color-ivory);
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .nav-search-results :global(a:hover),
+  .nav-search-results :global(a.is-active) {
+    border-color: rgba(176, 141, 76, 0.6); background: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 6px 16px -10px rgba(20, 38, 27, 0.45);
+  }
+  .nav-search-results :global(.nsr-cat) {
+    display: block; margin-bottom: 0.3rem; font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass);
+  }
+  .nav-search-results :global(.nsr-title) {
+    display: block; font-family: var(--font-heading); font-size: 1.08rem; line-height: 1.3;
+    font-weight: 600; color: var(--color-brand-text);
+  }
+  .nav-search-results :global(.nsr-x) {
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+    margin-top: 0.3rem; font-size: 0.86rem; line-height: 1.5; color: var(--color-brand-muted);
+  }
+  .nav-search-results :global(.nav-search-count) {
+    margin: 0; padding: 0.45rem 0.1rem 0.1rem; font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--color-brand-muted);
+  }
+  .nav-search-results :global(.nav-search-none) {
+    margin: 0; padding: 1rem 1.15rem 1.2rem; font-size: 0.92rem; color: var(--color-brand-muted);
+  }
 
   /* the longer CTA label costs ~35px, so the link row tightens in the band
      between the hamburger breakpoint and ~1200px rather than letting
@@ -614,18 +643,18 @@ const nav = {
     }
     searchHint.hidden = true;
     const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-    const hits = (index || [])
-      .filter((p) => {
-        const hay = `${p.t} ${p.c} ${p.x}`.toLowerCase();
-        return terms.every((t) => hay.includes(t));
-      })
-      .slice(0, 12);
+    const matched = (index || []).filter((p) => {
+      const hay = `${p.t} ${p.c} ${p.x}`.toLowerCase();
+      return terms.every((t) => hay.includes(t));
+    });
+    const hits = matched.slice(0, 12);
 
     if (!hits.length) {
       searchResults.innerHTML = `<p class="nav-search-none">No articles match &ldquo;${esc(q)}&rdquo;.</p>`;
       return;
     }
-    searchResults.innerHTML = hits
+    const count = `<p class="nav-search-count">${matched.length} article${matched.length === 1 ? '' : 's'}</p>`;
+    searchResults.innerHTML = count + hits
       .map((p) => `<a href="${esc(p.u)}" target="_blank" rel="noopener"><span class="nsr-cat">${esc(p.c)}</span><span class="nsr-title">${esc(p.t)}</span><span class="nsr-x">${esc(p.x)}</span></a>`)
       .join('');
   }

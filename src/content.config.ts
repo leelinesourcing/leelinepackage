@@ -45,6 +45,12 @@ const blog = defineCollection({
     /** Rank Math focus keyword, surfaced as <meta keywords>. */
     keywords: z.string().optional(),
     publishDate: z.coerce.date(),
+    /**
+     * ISO date of the last substantive review. Optional: most imported posts have never been
+     * revised. When present it feeds `dateModified` in the BlogPosting JSON-LD, `article:modified_time`
+     * and the "Updated" line in the article hero, so a refreshed page does not read as stale.
+     */
+    updatedDate: z.coerce.date().optional(),
     /** Reference to an entry id in the `authors` collection (e.g. `michael-vincent`). */
     author: reference('authors'),
     /** WordPress category slug. Drives the /category/<slug>/ routes. */

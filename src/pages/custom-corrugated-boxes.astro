@@ -12,31 +12,49 @@ const CB = `${R2}/corrugated-boxes`;
 const types = [
   { n: 'RSC-01', key: 'type-shipping-v2', name: 'Custom Corrugated Shipping Boxes', spec: '32–48 ECT',
     alt: 'An open natural kraft regular slotted carton with its four top flaps folded outward, photographed on a white sweep',
-    d: 'A carton cut to your product\u2019s own length, width and depth, which is what stops a pallet carrying air that is charged as freight.' },
+    d: 'A carton cut to your product\u2019s own length, width and depth, which is what stops a pallet carrying air that is charged as freight.',
+    suits: 'General transit: boxed goods, taped shut, no presentation need.',
+    not: 'A parcel the end buyer opens as part of the purchase.' },
   { n: 'ML-02', key: 'type-mailer-v2', name: 'Corrugated Mailer Boxes', spec: 'Self-locking, no tape',
     alt: 'A kraft corrugated book wrap mailer lying open with a printed product carton resting inside it',
-    d: 'A wrap that folds around the contents and locks without tape, taking a parcel out of a gray bag and into printed board.' },
+    d: 'A wrap that folds around the contents and locks without tape, taking a parcel out of a gray bag and into printed board.',
+    suits: 'A doorstep parcel that carries the brand after the product is unpacked.',
+    not: 'A product that needs its own rigid presentation box inside.' },
   { n: 'DC-03', key: 'type-diecut-v2', name: 'Die-Cut Corrugated Boxes', spec: 'Any aperture, same die',
     alt: 'Two kraft cartons with die-cut apertures, a tall box with a shaped front opening and a shallow open tray, both printed with a script logo',
-    d: 'A shaped front or a cut window pressed from the same die as the body. The aperture is part of the blank rather than a second operation.' },
+    d: 'A shaped front or a cut window pressed from the same die as the body. The aperture is part of the blank rather than a second operation.',
+    suits: 'A shelf or a window where the product has to be seen before it is bought.',
+    not: 'A carton whose strength is the whole point.' },
   { n: 'HD-04', key: 'type-heavyduty-v2', name: 'Heavy Duty Corrugated Boxes', spec: 'Divided cells, die-cut handle',
     alt: 'A printed kraft six-bottle corrugated carrier with internal dividers and a die-cut handle, printed with pink lettering',
-    d: 'Divided cells and a reinforced base for the carriers that end up on the bottom layer of a pallet with everything else above them.' },
+    d: 'Divided cells and a reinforced base for the carriers that end up on the bottom layer of a pallet with everything else above them.',
+    suits: 'A case that carries several units and sits under the rest of a pallet.',
+    not: 'A single light item, where the extra board buys nothing.' },
   { n: 'PR-05', key: 'type-printed-v2', name: 'Custom Printed Corrugated Boxes', spec: 'Flexo, spot or full color',
     alt: 'A printed corrugated produce crate with a die-cut handle and green FRESH FRUIT lettering, holding apples and oranges',
-    d: 'Full-panel print on kraft liner, holding registration on a board face that is not flat — which is where most corrugated print fails.' },
+    d: 'Full-panel print on kraft liner, holding registration on a board face that is not flat — which is where most corrugated print fails.',
+    suits: 'A shipping carton that is also the brand surface.',
+    not: 'Photographic artwork, which wants a litho-laminated sheet.' },
   { n: 'WS-06', key: 'type-wholesale-v4', name: 'Wholesale Corrugated Boxes', spec: '500 – 500,000 units',
     alt: 'Kraft corrugated cartons printed with a BOX 25 PACK mark, stacked and strapped on a wooden pallet',
-    d: 'The same specification held across a long run, with the unit rate stepping down at the volume tier the order actually reaches.' },
+    d: 'The same specification held across a long run, with the unit rate stepping down at the volume tier the order actually reaches.',
+    suits: 'A long run of one specification, ordered across a season.',
+    not: 'A market test, where the die and the plate cannot be spread.' },
   { n: 'DW-07', key: 'type-doublewall-v2', name: 'Double Wall Corrugated Boxes', spec: 'BC and EB, 6.4 mm',
     alt: 'A charcoal two-piece telescoping carton with a foil-stamped lid, lifted to show a crimson interior base',
-    d: 'Two flutes bonded, for a lid-and-base box that keeps its shape under a stack and still reads as a gift.' },
+    d: 'Two flutes bonded, for a lid-and-base box that keeps its shape under a stack and still reads as a gift.',
+    suits: 'Lid-and-base sets, and loads stacked more than one pallet high.',
+    not: 'Shelf-ready retail, where a thick wall takes up shelf space.' },
   { n: 'PK-08', key: 'type-packaging-v4', name: 'Custom Corrugated Packaging Boxes', spec: 'Roll end tuck top',
     alt: 'Four plain kraft corrugated cartons: an open regular slotted carton, a tall carton, a flat tray and a roll-end box',
-    d: 'A roll-end assembly that folds up from the flat blank on the packing bench, with no glue line waiting to fail in transit.' },
+    d: 'A roll-end assembly that folds up from the flat blank on the packing bench, with no glue line waiting to fail in transit.',
+    suits: 'A carton assembled by hand on the packing bench.',
+    not: 'An automated erecting line, which wants a glued RSC.' },
   { n: 'TL-09', key: 'type-tablock-v5', name: 'Tab-Lock Corrugated Boxes', spec: 'No glue, no staples',
     alt: 'A printed two-piece carton in blue with a floral pattern and a Your Open Space wordmark, shown closed and open',
-    d: 'Boxes that assemble by folding and unfold the same way, which is what keeps a returns bench moving without a knife.' },
+    d: 'Boxes that assemble by folding and unfold the same way, which is what keeps a returns bench moving without a knife.',
+    suits: 'A pop-up shop or a sample room, where a carton is opened and reclosed daily.',
+    not: 'A load that leans on a glued seam to hold its strength.' },
 ];
 
 /* Six flute grades. The pair (mm, flutes per 300 mm) is the published nominal
@@ -129,10 +147,9 @@ const scenes = [
    answer is a band. The band is arithmetic on the standard RSC blank,
    (2*(L+W)+30) x (D+W), and the 1:5000 dimensional divisor: the low end is a
    carton a size or two too big, the high end a stock carton at twice the
-   product's own volume. */
+   product's own volume. The air share is the pair above the list now, so the
+   list carries only the two figures that pair does not state. */
 const costRanges = [
-  { k: 'Air inside the carton', v: '60–75% of a stock carton',
-    n: 'against 20–30% once the blank is cut to the product' },
   { k: 'Board in the blank', v: '20–45% less',
     n: 'a smaller blank divides out of the same mill sheet' },
   { k: 'Billed volume per 1,000', v: '30–55% less',
@@ -362,7 +379,7 @@ const heroCut = (() => {
         <div class="section-head section-head--center" data-reveal="up">
           <span class="eyebrow"><Fragment set:html={leaf} />Nine ways to hold a product</span>
           <h2 class="section-title">Nine Corrugated Constructions, Cut Around Your Product</h2>
-          <p class="section-sub cc-sub">Each ships as a flat blank and folds into a carton on your side. The difference between them is what the product needs held: a bottle, a book, a shelf edge or a pallet.</p>
+          <p class="section-sub cc-sub">Each ships as a flat blank and folds into a carton on your side. The difference between them is what the product needs held: a bottle, a book, a shelf edge or a pallet. Not sure which of the nine fits? The product's dimensions settle it faster than a description does.</p>
         </div>
         <ul class="cc-type-grid">
           {types.map((t, i) => (
@@ -375,6 +392,12 @@ const heroCut = (() => {
                 <h3>{t.name}</h3>
                 <span class="cc-chip">{t.spec}</span>
                 <p>{t.d}</p>
+                <div class="cc-type-fit">
+                  <span class="cc-fit-k">Suits</span>
+                  <span class="cc-fit-v">{t.suits}</span>
+                  <span class="cc-fit-k cc-fit-k--no">Not for</span>
+                  <span class="cc-fit-v">{t.not}</span>
+                </div>
               </div>
             </li>
           ))}
@@ -457,6 +480,19 @@ const heroCut = (() => {
               <p class="cc-flute-note">Both figures are quoted for a 400 × 300 × 300 mm carton conditioned 72 hours at 50% RH and carrying 10 kg. The top load is the lab crush figure divided by 15 — the conservative end of the range — and the stack height is the number of 10 kg cartons that load carries.</p>
             </figure>
           ))}
+        </div>
+
+        {/* A buyer who knows the job but not the grade name. Each line switches
+            the tab above it, so the recommendation and the drawing are the same
+            object rather than two lists that have to be matched by eye. */}
+        <div class="cc-flute-pick" data-reveal="up">
+          <p class="cc-flute-pick-k">Choosing by the job, not the grade</p>
+          <ul class="cc-flute-pick-list">
+            <li><span>Light contents, print-led retail</span><button type="button" data-flute-jump="e">E-Flute</button></li>
+            <li><span>Everyday e-commerce shipping</span><button type="button" data-flute-jump="c">C-Flute</button></li>
+            <li><span>Heavy contents, bottom of a pallet</span><button type="button" data-flute-jump="bc">BC Double Wall</button></li>
+          </ul>
+          <p class="cc-flute-mmline">Thinnest to thickest: E 1.6 · B 3.0 · C 4.0 · A 4.7 · EB 4.8 · BC 6.4 mm</p>
         </div>
 
         <div class="section-cta" data-reveal="up">
@@ -590,6 +626,18 @@ const heroCut = (() => {
 
         <div class="cc-cost-range" data-reveal="up">
           <h3 class="cc-cost-range-title">What Right-Sizing Takes Off</h3>
+          <div class="cc-cost-pair">
+            <div class="cc-cost-pair-cell">
+              <span class="cc-cost-pair-k">A stock carton</span>
+              <strong class="cc-cost-pair-v">60–75%</strong>
+              <span class="cc-cost-pair-n">of the interior is air, and the air is billed as freight.</span>
+            </div>
+            <div class="cc-cost-pair-cell cc-cost-pair-cell--cut">
+              <span class="cc-cost-pair-k">A carton cut to the product</span>
+              <strong class="cc-cost-pair-v">20–30%</strong>
+              <span class="cc-cost-pair-n">the same product, a smaller blank, less void.</span>
+            </div>
+          </div>
           <dl>
             {costRanges.map((r) => (
               <div>
@@ -894,6 +942,27 @@ const heroCut = (() => {
   }
   .cc-type-body .cc-chip { align-self: flex-start; }
   .cc-type-body p { margin: 0; font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); }
+  /* The two decision lines sit at the bottom of every card. The label column is
+     shared by both rows and by every card, so the descriptions start on one
+     vertical line; each value reserves two lines, so the pair begins at the same
+     height across a row even when one card has a one-line answer. */
+  .cc-type-fit {
+    margin-top: auto; padding-top: 0.2rem;
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    column-gap: 0.6rem; row-gap: 0.42rem;
+    align-items: start;
+  }
+  .cc-fit-k {
+    font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--brass);
+    line-height: 1.95; padding-top: 0.08rem;
+  }
+  .cc-fit-k--no { color: rgba(31, 59, 44, 0.55); }
+  .cc-fit-v {
+    font-size: 0.82rem; line-height: 1.55; color: var(--color-brand-muted);
+    min-height: 3.1em;
+  }
 
   /* ============ 3. MID CTA ============ */
   .cc-mid {
@@ -1020,6 +1089,39 @@ const heroCut = (() => {
   .cc-flute-note {
     grid-column: 1 / -1;
     margin: 1.7rem 0 0; font-size: 0.78rem; line-height: 1.6; color: rgba(245, 240, 229, 0.5);
+  }
+
+  /* Choosing by the job. Three use cases, each wired to the tab above it, so a
+     buyer who does not know a grade name can still land on the right drawing. */
+  .cc-flute-pick { margin-top: clamp(1.8rem, 4vw, 2.8rem); }
+  .cc-flute-pick-k {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245, 240, 229, 0.58);
+  }
+  .cc-flute-pick-list {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem clamp(1rem, 2.4vw, 1.8rem);
+  }
+  .cc-flute-pick-list li {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.45rem;
+    padding: 0.9rem 1.1rem; border-radius: 0.9rem;
+    background: rgba(245, 240, 229, 0.05);
+    border: 1px solid rgba(245, 240, 229, 0.14);
+  }
+  .cc-flute-pick-list li > span { font-size: 0.9rem; line-height: 1.5; color: rgba(245, 240, 229, 0.78); }
+  .cc-flute-pick-list button {
+    padding: 0; border: 0; background: none; cursor: pointer;
+    font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600;
+    color: var(--brass-soft);
+    text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em;
+  }
+  .cc-flute-pick-list button:hover { color: var(--brass-bright); }
+  .cc-flute-pick-list button:focus-visible { outline: 2px solid var(--brass-bright); outline-offset: 3px; border-radius: 2px; }
+  .cc-flute-mmline {
+    margin: 1.1rem 0 0; font-size: 0.78rem; line-height: 1.6;
+    color: rgba(245, 240, 229, 0.52);
   }
 
   /* ============ 5. BOARD MENU ============ */
@@ -1159,13 +1261,43 @@ const heroCut = (() => {
   .cc-cost-drivers p { margin: 0; font-size: 0.94rem; line-height: 1.7; color: var(--color-brand-muted); }
 
   .cc-cost-range { margin-top: clamp(2.4rem, 5vw, 3.6rem); }
+  /* The before-and-after. The left cell is the carton in use today, the right
+     one is the same product cut down; the pair carries one number each and the
+     two figures underneath carry the rest. Clay and forest, so the contrast is
+     the palette's rather than a traffic-light pair. */
+  .cc-cost-pair {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1rem, 2vw, 1.4rem);
+    margin-bottom: clamp(1.8rem, 3.4vw, 2.6rem);
+  }
+  .cc-cost-pair-cell {
+    background: var(--color-clay); border-radius: 1.2rem;
+    padding: clamp(1.5rem, 3vw, 2.1rem);
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .cc-cost-pair-cell--cut { background: var(--color-forest); }
+  .cc-cost-pair-k {
+    font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-brand-muted);
+  }
+  .cc-cost-pair-cell--cut .cc-cost-pair-k { color: var(--brass-soft); }
+  .cc-cost-pair-v {
+    font-family: var(--font-heading); font-weight: 500;
+    font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1; letter-spacing: -0.03em;
+    color: var(--color-brand-primary);
+  }
+  .cc-cost-pair-cell--cut .cc-cost-pair-v { color: var(--ivory); }
+  .cc-cost-pair-n {
+    font-size: 0.9rem; line-height: 1.6; color: var(--color-brand-muted);
+  }
+  .cc-cost-pair-cell--cut .cc-cost-pair-n { color: rgba(245, 240, 229, 0.78); }
   .cc-cost-range-title {
     margin: 0 0 1.3rem; font-family: var(--font-heading); font-weight: 500;
     font-size: clamp(1.3rem, 2.4vw, 1.8rem); line-height: 1.16; letter-spacing: -0.02em;
     color: var(--color-brand-text);
   }
   .cc-cost-range dl {
-    margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1.2rem, 2.6vw, 2.2rem);
   }
   .cc-cost-range dl > div { border-top: 2px solid var(--brass); padding-top: 1rem; }
@@ -1466,6 +1598,7 @@ const heroCut = (() => {
     .cc-flow-list { grid-template-columns: minmax(0, 1fr); padding-top: 0; row-gap: 0; }
     .cc-flow-stop { padding: 1.35rem 0 1.35rem 1.4rem; border-left: 2px solid rgba(176, 141, 76, 0.4); border-top: 1px solid rgba(31, 59, 44, 0.12); }
     .cc-flute-panel { grid-template-columns: minmax(0, 1fr); row-gap: 1.9rem; }
+    .cc-flute-pick-list { grid-template-columns: minmax(0, 1fr); }
     .cc-quote-row,
     .cc-quote-row--flip { grid-template-columns: minmax(0, 1fr); }
     .cc-quote-row--flip .cc-quote-side { order: 0; }
@@ -1479,6 +1612,7 @@ const heroCut = (() => {
     .cc-press-grid,
     .cc-cost-drivers,
     .cc-cost-range dl,
+    .cc-cost-pair,
     .cc-test-grid,
     .cc-insert-grid { grid-template-columns: minmax(0, 1fr); }
     .cc-final-inner { padding-left: 1.4rem; padding-right: 1.4rem; }
@@ -1526,6 +1660,16 @@ const heroCut = (() => {
         const at = (next + tabs.length) % tabs.length;
         show(at);
         tabs[at].focus();
+      });
+    });
+    // The job-based picker below the panels drives the same tabs, so it never
+    // introduces a second source of truth for which grade is selected.
+    document.querySelectorAll('[data-flute-jump]').forEach((b) => {
+      b.addEventListener('click', () => {
+        const i = tabs.findIndex((t) => t.dataset.flute === b.dataset.fluteJump);
+        if (i < 0) return;
+        show(i);
+        tabs[i].focus({ preventScroll: true });
       });
     });
   }

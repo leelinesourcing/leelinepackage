@@ -101,7 +101,7 @@ const coatings = [
     img: 'coat-lamination-v2', alt: 'A printed sheet running through the rollers of a lamination machine',
     d: 'Takes the scuffing a counter unit collects and holds color on a display that stands under store lighting for a season. Applied spot over a logo when the budget will not carry the whole panel.' },
   { id: 'soft', sheen: 1, name: 'Soft-Touch', spec: 'Velvety, fingerprint-resistant',
-    img: 'coat-soft-touch-v2', alt: 'An open jewellery display case on a wooden counter, holding watch and ring boxes',
+    img: 'coat-soft-touch-v2', alt: 'Five velvet jewellery boxes on a wooden counter, open to show rings, a necklace and earrings',
     d: 'For beauty and fragrance, where the first thing a customer does is put a hand on the unit. It also hides the handling marks that show up quickly on a plain matte finish.' },
   { id: 'uv', sheen: 5, name: 'UV Coating', spec: 'Glass-like gloss, instant cure',
     img: 'coat-uv-v2', alt: 'A gloved hand holding a printed sample with a gloss spot varnish, above a UV curing machine',
@@ -118,7 +118,7 @@ const coatings = [
    shopper what is in it") and the client could not tell what it was selling. */
 const options = [
   { key: 'opt-windows-v2', fix: 'Raked and Stepped Fronts', need: 'Front Row at Eye Level',
-    alt: 'A printed gift box in pink and sage with its lid lifted off, showing a wrapped bar inside',
+    alt: 'A printed favour tray with a lowered front wall holding white soap boxes, on a pale studio surface',
     gets: 'Nothing hides behind the front wall of the tray. Staff see a low row without pulling it out.',
     d: 'The front is cut on a rake or a step instead of square, so the row sits lower and stays in view.' },
   { key: 'opt-tiers-v2', fix: 'Tiered and Stepped Bodies', need: 'More Rows in Less Space',
@@ -126,7 +126,7 @@ const options = [
     gets: 'More rows of product in the floor space of one, and nothing extra to assemble, pack or freight.',
     d: 'The steps and shelves fold out of the same board as the body, so there is no separate insert to fit.' },
   { key: 'opt-closures-v2', fix: 'Magnetic and Lid-and-Base', need: 'Kept, Not Binned',
-    alt: 'An open black display box on a wooden table, its lid folded back over a small item in a white case',
+    alt: 'A white lid-and-base gift box open on a wooden table, its black interior holding a branded USB drive',
     gets: 'The store keeps the display and puts it back out next season, instead of clearing it into a bin on day one.',
     d: 'A magnetic catch, a lid and base, or a plain tuck flap, chosen to match how long the display has to last.' },
   { key: 'opt-inserts', fix: 'Cut Dividers and Cells', need: 'Arrive in Order',
@@ -138,7 +138,7 @@ const options = [
     gets: 'The customer carries the display out of the shop with the product still in it.',
     d: 'A handle cut from the board itself, or ribbon threaded through punched holes.' },
   { key: 'opt-finishes-v2', fix: 'Printed Header Panels', need: 'Read From Across the Aisle',
-    alt: 'Three printed display trays in pink, yellow and green, fanned out with patterned side panels',
+    alt: 'Four printed lipstick display trays in red, yellow, black and pink, each with its header panel up',
     gets: 'A shopper sees what you sell before they reach the shelf, and a counter printed on both faces reads from either side.',
     d: 'The printed panel that stands above the product, printed on either face or both.' },
 ];
@@ -208,28 +208,29 @@ const stages = [
 ];
 const TOTAL_DAYS = 38;
 
-/* Six retail settings. Photography is pending, so each panel carries the shot
-   it needs instead of an image — drop the files in and swap the placeholder for
-   an <img> with the same 4:3 box. */
+/* Six retail settings, each label matched to the photograph the client supplied.
+   ⚠️ The first build's labels described shots that were never taken (beauty,
+   electronics and pharmacy panels carried pet, cosmetics and pastry images).
+   Open every file before writing its caption or alt. */
 const scenes = [
   { n: '01', cap: 'Supermarket and Value Aisles', img: 'scene-1-v2',
-    alt: 'A red metal display rack stocked with packaged products in a store aisle',
-    hint: 'Shelf run with a free-standing unit in the aisle' },
-  { n: '02', cap: 'Checkout and Impulse Counters', img: 'scene-2-v2',
-    alt: 'A shop floor with shelving and a low display stand holding boxed gifts',
-    hint: 'Till counter with a tray of impulse stock' },
-  { n: '03', cap: 'Department-Store Beauty Halls', img: 'scene-3-v2',
-    alt: 'A store aisle with a tall colourful product display standing against the shelving',
-    hint: 'Beauty counter, tiered unit, product lit' },
-  { n: '04', cap: 'Electronics and Appliance Stores', img: 'scene-4-v2',
-    alt: 'A wooden counter display case holding boxed watches in a shop',
-    hint: 'Appliance aisle with boxed product on a display' },
-  { n: '05', cap: 'Pharmacy and Health Counters', img: 'scene-5-v2',
-    alt: 'Gift boxes in pink, teal and kraft, stacked and tied with ribbon',
-    hint: 'Pharmacy counter with a label-zoned tray' },
-  { n: '06', cap: 'Convenience Store Counters', img: 'scene-6-v2',
-    alt: 'A supermarket aisle with a red branded display unit and a shopper passing it',
-    hint: 'Convenience counter with a shelf-ready tray' },
+    alt: 'Three in-store shelf displays: red price-led DVD bins, a plush toy unit and a watch spinner',
+    hint: 'Price-led bins and a free-standing toy unit' },
+  { n: '02', cap: 'Pet and Specialty Aisles', img: 'scene-2-v2',
+    alt: 'A pet store aisle of dog toys and packaged treats with a floor display at the end',
+    hint: 'Pet aisle with a shelf run and a floor unit' },
+  { n: '03', cap: 'Branded Endcaps and Aisle Displays', img: 'scene-3-v2',
+    alt: 'Three branded pet-food display stands in red, blue and orange, each with a printed header, standing in a store aisle',
+    hint: 'Three branded units standing in one aisle' },
+  { n: '04', cap: 'Beauty and Fragrance Halls', img: 'scene-4-v2',
+    alt: 'A department-store cosmetics counter with a tiered display of lipsticks and compacts beneath a backlit poster',
+    hint: 'Cosmetics counter with a tiered lipstick unit' },
+  { n: '05', cap: 'Bakery and Food Gifting Counters', img: 'scene-5-v2',
+    alt: 'Pastry boxes with window lids and ribbon ties, in pink, teal, kraft and black, stacked on a marble counter',
+    hint: 'Counter of ribbon-tied pastry boxes' },
+  { n: '06', cap: 'Big-Box Seasonal Aisles', img: 'scene-6-v2',
+    alt: 'A shopper walking past a red Christmas pallet display in a big-box store aisle',
+    hint: 'Seasonal aisle with a shopper passing a pallet display' },
 ];
 
 /* The reviewers are the source page's own two, expanded to three short
@@ -458,7 +459,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
         <div class="section-head section-head--center" data-reveal="up">
           <span class="eyebrow"><Fragment set:html={leaf} />The range</span>
           <h2 class="section-title">Nine Display Constructions, One Set of Terms</h2>
-          <p class="section-sub db-sub">Board grade, print route and inspection are the same on every unit below. What changes is where the display has to work — a till counter, a shelf run, or the middle of an aisle.</p>
+          <p class="section-sub db-sub">Board grade, print route and inspection are the same on every unit below. What changes is where the display has to work — a till counter, a shelf run, or the middle of an aisle. If the format is still open, our <a class="prose-link" href="/different-types-of-box-displays/" target="_blank" rel="noopener">guide to the ten common box display types</a> compares them side by side.</p>
         </div>
 
         <ul class="db-type-grid">
@@ -493,7 +494,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
         <div class="section-head" data-reveal="up">
           <span class="eyebrow"><Fragment set:html={leaf} />Shelf-ready, not shelf-adjacent</span>
           <h2 class="section-title">What a Retailer Checks Before a Display Goes In</h2>
-          <p class="section-sub db-sub">Every line here is settled on the drawing, before the die is cut. A unit that clears all six goes onto the shelf; a unit that misses two arrives as a case nobody opens.</p>
+          <p class="section-sub db-sub">Every line here is settled on the drawing, before the die is cut. A unit that clears all six goes onto the shelf; a unit that misses two arrives as a case nobody opens. The <a class="prose-link" href="/kitchenware-launch-case-study/" target="_blank" rel="noopener">kitchenware launch</a> in our case studies is a shelf-ready tray built against the same list.</p>
         </div>
 
         <div class="db-ledger" data-reveal="up">
@@ -510,6 +511,15 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
               </li>
             ))}
           </ol>
+        </div>
+
+        <div class="db-setup" data-reveal="up">
+          <p class="db-setup-label">Set-up time by construction</p>
+          <ul class="db-setup-list">
+            <li><strong>15 s</strong><span>Shelf-ready tray</span></li>
+            <li><strong>90 s</strong><span>Counter unit</span></li>
+            <li><strong>8 min</strong><span>Floor stand</span></li>
+          </ul>
         </div>
       </div>
     </section>
@@ -557,7 +567,7 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
         <div class="section-head" data-reveal="up">
           <span class="eyebrow"><Fragment set:html={leaf} />Stock</span>
           <h2 class="section-title">The Stock Decides the Top-Load and the Print Route</h2>
-          <p class="section-sub db-sub">The stock settles the top-load, the print route and how the order moves. The sample pack carries all four as swatches you can stand on a shelf next to the product.</p>
+          <p class="section-sub db-sub">The stock settles the top-load, the print route and how the order moves. The sample pack carries all four as swatches you can stand on a shelf next to the product. Flute grades behind the corrugated row are broken down on the <a class="prose-link" href="/custom-corrugated-boxes/" target="_blank" rel="noopener">corrugated boxes page</a>.</p>
         </div>
 
         <div class="db-table-wrap" data-reveal="up">
@@ -1123,6 +1133,40 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     color: var(--ivory);
     background: var(--color-sage);
     border-radius: 999px; padding: 0.36rem 0.78rem;
+  }
+
+  /* The H1's 90 seconds, anchored to the three construction times already
+     carried by the load sheet. No new figure is introduced here. */
+  .db-setup {
+    margin-top: clamp(2.2rem, 4vw, 3.2rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(31, 59, 44, 0.2);
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+    gap: clamp(0.9rem, 3vw, 2.5rem);
+    align-items: baseline;
+  }
+  .db-setup-label {
+    margin: 0;
+    font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass);
+  }
+  .db-setup-list {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .db-setup-list li {
+    padding-left: clamp(0.8rem, 2vw, 1.6rem);
+    border-left: 1px solid rgba(31, 59, 44, 0.14);
+  }
+  .db-setup-list li:first-child { padding-left: 0; border-left: 0; }
+  .db-setup-list strong {
+    display: block; font-family: var(--font-heading); font-weight: 600;
+    font-size: 1.35rem; letter-spacing: -0.015em; color: var(--color-brand-primary);
+  }
+  .db-setup-list span {
+    display: block; margin-top: 0.15rem;
+    font-size: 0.84rem; line-height: 1.5; color: var(--color-brand-muted);
   }
 
   /* ============ 5. STOCK COMPARATOR ============ */
@@ -1758,6 +1802,8 @@ const star = '<svg viewBox="0 0 24 24" width="16" height="16" focusable="false">
     .db-ledger-rows h3 { grid-column: 2; }
     .db-ledger-pass { grid-column: 3; grid-row: 1; }
     .db-ledger-rows p { grid-column: 2 / -1; }
+    .db-setup { grid-template-columns: minmax(0, 1fr); gap: 0.9rem; }
+    .db-setup-list span { font-size: 0.78rem; }
     .db-pass { grid-template-columns: minmax(0, 1fr); }
     .db-quote figcaption { flex-wrap: wrap; }
     .db-plates { gap: 0.5rem; }

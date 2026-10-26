@@ -10,6 +10,7 @@ import PostCard from '../components/PostCard.astro';
 import AuthorCard from '../components/AuthorCard.astro';
 import BlogIndex from '../components/BlogIndex.astro';
 import ScrollReveal from '../components/ScrollReveal.astro';
+import CertMarks from '../components/CertMarks.astro';
 import { getEntry } from 'astro:content';
 import { getPublishedPosts, POSTS_PER_PAGE } from '../lib/blog';
 
@@ -29,6 +30,12 @@ const demoLegalSections = [
 ];
 
 const AB = 'https://img.leelinepackage.com/about';
+
+// Demo marks for the CertMarks preview below — the same two used on /custom-mailer-bags/.
+const demoCerts = [
+  { src: 'https://img.leelinepackage.com/compliance/iso-9001.webp', alt: 'ISO 9001 certified quality management system', width: 348, height: 349 },
+  { src: 'https://img.leelinepackage.com/compliance/bsci.webp', alt: 'BSCI audited', width: 508, height: 510 },
+];
 
 // Demo data for the TeamSection preview below.
 const demoTeam = {
@@ -177,8 +184,16 @@ const colors = [
       </div>
 
       <h3 class="ds-sub">Atoms</h3>
+      <div class="ds-component">
+        <div class="ds-frame">
+          <CertMarks marks={demoCerts}>
+            <strong>AQL 2.5</strong> inspection on every lot
+          </CertMarks>
+        </div>
+        <p class="ds-comp-name"><strong>CertMarks</strong> · <code>src/components/CertMarks.astro</code> — a compact certification / inspection strip: a centred row of compliance marks above one line of supporting text. Pass <code>marks</code> (src / alt / width / height) and put the sentence in the default slot. Used by <code>/custom-mailer-bags/</code>.</p>
+      </div>
       <p class="ds-note">
-        No standalone atom components exist yet. The homepage defines its buttons, cards, badges and
+        No other standalone atom components exist yet. The homepage defines its buttons, cards, badges and
         section heads as CSS classes inside <code>src/pages/index.astro</code> &mdash; e.g.
         <code>.btn</code> / <code>.btn-gold</code> / <code>.btn-light</code>, <code>.eyebrow</code>,
         <code>.section-title</code>, <code>.product-card</code>, <code>.industry-card</code>,

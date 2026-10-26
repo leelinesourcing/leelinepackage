@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import CertMarks from '../components/CertMarks.astro';
 
 const R2 = 'https://img.leelinepackage.com';
 const MB = `${R2}/mailer-bags`;
@@ -156,7 +157,7 @@ const fit = [
 
 /* The first run, dated. Answers the writing guide's "how do I start, and how long". */
 const steps = [
-  { d: 'Hour 1–24', t: 'Proof', x: 'Artwork comes back as a digital proof with the size, the film and the Pantone confirmed on it.' },
+  { d: 'Hour 1–24', t: 'Proof', x: 'Artwork comes back as a digital proof with the size, the film and Pantone confirmed on it.' },
   { d: 'Day 2–4', t: 'Sample', x: 'A physical bag in the chosen film, printed and sealed, so the thickness and the color are judged in the hand.' },
   { d: 'Day 5–14', t: 'Production', x: 'The floor starts from the approved sample, with status reported at each stage.' },
   { d: 'After that', t: 'Freight', x: 'Bagged, palletized and routed by sea or air to a port, a 3PL, or a warehouse dock.' },
@@ -196,12 +197,12 @@ const operation = [
    still reading as its own moment. */
 /* All six are the client's own photographs, all the same shape (1376×768). */
 const scenes = [
-  { img: `${MB}/scene-1-v3.webp`, alt: 'A customer walking away with filled paper bags' },
-  { img: `${MB}/scene-2-v3.webp`, alt: 'A person sitting on a bench outdoors with printed mailers on their lap' },
-  { img: `${MB}/scene-3-v3.webp`, alt: 'A person collecting a parcel from a smart locker' },
-  { img: `${MB}/scene-4-v3.webp`, alt: 'A person opening a printed mailer on a green sofa' },
-  { img: `${MB}/scene-5-v3.webp`, alt: 'A person holding up a labelled kraft mailer at a desk' },
-  { img: `${MB}/scene-6-v3.webp`, alt: 'A person holding two grey mailers against a white wall' },
+  { img: `${MB}/scene-1-v3.webp`, alt: 'A customer walking away with filled paper bags', cap: 'Carried out the door' },
+  { img: `${MB}/scene-2-v3.webp`, alt: 'A person sitting on a bench outdoors with printed mailers on their lap', cap: 'Opened on a bench' },
+  { img: `${MB}/scene-3-v3.webp`, alt: 'A person collecting a parcel from a smart locker', cap: 'Collected from a locker' },
+  { img: `${MB}/scene-4-v3.webp`, alt: 'A person opening a printed mailer on a green sofa', cap: 'Opened at home' },
+  { img: `${MB}/scene-5-v3.webp`, alt: 'A person holding up a labeled kraft mailer at a desk', cap: 'Labeled before dispatch' },
+  { img: `${MB}/scene-6-v3.webp`, alt: 'A person holding two grey mailers against a white wall', cap: 'Two bags, same shade' },
 ];
 
 /* The original site's own reviewers. The substance is theirs — every claim below is
@@ -245,6 +246,7 @@ const faqs = [
   { q: 'How is the film thickness chosen?', a: 'Thickness is set alongside the size rather than assumed. A heavier film costs more per bag and takes more of a knock before it tears, and the two are quoted together.' },
   { q: 'Do the bags arrive flat, ready for our own bench?', a: 'Mailers are supplied flat, on the roll or boxed. They store in a fraction of the space a built pack needs, and they are sealed at the bench where the order is picked.' },
   { q: 'What artwork do you need from us?', a: 'A logo or artwork file starts the job. Panel layout, print method and Pantone codes are worked out with you, and none of it is left to guesswork.' },
+  { q: 'What does the quote include, and are samples free?', a: 'The 3D mockup is free. A physical material sample carries a small fee, credited against the bulk order. The quote lists the initial setup, any plate or tooling, and a per-unit price that falls at 1,000, 5,000 and 10,000 units.' },
 ];
 
 const seo = {
@@ -294,6 +296,15 @@ const sizing = [
   { n: '01', t: 'Measure the Product', d: 'The quote starts from the item, not a catalog page: the footprint of the folded, rolled or boxed piece, taken at the widest point it reaches.' },
   { n: '02', t: 'Allow for the Packing Method', d: 'A loose garment, a taped bundle and a tray each take up a different amount of room, and the dimension follows the way the bench actually packs.' },
   { n: '03', t: 'Confirm It on the Sample', d: 'The chosen size is made up and posted, and the fit is judged with the real item in the real bag before the film is cut for the run.' },
+];
+
+/* Certification marks already published site-wide (services, paper bags, pouches): ISO 9001 is
+   held by the factory and BSCI is audited. AQL 2.5 is the level stated on the bag page
+   (custom-bag-manufacturer); if the client runs film mailers to a different level, the one line
+   in the strip below is the only place to change it. */
+const certMarks = [
+  { src: `${R2}/compliance/iso-9001.webp`, alt: 'ISO 9001 certified quality management system', width: 348, height: 349 },
+  { src: `${R2}/compliance/bsci.webp`, alt: 'BSCI audited', width: 508, height: 510 },
 ];
 
 /* The arrow every button on this page carries. */
@@ -416,6 +427,12 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
               <p>{o.d}</p>
             </article>
           ))}
+        </div>
+
+        <div class="mb-certs" data-reveal="up">
+          <CertMarks marks={certMarks}>
+            <strong>AQL 2.5</strong> inspection on every lot
+          </CertMarks>
         </div>
       </div>
     </section>
@@ -597,7 +614,7 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Buying patterns</span>
           <h2 class="section-title" data-reveal="up">Three Buyers, Three Mailer <em>Specifications</em></h2>
-          <p class="section-sub" data-reveal="up">Each buys the same product differently. These are the three specs that come back most often.</p>
+          <p class="section-sub" data-reveal="up">Each buys the same product differently. What changes is the line it is packed on.</p>
         </div>
 
         <div class="mb-use-grid">
@@ -663,6 +680,7 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
               {scenes.map((s) => (
                 <figure class="mb-sc-slide">
                   <img src={s.img} alt={s.alt} width={1376} height={768} loading="lazy" decoding="async" class="mb-img" />
+                  <figcaption class="mb-sc-cap">{s.cap}</figcaption>
                 </figure>
               ))}
             </div>
@@ -736,7 +754,7 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
       <div class="wrap">
         <div class="section-head section-head--center">
           <span class="eyebrow"><svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true" set:html={leaf} />Questions</span>
-          <h2 class="section-title" data-reveal="up">Five Questions Before <em>the First Quote</em></h2>
+          <h2 class="section-title" data-reveal="up">Six Questions Before <em>the First Quote</em></h2>
           <p class="section-sub" data-reveal="up">Everything else a buyer usually asks is already answered further up this page.</p>
         </div>
 
@@ -1242,7 +1260,10 @@ const tick = '<path d="M20.4 6.4 9.8 17.2 3.8 11.2" fill="none" stroke="currentC
   .mb-sc-track { --sg: clamp(0.9rem, 2vw, 1.5rem); display: flex; gap: var(--sg); }
   /* three per row, but the rail spans the viewport (see the markup), so each slide is ~480px at
      1440 rather than the ~380px it was inside the 1200px wrap */
-  .mb-sc-slide { flex: 0 0 calc((100% - 2 * var(--sg)) / 3); aspect-ratio: 1376 / 768; margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--color-clay); }
+  .mb-sc-slide { flex: 0 0 calc((100% - 2 * var(--sg)) / 3); margin: 0; border-radius: 1.2rem; overflow: hidden; background: var(--ivory); border: 1px solid rgba(31,59,44,0.12); }
+  /* the caption sits under the plate, so the slide's ratio moves from the figure to the image */
+  .mb-sc-slide > img { width: 100%; height: auto; aspect-ratio: 1376 / 768; object-fit: cover; display: block; }
+  .mb-sc-cap { padding: 0.8rem 1.05rem 0.9rem; font-size: 0.84rem; line-height: 1.4; color: var(--color-brand-text); background: var(--ivory); }
 
   /* ============ REVIEWS — speech-bubble carousel ============ */
   /* Geometry mirrors the reference (a bordered speech bubble with the rating riding its

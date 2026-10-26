@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>frames</title>
+<style>
+  html, body { margin: 0; background: transparent; overflow: hidden; }
+  .asm-stage { width: 100vw; height: 100vh; display: block; background: transparent; }
+  svg { width: 100%; height: 100%; display: block; }
+
+  .asm-stage polygon { stroke: var(--line); stroke-width: 1.1; stroke-linejoin: round; }
+  .asm-floor  { fill: var(--f1); }
+  .asm-back   { fill: var(--f2); }
+  .asm-wall   { fill: var(--f3); }
+  .asm-near   { fill: var(--f4); }
+  .asm-tier   { fill: var(--f5); }
+  .asm-riser  { fill: var(--f6); }
+  .asm-header { fill: var(--f2); }
+  .asm-edge   { fill: var(--edge); stroke-width: 0.8; }
+  .asm-ground { stroke: var(--ground); stroke-width: 1; }
+  .asm-header-mark { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; fill: none; }
+  .asm-pack-top { fill: var(--pk1); stroke: var(--pk); stroke-width: 0.9; }
+  .asm-pack-a   { fill: var(--pk2); stroke: var(--pk); stroke-width: 0.9; }
+  .asm-pack-b   { fill: var(--pk3); stroke: var(--pk); stroke-width: 0.9; }
+
+  .asm-stage {
+    --line:#33503F; --f1:#FBF7EC; --f2:#F3ECDB; --f3:#EDE4D0; --f4:#DCD0B2;
+    --f5:#F6F0E1; --f6:#E5DABF; --edge:#D2C6A6;
+    --ground:rgba(31,59,44,.32); --accent:#B08D4C;
+    --pk:#8A6A2E; --pk1:#EAD7B2; --pk2:#D9BF95; --pk3:#C5A676;
+  }
+</style>
+</head>
+<body>
+<div class="asm-stage"><svg class="asm-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<script type="module">
+  import { buildUnit, setTime } from './_preview-90s-unit.js';
+  const parts = buildUnit(document.querySelector('svg.asm-svg'));
+  const t = Number(new URLSearchParams(location.search).get('t') || 0);
+  setTime(parts, t);
+  document.title = 'frame ' + t;
+</script>
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PREVIEW · 90-Second Assembly</title>
+<style>
+  /* ── self-hosted fonts, straight off the repo ───────────────────────── */
+  @font-face { font-family:'Newsreader Variable'; font-display:swap; font-weight:200 800;
+    src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2') format('woff2-variations'); }
+  @font-face { font-family:'Newsreader Variable'; font-display:swap; font-weight:200 800; font-style:italic;
+    src:url('/node_modules/@fontsource-variable/newsreader/files/newsreader-latin-wght-italic.woff2') format('woff2-variations'); }
+  @font-face { font-family:'Instrument Sans Variable'; font-display:swap; font-weight:400 700;
+    src:url('/node_modules/@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2') format('woff2-variations'); }
+
+  :root {
+    --forest:#1F3B2C; --kraft:#C9A87C; --brass:#B08D4C; --ivory:#F5F0E5;
+    --clay:#EDE5D4; --charcoal:#21241C; --moss:#8C8676; --sage:#4A6B52;
+    --brass-light:#E9C978; --muted:#605C4E;
+    --font-h:'Newsreader Variable',Georgia,serif;
+    --font-b:'Instrument Sans Variable',system-ui,sans-serif;
+  }
+  *,*::before,*::after { box-sizing:border-box; }
+  body { margin:0; background:var(--clay); color:#2B2F26; font-family:var(--font-b);
+         font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap { width:min(1180px,100% - clamp(2rem,6vw,5rem)); margin-inline:auto; }
+
+  /* ── preview chrome ─────────────────────────────────────────────────── */
+  .pv-head { background:var(--charcoal); color:var(--ivory); padding:clamp(2rem,5vw,3.4rem) 0 clamp(1.6rem,3vw,2.4rem); }
+  .pv-kicker { display:inline-flex; align-items:center; gap:.5rem; font-size:.66rem; font-weight:700;
+    letter-spacing:.2em; text-transform:uppercase; color:var(--brass-light); margin:0 0 1rem; }
+  .pv-kicker::before { content:''; width:1.6rem; height:1px; background:currentColor; }
+  .pv-h1 { font-family:var(--font-h); font-weight:700; font-size:clamp(1.9rem,4.4vw,3rem);
+    line-height:1.06; letter-spacing:-.02em; margin:0; max-width:26ch; }
+  .pv-h1 em { font-style:italic; color:var(--brass-light); }
+  .pv-lede { max-width:62ch; margin:1.1rem 0 0; color:rgba(245,240,229,.78); font-size:1rem; }
+  .pv-warn { margin-top:1.6rem; padding:.85rem 1.1rem; border-left:2px solid var(--brass-light);
+    background:rgba(233,201,120,.07); font-size:.84rem; color:rgba(245,240,229,.85); max-width:70ch; }
+  .pv-warn b { color:var(--brass-light); font-weight:600; }
+
+  /* ── one preview block ──────────────────────────────────────────────── */
+  .pv-block { padding:clamp(2.6rem,6vw,4.6rem) 0; border-bottom:1px solid rgba(31,59,44,.12); }
+  .pv-block--dark { background:var(--forest); color:var(--ivory); border-bottom:0; }
+  .pv-tag { display:flex; align-items:baseline; gap:.75rem; margin-bottom:.5rem; }
+  .pv-num { font-family:var(--font-h); font-size:1.5rem; color:var(--brass); font-weight:500; }
+  .pv-block--dark .pv-num { color:var(--brass-light); }
+  .pv-name { font-family:var(--font-h); font-size:clamp(1.25rem,2.4vw,1.7rem); font-weight:600;
+    letter-spacing:-.01em; margin:0; }
+  .pv-desc { max-width:66ch; margin:.35rem 0 0; font-size:.92rem; color:var(--muted); }
+  .pv-block--dark .pv-desc { color:rgba(245,240,229,.7); }
+  .pv-desc code { font-family:ui-monospace,monospace; font-size:.85em; background:rgba(31,59,44,.08);
+    padding:.05em .35em; border-radius:3px; }
+  .pv-block--dark .pv-desc code { background:rgba(245,240,229,.12); }
+
+  /* ── the assembly component ─────────────────────────────────────────── */
+  .asm { margin-top:clamp(1.6rem,3.5vw,2.8rem); display:grid;
+         grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+         gap:clamp(1.4rem,4vw,3.2rem); align-items:center; }
+
+  .asm-stage {
+    --line:#33503F; --f1:#FBF7EC; --f2:#F3ECDB; --f3:#EDE4D0; --f4:#DCD0B2;
+    --f5:#F6F0E1; --f6:#E5DABF; --edge:#D2C6A6;
+    --ground:rgba(31,59,44,.32); --accent:#B08D4C;
+    --pk:#8A6A2E; --pk1:#EAD7B2; --pk2:#D9BF95; --pk3:#C5A676;
+    --tick:rgba(31,59,44,.25); --rail:rgba(31,59,44,.16); --ring:var(--clay);
+    position:relative;
+  }
+  .asm-stage svg { width:100%; height:auto; display:block; overflow:visible; }
+  .asm-stage polygon { stroke:var(--line); stroke-width:1.1; stroke-linejoin:round; }
+  .asm-floor  { fill:var(--f1); }
+  .asm-back   { fill:var(--f2); }
+  .asm-wall   { fill:var(--f3); }
+  .asm-near   { fill:var(--f4); }
+  .asm-tier   { fill:var(--f5); }
+  .asm-riser  { fill:var(--f6); }
+  .asm-header { fill:var(--f2); }
+  .asm-edge   { fill:var(--edge); stroke-width:.8; }
+  .asm-ground { stroke:var(--ground); stroke-width:1; }
+  .asm-header-mark { stroke:var(--accent); stroke-width:3; stroke-linecap:round; fill:none; }
+  .asm-pack-top { fill:var(--pk1); stroke:var(--pk); stroke-width:.9; }
+  .asm-pack-a   { fill:var(--pk2); stroke:var(--pk); stroke-width:.9; }
+  .asm-pack-b   { fill:var(--pk3); stroke:var(--pk); stroke-width:.9; }
+  .asm-p { transform-box:fill-box; transform-origin:50% 100%; }
+
+  /* dark band flips the whole palette */
+  .asm--dark .asm-stage {
+    --line:#E6DECA; --f1:#33543E; --f2:#3D6049; --f3:#35553F; --f4:#294533;
+    --f5:#3B5D47; --f6:#30503B; --edge:#4E6D57;
+    --ground:rgba(245,240,229,.28); --accent:var(--brass-light);
+    --pk:#E9C978; --pk1:#A8894F; --pk2:#8C7242; --pk3:#755F37;
+    --tick:rgba(245,240,229,.3); --rail:rgba(245,240,229,.18); --ring:var(--forest);
+  }
+
+  /* rail + readout */
+  .asm-panel { min-width:0; }
+  .asm-now { display:flex; align-items:baseline; gap:.7rem; margin-bottom:1.5rem; min-height:2.1rem; }
+  .asm-now strong { font-family:var(--font-h); font-size:1.55rem; font-weight:600;
+    letter-spacing:-.02em; color:var(--brass); font-variant-numeric:tabular-nums; }
+  .asm--dark .asm-now strong { color:var(--brass-light); }
+  .asm-now span { font-size:.95rem; color:var(--muted); }
+  .asm--dark .asm-now span { color:rgba(245,240,229,.8); }
+
+  .asm-rail { position:relative; }
+  .asm-track { position:relative; height:1px; background:var(--rail); }
+  .asm-track i { position:absolute; top:0; left:0; height:1px; width:0; background:var(--brass); display:block; }
+  .asm--dark .asm-track i { background:var(--brass-light); }
+  .asm-track u { position:absolute; top:-3px; width:1px; height:7px; background:var(--tick); }
+  .asm-track b { position:absolute; top:50%; left:0; width:9px; height:9px; margin:-4px 0 0 -4.5px;
+    border-radius:50%; background:var(--brass); box-shadow:0 0 0 4px var(--ring); }
+  .asm--dark .asm-track b { background:var(--brass-light); }
+
+  .asm-ticks { list-style:none; margin:0; padding:0; position:relative; height:4.1rem; }
+  .asm-tick { position:absolute; top:0; transform:translateX(-50%); }
+  .asm-tick.is-first { transform:none; }
+  .asm-tick.is-last { transform:translateX(-100%); }
+  .asm-tick button { display:block; background:none; border:0; padding:.7rem .15rem .3rem; margin:0;
+    font:inherit; color:inherit; cursor:pointer; text-align:inherit; white-space:nowrap;
+    border-radius:2px; transition:color .18s; }
+  .asm-tick button strong { display:block; font-size:.78rem; font-weight:600; letter-spacing:.02em;
+    font-variant-numeric:tabular-nums; color:var(--muted); transition:color .18s; }
+  .asm-tick button span { display:block; font-size:.7rem; line-height:1.3; color:var(--moss);
+    letter-spacing:-.01em; }
+  .asm--dark .asm-tick button strong { color:rgba(245,240,229,.62); }
+  .asm--dark .asm-tick button span { color:rgba(245,240,229,.45); }
+  .asm-tick button:hover strong, .asm-tick button:focus-visible strong { color:var(--brass); }
+  .asm--dark .asm-tick button:hover strong, .asm--dark .asm-tick button:focus-visible strong { color:var(--brass-light); }
+  .asm-tick button[aria-current="true"] strong { color:var(--brass); }
+  .asm--dark .asm-tick button[aria-current="true"] strong { color:var(--brass-light); }
+  .asm-tick button:focus-visible { outline:2px solid var(--brass); outline-offset:2px; }
+
+  .asm-ctrl { display:flex; align-items:center; gap:1rem; margin-top:.4rem;
+    padding-top:1.1rem; border-top:1px solid var(--rail); }
+  .asm-play { font:inherit; font-size:.74rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    background:none; border:1px solid currentColor; color:var(--brass); padding:.5rem 1.05rem;
+    border-radius:999px; cursor:pointer; transition:background .2s,color .2s; }
+  .asm-play:hover { background:var(--brass); color:var(--ivory); }
+  .asm--dark .asm-play { color:var(--brass-light); }
+  .asm--dark .asm-play:hover { background:var(--brass-light); color:var(--forest); }
+  .asm-hint { font-size:.74rem; color:var(--moss); }
+  .asm--dark .asm-hint { color:rgba(245,240,229,.45); }
+
+  /* ── option 2: the image file ───────────────────────────────────────── */
+  .file-row { margin-top:2rem; display:grid; grid-template-columns:minmax(0,420px) minmax(0,1fr);
+    gap:clamp(1.4rem,4vw,3rem); align-items:start; }
+  .file-card { background:var(--ivory); border:1px solid rgba(31,59,44,.16); padding:.6rem; }
+  .file-card img { display:block; width:100%; height:auto; }
+  .file-meta { font-size:.82rem; color:var(--muted); list-style:none; margin:1.2rem 0 0; padding:0;
+    display:grid; gap:.6rem; }
+  .file-meta li { display:grid; grid-template-columns:8.5rem minmax(0,1fr); gap:.9rem;
+    padding-bottom:.6rem; border-bottom:1px solid rgba(31,59,44,.1); }
+  .file-meta b { font-weight:600; color:var(--forest); font-size:.78rem; letter-spacing:.06em;
+    text-transform:uppercase; }
+
+  /* ── option 1B: the strip, light ─────────────────────────────────────── */
+  .strip-mock { background:var(--ivory); padding:clamp(1.8rem,4vw,3rem); border:1px solid rgba(31,59,44,.13); }
+  .strip-mock .section-head { margin:0; }
+  .strip-eye { display:inline-flex; align-items:center; gap:.55rem; font-size:.66rem; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--brass); margin:0 0 .6rem; }
+  .strip-eye::before { content:''; width:.4rem; height:.4rem; border-radius:50%; background:currentColor; }
+  .strip-h { font-family:var(--font-h); font-weight:500; font-size:clamp(1.2rem,2.4vw,1.6rem);
+    letter-spacing:-.01em; margin:0; color:var(--forest); }
+  .strip-p { max-width:70ch; margin:.5rem 0 0; font-size:.9rem; color:var(--muted); }
+  .db-setup { margin-top:clamp(1.4rem,3vw,1.9rem); padding-top:1.2rem;
+    border-top:1px solid rgba(31,59,44,.2); display:grid;
+    grid-template-columns:minmax(0,15rem) minmax(0,1fr); gap:1.4rem; align-items:baseline; }
+  .db-setup-label { margin:0; font-size:.68rem; font-weight:600; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--brass); }
+  .db-setup-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .db-setup-list li { padding-left:1.2rem; border-left:1px solid rgba(31,59,44,.14); }
+  .db-setup-list li:first-child { padding-left:0; border-left:0; }
+  .db-setup-list strong { display:block; font-family:var(--font-h); font-weight:600; font-size:1.35rem;
+    letter-spacing:-.015em; color:var(--forest); }
+  .db-setup-list span { display:block; margin-top:.15rem; font-size:.84rem; color:var(--muted); }
+
+  .asm--compact { grid-template-columns:minmax(0,360px) minmax(0,1fr); margin-top:1.8rem;
+    padding-top:1.6rem; border-top:1px solid rgba(31,59,44,.14); align-items:center; }
+  .asm--compact .asm-now { margin-bottom:1rem; }
+  .asm--compact .asm-now strong { font-size:1.2rem; }
+  .asm--compact .asm-ticks { height:3.5rem; }
+  .asm--compact .asm-tick button span { font-size:.68rem; }
+
+  @media (max-width:820px) {
+    .asm { grid-template-columns:minmax(0,1fr); }
+    .asm-stage { max-width:420px; margin-inline:auto; }
+    .asm--compact { grid-template-columns:minmax(0,1fr); }
+    .asm--compact .asm-stage { max-width:230px; }
+    .file-row { grid-template-columns:minmax(0,1fr); }
+    .db-setup { grid-template-columns:minmax(0,1fr); gap:.9rem; }
+  }
+  @media (max-width:560px) {
+    .asm-tick button span { display:none; }
+    .asm-ticks { height:2.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="pv-head">
+  <div class="wrap">
+    <p class="pv-kicker">Preview · Custom Display Boxes</p>
+    <h1 class="pv-h1">90-Second Assembly — <em>two ways to show it</em></h1>
+    <p class="pv-lede">Both hook to the counter unit already named in the §Retail-Ready set-up strip (15 s tray · 90 s counter · 8 min floor stand). Nothing here is final — it's a throwaway page for you to pick from.</p>
+    <div class="pv-warn"><b>Not in the real page yet, and the numbers are unconfirmed.</b> The 90 s figure is still a spec range from the original brief, not a measured time from the client. If this ships, the client should sign off on it once, because a moving diagram makes the claim far heavier than a line of body copy.</div>
+  </div>
+</header>
+
+<!-- ══════════════ 1 · own dark band ══════════════ -->
+<section class="pv-block pv-block--dark">
+  <div class="wrap">
+    <div class="pv-tag"><span class="pv-num">01</span><h2 class="pv-name">Its own dark band</h2></div>
+    <p class="pv-desc">The drawing sits on the forest ground the page already uses for §Load &amp; Stability, with the build rail beside it. This is the most legible version, and the one that would carry the claim. Cost: the page gains a <code>third</code> drawn module, against the one-per-page rule.</p>
+
+    <div class="asm asm--dark" data-asm data-theme="dark">
+      <div class="asm-stage"><svg class="asm-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 2 · inline in the strip ══════════════ -->
+<section class="pv-block">
+  <div class="wrap">
+    <div class="pv-tag"><span class="pv-num">02</span><h2 class="pv-name">Inline, under the set-up strip</h2></div>
+    <p class="pv-desc">The same animation at roughly half size, sitting directly beneath the 15 s / 90 s / 8 min strip that is already on the page. No new band, no new heading — it just gives the 90 s figure somewhere to be seen. Cheapest change, smallest footprint.</p>
+
+    <div class="strip-mock">
+      <div class="section-head">
+        <span class="strip-eye">Shelf-ready, not shelf-adjacent</span>
+        <h3 class="strip-h">What a Retailer Checks Before a Display Goes In</h3>
+        <p class="strip-p">…the ledger rows sit above this in the real page. Shown here only for context.</p>
+      </div>
+
+      <div class="db-setup">
+        <p class="db-setup-label">Set-up time by construction</p>
+        <ul class="db-setup-list">
+          <li><strong>15 s</strong><span>Shelf-ready tray</span></li>
+          <li><strong>90 s</strong><span>Counter unit</span></li>
+          <li><strong>8 min</strong><span>Floor stand</span></li>
+        </ul>
+      </div>
+
+      <div class="asm asm--compact" data-asm data-theme="light">
+        <div class="asm-stage"><svg class="asm-svg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ 3 · the file ══════════════ -->
+<section class="pv-block">
+  <div class="wrap">
+    <div class="pv-tag"><span class="pv-num">03</span><h2 class="pv-name">The same thing as an animated file</h2></div>
+    <p class="pv-desc">This is option 2 rendered for real — the identical drawing, captured frame by frame and stitched into an animated WebP on R2. Same content, one <code>&lt;img&gt;</code>, works in email and decks. Trade-off: it is a fixed-size bitmap, so it softens on retina, and any copy change means re-rendering.</p>
+
+    <div class="file-row">
+      <div class="file-card">
+        <img id="webp" src="_preview-90s-assembly.webp" width="605" height="695" alt="Isometric counter display assembling from a flat tray into a two-tier loaded unit" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <ul class="file-meta">
+          <li><b>Format</b><span>Animated WebP, transparent background (GIF fallback possible)</span></li>
+          <li><b>Size</b><span><span id="webp-size">—</span> · 605 × 695 · 38 frames · 9.8 s loop</span></li>
+          <li><b>One asset</b><span>Transparent, but the strokes are forest green — a dark band needs a second render</span></li>
+          <li><b>Served from</b><span><code>img.leelinepackage.com/display-boxes/…-v2.webp</code></span></li>
+          <li><b>Where it could go</b><span>§Retail-Ready strip · deck · email follow-up</span></li>
+          <li><b>Downside</b><span>Bitmap — softens above 605 px, and any copy change means re-rendering</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+import { buildUnit, buildPanel, setTime, STEPS, END, LOOP } from './_preview-90s-unit.js';
+
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+for (const root of document.querySelectorAll('[data-asm]')) {
+  const svg = root.querySelector('svg.asm-svg');
+  const parts = buildUnit(svg);
+  const ui = buildPanel(root);
+
+  let raf = null;
+  let origin = null;
+  let at = 0;
+  let playing = !reduce;
+  let lastIdx = -1;
+
+  function paint(ms) {
+    const idx = setTime(parts, ms);
+    const t = Math.min(ms, END) / END;
+    ui.fill.style.width = (t * 100) + '%';
+    ui.dot.style.left = (t * 100) + '%';
+
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      if (idx < 0) {
+        ui.nowT.textContent = '0 s';
+        ui.nowN.textContent = 'Flat blank';
+      } else {
+        ui.nowT.textContent = STEPS[idx].t + ' s';
+        ui.nowN.textContent = STEPS[idx].name;
+      }
+      ui.tickBtns.forEach((b, i) => b.setAttribute('aria-current', i === idx ? 'true' : 'false'));
+    }
+  }
+
+  function frame(now) {
+    if (origin === null) origin = now - at;
+    at = now - origin;
+    paint(at % LOOP);
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    cancelAnimationFrame(raf);
+    playing = true;
+    ui.play.textContent = 'Pause';
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() {
+    cancelAnimationFrame(raf);
+    playing = false;
+    ui.play.textContent = 'Play';
+  }
+
+  ui.play.addEventListener('click', () => {
+    if (playing) { stop(); }
+    else { origin = null; at = at % LOOP; start(); }
+  });
+
+  ui.tickBtns.forEach((b) => b.addEventListener('click', () => {
+    stop();
+    const s = STEPS[Number(b.dataset.i)];
+    at = (s.t / 90) * END;
+    paint(at);
+  }));
+
+  // ?t=8600 freezes the drawing at a given millisecond — used for screenshots
+  const fixed = new URLSearchParams(location.search).get('t');
+  if (fixed !== null) { stop(); paint(Number(fixed)); }
+  else if (reduce) { stop(); paint(END); }
+  else { start(); }
+}
+
+// file size readout
+fetch('_preview-90s-assembly.webp', { method: 'HEAD' })
+  .then((r) => { const n = Number(r.headers.get('content-length')); if (n) document.getElementById('webp-size').textContent = (n / 1024).toFixed(0) + ' KB'; })
+  .catch(() => {});
+</script>
+</body>
+</html>

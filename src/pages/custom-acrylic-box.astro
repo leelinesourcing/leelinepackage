@@ -236,7 +236,7 @@ const stops = [
   { when: 'Day 8\u201335', name: 'Cut, polish, bond, assemble',
     d: 'Panels are cut from the sheet booked at the first stop, edged, bonded and fitted with hardware down the bench in sequence rather than in batches.' },
   { when: 'Day 36\u201342', name: 'Inspection and pallet',
-    d: 'Every unit is checked for haze and for lid seating, the lot is masked, corner-blocked and palleted, and the packing sheet travels with the shipping papers.' },
+    d: 'Every unit is checked against the signed sample for haze and for lid seating, the lot is masked, corner-blocked and palleted, and the packing sheet travels with the shipping papers.' },
 ];
 
 /* The source page's own two reviewers. No figure appears here that either of
@@ -285,7 +285,7 @@ const faqs = [
   { q: 'Can one order carry several sizes and several print methods?',
     a: 'Yes, and most ranges do. A shelf set with three tiers, or a range in four sizes, is a single order with several drawings, each size carrying its own rate. Print routes can be mixed inside the order, which is what lets a logo be screened while a photograph beside it goes down digitally.' },
   { q: 'What do you need to quote a run?',
-    a: 'The product\u2019s own dimensions, the quantity, where the box will stand, and whether the artwork covers the lid or the whole outer face. Size and quantity settle the sheet grade and the tier, the position settles the grade, and the print area settles which route is quoted. All of it comes off our own bench in Wuhan, China, with nobody in between the drawing and the saw. A ruler laid against the product closes the last gap.' },
+    a: 'The product\u2019s own dimensions, the quantity, where the box will stand, and whether the artwork covers the lid or the whole outer face. Size and quantity settle the sheet grade and the tier, the position settles the grade, and the print area settles which route is quoted. A ruler laid against the product closes the last gap.' },
 ];
 
 const seo = {
@@ -354,7 +354,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
         <div class="ac-hero-copy">
           <span class="eyebrow" data-reveal="up"><Fragment set:html={leaf} />Cast sheet, polished and bonded</span>
           <h1 class="ac-title" data-reveal="up" style="--d:0.08s">Custom Acrylic Box Manufacturers: <em>92% Light Transmittance</em> &amp; 3-Year Anti-Yellowing</h1>
-          <p class="ac-lede" data-reveal="up" style="--d:0.16s">Command up to 25% higher retail shelf margins with optical-grade cast boxes from a certified manufacturer. Bonded joints survive shipping, and the display looks new next season.</p>
+          <p class="ac-lede" data-reveal="up" style="--d:0.16s">Command up to 25% higher retail shelf margins with optical-grade cast boxes from an ISO 9001-certified manufacturer. Bonded joints survive shipping, and the display looks new next season.</p>
           <div class="ac-wall" data-reveal="up" style="--d:0.24s">
             <span class="ac-wall-cap">Wall thickness</span>
             <ul class="ac-wall-scale">
@@ -423,6 +423,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             <Fragment set:html={arrow} />
           </a>
         </div>
+        <p class="ac-midcta-note" data-reveal="up" style="--d:0.24s">3D mockup inside 24 hours · white dummy in 3–5 days</p>
       </div>
     </section>
 
@@ -645,6 +646,7 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
             </li>
           ))}
         </ul>
+        <p class="ac-cost-foot" data-reveal="up">Every quote lists these four lines separately, which puts a saving where it can be seen.</p>
       </div>
     </section>
 
@@ -976,6 +978,13 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
   .ac-midcta-inner .section-title { margin-bottom: 0; }
   .ac-midcta-inner .ac-sub-light { margin-top: 1.2rem; margin-inline: auto; max-width: 52ch; }
   .ac-midcta-inner .ac-actions { margin-top: 2rem; }
+  .ac-midcta-note {
+    margin: 1.1rem 0 0;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    color: rgba(245, 240, 229, 0.95);
+  }
 
   /* ======================== 3. HOW THE BOX IS BUILT ========================
      The page's one drawn module, chosen because a buyer acts differently for
@@ -1484,6 +1493,15 @@ const leaf = '<svg class="eyebrow-leaf" viewBox="0 0 24 24" aria-hidden="true"><
     margin: 0 0 0.5rem;
   }
   .ac-cost-list p { font-size: 0.94rem; line-height: 1.66; color: var(--color-brand-muted); margin: 0; }
+  .ac-cost-foot {
+    max-width: 68ch;
+    margin: 2.4rem 0 0;
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--color-brand-muted);
+  }
 
   /* ======================== 5. AGAINST THE ALTERNATIVES ======================== */
   .ac-fit { padding: clamp(4rem, 8vw, 7rem) 0; background: var(--color-ivory); }

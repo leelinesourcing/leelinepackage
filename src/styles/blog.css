@@ -433,6 +433,91 @@
 */
 .post-prose .post-cta strong { color: inherit; }
 
+/* ── downloadable resource card ──────────────────────────────────────────── */
+/*
+  A lead-magnet card that sits near the top of an article (e.g. the Production Approval Checklist on
+  /what-is-a-gusset/). Clay ground + brass hairline, matching `.post-note`, but card-shaped. The
+  download is a LINK, not a pill — the client dislikes stray buttons in mid-article flow
+  (*"去掉所有中间的button，很奇怪"*).
+*/
+.post-resource {
+  margin: 2rem 0 2.6rem;
+  padding: 1.4rem 1.5rem 1.5rem;
+  background: var(--color-clay);
+  border: 1px solid color-mix(in srgb, var(--brass) 30%, transparent);
+  border-radius: 1rem;
+}
+.post-prose .post-resource-eyebrow {
+  margin: 0 0 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.post-prose .post-resource-title {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-charcoal);
+}
+.post-prose .post-resource-desc {
+  margin: 0 0 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-brand-muted);
+}
+.post-prose .post-resource-list {
+  margin: 0 0 1.1rem;
+  padding-left: 1.15rem;
+  columns: 2;
+  column-gap: 1.6rem;
+}
+.post-prose .post-resource-list li {
+  margin: 0 0 0.35rem;
+  font-size: 0.95rem;
+  break-inside: avoid;
+}
+.post-resource-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+.post-prose a.post-resource-btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999px;
+  border: 1px solid var(--color-forest);
+  background: transparent;
+  color: var(--color-forest);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.post-prose a.post-resource-btn:hover {
+  background: var(--color-forest);
+  color: var(--ivory);
+}
+.post-prose a.post-resource-btn--primary {
+  background: var(--forest-light);
+  border-color: var(--forest-light);
+  color: var(--ivory);
+}
+.post-prose a.post-resource-btn--primary:hover {
+  background: var(--forest-deep);
+  border-color: var(--forest-deep);
+  color: var(--ivory);
+}
+@media (max-width: 640px) {
+  .post-prose .post-resource-list { columns: 1; }
+}
+
 .post-cover-caption {
   margin-top: -1.4rem;
   font-size: 0.95rem;

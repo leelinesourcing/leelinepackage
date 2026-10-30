@@ -2,6 +2,7 @@
 title: '10 Trash Bag Manufacturers in the USA for Reliable Supply'
 description: 'Compare 10 U.S. trash bag manufacturers by total bag cost, gauge, MOQ, and lead time to secure reliable supply, plus the key screening checks buyers skip today.'
 publishDate: 2025-11-11
+updatedDate: 2026-10-30
 author: michael-vincent
 category: 'supplier-list'
 featuredImage: 'https://img.leelinepackage.com/blog/media/2025/11/Trash-Bag-Manufacturers-In-USA.webp'

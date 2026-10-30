@@ -36,7 +36,7 @@ To help you choose the right structure, we measured samples from our factory flo
 
 **Table Summary:** If you cannot view the table, here is the breakdown: **E-Flute wins** for high-quality printing, retail presentation, and storage efficiency (fitting up to 40% more per pallet). **B-Flute wins** for heavy-duty shipping protection, stacking strength, and industrial cushioning.
 
-<div class="post-note"><svg aria-hidden="true" role="img" height="1em" width="1em" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z"></path></svg><p><strong>Recommended Reading: </strong><a href="https://www.leelinepackage.com/corrugated-material-types/" target="_blank" rel="noopener">Corrugated Material Types: The Engineering Guide to Safer Shipping</a></p></div>
+Neither grade covers every job, though. If your freight runs heavy, sits in humidity, or needs a triple-wall spec, our breakdown of the [7 corrugated board types](https://www.leelinepackage.com/corrugated-material-types/) sorts each one by wall count and liner.
 
 ## E-Flute vs B-Flute: Main Differences
 
@@ -196,13 +196,11 @@ It combines both layers for maximum strength and aesthetics, though you should c
 
 <div class="post-note"><p><strong>Do not ship E-flute on its own when:</strong> the box ships as its own container (SIOC or FBA), the stack height exceeds what its 32 ECT rating covers, the item is glass, or there is any air gap inside. Each of these pushes you to B-flute or a double wall.</p></div>
 
-Still unsure which side of the 2 lb line your SKU lands on? Send the packed weight, box size and shipping channel, and we'll confirm the flute and ECT target before you commit a production run.
-
-<p class="post-cta-row"><a class="post-cta" href="https://www.leelinepackage.com/contact/" target="_blank" rel="noopener">Get a flute + ECT recommendation and a physical sample</a></p>
+Still unsure which side of the 2 lb line your SKU lands on? Send the packed weight, box size and shipping channel, and we'll confirm the flute and ECT target before you commit a production run. If you want that confirmation alongside a physical sample, [get in touch with our packaging engineers](https://www.leelinepackage.com/contact/).
 
 ## People Also Ask About E-Flute vs B-Flute
 
-### Which flute type is best for my specific business model?
+### 1. Which flute type is best for my specific business model?
 
 **Choose E-flute for premium retail presentation and B-flute for industrial shipping protection.** Based on the structural reviews we run for clients, the "correct" choice depends on your priority: aesthetics or durability.
 
@@ -212,7 +210,7 @@ Still unsure which side of the 2 lb line your SKU lands on? Send the packed weig
 
 **🧠 Expert Take:** If you are balancing a luxury look with shipping protection, **do not just increase the flute size.** Instead, stick to E-flute but upgrade the liner board (paper weight) or add engineered foam inserts. This maintains the sleek profile while boosting compression strength.
 
-### At what weight should I switch from E-flute to B-flute?
+### 2. At what weight should I switch from E-flute to B-flute?
 
 **Switch to B-flute once your total packed weight passes about 2 lbs (0.9 kg).** While material quality varies, we use this general decision ladder for our clients to prevent crushing:
 
@@ -222,13 +220,11 @@ Still unsure which side of the 2 lb line your SKU lands on? Send the packed weig
 
 **Note:** Always validate these ranges with a **Standard Compression Test (For example,** [**ECT vs. Mullen Test**](https://www.leelinepackage.com/ect-vs-mullen-test/)**)**. If you are shipping food items where grease or moisture weakens the board, consider adding [barrier materials like wax paper](https://www.leelinepackage.com/what-is-wax-paper/) rather than just increasing board thickness.
 
-### How do I ensure my packaging choice is safe for transit?
+### 3. How do I ensure my packaging choice is safe for transit?
 
-**Request a board-grade recommendation and a physical sample test.** Never rely solely on a catalog description. We strongly advise requesting a specific **ECT (Edge Crush Test)** target based on your product's weight and fragility.
+**Request a board-grade recommendation and a physical sample test from [our packaging team](https://www.leelinepackage.com/contact/).** Never rely solely on a catalog description. We strongly advise requesting a specific **ECT (Edge Crush Test)** target based on your product's weight and fragility.
 
-At [**LeelinePackage**](https://www.leelinepackage.com/), we engineer the box structure to your specific SKU. To get a precise recommendation and see the difference yourself:
-
-- **Request a quote and sample kit here:** [**Contact LeelinePackage Support**](https://www.leelinepackage.com/contact/).
+At [**LeelinePackage**](https://www.leelinepackage.com/), we engineer the box structure to your specific SKU, so the sample that reaches you is the one we would run in production.
 
 **Related Resources**:
 
